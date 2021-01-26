@@ -235,7 +235,7 @@ DewfordTown_Gym_EventScript_GiveHM04::
 	end
 	
 DewfordTown_Gym_EventScript_GiveHM05::
-	giveitem ITEM_HM03
+	giveitem ITEM_GOOD_ROD
 	msgbox Gym_Text_ExplainGoodRod, MSGBOX_DEFAULT
 	//playfanfare MUS_OBTAIN_ITEM
 	//waitfanfare

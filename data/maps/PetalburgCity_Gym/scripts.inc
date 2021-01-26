@@ -448,7 +448,7 @@ PetalburgCity_Gym_EventScript_GiveHM04::
 	end
 	
 PetalburgCity_Gym_EventScript_GiveHM05::
-	giveitem ITEM_HM03
+	giveitem ITEM_GOOD_ROD
 	msgbox Gym_Text_ExplainGoodRod, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM42
 	goto PetalburgCity_Gym_EventScript_GiveFacade

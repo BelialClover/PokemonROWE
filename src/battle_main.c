@@ -269,6 +269,15 @@ u16 HasEvolution(u16 species, u8 level)
 			return gEvolutionTable[species][0].targetSpecies;
 	}
 		break;
+		
+		case EVO_FRIENDSHIP:
+		if(level >= 12)
+	{
+		if(HasEvolution(gEvolutionTable[species][0].targetSpecies, level))
+			return HasEvolution(gEvolutionTable[species][0].targetSpecies, level);
+		else
+			return gEvolutionTable[species][0].targetSpecies;
+	}
 	
 		case EVO_ITEM:
 		case EVO_BEAUTY:

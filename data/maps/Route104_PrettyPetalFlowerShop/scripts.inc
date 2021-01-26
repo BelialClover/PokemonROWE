@@ -77,7 +77,7 @@ Route104_PrettyPetalFlowerShop_EventScript_WailmerPailGirl:: @ 822A40C
 
 Route104_PrettyPetalFlowerShop_EventScript_GiveWailmerPail:: @ 822A421
 	msgbox Route104_PrettyPetalFlowerShop_Text_YouCanHaveThis, MSGBOX_DEFAULT
-	giveitem ITEM_POWER_ANKLET
+	giveitem ITEM_EVERSTONE
 	msgbox Route104_PrettyPetalFlowerShop_Text_WailmerPailExplanation, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_WAILMER_PAIL
 	release

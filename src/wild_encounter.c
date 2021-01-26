@@ -242,6 +242,11 @@ u16 HasLevelEvolutionwild(u16 species, u8 level, u16 item)
 		return HasItemEvolutionWild(species, level, item);
 	break;
 	
+	case EVO_FRIENDSHIP:
+		if(level > 22)
+		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
+	break;
+	
 	case EVO_LEVEL:
 	case EVO_LEVEL_NINJASK:
 	if(gEvolutionTable[species][0].param && gEvolutionTable[species][0].param <= level)
@@ -272,34 +277,13 @@ u16 HasItemEvolutionWild(u16 species, u8 level, u16 item)
 	if(gEvolutionTable[species][0].method == EVO_ITEM){
 	switch(EvolutionItem)
 	{
-	///Checks if you have found the designed Fire Stone
 	case ITEM_FIRE_STONE:
-	if (FlagGet(FLAG_ITEM_FIERY_PATH_FIRE_STONE) == TRUE)
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	break;
-	///Checks if you have found the designed Thunder Stone
 	case ITEM_THUNDER_STONE:
-	if (FlagGet(FLAG_ITEM_NEW_MAUVILLE_THUNDER_STONE) == TRUE)
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	break;
-	///Checks if you have found the designed Water Stone
 	case ITEM_WATER_STONE:
-	if (FlagGet(FLAG_ITEM_ABANDONED_SHIP_HIDDEN_FLOOR_ROOM_3_WATER_STONE) == TRUE)
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	break;
-	///Checks if you have found the designed Leaf Stone
 	case ITEM_LEAF_STONE:
-	if (FlagGet(FLAG_ITEM_ROUTE_119_LEAF_STONE) == TRUE)
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	break;
-	///Checks if you have found the designed Sun Stone
 	case ITEM_SUN_STONE:
-	if (FlagGet(FLAG_ITEM_ROUTE_103_GUARD_SPEC) == TRUE)
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	break;
-	///Checks if you have found the designed Sun Stone
 	case ITEM_MOON_STONE:
-	if (FlagGet(FLAG_ITEM_METEOR_FALLS_1F_1R_MOON_STONE) == TRUE)
+	if (FlagGet(FLAG_RECEIVED_TM40) == TRUE && level > (GetMinLevelWild()+5))
 		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
 	default:
 		return species;
