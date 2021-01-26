@@ -109,8 +109,6 @@ LavaridgeTown_Gym_EventScript_GiveHM::
 LavaridgeTown_Gym_EventScript_GiveHM01::
 	giveitem ITEM_WAILMER_PAIL
 	msgbox Gym_Text_ExplainWailmerPail, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM39
 	goto LavaridgeTown_Gym_1F_EventScript_GiveOverheat
 	end
@@ -118,8 +116,6 @@ LavaridgeTown_Gym_EventScript_GiveHM01::
 LavaridgeTown_Gym_EventScript_GiveHM02::
 	giveitem ITEM_OLD_ROD
 	msgbox Gym_Text_ExplainOldRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM08
 	goto LavaridgeTown_Gym_1F_EventScript_GiveOverheat
 	end
@@ -127,8 +123,6 @@ LavaridgeTown_Gym_EventScript_GiveHM02::
 LavaridgeTown_Gym_EventScript_GiveHM03::
 	giveitem ITEM_MACH_BIKE
 	msgbox Gym_Text_ExplainMachBike, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM34
 	goto LavaridgeTown_Gym_1F_EventScript_GiveOverheat
 	end
@@ -136,8 +130,6 @@ LavaridgeTown_Gym_EventScript_GiveHM03::
 LavaridgeTown_Gym_EventScript_GiveHM04::
 	giveitem ITEM_ACRO_BIKE
 	msgbox Gym_Text_ExplainAcroBike, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM50
 	goto LavaridgeTown_Gym_1F_EventScript_GiveOverheat
 	end
@@ -145,8 +137,6 @@ LavaridgeTown_Gym_EventScript_GiveHM04::
 LavaridgeTown_Gym_EventScript_GiveHM05::
 	giveitem ITEM_GOOD_ROD
 	msgbox Gym_Text_ExplainGoodRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM42
 	goto LavaridgeTown_Gym_1F_EventScript_GiveOverheat
 	end
@@ -154,8 +144,6 @@ LavaridgeTown_Gym_EventScript_GiveHM05::
 LavaridgeTown_Gym_EventScript_GiveHM06::
 	giveitem ITEM_EXP_SHARE
 	msgbox Gym_Text_ExplainExpShare, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM40
 	goto LavaridgeTown_Gym_1F_EventScript_GiveOverheat
 	end
@@ -163,8 +151,6 @@ LavaridgeTown_Gym_EventScript_GiveHM06::
 LavaridgeTown_Gym_EventScript_GiveHM07::
 	giveitem ITEM_SUPER_ROD
 	msgbox Gym_Text_ExplainSuperRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM04
 	goto LavaridgeTown_Gym_1F_EventScript_GiveOverheat
 	end
@@ -172,8 +158,6 @@ LavaridgeTown_Gym_EventScript_GiveHM07::
 LavaridgeTown_Gym_EventScript_GiveHM08::
 	giveitem ITEM_OLD_SEA_MAP
 	msgbox Gym_Text_ExplainOldSeaMap, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM03
 	goto LavaridgeTown_Gym_1F_EventScript_GiveOverheat
 	end
@@ -183,17 +167,13 @@ LavaridgeTown_Gym_1F_EventScript_GiveOverheat2:: @ 81FE81D
 	compare VAR_RESULT, FALSE
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	msgbox LavaridgeTown_Gym_1F_Text_ExplainOverheat, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_TM50
 	release
 	end
 
 LavaridgeTown_Gym_1F_EventScript_GiveOverheat:: @ 81FE841
 	msgbox Gym_Text_Takethis2, MSGBOX_DEFAULT
 	giveitem ITEM_TM50
-	//compare VAR_RESULT, FALSE
-	//goto_if_eq Common_EventScript_BagIsFull
 	msgbox LavaridgeTown_Gym_1F_Text_ExplainOverheat, MSGBOX_DEFAULT
-	//setflag FLAG_RECEIVED_TM50
 	return
 
 LavaridgeTown_Gym_1F_EventScript_FlanneryRematch:: @ 81FE864

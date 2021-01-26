@@ -201,8 +201,6 @@ DewfordTown_Gym_EventScript_GiveHM::
 DewfordTown_Gym_EventScript_GiveHM01::
 	giveitem ITEM_WAILMER_PAIL
 	msgbox Gym_Text_ExplainWailmerPail, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM39
 	goto DewfordTown_Gym_EventScript_GiveBulkUp
 	end
@@ -210,8 +208,6 @@ DewfordTown_Gym_EventScript_GiveHM01::
 DewfordTown_Gym_EventScript_GiveHM02::
 	giveitem ITEM_OLD_ROD
 	msgbox Gym_Text_ExplainOldRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM08
 	goto DewfordTown_Gym_EventScript_GiveBulkUp
 	end
@@ -219,8 +215,6 @@ DewfordTown_Gym_EventScript_GiveHM02::
 DewfordTown_Gym_EventScript_GiveHM03::
 	giveitem ITEM_MACH_BIKE
 	msgbox Gym_Text_ExplainMachBike, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM34
 	goto DewfordTown_Gym_EventScript_GiveBulkUp
 	end
@@ -228,8 +222,6 @@ DewfordTown_Gym_EventScript_GiveHM03::
 DewfordTown_Gym_EventScript_GiveHM04::
 	giveitem ITEM_ACRO_BIKE
 	msgbox Gym_Text_ExplainAcroBike, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM50
 	goto DewfordTown_Gym_EventScript_GiveBulkUp
 	end
@@ -237,8 +229,6 @@ DewfordTown_Gym_EventScript_GiveHM04::
 DewfordTown_Gym_EventScript_GiveHM05::
 	giveitem ITEM_GOOD_ROD
 	msgbox Gym_Text_ExplainGoodRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM42
 	goto DewfordTown_Gym_EventScript_GiveBulkUp
 	end
@@ -246,8 +236,6 @@ DewfordTown_Gym_EventScript_GiveHM05::
 DewfordTown_Gym_EventScript_GiveHM06::
 	giveitem ITEM_EXP_SHARE
 	msgbox Gym_Text_ExplainExpShare, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM40
 	goto DewfordTown_Gym_EventScript_GiveBulkUp
 	end
@@ -255,8 +243,6 @@ DewfordTown_Gym_EventScript_GiveHM06::
 DewfordTown_Gym_EventScript_GiveHM07::
 	giveitem ITEM_SUPER_ROD
 	msgbox Gym_Text_ExplainSuperRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM04
 	goto DewfordTown_Gym_EventScript_GiveBulkUp
 	end
@@ -264,8 +250,6 @@ DewfordTown_Gym_EventScript_GiveHM07::
 DewfordTown_Gym_EventScript_GiveHM08::
 	giveitem ITEM_OLD_SEA_MAP
 	msgbox Gym_Text_ExplainOldSeaMap, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM03
 	goto DewfordTown_Gym_EventScript_GiveBulkUp
 	end
@@ -274,10 +258,7 @@ DewfordTown_Gym_EventScript_GiveHM08::
 DewfordTown_Gym_EventScript_GiveBulkUp:: @ 81FC855
 	msgbox Gym_Text_Takethis2, MSGBOX_DEFAULT
 	giveitem ITEM_TM08
-	//compare VAR_RESULT, 0
-	//goto_if_eq Common_EventScript_BagIsFull
 	msgbox DewfordTown_Gym_Text_ExplainBulkUp, MSGBOX_DEFAULT
-	//setflag FLAG_RECEIVED_TM08
 	return
 	
 DewfordTown_Gym_EventScript_GiveBulkUp2: @ 81FC878
@@ -285,7 +266,6 @@ DewfordTown_Gym_EventScript_GiveBulkUp2: @ 81FC878
 	compare VAR_RESULT, 0
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	msgbox DewfordTown_Gym_Text_ExplainBulkUp, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_TM08
 	release
 	end
 

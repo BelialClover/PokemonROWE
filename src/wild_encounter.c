@@ -248,7 +248,10 @@ u16 HasLevelEvolutionwild(u16 species, u8 level, u16 item)
 	break;
 	
 	case EVO_LEVEL:
+	case EVO_LEVEL_CASCOON:
+	case EVO_LEVEL_ATK_GT_DEF:
 	case EVO_LEVEL_NINJASK:
+	case EVO_LEVEL_DUSK:
 	if(gEvolutionTable[species][0].param && gEvolutionTable[species][0].param <= level)
 		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
 	break;
@@ -271,23 +274,23 @@ u16 HasLevelEvolutionwild(u16 species, u8 level, u16 item)
 
 u16 HasItemEvolutionWild(u16 species, u8 level, u16 item)
 {
-	u16 EvolutionItem = gEvolutionTable[species][0].param;
-	
 	if(gEvolutionTable[species][0].targetSpecies != SPECIES_NONE){
-	if(gEvolutionTable[species][0].method == EVO_ITEM){
-	switch(EvolutionItem)
-	{
-	case ITEM_FIRE_STONE:
-	case ITEM_THUNDER_STONE:
-	case ITEM_WATER_STONE:
-	case ITEM_LEAF_STONE:
-	case ITEM_SUN_STONE:
-	case ITEM_MOON_STONE:
-	if (FlagGet(FLAG_RECEIVED_TM40) == TRUE && level > (GetMinLevelWild()+5))
+	if( gEvolutionTable[species][0].method == EVO_ITEM || 
+		gEvolutionTable[species][0].method == EVO_TRADE || 
+		gEvolutionTable[species][0].method == EVO_ITEM_FEMALE || 
+		gEvolutionTable[species][0].method == EVO_ITEM_MALE || 
+		gEvolutionTable[species][0].method == EVO_LEVEL_DARK_TYPE_MON_IN_PARTY || 
+		gEvolutionTable[species][0].method == EVO_SPECIFIC_MON_IN_PARTY || 
+		gEvolutionTable[species][0].method == EVO_TRADE_ITEM){
+		if (FlagGet(FLAG_RECEIVED_TM40) == TRUE && level > (GetMinLevelWild()+5))
 		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	default:
-		return species;
-	}}}
+	}
+	
+	if(gEvolutionTable[species][0].method == EVO_BEAUTY){
+		if (FlagGet(FLAG_RECEIVED_TM03) == TRUE && level > (GetMinLevelWild()+5))
+		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
+	}
+	}
 	return species;
 }
 

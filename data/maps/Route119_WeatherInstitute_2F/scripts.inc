@@ -10,8 +10,6 @@ Route119_WeatherInstitute_2F_MapScripts:: @ 826FF1E
 	.byte 0
 
 Route119_WeatherInstitute_2F_OnTransition: @ 826FF24
-	compare VAR_WEATHER_INSTITUTE_STATE, 0
-	call_if_eq Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaHere
 	compare VAR_WEATHER_INSTITUTE_STATE, 1
 	call_if_eq Route119_WeatherInstitute_2F_EventScript_SetScientistPosAquaGone
 	call_if_set FLAG_SYS_GAME_CLEAR, Route119_WeatherInstitute_2F_EventScript_SetScientistPosGameClear

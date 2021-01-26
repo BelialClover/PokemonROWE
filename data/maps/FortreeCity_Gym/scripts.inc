@@ -20,10 +20,6 @@ FortreeCity_Gym_EventScript_Winona:: @ 82165C8
 	faceplayer
 	call_if_set FLAG_BADGE06_GET, FortreeCity_Gym_EventScript_Winona_PostBattle
 	trainerbattle_single TRAINER_WINONA_1, FortreeCity_Gym_Text_WinonaIntro, FortreeCity_Gym_Text_WinonaDefeat, FortreeCity_Gym_EventScript_WinonaDefeated, NO_MUSIC
-	//specialvar VAR_RESULT, ShouldTryRematchBattle
-	//compare VAR_RESULT, TRUE
-	//goto_if_eq FortreeCity_Gym_EventScript_WinonaRematch
-	//goto_if_unset FLAG_RECEIVED_TM40, FortreeCity_Gym_EventScript_GiveAerialAce2
 	msgbox FortreeCity_Gym_Text_WinonaPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -81,8 +77,6 @@ FortreeCity_Gym_EventScript_GiveHM01::
 FortreeCity_Gym_EventScript_GiveHM02::
 	giveitem ITEM_OLD_ROD
 	msgbox Gym_Text_ExplainOldRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM08
 	goto FortreeCity_Gym_EventScript_GiveAerialAce
 	end
@@ -90,8 +84,6 @@ FortreeCity_Gym_EventScript_GiveHM02::
 FortreeCity_Gym_EventScript_GiveHM03::
 	giveitem ITEM_MACH_BIKE
 	msgbox Gym_Text_ExplainMachBike, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM34
 	goto FortreeCity_Gym_EventScript_GiveAerialAce
 	end
@@ -99,8 +91,6 @@ FortreeCity_Gym_EventScript_GiveHM03::
 FortreeCity_Gym_EventScript_GiveHM04::
 	giveitem ITEM_ACRO_BIKE
 	msgbox Gym_Text_ExplainAcroBike, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM50
 	goto FortreeCity_Gym_EventScript_GiveAerialAce
 	end
@@ -108,8 +98,6 @@ FortreeCity_Gym_EventScript_GiveHM04::
 FortreeCity_Gym_EventScript_GiveHM05::
 	giveitem ITEM_GOOD_ROD
 	msgbox Gym_Text_ExplainGoodRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM42
 	goto FortreeCity_Gym_EventScript_GiveAerialAce
 	end
@@ -117,8 +105,6 @@ FortreeCity_Gym_EventScript_GiveHM05::
 FortreeCity_Gym_EventScript_GiveHM06::
 	giveitem ITEM_EXP_SHARE
 	msgbox Gym_Text_ExplainExpShare, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM40
 	goto FortreeCity_Gym_EventScript_GiveAerialAce
 	end
@@ -126,8 +112,6 @@ FortreeCity_Gym_EventScript_GiveHM06::
 FortreeCity_Gym_EventScript_GiveHM07::
 	giveitem ITEM_SUPER_ROD
 	msgbox Gym_Text_ExplainSuperRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM04
 	goto FortreeCity_Gym_EventScript_GiveAerialAce
 	end
@@ -135,8 +119,6 @@ FortreeCity_Gym_EventScript_GiveHM07::
 FortreeCity_Gym_EventScript_GiveHM08::
 	giveitem ITEM_OLD_SEA_MAP
 	msgbox Gym_Text_ExplainOldSeaMap, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM03
 	goto FortreeCity_Gym_EventScript_GiveAerialAce
 	end
@@ -146,17 +128,13 @@ FortreeCity_Gym_EventScript_GiveAerialAce2:: @ 8216646
 	compare VAR_RESULT, FALSE
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	msgbox FortreeCity_Gym_Text_ExplainAerialAce, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_TM40
 	release
 	end
 
 FortreeCity_Gym_EventScript_GiveAerialAce:: @ 821666A
 	msgbox Gym_Text_Takethis2, MSGBOX_DEFAULT
 	giveitem ITEM_TM40
-	//compare VAR_RESULT, FALSE
-	//goto_if_eq Common_EventScript_BagIsFull
 	msgbox FortreeCity_Gym_Text_ExplainAerialAce, MSGBOX_DEFAULT
-	//setflag FLAG_RECEIVED_TM40
 	return
 
 FortreeCity_Gym_EventScript_WinonaRematch:: @ 821668D

@@ -586,13 +586,12 @@ PlayersHouse_1F_Text_IsThatABreakingStory: @ 81F824B
 	.string "Mom: Is that a breaking news story?$"
 
 PlayersHouse_1F_Text_LatiEmergencyNewsFlash: @ 81F826F
-	.string "We bring you this emergency\n"
-	.string "news flash!\p"
+	.string "We bring you this news flash!\n"
 	.string "In various Hoenn locales, there have\n"
-	.string "been reports of a BZZT…colored\l"
-	.string "Pokémon in flight.\p"
+	.string "been reports of a Blue colored\l"
+	.string "Pokémon.\p"
 	.string "The identity of this Pokémon is\n"
-	.string "currently unknown.\p"
+	.string "said to be the sea guardian.\p"
 	.string "We now return you to the regular\n"
 	.string "movie program.$"
 

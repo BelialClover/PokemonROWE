@@ -48,8 +48,8 @@ Route119_EventScript_Kecleon2:: @ 8272329
 	end
 
 EventScript_Kecleon:: @ 8272336
-	goto EventScript_BattleKecleon
-	msgbox Kecleon_Text_SomethingUnseeable, MSGBOX_DEFAULT
+	goto EventScript_AskUseDevonScope
+	//msgbox Kecleon_Text_SomethingUnseeable, MSGBOX_DEFAULT
 	release
 	end
 
@@ -71,7 +71,7 @@ EventScript_BattleKecleon:: @ 8272365
 	playmoncry SPECIES_KECLEON, 2
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_KECLEON, 30, ITEM_NONE
+	setwildbattle SPECIES_KECLEON, 15, ITEM_NONE
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	dowildbattle
 	clearflag FLAG_SYS_CTRL_OBJ_DELETE

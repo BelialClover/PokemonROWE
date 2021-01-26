@@ -562,6 +562,32 @@ static const u16 sBadgeFlags[8] =
     FLAG_BADGE01_GET, FLAG_BADGE02_GET, FLAG_BADGE03_GET, FLAG_BADGE04_GET,
     FLAG_BADGE05_GET, FLAG_BADGE06_GET, FLAG_BADGE07_GET, FLAG_BADGE08_GET,
 };
+
+const u16 sLevelCapFlags[NUM_SOFT_CAPS] =
+{
+    FLAG_RECEIVED_TM39,
+	FLAG_RECEIVED_TM08,
+	FLAG_RECEIVED_TM34,
+	FLAG_RECEIVED_TM50,
+	FLAG_RECEIVED_TM42,
+	FLAG_RECEIVED_TM40,
+	FLAG_RECEIVED_TM04,
+	FLAG_RECEIVED_TM03,
+	FLAG_DEFEATED_WALLY_VICTORY_ROAD,
+};
+
+const u16 sLevelCaps[NUM_SOFT_CAPS] = {16, 23, 29, 36, 42, 49, 55, 66, 76};
+const double sLevelCapReduction[7] = { .5, .33, .25, .20, .15, .10, .05 };
+const double sRelativePartyScaling[27] =
+{
+    3.00, 2.75, 2.50, 2.33, 2.25,
+    2.00, 1.80, 1.70, 1.60, 1.50,
+    1.40, 1.30, 1.20, 1.10, 1.00,
+    0.90, 0.80, 0.75, 0.66, 0.50,
+    0.40, 0.33, 0.25, 0.20, 0.15,
+    0.10, 0.05,
+};
+
 static const u16 sWhiteOutBadgeMoney[9] = { 8, 16, 24, 36, 48, 60, 80, 100, 120, };
 
 void (* const gBattleScriptingCommandsTable[])(void) =
@@ -3608,6 +3634,72 @@ static void Cmd_jumpbasedontype(void)
     }
 }
 
+u8 GetTeamLevel(void)
+{
+    u8 i;
+    u16 partyLevel = 0;
+    u16 threshold = 0;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE)
+            partyLevel += gPlayerParty[i].level;
+        else
+            break;
+    }
+    partyLevel /= i;
+
+    threshold = partyLevel * .8;
+    partyLevel = 0;
+
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) != SPECIES_NONE)
+        {
+            if (gPlayerParty[i].level >= threshold)
+                partyLevel += gPlayerParty[i].level;
+        }
+        else
+            break;
+    }
+    partyLevel /= i;
+
+    return partyLevel;
+}
+
+double GetPkmnExpMultiplier(u8 level)
+{
+    u8 i;
+    double lvlCapMultiplier = 1.0;
+    u8 levelDiff;
+    s8 avgDiff;
+
+    // multiply the usual exp yield by the soft cap multiplier
+    for (i = 0; i < NUM_SOFT_CAPS; i++)
+    {
+        if (!FlagGet(sLevelCapFlags[i]) && level >= sLevelCaps[i])
+        {
+            levelDiff = level - sLevelCaps[i];
+            if (levelDiff > 6)
+                levelDiff = 6;
+            lvlCapMultiplier = sLevelCapReduction[levelDiff];
+            break;
+        }
+    }
+
+    // multiply the usual exp yield by the party level multiplier
+    avgDiff = level - GetTeamLevel();
+
+    if (avgDiff >= 12)
+        avgDiff = 12;
+    else if (avgDiff <= -14)
+        avgDiff = -14;
+
+    avgDiff += 14;
+
+    return lvlCapMultiplier * sRelativePartyScaling[avgDiff];
+}
+
 static void Cmd_getexp(void)
 {
     u16 item;
@@ -3692,9 +3784,15 @@ static void Cmd_getexp(void)
                 }
             #else
                 *exp = calculatedExp;
+				if(gSaveBlock2Ptr->optionsBattleStyle == OPTIONS_BATTLE_STYLE_SHIFT){
                 gExpShareExp = calculatedExp / 2;
                 if (gExpShareExp == 0)
                     gExpShareExp = 1;
+				}else{
+				gExpShareExp = calculatedExp / 4;
+                if (gExpShareExp == 0)
+                    gExpShareExp = 1;
+				}
             #endif
 
             gBattleScripting.getexpState++;
@@ -3741,11 +3839,10 @@ static void Cmd_getexp(void)
 
                 if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))
                 {
-                    if (gBattleStruct->sentInPokes & 1)
+					double expMultiplier = GetPkmnExpMultiplier(gPlayerParty[gBattleStruct->expGetterMonId].level);
+					if(gSaveBlock2Ptr->optionsBattleStyle == OPTIONS_BATTLE_STYLE_SHIFT){
+					if (gBattleStruct->sentInPokes & 1)
                         gBattleMoveDamage = *exp;
-                    else
-                        gBattleMoveDamage = 0;
-
                     // only give exp share bonus in later gens if the mon wasn't sent out
                     if (gSaveBlock2Ptr->expShare || ((holdEffect == HOLD_EFFECT_EXP_SHARE) && ((gBattleMoveDamage == 0) || (B_SPLIT_EXP < GEN_6))))
                         gBattleMoveDamage += gExpShareExp;
@@ -3758,7 +3855,27 @@ static void Cmd_getexp(void)
                         gBattleMoveDamage /= sExperienceScalingFactors[gBattleMons[gBattlerFainted].level + GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) + 10];
                         gBattleMoveDamage++;
                     #endif
-
+					}
+					else{
+					if (gBattleStruct->sentInPokes & 1)
+						gBattleMoveDamage = *exp * expMultiplier;
+					else
+						gBattleMoveDamage = 0;
+					
+                    // only give exp share bonus in later gens if the mon wasn't sent out
+                    if (gSaveBlock2Ptr->expShare || ((holdEffect == HOLD_EFFECT_EXP_SHARE) && ((gBattleMoveDamage == 0) || (B_SPLIT_EXP < GEN_6))))
+                        gBattleMoveDamage += gExpShareExp;
+                    if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
+                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
+                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && B_TRAINER_EXP_MULTIPLIER <= GEN_7)
+                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
+                    #if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
+                        gBattleMoveDamage *= sExperienceScalingFactors[(gBattleMons[gBattlerFainted].level * 2) + 10];
+                        gBattleMoveDamage /= sExperienceScalingFactors[gBattleMons[gBattlerFainted].level + GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) + 10];
+                        gBattleMoveDamage++;
+                    #endif
+					}
+					
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
                     {
                         // check if the pokemon doesn't belong to the player

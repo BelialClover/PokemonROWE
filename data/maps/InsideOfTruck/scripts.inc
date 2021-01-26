@@ -404,7 +404,7 @@ Text_Start_Pacifidlog_Town::
 //Mauville City 07
 
 Start_Text_Starter_Chose:
-	.string "Oh, Welcome to this hackrom.\p"
+	.string "Oh, Welcome to Pokemon ROWE 1.0.5.\p"
 	.string "Before starting i would like to\n"
 	.string "ask you some questions.\p"
 	.string "What Pokemon would you like\n"

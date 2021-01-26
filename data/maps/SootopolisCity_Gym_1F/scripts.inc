@@ -143,8 +143,6 @@ SootopolisCity_Gym_EventScript_GiveHM::
 SootopolisCity_Gym_EventScript_GiveHM01::
 	giveitem ITEM_WAILMER_PAIL
 	msgbox Gym_Text_ExplainWailmerPail, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM39
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
@@ -152,8 +150,6 @@ SootopolisCity_Gym_EventScript_GiveHM01::
 SootopolisCity_Gym_EventScript_GiveHM02::
 	giveitem ITEM_OLD_ROD
 	msgbox Gym_Text_ExplainOldRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM08
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
@@ -161,8 +157,6 @@ SootopolisCity_Gym_EventScript_GiveHM02::
 SootopolisCity_Gym_EventScript_GiveHM03::
 	giveitem ITEM_MACH_BIKE
 	msgbox Gym_Text_ExplainMachBike, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM34
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
@@ -170,8 +164,6 @@ SootopolisCity_Gym_EventScript_GiveHM03::
 SootopolisCity_Gym_EventScript_GiveHM04::
 	giveitem ITEM_ACRO_BIKE
 	msgbox Gym_Text_ExplainAcroBike, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM50
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
@@ -179,8 +171,6 @@ SootopolisCity_Gym_EventScript_GiveHM04::
 SootopolisCity_Gym_EventScript_GiveHM05::
 	giveitem ITEM_GOOD_ROD
 	msgbox Gym_Text_ExplainGoodRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM42
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
@@ -188,8 +178,6 @@ SootopolisCity_Gym_EventScript_GiveHM05::
 SootopolisCity_Gym_EventScript_GiveHM06::
 	giveitem ITEM_EXP_SHARE
 	msgbox Gym_Text_ExplainExpShare, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM40
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
@@ -197,8 +185,6 @@ SootopolisCity_Gym_EventScript_GiveHM06::
 SootopolisCity_Gym_EventScript_GiveHM07::
 	giveitem ITEM_SUPER_ROD
 	msgbox Gym_Text_ExplainSuperRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM04
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
@@ -206,8 +192,6 @@ SootopolisCity_Gym_EventScript_GiveHM07::
 SootopolisCity_Gym_EventScript_GiveHM08::
 	giveitem ITEM_OLD_SEA_MAP
 	msgbox Gym_Text_ExplainOldSeaMap, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM03
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
@@ -217,7 +201,6 @@ SootopolisCity_Gym_1F_EventScript_GiveWaterPulse:: @ 8224FD4
 	compare VAR_RESULT, FALSE
 	goto_if_eq Common_EventScript_BagIsFull
 	msgbox SootopolisCity_Gym_1F_Text_ExplainWaterPulse, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_TM03
 	return
 
 SootopolisCity_Gym_1F_EventScript_GiveWaterPulse2:: @ 8224FF7
@@ -225,7 +208,6 @@ SootopolisCity_Gym_1F_EventScript_GiveWaterPulse2:: @ 8224FF7
 	compare VAR_RESULT, FALSE
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	msgbox SootopolisCity_Gym_1F_Text_ExplainWaterPulse, MSGBOX_DEFAULT
-	setflag FLAG_RECEIVED_TM03
 	release
 	end
 

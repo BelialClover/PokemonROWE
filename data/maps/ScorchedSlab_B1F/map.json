@@ -4,7 +4,7 @@
   "layout": "LAYOUT_SCORCHED_SLAB_B1F",
   "music": "MUS_PETALBURG_WOODS",
   "region_map_section": "MAPSEC_SCORCHED_SLAB",
-  "requires_flash": true,
+  "requires_flash": false,
   "weather": "WEATHER_NONE",
   "map_type": "MAP_TYPE_UNDERGROUND",
   "allow_cycling": true,

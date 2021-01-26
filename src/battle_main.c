@@ -2070,8 +2070,11 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 						CreateMon(&party[i], HasEvolution(partyData[i].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				}
 				else //Complete static trainers(planned to use for post game)
+					if(gSaveBlock2Ptr->optionsBattleStyle == OPTIONS_BATTLE_STYLE_SHIFT)
 					CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
-				
+					else
+					CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]+numMonsBadge), TrainerLevel[i]+numMonsBadge, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);	
+					
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)

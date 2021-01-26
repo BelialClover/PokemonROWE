@@ -246,8 +246,12 @@ MauvilleCity_BikeShop_Text_HappyYouLikeIt: @ 820F2C4
 MauvilleCity_BikeShop_Text_OhYourBikeIsInPC: @ 820F2F3
 	.string "Rydel: I'm happy that bikes\n"
 	.string "are more widespread now!\p"
-	.string "May the wind always be at your back\n"
-	.string "on your adventure!$"
+	.string "Back in the day i used to give\n"
+	.string "trainers some of my bikes\p"
+	.string "but now the Gym Leaders have enough\n"
+	.string "money to be kind enough to give\p"
+	.string "trainers that beat them bikes and\n"
+	.string "other useful items, isn't that great?!$"
 
 MauvilleCity_BikeShop_Text_HandbooksAreInBack: @ 820F3C3
 	.string "I'm learning about Bikes while\n"

@@ -53,10 +53,6 @@ MossdeepCity_Gym_EventScript_TateAndLiza:: @ 8220898
 	faceplayer
 	call_if_set FLAG_BADGE07_GET, MossdeepCity_Gym_EventScript_TateAndLiza_PostBattle
 	trainerbattle_double TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaIntro, MossdeepCity_Gym_Text_TateAndLizaDefeat, MossdeepCity_Gym_Text_TateAndLizaNeedTwoMons, MossdeepCity_Gym_EventScript_TateAndLizaDefeated, NO_MUSIC
-	//specialvar VAR_RESULT, ShouldTryRematchBattle
-	//compare VAR_RESULT, TRUE
-	//goto_if_eq MossdeepCity_Gym_EventScript_TateAndLizaRematch
-	//goto_if_unset FLAG_RECEIVED_TM04, MossdeepCity_Gym_EventScript_GiveCalmMind2
 	msgbox MossdeepCity_Gym_Text_TateAndLizaPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -71,18 +67,6 @@ MossdeepCity_Gym_EventScript_TateAndLizaDefeated:: @ 82208D1
 	setflag FLAG_ENABLE_TATE_AND_LIZA_MATCH_CALL
 	setvar VAR_0x8008, 7
 	call Common_EventScript_SetGymTrainers
-	//setflag FLAG_HIDE_AQUA_HIDEOUT_GRUNTS
-	//learflag FLAG_HIDE_SLATEPORT_CITY_STERNS_SHIPYARD_MR_BRINEY
-	//clearflag FLAG_UNKNOWN_0x393
-	//setvar VAR_0x8008, 7
-	//clearflag FLAG_HIDE_SLATEPORT_CITY_HARBOR_PATRONS
-	//clearflag FLAG_HIDE_MOSSDEEP_CITY_TEAM_MAGMA
-	//clearflag FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_1F_TEAM_MAGMA
-	//clearflag FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_2F_TEAM_MAGMA
-	//clearflag FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_2F_STEVEN
-	//setvar VAR_MOSSDEEP_CITY_STATE, 1
-	//setflag FLAG_HIDE_MOSSDEEP_CITY_SPACE_CENTER_1F_STEVEN
-	//setvar VAR_MOSSDEEP_SPACE_CENTER_STATE, 1
 	call MossdeepCity_Gym_EventScript_GiveHM
 	closemessage
 	delay 30
@@ -91,9 +75,7 @@ MossdeepCity_Gym_EventScript_TateAndLizaDefeated:: @ 82208D1
 	waitfanfare
 	closemessage
 	delay 30
-	
 	call Common_EventScript_SetGymTrainers
-	//call MossdeepCity_Gym_EventScript_GiveHM
 	release
 	end
 	
@@ -117,8 +99,6 @@ MossdeepCity_Gym_EventScript_GiveHM::
 MossdeepCity_Gym_EventScript_GiveHM01::
 	giveitem ITEM_WAILMER_PAIL
 	msgbox Gym_Text_ExplainWailmerPail, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM39
 	goto MossdeepCity_Gym_EventScript_GiveCalmMind
 	end
@@ -126,8 +106,6 @@ MossdeepCity_Gym_EventScript_GiveHM01::
 MossdeepCity_Gym_EventScript_GiveHM02::
 	giveitem ITEM_OLD_ROD
 	msgbox Gym_Text_ExplainOldRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM08
 	goto MossdeepCity_Gym_EventScript_GiveCalmMind
 	end
@@ -135,8 +113,6 @@ MossdeepCity_Gym_EventScript_GiveHM02::
 MossdeepCity_Gym_EventScript_GiveHM03::
 	giveitem ITEM_MACH_BIKE
 	msgbox Gym_Text_ExplainMachBike, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM34
 	goto MossdeepCity_Gym_EventScript_GiveCalmMind
 	end
@@ -144,8 +120,6 @@ MossdeepCity_Gym_EventScript_GiveHM03::
 MossdeepCity_Gym_EventScript_GiveHM04::
 	giveitem ITEM_ACRO_BIKE
 	msgbox Gym_Text_ExplainAcroBike, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM50
 	goto MossdeepCity_Gym_EventScript_GiveCalmMind
 	end
@@ -153,8 +127,6 @@ MossdeepCity_Gym_EventScript_GiveHM04::
 MossdeepCity_Gym_EventScript_GiveHM05::
 	giveitem ITEM_GOOD_ROD
 	msgbox Gym_Text_ExplainGoodRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM42
 	goto MossdeepCity_Gym_EventScript_GiveCalmMind
 	end
@@ -162,8 +134,6 @@ MossdeepCity_Gym_EventScript_GiveHM05::
 MossdeepCity_Gym_EventScript_GiveHM06::
 	giveitem ITEM_EXP_SHARE
 	msgbox Gym_Text_ExplainExpShare, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM40
 	goto MossdeepCity_Gym_EventScript_GiveCalmMind
 	end
@@ -171,8 +141,6 @@ MossdeepCity_Gym_EventScript_GiveHM06::
 MossdeepCity_Gym_EventScript_GiveHM07::
 	giveitem ITEM_SUPER_ROD
 	msgbox Gym_Text_ExplainSuperRod, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM04
 	goto MossdeepCity_Gym_EventScript_GiveCalmMind
 	end
@@ -180,8 +148,6 @@ MossdeepCity_Gym_EventScript_GiveHM07::
 MossdeepCity_Gym_EventScript_GiveHM08::
 	giveitem ITEM_OLD_SEA_MAP
 	msgbox Gym_Text_ExplainOldSeaMap, MSGBOX_DEFAULT
-	//playfanfare MUS_OBTAIN_ITEM
-	//waitfanfare
 	setflag FLAG_RECEIVED_TM03
 	goto MossdeepCity_Gym_EventScript_GiveCalmMind
 	end
@@ -197,10 +163,7 @@ MossdeepCity_Gym_EventScript_GiveCalmMind2:: @ 8220937
 
 MossdeepCity_Gym_EventScript_GiveCalmMind:: @ 822095B
 	giveitem ITEM_TM04
-	//compare VAR_RESULT, FALSE
-	//goto_if_eq Common_EventScript_BagIsFull
 	msgbox MossdeepCity_Gym_Text_ExplainCalmMind, MSGBOX_DEFAULT
-	//setflag FLAG_RECEIVED_TM04
 	return
 
 MossdeepCity_Gym_EventScript_TateAndLizaRematch:: @ 822097E

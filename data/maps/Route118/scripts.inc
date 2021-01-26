@@ -276,14 +276,14 @@ Route118_Text_StevenQuestions: @ 81F40BE
 
 Route118_Text_YouAgreeGoodRodIsGood: @ 81F427B
 	.string "Hmm!\n"
-	.string "A Good Rod is really good!\p"
+	.string "Fishing is really good!\p"
 	.string "Wouldn't you agree?$"
 
 Route118_Text_IdenticalMindsTakeThis: @ 81F42AF
 	.string "Hmm!\n"
 	.string "We're of identical minds!\p"
 	.string "Hmm!\n"
-	.string "Take this Good Rod!$"
+	.string "Take this Lure Balls!$"
 
 Route118_Text_TryYourLuckFishing: @ 81F42E7
 	.string "Wherever there's water, try your luck\n"

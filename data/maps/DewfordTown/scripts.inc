@@ -721,7 +721,8 @@ DewfordTown_Text_GettingItchToFish: @ 81E9DD1
 DewfordTown_Text_GiveYouOneOfMyRods: @ 81E9E14
 	.string "I hear you, and I like what\n"
 	.string "you're saying!\p"
-	.string "I'll give you one of my fishing Rods.$"
+	.string "I'll give you some of my special\n"
+	.string "Lure Balls to help you!$"
 
 DewfordTown_Text_ThrowInFishingAdvice: @ 81E9E65
 	.string "And, as an added bonus, I'll even throw\n"
