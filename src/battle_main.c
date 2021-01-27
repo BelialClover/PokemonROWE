@@ -123,6 +123,7 @@ static void HandleEndTurn_FinishBattle(void);
 //MyScripts
 u16 HasEvolution(u16 species, u8 level);
 u8 BadgeGet();
+u16 IsMegaStone(u16 item, u8 megabadge);
 
 // EWRAM vars
 EWRAM_DATA u16 gBattle_BG0_X = 0;
@@ -272,12 +273,8 @@ u16 HasEvolution(u16 species, u8 level)
 		
 		case EVO_FRIENDSHIP:
 		if(level >= 12)
-	{
-		if(HasEvolution(gEvolutionTable[species][0].targetSpecies, level))
 			return HasEvolution(gEvolutionTable[species][0].targetSpecies, level);
-		else
-			return gEvolutionTable[species][0].targetSpecies;
-	}
+		break;
 	
 		case EVO_ITEM:
 		case EVO_BEAUTY:
@@ -318,8 +315,25 @@ u8 BadgeGet(void)
 	    numbadges++;
 	if (FlagGet(FLAG_BADGE08_GET))
 	    numbadges++;
+	if (FlagGet(FLAG_SYS_GAME_CLEAR))
+		numbadges++;
 	
 	return numbadges;
+};
+
+u16 IsMegaStone(u16 item, u8 megabadge)
+{
+	u16 holdEffect = ItemId_GetHoldEffect(item);
+	if(holdEffect != HOLD_EFFECT_MEGA_STONE){
+		return item;
+	}
+	else{ 
+	if (BadgeGet() >= megabadge)
+		return item;
+	else 
+		return ITEM_SITRUS_BERRY;
+	}
+	return ITEM_SITRUS_BERRY;
 };
 
 // rom const data
@@ -1896,17 +1910,19 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     s32 i, j;
     u8 monsCount;
 	//Normalmode
-	u8 normalnumMonsBadge[]    = {2,3,3,4,4,5,5,6,6};
-	u8 normalnumMonsGym[]      = {3,4,4,4,5,5,6,6,6};
-	u8 normalminTrainerLevel[] = {6,10,15,20,25,30,35,40,45};
-	u8 normalminGymLevel[] 	   = {12,17,22,27,32,37,42,50,55};
-	u8 normalnumMonsDouble[]   = {1,2,2,2,2,2,3,3,3};
+	u8 normalnumMonsBadge[]    = {2,3,3,4,4,5,5,5,5,6};
+	u8 normalnumMonsGym[]      = {3,4,4,4,5,5,5,6,6,6};
+	u8 normalminTrainerLevel[] = {6,10,15,20,25,30,35,40,45,55};
+	u8 normalminGymLevel[] 	   = {12,17,22,27,32,37,42,50,55,65};
+	u8 normalnumMonsDouble[]   = {1,2,2,2,2,2,3,3,3,3};
+	u8 megabadge = 7;
+	u8 levelboost = 0;
 	//Hardmode
-	u8 hardnumMonsBadge[]      = {3,3,4,4,4,5,6,6,6};
-	u8 hardnumMonsGym[]        = {3,4,4,5,5,6,6,6,6};
-	u8 hardminTrainerLevel[]   = {7,12,18,24,30,36,42,48,55};
-	u8 hardminGymLevel[] 	   = {13,19,25,31,37,43,49,60,70};
-	u8 hardnumMonsDouble[]     = {2,2,2,2,2,2,3,3,3};
+	u8 hardnumMonsBadge[]      = {3,3,4,4,4,5,6,6,6,6};
+	u8 hardnumMonsGym[]        = {3,4,4,5,5,6,6,6,6,6};
+	u8 hardminTrainerLevel[]   = {7,12,18,24,30,36,42,48,55,65};
+	u8 hardminGymLevel[] 	   = {13,19,25,31,37,43,49,60,70,80};
+	u8 hardnumMonsDouble[]     = {2,2,2,2,2,2,3,3,3,3};
 	//Variables
 	u8 TrainerLevel[]  = {5,5,5,5,5,5};
 	u8 numMonsBadge    = 2;
@@ -1915,7 +1931,6 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 	u8 minGymLevel 	   = 12;
 	u8 numMonsDouble   = 1;
 	//
-	u8 Hardmode = 0;
 	u8 rand = 0;
 	
 	if (gSaveBlock2Ptr->optionsBattleStyle != OPTIONS_BATTLE_STYLE_SHIFT){
@@ -1925,6 +1940,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 		minTrainerLevel = hardminTrainerLevel[BadgeGet()];
 		minGymLevel 	= hardminGymLevel[BadgeGet()];
 		numMonsDouble   = hardnumMonsDouble[BadgeGet()];
+		megabadge = 6;
+		levelboost = BadgeGet();
 	}else{
 		//Normal Mode
 	    numMonsBadge    = normalnumMonsBadge[BadgeGet()];
@@ -1933,6 +1950,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 		minGymLevel 	= normalminGymLevel[BadgeGet()];
 		numMonsDouble   = normalnumMonsDouble[BadgeGet()];
 	}
+	
+	if (FlagGet(FLAG_SYS_GAME_CLEAR))
+		levelboost = levelboost+8;
 	
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -2021,7 +2041,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 				else if (partyData[0].lvl == 3)//static mons with a little more difficult level(mostly used for gym trainers)
 				CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), (minGymLevel-2), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				else //static pokes with static level
-				CreateMon(&party[i], partyData[i].species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+				CreateMon(&party[i], partyData[i].species, (partyData[i].lvl + levelboost), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				
                 for (j = 0; j < MAX_MON_MOVES; j++)
                 {
@@ -2044,6 +2064,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 fixedIV = partyData[i].iv * 31 / 255;
                 CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				
+                if(IsMegaStone(partyData[i].heldItem,megabadge) != ITEM_SITRUS_BERRY)
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
                 break;
             }
@@ -2070,11 +2091,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 						CreateMon(&party[i], HasEvolution(partyData[i].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				}
 				else //Complete static trainers(planned to use for post game)
-					if(gSaveBlock2Ptr->optionsBattleStyle == OPTIONS_BATTLE_STYLE_SHIFT)
-					CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
-					else
-					CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]+numMonsBadge), TrainerLevel[i]+numMonsBadge, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);	
-					
+					CreateMon(&party[i], partyData[i].species, (partyData[i].lvl + levelboost), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+				
+				if(IsMegaStone(partyData[i].heldItem,megabadge) != ITEM_SITRUS_BERRY)
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)
@@ -4453,13 +4472,13 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     speed *= gStatStageRatios[gBattleMons[battlerId].statStages[STAT_SPEED]][0];
     speed /= gStatStageRatios[gBattleMons[battlerId].statStages[STAT_SPEED]][1];
 
-    // player's badge boost
+    /*/ player's badge boost
     if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_x2000000 | BATTLE_TYPE_FRONTIER))
         && ShouldGetStatBadgeBoost(FLAG_BADGE03_GET, battlerId)
         && GetBattlerSide(battlerId) == B_SIDE_PLAYER)
     {
         speed = (speed * 110) / 100;
-    }
+    }/*/
 
     // item effects
     if (GetBattlerHoldEffect(battlerId, FALSE) == HOLD_EFFECT_MACHO_BRACE || GetBattlerHoldEffect(battlerId, FALSE) == HOLD_EFFECT_POWER_ITEM)

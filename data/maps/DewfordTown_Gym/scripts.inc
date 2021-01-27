@@ -248,7 +248,7 @@ DewfordTown_Gym_EventScript_GiveHM07::
 	end
 	
 DewfordTown_Gym_EventScript_GiveHM08::
-	giveitem ITEM_OLD_SEA_MAP
+	giveitem ITEM_SHINY_CHARM
 	msgbox Gym_Text_ExplainOldSeaMap, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM03
 	goto DewfordTown_Gym_EventScript_GiveBulkUp

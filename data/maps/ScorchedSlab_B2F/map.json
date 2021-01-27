@@ -67,19 +67,6 @@
       "flag": "FLAG_TEMP_14"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
-      "x": 23,
-      "y": 22,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_NONE",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "ScorchedSlab_EventScript_ItemTyranitarite",
-      "flag": "FLAG_SCORCHED_SLAB_TYRANITARITE"
-    },
-    {
       "graphics_id": "OBJ_EVENT_GFX_PUSHABLE_BOULDER",
       "x": 18,
       "y": 28,

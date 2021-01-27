@@ -2652,16 +2652,22 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     sPartyMenuInternal->numActions = 0;
     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_SUMMARY);
 
-    // Let any Pokemon that learns Fly or Flash use it without knowing the move
-    if (FlagGet(FLAG_BADGE06_GET) && CanMonLearnTMHM(&mons[slotId], ITEM_HM02_FLY - ITEM_TM01_FOCUS_PUNCH))
+    // Let any Pokemon that learns Fly or Dig use it without knowing the move
+    if (FlagGet(FLAG_RECEIVED_TM40) && CanMonLearnTMHM(&mons[slotId], ITEM_HM02_FLY - ITEM_TM01_FOCUS_PUNCH))
     {
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_FLY + MENU_FIELD_MOVES);
     }
-
+	
+    if (FlagGet(FLAG_RECEIVED_TM34) && CanMonLearnTMHM(&mons[slotId], ITEM_TM28_DIG - ITEM_TM01_FOCUS_PUNCH))
+    {
+        AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_DIG + MENU_FIELD_MOVES);
+    }
+	
+	/*/Flash is not needed in all the game so there is no point
     if (FlagGet(FLAG_BADGE02_GET) && CanMonLearnTMHM(&mons[slotId], ITEM_HM05_FLASH - ITEM_TM01_FOCUS_PUNCH))
     {
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_FLASH + MENU_FIELD_MOVES);
-    }
+    }/*/
 
     // Add field moves to action list
     for (i = 0; i < MAX_MON_MOVES; i++)

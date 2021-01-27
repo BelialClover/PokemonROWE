@@ -468,7 +468,7 @@ PetalburgCity_Gym_EventScript_GiveHM07::
 	end
 	
 PetalburgCity_Gym_EventScript_GiveHM08::
-	giveitem ITEM_OLD_SEA_MAP
+	giveitem ITEM_SHINY_CHARM
 	msgbox Gym_Text_ExplainOldSeaMap, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM03
 	goto PetalburgCity_Gym_EventScript_GiveFacade
@@ -521,10 +521,10 @@ Gym_Text_ExplainSuperRod:
 	.string "the strongest water Pokémon.$"
 	
 Gym_Text_ExplainOldSeaMap:
-	.string "This item is the Old Sea Map.\n"
-	.string "Its an old map i found a long time\p"
-	.string "ago. I dont have any idea where\n"
-	.string "it would take you if you followed it.$"
+	.string "This item is the Shiny Charm.\p"
+	.string "Its an item that doubles the\p"
+	.string "possibilites of getting a shiny\n"
+	.string "Pokémon.$"
 	
 Gym_Text_Takethis2:
 	.string "Take this too.$"

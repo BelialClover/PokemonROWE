@@ -7622,7 +7622,7 @@ bool32 CanMegaEvolve(u8 battlerId)
     itemId = GetMonData(mon, MON_DATA_HELD_ITEM);
 
     // Check if there is an entry in the evolution table for regular Mega Evolution.
-    if (GetMegaEvolutionSpecies(species, itemId) != SPECIES_NONE)
+    if (GetMegaEvolutionSpecies(species, itemId) != SPECIES_NONE && FlagGet(FLAG_RECEIVED_TM04))
     {
         if (USE_BATTLE_DEBUG && gBattleStruct->debugHoldEffects[battlerId])
             holdEffect = gBattleStruct->debugHoldEffects[battlerId];

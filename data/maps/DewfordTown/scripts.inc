@@ -99,6 +99,7 @@ DewfordTown_EventScript_GiveOldRod:: @ 81E95FF
 	msgbox DewfordTown_Text_GiveYouOneOfMyRods, MSGBOX_DEFAULT
 	giveitem ITEM_LURE_BALL, 10
 	setflag FLAG_RECEIVED_OLD_ROD
+	//setflag FLAG_RECEIVED_TM04
 	msgbox DewfordTown_Text_ThrowInFishingAdvice, MSGBOX_DEFAULT
 	release
 	end

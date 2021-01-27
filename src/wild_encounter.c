@@ -274,6 +274,7 @@ u16 HasLevelEvolutionwild(u16 species, u8 level, u16 item)
 
 u16 HasItemEvolutionWild(u16 species, u8 level, u16 item)
 {
+	u16 EvolutionItem = gEvolutionTable[species][0].param;
 	if(gEvolutionTable[species][0].targetSpecies != SPECIES_NONE){
 	if( gEvolutionTable[species][0].method == EVO_ITEM || 
 		gEvolutionTable[species][0].method == EVO_TRADE || 

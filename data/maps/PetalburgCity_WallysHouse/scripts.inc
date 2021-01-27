@@ -31,8 +31,8 @@ PetalburgCity_WallysHouse_EventScript_GiveHM03Surf:: @ 8204251
 PetalburgCity_WallysHouse_EventScript_WallysDad:: @ 8204278
 	lock
 	faceplayer
+	goto_if_unset FLAG_RECEIVED_HM03, PetalburgCity_WallysHouse_EventScript_GiveHM03Surf
 	goto_if_set FLAG_DEFEATED_WALLY_VICTORY_ROAD, PetalburgCity_WallysHouse_EventScript_DefeatedWallyInVictoryRoad
-	goto_if_set FLAG_RECEIVED_HM03, PetalburgCity_WallysHouse_EventScript_ReceievedHM03Surf
 	goto_if_set FLAG_THANKED_FOR_PLAYING_WITH_WALLY, PetalburgCity_WallysHouse_EventScript_PlayedWithWally
 	msgbox PetalburgCity_WallysHouse_Text_ThanksForPlayingWithWally, MSGBOX_DEFAULT
 	setflag FLAG_THANKED_FOR_PLAYING_WITH_WALLY
@@ -104,10 +104,8 @@ PetalburgCity_WallysHouse_Text_PleaseExcuseUs: @ 820446E
 	.string "I'd really like you to have this.$"
 
 PetalburgCity_WallysHouse_Text_SurfGoAllSortsOfPlaces: @ 820461A
-	.string "If you use Lapras PokeRide, you'll be\n"
-	.string "able to go to all sorts of places.\p"
-	.string "You can even hold B to speed\n"
-	.string "through the waters!$"
+	.string "If you use this Lucky Egg you\n"
+	.string "will get double the Exp from battles!$"
 
 PetalburgCity_WallysHouse_Text_WallyIsComingHomeSoon: @ 8204661
 	.string "Wally's coming home soon.\n"

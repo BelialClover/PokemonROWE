@@ -220,7 +220,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     
     if (input->tookStep && TryFindHiddenPokemon())
         return TRUE;
-
+/*/
 #ifdef DEBUG_MENU
     if (input->input_field_1_2)
     {
@@ -228,7 +228,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
         Debug_ShowMainMenu();
         return TRUE;
     }
-#endif
+#endif/*/
 
     return FALSE;
 }
