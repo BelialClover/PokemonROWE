@@ -1285,9 +1285,10 @@ u8 GetDexLevelWild(void){
 static u8 DexNavTryGenerateMonLevel(u16 species, u8 environment)
 {
     u8 levelBase = GetDexLevelWild();
+	u8 isFound = GetEncounterLevelFromMapData(species, environment);
     u8 levelBonus = gSaveBlock1Ptr->dexNavChain / 5;
 
-    if (levelBase == MON_LEVEL_NONEXISTENT)
+    if (isFound == MON_LEVEL_NONEXISTENT)
         return MON_LEVEL_NONEXISTENT;   //species not found in the area
     
     if (Random() % 100 < 4)
@@ -2828,4 +2829,3 @@ void ResetDexNavSearch(void)
     if (FlagGet(FLAG_SYS_DEXNAV_SEARCH))
         EndDexNavSearch(FindTaskIdByFunc(Task_DexNavSearch));   //moving to new map ends dexnav search
 }
-

@@ -2177,7 +2177,7 @@ static const struct TrainerMonItemDefaultMoves sParty_Brianna[] = {
     {
     .iv = 150,
     .lvl = 1,
-    .species = SPECIES_PELIPPER,
+    .species = SPECIES_WINGULL,
     .heldItem = ITEM_NUGGET
     }
 };
@@ -5424,7 +5424,7 @@ static const struct TrainerMonItemCustomMoves sParty_Wallace[] = {
     {
     .iv = 250,
     .lvl = 65,
-    .species = SPECIES_PELIPPER,
+    .species = SPECIES_WINGULL,
     .heldItem = ITEM_DAMP_ROCK,
     .moves = {MOVE_HURRICANE, MOVE_SCALD, MOVE_RAIN_DANCE, MOVE_ROOST}
     },
