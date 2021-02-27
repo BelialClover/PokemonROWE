@@ -5477,6 +5477,97 @@ extern const u8 gMonIcon_Blacephalon[];
 extern const u8 gMonIcon_Zeraora[];
 extern const u8 gMonIcon_Meltan[];
 extern const u8 gMonIcon_Melmetal[];
+//Galar
+extern const u8 gMonIcon_Grookey[]; //grookey
+extern const u8 gMonIcon_Thwackey[]; //thwackey
+extern const u8 gMonIcon_Rillaboom[]; //rillaboom
+extern const u8 gMonIcon_Scorbunny[]; //scorbunny
+extern const u8 gMonIcon_Raboot[]; //raboot
+extern const u8 gMonIcon_Cinderace[]; //cinderace
+extern const u8 gMonIcon_Sobble[]; //sobble
+extern const u8 gMonIcon_Drizzile[]; //drizzile
+extern const u8 gMonIcon_Inteleon[]; //inteleon
+extern const u8 gMonIcon_Skwovet[]; //skwovet
+extern const u8 gMonIcon_Greedent[]; //greedent
+extern const u8 gMonIcon_Rookidee[]; //rookidee
+extern const u8 gMonIcon_Corvisquire[]; //corvisquire
+extern const u8 gMonIcon_Corviknight[]; //corviknight
+extern const u8 gMonIcon_Blipbug[]; //blipbug
+extern const u8 gMonIcon_Dottler[]; //dottler
+extern const u8 gMonIcon_Orbeetle[]; //orbeetle
+extern const u8 gMonIcon_Nickit[]; //nickit
+extern const u8 gMonIcon_Thievul[]; //thievul
+extern const u8 gMonIcon_Gossifleur[]; //gossifleur
+extern const u8 gMonIcon_Eldegoss[]; //eldegoss
+extern const u8 gMonIcon_Wooloo[]; //wooloo
+extern const u8 gMonIcon_Dubwool[]; //dubwool
+extern const u8 gMonIcon_Chewtle[]; //chewtle
+extern const u8 gMonIcon_Drednaw[]; //drednaw
+extern const u8 gMonIcon_Yamper[]; //yamper
+extern const u8 gMonIcon_Boltund[]; //boltund
+extern const u8 gMonIcon_Rolycoly[]; //rolycoly
+extern const u8 gMonIcon_Carkol[]; //carkol
+extern const u8 gMonIcon_Coalossal[]; //coalossal
+extern const u8 gMonIcon_Applin[]; //applin
+extern const u8 gMonIcon_Flapple[]; //flapple
+extern const u8 gMonIcon_Appletun[]; //appletun
+extern const u8 gMonIcon_Silicobra[]; //silicobra
+extern const u8 gMonIcon_Sandaconda[]; //sandaconda
+extern const u8 gMonIcon_Cramorant[]; //cramorant
+extern const u8 gMonIcon_Arrokuda[]; //arrokuda
+extern const u8 gMonIcon_Barraskewda[]; //barraskewda
+extern const u8 gMonIcon_Toxel[]; //toxel
+extern const u8 gMonIcon_Toxtricity[]; //toxtricity
+extern const u8 gMonIcon_Sizzlipede[]; //sizzlipede
+extern const u8 gMonIcon_Centiskorch[]; //centiskorch
+extern const u8 gMonIcon_Clobbopus[]; //clobbopus
+extern const u8 gMonIcon_Grapploct[]; //grapploct
+extern const u8 gMonIcon_Sinistea[]; //sinistea
+extern const u8 gMonIcon_Polteageist[]; //polteageist
+extern const u8 gMonIcon_Hatenna[]; //hatenna
+extern const u8 gMonIcon_Hattrem[]; //hattrem
+extern const u8 gMonIcon_Hatterene[]; //hatterene
+extern const u8 gMonIcon_Impidimp[]; //impidimp
+extern const u8 gMonIcon_Morgrem[]; //morgrem
+extern const u8 gMonIcon_Grimmsnarl[]; //grimmsnarl
+extern const u8 gMonIcon_Obstagoon[]; //obstagoon
+extern const u8 gMonIcon_Perrserker[]; //perrserker
+extern const u8 gMonIcon_Cursola[]; //cursola
+extern const u8 gMonIcon_Sirfetchd[]; //sirfetchd
+extern const u8 gMonIcon_MrRime[]; //mr_rime
+extern const u8 gMonIcon_Runerigus[]; //runerigus
+extern const u8 gMonIcon_Milcery[]; //milcery
+extern const u8 gMonIcon_Alcremie[]; //alcremie
+extern const u8 gMonIcon_Falinks[]; //falinks
+extern const u8 gMonIcon_Pincurchin[]; //pincurchin
+extern const u8 gMonIcon_Snom[]; //snom
+extern const u8 gMonIcon_Frosmoth[]; //frosmoth
+extern const u8 gMonIcon_Stonjourner[]; //stonjourner
+extern const u8 gMonIcon_Eiscue[]; //eiscue
+extern const u8 gMonIcon_Indeedee[]; //indeedee
+extern const u8 gMonIcon_Morpeko[]; //morpeko
+extern const u8 gMonIcon_Cufant[]; //cufant
+extern const u8 gMonIcon_Copperajah[]; //copperajah
+extern const u8 gMonIcon_Dracozolt[]; //dracozolt
+extern const u8 gMonIcon_Arctozolt[]; //arctozolt
+extern const u8 gMonIcon_Dracovish[]; //dracovish
+extern const u8 gMonIcon_Arctovish[]; //arctovish
+extern const u8 gMonIcon_Duraludon[]; //duraludon
+extern const u8 gMonIcon_Dreepy[]; //dreepy
+extern const u8 gMonIcon_Drakloak[]; //drakloak
+extern const u8 gMonIcon_Dragapult[]; //dragapult
+extern const u8 gMonIcon_Zacian[]; //zacian
+extern const u8 gMonIcon_Zamazenta[]; //zamazenta
+extern const u8 gMonIcon_Eternatus[]; //eternatus
+extern const u8 gMonIcon_Kubfu[]; //kubfu
+extern const u8 gMonIcon_Urshifu[]; //urshifu
+extern const u8 gMonIcon_Zarude[]; //zarude
+extern const u8 gMonIcon_Regieleki[]; //regieleki
+extern const u8 gMonIcon_Regidrago[]; //regidrago
+extern const u8 gMonIcon_Glastrier[]; //glastrier
+extern const u8 gMonIcon_Spectrier[]; //spectrier
+extern const u8 gMonIcon_Calyrex[]; //calyrex
+
 extern const u8 gMonIcon_VenusaurMega[];
 extern const u8 gMonIcon_CharizardMegaX[];
 extern const u8 gMonIcon_CharizardMegaY[];

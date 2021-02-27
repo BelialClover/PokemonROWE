@@ -586,7 +586,7 @@ PlayersHouse_1F_Text_IsThatABreakingStory: @ 81F824B
 	.string "Mom: Is that a breaking news story?$"
 
 PlayersHouse_1F_Text_LatiEmergencyNewsFlash: @ 81F826F
-	.string "We bring you this news flash!\n"
+	.string "We bring you this news flash!\p"
 	.string "In various Hoenn locales, there have\n"
 	.string "been reports of a Blue colored\l"
 	.string "Pokémon.\p"

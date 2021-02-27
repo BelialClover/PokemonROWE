@@ -41,6 +41,7 @@ u8 WildBadgeGet(void);
 u8 GetMinLevelWild(void);
 u16 HasLevelEvolutionwild(u16 species, u8 level, u16 item);
 u16 HasItemEvolutionWild(u16 species, u8 level, u16 item);
+u16 GetFirstStage(u16 species);
 
 // EWRAM vars
 EWRAM_DATA static u8 sWildEncountersDisabled = 0;
@@ -384,8 +385,7 @@ static u8 PickWildMonNature(void)
     }
     // check synchronize for a pokemon with the same ability
     if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG)
-        && GetMonAbility(&gPlayerParty[0]) == ABILITY_SYNCHRONIZE
-        && ((B_SYNCHRONIZE_NATURE >= GEN_8) || Random() % 2 == 0))
+        && GetMonAbility(&gPlayerParty[0]) == ABILITY_SYNCHRONIZE)
     {
         return GetMonData(&gPlayerParty[0], MON_DATA_PERSONALITY) % NUM_NATURES;
     }
@@ -394,12 +394,48 @@ static u8 PickWildMonNature(void)
     return Random() % NUM_NATURES;
 }
 
+u16 GetFirstStage(u16 species)
+{
+    int i, j, k;
+    bool8 found;
+
+    // Working backwards up to 5 times seems arbitrary, since the maximum number
+    // of times would only be 3 for 3-stage evolutions.
+    for (i = 0; i < EVOS_PER_MON; i++)
+    {
+        found = FALSE;
+        for (j = 1; j < NUM_SPECIES; j++)
+        {
+            for (k = 0; k < EVOS_PER_MON; k++)
+            {
+                if (gEvolutionTable[j][k].targetSpecies == species)
+                {
+                    species = j;
+                    found = TRUE;
+                    break;
+                }
+            }
+
+            if (found)
+                break;
+        }
+
+        if (j == NUM_SPECIES)
+            break;
+    }
+
+    return species;
+}
+
 void CreateWildMon(u16 species, u8 level)
 {
     bool32 checkCuteCharm;
 	u8 formId = GetFormIdFromFormSpeciesId(species);
 	u16 baseSpecies = GetFormSpeciesId(species, 0);
+	u16 id = ((gSaveBlock2Ptr->playerTrainerId[1] << 8) | gSaveBlock2Ptr->playerTrainerId[0]);
 	u16 holditem = GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM);
+	if(FlagGet(FLAG_SYS_DEXNAV_GET) == FALSE)
+	baseSpecies = GetFirstStage((GetFormSpeciesId(species, 0) * id )% 898);
 	
     ZeroEnemyPartyMons();
     checkCuteCharm = TRUE;

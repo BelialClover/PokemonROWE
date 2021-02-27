@@ -25,6 +25,7 @@ LilycoveCity_DepartmentStore_3F_Pokemart_Vitamins: @ 821FC7C
 	.2byte ITEM_POWER_BAND
 	.2byte ITEM_POWER_ANKLET
 	.2byte ITEM_MACHO_BRACE
+	.2byte ITEM_STRANGE_SOUVENIR
 	.2byte ITEM_NONE
 	release
 	end

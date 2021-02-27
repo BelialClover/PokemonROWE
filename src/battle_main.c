@@ -287,6 +287,7 @@ u16 HasEvolution(u16 species, u8 level)
 		case EVO_ITEM_FEMALE:
 		case EVO_ITEM_MALE:
 		case EVO_LEVEL_DUSK:
+		case EVO_MAPSEC:
 			if(numbadges >= 5)
 				return HasEvolution(gEvolutionTable[species][0].targetSpecies, level);
 		break;
@@ -1921,7 +1922,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 	u8 hardnumMonsBadge[]      = {3,3,4,4,4,5,6,6,6,6};
 	u8 hardnumMonsGym[]        = {3,4,4,5,5,6,6,6,6,6};
 	u8 hardminTrainerLevel[]   = {7,12,18,24,30,36,42,48,55,65};
-	u8 hardminGymLevel[] 	   = {13,19,25,31,37,43,49,60,70,80};
+	u8 hardminGymLevel[] 	   = {13,19,25,31,37,43,49,60,68,76};
 	u8 hardnumMonsDouble[]     = {2,2,2,2,2,2,3,3,3,3};
 	//Variables
 	u8 TrainerLevel[]  = {5,5,5,5,5,5};
@@ -2065,7 +2066,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				
                 if(IsMegaStone(partyData[i].heldItem,megabadge) != ITEM_SITRUS_BERRY)
-                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
+                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);	
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
@@ -2087,6 +2088,15 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 				{
 					if(i == numMonsGym-1)//Check if its the leader final mon and changes it to its ace regardless of its party size
 						CreateMon(&party[i], HasEvolution(partyData[5].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+					else
+						CreateMon(&party[i], HasEvolution(partyData[i].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+				}
+				else if(partyData[0].lvl == 6)//Used for gym tate & liza
+				{
+					if(i == numMonsGym-1)//Check if its the leader final mon and changes it to its ace regardless of its party size
+						CreateMon(&party[i], HasEvolution(partyData[5].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+					else if(i == numMonsGym-2)//Check if its the leader final mon and changes it to its ace regardless of its party size
+						CreateMon(&party[i], HasEvolution(partyData[4].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 					else
 						CreateMon(&party[i], HasEvolution(partyData[i].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				}
@@ -4057,8 +4067,29 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
+					if (gSaveBlock2Ptr->optionsBattleStyle != OPTIONS_BATTLE_STYLE_SHIFT){
+					if (FlagGet(FLAG_SYS_NO_BAG_USE) || gBattleTypeFlags & (BATTLE_TYPE_LINK //DEBUG
+											| BATTLE_TYPE_TRAINER
+											| BATTLE_TYPE_FRONTIER_NO_PYRAMID
+                                            | BATTLE_TYPE_EREADER_TRAINER
+                                            | BATTLE_TYPE_x2000000))
+                    {
+                        RecordedBattle_ClearBattlerAction(gActiveBattler, 1);
+                        gSelectionBattleScripts[gActiveBattler] = BattleScript_ActionSelectionItemsCantBeUsed;
+                        gBattleCommunication[gActiveBattler] = STATE_SELECTION_SCRIPT;
+                        *(gBattleStruct->selectionScriptFinished + gActiveBattler) = FALSE;
+                        *(gBattleStruct->stateIdAfterSelScript + gActiveBattler) = STATE_BEFORE_ACTION_CHOSEN;
+                        return;
+                    }
+                    else
+                    {
+                        BtlController_EmitChooseItem(0, gBattleStruct->field_60[gActiveBattler]);
+                        MarkBattlerForControllerExec(gActiveBattler);
+                    }
+                    break;
+					}
                     if (FlagGet(FLAG_SYS_NO_BAG_USE) || gBattleTypeFlags & (BATTLE_TYPE_LINK //DEBUG
-                                            | BATTLE_TYPE_FRONTIER_NO_PYRAMID
+											| BATTLE_TYPE_FRONTIER_NO_PYRAMID
                                             | BATTLE_TYPE_EREADER_TRAINER
                                             | BATTLE_TYPE_x2000000))
                     {

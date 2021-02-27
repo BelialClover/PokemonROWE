@@ -4175,7 +4175,7 @@ static const struct TrainerMonItemCustomMoves sParty_Roxanne1[] = {
 	{
     .iv = 200,
     .lvl = 5,
-    .species = SPECIES_GEODUDE_ALOLAN,
+    .species = SPECIES_CHEWTLE,
     .heldItem = ITEM_NONE,
     .moves = {MOVE_ROCK_TOMB, MOVE_NONE, MOVE_NONE, MOVE_NONE}
     },
@@ -4220,7 +4220,7 @@ static const struct TrainerMonItemCustomMoves sParty_Brawly1[] = {
 	{
     .iv = 200,
     .lvl = 5,
-    .species = SPECIES_POLIWAG,
+    .species = SPECIES_CLOBBOPUS,
     .heldItem = ITEM_NONE,
     .moves = {MOVE_BULK_UP, MOVE_NONE, MOVE_NONE, MOVE_NONE}
     },
@@ -4279,7 +4279,7 @@ static const struct TrainerMonItemCustomMoves sParty_Wattson1[] = {
     {
     .iv = 200,
     .lvl = 5,
-    .species = SPECIES_HELIOPTILE,
+    .species = SPECIES_TOXEL,
     .heldItem = ITEM_NONE,
     .moves = {MOVE_SHOCK_WAVE, MOVE_NONE, MOVE_NONE, MOVE_NONE}
     },
@@ -5424,7 +5424,7 @@ static const struct TrainerMonItemCustomMoves sParty_Wallace[] = {
     {
     .iv = 250,
     .lvl = 65,
-    .species = SPECIES_WINGULL,
+    .species = SPECIES_PELIPPER,
     .heldItem = ITEM_DAMP_ROCK,
     .moves = {MOVE_HURRICANE, MOVE_SCALD, MOVE_RAIN_DANCE, MOVE_ROOST}
     },

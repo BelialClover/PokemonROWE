@@ -31,6 +31,7 @@ PetalburgCity_Gym_EventScript_OpenUnlockedDoors:: @ 82048B5
 
 PetalburgCity_Gym_EventScript_UnlockAllDoors:: @ 82048FF
 	setvar VAR_0x8005, 1
+	setflag FLAG_UNUSED_0x926
 	call PetalburgCity_Gym_EventScript_OpenGymEntranceDoors
 	call PetalburgCity_Gym_EventScript_OpenSpeedRoomDoors
 	call PetalburgCity_Gym_EventScript_OpenAccuracyRoomDoors
@@ -346,23 +347,9 @@ PetalburgCity_Gym_EventScript_NormanFaceDoorWest:: @ 8204D7E
 PetalburgCity_Gym_EventScript_NormanFaceDoorEast:: @ 8204D7F
 	return
 
-PetalburgCity_Gym_EventScript_NormanPostBattle:: @ 8204D80
-	call PetalburgCity_Gym_EventScript_ShouldGiveEnigmaBerry
-	compare VAR_RESULT, TRUE
-	goto_if_eq PetalburgCity_Gym_EventScript_GiveEnigmaBerry
-	goto_if_set FLAG_SYS_GAME_CLEAR, PetalburgCity_Gym_EventScript_NoAmountOfTrainingIsEnough
-	msgbox PetalburgCity_Gym_Text_DadGoingToKeepTraining, MSGBOX_DEFAULT
-	release
-	end
-
 PetalburgCity_Gym_EventScript_GiveFacade2:: @ 8204DAC
 	call PetalburgCity_Gym_EventScript_GiveFacade
 	release
-	end
-
-PetalburgCity_Gym_EventScript_NormanRematch:: @ 8204DB3
-	trainerbattle_rematch_double TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanPreRematch, PetalburgCity_Gym_Text_NormanRematchDefeat, PetalburgCity_Gym_Text_NormanRematchNeedTwoMons
-	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
 	end
 
 PetalburgCity_Gym_EventScript_ShouldGiveEnigmaBerry:: @ 8204DCE
@@ -404,6 +391,23 @@ PetalburgCity_Gym_EventScript_NormanBattle::
 	waitmessage
 	msgbox PetalburgCity_Gym_Text_DadHappyAndSad, MSGBOX_DEFAULT
 	call PetalburgCity_Gym_EventScript_GiveHM
+	end
+	
+PetalburgCity_Gym_EventScript_NormanPostBattle:: @ 8204D80
+	goto_if_unset FLAG_UNUSED_0x926, PetalburgCity_Gym_EventScript_NormanRematch
+	call PetalburgCity_Gym_EventScript_ShouldGiveEnigmaBerry
+	compare VAR_RESULT, TRUE
+	goto_if_eq PetalburgCity_Gym_EventScript_GiveEnigmaBerry
+	goto_if_set FLAG_SYS_GAME_CLEAR, PetalburgCity_Gym_EventScript_NoAmountOfTrainingIsEnough
+	msgbox PetalburgCity_Gym_Text_DadGoingToKeepTraining, MSGBOX_DEFAULT
+	release
+	end
+	
+PetalburgCity_Gym_EventScript_NormanRematch:: @ 8204DB3
+	msgbox PetalburgCity_Gym_Text_NormanPreRematch, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanRematchDefeat
+	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x926
 	end
 	
 //HM Start

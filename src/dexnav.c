@@ -532,7 +532,7 @@ static void AddSearchWindowText(u16 species, u8 proximity, u8 searchLevel, bool8
             AddTextPrinterParameterized3(windowId, 0, WINDOW_COL_1 + 16, 12, sSearchFontColor, TEXT_SPEED_FF, gStringVar1);
         
             // item name
-            if (sDexNavSearchDataPtr->heldItem)
+            if (FALSE && sDexNavSearchDataPtr->heldItem)
             {
                 CopyItemName(sDexNavSearchDataPtr->heldItem, gStringVar1);
                 StringExpandPlaceholders(gStringVar4, sText_HeldItem);
@@ -816,6 +816,7 @@ static void Task_SetUpDexNavSearch(u8 taskId)
     u16 species = sDexNavSearchDataPtr->species;
     u8 environment = sDexNavSearchDataPtr->environment;
     u8 searchLevel = gSaveBlock1Ptr->dexNavSearchLevels[SpeciesToNationalPokedexNum(species)];
+	u16 sHeldItem = DexNavGenerateHeldItem(species, searchLevel);
     
     // init sprites
     sDexNavSearchDataPtr->iconSpriteId = MAX_SPRITES;
@@ -829,7 +830,8 @@ static void Task_SetUpDexNavSearch(u8 taskId)
     sDexNavSearchDataPtr->searchLevel = searchLevel;
     
     DexNavGenerateMoveset(species, searchLevel, sDexNavSearchDataPtr->monLevel, &sDexNavSearchDataPtr->moves[0]);
-    sDexNavSearchDataPtr->heldItem = DexNavGenerateHeldItem(species, searchLevel);
+    //sDexNavSearchDataPtr->heldItem = DexNavGenerateHeldItem(species, searchLevel);
+	sDexNavSearchDataPtr->heldItem = sHeldItem;
     sDexNavSearchDataPtr->abilityNum = DexNavGetAbilityNum(species, searchLevel);
     sDexNavSearchDataPtr->potential = DexNavGeneratePotential(searchLevel);
     DexNavProximityUpdate();
@@ -1133,7 +1135,7 @@ static void Task_DexNavSearch(u8 taskId)
         return;
     }
 
-    //Caves and water the pokemon moves around
+    /*/Caves and water the pokemon moves around
     if ((sDexNavSearchDataPtr->environment == ENCOUNTER_TYPE_WATER || GetCurrentMapType() == MAP_TYPE_UNDERGROUND)
         && sDexNavSearchDataPtr->proximity < GetMovementProximityBySearchLevel() && sDexNavSearchDataPtr->movementCount < 2
         && task->tRevealed)
@@ -1147,7 +1149,7 @@ static void Task_DexNavSearch(u8 taskId)
         }
         
         sDexNavSearchDataPtr->movementCount++;
-    }
+    }/*/
 
     DexNavProximityUpdate();
     if (task->tProximity != sDexNavSearchDataPtr->proximity)
@@ -1194,7 +1196,7 @@ static void DexNavUpdateSearchWindow(u8 proximity, u8 searchLevel)
     
     if (proximity <= SNEAKING_PROXIMITY)
     {
-        if (searchLevel > 2 && sDexNavSearchDataPtr->heldItem)
+        if (FALSE && searchLevel > 2 && sDexNavSearchDataPtr->heldItem)
         {
             // toggle item view
             if (sDexNavSearchDataPtr->itemSpriteId != MAX_SPRITES)
@@ -1224,25 +1226,29 @@ static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityN
     u8 iv[3];
     u8 i;
     u8 perfectIv = 31;
+	u16 CreatedHeldItem = sDexNavSearchDataPtr->heldItem;
     
     CreateWildMon(species, level);  // shiny rate bonus handled in CreateBoxMon
     
-    //Pick potential ivs to set to 31
+    //Pick potential unique ivs to set to 31
     iv[0] = Random() % 6;
-    iv[1] = Random() % 6;
-    iv[2] = Random() % 6;
+    do {iv[1] = Random() % 6;} while (iv[1] == iv[0]);
+    do {iv[2] = Random() % 6;} while (iv[2] == iv[0] || iv[2] == iv[1]);
     if ((iv[0] != iv[1]) && (iv[0] != iv[2]) && (iv[1] != iv[2]))
     {
         if (potential > 2)
             SetMonData(mon, MON_DATA_HP_IV + iv[2], &perfectIv);
-        else if (potential > 1)
+        if (potential > 1)
             SetMonData(mon, MON_DATA_HP_IV + iv[1], &perfectIv);
-        else if (potential)
+        if (potential)
             SetMonData(mon, MON_DATA_HP_IV + iv[0], &perfectIv);
     }
 
     //Set ability
     SetMonData(mon, MON_DATA_ABILITY_NUM, &abilityNum);
+	
+	//Set ability
+    SetMonData(mon, MON_DATA_HELD_ITEM, &CreatedHeldItem);
 
     //Set moves
     for (i = 0; i < MAX_MON_MOVES; i++)
@@ -1284,11 +1290,11 @@ u8 GetDexLevelWild(void){
 //if it was a hidden encounter, updates the environment it is to be found from the wildheader encounterRate
 static u8 DexNavTryGenerateMonLevel(u16 species, u8 environment)
 {
-    u8 levelBase = GetDexLevelWild();
-	u8 isFound = GetEncounterLevelFromMapData(species, environment);
+    u8 levelMap = GetEncounterLevelFromMapData(species, environment);
+	u8 levelBase = GetDexLevelWild();
     u8 levelBonus = gSaveBlock1Ptr->dexNavChain / 5;
 
-    if (isFound == MON_LEVEL_NONEXISTENT)
+    if (levelMap == MON_LEVEL_NONEXISTENT)
         return MON_LEVEL_NONEXISTENT;   //species not found in the area
     
     if (Random() % 100 < 4)
@@ -2120,7 +2126,7 @@ static void DrawSpeciesIcons(void)
         formId = GetFormIdFromFormSpeciesId(species);
         x = ROW_HIDDEN_ICON_X + 24 * i;
         y = ROW_HIDDEN_ICON_Y;
-        if (FlagGet(FLAG_SYS_DETECTOR_MODE))
+        if (FlagGet(FLAG_SYS_DEXNAV_GET))
             TryDrawIconInSlot(species, x, y);
        else if (species == SPECIES_NONE || species > NUM_SPECIES)
             CreateNoDataIcon(x, y);
@@ -2145,7 +2151,7 @@ static u16 DexNavGetSpecies(void)
         species = sDexNavUiDataPtr->landSpecies[sDexNavUiDataPtr->cursorCol + COL_LAND_COUNT];
         break;
     case ROW_HIDDEN:
-        if (!FlagGet(FLAG_SYS_DETECTOR_MODE))
+        if (!FlagGet(FLAG_SYS_DEXNAV_GET))
             species = SPECIES_NONE;
         else
             species = sDexNavUiDataPtr->hiddenSpecies[sDexNavUiDataPtr->cursorCol];
@@ -2606,7 +2612,7 @@ bool8 TryFindHiddenPokemon(void)
     u32 attempts = 0;
     u16 currSteps;
 
-    if (!FlagGet(FLAG_SYS_DETECTOR_MODE) || FlagGet(FLAG_SYS_DEXNAV_SEARCH) || Overworld_GetFlashLevel() > 0)
+    if (!FlagGet(FLAG_SYS_DEXNAV_GET) || FlagGet(FLAG_SYS_DEXNAV_SEARCH) || Overworld_GetFlashLevel() > 0)
     {
         (*stepPtr) = 0;
         return FALSE;
@@ -2614,7 +2620,7 @@ bool8 TryFindHiddenPokemon(void)
     
     (*stepPtr)++;
     (*stepPtr) %= HIDDEN_MON_STEP_COUNT;
-    if ((*stepPtr) == 0 && (Random() % 100 < HIDDEN_MON_SEARCH_RATE))
+    if ((*stepPtr) == 0)
     {
         // hidden pokemon
         u8 headerId = GetCurrentMapWildMonHeaderId();
@@ -2706,7 +2712,7 @@ bool8 TryFindHiddenPokemon(void)
         while (1) {
             if (TryStartHiddenMonFieldEffect(sDexNavSearchDataPtr->environment, 8, 8, TRUE))
                 break;
-            if (++attempts > 20)
+            if (++attempts > 10)
                 return FALSE;   //cannot find suitable tile
         }
 

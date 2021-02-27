@@ -629,10 +629,9 @@ MauvilleCity_Text_NurseHurtMonBackToHealth: @ 81E0301
 	.string "you have to nurse it back to health.$"
 
 MauvilleCity_Text_AllSortsOfPeopleComeThrough: @ 81E037C
-	.string "The roads of this town stretch north\n"
-	.string "and south, and east and west.\p"
-	.string "Because of that, we get all sorts of\n"
-	.string "people coming through.$"
+	.string "I got this strange paper saying\n"
+	.string "...You are on version 1.0.7.2...\p"
+	.string "I have no idea what it means.$"
 
 MauvilleCity_Text_RydelVeryGenerous: @ 81E03FB
 	.string "Have you been to Rydel's Cycles yet?\p"

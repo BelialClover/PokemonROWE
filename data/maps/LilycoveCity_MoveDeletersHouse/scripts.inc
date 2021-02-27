@@ -13,6 +13,150 @@ LilycoveCity_MoveDeletersHouse_EventScript_MoveDeleter:: @ 821EA0B
 	case NO, LilycoveCity_MoveDeletersHouse_EventScript_ComeAgain
 	releaseall
 	end
+	
+LilycoveCity_MoveDeletersHouse_EventScript_WaterStarter::
+	lock
+	faceplayer
+	goto_if_set FLAG_UNUSED_0x938, LilycoveCity_MoveDeletersHouse_EventScript_WaterStarter_Come_Again
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ThreeShards, MSGBOX_DEFAULT
+	checkitem ITEM_BLUE_SHARD, 3
+	//checkitem ITEM_POTION, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq LilycoveCity_MoveDeletersHouse_EventScript_AsktoTrade
+	release
+	end
+	
+LilycoveCity_MoveDeletersHouse_EventScript_AsktoTrade::
+	playse SE_PIN
+	applymovement VAR_LAST_TALKED, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement VAR_LAST_TALKED, Common_Movement_Delay48
+	waitmovement 0
+	msgbox LilycoveCity_MoveDeletersHouse_Text_Question, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq LilycoveCity_MoveDeletersHouse_EventScript_WaterStarter_Decline
+	getpartysize
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Space
+	removeitem ITEM_BLUE_SHARD, 3
+	//removeitem ITEM_POTION, 1
+	setflag FLAG_UNUSED_0x938
+	random 8
+	switch VAR_RESULT
+	case 0, LilycoveCity_MoveDeletersHouse_EventScript_Give_Squirtle
+	case 1, LilycoveCity_MoveDeletersHouse_EventScript_Give_Totodile
+	case 2, LilycoveCity_MoveDeletersHouse_EventScript_Give_Mudkip
+	case 3, LilycoveCity_MoveDeletersHouse_EventScript_Give_Piplup
+	case 4, LilycoveCity_MoveDeletersHouse_EventScript_Give_Oshawott
+	case 5, LilycoveCity_MoveDeletersHouse_EventScript_Give_Froakie
+	case 6, LilycoveCity_MoveDeletersHouse_EventScript_Give_Popplio
+	case 7, LilycoveCity_MoveDeletersHouse_EventScript_Give_Sobble
+	end
+	
+LilycoveCity_MoveDeletersHouse_EventScript_WaterStarter_Come_Again::
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+LilycoveCity_MoveDeletersHouse_EventScript_WaterStarter_Decline::
+	msgbox LilycoveCity_MoveDeletersHouse_Text_Starter_Declined, MSGBOX_DEFAULT
+	release
+	end
+	
+//Starters
+
+LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan: @ 82122CB
+	.string "{PLAYER} received {STR_VAR_2} from\n"
+	.string "the Old Man.$"
+	
+//Squirtle
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Squirtle::
+	bufferspeciesname 1, SPECIES_SQUIRTLE
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_SQUIRTLE, 10, ITEM_NONE
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+//Totodile
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Totodile::
+	bufferspeciesname 1, SPECIES_TOTODILE
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_TOTODILE, 10, ITEM_NONE
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+//Mudkip
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Mudkip::
+	bufferspeciesname 1, SPECIES_MUDKIP
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_MUDKIP, 10, ITEM_NONE
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+//Piplup
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Piplup::
+	bufferspeciesname 1, SPECIES_PIPLUP
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_PIPLUP, 10, ITEM_NONE
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+//Oshawott
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Oshawott::
+	bufferspeciesname 1, SPECIES_OSHAWOTT
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_OSHAWOTT, 10, ITEM_NONE
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+//Froakie
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Froakie::
+	bufferspeciesname 1, SPECIES_FROAKIE
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_FROAKIE, 10, ITEM_NONE
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+//Popplio
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Popplio::
+	bufferspeciesname 1, SPECIES_POPPLIO
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_POPPLIO, 10, ITEM_NONE
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+//Sobble
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Sobble::
+	bufferspeciesname 1, SPECIES_SOBBLE
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_SOBBLE, 10, ITEM_NONE
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+
 
 LilycoveCity_MoveDeletersHouse_EventScript_ChooseMonAndMoveToForget:: @ 821EA3B
 	msgbox LilycoveCity_MoveDeletersHouse_Text_WhichMonShouldForget, MSGBOX_DEFAULT
@@ -78,6 +222,26 @@ LilycoveCity_MoveDeletersHouse_Text_ICanMakeMonForgetMove: @ 821EAFD
 	.string "Oh, yes, I'm the Move Deleter.\p"
 	.string "I can make Pokémon forget their moves.\p"
 	.string "Would you like me to do that?$"
+	
+LilycoveCity_MoveDeletersHouse_Text_ThreeShards:
+	.string "If you have 3 Blue Shards I can\n"
+	.string "give you a good Pokémon.$"
+	
+LilycoveCity_MoveDeletersHouse_Text_Question:
+	.string "Are those Blue Shards?\p"
+	.string "Do you want to trade them\n"
+	.string "for one of my Pokémon?$"
+	
+LilycoveCity_MoveDeletersHouse_Text_Chose_Well:
+	.string "Please chose one of my Pokémon.$"
+	
+LilycoveCity_MoveDeletersHouse_Text_Starter_Declined:
+	.string "Oh well, come again if you change\n"
+	.string "your mind.$"
+	
+LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter:
+	.string "Come tomorrow if you want another\n"
+	.string "one.$"
 
 LilycoveCity_MoveDeletersHouse_Text_WhichMonShouldForget: @ 821EB65
 	.string "Which Pokémon should forget a move?$"

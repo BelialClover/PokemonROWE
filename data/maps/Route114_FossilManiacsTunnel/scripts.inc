@@ -33,7 +33,7 @@ Route114_FossilManiacsTunnel_EventScript_ManiacMentionCaveIn:: @ 822AF66
 	releaseall
 	end
 
-Route114_FossilManiacsTunnel_EventScript_FossilManiac:: @ 822AF87
+Route114_FossilManiacsTunnel_EventScript_FossilManiac_2:: @ 822AF87
 	lock
 	faceplayer
 	goto_if_set FLAG_RECEIVED_REVIVED_FOSSIL_MON, Route114_FossilManiacsTunnel_EventScript_PlayerRevivedFossil
@@ -57,6 +57,149 @@ Route114_FossilManiacsTunnel_EventScript_PlayerRevivedFossil:: @ 822AFC6
 	release
 	end
 
+//Fossil Scripts	
+Route114_FossilManiacsTunnel_EventScript_FossilManiac:: @ 822AF87
+	lock
+	faceplayer
+	goto_if_set FLAG_UNUSED_0x935, Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	msgbox Route114_FossilManiacsTunnel_Text_Fossil, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq Route114_FossilManiacsTunnel_EventScript_FossilDecline
+	random 11
+	switch VAR_RESULT
+	case 0, Route114_FossilManiacsTunnel_EventScript_DomeFossil
+	case 1, Route114_FossilManiacsTunnel_EventScript_HelixFossil
+	case 2, Route114_FossilManiacsTunnel_EventScript_OldAmber
+	case 3, Route114_FossilManiacsTunnel_EventScript_RootFossil
+	case 4, Route114_FossilManiacsTunnel_EventScript_ClawFossil
+	case 5, Route114_FossilManiacsTunnel_EventScript_SkullFossil
+	case 6, Route114_FossilManiacsTunnel_EventScript_ArmorFossil
+	case 7, Route114_FossilManiacsTunnel_EventScript_CoverFossil
+	case 8, Route114_FossilManiacsTunnel_EventScript_PlumeFossil
+	case 9, Route114_FossilManiacsTunnel_EventScript_JawFossil
+	case 10, Route114_FossilManiacsTunnel_EventScript_SailFossil
+	end
+	
+//Dome Fossil
+Route114_FossilManiacsTunnel_EventScript_DomeFossil::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_DOME_FOSSIL
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+//Helix Fossil
+Route114_FossilManiacsTunnel_EventScript_HelixFossil::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_HELIX_FOSSIL
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+//Old Amber
+Route114_FossilManiacsTunnel_EventScript_OldAmber::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_OLD_AMBER
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+//Root Fossil
+Route114_FossilManiacsTunnel_EventScript_RootFossil::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_ROOT_FOSSIL
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+//Claw Fossil
+Route114_FossilManiacsTunnel_EventScript_ClawFossil::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_CLAW_FOSSIL
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+//Skull Fossil
+Route114_FossilManiacsTunnel_EventScript_SkullFossil::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_CLAW_FOSSIL
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+//Armor Fossil
+Route114_FossilManiacsTunnel_EventScript_ArmorFossil::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_ARMOR_FOSSIL
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+//Cover Fossil
+Route114_FossilManiacsTunnel_EventScript_CoverFossil::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_COVER_FOSSIL
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+//Plume Fossil
+Route114_FossilManiacsTunnel_EventScript_PlumeFossil::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_PLUME_FOSSIL
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+//Jaw Fossil
+Route114_FossilManiacsTunnel_EventScript_JawFossil::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_JAW_FOSSIL
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+//Sail Fossil
+Route114_FossilManiacsTunnel_EventScript_SailFossil::
+	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
+	giveitem ITEM_SAIL_FOSSIL
+	setflag FLAG_UNUSED_0x935
+	waitfanfare
+	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT
+	goto Route114_FossilManiacsTunnel_EventScript_ComeTomorrow
+	end
+	
+Route114_FossilManiacsTunnel_EventScript_ComeTomorrow::
+	msgbox Route114_FossilManiacsTunnel_Text_ComeTomorrow, MSGBOX_DEFAULT
+	release
+	end
+	
+Route114_FossilManiacsTunnel_EventScript_FossilDecline::
+	msgbox Route114_FossilManiacsTunnel_Text_FossilDecline, MSGBOX_DEFAULT
+	release
+	end
+
 Route114_FossilManiacsTunnel_Text_LookInDesertForFossils: @ 822AFD0
 	.string "I'm the Fossil Maniac…\n"
 	.string "I'm a nice guy who loves Fossils…\p"
@@ -67,6 +210,26 @@ Route114_FossilManiacsTunnel_Text_LookInDesertForFossils: @ 822AFD0
 	.string "a Fossil, look in a desert where there\l"
 	.string "are boulders and sand that may hide\l"
 	.string "Fossils…$"
+	
+Route114_FossilManiacsTunnel_Text_Fossil:
+	.string "I'm the Fossil Maniac…\n"
+	.string "I'm a nice guy who loves Fossils…\p"
+	.string "Do you want a Fossil?$"	
+	
+Route114_FossilManiacsTunnel_Text_ComeTomorrow:
+	.string "Come tomorrow, i may have dug\n"
+	.string "another one$"
+	
+Route114_FossilManiacsTunnel_Text_FossilDecline:
+	.string "Is that so, come again if you\n"
+	.string "change your mind$"
+	
+Route114_FossilManiacsTunnel_Text_HereYoGo:
+	.string "Here you go!$"
+	
+Route114_FossilManiacsTunnel_Text_FossilGet:
+	.string "{PLAYER} received a Fossil from\n"
+	.string "Fossil Maniac$"
 
 Route114_FossilManiacsTunnel_Text_DevonCorpRevivingFossils: @ 822B0D6
 	.string "You found a Fossil, didn't you?\n"
@@ -90,6 +253,6 @@ Route114_FossilManiacsTunnel_Text_NotSafeThatWay: @ 822B1F7
 	.string "When the whole wall collapsed…\p"
 	.string "I think there's a giant cavern\n"
 	.string "underneath now…\p"
-	.string "But I've left it alone because I don't\n"
-	.string "think there are any Fossils there…$"
+	.string "You may find some rare Pokemon\n"
+	.string "there…$"
 

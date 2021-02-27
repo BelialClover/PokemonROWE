@@ -78,11 +78,18 @@ MossdeepCity_Gym_EventScript_TateAndLizaDefeated:: @ 82208D1
 	call Common_EventScript_SetGymTrainers
 	release
 	end
-	
-//
+
 MossdeepCity_Gym_EventScript_TateAndLiza_PostBattle::
+	goto_if_unset FLAG_UNUSED_0x928, MossdeepCity_Gym_EventScript_TateAndLizaRematch
 	msgbox MossdeepCity_Gym_Text_TateAndLizaPostBattle, MSGBOX_DEFAULT
 	release
+	end
+	
+MossdeepCity_Gym_EventScript_TateAndLizaRematch:: @ 822097E
+	msgbox MossdeepCity_Gym_Text_TateAndLizaPreRematch, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaRematchDefeat
+	msgbox MossdeepCity_Gym_Text_TateAndLizaPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x928
 	end
 
 MossdeepCity_Gym_EventScript_GiveHM::
@@ -164,11 +171,6 @@ MossdeepCity_Gym_EventScript_GiveCalmMind:: @ 822095B
 	giveitem ITEM_TM04
 	msgbox MossdeepCity_Gym_Text_ExplainCalmMind, MSGBOX_DEFAULT
 	return
-
-MossdeepCity_Gym_EventScript_TateAndLizaRematch:: @ 822097E
-	trainerbattle_rematch_double TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaPreRematch, MossdeepCity_Gym_Text_TateAndLizaRematchDefeat, MossdeepCity_Gym_Text_TateAndLizaRematchNeedTwoMons
-	msgbox MossdeepCity_Gym_Text_TateAndLizaPostRematch, MSGBOX_AUTOCLOSE
-	end
 
 @ All the below switch scripts are leftover from RS and are functionally unused
 MossdeepCity_Gym_EventScript_Switch1:: @ 8220999

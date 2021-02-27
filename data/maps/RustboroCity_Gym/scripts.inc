@@ -4,21 +4,20 @@ RustboroCity_Gym_MapScripts:: @ 8212F30
 RustboroCity_Gym_EventScript_Roxanne:: @ 8212F31
 	lock
 	faceplayer
-	//msgbox RustboroCity_Gym_Text_RoxanneIntro, MSGBOX_DEFAULT
-	call_if_set FLAG_BADGE01_GET, RustboroCity_Gym_EventScript_Roxanne_PostBattle	
-	//trainerbattle_no_intro TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxanneDefeat
+	goto_if_set FLAG_BADGE01_GET, RustboroCity_Gym_EventScript_Roxanne_PostBattle
 	trainerbattle_single TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxanneIntro, RustboroCity_Gym_Text_RoxanneDefeat, RustboroCity_Gym_EventScript_RoxanneDefeated, NO_MUSIC
-	//trainerbattle_single TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxanneIntro, RustboroCity_Gym_Text_RoxanneDefeat, RustboroCity_Gym_EventScript_RoxanneDefeated, NO_MUSIC
-	//specialvar VAR_RESULT, ShouldTryRematchBattle
-	//compare VAR_RESULT, TRUE
-	//goto_if_eq RustboroCity_Gym_EventScript_RoxanneRematch
-	//call PetalburgCity_Gym_EventScript_GiveHM
-	//goto_if_unset FLAG_RECEIVED_TM39, RustboroCity_Gym_EventScript_GiveRockTomb
 	msgbox RustboroCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT
-	//release
+	end
+	
+RustboroCity_Gym_EventScript_RoxanneRematch:: @ 8212FC8
+	msgbox RustboroCity_Gym_Text_RoxannePreRematch, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxanneRematchDefeat
+	msgbox RustboroCity_Gym_Text_RoxannePostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x920
 	end
 	
 RustboroCity_Gym_EventScript_Roxanne_PostBattle::
+	goto_if_unset FLAG_UNUSED_0x920, RustboroCity_Gym_EventScript_RoxanneRematch
 	msgbox RustboroCity_Gym_Text_RoxannePostRematch, MSGBOX_DEFAULT
 	release
 	end
@@ -44,6 +43,7 @@ RustboroCity_Gym_EventScript_RoxanneDefeated:: @ 8212F66
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_ROXANNE_MATCH_CALL
+	setflag FLAG_UNUSED_0x920
 	release
 	end
 
@@ -121,14 +121,10 @@ RustboroCity_Gym_EventScript_GiveHM08::
 	goto RustboroCity_Gym_EventScript_GiveRockTomb
 	end
 
-RustboroCity_Gym_EventScript_RoxanneRematch:: @ 8212FC8
-	trainerbattle_rematch_double TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxannePreRematch, RustboroCity_Gym_Text_RoxanneRematchDefeat, RustboroCity_Gym_Text_RoxanneRematchNeedTwoMons
-	msgbox RustboroCity_Gym_Text_RoxannePostRematch, MSGBOX_AUTOCLOSE
-	end
-
 RustboroCity_Gym_EventScript_Josh:: @ 8212FE3
 	trainerbattle_single TRAINER_JOSH, RustboroCity_Gym_Text_JoshIntro, RustboroCity_Gym_Text_JoshDefeat
 	msgbox RustboroCity_Gym_Text_JoshPostBattle, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x920
 	end
 
 RustboroCity_Gym_EventScript_Tommy:: @ 8212FFA

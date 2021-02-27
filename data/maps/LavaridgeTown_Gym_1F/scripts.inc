@@ -53,10 +53,6 @@ LavaridgeTown_Gym_1F_EventScript_Flannery:: @ 81FE78C
 	faceplayer
 	call_if_set FLAG_BADGE04_GET, LavaridgeTown_Gym_EventScript_Flannery_PostBattle
 	trainerbattle_single TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryIntro, LavaridgeTown_Gym_1F_Text_FlanneryDefeat, LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated, NO_MUSIC
-	//specialvar VAR_RESULT, ShouldTryRematchBattle
-	//compare VAR_RESULT, TRUE
-	//goto_if_eq LavaridgeTown_Gym_1F_EventScript_FlanneryRematch
-	//goto_if_unset FLAG_RECEIVED_TM50, LavaridgeTown_Gym_1F_EventScript_GiveOverheat2
 	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -69,13 +65,8 @@ LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated:: @ 81FE7C1
 	setflag FLAG_WHITEOUT_TO_LAVARIDGE
 	setflag FLAG_DEFEATED_LAVARIDGE_GYM
 	setflag FLAG_BADGE04_GET
-	//addvar VAR_PETALBURG_GYM_STATE, 1
-	//compare VAR_PETALBURG_GYM_STATE, 6
-	//call_if_eq Common_EventScript_ReadyPetalburgGymForBattle
 	setvar VAR_0x8008, 4
 	call Common_EventScript_SetGymTrainers
-	//setflag FLAG_HIDE_VERDANTURF_TOWN_WANDAS_HOUSE_WALLY
-	//setvar VAR_LAVARIDGE_TOWN_STATE, 1
 	call LavaridgeTown_Gym_EventScript_GiveHM
 	closemessage
 	delay 30
@@ -85,14 +76,21 @@ LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated:: @ 81FE7C1
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_FLANNERY_MATCH_CALL
-	//call LavaridgeTown_Gym_EventScript_GiveHM
+	setflag FLAG_UNUSED_0x925
 	release
 	end
 	
-//
 LavaridgeTown_Gym_EventScript_Flannery_PostBattle::
+	goto_if_unset FLAG_UNUSED_0x925, LavaridgeTown_Gym_1F_EventScript_FlanneryRematch
 	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostBattle, MSGBOX_DEFAULT
 	release
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_FlanneryRematch:: @ 81FE864
+	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPreRematch, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_WATTSON_1, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x925
 	end
 
 LavaridgeTown_Gym_EventScript_GiveHM::
@@ -175,11 +173,6 @@ LavaridgeTown_Gym_1F_EventScript_GiveOverheat:: @ 81FE841
 	giveitem ITEM_TM50
 	msgbox LavaridgeTown_Gym_1F_Text_ExplainOverheat, MSGBOX_DEFAULT
 	return
-
-LavaridgeTown_Gym_1F_EventScript_FlanneryRematch:: @ 81FE864
-	trainerbattle_rematch_double TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryPreRematch, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat, LavaridgeTown_Gym_1F_Text_FlanneryRematchNeedTwoMons
-	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostRematch, MSGBOX_AUTOCLOSE
-	end
 
 LavaridgeTown_Gym_1F_EventScript_Cole:: @ 81FE87F
 	trainerbattle TRAINER_BATTLE_CONTINUE_SCRIPT, TRAINER_COLE, LOCALID_COLE, LavaridgeTown_Gym_1F_Text_ColeIntro, LavaridgeTown_Gym_1F_Text_ColeDefeat, LavaridgeTown_Gym_EventScript_CheckTrainerScript

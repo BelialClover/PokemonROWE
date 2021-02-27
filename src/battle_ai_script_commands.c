@@ -338,7 +338,7 @@ void BattleAI_SetupItems(void)
     for (i = 0; i < sizeof(struct BattleHistory); i++)
         data[i] = 0;
 
-    // Items are allowed to use in ONLY trainer battles.
+    /*/ Items are allowed to use in ONLY trainer battles.
     if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         && !(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_SAFARI | BATTLE_TYPE_BATTLE_TOWER
                                | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_SECRET_BASE | BATTLE_TYPE_FRONTIER
@@ -354,7 +354,7 @@ void BattleAI_SetupItems(void)
                 BATTLE_HISTORY->itemsNo++;
             }
         }
-    }
+    }/*/
 }
 
 void BattleAI_SetupFlags(void)

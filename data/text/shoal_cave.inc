@@ -33,10 +33,22 @@ ShoalCave_LowTideEntranceRoom_Text_ExplainShellBell: @ 82A8012
 	.string "It's simply sublime!\p"
 	.string "You can get its ingredients every day,\n"
 	.string "so I can make you more.$"
+	
+ShoalCave_LowTideEntranceRoom_Text_ExplainMegaStone:
+	.string "Have a Normal Slowbro hold it.\n"
+	.string "It'll love it, that's for certain.\p"
+	.string "Why, this item will make it evolve\n"
+	.string "It's simply sublime!\p"
+	.string "I can also make a Shell Bell with,\n"
+	.string "those ingredients you gave me.$"
 
 ShoalCave_LowTideEntranceRoom_Text_WantedToMakeShellBell: @ 82A80C6
 	.string "Oh… Is that so…\n"
 	.string "I wanted to make a Shell Bell…$"
+	
+ShoalCave_LowTideEntranceRoom_Text_WantedToGiveSlowbroite:
+	.string "Oh… Is that so…\n"
+	.string "I wanted to give you a Mega Stone…$"
 
 ShoalCave_LowTideEntranceRoom_Text_NoSpaceInYourBag: @ 82A80F5
 	.string "You don't have space in your Bag\n"

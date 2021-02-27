@@ -61,20 +61,298 @@ RustboroCity_DevonCorp_2F_EventScript_PokemonDreamsScientist:: @ 82118DA
 	release
 	end
 
+//Resurection Script
 RustboroCity_DevonCorp_2F_EventScript_FossilScientist:: @ 82118F1
 	lock
 	faceplayer
-	compare VAR_FOSSIL_RESURRECTION_STATE, 2
-	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_FossilMonReady
-	compare VAR_FOSSIL_RESURRECTION_STATE, 1
-	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_StillRegenerating
 	msgbox RustboroCity_DevonCorp_2F_Text_DevelopDeviceToResurrectFossils, MSGBOX_DEFAULT
+	msgbox RustboroCity_DevonCorp_2F_Text_WantToBringFossilBackToLife, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_DeclineGiveFossil
+	getpartysize
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Space
+	goto RustboroCity_DevonCorp_2F_EventScript_WhatFossil
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_WhatFossil::
+	msgbox LilycoveCity_MoveDeletersHouse_Text_Chose_Well, MSGBOX_SIGN
+	scrollingmultichoice 5, 2, 3, 5, TRUE
+	switch VAR_RESULT
+	case 0, RustboroCity_DevonCorp_2F_EventScript_Revive_Dome_Fossil
+	case 1, RustboroCity_DevonCorp_2F_EventScript_Revive_Helix_Fossil
+	case 2, RustboroCity_DevonCorp_2F_EventScript_Revive_Old_Amber
+	case 3, RustboroCity_DevonCorp_2F_EventScript_Revive_Root_Fossil
+	case 4, RustboroCity_DevonCorp_2F_EventScript_Revive_Claw_Fossil
+	case 5, RustboroCity_DevonCorp_2F_EventScript_Revive_Skull_Fossil
+	case 6, RustboroCity_DevonCorp_2F_EventScript_Revive_Armor_Fossil
+	case 7, RustboroCity_DevonCorp_2F_EventScript_Revive_Cover_Fossil
+	case 8, RustboroCity_DevonCorp_2F_EventScript_Revive_Plume_Fossil
+	case 9, RustboroCity_DevonCorp_2F_EventScript_Revive_Jaw_Fossil
+	case 10, RustboroCity_DevonCorp_2F_EventScript_Revive_Sail_Fossil
+	case 0x7F, RustboroCity_DevonCorp_2F_EventScript_DeclineGiveFossil
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_No_Fossil::
+	msgbox RustboroCity_DevonCorp_2F_Text_No_Fossil, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_No_Space::
+	msgbox RustboroCity_DevonCorp_2F_Text_TooManyPokemon, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Revive_Dome_Fossil::
+	checkitem ITEM_DOME_FOSSIL, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_DOME_FOSSIL
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_DOME_FOSSIL
+	bufferspeciesname 1, SPECIES_KABUTO
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_KABUTO, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Revive_Helix_Fossil::
+	checkitem ITEM_HELIX_FOSSIL, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_HELIX_FOSSIL
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_HELIX_FOSSIL
+	bufferspeciesname 1, SPECIES_OMANYTE
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_OMANYTE, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Revive_Old_Amber::
+	checkitem ITEM_OLD_AMBER, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_OLD_AMBER
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_OLD_AMBER
+	bufferspeciesname 1, SPECIES_AERODACTYL
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_AERODACTYL, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Revive_Root_Fossil::
 	checkitem ITEM_ROOT_FOSSIL, 1
-	compare VAR_RESULT, TRUE
-	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_NoticeRootFossil
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_ROOT_FOSSIL
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_ROOT_FOSSIL
+	bufferspeciesname 1, SPECIES_LILEEP
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_LILEEP, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Revive_Claw_Fossil::
 	checkitem ITEM_CLAW_FOSSIL, 1
-	compare VAR_RESULT, TRUE
-	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_NoticeClawFossil
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_CLAW_FOSSIL
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_CLAW_FOSSIL
+	bufferspeciesname 1, SPECIES_ANORITH
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_ANORITH, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Revive_Skull_Fossil::
+	checkitem ITEM_SKULL_FOSSIL, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_SKULL_FOSSIL
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_SKULL_FOSSIL
+	bufferspeciesname 1, SPECIES_CRANIDOS
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_CRANIDOS, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_2F_EventScript_Revive_Armor_Fossil::
+	checkitem ITEM_ARMOR_FOSSIL, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_ARMOR_FOSSIL
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_ARMOR_FOSSIL
+	bufferspeciesname 1, SPECIES_SHIELDON
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_SHIELDON, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_2F_EventScript_Revive_Cover_Fossil::
+	checkitem ITEM_COVER_FOSSIL, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_COVER_FOSSIL
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_COVER_FOSSIL
+	bufferspeciesname 1, SPECIES_TIRTOUGA
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_TIRTOUGA, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Revive_Plume_Fossil::
+	checkitem ITEM_PLUME_FOSSIL, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_PLUME_FOSSIL
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_PLUME_FOSSIL
+	bufferspeciesname 1, SPECIES_ARCHEN
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_ARCHEN, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Revive_Jaw_Fossil::
+	checkitem ITEM_JAW_FOSSIL, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_JAW_FOSSIL
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_JAW_FOSSIL
+	bufferspeciesname 1, SPECIES_TYRUNT
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_TYRUNT, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_2F_EventScript_Revive_Sail_Fossil::
+	checkitem ITEM_SAIL_FOSSIL, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_SAIL_FOSSIL
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_SAIL_FOSSIL
+	bufferspeciesname 1, SPECIES_AMAURA
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_AMAURA, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
 	release
 	end
 
@@ -342,14 +620,20 @@ RustboroCity_DevonCorp_2F_Text_DevelopDeviceToResurrectFossils: @ 8211F48
 	.string "I've been trying to develop a device\n"
 	.string "that resurrects Pokémon from fossils…\p"
 	.string "And, it's working!$"
-
-RustboroCity_DevonCorp_2F_Text_WantToBringFossilBackToLife: @ 8211FA6
-	.string "Wait! That thing you have there…\n"
-	.string "Is that a Pokémon fossil?\p"
-	.string "Would you like to bring that Pokémon\n"
+	
+RustboroCity_DevonCorp_2F_Text_WantToBringFossilBackToLife:
+	.string "Would you like to bring a Fossil\n"
 	.string "back to life?\p"
 	.string "I can with my newly developed\n"
 	.string "Fossil Regenerator.$"
+	
+RustboroCity_DevonCorp_2F_Text_What_Fossil:
+	.string "What Fossil would you like to\n"
+	.string "revive?$"
+	
+RustboroCity_DevonCorp_2F_Text_No_Fossil:
+	.string "It doesn't look like you\n"
+	.string "have that fossil$"
 
 RustboroCity_DevonCorp_2F_Text_OhIsThatSo: @ 8212046
 	.string "Oh, is that so?\p"
@@ -388,10 +672,15 @@ RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife: @ 8212251
 RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher: @ 82122CB
 	.string "{PLAYER} received {STR_VAR_2} from\n"
 	.string "the Devon Researcher.$"
+	
+RustboroCity_DevonCorp_2F_Text_More_Fossils:
+	.string "If you get more fossils please\n"
+	.string "come again.$"
+
 
 RustboroCity_DevonCorp_2F_Text_TooManyPokemon: @ 82122F5
 	.string "Uh-oh, you've got too many Pokémon.\n"
-	.string "You have no room for this one.$"
+	.string "You have no room for another one.$"
 
 RustboroCity_DevonCorp_2F_Text_DevelopNewPokenavFeature: @ 8212338
 	.string "I'm trying to develop a new feature\n"

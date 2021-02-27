@@ -3668,36 +3668,15 @@ u8 GetTeamLevel(void)
 }
 
 double GetPkmnExpMultiplier(u8 level)
-{
-    u8 i;
-    double lvlCapMultiplier = 1.0;
-    u8 levelDiff;
-    s8 avgDiff;
-
-    // multiply the usual exp yield by the soft cap multiplier
-    for (i = 0; i < NUM_SOFT_CAPS; i++)
+{   u8 i;
+	for (i = 0; i < NUM_SOFT_CAPS; i++)
     {
         if (!FlagGet(sLevelCapFlags[i]) && level >= sLevelCaps[i])
         {
-            levelDiff = level - sLevelCaps[i];
-            if (levelDiff > 6)
-                levelDiff = 6;
-            lvlCapMultiplier = sLevelCapReduction[levelDiff];
-            break;
+            return 0.0;
         }
     }
-
-    // multiply the usual exp yield by the party level multiplier
-    avgDiff = level - GetTeamLevel();
-
-    if (avgDiff >= 12)
-        avgDiff = 12;
-    else if (avgDiff <= -14)
-        avgDiff = -14;
-
-    avgDiff += 14;
-
-    return lvlCapMultiplier * sRelativePartyScaling[avgDiff];
+	return 1.0;
 }
 
 static void Cmd_getexp(void)
@@ -3850,12 +3829,12 @@ static void Cmd_getexp(void)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && B_TRAINER_EXP_MULTIPLIER <= GEN_7)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-                    #if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
+                    /*/#if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
                         gBattleMoveDamage *= sExperienceScalingFactors[(gBattleMons[gBattlerFainted].level * 2) + 10];
                         gBattleMoveDamage /= sExperienceScalingFactors[gBattleMons[gBattlerFainted].level + GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) + 10];
                         gBattleMoveDamage++;
-                    #endif
-					}
+                    #endif/*/
+					}//Hard Mode
 					else{
 					if (gBattleStruct->sentInPokes & 1)
 						gBattleMoveDamage = *exp * expMultiplier;
@@ -3869,11 +3848,11 @@ static void Cmd_getexp(void)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && B_TRAINER_EXP_MULTIPLIER <= GEN_7)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-                    #if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
+                    /*/#if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
                         gBattleMoveDamage *= sExperienceScalingFactors[(gBattleMons[gBattlerFainted].level * 2) + 10];
                         gBattleMoveDamage /= sExperienceScalingFactors[gBattleMons[gBattlerFainted].level + GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) + 10];
                         gBattleMoveDamage++;
-                    #endif
+                    #endif/*/
 					}
 					
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
@@ -6094,9 +6073,9 @@ static void Cmd_handlelearnnewmove(void)
     const u8 *jumpPtr1 = T1_READ_PTR(gBattlescriptCurrInstr + 1);
     const u8 *jumpPtr2 = T1_READ_PTR(gBattlescriptCurrInstr + 5);
 
-    u16 learnMove = MonTryLearningNewMove(&gPlayerParty[gBattleStruct->expGetterMonId], gBattlescriptCurrInstr[9], FALSE);
+    u16 learnMove = MonTryLearningNewMove(&gPlayerParty[gBattleStruct->expGetterMonId], gBattlescriptCurrInstr[9]);
     while (learnMove == MON_ALREADY_KNOWS_MOVE)
-        learnMove = MonTryLearningNewMove(&gPlayerParty[gBattleStruct->expGetterMonId], FALSE, FALSE);
+        learnMove = MonTryLearningNewMove(&gPlayerParty[gBattleStruct->expGetterMonId], FALSE);
 
     if (learnMove == 0)
     {

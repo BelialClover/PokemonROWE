@@ -661,3 +661,11 @@ MagmaHideout_3F_3R_EventScript_ItemEscapeRope:: @ 829152C
 ScorchedSlab_EventScript_ItemTyranitarite::
 	finditem ITEM_TYRANITARITE
 	end
+	
+MegaStone_EventScript_ItemBeedrillite::
+	finditem ITEM_BEEDRILLITE
+	end
+	
+MegaStone_EventScript_ItemSteelixite::
+	finditem ITEM_STEELIXITE
+	end

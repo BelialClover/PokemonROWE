@@ -148,10 +148,6 @@ DewfordTown_Gym_EventScript_Brawly:: @ 81FC7C2
 	faceplayer
 	call_if_set FLAG_BADGE02_GET, DewfordTown_Gym_EventScript_Brawly_PostBattle
 	trainerbattle_single TRAINER_BRAWLY_1, DewfordTown_Gym_Text_BrawlyIntro, DewfordTown_Gym_Text_BrawlyDefeat, DewfordTown_Gym_EventScript_BrawlyDefeated, NO_MUSIC
-	//specialvar VAR_RESULT, ShouldTryRematchBattle
-	//compare VAR_RESULT, TRUE
-	//goto_if_eq DewfordTown_Gym_EventScript_BrawlyRematch
-	//goto_if_unset FLAG_RECEIVED_TM08, DewfordTown_Gym_EventScript_GiveBulkUp2
 	msgbox DewfordTown_Gym_Text_BrawlyPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -177,14 +173,23 @@ DewfordTown_Gym_EventScript_BrawlyDefeated:: @ 81FC7F7
 	delay 30
 	setflag FLAG_DEFEATED_DEWFORD_GYM
 	setflag FLAG_BADGE02_GET
+	setflag FLAG_UNUSED_0x923
 	setflag FLAG_ENABLE_BRAWLY_MATCH_CALL
 	release
 	end
 
 
 DewfordTown_Gym_EventScript_Brawly_PostBattle::
+	goto_if_unset FLAG_UNUSED_0x923, DewfordTown_Gym_EventScript_BrawlyRematch
 	msgbox DewfordTown_Gym_Text_BrawlyPostRematch, MSGBOX_DEFAULT
 	release
+	end
+	
+DewfordTown_Gym_EventScript_BrawlyRematch:: @ 81FC89C
+	msgbox DewfordTown_Gym_Text_BrawlyPreRematch, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_BRAWLY_1, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	msgbox DewfordTown_Gym_Text_BrawlyPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x923
 	end
 
 DewfordTown_Gym_EventScript_GiveHM::
@@ -267,11 +272,6 @@ DewfordTown_Gym_EventScript_GiveBulkUp2: @ 81FC878
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	msgbox DewfordTown_Gym_Text_ExplainBulkUp, MSGBOX_DEFAULT
 	release
-	end
-
-DewfordTown_Gym_EventScript_BrawlyRematch:: @ 81FC89C
-	trainerbattle_rematch_double TRAINER_BRAWLY_1, DewfordTown_Gym_Text_BrawlyPreRematch, DewfordTown_Gym_Text_BrawlyRematchDefeat, DewfordTown_Gym_Text_BrawlyRematchNeedTwoMons
-	msgbox DewfordTown_Gym_Text_BrawlyPostRematch, MSGBOX_AUTOCLOSE
 	end
 
 DewfordTown_Gym_EventScript_Takao:: @ 81FC8B7

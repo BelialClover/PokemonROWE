@@ -20,6 +20,7 @@ ShoalCave_LowTideEntranceRoom_EventScript_ShellBellExpert:: @ 8236DD9
 	lock
 	faceplayer
 	dotimebasedevents
+	call_if_unset FLAG_UNUSED_0x267, ShoalCave_LowTideEntranceRoom_EventScript_ShellBellExpert_MegaStone
 	call_if_set FLAG_SYS_SHOAL_ITEM, ShoalCave_LowTideEntranceRoom_EventScript_ResetShoalItems
 	checkitem ITEM_SHOAL_SALT, 4
 	compare VAR_RESULT, FALSE
@@ -43,6 +44,33 @@ ShoalCave_LowTideEntranceRoom_EventScript_ShellBellExpert:: @ 8236DD9
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	msgbox ShoalCave_LowTideEntranceRoom_Text_ExplainShellBell, MSGBOX_DEFAULT
 	setflag FLAG_TEMP_2
+	release
+	end
+	
+ShoalCave_LowTideEntranceRoom_EventScript_ShellBellExpert_MegaStone::
+	checkitem ITEM_SHOAL_SALT, 4
+	compare VAR_RESULT, FALSE
+	goto_if_eq ShoalCave_LowTideEntranceRoom_EventScript_NotEnoughShoalSaltOrShells
+	checkitem ITEM_SHOAL_SHELL, 4
+	compare VAR_RESULT, FALSE
+	goto_if_eq ShoalCave_LowTideEntranceRoom_EventScript_NotEnoughShoalSaltOrShells
+	msgbox ShoalCave_LowTideEntranceRoom_Text_WouldYouLikeShellBell, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq ShoalCave_LowTideEntranceRoom_EventScript_DeclineShellBell
+	checkitemspace ITEM_SLOWBRONITE, 1
+	compare VAR_RESULT, FALSE
+	call_if_eq ShoalCave_LowTideEntranceRoom_EventScript_CheckSpaceWillBeFreed
+	compare VAR_RESULT, 2
+	goto_if_eq ShoalCave_LowTideEntranceRoom_EventScript_NoRoomForShellBell
+	msgbox ShoalCave_LowTideEntranceRoom_Text_MakeShellBellRightAway, MSGBOX_DEFAULT
+	removeitem ITEM_SHOAL_SALT, 4
+	removeitem ITEM_SHOAL_SHELL, 4
+	giveitem ITEM_SHELL_BELL
+	compare VAR_RESULT, FALSE
+	goto_if_eq Common_EventScript_ShowBagIsFull
+	msgbox ShoalCave_LowTideEntranceRoom_Text_ExplainMegaStone, MSGBOX_DEFAULT
+	setflag FLAG_TEMP_2
+	setflag FLAG_UNUSED_0x267
 	release
 	end
 
@@ -80,12 +108,24 @@ ShoalCave_LowTideEntranceRoom_EventScript_NotEnoughShoalSaltOrShells:: @ 8236E9B
 	end
 
 ShoalCave_LowTideEntranceRoom_EventScript_HasSomeShoalSaltOrShell:: @ 8236EC5
+	call_if_unset FLAG_UNUSED_0x267, ShoalCave_LowTideEntranceRoom_EventScript_HasSomeShoalSaltOrShell_Megastone
 	msgbox ShoalCave_LowTideEntranceRoom_Text_BringMe4ShoalSaltAndShells, MSGBOX_DEFAULT
+	release
+	end
+	
+ShoalCave_LowTideEntranceRoom_EventScript_HasSomeShoalSaltOrShell_Megastone::
+	msgbox ShoalCave_LowTideEntranceRoom_Text_AreYouPlanningOnGoingInThere, MSGBOX_DEFAULT
 	release
 	end
 
 ShoalCave_LowTideEntranceRoom_EventScript_DeclineShellBell:: @ 8236ECF
+	call_if_unset FLAG_UNUSED_0x267, ShoalCave_LowTideEntranceRoom_EventScript_DeclineMegaStone
 	msgbox ShoalCave_LowTideEntranceRoom_Text_WantedToMakeShellBell, MSGBOX_DEFAULT
+	release
+	end
+	
+ShoalCave_LowTideEntranceRoom_EventScript_DeclineMegaStone::
+	msgbox ShoalCave_LowTideEntranceRoom_Text_WantedToGiveSlowbroite, MSGBOX_DEFAULT
 	release
 	end
 
@@ -100,3 +140,4 @@ ShoalCave_LowTideEntranceRoom_EventScript_ResetShoalItems:: @ 8236ED9
 	clearflag FLAG_RECEIVED_SHOAL_SHELL_4
 	clearflag FLAG_SYS_SHOAL_ITEM
 	return
+	

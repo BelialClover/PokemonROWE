@@ -175,8 +175,17 @@ Start_Flagset::
 	clearflag FLAG_HIDE_MT_CHIMNEY_LAVA_COOKIE_LADY
 	clearflag FLAG_HIDE_WEATHER_INSTITUTE_2F_WORKERS
 	//Flag End
-	goto Start_Chose_City
+	goto Start_Chose_Randomized_Mode
 	end	
+	
+Start_Chose_Randomized_Mode::
+	msgbox Text_Randomize, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq Start_Chose_City
+	clearflag FLAG_SYS_DEXNAV_GET
+	goto Start_Chose_City
+	end
+
 
 Start_Chose_City::
 	msgbox Start_Text_City_Chose, MSGBOX_SIGN
@@ -202,11 +211,11 @@ Start_Chose_City::
 Script_PokeballGet::
 	giveitem ITEM_POKE_BALL, 5
 	giveitem ITEM_TEACHY_TV
+	setflag FLAG_SYS_DEXNAV_GET
 	setflag FLAG_SYS_POKEDEX_GET
 	setflag FLAG_SYS_NATIONAL_DEX
 	setflag FLAG_SYS_B_DASH
 	setflag FLAG_SYS_POKENAV_GET
-	setflag FLAG_SYS_DEXNAV_GET
 	special SetUnlockedPokedexFlags
 	message Text_Start_Lapras
 	playfanfare MUS_OBTAIN_ITEM
@@ -404,7 +413,7 @@ Text_Start_Pacifidlog_Town::
 //Mauville City 07
 
 Start_Text_Starter_Chose:
-	.string "Oh, Welcome to Pokemon ROWE 1.0.5.\p"
+	.string "Oh, Welcome to Pokemon ROWE 1.0.7.\p"
 	.string "Before starting i would like to\n"
 	.string "ask you some questions.\p"
 	.string "What Pokemon would you like\n"
@@ -657,3 +666,7 @@ Text_Received_Starter9:
 Text_SetClock:
 	.string "Please set up the clock\n"
 	.string "before starting.$"
+	
+Text_Randomize:
+	.string "Do you want to enable\n"
+	.string "Randomized Mode?.$"

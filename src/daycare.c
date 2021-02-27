@@ -229,7 +229,7 @@ static void ApplyDaycareExperience(struct Pokemon *mon)
         {
             // Teach the mon new moves it learned while in the daycare.
             firstMove = TRUE;
-            while ((learnedMove = MonTryLearningNewMove(mon, firstMove, FALSE)) != 0)
+            while ((learnedMove = MonTryLearningNewMove(mon, firstMove)) != 0)
             {
                 firstMove = FALSE;
                 if (learnedMove == MON_HAS_MAX_MOVES)
@@ -256,12 +256,13 @@ static u16 TakeSelectedPokemonFromDaycare(struct DaycareMon *daycareMon)
     species = GetBoxMonData(&daycareMon->mon, MON_DATA_SPECIES);
     BoxMonToMon(&daycareMon->mon, &pokemon);
 
+	/*/
     if (GetMonData(&pokemon, MON_DATA_LEVEL) != MAX_LEVEL)
     {
         experience = GetMonData(&pokemon, MON_DATA_EXP) + daycareMon->steps;
         SetMonData(&pokemon, MON_DATA_EXP, &experience);
         ApplyDaycareExperience(&pokemon);
-    }
+    }/*/
 
     gPlayerParty[PARTY_SIZE - 1] = pokemon;
     if (daycareMon->mail.message.itemId)
@@ -295,7 +296,7 @@ static u8 GetLevelAfterDaycareSteps(struct BoxPokemon *mon, u32 steps)
 
     u32 experience = GetBoxMonData(mon, MON_DATA_EXP);
     SetBoxMonData(&tempMon, MON_DATA_EXP,  &experience);
-    return GetLevelFromBoxMonExp(&tempMon);
+    return GetLevelFromBoxMonExp(mon);
 }
 
 static u8 GetNumLevelsGainedFromSteps(struct DaycareMon *daycareMon)
@@ -417,57 +418,40 @@ static u16 GetEggSpecies(u16 species)
     return species;
 }
 
-static s32 GetParentToInheritNature(struct DayCare *daycare)
+static u8 GetParentToInheritNature(struct DayCare *daycare)
 {
-    u32 species[DAYCARE_MON_COUNT];
-    s32 i;
-    s32 dittoCount;
-    s32 parent = -1;
-
-    // search for female gender
-    for (i = 0; i < DAYCARE_MON_COUNT; i++)
+    u16 motherItem = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HELD_ITEM);
+    u16 fatherItem = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HELD_ITEM);
+    if(motherItem == ITEM_EVERSTONE && fatherItem == ITEM_EVERSTONE)
     {
-        if (GetBoxMonGender(&daycare->mons[i].mon) == MON_FEMALE)
-            parent = i;
-    }
-
-    // search for ditto
-    for (dittoCount = 0, i = 0; i < DAYCARE_MON_COUNT; i++)
-    {
-        species[i] = GetBoxMonData(&daycare->mons[i].mon, MON_DATA_SPECIES);
-        if (species[i] == SPECIES_DITTO)
-            dittoCount++, parent = i;
-    }
-
-    // coin flip on ...two Dittos
-    if (dittoCount == DAYCARE_MON_COUNT)
-    {
-        if (Random() >= USHRT_MAX / 2)
-            parent = 0;
+    	if (Random() >= USHRT_MAX / 2)
+            return 0;
         else
-            parent = 1;
-    }
-
-    // Don't inherit nature if not holding Everstone
-    if (GetBoxMonData(&daycare->mons[parent].mon, MON_DATA_HELD_ITEM) != ITEM_EVERSTONE
-        || Random() >= USHRT_MAX / 2)
+            return 1;
+    }else
     {
-        return -1;
+    	if(motherItem == ITEM_EVERSTONE)
+    	{
+    		return 0;
+    	}
+    	if(fatherItem == ITEM_EVERSTONE)
+    	{
+    		return 1;
+    	}
     }
-
-    return parent;
+    return 2;
 }
 
 static void _TriggerPendingDaycareEgg(struct DayCare *daycare)
 {
-    s32 parent;
+    u8 parent;
     s32 natureTries = 0;
 
     SeedRng2(gMain.vblankCounter2);
     parent = GetParentToInheritNature(daycare);
 
     // don't inherit nature
-    if (parent < 0)
+    if (parent > 1)
     {
         daycare->offspringPersonality = (Random2() << 16) | ((Random() % 0xfffe) + 1);
     }
@@ -475,6 +459,7 @@ static void _TriggerPendingDaycareEgg(struct DayCare *daycare)
     else
     {
         u8 wantedNature = GetNatureFromPersonality(GetBoxMonData(&daycare->mons[parent].mon, MON_DATA_PERSONALITY, NULL));
+        
         u32 personality;
 
         do
@@ -533,34 +518,62 @@ static void RemoveIVIndexFromList(u8 *ivs, u8 selectedIv)
 
 static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
 {
+    u32 motherItem = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_HELD_ITEM);
+	u8 MotherAbility = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_ABILITY_NUM);
+	u8 MotherSpecies = GetBoxMonData(&daycare->mons[0].mon, MON_DATA_SPECIES);
+    u32 fatherItem = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_HELD_ITEM);
+	u8 FatherAbility = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_ABILITY_NUM);
+	u8 FatherSpecies = GetBoxMonData(&daycare->mons[1].mon, MON_DATA_SPECIES);
+	u8 Ability = 2;
+	
+    u8 inheritNum = (motherItem == ITEM_DESTINY_KNOT || fatherItem == ITEM_DESTINY_KNOT) ? DESTINY_KNOT_INHERITED_IV_COUNT: INHERITED_IV_COUNT;
+    u8 notinherit = 6 - inheritNum;
     u8 i;
-    u8 selectedIvs[INHERITED_IV_COUNT];
+    u8 selectedIvs[6] = {0,1,2,3,4,5};
     u8 availableIVs[NUM_STATS];
-    u8 whichParents[INHERITED_IV_COUNT];
+    u8 whichParents[6];
     u8 iv;
-
+	u8 rnd;
+	
+	u8 ivs[] = {0,1,2,3,4,5};
+	
+	if(Random() % 5 >= 3){
+	if(MotherSpecies != SPECIES_DITTO)
+		SetMonData(egg, MON_DATA_ABILITY_NUM, &MotherAbility);
+	else if(FatherSpecies != SPECIES_DITTO)
+		SetMonData(egg, MON_DATA_ABILITY_NUM, &FatherAbility);
+	}
+	
     // Initialize a list of IV indices.
     for (i = 0; i < NUM_STATS; i++)
     {
         availableIVs[i] = i;
     }
 
-    // Select the 5 IVs that will be inherited.
-    for (i = 0; i < INHERITED_IV_COUNT; i++)
+    // Select the 3 IVs that will be inherited.
+    for (i = 0; i < notinherit; i++)
     {
-        // Randomly pick an IV from the available list and stop from being chosen again.
-        selectedIvs[i] = availableIVs[Random() % (NUM_STATS - i)];
-        RemoveIVIndexFromList(availableIVs, i);
+        rnd = Random() % 5;
+		if(selectedIvs[rnd] != 6)
+		selectedIvs[rnd] = 6;
+		else
+		i--;
+		// Randomly pick an IV from the available list and stop from being chosen again.
+		
+        //selectedIvs[i] = availableIVs[Random() % (NUM_STATS - i)];
+        //RemoveIVIndexFromList(availableIVs, i);
     }
+	
+
 
     // Determine which parent each of the selected IVs should inherit from.
-    for (i = 0; i < INHERITED_IV_COUNT; i++)
+    for (i = 0; i < 6; i++)
     {
         whichParents[i] = Random() % DAYCARE_MON_COUNT;
     }
 
     // Set each of inherited IVs on the egg mon.
-    for (i = 0; i < INHERITED_IV_COUNT; i++)
+    for (i = 0; i < 6; i++)
     {
         switch (selectedIvs[i])
         {
@@ -588,6 +601,7 @@ static void InheritIVs(struct Pokemon *egg, struct DayCare *daycare)
                 iv = GetBoxMonData(&daycare->mons[whichParents[i]].mon, MON_DATA_SPDEF_IV);
                 SetMonData(egg, MON_DATA_SPDEF_IV, &iv);
                 break;
+			
         }
     }
 }

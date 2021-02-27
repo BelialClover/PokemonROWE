@@ -853,6 +853,45 @@ static const u8 sText_Starter_7[] = _("Sandygast");
 static const u8 sText_Starter_8[] = _("Cufant");
 static const u8 sText_Starter_9[] = _("Smeargle");
 
+static const u8 sText_Grass_Starter_1[] = _("Bulbasaur");
+static const u8 sText_Grass_Starter_2[] = _("Chikorita");
+static const u8 sText_Grass_Starter_3[] = _("Treecko");
+static const u8 sText_Grass_Starter_4[] = _("Turtwig");
+static const u8 sText_Grass_Starter_5[] = _("Snivy");
+static const u8 sText_Grass_Starter_6[] = _("Chespin");
+static const u8 sText_Grass_Starter_7[] = _("Rowlet");
+static const u8 sText_Grass_Starter_8[] = _("Grookey");
+
+static const u8 sText_Fire_Starter_1[] = _("Charmander");
+static const u8 sText_Fire_Starter_2[] = _("Cyndaquil");
+static const u8 sText_Fire_Starter_3[] = _("Torchic");
+static const u8 sText_Fire_Starter_4[] = _("Chimchar");
+static const u8 sText_Fire_Starter_5[] = _("Tepig");
+static const u8 sText_Fire_Starter_6[] = _("Fennekin");
+static const u8 sText_Fire_Starter_7[] = _("Litten");
+static const u8 sText_Fire_Starter_8[] = _("Scorbunny");
+
+static const u8 sText_Water_Starter_1[] = _("Squirtle");
+static const u8 sText_Water_Starter_2[] = _("Totodile");
+static const u8 sText_Water_Starter_3[] = _("Mudkip");
+static const u8 sText_Water_Starter_4[] = _("Piplup");
+static const u8 sText_Water_Starter_5[] = _("Oshawott");
+static const u8 sText_Water_Starter_6[] = _("Froakie");
+static const u8 sText_Water_Starter_7[] = _("Popplio");
+static const u8 sText_Water_Starter_8[] = _("Sobble");
+
+static const u8 sText_Fossil_1[] = _("Dome Fossil");
+static const u8 sText_Fossil_2[] = _("Helix Fossil");
+static const u8 sText_Fossil_3[] = _("Old Amber");
+static const u8 sText_Fossil_4[] = _("Root Fossil");
+static const u8 sText_Fossil_5[] = _("Claw Fossil");
+static const u8 sText_Fossil_6[] = _("Skull Fossil");
+static const u8 sText_Fossil_7[] = _("Armor Fossil");
+static const u8 sText_Fossil_8[] = _("Cover Fossil");
+static const u8 sText_Fossil_9[] = _("Plume Fossil");
+static const u8 sText_Fossil_10[] = _("Jaw Fossil");
+static const u8 sText_Fossil_11[] = _("Sail Fossil");
+
 // Sets of multichoices.
 static const struct ListMenuItem sSet1[] =
 {
@@ -886,6 +925,57 @@ static const struct ListMenuItem sSet2[] =
     {sText_Starter_9, 8},
 };
 
+static const struct ListMenuItem sSet3[] =
+{
+    {sText_Water_Starter_1, 0},
+    {sText_Water_Starter_2, 1},
+    {sText_Water_Starter_3, 2},
+    {sText_Water_Starter_4, 3},
+    {sText_Water_Starter_5, 4},
+    {sText_Water_Starter_6, 5},
+    {sText_Water_Starter_7, 6},
+    {sText_Water_Starter_8, 7},
+};
+
+static const struct ListMenuItem sSet4[] =
+{
+    {sText_Grass_Starter_1, 0},
+    {sText_Grass_Starter_2, 1},
+    {sText_Grass_Starter_3, 2},
+    {sText_Grass_Starter_4, 3},
+    {sText_Grass_Starter_5, 4},
+    {sText_Grass_Starter_6, 5},
+    {sText_Grass_Starter_7, 6},
+    {sText_Grass_Starter_8, 7},
+};
+
+static const struct ListMenuItem sSet5[] =
+{
+    {sText_Fire_Starter_1, 0},
+    {sText_Fire_Starter_2, 1},
+    {sText_Fire_Starter_3, 2},
+    {sText_Fire_Starter_4, 3},
+    {sText_Fire_Starter_5, 4},
+    {sText_Fire_Starter_6, 5},
+    {sText_Fire_Starter_7, 6},
+    {sText_Fire_Starter_8, 7},
+};
+
+static const struct ListMenuItem sSet6[] =
+{
+    {sText_Fossil_1, 0},
+    {sText_Fossil_2, 1},
+    {sText_Fossil_3, 2},
+    {sText_Fossil_4, 3},
+    {sText_Fossil_5, 4},
+    {sText_Fossil_6, 5},
+    {sText_Fossil_7, 6},
+    {sText_Fossil_8, 7},
+    {sText_Fossil_9, 8},
+    {sText_Fossil_10, 9},
+    {sText_Fossil_11, 10},
+};
+
 // Table of your multichoice sets.
 struct
 {
@@ -895,6 +985,10 @@ struct
 {
     {sSet1, ARRAY_COUNT(sSet1)},
     {sSet2, ARRAY_COUNT(sSet2)},
+    {sSet3, ARRAY_COUNT(sSet3)},
+	{sSet4, ARRAY_COUNT(sSet4)},
+	{sSet5, ARRAY_COUNT(sSet5)},
+	{sSet6, ARRAY_COUNT(sSet6)},
 };
 
 static void Task_ScrollingMultichoiceInput(u8 taskId);

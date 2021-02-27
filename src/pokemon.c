@@ -3823,7 +3823,7 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon)
     }
 }
 
-u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove, bool8 isEvolving)
+u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
 {
     u32 retVal = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
@@ -3839,28 +3839,6 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove, bool8 isEvolving
     {
         sLearningMoveTableID = 0;
 
-    }
-    // Added evolution moves; Pokemon will learn moves listed at level zero upon evolution
-    if(isEvolving && (gLevelUpLearnsets[formSpeciesId][sLearningMoveTableID].level == 0))
-    {
-        gMoveToLearn = gLevelUpLearnsets[formSpeciesId][sLearningMoveTableID].move;
-        retVal = GiveMoveToMon(mon, gMoveToLearn);
-        sLearningMoveTableID++;
-        return retVal;        
-    }
-    
-    if(isEvolving && (gLevelUpLearnsets[formSpeciesId][sLearningMoveTableID].level > 0))
-    {
-        while (gLevelUpLearnsets[formSpeciesId][sLearningMoveTableID].level != level)
-        {
-            sLearningMoveTableID++;
-            if (gLevelUpLearnsets[formSpeciesId][sLearningMoveTableID].move == LEVEL_UP_END)
-                return 0;
-        }
-    }
-
-    if (firstMove)
-    {
         while (gLevelUpLearnsets[formSpeciesId][sLearningMoveTableID].level != level)
         {
             sLearningMoveTableID++;
@@ -6067,7 +6045,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u
                 break;
             case EVO_LEVEL_DAY:
                 RtcCalcLocalTime();
-                if (IsCurrentlyDay() && gEvolutionTable[formSpeciesId][i].param <= level)
+                if (IsCurrentlyDay() && gLocalTime.hours != 17 && gEvolutionTable[formSpeciesId][i].param <= level)
                 {
                     *targetFormId = GetFormIdFromFormSpeciesId(gEvolutionTable[formSpeciesId][i].targetSpecies);
                     targetSpecies = GetFormSpeciesId(gEvolutionTable[formSpeciesId][i].targetSpecies, 0); // Get base species
@@ -6083,7 +6061,7 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u
                 break;
             case EVO_LEVEL_NIGHT:
                 RtcCalcLocalTime();
-                if (!IsCurrentlyDay() && gEvolutionTable[formSpeciesId][i].param <= level)
+                if (!IsCurrentlyDay() && gLocalTime.hours != 17 && gEvolutionTable[formSpeciesId][i].param <= level)
                 {
                     *targetFormId = GetFormIdFromFormSpeciesId(gEvolutionTable[formSpeciesId][i].targetSpecies);
                     targetSpecies = GetFormSpeciesId(gEvolutionTable[formSpeciesId][i].targetSpecies, 0); // Get base species
@@ -7889,6 +7867,36 @@ u8 *sub_806F4F8(u8 id, u8 arg1)
 
         return structPtr->byteArrays[arg1];
     }
+}
+
+u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove)
+{
+    u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+    u8 level = GetMonData(mon, MON_DATA_LEVEL, NULL);
+	u8 formId = GetMonData(mon, MON_DATA_FORM_ID, NULL);
+	u16 formSpeciesId = GetFormSpeciesId(species, formId);
+
+    // since you can learn more than one move per level
+    // the game needs to know whether you decided to
+    // learn it or keep the old set to avoid asking
+    // you to learn the same move over and over again
+    if (firstMove)
+    {
+        sLearningMoveTableID = 0;
+    }
+    while(gLevelUpLearnsets[formSpeciesId][sLearningMoveTableID].move != LEVEL_UP_END)
+    {
+        u16 moveLevel;
+        moveLevel = (gLevelUpLearnsets[formSpeciesId][sLearningMoveTableID].level);
+        while (moveLevel == 0 || moveLevel == (level << 9))
+        {
+            gMoveToLearn = (gLevelUpLearnsets[formSpeciesId][sLearningMoveTableID].move);
+            sLearningMoveTableID++;
+            return GiveMoveToMon(mon, gMoveToLearn);
+        }
+        sLearningMoveTableID++;
+    }
+    return 0;
 }
 
 void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nature)

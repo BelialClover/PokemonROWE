@@ -87,12 +87,6 @@ SootopolisCity_Gym_1F_EventScript_Juan:: @ 8224F44
 	faceplayer
 	call_if_set FLAG_BADGE08_GET, SootopolisCity_Gym_EventScript_Juan_PostBattle
 	trainerbattle_single TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanIntro, SootopolisCity_Gym_1F_Text_JuanDefeat, SootopolisCity_Gym_1F_EventScript_JuanDefeated, NO_MUSIC
-	//specialvar VAR_RESULT, ShouldTryRematchBattle
-	//compare VAR_RESULT, TRUE
-	//goto_if_eq SootopolisCity_Gym_1F_EventScript_JuanRematch
-	//goto_if_unset FLAG_RECEIVED_TM03, SootopolisCity_Gym_1F_EventScript_GiveWaterPulse2
-	//goto_if_unset FLAG_BADGE06_GET, SootopolisCity_Gym_1F_EventScript_GoGetFortreeBadge
-	//msgbox SootopolisCity_Gym_1F_Text_JuanPostBattle, MSGBOX_DEFAULT
 	release
 	end
 
@@ -103,11 +97,6 @@ SootopolisCity_Gym_1F_EventScript_JuanDefeated:: @ 8224F82
 	msgbox SootopolisCity_Gym_1F_Text_ExplainRainBadgeTakeThis, MSGBOX_DEFAULT
 	setflag FLAG_DEFEATED_SOOTOPOLIS_GYM
 	setflag FLAG_BADGE08_GET
-	//setflag FLAG_HIDE_SOOTOPOLIS_CITY_RESIDENTS
-	//setflag FLAG_HIDE_SOOTOPOLIS_CITY_STEVEN
-	//setflag FLAG_HIDE_SOOTOPOLIS_CITY_WALLACE
-	//setvar VAR_SOOTOPOLIS_CITY_STATE, 6
-	//clearflag FLAG_HIDE_SOOTOPOLIS_CITY_MAN_1
 	setvar VAR_0x8008, 8
 	call Common_EventScript_SetGymTrainers
 	call SootopolisCity_Gym_EventScript_GiveHM
@@ -119,14 +108,22 @@ SootopolisCity_Gym_1F_EventScript_JuanDefeated:: @ 8224F82
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_JUAN_MATCH_CALL
+	setflag FLAG_UNUSED_0x929
 	call Common_EventScript_SetGymTrainers
 	release
 	end
-	
-//
+
 	SootopolisCity_Gym_EventScript_Juan_PostBattle::
+	goto_if_unset FLAG_UNUSED_0x929, SootopolisCity_Gym_1F_EventScript_JuanRematch
 	msgbox SootopolisCity_Gym_1F_Text_JuanPostBattle, MSGBOX_DEFAULT
 	release
+	end
+	
+	SootopolisCity_Gym_1F_EventScript_JuanRematch:: @ 8225025
+	msgbox SootopolisCity_Gym_1F_Text_JuanPreRematch, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	msgbox SootopolisCity_Gym_1F_Text_JuanPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x929
 	end
 
 SootopolisCity_Gym_EventScript_GiveHM::
@@ -197,14 +194,14 @@ SootopolisCity_Gym_EventScript_GiveHM08::
 	end
 
 SootopolisCity_Gym_1F_EventScript_GiveWaterPulse:: @ 8224FD4
-	giveitem ITEM_TM18
+	giveitem ITEM_TM03
 	compare VAR_RESULT, FALSE
 	goto_if_eq Common_EventScript_BagIsFull
 	msgbox SootopolisCity_Gym_1F_Text_ExplainWaterPulse, MSGBOX_DEFAULT
 	return
 
 SootopolisCity_Gym_1F_EventScript_GiveWaterPulse2:: @ 8224FF7
-	giveitem ITEM_TM18
+	giveitem ITEM_TM03
 	compare VAR_RESULT, FALSE
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	msgbox SootopolisCity_Gym_1F_Text_ExplainWaterPulse, MSGBOX_DEFAULT
@@ -214,11 +211,6 @@ SootopolisCity_Gym_1F_EventScript_GiveWaterPulse2:: @ 8224FF7
 SootopolisCity_Gym_1F_EventScript_GoGetFortreeBadge:: @ 822501B
 	msgbox SootopolisCity_Gym_1F_Text_GoGetFortreeBadge, MSGBOX_DEFAULT
 	release
-	end
-
-SootopolisCity_Gym_1F_EventScript_JuanRematch:: @ 8225025
-	trainerbattle_rematch_double TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanPreRematch, SootopolisCity_Gym_1F_Text_JuanRematchDefeat, SootopolisCity_Gym_1F_Text_JuanRematchNeedTwoMons
-	msgbox SootopolisCity_Gym_1F_Text_JuanPostRematch, MSGBOX_AUTOCLOSE
 	end
 
 SootopolisCity_Gym_1F_EventScript_GymGuide:: @ 8225040

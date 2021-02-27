@@ -1,6 +1,7 @@
 .set LOCALID_HIDEOUT_GUARD, 5
 
 JaggedPass_MapScripts:: @ 8230656
+	setvar VAR_JAGGED_PASS_STATE, 1
 	map_script MAP_SCRIPT_ON_RESUME, JaggedPass_OnResume
 	map_script MAP_SCRIPT_ON_TRANSITION, JaggedPass_OnTransition
 	map_script MAP_SCRIPT_ON_LOAD, JaggedPass_OnLoad
@@ -38,8 +39,8 @@ JaggedPass_OnLoad: @ 823069C
 	end
 
 JaggedPass_EventScript_ConcealHideoutEntrance:: @ 82306A8
-	setmetatile 16, 17, METATILE_Lavaridge_RockWall, 1
-	setmetatile 16, 18, METATILE_Lavaridge_RockWall, 1
+	//setmetatile 16, 17, METATILE_Lavaridge_RockWall, 1
+	//setmetatile 16, 18, METATILE_Lavaridge_RockWall, 1
 	end
 
 JaggedPass_EventScript_OpenMagmaHideout:: @ 82306BB
