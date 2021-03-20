@@ -19,7 +19,7 @@ LilycoveCity_MoveDeletersHouse_EventScript_WaterStarter::
 	faceplayer
 	goto_if_set FLAG_UNUSED_0x938, LilycoveCity_MoveDeletersHouse_EventScript_WaterStarter_Come_Again
 	msgbox LilycoveCity_MoveDeletersHouse_Text_ThreeShards, MSGBOX_DEFAULT
-	checkitem ITEM_BLUE_SHARD, 3
+	checkitem ITEM_BLUE_SHARD, 2
 	//checkitem ITEM_POTION, 1
 	compare VAR_RESULT, TRUE
 	goto_if_eq LilycoveCity_MoveDeletersHouse_EventScript_AsktoTrade
@@ -38,14 +38,14 @@ LilycoveCity_MoveDeletersHouse_EventScript_AsktoTrade::
 	getpartysize
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Space
-	removeitem ITEM_BLUE_SHARD, 3
+	removeitem ITEM_BLUE_SHARD, 2
 	//removeitem ITEM_POTION, 1
 	setflag FLAG_UNUSED_0x938
 	random 8
 	switch VAR_RESULT
-	case 0, LilycoveCity_MoveDeletersHouse_EventScript_Give_Squirtle
+	case 0, LilycoveCity_MoveDeletersHouse_EventScript_Give_Squirtle_Mega
 	case 1, LilycoveCity_MoveDeletersHouse_EventScript_Give_Totodile
-	case 2, LilycoveCity_MoveDeletersHouse_EventScript_Give_Mudkip
+	case 2, LilycoveCity_MoveDeletersHouse_EventScript_Give_Mudkip_Mega
 	case 3, LilycoveCity_MoveDeletersHouse_EventScript_Give_Piplup
 	case 4, LilycoveCity_MoveDeletersHouse_EventScript_Give_Oshawott
 	case 5, LilycoveCity_MoveDeletersHouse_EventScript_Give_Froakie
@@ -80,6 +80,19 @@ LilycoveCity_MoveDeletersHouse_EventScript_Give_Squirtle::
 	release
 	end
 	
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Squirtle_Mega::
+	goto_if_unset FLAG_RECEIVED_TM04 LilycoveCity_MoveDeletersHouse_EventScript_Give_Squirtle
+	goto_if_set FLAG_UNUSED_0x27C LilycoveCity_MoveDeletersHouse_EventScript_Give_Squirtle
+	bufferspeciesname 1, SPECIES_SQUIRTLE
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_SQUIRTLE, 30, ITEM_BLASTOISINITE
+	setflag FLAG_UNUSED_0x27C
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
 //Totodile
 LilycoveCity_MoveDeletersHouse_EventScript_Give_Totodile::
 	bufferspeciesname 1, SPECIES_TOTODILE
@@ -97,6 +110,19 @@ LilycoveCity_MoveDeletersHouse_EventScript_Give_Mudkip::
 	playfanfare MUS_OBTAIN_ITEM
 	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
 	givemon SPECIES_MUDKIP, 10, ITEM_NONE
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Mudkip_Mega::
+	goto_if_unset FLAG_RECEIVED_TM04 LilycoveCity_MoveDeletersHouse_EventScript_Give_Mudkip
+	goto_if_set FLAG_UNUSED_0x26A LilycoveCity_MoveDeletersHouse_EventScript_Give_Mudkip
+	bufferspeciesname 1, SPECIES_MUDKIP
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_MUDKIP, 30, ITEM_SWAMPERTITE
+	setflag FLAG_UNUSED_0x26A
 	waitfanfare
 	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
 	release
@@ -130,6 +156,19 @@ LilycoveCity_MoveDeletersHouse_EventScript_Give_Froakie::
 	playfanfare MUS_OBTAIN_ITEM
 	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
 	givemon SPECIES_FROAKIE, 10, ITEM_NONE
+	waitfanfare
+	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+LilycoveCity_MoveDeletersHouse_EventScript_Give_Froakie_Ash::
+	goto_if_unset FLAG_RECEIVED_TM04 LilycoveCity_MoveDeletersHouse_EventScript_Give_Froakie
+	goto_if_set FLAG_UNUSED_0x2A1 LilycoveCity_MoveDeletersHouse_EventScript_Give_Froakie
+	bufferspeciesname 1, SPECIES_GRENINJA
+	playfanfare MUS_OBTAIN_ITEM
+	message LilycoveCity_MoveDeletersHouse_Text_ReceivedMonFromOldMan
+	givemon SPECIES_GRENINJA_BATTLE_BOND, 36, ITEM_NONE
+	setflag FLAG_UNUSED_0x2A1
 	waitfanfare
 	msgbox LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter, MSGBOX_DEFAULT
 	release
@@ -224,7 +263,7 @@ LilycoveCity_MoveDeletersHouse_Text_ICanMakeMonForgetMove: @ 821EAFD
 	.string "Would you like me to do that?$"
 	
 LilycoveCity_MoveDeletersHouse_Text_ThreeShards:
-	.string "If you have 3 Blue Shards I can\n"
+	.string "If you have 2 Blue Shards I can\n"
 	.string "give you a good Pokémon.$"
 	
 LilycoveCity_MoveDeletersHouse_Text_Question:

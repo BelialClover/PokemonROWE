@@ -9,6 +9,7 @@ Route117_PokemonDayCare_OnTransition: @ 822BBB7
 Route117_PokemonDayCare_DittoWoman:
 	lock
 	faceplayer
+	goto_if_unset FLAG_RECEIVED_TM40, Route117_PokemonDayCare_EventScript_Daycare_Fun
 	goto_if_set FLAG_MOVE_TUTOR_TAUGHT_SWAGGER, Route117_PokemonDayCare_EventScript_ReceivedDitto
 	msgbox Route117_PokemonDayCare_Text_DittoWoman, MSGBOX_YESNO
 	compare VAR_RESULT, NO
@@ -25,6 +26,11 @@ Route117_PokemonDayCare_DittoWoman:
 	release
 	end
 	
+Route117_PokemonDayCare_EventScript_Daycare_Fun::
+	msgbox Route117_PokemonDayCare_Text_Fun, MSGBOX_DEFAULT
+	release
+	end
+	
 Route117_PokemonDayCare_EventScript_ReceivedDitto::
 	msgbox Route117_PokemonDayCare_Text_Woman, MSGBOX_DEFAULT
 	release
@@ -38,7 +44,12 @@ Route117_PokemonDayCare_EventScript_DeclineDitto::
 Route117_PokemonDayCare_EventScript_NoRoomForThis::
 	msgbox Route117_PokemonDayCare_Text_NoRoomForThis, MSGBOX_DEFAULT
 	release
-	end
+	
+	
+Route117_PokemonDayCare_Text_Fun:
+	.string "Im having a lot of fun\n"
+	.string "taking care of Pokémon\l"
+	.string "in the Daycare every day.$"
 	
 Route117_PokemonDayCare_Text_DittoWoman:
 	.string "I have this rare Pokémon.\p"

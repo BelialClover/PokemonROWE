@@ -6,7 +6,7 @@ FortreeCity_House3_EventScript_Maniac:: @ 8217AE8
 	faceplayer
 	goto_if_set FLAG_UNUSED_0x936, FortreeCity_House3_EventScript_FireStarter_Come_Again
 	msgbox FortreeCity_House3_Text_ThreeShards, MSGBOX_DEFAULT
-	checkitem ITEM_GREEN_SHARD, 3
+	checkitem ITEM_GREEN_SHARD, 2
 	//checkitem ITEM_POTION, 1
 	compare VAR_RESULT, TRUE
 	goto_if_eq FortreeCity_House3_EventScript_AsktoTrade
@@ -25,14 +25,14 @@ FortreeCity_House3_EventScript_AsktoTrade::
 	getpartysize
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Space
-	removeitem ITEM_GREEN_SHARD, 3
+	removeitem ITEM_GREEN_SHARD, 2
 	//removeitem ITEM_POTION, 1
 	setflag FLAG_UNUSED_0x936
 	random 8
 	switch VAR_RESULT
-	case 0, FortreeCity_House3_EventScript_Give_Bulbasaur
+	case 0, FortreeCity_House3_EventScript_Give_Bulbasaur_Mega
 	case 1, FortreeCity_House3_EventScript_Give_Chikorita
-	case 2, FortreeCity_House3_EventScript_Give_Treecko
+	case 2, FortreeCity_House3_EventScript_Give_Treecko_Mega
 	case 3, FortreeCity_House3_EventScript_Give_Turtwig
 	case 4, FortreeCity_House3_EventScript_Give_Snivy
 	case 5, FortreeCity_House3_EventScript_Give_Chespin
@@ -53,7 +53,7 @@ FortreeCity_House3_EventScript_FireStarter_Decline::
 //Starters
 	
 FortreeCity_House3_Text_ThreeShards:
-	.string "If you have 3 Green Shards I can\n"
+	.string "If you have 2 Green Shards I can\n"
 	.string "give you a good Pokémon.$"
 	
 FortreeCity_House3_Text_Question:
@@ -84,6 +84,19 @@ FortreeCity_House3_EventScript_Give_Bulbasaur::
 	release
 	end
 	
+FortreeCity_House3_EventScript_Give_Bulbasaur_Mega::
+	goto_if_unset FLAG_RECEIVED_TM04 FortreeCity_House3_EventScript_Give_Bulbasaur
+	goto_if_set FLAG_UNUSED_0x279 FortreeCity_House3_EventScript_Give_Bulbasaur
+	bufferspeciesname 1, SPECIES_BULBASAUR
+	playfanfare MUS_OBTAIN_ITEM
+	message FortreeCity_House3_Text_ReceivedMonFromOldMan
+	givemon SPECIES_BULBASAUR, 30, ITEM_VENUSAURITE
+	setflag FLAG_UNUSED_0x279
+	waitfanfare
+	msgbox FortreeCity_House3_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
 //Cyndaquil
 FortreeCity_House3_EventScript_Give_Chikorita::
 	bufferspeciesname 1, SPECIES_CHIKORITA
@@ -101,6 +114,19 @@ FortreeCity_House3_EventScript_Give_Treecko::
 	playfanfare MUS_OBTAIN_ITEM
 	message FortreeCity_House3_Text_ReceivedMonFromOldMan
 	givemon SPECIES_TREECKO, 10, ITEM_NONE
+	waitfanfare
+	msgbox FortreeCity_House3_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+FortreeCity_House3_EventScript_Give_Treecko_Mega::
+	goto_if_unset FLAG_RECEIVED_TM04 FortreeCity_House3_EventScript_Give_Treecko
+	goto_if_set FLAG_UNUSED_0x269 FortreeCity_House3_EventScript_Give_Treecko
+	bufferspeciesname 1, SPECIES_TREECKO
+	playfanfare MUS_OBTAIN_ITEM
+	message FortreeCity_House3_Text_ReceivedMonFromOldMan
+	givemon SPECIES_TREECKO, 30, ITEM_SCEPTILITE
+	setflag FLAG_UNUSED_0x269
 	waitfanfare
 	msgbox FortreeCity_House3_Text_ComeAgain_Starter, MSGBOX_DEFAULT
 	release

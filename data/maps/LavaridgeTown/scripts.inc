@@ -207,7 +207,7 @@ LavaridgeTown_EventScript_ExpertM:: @ 81EA70E
 	faceplayer
 	goto_if_set FLAG_UNUSED_0x937, LavaridgeTown_EventScript_FireStarter_Come_Again
 	msgbox LavaridgeTown_Text_ThreeShards, MSGBOX_DEFAULT
-	checkitem ITEM_RED_SHARD, 3
+	checkitem ITEM_RED_SHARD, 2
 	//checkitem ITEM_POTION, 1
 	compare VAR_RESULT, TRUE
 	goto_if_eq LavaridgeTown_EventScript_EventScript_AsktoTrade
@@ -226,14 +226,14 @@ LavaridgeTown_EventScript_EventScript_AsktoTrade::
 	getpartysize
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Space
-	removeitem ITEM_RED_SHARD, 3
+	removeitem ITEM_RED_SHARD, 2
 	//removeitem ITEM_POTION, 1
 	setflag FLAG_UNUSED_0x937
 	random 8
 	switch VAR_RESULT
-	case 0, LavaridgeTown_EventScript_Give_Charmander
+	case 0, LavaridgeTown_EventScript_Give_Charmander_Mega_Y
 	case 1, LavaridgeTown_EventScript_Give_Cyndaquil
-	case 2, LavaridgeTown_EventScript_Give_Torchic
+	case 2, LavaridgeTown_EventScript_Give_Torchic_Mega
 	case 3, LavaridgeTown_EventScript_Give_Chimchar
 	case 4, LavaridgeTown_EventScript_Give_Tepig
 	case 5, LavaridgeTown_EventScript_Give_Fennekin
@@ -254,7 +254,7 @@ LavaridgeTown_EventScript_FireStarter_Decline::
 //Starters
 	
 LavaridgeTown_Text_ThreeShards:
-	.string "If you have 3 Red Shards I can\n"
+	.string "If you have 2 Red Shards I can\n"
 	.string "give you a good Pokémon.$"
 	
 LavaridgeTown_Text_Question:
@@ -285,6 +285,31 @@ LavaridgeTown_EventScript_Give_Charmander::
 	release
 	end
 	
+LavaridgeTown_EventScript_Give_Charmander_Mega_Y::
+	goto_if_unset FLAG_RECEIVED_TM04 LavaridgeTown_EventScript_Give_Charmander
+	goto_if_set FLAG_UNUSED_0x27A LavaridgeTown_EventScript_Give_Charmander_Mega_X
+	bufferspeciesname 1, SPECIES_CHARMANDER
+	playfanfare MUS_OBTAIN_ITEM
+	message LavaridgeTown_Text_ReceivedMonFromOldMan
+	givemon SPECIES_CHARMANDER, 30, ITEM_CHARIZARDITE_Y
+	setflag FLAG_UNUSED_0x27A
+	waitfanfare
+	msgbox LavaridgeTown_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+LavaridgeTown_EventScript_Give_Charmander_Mega_X::
+	goto_if_set FLAG_UNUSED_0x27B LavaridgeTown_EventScript_Give_Charmander
+	bufferspeciesname 1, SPECIES_CHARMANDER
+	playfanfare MUS_OBTAIN_ITEM
+	message LavaridgeTown_Text_ReceivedMonFromOldMan
+	givemon SPECIES_CHARMANDER, 30, ITEM_CHARIZARDITE_X
+	setflag FLAG_UNUSED_0x27B
+	waitfanfare
+	msgbox LavaridgeTown_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
 //Cyndaquil
 LavaridgeTown_EventScript_Give_Cyndaquil::
 	bufferspeciesname 1, SPECIES_CYNDAQUIL
@@ -303,6 +328,19 @@ LavaridgeTown_EventScript_Give_Torchic::
 	message LavaridgeTown_Text_ReceivedMonFromOldMan
 	givemon SPECIES_TORCHIC, 10, ITEM_NONE
 	waitfanfare
+	msgbox LavaridgeTown_Text_ComeAgain_Starter, MSGBOX_DEFAULT
+	release
+	end
+	
+LavaridgeTown_EventScript_Give_Torchic_Mega::
+	goto_if_unset FLAG_RECEIVED_TM04 LavaridgeTown_EventScript_Give_Torchic
+	goto_if_set FLAG_UNUSED_0x26B LavaridgeTown_EventScript_Give_Torchic
+	bufferspeciesname 1, SPECIES_TORCHIC
+	playfanfare MUS_OBTAIN_ITEM
+	message LavaridgeTown_Text_ReceivedMonFromOldMan
+	givemon SPECIES_TORCHIC, 30, ITEM_BLAZIKENITE
+	waitfanfare
+	setflag FLAG_UNUSED_0x26B
 	msgbox LavaridgeTown_Text_ComeAgain_Starter, MSGBOX_DEFAULT
 	release
 	end

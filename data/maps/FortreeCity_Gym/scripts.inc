@@ -57,6 +57,20 @@ FortreeCity_Gym_EventScript_Winona_PostBattle::
 FortreeCity_Gym_EventScript_WinonaRematch:: @ 821668D
 	msgbox FortreeCity_Gym_Text_WinonaPreRematch, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_WINONA_1, FortreeCity_Gym_Text_WinonaRematchDefeat
+	goto FortreeCity_Gym_EventScript_GiveMegastone
+	end
+	
+FortreeCity_Gym_EventScript_WinonaRematchEnd::
+	msgbox FortreeCity_Gym_Text_WinonaPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x927
+	end
+	
+FortreeCity_Gym_EventScript_GiveMegastone::
+	goto_if_unset FLAG_RECEIVED_TM04 FortreeCity_Gym_EventScript_WinonaRematchEnd
+	goto_if_set FLAG_UNUSED_0x26F FortreeCity_Gym_EventScript_WinonaRematchEnd
+	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_ALTARIANITE
+	setflag FLAG_UNUSED_0x26F
 	msgbox FortreeCity_Gym_Text_WinonaPostRematch, MSGBOX_AUTOCLOSE
 	setflag FLAG_UNUSED_0x927
 	end

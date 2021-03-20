@@ -53,5 +53,6 @@ u16 GetCurrentMapWildMonHeaderId(void);
 u8 ChooseWildMonIndex_Land(void);
 u8 ChooseWildMonIndex_WaterRock(void);
 u8 ChooseHiddenMonIndex(void);
+u16 GetFirstStage(u16 species);
 
 #endif // GUARD_WILD_ENCOUNTER_H

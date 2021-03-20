@@ -64,8 +64,8 @@
 // Flag settings
 // To use the following features in scripting, replace the 0s with the flag ID you're assigning it to.
 // Eg: Replace with FLAG_UNUSED_0x264 so you can use that flag to toggle the feature.
-#define B_FLAG_INVERSE_BATTLE       0     // If this flag is set, the battle's type effectiveness are inversed. For example, fire is super effective against water.
-#define B_FLAG_FORCE_DOUBLE_WILD    0     // If this flag is set, all land and surfing wild battles will be double battles.
+#define B_FLAG_INVERSE_BATTLE       FLAG_UNUSED_0x1DA      // If this flag is set, the battle's type effectiveness are inversed. For example, fire is super effective against water.
+#define B_FLAG_FORCE_DOUBLE_WILD    FLAG_UNUSED_0x1DE      // If this flag is set, all land and surfing wild battles will be double battles.
 
 // Interface settings
 #define B_ABILITY_POP_UP            TRUE  // In Gen5+, the Pokémon abilities are displayed in a pop-up, when they activate in battle.
@@ -78,7 +78,7 @@
 #define B_CATCHING_CHARM_BOOST      20    // % boost in Critical Capture odds if player has the Catching Charm.
 
 // Other
-#define B_DOUBLE_WILD_CHANCE        0     // % chance of encountering two Pokémon in a Wild Encounter.
+#define B_DOUBLE_WILD_CHANCE        5     // % chance of encountering two Pokémon in a Wild Encounter.
 #define B_SLEEP_TURNS               GEN_8 // In Gen5+, sleep lasts for 1-3 turns instead of 2-5 turns.
 #define B_PARALYZE_ELECTRIC         GEN_8 // In Gen6+, Electric-type Pokémon can't be paralyzed.
 #define B_POWDER_GRASS              GEN_8 // In Gen6+, Grass-type Pokémon are immune to powder and spore moves.

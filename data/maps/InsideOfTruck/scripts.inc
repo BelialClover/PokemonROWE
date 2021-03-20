@@ -23,7 +23,7 @@ InsideOfTruck_EventScript_SetIntroFlags:: @ 823BF04
 	end
 
 InsideOfTruck_EventScript_SetIntroFlagsMale:: @ 823BF20
-	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F
+	//setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_MOM
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_TRUCK
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_RIVAL_MOM
@@ -37,7 +37,7 @@ InsideOfTruck_EventScript_SetIntroFlagsMale:: @ 823BF20
 	end
 
 InsideOfTruck_EventScript_SetIntroFlagsFemale:: @ 823BF46
-	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE_2F
+	//setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_MAYS_HOUSE_2F
 	setvar VAR_LITTLEROOT_INTRO_STATE, 2
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_MOM
 	setflag FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_TRUCK
@@ -181,11 +181,18 @@ Start_Flagset::
 Start_Chose_Randomized_Mode::
 	msgbox Text_Randomize, MSGBOX_YESNO
 	compare VAR_RESULT, NO
-	goto_if_eq Start_Chose_City
+	goto_if_eq Start_Chose_Inverse_Mode
 	clearflag FLAG_SYS_DEXNAV_GET
-	goto Start_Chose_City
+	goto Start_Chose_Inverse_Mode
 	end
 
+Start_Chose_Inverse_Mode::
+	msgbox Text_Inverse, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq Start_Chose_City
+	setflag FLAG_UNUSED_0x1DA
+	goto Start_Chose_City
+	end
 
 Start_Chose_City::
 	msgbox Start_Text_City_Chose, MSGBOX_SIGN
@@ -235,6 +242,7 @@ Start_City_Littleroot_Town::
 	msgbox Text_Start_Littleroot_Town, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F
 	warp MAP_LITTLEROOT_TOWN, 255, 3, 10
 	end
 	
@@ -247,6 +255,7 @@ Start_City_Oldale_Town::
 	msgbox Text_Start_Oldale_Town, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_OLDALE_TOWN
 	warp MAP_OLDALE_TOWN, 255, 6, 17
 	end
 	
@@ -259,6 +268,7 @@ Start_City_Petalburg_City::
 	msgbox Text_Start_Petalburg_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_PETALBURG_CITY
 	warp MAP_PETALBURG_CITY, 255, 20, 17
 	end
 	
@@ -271,6 +281,7 @@ Start_City_Rustboro_City::
 	msgbox Text_Start_Rustboro_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_RUSTBORO_CITY
 	warp MAP_RUSTBORO_CITY, 255, 16, 39
 	end
 	
@@ -283,6 +294,7 @@ Start_City_Dewford_Town::
 	msgbox Text_Start_Dewford_Town, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_DEWFORD_TOWN
 	warp MAP_DEWFORD_TOWN, 255, 2, 11
 	end
 	
@@ -295,6 +307,7 @@ Start_City_Slateport_City::
 	msgbox Text_Start_Slateport_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_SLATEPORT_CITY
 	warp MAP_SLATEPORT_CITY, 255, 19, 20
 	end
 	
@@ -307,6 +320,7 @@ Start_City_Mauville_City::
 	msgbox Text_Start_Mauville_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_MAUVILLE_CITY
 	warp MAP_MAUVILLE_CITY, 255, 22, 6
 	end
 	
@@ -319,6 +333,7 @@ Start_City_Verdanturf_Town::
 	msgbox Text_Start_Verdanturf_Town, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_VERDANTURF_TOWN
 	warp MAP_VERDANTURF_TOWN, 255, 16, 4
 	end
 	
@@ -331,6 +346,7 @@ Start_City_Fallarbor_Town::
 	msgbox Text_Start_Fallarbor_Town, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_FALLARBOR_TOWN
 	warp MAP_FALLARBOR_TOWN, 255, 14, 8
 	end
 	
@@ -343,6 +359,7 @@ Start_City_Lavaridge_Town::
 	msgbox Text_Start_Lavaridge_Town, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_LAVARIDGE_TOWN
 	warp MAP_LAVARIDGE_TOWN, 255, 9, 7
 	end
 	
@@ -355,6 +372,7 @@ Start_City_Fortree_City::
 	msgbox Text_Start_Fortree_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_FORTREE_CITY
 	warp MAP_FORTREE_CITY, 255, 5, 7
 	end
 	
@@ -367,6 +385,7 @@ Start_City_Lilycove_City::
 	msgbox Text_Start_Lilycove_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_LILYCOVE_CITY
 	warp MAP_LILYCOVE_CITY, 255, 24, 15
 	end
 	
@@ -379,6 +398,7 @@ Start_City_Mossdeep_City::
 	msgbox Text_Start_Mossdeep_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_MOSSDEEP_CITY
 	warp MAP_MOSSDEEP_CITY, 255, 28, 17
 	end
 	
@@ -391,6 +411,7 @@ Start_City_Sootopolis_City::
 	msgbox Text_Start_Sootopolis_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_SOOTOPOLIS_CITY
 	warp MAP_SOOTOPOLIS_CITY, 255, 43, 32
 	end
 	
@@ -403,6 +424,7 @@ Start_City_Pacifidlog_Town::
 	msgbox Text_Start_Pacifidlog_Town, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_PACIFIDLOG_TOWN
 	warp MAP_PACIFIDLOG_TOWN, 255, 8, 16
 	end
 	
@@ -410,7 +432,7 @@ Text_Start_Pacifidlog_Town::
 	.string "Do you want to start on\n"
 	.string "Pacifidlog Town?$"
 	
-//Mauville City 07
+//Starters
 
 Start_Text_Starter_Chose:
 	.string "Oh, Welcome to Pokemon ROWE 1.0.7.\p"
@@ -669,4 +691,8 @@ Text_SetClock:
 	
 Text_Randomize:
 	.string "Do you want to enable\n"
-	.string "Randomized Mode?.$"
+	.string "the Randomized Mode?.$"
+	
+Text_Inverse:
+	.string "Do you want to enable\n"
+	.string "the Inverse Mode?.$"

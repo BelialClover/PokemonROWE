@@ -1,0 +1,491 @@
+Archive member included to satisfy reference by file (symbol)
+
+../../../tools/agbcc/lib\libgcc.a(_call_via_rX.o)
+                              src/flash.o (_call_via_r1)
+../../../tools/agbcc/lib\libgcc.a(_modsi3.o)
+                              src/rtc.o (__modsi3)
+../../../tools/agbcc/lib\libgcc.a(_umodsi3.o)
+                              src/rtc.o (__umodsi3)
+../../../tools/agbcc/lib\libgcc.a(_dvmd_tls.o)
+                              ../../../tools/agbcc/lib\libgcc.a(_modsi3.o) (__div0)
+
+Discarded input sections
+
+ .data          0x0000000000000000        0x0 asm/crt0.o
+ .bss           0x0000000000000000        0x0 asm/crt0.o
+ .ARM.attributes
+                0x0000000000000000       0x20 asm/crt0.o
+ .data          0x0000000000000000        0x0 src/main.o
+ .ARM.attributes
+                0x0000000000000000       0x20 src/main.o
+ COMMON         0x0000000000000000        0x0 src/main.o
+ .data          0x0000000000000000        0x0 src/rtc.o
+ .ARM.attributes
+                0x0000000000000000       0x20 src/rtc.o
+ COMMON         0x0000000000000000        0x0 src/rtc.o
+ .data          0x0000000000000000        0x0 src/flash.o
+ .ARM.attributes
+                0x0000000000000000       0x20 src/flash.o
+ COMMON         0x0000000000000000        0x0 src/flash.o
+ .data          0x0000000000000000        0x0 src/agb_flash.o
+ .ARM.attributes
+                0x0000000000000000       0x20 src/agb_flash.o
+ COMMON         0x0000000000000000        0x0 src/agb_flash.o
+ .data          0x0000000000000000        0x0 src/agb_flash_1m.o
+ .bss           0x0000000000000000        0x0 src/agb_flash_1m.o
+ .ARM.attributes
+                0x0000000000000000       0x20 src/agb_flash_1m.o
+ .data          0x0000000000000000        0x0 src/agb_flash_mx.o
+ .bss           0x0000000000000000        0x0 src/agb_flash_mx.o
+ .ARM.attributes
+                0x0000000000000000       0x20 src/agb_flash_mx.o
+ .data          0x0000000000000000        0x0 asm/libagbsyscall.o
+ .bss           0x0000000000000000        0x0 asm/libagbsyscall.o
+ .ARM.attributes
+                0x0000000000000000       0x20 asm/libagbsyscall.o
+ .data          0x0000000000000000        0x0 src/siirtc.o
+ .ARM.attributes
+                0x0000000000000000       0x20 src/siirtc.o
+ .text          0x0000000000000000        0x0 src/agb_flash_le.o
+ .data          0x0000000000000000        0x0 src/agb_flash_le.o
+ .bss           0x0000000000000000        0x0 src/agb_flash_le.o
+ .ARM.attributes
+                0x0000000000000000       0x20 src/agb_flash_le.o
+ .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_call_via_rX.o)
+ .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_call_via_rX.o)
+ .ARM.attributes
+                0x0000000000000000       0x20 ../../../tools/agbcc/lib\libgcc.a(_call_via_rX.o)
+ .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_modsi3.o)
+ .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_modsi3.o)
+ .ARM.attributes
+                0x0000000000000000       0x20 ../../../tools/agbcc/lib\libgcc.a(_modsi3.o)
+ .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_umodsi3.o)
+ .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_umodsi3.o)
+ .ARM.attributes
+                0x0000000000000000       0x20 ../../../tools/agbcc/lib\libgcc.a(_umodsi3.o)
+ .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_dvmd_tls.o)
+ .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_dvmd_tls.o)
+ .ARM.attributes
+                0x0000000000000000       0x20 ../../../tools/agbcc/lib\libgcc.a(_dvmd_tls.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000002010000                . = 0x2010000
+
+.text           0x0000000002010000     0x18e4
+ asm/crt0.o(.text)
+ .text          0x0000000002010000       0xf4 asm/crt0.o
+                0x0000000002010000                Init
+                0x0000000002010048                IntrMain
+ src/main.o(.text)
+ .text          0x00000000020100f4      0x438 src/main.o
+                0x00000000020100f4                AgbMain
+                0x00000000020101bc                dummy_intr_1
+                0x00000000020101c0                dummy_intr_0
+                0x00000000020101c4                ReadKeys
+                0x00000000020101f4                fill_palette
+                0x0000000002010218                berry_fix_memcmp
+                0x0000000002010244                validate_rom_header_internal
+                0x00000000020102e8                validate_rom_header
+                0x000000000201031c                main_callback
+                0x0000000002010490                DBG_LoadDigitsPal
+                0x00000000020104dc                DBG_LoadDigits
+ src/rtc.o(.text)
+ .text          0x000000000201052c      0x670 src/rtc.o
+                0x000000000201052c                rtc_intr_disable
+                0x0000000002010544                rtc_intr_enable
+                0x0000000002010558                bcd_to_hex
+                0x0000000002010580                is_leap_year
+                0x00000000020105b8                rtc_count_days_parameterized
+                0x0000000002010644                rtc_count_days_from_info
+                0x00000000020106e0                rtc_get_probe_status
+                0x00000000020106ec                sub_020106EC
+                0x000000000201071c                rtc_get_datetime
+                0x0000000002010734                rtc_get_status
+                0x000000000201074c                rtc_get_status_and_datetime
+                0x0000000002010760                rtc_validate_datetime
+                0x0000000002010860                rtc_reset
+                0x0000000002010874                rtc_sub_time_from_datetime
+                0x00000000020108f8                rtc_sub_time_from_time
+                0x0000000002010960                rtc_maincb_is_rtc_working
+                0x0000000002010980                rtc_set_datetime
+                0x00000000020109a8                rtc_maincb_is_time_since_last_berry_update_positive
+                0x0000000002010a18                hex_to_bcd
+                0x0000000002010a44                sii_rtc_inc
+                0x0000000002010a60                sii_rtc_inc_month
+                0x0000000002010a84                sii_rtc_inc_day
+                0x0000000002010ae8                rtc_is_past_feb_28_2000
+                0x0000000002010b2c                rtc_maincb_fix_date
+ src/flash.o(.text)
+ .text          0x0000000002010b9c      0xd48 src/flash.o
+                0x0000000002010b9c                flash_maincb_ident_is_valid
+                0x0000000002010bcc                Call_ReadFlash
+                0x0000000002010bdc                Call_WriteSaveBlockChunks
+                0x0000000002010bf0                Call_TryReadAllSaveSectorsCurrentSlot
+                0x0000000002010c04                GetDamagedSaveSectorsPtr
+                0x0000000002010c0c                flash_write_save_block_chunks
+                0x0000000002010c60                flash_write_save_block_chunks_check_damage
+                0x0000000002010c80                flash_maincb_read_save
+                0x0000000002010c9c                msg_load_gfx
+                0x0000000002010d00                msg_display
+                0x0000000002010d88                Save_EraseAllData
+                0x0000000002010dac                Save_ResetSaveCounters
+                0x0000000002010dc8                SetSectorDamagedStatus
+                0x0000000002010e2c                WriteSaveBlockChunks
+                0x0000000002010ecc                WriteSingleChunk
+                0x0000000002010fbc                HandleWriteSectorNBytes
+                0x0000000002011034                TryWriteSector
+                0x0000000002011060                RestoreSaveBackupVarsAndIncrement
+                0x00000000020110bc                RestoreSaveBackupVars
+                0x0000000002011100                WriteSingleChunkAndIncrement
+                0x0000000002011160                ErasePreviousChunk
+                0x00000000020111ac                EraseCurrentChunk
+                0x000000000201134c                WriteSomeFlashByteToPrevSector
+                0x00000000020113e4                WriteSomeFlashByte0x25ToPrevSector
+                0x0000000002011470                TryReadAllSaveSectorsCurrentSlot
+                0x00000000020114b0                ReadAllSaveSectorsCurrentSlot
+                0x0000000002011568                GetSaveValidStatus
+                0x000000000201177c                ReadSomeUnknownSectorAndVerify
+                0x00000000020117e8                DoReadFlashWholeSection
+                0x0000000002011800                CalculateChecksum
+                0x000000000201182c                nullsub_0201182C
+                0x0000000002011830                nullsub_02011830
+                0x0000000002011834                nullsub_02011834
+                0x0000000002011838                get_var_addr
+                0x0000000002011864                flash_maincb_check_need_reset_pacifidlog_tm
+                0x000000000201189c                flash_maincb_reset_pacifidlog_tm
+
+lib_text        0x00000000020118e4     0x13ac
+ src/agb_flash.o(.text)
+ .text          0x00000000020118e4      0x500 src/agb_flash.o
+                0x00000000020118e4                SwitchFlashBank
+                0x0000000002011908                ReadFlashId
+                0x00000000020119a4                FlashTimerIntr
+                0x00000000020119cc                SetFlashTimerIntr
+                0x0000000002011a08                StartFlashTimer
+                0x0000000002011ab0                StopFlashTimer
+                0x0000000002011af4                ReadFlash1
+                0x0000000002011af8                SetReadFlash1
+                0x0000000002011b38                ReadFlash_Core
+                0x0000000002011b5c                ReadFlash
+                0x0000000002011bf8                VerifyFlashSector_Core
+                0x0000000002011c28                VerifyFlashSector
+                0x0000000002011cc0                VerifyFlashSectorNBytes
+                0x0000000002011d58                ProgramFlashSectorAndVerify
+                0x0000000002011d9c                ProgramFlashSectorAndVerifyNBytes
+ src/agb_flash_1m.o(.text)
+ .text          0x0000000002011de4      0x140 src/agb_flash_1m.o
+                0x0000000002011de4                IdentifyFlash
+                0x0000000002011e84                WaitForFlashWrite_Common
+ src/agb_flash_mx.o(.text)
+ .text          0x0000000002011f24      0x2b4 src/agb_flash_mx.o
+                0x0000000002011f24                EraseFlashChip_MX
+                0x0000000002011f98                EraseFlashSector_MX
+                0x0000000002012068                ProgramFlashByte_MX
+                0x0000000002012134                ProgramFlashSector_MX
+ asm/libagbsyscall.o(.text)
+ .text          0x00000000020121d8       0x20 asm/libagbsyscall.o
+                0x00000000020121d8                CpuSet
+                0x00000000020121dc                Div
+                0x00000000020121e0                Mod
+                0x00000000020121e8                LZ77UnCompVram
+                0x00000000020121ec                RegisterRamReset
+                0x00000000020121f0                VBlankIntrWait
+ src/siirtc.o(.text)
+ .text          0x00000000020121f8      0x8c8 src/siirtc.o
+                0x00000000020121f8                SiiRtcUnprotect
+                0x0000000002012210                SiiRtcProtect
+                0x0000000002012228                SiiRtcProbe
+                0x0000000002012300                SiiRtcReset
+                0x0000000002012384                SiiRtcGetStatus
+                0x0000000002012450                SiiRtcSetStatus
+                0x00000000020124f8                SiiRtcGetDateTime
+                0x00000000020125a8                SiiRtcSetDateTime
+                0x0000000002012644                SiiRtcGetTime
+                0x00000000020126f8                SiiRtcSetTime
+                0x0000000002012794                SiiRtcSetAlarm
+ *libgcc.a:_call_via_rX.o(.text)
+ .text          0x0000000002012ac0       0x3c ../../../tools/agbcc/lib\libgcc.a(_call_via_rX.o)
+                0x0000000002012ac0                _call_via_r0
+                0x0000000002012ac4                _call_via_r1
+                0x0000000002012ac8                _call_via_r2
+                0x0000000002012acc                _call_via_r3
+                0x0000000002012ad0                _call_via_r4
+                0x0000000002012ad4                _call_via_r5
+                0x0000000002012ad8                _call_via_r6
+                0x0000000002012adc                _call_via_r7
+                0x0000000002012ae0                _call_via_r8
+                0x0000000002012ae4                _call_via_r9
+                0x0000000002012ae8                _call_via_sl
+                0x0000000002012aec                _call_via_fp
+                0x0000000002012af0                _call_via_ip
+                0x0000000002012af4                _call_via_sp
+                0x0000000002012af8                _call_via_lr
+ *libgcc.a:_modsi3.o(.text)
+ .text          0x0000000002012afc       0xd0 ../../../tools/agbcc/lib\libgcc.a(_modsi3.o)
+                0x0000000002012afc                __modsi3
+ *libgcc.a:_umodsi3.o(.text)
+ .text          0x0000000002012bcc       0xc0 ../../../tools/agbcc/lib\libgcc.a(_umodsi3.o)
+                0x0000000002012bcc                __umodsi3
+ *libgcc.a:_dvmd_tls.o(.text)
+ .text          0x0000000002012c8c        0x4 ../../../tools/agbcc/lib\libgcc.a(_dvmd_tls.o)
+                0x0000000002012c8c                __div0
+
+.rodata         0x0000000002012c90     0x225c
+ src/main.o(.rodata)
+ .rodata        0x0000000002012c90      0x1d0 src/main.o
+                0x0000000002012c90                gBerryFixGameCode
+                0x0000000002012c98                gIntrFuncPointers
+                0x0000000002012ccc                gVersionData
+                0x0000000002012cd8                gRubyTitleAndCode
+                0x0000000002012ce8                gSapphireTitleAndCode
+                0x0000000002012cf8                sDebugPals
+                0x0000000002012d20                sDebugDigitsGfx
+ src/rtc.o(.rodata)
+ .rodata        0x0000000002012e60       0x3c src/rtc.o
+                0x0000000002012e60                sDefaultRTC
+                0x0000000002012e6c                sDaysPerMonth
+ src/flash.o(.rodata)
+ .rodata        0x0000000002012e9c     0x2050 src/flash.o
+                0x0000000002012f0c                gInfoMessagesPal
+                0x0000000002012f2c                gInfoMessagesTilemap
+                0x0000000002013758                gInfoMessagesGfx
+
+lib_rodata      0x0000000002014eec      0x1d0
+ src/agb_flash.o(.rodata)
+ .rodata        0x0000000002014eec       0x70 src/agb_flash.o
+ src/agb_flash_1m.o(.rodata)
+ .rodata        0x0000000002014f5c       0x44 src/agb_flash_1m.o
+                0x0000000002014f6c                sSetupInfos
+ src/agb_flash_mx.o(.rodata)
+ .rodata        0x0000000002014fa0       0x9c src/agb_flash_mx.o
+                0x0000000002014fa0                mxMaxTime
+                0x0000000002014fb8                MX29L010
+                0x0000000002014fe8                DefaultFlash
+ src/agb_flash_le.o(.rodata)
+ .rodata        0x000000000201503c       0x48 src/agb_flash_le.o
+                0x000000000201503c                leMaxTime
+                0x0000000002015054                LE26FV10N1TS
+ src/siirtc.o(.rodata)
+ .rodata        0x0000000002015084       0x38 src/siirtc.o
+                0x0000000002020000                . = 0x2020000
+
+ewram           0x0000000002020000    0x14720
+                0x0000000002020000                . = ALIGN (0x4)
+ src/main.o(ewram_data)
+ ewram_data     0x0000000002020000     0x8000 src/main.o
+                0x0000000002020000                gSharedMem
+                0x0000000002028000                . = ALIGN (0x4)
+ src/rtc.o(ewram_data)
+                0x0000000002028000                . = ALIGN (0x4)
+ src/flash.o(ewram_data)
+ ewram_data     0x0000000002028000     0xc720 src/flash.o
+                0x0000000002028000                gSaveBlock2
+                0x0000000002028890                gSaveBlock1
+                0x000000000202c350                gPokemonStorage
+                0x0000000003001000                . = 0x3001000
+
+iwram           0x0000000003001000      0x268
+                0x0000000003001000                . = ALIGN (0x4)
+ src/main.o(.bss)
+ .bss           0x0000000003001000        0x4 src/main.o
+                0x0000000003001004                . = ALIGN (0x4)
+ src/rtc.o(.bss)
+ *fill*         0x0000000003001004        0x4 
+ .bss           0x0000000003001008       0x24 src/rtc.o
+                0x000000000300102c                . = ALIGN (0x4)
+ src/flash.o(.bss)
+ .bss           0x000000000300102c        0x0 src/flash.o
+                0x000000000300102c                . = ALIGN (0x4)
+ src/agb_flash.o(.bss)
+ .bss           0x000000000300102c        0xa src/agb_flash.o
+                0x0000000003001038                . = ALIGN (0x4)
+ *fill*         0x0000000003001036        0x2 
+ src/siirtc.o(.bss)
+ .bss           0x0000000003001038        0x3 src/siirtc.o
+                0x0000000000000040                . = 0x40
+ *fill*         0x000000000300103b        0x5 
+                0x0000000003001040                . = ALIGN (0x4)
+                0x0000000003001040                . = ALIGN (0x10)
+                0x0000000003001040                gIntrTable = .
+                0x0000000003001080                . = (. + 0x40)
+ *fill*         0x0000000003001040       0x40 
+                0x0000000003001080                . = ALIGN (0x4)
+                0x0000000003001080                gHeldKeys = .
+                0x0000000003001084                . = (. + 0x4)
+ *fill*         0x0000000003001080        0x4 
+                0x0000000003001084                . = ALIGN (0x4)
+                0x0000000003001084                gNewKeys = .
+                0x0000000003001088                . = (. + 0x4)
+ *fill*         0x0000000003001084        0x4 
+                0x0000000003001090                . = ALIGN (0x10)
+ *fill*         0x0000000003001088        0x8 
+                0x0000000003001090                gIntrVector = .
+                0x0000000003001190                . = (. + 0x100)
+ *fill*         0x0000000003001090      0x100 
+                0x0000000003001190                . = ALIGN (0x4)
+                0x0000000003001190                gUpdateSuccessful = .
+                0x0000000003001194                . = (. + 0x4)
+ *fill*         0x0000000003001190        0x4 
+                0x0000000003001194                . = ALIGN (0x4)
+                0x0000000003001194                gUnknown_3001194 = .
+                0x0000000003001198                . = (. + 0x4)
+ *fill*         0x0000000003001194        0x4 
+                0x00000000030011a0                . = ALIGN (0x10)
+ *fill*         0x0000000003001198        0x8 
+                0x00000000030011a0                gUnknown_30011A0 = .
+                0x0000000003001204                . = (. + 0x64)
+ *fill*         0x00000000030011a0       0x64 
+                0x0000000003001204                . = ALIGN (0x4)
+                0x0000000003001204                gMainCallbackState = .
+                0x0000000003001208                . = (. + 0x4)
+ *fill*         0x0000000003001204        0x4 
+                0x0000000003001208                . = ALIGN (0x4)
+                0x0000000003001208                gGameVersion = .
+                0x000000000300120c                . = (. + 0x4)
+ *fill*         0x0000000003001208        0x4 
+                0x000000000300120c                . = ALIGN (0x4)
+                0x0000000003001210                . = ALIGN (0x8)
+ *fill*         0x000000000300120c        0x4 
+                0x0000000003001210                gTimeSinceBerryUpdate = .
+                0x0000000003001218                . = (. + 0x8)
+ *fill*         0x0000000003001210        0x8 
+                0x0000000003001218                . = ALIGN (0x8)
+                0x0000000003001218                gRtcUTCTime = .
+                0x0000000003001220                . = (. + 0x8)
+ *fill*         0x0000000003001218        0x8 
+                0x0000000003001220                . = ALIGN (0x10)
+                0x0000000003001220                gFirstSaveSector = .
+                0x0000000003001224                . = (. + 0x4)
+ *fill*         0x0000000003001220        0x4 
+                0x0000000003001224                gPrevSaveCounter = .
+                0x0000000003001228                . = (. + 0x4)
+ *fill*         0x0000000003001224        0x4 
+                0x0000000003001228                gLastKnownGoodSector = .
+                0x000000000300122c                . = (. + 0x4)
+ *fill*         0x0000000003001228        0x4 
+                0x000000000300122c                gDamagedSaveSectors = .
+                0x0000000003001230                . = (. + 0x4)
+ *fill*         0x000000000300122c        0x4 
+                0x0000000003001230                gSaveCounter = .
+                0x0000000003001234                . = (. + 0x4)
+ *fill*         0x0000000003001230        0x4 
+                0x0000000003001234                gFastSaveSection = .
+                0x0000000003001238                . = (. + 0x4)
+ *fill*         0x0000000003001234        0x4 
+                0x0000000003001238                gCurSaveChunk = .
+                0x000000000300123c                . = (. + 0x4)
+ *fill*         0x0000000003001238        0x4 
+                0x000000000300123c                gFlashIdentIsValid = .
+                0x0000000003001240                . = (. + 0x4)
+ *fill*         0x000000000300123c        0x4 
+                0x0000000003001240                . = ALIGN (0x4)
+                0x0000000003001240                . = ALIGN (0x4)
+                0x0000000003001240                gFlashTimeoutFlag = .
+                0x0000000003001244                . = (. + 0x4)
+ *fill*         0x0000000003001240        0x4 
+                0x0000000003001244                . = ALIGN (0x4)
+                0x0000000003001244                PollFlashStatus = .
+                0x0000000003001248                . = (. + 0x4)
+ *fill*         0x0000000003001244        0x4 
+                0x0000000003001248                . = ALIGN (0x4)
+                0x0000000003001248                WaitForFlashWrite = .
+                0x000000000300124c                . = (. + 0x4)
+ *fill*         0x0000000003001248        0x4 
+                0x000000000300124c                . = ALIGN (0x4)
+                0x000000000300124c                ProgramFlashSector = .
+                0x0000000003001250                . = (. + 0x4)
+ *fill*         0x000000000300124c        0x4 
+                0x0000000003001250                . = ALIGN (0x4)
+                0x0000000003001250                gFlash = .
+                0x0000000003001254                . = (. + 0x4)
+ *fill*         0x0000000003001250        0x4 
+                0x0000000003001254                . = ALIGN (0x4)
+                0x0000000003001254                ProgramFlashByte = .
+                0x0000000003001258                . = (. + 0x4)
+ *fill*         0x0000000003001254        0x4 
+                0x0000000003001258                . = ALIGN (0x4)
+                0x0000000003001258                gFlashNumRemainingBytes = .
+                0x000000000300125c                . = (. + 0x4)
+ *fill*         0x0000000003001258        0x4 
+                0x000000000300125c                . = ALIGN (0x4)
+                0x000000000300125c                EraseFlashChip = .
+                0x0000000003001260                . = (. + 0x4)
+ *fill*         0x000000000300125c        0x4 
+                0x0000000003001260                . = ALIGN (0x4)
+                0x0000000003001260                EraseFlashSector = .
+                0x0000000003001264                . = (. + 0x4)
+ *fill*         0x0000000003001260        0x4 
+                0x0000000003001264                . = ALIGN (0x4)
+                0x0000000003001264                gFlashMaxTime = .
+                0x0000000003001268                . = (. + 0x4)
+ *fill*         0x0000000003001264        0x4 
+                0x0000000003001268                end = .
+                0x0000000008000000                . = 0x8000000
+
+RS_Rom          0x0000000008000000       0xc8
+                0x0000000008000000                _start = .
+                0x0000000008000004                . = (. + 0x4)
+ *fill*         0x0000000008000000        0x4 00000000
+                0x0000000008000004                RomHeaderNintendoLogo = .
+                0x00000000080000a0                . = (. + 0x9c)
+ *fill*         0x0000000008000004       0x9c 00000000
+                0x00000000080000a0                RS_RomHeader = .
+                0x00000000080000a0                RomHeaderGameTitle = .
+                0x00000000080000ac                . = (. + 0xc)
+ *fill*         0x00000000080000a0        0xc 00000000
+                0x00000000080000ac                RomHeaderGameCode = .
+                0x00000000080000b0                . = (. + 0x4)
+ *fill*         0x00000000080000ac        0x4 00000000
+                0x00000000080000b0                RomHeaderMakerCode = .
+                0x00000000080000b2                . = (. + 0x2)
+ *fill*         0x00000000080000b0        0x2 00000000
+                0x00000000080000b2                RomHeaderMagic = .
+                0x00000000080000b3                . = (. + 0x1)
+ *fill*         0x00000000080000b2        0x1 00000000
+                0x00000000080000b3                RomHeaderMainUnitCode = .
+                0x00000000080000b4                . = (. + 0x1)
+ *fill*         0x00000000080000b3        0x1 00000000
+                0x00000000080000b4                RomHeaderDeviceType = .
+                0x00000000080000b5                . = (. + 0x1)
+ *fill*         0x00000000080000b4        0x1 00000000
+                0x00000000080000b5                RomHeaderReserved1 = .
+                0x00000000080000bc                . = (. + 0x7)
+ *fill*         0x00000000080000b5        0x7 00000000
+                0x00000000080000bc                RomHeaderSoftwareVersion = .
+                0x00000000080000bd                . = (. + 0x1)
+ *fill*         0x00000000080000bc        0x1 00000000
+                0x00000000080000bd                RomHeaderChecksum = .
+                0x00000000080000be                . = (. + 0x1)
+ *fill*         0x00000000080000bd        0x1 00000000
+                0x00000000080000be                RomHeaderReserved2 = .
+                0x00000000080000c4                . = (. + 0x6)
+ *fill*         0x00000000080000be        0x6 00000000
+                0x00000000080000c4                GPIOPortData = .
+                0x00000000080000c6                . = (. + 0x2)
+ *fill*         0x00000000080000c4        0x2 00000000
+                0x00000000080000c6                GPIOPortDirection = .
+                0x00000000080000c8                . = (. + 0x2)
+ *fill*         0x00000000080000c6        0x2 00000000
+                0x00000000080000c8                GPIOPortReadEnable = .
+
+/DISCARD/
+ *(*)
+LOAD ../../../tools/agbcc/lib\libgcc.a
+OUTPUT(../payload.elf elf32-littlearm)
+LOAD linker stubs
+LOAD asm/crt0.o
+LOAD src/main.o
+LOAD src/rtc.o
+LOAD src/flash.o
+LOAD src/agb_flash.o
+LOAD src/agb_flash_1m.o
+LOAD src/agb_flash_mx.o
+LOAD asm/libagbsyscall.o
+LOAD src/siirtc.o
+LOAD src/agb_flash_le.o

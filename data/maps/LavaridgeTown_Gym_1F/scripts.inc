@@ -86,9 +86,23 @@ LavaridgeTown_Gym_EventScript_Flannery_PostBattle::
 	release
 	end
 	
-LavaridgeTown_Gym_1F_EventScript_FlanneryRematch:: @ 81FE864
+LavaridgeTown_Gym_1F_EventScript_FlanneryRematch:: @ 81FC89C
 	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPreRematch, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_WATTSON_1, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	trainerbattle_no_intro TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	goto LavaridgeTown_Gym_1F_EventScript_GiveMegastone
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd::
+	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x925
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_GiveMegastone::
+	goto_if_unset FLAG_RECEIVED_TM04 LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	goto_if_set FLAG_UNUSED_0x286 LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_HOUNDOOMINITE
+	setflag FLAG_UNUSED_0x286
 	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostRematch, MSGBOX_AUTOCLOSE
 	setflag FLAG_UNUSED_0x925
 	end

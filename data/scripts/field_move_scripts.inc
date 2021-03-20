@@ -49,6 +49,17 @@ EventScript_CutTreeDown:: @ 8290710
 	applymovement VAR_LAST_TALKED, Movement_CutTreeDown
 	waitmovement 0
 	removeobject VAR_LAST_TALKED
+	special CutWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq Movement_TryCutItem
+	releaseall
+	end
+
+Movement_TryCutItem:
+	special TryStoreCutItem
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_CancelCut
+	giveitem VAR_RESULT, 2
 	releaseall
 	end
 

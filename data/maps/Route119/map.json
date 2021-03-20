@@ -273,7 +273,7 @@
       "flag": "FLAG_ITEM_ROUTE_119_LEAF_STONE"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",
+      "graphics_id": "OBJ_EVENT_GFX_TM_BALL",
       "x": 8,
       "y": 18,
       "elevation": 3,
@@ -282,8 +282,8 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "Route119_EventScript_ItemRareCandy",
-      "flag": "FLAG_ITEM_ROUTE_119_RARE_CANDY"
+      "script": "MegaStone_EventScript_Pinsirite",
+      "flag": "FLAG_UNUSED_0x280"
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_ITEM_BALL",

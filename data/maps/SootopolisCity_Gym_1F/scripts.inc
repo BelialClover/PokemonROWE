@@ -113,15 +113,29 @@ SootopolisCity_Gym_1F_EventScript_JuanDefeated:: @ 8224F82
 	release
 	end
 
-	SootopolisCity_Gym_EventScript_Juan_PostBattle::
+SootopolisCity_Gym_EventScript_Juan_PostBattle::
 	goto_if_unset FLAG_UNUSED_0x929, SootopolisCity_Gym_1F_EventScript_JuanRematch
 	msgbox SootopolisCity_Gym_1F_Text_JuanPostBattle, MSGBOX_DEFAULT
 	release
 	end
 	
-	SootopolisCity_Gym_1F_EventScript_JuanRematch:: @ 8225025
+SootopolisCity_Gym_1F_EventScript_JuanRematch:: @ 8225025
 	msgbox SootopolisCity_Gym_1F_Text_JuanPreRematch, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	goto SootopolisCity_Gym_1F_EventScript_GiveMegastone
+	end
+	
+SootopolisCity_Gym_1F_EventScript_JuanRematchEnd::
+	msgbox SootopolisCity_Gym_1F_Text_JuanPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x929
+	end
+	
+SootopolisCity_Gym_1F_EventScript_GiveMegastone::
+	goto_if_unset FLAG_RECEIVED_TM04 SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	goto_if_set FLAG_UNUSED_0x293 SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_GYARADOSITE
+	setflag FLAG_UNUSED_0x293
 	msgbox SootopolisCity_Gym_1F_Text_JuanPostRematch, MSGBOX_AUTOCLOSE
 	setflag FLAG_UNUSED_0x929
 	end

@@ -12,6 +12,7 @@ void ItemUseOutOfBattle_SSTicket(u8);
 void ItemUseOutOfBattle_WailmerPail(u8);
 void ItemUseOutOfBattle_Medicine(u8);
 void ItemUseOutOfBattle_AbilityCapsule(u8);
+void ItemUseOutOfBattle_AbilityPatch(u8);
 void ItemUseOutOfBattle_ReduceEV(u8);
 void ItemUseOutOfBattle_SacredAsh(u8);
 void ItemUseOutOfBattle_PPRecovery(u8);
@@ -39,5 +40,6 @@ u8 CanUseDigOrEscapeRopeOnCurMap(void);
 u8 CheckIfItemIsTMHMOrEvolutionStone(u16 itemId);
 void ItemUseOutOfBattle_SootSack(u8);
 u16 GetAshCount(void);
+void ItemUseOutOfBattle_Mints(u8 taskId);
 
 #endif // GUARD_ITEM_USE_H

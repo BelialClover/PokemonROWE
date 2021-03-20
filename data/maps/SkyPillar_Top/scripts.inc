@@ -51,7 +51,7 @@ SkyPillar_Top_EventScript_Rayquaza:: @ 8239722
 	playmoncry SPECIES_RAYQUAZA, 2
 	delay 40
 	waitmoncry
-	setwildbattle SPECIES_RAYQUAZA, 70, ITEM_NONE
+	setwildbattle SPECIES_RAYQUAZA, 85, ITEM_NONE
 	setflag FLAG_SYS_CTRL_OBJ_DELETE
 	special BattleSetup_StartLegendaryBattle
 	waitstate
@@ -69,6 +69,10 @@ SkyPillar_Top_EventScript_Rayquaza:: @ 8239722
 
 SkyPillar_Top_EventScript_DefeatedRayquaza:: @ 8239768
 	setflag FLAG_DEFEATED_RAYQUAZA
+	setflag FLAG_HIDE_RAYQUAZA_SKY_TOWER_SUMMIT
+	clearflag FLAG_UNUSED_0x493	//Articuno
+	clearflag FLAG_UNUSED_0x494 //Zapdos
+	clearflag FLAG_UNUSED_0x495 //Moltres
 	goto SkyPillar_Top_EventScript_DefeatedRayquaza2
 	end
 

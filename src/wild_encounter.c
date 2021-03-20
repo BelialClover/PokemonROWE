@@ -1,4 +1,5 @@
 #include "global.h"
+#include "level_scaling.h"
 #include "wild_encounter.h"
 #include "pokemon.h"
 #include "metatile_behavior.h"
@@ -27,6 +28,7 @@
 #include "constants/weather.h"
 #include "rtc.h"
 
+
 extern const u8 EventScript_RepelWoreOff[];
 extern const u8 EventScript_LureWoreOff[];
 
@@ -36,12 +38,6 @@ static void ApplyFluteEncounterRateMod(u32 *encRate);
 static void ApplyCleanseTagEncounterRateMod(u32 *encRate);
 static bool8 TryGetAbilityInfluencedWildMonIndex(const struct WildPokemon *wildMon, u8 type, u16 ability, u8 *monIndex);
 static bool8 IsAbilityAllowingEncounter(u8 level);
-//My Scripts
-u8 WildBadgeGet(void);
-u8 GetMinLevelWild(void);
-u16 HasLevelEvolutionwild(u16 species, u8 level, u16 item);
-u16 HasItemEvolutionWild(u16 species, u8 level, u16 item);
-u16 GetFirstStage(u16 species);
 
 // EWRAM vars
 EWRAM_DATA static u8 sWildEncountersDisabled = 0;
@@ -203,122 +199,12 @@ static u8 ChooseWildMonIndex_Fishing(u8 rod)
     return wildMonIndex;
 }
 
-u8 WildBadgeGet(void)
-{
-	u8 numbadges = 0;
-	
-	if (FlagGet(FLAG_BADGE01_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE02_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE03_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE04_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE05_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE06_GET))
-        numbadges++;
-	if (FlagGet(FLAG_BADGE07_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE08_GET))
-	    numbadges++;
-	
-	return numbadges;
-}
-
-
-u8 GetMinLevelWild(void){
-	u8 minlevel[] = {3,10,15,20,25,30,35,40,45,50};
-	return minlevel[WildBadgeGet()];
-}
-
-u16 HasLevelEvolutionwild(u16 species, u8 level, u16 item)
-{
-	if(item != ITEM_EVERSTONE && GetMinLevelWild() != level ){
-	if(gEvolutionTable[species][0].targetSpecies != SPECIES_NONE){
-	switch(gEvolutionTable[species][0].method)
-	{
-	case EVO_ITEM:
-		return HasItemEvolutionWild(species, level, item);
-	break;
-	
-	case EVO_FRIENDSHIP:
-		if(level > 22)
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	break;
-	
-	case EVO_LEVEL:
-	case EVO_LEVEL_CASCOON:
-	case EVO_LEVEL_ATK_GT_DEF:
-	case EVO_LEVEL_NINJASK:
-	case EVO_LEVEL_DUSK:
-	if(gEvolutionTable[species][0].param && gEvolutionTable[species][0].param <= level)
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	break;
-	
-	case EVO_LEVEL_DAY:
-	if(gEvolutionTable[species][0].param && gLocalTime.hours >= 12 && gLocalTime.hours < 24 && gEvolutionTable[species][0].param <= level)
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	break;
-	
-	case EVO_LEVEL_NIGHT:
-	if(gEvolutionTable[species][0].param && gLocalTime.hours >= 0 && gLocalTime.hours < 12 && gEvolutionTable[species][0].param <= level)
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	break;
-	
-	default:
-		return species;
-	}}}
-		return species;
-}
-
-u16 HasItemEvolutionWild(u16 species, u8 level, u16 item)
-{
-	u16 EvolutionItem = gEvolutionTable[species][0].param;
-	if(gEvolutionTable[species][0].targetSpecies != SPECIES_NONE){
-	if( gEvolutionTable[species][0].method == EVO_ITEM || 
-		gEvolutionTable[species][0].method == EVO_TRADE || 
-		gEvolutionTable[species][0].method == EVO_ITEM_FEMALE || 
-		gEvolutionTable[species][0].method == EVO_ITEM_MALE || 
-		gEvolutionTable[species][0].method == EVO_LEVEL_DARK_TYPE_MON_IN_PARTY || 
-		gEvolutionTable[species][0].method == EVO_SPECIFIC_MON_IN_PARTY || 
-		gEvolutionTable[species][0].method == EVO_TRADE_ITEM){
-		if (FlagGet(FLAG_RECEIVED_TM40) == TRUE && level > (GetMinLevelWild()+5))
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	}
-	
-	if(gEvolutionTable[species][0].method == EVO_BEAUTY){
-		if (FlagGet(FLAG_RECEIVED_TM03) == TRUE && level > (GetMinLevelWild()+5))
-		return HasItemEvolutionWild(gEvolutionTable[species][0].targetSpecies, level, item);
-	}
-	}
-	return species;
-}
-
 static u8 ChooseWildMonLevel(const struct WildPokemon *wildPokemon)
 {
-    u8 min	= GetMinLevelWild();
-    u8 badges = WildBadgeGet();
-    u8 rand;
+	//u8 Ability = getMonAbility(&gPlayerParty[0]);
+    u8 level = getWildLevel(0);
 
-    rand = Random() % 5;
-
-    // check ability for max level mon
-    if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
-    {
-        u8 ability = GetMonAbility(&gPlayerParty[0]);
-        if (ability == ABILITY_HUSTLE || ability == ABILITY_VITAL_SPIRIT || ability == ABILITY_PRESSURE)
-        {
-            if (Random() % 2 == 0)
-                return min+5;
-
-            if (rand != 0)
-                rand--;
-        }
-    }
-
-    return min + rand;
+    return level;
 }
 
 u16 GetCurrentMapWildMonHeaderId(void)
@@ -394,53 +280,16 @@ static u8 PickWildMonNature(void)
     return Random() % NUM_NATURES;
 }
 
-u16 GetFirstStage(u16 species)
-{
-    int i, j, k;
-    bool8 found;
-
-    // Working backwards up to 5 times seems arbitrary, since the maximum number
-    // of times would only be 3 for 3-stage evolutions.
-    for (i = 0; i < EVOS_PER_MON; i++)
-    {
-        found = FALSE;
-        for (j = 1; j < NUM_SPECIES; j++)
-        {
-            for (k = 0; k < EVOS_PER_MON; k++)
-            {
-                if (gEvolutionTable[j][k].targetSpecies == species)
-                {
-                    species = j;
-                    found = TRUE;
-                    break;
-                }
-            }
-
-            if (found)
-                break;
-        }
-
-        if (j == NUM_SPECIES)
-            break;
-    }
-
-    return species;
-}
-
 void CreateWildMon(u16 species, u8 level)
 {
     bool32 checkCuteCharm;
 	u8 formId = GetFormIdFromFormSpeciesId(species);
-	u16 baseSpecies = GetFormSpeciesId(species, 0);
-	u16 id = ((gSaveBlock2Ptr->playerTrainerId[1] << 8) | gSaveBlock2Ptr->playerTrainerId[0]);
-	u16 holditem = GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM);
-	if(FlagGet(FLAG_SYS_DEXNAV_GET) == FALSE)
-	baseSpecies = GetFirstStage((GetFormSpeciesId(species, 0) * id )% 898);
-	
+	u16 helditem = GetMonData(&gPlayerParty[0], MON_DATA_HELD_ITEM);
+	u16 wildspecie = GetWildPokemon(species, level, helditem);
     ZeroEnemyPartyMons();
     checkCuteCharm = TRUE;
 
-    switch (gBaseStats[species].genderRatio)
+    switch (gBaseStats[wildspecie].genderRatio)
     {
     case MON_MALE:
     case MON_FEMALE:
@@ -464,10 +313,10 @@ void CreateWildMon(u16 species, u8 level)
         else
             gender = MON_FEMALE;
 
-        CreateMonWithGenderNatureLetter(&gEnemyParty[0], HasLevelEvolutionwild(baseSpecies, level, holditem), level, 32, gender, PickWildMonNature(), 0, formId);
+        CreateMonWithGenderNatureLetter(&gEnemyParty[0], wildspecie, level, 32, gender, PickWildMonNature(), 0, formId);
         return;
     }
-		CreateMonWithNature(&gEnemyParty[0], HasLevelEvolutionwild(baseSpecies, level, holditem), level, 32, PickWildMonNature(), formId);
+		CreateMonWithNature(&gEnemyParty[0], wildspecie, level, 32, PickWildMonNature(), formId);
 }
 
 enum
@@ -840,6 +689,62 @@ void RockSmashWildEncounter(void)
     {
         gSpecialVar_Result = FALSE;
     }
+}
+
+void CutWildEncounter(void)
+{
+    u16 headerId = GetCurrentMapWildMonHeaderId();
+
+    if (headerId != 0xFFFF)
+    {
+		const struct WildPokemonInfo *wildPokemonInfo = gWildMonHeaders[headerId].landMonsInfo;
+
+        if (wildPokemonInfo == NULL)
+        {
+            gSpecialVar_Result = FALSE;
+        }
+		else if ((Random() % 100) < 50
+         && TryGenerateWildMon(wildPokemonInfo, 2, WILD_CHECK_REPEL | WILD_CHECK_KEEN_EYE) == TRUE)
+        {
+            BattleSetup_StartWildBattle();
+            gSpecialVar_Result = TRUE;
+        }
+        else
+        {
+            gSpecialVar_Result = FALSE;
+        }
+    }
+    else
+    {
+        gSpecialVar_Result = FALSE;
+    }
+}
+
+void TryStoreCutItem(void)
+{
+    u8 i;
+    u16 heldItem[] = 
+	{
+		ITEM_ORAN_BERRY,
+		ITEM_CHERI_BERRY,
+		ITEM_CHESTO_BERRY,
+		ITEM_PECHA_BERRY,
+		ITEM_RAWST_BERRY,
+		ITEM_ASPEAR_BERRY,
+		ITEM_LEPPA_BERRY,
+		ITEM_LUM_BERRY,
+		ITEM_SITRUS_BERRY,
+		ITEM_NONE
+	};
+	
+	u8 itemId = Random() % (sizeof(heldItem)/sizeof(heldItem[0]));
+
+    if (heldItem != ITEM_NONE && (Random() % 100) < 50)
+    {
+		gSpecialVar_Result = heldItem[itemId];
+    }
+	else
+	gSpecialVar_Result = FALSE;
 }
 
 bool8 SweetScentWildEncounter(void)

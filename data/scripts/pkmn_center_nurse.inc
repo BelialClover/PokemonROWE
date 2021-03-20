@@ -5,11 +5,11 @@ Common_EventScript_PkmnCenterNurse:: @ 827191E
     specialvar VAR_RESULT, CountPlayerTrainerStars
     compare VAR_RESULT, 4
     goto_if_eq EventScript_PkmnCenterNurse_GoldCard
-    msgbox gText_WouldYouLikeToRestYourPkmn, MSGBOX_YESNO
-    compare VAR_RESULT, YES
-    goto_if_eq EventScript_PkmnCenterNurse_HealPkmn
-    compare VAR_RESULT, NO
-    goto_if_eq EventScript_PkmnCenterNurse_Goodbye
+    @ msgbox gText_WouldYouLikeToRestYourPkmn, MSGBOX_YESNO
+    @ compare VAR_RESULT, YES
+    @ goto_if_eq EventScript_PkmnCenterNurse_HealPkmn
+    @ compare VAR_RESULT, NO
+    @ goto_if_eq EventScript_PkmnCenterNurse_Goodbye
     goto EventScript_PkmnCenterNurse_HealPkmn
     end
 
@@ -64,8 +64,8 @@ EventScript_PkmnCenterNurse_CheckTrainerHillAndUnionRoom:: @ 82719B1
 EventScript_PkmnCenterNurse_ReturnPkmn:: @ 82719E2
     compare VAR_0x8004, 1
     goto_if_eq EventScript_PkmnCenterNurse_ReturnPkmn2
-    message gText_RestoredPkmnToFullHealth
-    waitmessage
+    @ message gText_RestoredPkmnToFullHealth
+    @ waitmessage
     applymovement VAR_0x800B, EventScript_PkmnCenterNurse_Bow
     waitmovement 0
     message gText_WeHopeToSeeYouAgain

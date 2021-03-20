@@ -51,8 +51,16 @@ MossdeepCity_Gym_EventScript_SetSwitch4Metatiles:: @ 8220885
 MossdeepCity_Gym_EventScript_TateAndLiza:: @ 8220898
 	lock
 	faceplayer
+	goto_if_set FLAG_RECEIVED_TM04 MossdeepCity_Gym_EventScript_TateAndLiza_Badge7
 	call_if_set FLAG_BADGE07_GET, MossdeepCity_Gym_EventScript_TateAndLiza_PostBattle
 	trainerbattle_double TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaIntro, MossdeepCity_Gym_Text_TateAndLizaDefeat, MossdeepCity_Gym_Text_TateAndLizaNeedTwoMons, MossdeepCity_Gym_EventScript_TateAndLizaDefeated, NO_MUSIC
+	msgbox MossdeepCity_Gym_Text_TateAndLizaPostBattle, MSGBOX_DEFAULT
+	release
+	end
+	
+MossdeepCity_Gym_EventScript_TateAndLiza_Badge7::
+	call_if_set FLAG_BADGE07_GET, MossdeepCity_Gym_EventScript_TateAndLiza_PostBattle
+	trainerbattle_double TRAINER_TATE_AND_LIZA_2, MossdeepCity_Gym_Text_TateAndLizaIntro, MossdeepCity_Gym_Text_TateAndLizaDefeat, MossdeepCity_Gym_Text_TateAndLizaNeedTwoMons, MossdeepCity_Gym_EventScript_TateAndLizaDefeated, NO_MUSIC
 	msgbox MossdeepCity_Gym_Text_TateAndLizaPostBattle, MSGBOX_DEFAULT
 	release
 	end
@@ -86,8 +94,38 @@ MossdeepCity_Gym_EventScript_TateAndLiza_PostBattle::
 	end
 	
 MossdeepCity_Gym_EventScript_TateAndLizaRematch:: @ 822097E
+	goto_if_set FLAG_RECEIVED_TM04 MossdeepCity_Gym_EventScript_TateAndLizaRematch_Badge7
 	msgbox MossdeepCity_Gym_Text_TateAndLizaPreRematch, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaRematchDefeat
+	goto MossdeepCity_Gym_EventScript_GiveMegastone
+	end
+	
+MossdeepCity_Gym_EventScript_TateAndLizaRematch_Badge7::
+	msgbox MossdeepCity_Gym_Text_TateAndLizaPreRematch, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_TATE_AND_LIZA_2, MossdeepCity_Gym_Text_TateAndLizaRematchDefeat
+	goto MossdeepCity_Gym_EventScript_GiveMegastone
+	end
+	
+MossdeepCity_Gym_EventScript_GiveMegastone::
+	goto_if_unset FLAG_RECEIVED_TM04 MossdeepCity_Gym_EventScript_TateAndLizaRematchEnd
+	goto_if_set FLAG_UNUSED_0x288, MossdeepCity_Gym_EventScript_GiveMegastone2
+	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_GARDEVOIRITE
+	setflag FLAG_UNUSED_0x288
+	msgbox MossdeepCity_Gym_Text_TateAndLizaPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x928
+	end
+	
+MossdeepCity_Gym_EventScript_GiveMegastone2::
+	goto_if_set FLAG_UNUSED_0x276 MossdeepCity_Gym_EventScript_TateAndLizaRematchEnd
+	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_GALLADITE
+	setflag FLAG_UNUSED_0x276
+	msgbox MossdeepCity_Gym_Text_TateAndLizaPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x928
+	end
+	
+MossdeepCity_Gym_EventScript_TateAndLizaRematchEnd::
 	msgbox MossdeepCity_Gym_Text_TateAndLizaPostRematch, MSGBOX_AUTOCLOSE
 	setflag FLAG_UNUSED_0x928
 	end

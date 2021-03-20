@@ -669,3 +669,107 @@ MegaStone_EventScript_ItemBeedrillite::
 MegaStone_EventScript_ItemSteelixite::
 	finditem ITEM_STEELIXITE
 	end
+	
+MegaStone_EventScript_ItemSablenite::
+	finditem ITEM_SABLENITE
+	end
+	
+MegaStone_EventScript_ItemMawilite::
+	finditem ITEM_MAWILITE
+	end
+	
+MegaStone_EventScript_ItemSharpedoite::
+	finditem ITEM_SHARPEDONITE
+	end
+	
+MegaStone_EventScript_ItemCameruptite::
+	finditem ITEM_CAMERUPTITE
+	end
+	
+MegaStone_EventScript_ItemAltarianite::
+	finditem ITEM_ALTARIANITE
+	end
+	
+MegaStone_EventScript_ItemGlailite::
+	finditem ITEM_GLALITITE
+	end
+	
+MegaStone_EventScript_ItemSalamancite::
+	finditem ITEM_SALAMENCITE
+	end
+	
+MegaStone_EventScript_ItemMetagrossite::
+	finditem ITEM_METAGROSSITE
+	end
+	
+MegaStone_EventScript_ItemLopunnite::
+	finditem ITEM_LOPUNNITE
+	end
+	
+MegaStone_EventScript_ItemGalladite::
+	finditem ITEM_GALLADITE
+	end
+	
+MegaStone_EventScript_ItemAudinite::
+	finditem ITEM_AUDINITE
+	end
+	
+MegaStone_EventScript_ItemGardevoirite::
+	finditem ITEM_GARDEVOIRITE
+	end
+	
+MegaStone_EventScript_ItemCharizardite_X::
+	finditem ITEM_CHARIZARDITE_X
+	end
+	
+MegaStone_EventScript_ItemGengarite::
+	finditem ITEM_GENGARITE
+	end
+	
+MegaStone_EventScript_ItemGyaradosite::
+	finditem ITEM_GYARADOSITE
+	end
+	
+MegaStone_EventScript_ItemManectricite::
+	finditem ITEM_MANECTITE
+	end
+	
+MegaStone_EventScript_ItemBanetite::
+	finditem ITEM_BANETTITE
+	end
+	
+MegaStone_EventScript_Ampharosite::
+	finditem ITEM_AMPHAROSITE
+	end
+	
+MegaStone_EventScript_Lucarionite::
+	finditem ITEM_LUCARIONITE
+	end
+	
+MegaStone_EventScript_Garchompite::
+	finditem ITEM_GARCHOMPITE
+	end
+	
+MegaStone_EventScript_Medichamite::
+	finditem ITEM_MEDICHAMITE
+	end	
+	
+MegaStone_EventScript_Absolite::
+	finditem ITEM_ABSOLITE
+	end	
+
+MegaStone_EventScript_Pinsirite::
+	finditem ITEM_PINSIRITE
+	end	
+	
+MegaStone_EventScript_Scizorite::
+	finditem ITEM_SCIZORITE
+	end	
+	
+MegaStone_EventScript_Abomasite::
+	finditem ITEM_ABOMASITE
+	end	
+	
+MegaStone_EventScript_Alakazite::
+	finditem ITEM_ALAKAZITE
+	end	

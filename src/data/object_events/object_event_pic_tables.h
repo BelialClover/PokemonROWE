@@ -2176,3 +2176,39 @@ const struct SpriteFrameImage gObjectEventPicTable_RubySapphireMay[] = {
     overworld_frame(gObjectEventPic_RubySapphireMayNormal, 2, 4, 7),
     overworld_frame(gObjectEventPic_RubySapphireMayNormal, 2, 4, 8),
 };
+
+const struct SpriteFrameImage gObjectEventPicTable_Articuno[] = {
+    overworld_frame(gObjectEventPic_Articuno, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Articuno, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Articuno, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Articuno, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Articuno, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Articuno, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Articuno, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Articuno, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Articuno, 4, 4, 1),
+};
+
+const struct SpriteFrameImage gObjectEventPicTable_Zapdos[] = {
+    overworld_frame(gObjectEventPic_Zapdos, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Zapdos, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Zapdos, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Zapdos, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Zapdos, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Zapdos, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Zapdos, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Zapdos, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Zapdos, 4, 4, 1),
+};
+
+const struct SpriteFrameImage gObjectEventPicTable_Moltres[] = {
+    overworld_frame(gObjectEventPic_Moltres, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Moltres, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Moltres, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Moltres, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Moltres, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Moltres, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Moltres, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Moltres, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Moltres, 4, 4, 1),
+};

@@ -30,6 +30,7 @@
 #include "main.h"
 #include "malloc.h"
 #include "m4a.h"
+#include "level_scaling.h"
 #include "palette.h"
 #include "party_menu.h"
 #include "pokeball.h"
@@ -119,11 +120,6 @@ static void HandleEndTurn_BattleLost(void);
 static void HandleEndTurn_RanFromBattle(void);
 static void HandleEndTurn_MonFled(void);
 static void HandleEndTurn_FinishBattle(void);
-
-//MyScripts
-u16 HasEvolution(u16 species, u8 level);
-u8 BadgeGet();
-u16 IsMegaStone(u16 item, u8 megabadge);
 
 // EWRAM vars
 EWRAM_DATA u16 gBattle_BG0_X = 0;
@@ -247,95 +243,6 @@ u8 gHealthboxSpriteIds[MAX_BATTLERS_COUNT];
 u8 gMultiUsePlayerCursor;
 u8 gNumberOfMovesToChoose;
 u8 gUnknown_03005D7C[MAX_BATTLERS_COUNT];
-
-u16 HasEvolution(u16 species, u8 level)
-{
-	u8 numbadges = BadgeGet();
-	switch(gEvolutionTable[species][0].method)
-	{
-		case EVO_LEVEL:
-		case EVO_LEVEL_DAY:
-		case EVO_LEVEL_NIGHT:
-		case EVO_LEVEL_NINJASK:
-		case EVO_LEVEL_SILCOON:
-		case EVO_LEVEL_CASCOON:
-		case EVO_LEVEL_ATK_GT_DEF:
-		case EVO_LEVEL_MALE:
-		case EVO_LEVEL_FEMALE:
-	if(gEvolutionTable[species][0].param && gEvolutionTable[species][0].param <= level)
-	{
-		if(HasEvolution(gEvolutionTable[species][0].targetSpecies, level))
-			return HasEvolution(gEvolutionTable[species][0].targetSpecies, level);
-		else
-			return gEvolutionTable[species][0].targetSpecies;
-	}
-		break;
-		
-		case EVO_FRIENDSHIP:
-		if(level >= 12)
-			return HasEvolution(gEvolutionTable[species][0].targetSpecies, level);
-		break;
-	
-		case EVO_ITEM:
-		case EVO_BEAUTY:
-		case EVO_MOVE:
-		case EVO_SPECIFIC_MON_IN_PARTY:
-		case EVO_LEVEL_DARK_TYPE_MON_IN_PARTY:
-		case EVO_LEVEL_RAIN:
-		case EVO_TRADE:
-		case EVO_TRADE_ITEM:
-		case EVO_ITEM_FEMALE:
-		case EVO_ITEM_MALE:
-		case EVO_LEVEL_DUSK:
-		case EVO_MAPSEC:
-			if(numbadges >= 5)
-				return HasEvolution(gEvolutionTable[species][0].targetSpecies, level);
-		break;
-		
-	}
-	return species;	
-};
-
-u8 BadgeGet(void)
-{
-	u8 numbadges = 0;
-	
-	if (FlagGet(FLAG_BADGE01_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE02_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE03_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE04_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE05_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE06_GET))
-        numbadges++;
-	if (FlagGet(FLAG_BADGE07_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_BADGE08_GET))
-	    numbadges++;
-	if (FlagGet(FLAG_SYS_GAME_CLEAR))
-		numbadges++;
-	
-	return numbadges;
-};
-
-u16 IsMegaStone(u16 item, u8 megabadge)
-{
-	u16 holdEffect = ItemId_GetHoldEffect(item);
-	if(holdEffect != HOLD_EFFECT_MEGA_STONE){
-		return item;
-	}
-	else{ 
-	if (BadgeGet() >= megabadge)
-		return item;
-	else 
-		return ITEM_SITRUS_BERRY;
-	}
-	return ITEM_SITRUS_BERRY;
-};
 
 // rom const data
 static const struct ScanlineEffectParams sIntroScanlineParams16Bit =
@@ -1910,50 +1817,18 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     u8 fixedIV;
     s32 i, j;
     u8 monsCount;
-	//Normalmode
-	u8 normalnumMonsBadge[]    = {2,3,3,4,4,5,5,5,5,6};
-	u8 normalnumMonsGym[]      = {3,4,4,4,5,5,5,6,6,6};
-	u8 normalminTrainerLevel[] = {6,10,15,20,25,30,35,40,45,55};
-	u8 normalminGymLevel[] 	   = {12,17,22,27,32,37,42,50,55,65};
-	u8 normalnumMonsDouble[]   = {1,2,2,2,2,2,3,3,3,3};
-	u8 megabadge = 7;
-	u8 levelboost = 0;
-	//Hardmode
-	u8 hardnumMonsBadge[]      = {3,3,4,4,4,5,6,6,6,6};
-	u8 hardnumMonsGym[]        = {3,4,4,5,5,6,6,6,6,6};
-	u8 hardminTrainerLevel[]   = {7,12,18,24,30,36,42,48,55,65};
-	u8 hardminGymLevel[] 	   = {13,19,25,31,37,43,49,60,68,76};
-	u8 hardnumMonsDouble[]     = {2,2,2,2,2,2,3,3,3,3};
-	//Variables
-	u8 TrainerLevel[]  = {5,5,5,5,5,5};
-	u8 numMonsBadge    = 2;
-	u8 numMonsGym      = 3;
-	u8 minTrainerLevel = 6;
-	u8 minGymLevel 	   = 12;
-	u8 numMonsDouble   = 1;
-	//
-	u8 rand = 0;
-	
-	if (gSaveBlock2Ptr->optionsBattleStyle != OPTIONS_BATTLE_STYLE_SHIFT){
-		//Hard Mode
-	    numMonsBadge    = hardnumMonsBadge[BadgeGet()];
-		numMonsGym      = hardnumMonsGym[BadgeGet()];
-		minTrainerLevel = hardminTrainerLevel[BadgeGet()];
-		minGymLevel 	= hardminGymLevel[BadgeGet()];
-		numMonsDouble   = hardnumMonsDouble[BadgeGet()];
-		megabadge = 6;
-		levelboost = BadgeGet();
-	}else{
-		//Normal Mode
-	    numMonsBadge    = normalnumMonsBadge[BadgeGet()];
-		numMonsGym      = normalnumMonsGym[BadgeGet()];
-		minTrainerLevel = normalminTrainerLevel[BadgeGet()];
-		minGymLevel 	= normalminGymLevel[BadgeGet()];
-		numMonsDouble   = normalnumMonsDouble[BadgeGet()];
-	}
-	
-	if (FlagGet(FLAG_SYS_GAME_CLEAR))
-		levelboost = levelboost+8;
+	u8 numBadges = GetNumBadges();
+	u8 rand = Random() % (numBadges + 3);
+	u8 TrainerMonsCount = getTrainerPokemonNum();
+	u8 DoubleTrainerMonsCount = getDoubleTrainerPokemonNum();
+	u8 LeaderMonsCount = getLeaderPokemonNum();
+	u8 TrainerMinLevel = getTrainerLevel(0);
+	u8 TrainerMaxLevel = getTrainerLevel(2);
+	u8 LeaderMinLevel = getTrainerLevel(5);
+	u8 TrainerLevel[] = {5,5,5,5,5,5};
+	u8 levelboost = GetNumBadges();
+	if(IsHardMode == 0)
+		levelboost = 0;
 	
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -1967,34 +1842,32 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
         if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
         {
-			if (gTrainers[trainerNum].partySize > numMonsDouble)
-                monsCount = numMonsDouble;
+			if (gTrainers[trainerNum].partySize > DoubleTrainerMonsCount)
+                monsCount = DoubleTrainerMonsCount;
 			else
 				monsCount = gTrainers[trainerNum].partySize;
 			
-			rand = Random() % 5;
 			for (i = 0; i <= monsCount; i++)
-				TrainerLevel[i] = minTrainerLevel + rand + i;
+				TrainerLevel[i] = TrainerMinLevel + rand + i;
         }
         else
         if (gTrainers[trainerNum].trainerClass != TRAINER_CLASS_PKMN_TRAINER_3 && 
 			gTrainers[trainerNum].trainerClass != TRAINER_CLASS_ELITE_FOUR && 
 			gTrainers[trainerNum].trainerClass != TRAINER_CLASS_CHAMPION && 
-			gTrainers[trainerNum].trainerClass != TRAINER_CLASS_LEADER){	
+			gTrainers[trainerNum].trainerClass != TRAINER_CLASS_LEADER){
 			
-		if (gTrainers[trainerNum].partySize > numMonsBadge)
-			monsCount = numMonsBadge;
+		if (gTrainers[trainerNum].partySize > TrainerMonsCount)
+			monsCount = TrainerMonsCount;
 		else
 			monsCount = gTrainers[trainerNum].partySize;
 		
-			rand = Random() % 5;
 			for (i = 0; i <= monsCount; i++)
-				TrainerLevel[i] = minTrainerLevel + rand + i;
+				TrainerLevel[i] = TrainerMinLevel + rand + i;
 		}
 		else{
-			monsCount = numMonsGym;
+			monsCount = LeaderMonsCount;
 			for (i = 0; i <= monsCount; i++)
-				TrainerLevel[i] = minGymLevel+i;
+				TrainerLevel[i] = LeaderMinLevel+i;
 		}
 
         for (i = 0; i < monsCount; i++)
@@ -2022,7 +1895,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * 31 / 255;
-                CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+                CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
                 break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
@@ -2038,9 +1911,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * 31 / 255;
 				if(partyData[0].lvl == 1)//trainer class based mons with dynamic level
-                CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+                CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				else if (partyData[0].lvl == 3)//static mons with a little more difficult level(mostly used for gym trainers)
-				CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), (minGymLevel-2), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+				CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), (LeaderMinLevel-2), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				else //static pokes with static level
 				CreateMon(&party[i], partyData[i].species, (partyData[i].lvl + levelboost), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				
@@ -2063,9 +1936,9 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * 31 / 255;
-                CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+                CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				
-                if(IsMegaStone(partyData[i].heldItem,megabadge) != ITEM_SITRUS_BERRY)
+                if(GetHeldItem(partyData[i].heldItem) != ITEM_SITRUS_BERRY)
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);	
                 break;
             }
@@ -2079,31 +1952,31 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * 31 / 255;
 				if(partyData[0].lvl == 1)//trainer class based mons with dynamic level
-                CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+                CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				else if (partyData[0].lvl == 2)//static mons with dynamic level
-				CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+				CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				else if (partyData[0].lvl == 3)//static mons with a little more difficult level(mostly used for gym trainers)
-				CreateMon(&party[i], HasEvolution(partyData[i].species, TrainerLevel[i]), (minGymLevel-2), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+				CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), (LeaderMinLevel-2), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				else if(partyData[0].lvl == 5)//Used for gym leaders
 				{
-					if(i == numMonsGym-1)//Check if its the leader final mon and changes it to its ace regardless of its party size
-						CreateMon(&party[i], HasEvolution(partyData[5].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+					if(i == LeaderMonsCount-1)//Check if its the leader final mon and changes it to its ace regardless of its party size
+						CreateMon(&party[i], GetTrainerPokemon(partyData[5].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 					else
-						CreateMon(&party[i], HasEvolution(partyData[i].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+						CreateMon(&party[i], GetTrainerPokemon(partyData[i].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				}
 				else if(partyData[0].lvl == 6)//Used for gym tate & liza
 				{
-					if(i == numMonsGym-1)//Check if its the leader final mon and changes it to its ace regardless of its party size
-						CreateMon(&party[i], HasEvolution(partyData[5].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
-					else if(i == numMonsGym-2)//Check if its the leader final mon and changes it to its ace regardless of its party size
-						CreateMon(&party[i], HasEvolution(partyData[4].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+					if(i == LeaderMonsCount-1)//Check if its the leader final mon and changes it to its ace regardless of its party size
+						CreateMon(&party[i], GetTrainerPokemon(partyData[5].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+					else if(i == LeaderMonsCount-2)//Check if its the leader final mon and changes it to its ace regardless of its party size
+						CreateMon(&party[i], GetTrainerPokemon(partyData[4].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 					else
-						CreateMon(&party[i], HasEvolution(partyData[i].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+						CreateMon(&party[i], GetTrainerPokemon(partyData[i].species,TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				}
 				else //Complete static trainers(planned to use for post game)
 					CreateMon(&party[i], partyData[i].species, (partyData[i].lvl + levelboost), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				
-				if(IsMegaStone(partyData[i].heldItem,megabadge) != ITEM_SITRUS_BERRY)
+				if(GetHeldItem(partyData[i].heldItem) != ITEM_SITRUS_BERRY)
                 SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
 
                 for (j = 0; j < MAX_MON_MOVES; j++)
@@ -4183,8 +4056,8 @@ static void HandleTurnActionSelectionState(void)
                     MarkBattlerForControllerExec(gActiveBattler);
                     return;
                 case B_ACTION_DEBUG:
-                    BtlController_EmitDebugMenu(0);
-                    MarkBattlerForControllerExec(gActiveBattler);
+                    //BtlController_EmitDebugMenu(0);
+                    //MarkBattlerForControllerExec(gActiveBattler);
                     break;
                 }
 

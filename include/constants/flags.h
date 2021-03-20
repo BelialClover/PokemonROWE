@@ -504,13 +504,13 @@
 #define FLAG_ENABLE_TATE_AND_LIZA_MATCH_CALL 0x1D8
 #define FLAG_ENABLE_JUAN_MATCH_CALL          0x1D9
 
-#define FLAG_UNUSED_0x1DA                    0x1DA // Unused Flag
+#define FLAG_UNUSED_0x1DA                    0x1DA // Inverse Battle
 
 #define FLAG_SHOWN_MYSTIC_TICKET             0x1DB
 #define FLAG_DEFEATED_HO_OH                  0x1DC
 #define FLAG_DEFEATED_LUGIA                  0x1DD
 
-#define FLAG_UNUSED_0x1DE                    0x1DE // Unused Flag
+#define FLAG_UNUSED_0x1DE                    0x1DE // Forced Double Wild Battles
 #define FLAG_UNUSED_0x1DF                    0x1DF // Unused Flag
 #define FLAG_UNUSED_0x1E0                    0x1E0 // Unused Flag
 #define FLAG_SCORCHED_SLAB_TYRANITARITE      0x1E1
@@ -652,53 +652,53 @@
 #define FLAG_HIDDEN_ITEM_SCORCHED_SLAB_STONE_PLATE           (FLAG_HIDDEN_ITEMS_START + 0x5F)
 
 //Mega Stones
-#define FLAG_UNUSED_0x265  0x265 // Beedrillite
-#define FLAG_UNUSED_0x266  0x266 // Pidgeotite
-#define FLAG_UNUSED_0x267  0x267 // Slowbroite
-#define FLAG_UNUSED_0x268  0x268 // Steelixite
-#define FLAG_UNUSED_0x269  0x269 // Sceptilite
-#define FLAG_UNUSED_0x26A  0x26A // Swampertite
-#define FLAG_UNUSED_0x26B  0x26B // Blazikenite
-#define FLAG_UNUSED_0x26C  0x26C // Sablenite
-#define FLAG_UNUSED_0x26D  0x26D // Sharpedite
-#define FLAG_UNUSED_0x26E  0x26E // Cameruptite
-#define FLAG_UNUSED_0x26F  0x26F // Altarianite
-#define FLAG_UNUSED_0x270  0x270 // Glalinite
-#define FLAG_UNUSED_0x271  0x271 // Slamancite
-#define FLAG_UNUSED_0x272  0x272 // Matagrossite
+#define FLAG_UNUSED_0x265  0x265 // Beedrillite*
+#define FLAG_UNUSED_0x266  0x266 // Pidgeotite*
+#define FLAG_UNUSED_0x267  0x267 // Slowbroite*
+#define FLAG_UNUSED_0x268  0x268 // Steelixite*
+#define FLAG_UNUSED_0x269  0x269 // Sceptilite*
+#define FLAG_UNUSED_0x26A  0x26A // Swampertite*
+#define FLAG_UNUSED_0x26B  0x26B // Blazikenite*
+#define FLAG_UNUSED_0x26C  0x26C // Sablenite*
+#define FLAG_UNUSED_0x26D  0x26D // Sharpedite*
+#define FLAG_UNUSED_0x26E  0x26E // Cameruptite*
+#define FLAG_UNUSED_0x26F  0x26F // Altarianite*
+#define FLAG_UNUSED_0x270  0x270 // Glalinite*
+#define FLAG_UNUSED_0x271  0x271 // Slamancite*
+#define FLAG_UNUSED_0x272  0x272 // Matagrossite*
 #define FLAG_UNUSED_0x273  0x273 // Latiasite
 #define FLAG_UNUSED_0x274  0x274 // Latiosite
-#define FLAG_UNUSED_0x275  0x275 // Lopunnite
-#define FLAG_UNUSED_0x276  0x276 // Galladite
-#define FLAG_UNUSED_0x277  0x277 // Audinite
+#define FLAG_UNUSED_0x275  0x275 // Lopunnite*
+#define FLAG_UNUSED_0x276  0x276 // Galladite*
+#define FLAG_UNUSED_0x277  0x277 // Audinite*
 #define FLAG_UNUSED_0x278  0x278 // Diancite
-#define FLAG_UNUSED_0x279  0x279 // Venasaurite
-#define FLAG_UNUSED_0x27A  0x27A // Charizardite Y
-#define FLAG_UNUSED_0x27B  0x27B // Charizardite X
-#define FLAG_UNUSED_0x27C  0x27C // Blastoisite
-#define FLAG_UNUSED_0x27D  0x27D // Alakazite
-#define FLAG_UNUSED_0x27E  0x27E // Gengarite
-#define FLAG_UNUSED_0x27F  0x27F // Kanghaskhanite
-#define FLAG_UNUSED_0x280  0x280 // Pinsirite
-#define FLAG_UNUSED_0x281  0x281 // Aerodactylite
+#define FLAG_UNUSED_0x279  0x279 // Venasaurite*
+#define FLAG_UNUSED_0x27A  0x27A // Charizardite Y*
+#define FLAG_UNUSED_0x27B  0x27B // Charizardite X*
+#define FLAG_UNUSED_0x27C  0x27C // Blastoisite*
+#define FLAG_UNUSED_0x27D  0x27D // Alakazite*
+#define FLAG_UNUSED_0x27E  0x27E // Gengarite*
+#define FLAG_UNUSED_0x27F  0x27F // Kanghaskhanite*
+#define FLAG_UNUSED_0x280  0x280 // Pinsirite*
+#define FLAG_UNUSED_0x281  0x281 // Aerodactylite*
 #define FLAG_UNUSED_0x282  0x282 // Mewtwonite X
 #define FLAG_UNUSED_0x283  0x283 // Mewtwonite Y
-#define FLAG_UNUSED_0x284  0x284 // Ampharosite
-#define FLAG_UNUSED_0x285  0x285 // Scizorite
-#define FLAG_UNUSED_0x286  0x286 // Houndoomite
-#define FLAG_UNUSED_0x287  0x287 // Tyranitarite
-#define FLAG_UNUSED_0x288  0x288 // Gardevoirite
-#define FLAG_UNUSED_0x289  0x289 // Mawailite
-#define FLAG_UNUSED_0x28A  0x28A // Aggronite
-#define FLAG_UNUSED_0x28B  0x28B // Medichamite
-#define FLAG_UNUSED_0x28C  0x28C // Manectrite
-#define FLAG_UNUSED_0x28D  0x28D // Banettite
-#define FLAG_UNUSED_0x28E  0x28E // Absolite
-#define FLAG_UNUSED_0x28F  0x28F // Garchompite
-#define FLAG_UNUSED_0x290  0x290 // Lucarionite
-#define FLAG_UNUSED_0x291  0x291 // Abomasnowite
-#define FLAG_UNUSED_0x292  0x292 // Unused Flag
-#define FLAG_UNUSED_0x293  0x293 // Unused Flag
+#define FLAG_UNUSED_0x284  0x284 // Ampharosite*
+#define FLAG_UNUSED_0x285  0x285 // Scizorite*
+#define FLAG_UNUSED_0x286  0x286 // Houndoomite*
+#define FLAG_UNUSED_0x287  0x287 // Tyranitarite*
+#define FLAG_UNUSED_0x288  0x288 // Gardevoirite*
+#define FLAG_UNUSED_0x289  0x289 // Mawilite*
+#define FLAG_UNUSED_0x28A  0x28A // Aggronite*
+#define FLAG_UNUSED_0x28B  0x28B // Medichamite*
+#define FLAG_UNUSED_0x28C  0x28C // Manectrite*
+#define FLAG_UNUSED_0x28D  0x28D // Banettite*
+#define FLAG_UNUSED_0x28E  0x28E // Absolite*
+#define FLAG_UNUSED_0x28F  0x28F // Garchompite*
+#define FLAG_UNUSED_0x290  0x290 // Lucarionite*
+#define FLAG_UNUSED_0x291  0x291 // Abomasite*
+#define FLAG_UNUSED_0x292  0x292 // Heracronite*
+#define FLAG_UNUSED_0x293  0x293 // Gyaradosite*
 #define FLAG_UNUSED_0x294  0x294 // Unused Flag
 #define FLAG_UNUSED_0x295  0x295 // Unused Flag
 #define FLAG_UNUSED_0x296  0x296 // Unused Flag
@@ -710,9 +710,9 @@
 #define FLAG_UNUSED_0x29C  0x29C // Unused Flag
 #define FLAG_UNUSED_0x29D  0x29D // Unused Flag
 #define FLAG_UNUSED_0x29E  0x29E // Unused Flag
-#define FLAG_UNUSED_0x29F  0x29F // Unused Flag
-#define FLAG_UNUSED_0x2A0  0x2A0 // Unused Flag
-#define FLAG_UNUSED_0x2A1  0x2A1 // Unused Flag
+#define FLAG_UNUSED_0x29F  0x29F // Type_Null
+#define FLAG_UNUSED_0x2A0  0x2A0 // Porygon
+#define FLAG_UNUSED_0x2A1  0x2A1 // Ash Greninja*
 #define FLAG_UNUSED_0x2A2  0x2A2 // Unused Flag
 #define FLAG_UNUSED_0x2A3  0x2A3 // Unused Flag
 #define FLAG_UNUSED_0x2A4  0x2A4 // Unused Flag
@@ -1217,92 +1217,92 @@
 #define FLAG_ITEM_SAFARI_ZONE_NORTH_EAST_NUGGET                     0x491
 #define FLAG_ITEM_SAFARI_ZONE_SOUTH_EAST_BIG_PEARL                  0x492
 
-#define FLAG_UNUSED_0x493                                           0x493 // Unused Flag
-#define FLAG_UNUSED_0x494                                           0x494 // Unused Flag
-#define FLAG_UNUSED_0x495                                           0x495 // Unused Flag
-#define FLAG_UNUSED_0x496                                           0x496 // Unused Flag
-#define FLAG_UNUSED_0x497                                           0x497 // Unused Flag
-#define FLAG_UNUSED_0x498                                           0x498 // Unused Flag
-#define FLAG_UNUSED_0x499                                           0x499 // Unused Flag
-#define FLAG_UNUSED_0x49A                                           0x49A // Unused Flag
-#define FLAG_UNUSED_0x49B                                           0x49B // Unused Flag
-#define FLAG_UNUSED_0x49C                                           0x49C // Unused Flag
-#define FLAG_UNUSED_0x49D                                           0x49D // Unused Flag
-#define FLAG_UNUSED_0x49E                                           0x49E // Unused Flag
-#define FLAG_UNUSED_0x49F                                           0x49F // Unused Flag
-#define FLAG_UNUSED_0x4A0                                           0x4A0 // Unused Flag
-#define FLAG_UNUSED_0x4A1                                           0x4A1 // Unused Flag
-#define FLAG_UNUSED_0x4A2                                           0x4A2 // Unused Flag
-#define FLAG_UNUSED_0x4A3                                           0x4A3 // Unused Flag
-#define FLAG_UNUSED_0x4A4                                           0x4A4 // Unused Flag
-#define FLAG_UNUSED_0x4A5                                           0x4A5 // Unused Flag
-#define FLAG_UNUSED_0x4A6                                           0x4A6 // Unused Flag
-#define FLAG_UNUSED_0x4A7                                           0x4A7 // Unused Flag
-#define FLAG_UNUSED_0x4A8                                           0x4A8 // Unused Flag
-#define FLAG_UNUSED_0x4A9                                           0x4A9 // Unused Flag
-#define FLAG_UNUSED_0x4AA                                           0x4AA // Unused Flag
-#define FLAG_UNUSED_0x4AB                                           0x4AB // Unused Flag
-#define FLAG_UNUSED_0x4AC                                           0x4AC // Unused Flag
-#define FLAG_UNUSED_0x4AD                                           0x4AD // Unused Flag
-#define FLAG_UNUSED_0x4AE                                           0x4AE // Unused Flag
-#define FLAG_UNUSED_0x4AF                                           0x4AF // Unused Flag
-#define FLAG_UNUSED_0x4B0                                           0x4B0 // Unused Flag
-#define FLAG_UNUSED_0x4B1                                           0x4B1 // Unused Flag
-#define FLAG_UNUSED_0x4B2                                           0x4B2 // Unused Flag
-#define FLAG_UNUSED_0x4B3                                           0x4B3 // Unused Flag
-#define FLAG_UNUSED_0x4B4                                           0x4B4 // Unused Flag
-#define FLAG_UNUSED_0x4B5                                           0x4B5 // Unused Flag
-#define FLAG_UNUSED_0x4B6                                           0x4B6 // Unused Flag
-#define FLAG_UNUSED_0x4B7                                           0x4B7 // Unused Flag
-#define FLAG_UNUSED_0x4B8                                           0x4B8 // Unused Flag
-#define FLAG_UNUSED_0x4B9                                           0x4B9 // Unused Flag
-#define FLAG_UNUSED_0x4BA                                           0x4BA // Unused Flag
-#define FLAG_UNUSED_0x4BB                                           0x4BB // Unused Flag
-#define FLAG_UNUSED_0x4BC                                           0x4BC // Unused Flag
-#define FLAG_UNUSED_0x4BD                                           0x4BD // Unused Flag
-#define FLAG_UNUSED_0x4BE                                           0x4BE // Unused Flag
-#define FLAG_UNUSED_0x4BF                                           0x4BF // Unused Flag
-#define FLAG_UNUSED_0x4C0                                           0x4C0 // Unused Flag
-#define FLAG_UNUSED_0x4C1                                           0x4C1 // Unused Flag
-#define FLAG_UNUSED_0x4C2                                           0x4C2 // Unused Flag
-#define FLAG_UNUSED_0x4C3                                           0x4C3 // Unused Flag
-#define FLAG_UNUSED_0x4C4                                           0x4C4 // Unused Flag
-#define FLAG_UNUSED_0x4C5                                           0x4C5 // Unused Flag
-#define FLAG_UNUSED_0x4C6                                           0x4C6 // Unused Flag
-#define FLAG_UNUSED_0x4C7                                           0x4C7 // Unused Flag
-#define FLAG_UNUSED_0x4C8                                           0x4C8 // Unused Flag
-#define FLAG_UNUSED_0x4C9                                           0x4C9 // Unused Flag
-#define FLAG_UNUSED_0x4CA                                           0x4CA // Unused Flag
-#define FLAG_UNUSED_0x4CB                                           0x4CB // Unused Flag
-#define FLAG_UNUSED_0x4CC                                           0x4CC // Unused Flag
-#define FLAG_UNUSED_0x4CD                                           0x4CD // Unused Flag
-#define FLAG_UNUSED_0x4CE                                           0x4CE // Unused Flag
-#define FLAG_UNUSED_0x4CF                                           0x4CF // Unused Flag
-#define FLAG_UNUSED_0x4D0                                           0x4D0 // Unused Flag
-#define FLAG_UNUSED_0x4D1                                           0x4D1 // Unused Flag
-#define FLAG_UNUSED_0x4D2                                           0x4D2 // Unused Flag
-#define FLAG_UNUSED_0x4D3                                           0x4D3 // Unused Flag
-#define FLAG_UNUSED_0x4D4                                           0x4D4 // Unused Flag
-#define FLAG_UNUSED_0x4D5                                           0x4D5 // Unused Flag
-#define FLAG_UNUSED_0x4D6                                           0x4D6 // Unused Flag
-#define FLAG_UNUSED_0x4D7                                           0x4D7 // Unused Flag
-#define FLAG_UNUSED_0x4D8                                           0x4D8 // Unused Flag
-#define FLAG_UNUSED_0x4D9                                           0x4D9 // Unused Flag
-#define FLAG_UNUSED_0x4DA                                           0x4DA // Unused Flag
-#define FLAG_UNUSED_0x4DB                                           0x4DB // Unused Flag
-#define FLAG_UNUSED_0x4DC                                           0x4DC // Unused Flag
-#define FLAG_UNUSED_0x4DD                                           0x4DD // Unused Flag
-#define FLAG_UNUSED_0x4DE                                           0x4DE // Unused Flag
-#define FLAG_UNUSED_0x4DF                                           0x4DF // Unused Flag
-#define FLAG_UNUSED_0x4E0                                           0x4E0 // Unused Flag
-#define FLAG_UNUSED_0x4E1                                           0x4E1 // Unused Flag
-#define FLAG_UNUSED_0x4E2                                           0x4E2 // Unused Flag
-#define FLAG_UNUSED_0x4E3                                           0x4E3 // Unused Flag
-#define FLAG_UNUSED_0x4E4                                           0x4E4 // Unused Flag
-#define FLAG_UNUSED_0x4E5                                           0x4E5 // Unused Flag
-#define FLAG_UNUSED_0x4E6                                           0x4E6 // Unused Flag
-#define FLAG_UNUSED_0x4E7                                           0x4E7 // Unused Flag
-#define FLAG_UNUSED_0x4E8                                           0x4E8 // Unused Flag
+#define FLAG_UNUSED_0x493                                           0x493 // Articuno
+#define FLAG_UNUSED_0x494                                           0x494 // Zapdos
+#define FLAG_UNUSED_0x495                                           0x495 // Moltres
+#define FLAG_UNUSED_0x496                                           0x496 // Mewtwo
+#define FLAG_UNUSED_0x497                                           0x497 // Mew
+#define FLAG_UNUSED_0x498                                           0x498 // Suicune
+#define FLAG_UNUSED_0x499                                           0x499 // Raikou
+#define FLAG_UNUSED_0x49A                                           0x49A // Entei
+#define FLAG_UNUSED_0x49B                                           0x49B // Ho-oh
+#define FLAG_UNUSED_0x49C                                           0x49C // Lugia
+#define FLAG_UNUSED_0x49D                                           0x49D // Celebi
+#define FLAG_UNUSED_0x49E                                           0x49E // Latios
+#define FLAG_UNUSED_0x49F                                           0x49F // Latias
+#define FLAG_UNUSED_0x4A0                                           0x4A0 // Jirachi
+#define FLAG_UNUSED_0x4A1                                           0x4A1 // Deoxys
+#define FLAG_UNUSED_0x4A2                                           0x4A2 // Azelf
+#define FLAG_UNUSED_0x4A3                                           0x4A3 // Mesprit
+#define FLAG_UNUSED_0x4A4                                           0x4A4 // Uxie
+#define FLAG_UNUSED_0x4A5                                           0x4A5 // Dialga
+#define FLAG_UNUSED_0x4A6                                           0x4A6 // Palkia
+#define FLAG_UNUSED_0x4A7                                           0x4A7 // Giratina
+#define FLAG_UNUSED_0x4A8                                           0x4A8 // Cresselia
+#define FLAG_UNUSED_0x4A9                                           0x4A9 // Heatran
+#define FLAG_UNUSED_0x4AA                                           0x4AA // Regigigas
+#define FLAG_UNUSED_0x4AB                                           0x4AB // Shaymin
+#define FLAG_UNUSED_0x4AC                                           0x4AC // Darkrai
+#define FLAG_UNUSED_0x4AD                                           0x4AD // Manaphy
+#define FLAG_UNUSED_0x4AE                                           0x4AE // Arceus
+#define FLAG_UNUSED_0x4AF                                           0x4AF // Cobalion
+#define FLAG_UNUSED_0x4B0                                           0x4B0 // Terrakion
+#define FLAG_UNUSED_0x4B1                                           0x4B1 // Virizion
+#define FLAG_UNUSED_0x4B2                                           0x4B2 // Tornadus
+#define FLAG_UNUSED_0x4B3                                           0x4B3 // Thundurus
+#define FLAG_UNUSED_0x4B4                                           0x4B4 // Landorus
+#define FLAG_UNUSED_0x4B5                                           0x4B5 // Reshiram
+#define FLAG_UNUSED_0x4B6                                           0x4B6 // Zekrom
+#define FLAG_UNUSED_0x4B7                                           0x4B7 // Kyurem
+#define FLAG_UNUSED_0x4B8                                           0x4B8 // Meloetta
+#define FLAG_UNUSED_0x4B9                                           0x4B9 // Genesect
+#define FLAG_UNUSED_0x4BA                                           0x4BA // Xerneas
+#define FLAG_UNUSED_0x4BB                                           0x4BB // Yveltal
+#define FLAG_UNUSED_0x4BC                                           0x4BC // Zygarde
+#define FLAG_UNUSED_0x4BD                                           0x4BD // Diancie
+#define FLAG_UNUSED_0x4BE                                           0x4BE // Hoopa
+#define FLAG_UNUSED_0x4BF                                           0x4BF // Volcanion
+#define FLAG_UNUSED_0x4C0                                           0x4C0 // Tapu Koko
+#define FLAG_UNUSED_0x4C1                                           0x4C1 // Tapu Lele
+#define FLAG_UNUSED_0x4C2                                           0x4C2 // Tapu Bulu
+#define FLAG_UNUSED_0x4C3                                           0x4C3 // Tapu Fini
+#define FLAG_UNUSED_0x4C4                                           0x4C4 // Cosmog
+#define FLAG_UNUSED_0x4C5                                           0x4C5 // Solgaleo
+#define FLAG_UNUSED_0x4C6                                           0x4C6 // Lunala
+#define FLAG_UNUSED_0x4C7                                           0x4C7 // Necrozma
+#define FLAG_UNUSED_0x4C8                                           0x4C8 // Magearna
+#define FLAG_UNUSED_0x4C9                                           0x4C9 // Marshadow
+#define FLAG_UNUSED_0x4CA                                           0x4CA // Nihilego
+#define FLAG_UNUSED_0x4CB                                           0x4CB // Buzzwole
+#define FLAG_UNUSED_0x4CC                                           0x4CC // Pheromosa
+#define FLAG_UNUSED_0x4CD                                           0x4CD // Xurkitree
+#define FLAG_UNUSED_0x4CE                                           0x4CE // Celesteela
+#define FLAG_UNUSED_0x4CF                                           0x4CF // Kartana
+#define FLAG_UNUSED_0x4D0                                           0x4D0 // Guzzlord
+#define FLAG_UNUSED_0x4D1                                           0x4D1 // Zacian
+#define FLAG_UNUSED_0x4D2                                           0x4D2 // Poipole
+#define FLAG_UNUSED_0x4D3                                           0x4D3 // Stakataka
+#define FLAG_UNUSED_0x4D4                                           0x4D4 // Blacephalon
+#define FLAG_UNUSED_0x4D5                                           0x4D5 // Zeraora
+#define FLAG_UNUSED_0x4D6                                           0x4D6 // Meltan
+#define FLAG_UNUSED_0x4D7                                           0x4D7 // Zacian
+#define FLAG_UNUSED_0x4D8                                           0x4D8 // Zamazenta
+#define FLAG_UNUSED_0x4D9                                           0x4D9 // Eternatus
+#define FLAG_UNUSED_0x4DA                                           0x4DA // Kubfu 1
+#define FLAG_UNUSED_0x4DB                                           0x4DB // Kubfu 2
+#define FLAG_UNUSED_0x4DC                                           0x4DC // Regieleki
+#define FLAG_UNUSED_0x4DD                                           0x4DD // Regidrago
+#define FLAG_UNUSED_0x4DE                                           0x4DE // Galarian Articuno
+#define FLAG_UNUSED_0x4DF                                           0x4DF // Galarian Zapdos
+#define FLAG_UNUSED_0x4E0                                           0x4E0 // Galarian Articuno
+#define FLAG_UNUSED_0x4E1                                           0x4E1 // Glastrier
+#define FLAG_UNUSED_0x4E2                                           0x4E2 // Spectrier
+#define FLAG_UNUSED_0x4E3                                           0x4E3 // Calyrex
+#define FLAG_UNUSED_0x4E4                                           0x4E4 // Victini
+#define FLAG_UNUSED_0x4E5                                           0x4E5 // Keldeo
+#define FLAG_UNUSED_0x4E6                                           0x4E6 // Zarude
+#define FLAG_UNUSED_0x4E7                                           0x4E7 // Blue Orb
+#define FLAG_UNUSED_0x4E8                                           0x4E8 // Red Orb
 #define FLAG_UNUSED_0x4E9                                           0x4E9 // Unused Flag
 #define FLAG_UNUSED_0x4EA                                           0x4EA // Unused Flag
 #define FLAG_UNUSED_0x4EB                                           0x4EB // Unused Flag
@@ -1591,7 +1591,7 @@
 #define FLAG_UNUSED_0x936                           (DAILY_FLAGS_START + 0x16) // Grass Starter
 #define FLAG_UNUSED_0x937                           (DAILY_FLAGS_START + 0x17) // Fire Starter
 #define FLAG_UNUSED_0x938                           (DAILY_FLAGS_START + 0x18) // Water Starter
-#define FLAG_UNUSED_0x939                           (DAILY_FLAGS_START + 0x19) // Unused Flag
+#define FLAG_UNUSED_0x939                           (DAILY_FLAGS_START + 0x19) // Ability Patch
 #define FLAG_UNUSED_0x93A                           (DAILY_FLAGS_START + 0x1A) // Unused Flag
 #define FLAG_UNUSED_0x93B                           (DAILY_FLAGS_START + 0x1B) // Unused Flag
 #define FLAG_UNUSED_0x93C                           (DAILY_FLAGS_START + 0x1C) // Unused Flag

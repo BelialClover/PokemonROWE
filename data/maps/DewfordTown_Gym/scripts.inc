@@ -188,8 +188,22 @@ DewfordTown_Gym_EventScript_Brawly_PostBattle::
 DewfordTown_Gym_EventScript_BrawlyRematch:: @ 81FC89C
 	msgbox DewfordTown_Gym_Text_BrawlyPreRematch, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_BRAWLY_1, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	goto DewfordTown_Gym_EventScript_GiveMegastone
+	end
+	
+DewfordTown_Gym_EventScript_BrawlyRematchEnd::
 	msgbox DewfordTown_Gym_Text_BrawlyPostRematch, MSGBOX_AUTOCLOSE
-	setflag FLAG_UNUSED_0x923
+	setflag FLAG_UNUSED_0x923 
+	end
+	
+DewfordTown_Gym_EventScript_GiveMegastone::
+	goto_if_unset FLAG_RECEIVED_TM04 DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	goto_if_set FLAG_UNUSED_0x292 DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_HERACRONITE
+	setflag FLAG_UNUSED_0x292
+	msgbox DewfordTown_Gym_Text_BrawlyPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x923 
 	end
 
 DewfordTown_Gym_EventScript_GiveHM::

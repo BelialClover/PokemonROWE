@@ -12370,44 +12370,44 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza2[] = {
     {
     .iv = 200,
     .lvl = 6,
-	.species = SPECIES_GOTHITA,
+	.species = SPECIES_SLOWKING,
     .heldItem = ITEM_NONE,
-    .moves = {MOVE_CALM_MIND, MOVE_NONE, MOVE_NONE, MOVE_NONE}
+    .moves = {MOVE_FIRE_BLAST, MOVE_SCALD, MOVE_PSYSHOCK, MOVE_ICE_BEAM}
     },
     {
     .iv = 200,
     .lvl = 6,
-	.species = SPECIES_SOLOSIS,
+	.species = SPECIES_SLOWBRO,
     .heldItem = ITEM_NONE,
-    .moves = {MOVE_CALM_MIND, MOVE_NONE, MOVE_NONE, MOVE_NONE}
+    .moves = {MOVE_SCALD, MOVE_PSYCHIC, MOVE_RECOVER, MOVE_FIRE_BLAST}
     },
     {
     .iv = 200,
     .lvl = 6,
 	.species = SPECIES_GALLADE,
     .heldItem = ITEM_GALLADITE,
-    .moves = {MOVE_PSYCHO_CUT, MOVE_NONE, MOVE_NONE, MOVE_NONE}
+    .moves = {MOVE_PSYCHO_CUT, MOVE_ROCK_SLIDE, MOVE_CLOSE_COMBAT, MOVE_LEAF_BLADE}
     },
     {
     .iv = 200,
     .lvl = 6,
 	.species = SPECIES_GARDEVOIR,
     .heldItem = ITEM_GARDEVOIRITE,
-    .moves = {MOVE_CALM_MIND, MOVE_HYPER_VOICE, MOVE_NONE, MOVE_NONE}
+    .moves = {MOVE_CALM_MIND, MOVE_HYPER_VOICE, MOVE_PSYSHOCK, MOVE_THUNDERBOLT}
     },
     {
     .iv = 255,
     .lvl = 6,
 	.species = SPECIES_SOLROCK,
-    .heldItem = ITEM_LEFTOVERS,
-    .moves = {MOVE_CALM_MIND, MOVE_NONE, MOVE_NONE, MOVE_NONE}
+    .heldItem = ITEM_POWER_HERB,
+    .moves = {MOVE_CALM_MIND, MOVE_POWER_GEM, MOVE_EARTH_POWER, MOVE_SOLAR_BEAM}
     },
     {
     .iv = 255,
     .lvl = 6,
     .species = SPECIES_LUNATONE,
-    .heldItem = ITEM_LEFTOVERS,
-    .moves = {MOVE_CALM_MIND, MOVE_NONE, MOVE_NONE, MOVE_NONE}
+    .heldItem = ITEM_SITRUS_BERRY,
+    .moves = {MOVE_CALM_MIND, MOVE_POWER_GEM, MOVE_EARTH_POWER, MOVE_MOONBLAST}
     }
 };
 

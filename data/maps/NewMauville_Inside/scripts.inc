@@ -143,6 +143,45 @@ NewMauville_Inside_EventScript_SetBarrierStateGreenButton:: @ 82375D7
 	setmetatile 4, 26, METATILE_BikeShop_Button_Blue, 0
 	setmetatile 30, 38, METATILE_BikeShop_Button_Blue, 0
 	return
+	
+NewMauville_Inside_EventScript_Zapdos::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_ZAPDOS, 2
+	delay 40
+	waitmoncry
+	setwildbattle SPECIES_ZAPDOS, 70, ITEM_NONE
+	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	special StartRegiBattle
+	waitstate
+	clearflag FLAG_SYS_CTRL_OBJ_DELETE
+	specialvar VAR_RESULT, GetBattleOutcome
+	compare VAR_RESULT, B_OUTCOME_CAUGHT
+	goto_if_eq NewMauville_Inside_EventScript_CaughtZapdos
+	compare VAR_RESULT, B_OUTCOME_WON
+	goto_if_eq NewMauville_Inside_EventScript_DefeatedZapdos
+	compare VAR_RESULT, B_OUTCOME_RAN
+	goto_if_eq NewMauville_Inside_EventScript_RanFromZapdos
+	compare VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED
+	goto_if_eq NewMauville_Inside_EventScript_RanFromZapdos
+	setflag FLAG_UNUSED_0x494
+	release
+	end
+
+NewMauville_Inside_EventScript_CaughtZapdos::
+	setflag FLAG_UNUSED_0x494
+	goto Common_EventScript_RemoveStaticPokemon
+	end
+
+NewMauville_Inside_EventScript_DefeatedZapdos::
+	goto Common_EventScript_RemoveStaticPokemon
+	end
+
+NewMauville_Inside_EventScript_RanFromZapdos::
+	setvar VAR_0x8004, SPECIES_ZAPDOS
+	goto Common_EventScript_LegendaryFlewAway
+	end
 
 NewMauville_Inside_EventScript_RedButton:: @ 8237725
 	lockall

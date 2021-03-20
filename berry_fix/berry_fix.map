@@ -1,0 +1,52 @@
+
+Discarded input sections
+
+ .data          0x0000000000000000        0x0 asm/loader.o
+ .bss           0x0000000000000000        0x0 asm/loader.o
+ .ARM.attributes
+                0x0000000000000000       0x20 asm/loader.o
+ .text          0x0000000000000000        0x0 data/data.o
+ .data          0x0000000000000000        0x0 data/data.o
+ .bss           0x0000000000000000        0x0 data/data.o
+ .ARM.attributes
+                0x0000000000000000       0x20 data/data.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+                0x0000000002000000                . = 0x2000000
+
+.text           0x0000000002000000      0x1f0
+ asm/loader.o(.text)
+ .text          0x0000000002000000      0x1f0 asm/loader.o
+                0x0000000002000000                _start
+                0x0000000002000004                BerryFixMBHeaderNintendoLogo
+                0x00000000020000ac                BerryFixMBHeaderGameCode
+                0x00000000020000bc                BerryFixMBHeaderSoftwareVersion
+                0x00000000020000c4                _GPIOPortData
+                0x00000000020000c6                _GPIOPortDirection
+                0x00000000020000c8                _GPIOPortReadEnable
+                0x0000000002000100                _entry
+                0x0000000002000120                _recv
+                0x000000000200014c                _send
+                0x00000000020002f0                . = (. + 0x100)
+
+.rodata         0x00000000020002f0     0x3904
+ data/data.o(.rodata)
+ .rodata        0x00000000020002f0     0x3904 data/data.o
+                0x00000000020002f0                _data_2f0
+                0x0000000002010000                . = 0x2010000
+
+ewram           0x0000000002010000        0x0
+                0x0000000002010000                gCode = .
+
+/DISCARD/
+ *(*)
+OUTPUT(../berry_fix.elf elf32-littlearm)
+LOAD linker stubs
+LOAD asm/loader.o
+LOAD data/data.o

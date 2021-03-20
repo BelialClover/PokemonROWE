@@ -11,7 +11,7 @@ SkyPillar_4F_OnTransition: @ 8239681
 	end
 
 SkyPillar_4F_EventScript_CleanFloor:: @ 8239692
-	setmaplayoutindex LAYOUT_SKY_PILLAR_4F_CLEAN
+	//setmaplayoutindex LAYOUT_SKY_PILLAR_4F_CLEAN
 	return
 
 SkyPillar_4F_SetHoleWarp: @ 8239696

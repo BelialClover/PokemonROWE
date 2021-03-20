@@ -33,6 +33,11 @@ SkyPillar_Outside_EventScript_OpenDoor:: @ 82392E7
 SkyPillar_Outside_OnFrame: @ 82392FA
 	map_script_2 VAR_SOOTOPOLIS_CITY_STATE, 3, SkyPillar_Outside_EventScript_WallaceScene
 	.2byte 0
+	
+SkyPillar_Outside_EventScript_Not_Allowed::
+	msgbox SkyPillar_Outside_Text_Not_Allowed, MSGBOX_DEFAULT
+	release
+	end
 
 SkyPillar_Outside_EventScript_WallaceScene:: @ 8239304
 	lockall
@@ -172,3 +177,7 @@ SkyPillar_Outside_Text_GotToGoBackForSootopolis: @ 823953A
 	.string "I've got to go back.\p"
 	.string "Everything is in your hands now.\n"
 	.string "Don't fail us!$"
+	
+SkyPillar_Outside_Text_Not_Allowed:
+	.string "Only those allowed by Rayquaza\n"
+	.string "are can enter here.$"

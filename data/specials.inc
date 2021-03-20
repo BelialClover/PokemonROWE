@@ -543,6 +543,8 @@ gSpecials:: @ 81DBA64
 	def_special GetSpAtkIV
 	def_special GetSpDefIV
 	def_special GetSpeedIV
+	def_special CutWildEncounter
+	def_special TryStoreCutItem
 	
 	@Rotom Form Change
 	def_special CountRotomInParty

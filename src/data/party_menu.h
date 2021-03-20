@@ -1370,80 +1370,80 @@ const u16 sTMHMMoves[TMHM_COUNT] =
     MOVE_REST,
     MOVE_ATTRACT,
     MOVE_THIEF,
-    MOVE_STEEL_WING,
+    MOVE_STEEL_WING,		//47 Changed with Low Sweep
     MOVE_SKILL_SWAP,
     MOVE_SNATCH,
     MOVE_OVERHEAT,
-    MOVE_NONE,  //51
-    MOVE_NONE,  //52
-    MOVE_NONE,  //53
-    MOVE_NONE,  //54
-    MOVE_NONE,  //55
-    MOVE_NONE,  //56
-    MOVE_NONE,  //57
-    MOVE_NONE,  //58
-    MOVE_NONE,  //59
-    MOVE_NONE,  //60
-    MOVE_NONE,  //61
-    MOVE_NONE,  //62
-    MOVE_NONE,  //63
-    MOVE_EXPLOSION,
-    MOVE_NONE,  //65
-    MOVE_NONE,  //66
-    MOVE_NONE,  //67
-    MOVE_NONE,  //68
-    MOVE_NONE,  //69
-    MOVE_NONE,  //70
-    MOVE_NONE,  //71
-    MOVE_NONE,  //72
-    MOVE_NONE,  //73
-    MOVE_NONE,  //74
-    MOVE_NONE,  //75
-    MOVE_NONE,  //76
-    MOVE_NONE,  //77
-    MOVE_NONE,  //78
-    MOVE_NONE,  //79
-    MOVE_NONE,  //80
-    MOVE_NONE,  //81
-    MOVE_NONE,  //82
-    MOVE_NONE,  //83
-    MOVE_NONE,  //84
-    MOVE_NONE,  //85
-    MOVE_NONE,  //86
-    MOVE_NONE,  //87
-    MOVE_NONE,  //88
-    MOVE_NONE,  //89
-    MOVE_NONE,  //90
-    MOVE_NONE,  //91
-    MOVE_NONE,  //92
-    MOVE_NONE,  //93
-    MOVE_NONE,  //94
-    MOVE_NONE,  //95
-    MOVE_NONE,  //96
-    MOVE_NONE,  //97
-    MOVE_NONE,  //98
-    MOVE_NONE,  //99
-    MOVE_NONE,  //100
-    MOVE_NONE,  //101
-    MOVE_NONE,  //102
-    MOVE_NONE,  //103
-    MOVE_NONE,  //104
-    MOVE_NONE,  //105
-    MOVE_NONE,  //106
-    MOVE_NONE,  //107
-    MOVE_NONE,  //108
-    MOVE_NONE,  //109
-    MOVE_NONE,  //110
-    MOVE_NONE,  //111
-    MOVE_NONE,  //112
-    MOVE_NONE,  //113
-    MOVE_NONE,  //114
-    MOVE_NONE,  //115
-    MOVE_NONE,  //116
-    MOVE_NONE,  //117
-    MOVE_NONE,  //118
-    MOVE_NONE,  //119
-    MOVE_NONE,  //120
+    MOVE_LOW_SWEEP,  		//51 Changed with Steel Wing
+    MOVE_FOCUS_BLAST,  		//52
+    MOVE_ENERGY_BALL,  		//53
+    MOVE_FALSE_SWIPE,  		//54
+    MOVE_SCALD,  			//55
+    MOVE_FLING,  			//56
+    MOVE_CHARGE_BEAM,  		//57
+    MOVE_SKY_DROP,  		//58
+    MOVE_BRUTAL_SWING,  	//59
+    MOVE_QUASH,  			//60
+    MOVE_WILL_O_WISP,  		//61
+    MOVE_ACROBATICS,  		//62
+    MOVE_EMBARGO,  			//63
+    MOVE_EXPLOSION,			//64
+    MOVE_SHADOW_CLAW,  		//65
+    MOVE_PAYBACK,  			//66
+    MOVE_SMART_STRIKE,  	//67
+    MOVE_GIGA_IMPACT,  		//68
+    MOVE_ROCK_POLISH,  		//69
+    MOVE_AURORA_VEIL,  		//70
+    MOVE_STONE_EDGE,  		//71
+    MOVE_VOLT_SWITCH,  		//72
+    MOVE_THUNDER_WAVE,  	//73
+    MOVE_GYRO_BALL,  		//74
+    MOVE_SWORDS_DANCE,  	//75
+    MOVE_FLY,  				//76
+    MOVE_PSYCH_UP,  		//77
+    MOVE_BULLDOZE,  		//78
+    MOVE_FROST_BREATH,  	//79
+    MOVE_ROCK_SLIDE,  		//80
+    MOVE_X_SCISSOR,  		//81
+    MOVE_DRAGON_TAIL,  		//82
+    MOVE_INFESTATION,  		//83
+    MOVE_POISON_JAB,  		//84
+    MOVE_DREAM_EATER,  		//85
+    MOVE_GRASS_KNOT,  		//86
+    MOVE_SWAGGER,  			//87
+    MOVE_SLEEP_TALK,  		//88
+    MOVE_U_TURN,  			//89
+    MOVE_SUBSTITUTE,  		//90
+    MOVE_FLASH_CANNON,		//91
+    MOVE_TRICK_ROOM,  		//92
+    MOVE_WILD_CHARGE,  		//93
+    MOVE_SURF,  			//94
+    MOVE_SNARL,  			//95
+    MOVE_NATURE_POWER,  	//96
+    MOVE_DARK_PULSE,  		//97
+    MOVE_WATERFALL,  		//98
+    MOVE_DAZZLING_GLEAM,  	//99
+    MOVE_CONFIDE,  			//100
+    MOVE_SLUDGE_WAVE,  		//101 Changed from TM36
+    MOVE_LIQUIDATION, 		//102
+    MOVE_LEECH_LIFE,  		//103 Changed from TM28
+    MOVE_PLAY_ROUGH,  		//104
+    MOVE_PSYSHOCK,  		//105 Changed from TM03
+    MOVE_AURA_SPHERE,  		//106
+    MOVE_POWER_GEM,			//107
+    MOVE_EARTH_POWER,  		//108
+    MOVE_GUNK_SHOT,  		//109
+    MOVE_STEALTH_ROCK,  	//110
+    MOVE_HEAT_CRASH,  		//111
+    MOVE_POLLEN_PUFF,  		//112
+    MOVE_NASTY_PLOT,  		//113
+    MOVE_BRAVE_BIRD,  		//114
+    MOVE_BUG_BUZZ,  		//115
+    MOVE_DRAGON_DANCE,  	//116
+    MOVE_BLAZE_KICK,  		//117
+    MOVE_TRI_ATTACK,  		//118
+    MOVE_DRAIN_PUNCH,  		//119
+    MOVE_MYSTICAL_FIRE,  	//120
     MOVE_NONE,  //121
     MOVE_NONE,  //122
     MOVE_NONE,  //123

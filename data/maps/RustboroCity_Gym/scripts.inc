@@ -9,17 +9,31 @@ RustboroCity_Gym_EventScript_Roxanne:: @ 8212F31
 	msgbox RustboroCity_Gym_Text_RoxannePostBattle, MSGBOX_DEFAULT
 	end
 	
-RustboroCity_Gym_EventScript_RoxanneRematch:: @ 8212FC8
-	msgbox RustboroCity_Gym_Text_RoxannePreRematch, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxanneRematchDefeat
-	msgbox RustboroCity_Gym_Text_RoxannePostRematch, MSGBOX_AUTOCLOSE
-	setflag FLAG_UNUSED_0x920
-	end
-	
 RustboroCity_Gym_EventScript_Roxanne_PostBattle::
 	goto_if_unset FLAG_UNUSED_0x920, RustboroCity_Gym_EventScript_RoxanneRematch
 	msgbox RustboroCity_Gym_Text_RoxannePostRematch, MSGBOX_DEFAULT
 	release
+	end
+	
+RustboroCity_Gym_EventScript_RoxanneRematch:: @ 8212FC8
+	msgbox RustboroCity_Gym_Text_RoxannePreRematch, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_ROXANNE_1, RustboroCity_Gym_Text_RoxanneRematchDefeat
+	goto RustboroCity_Gym_EventScript_GiveMegastone
+	end
+	
+RustboroCity_Gym_EventScript_RoxanneRematchEnd::
+	msgbox RustboroCity_Gym_Text_RoxannePostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x920
+	end
+	
+RustboroCity_Gym_EventScript_GiveMegastone::
+	goto_if_unset FLAG_RECEIVED_TM04 RustboroCity_Gym_EventScript_RoxanneRematchEnd
+	goto_if_set FLAG_UNUSED_0x28A RustboroCity_Gym_EventScript_RoxanneRematchEnd
+	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_AGGRONITE
+	setflag FLAG_UNUSED_0x28A
+	msgbox RustboroCity_Gym_Text_RoxannePostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x920
 	end
 
 RustboroCity_Gym_EventScript_RoxanneDefeated:: @ 8212F66

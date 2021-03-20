@@ -1,5 +1,5 @@
 SkyPillar_1F_MapScripts:: @ 8239615
-	map_script MAP_SCRIPT_ON_TRANSITION, SkyPillar_1F_OnTransition
+	//map_script MAP_SCRIPT_ON_TRANSITION, SkyPillar_1F_OnTransition
 	.byte 0
 
 SkyPillar_1F_OnTransition: @ 823961B

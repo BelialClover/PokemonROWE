@@ -10,8 +10,9 @@ RustboroCity_DevonCorp_2F_OnTransition: @ 821185D
 	end
 
 RustboroCity_DevonCorp_2F_EventScript_SetFossilReady:: @ 8211869
-	setvar VAR_FOSSIL_RESURRECTION_STATE, 2
-	return
+	goto RustboroCity_DevonCorp_2F_EventScript_Porygon_Scientist
+	release
+	end
 
 RustboroCity_DevonCorp_2F_EventScript_TalkToPokemonScientist:: @ 821186F
 	lock
@@ -81,7 +82,7 @@ RustboroCity_DevonCorp_2F_EventScript_WhatFossil::
 	switch VAR_RESULT
 	case 0, RustboroCity_DevonCorp_2F_EventScript_Revive_Dome_Fossil
 	case 1, RustboroCity_DevonCorp_2F_EventScript_Revive_Helix_Fossil
-	case 2, RustboroCity_DevonCorp_2F_EventScript_Revive_Old_Amber
+	case 2, RustboroCity_DevonCorp_2F_EventScript_Revive_Old_Amber_Mega
 	case 3, RustboroCity_DevonCorp_2F_EventScript_Revive_Root_Fossil
 	case 4, RustboroCity_DevonCorp_2F_EventScript_Revive_Claw_Fossil
 	case 5, RustboroCity_DevonCorp_2F_EventScript_Revive_Skull_Fossil
@@ -167,6 +168,32 @@ RustboroCity_DevonCorp_2F_EventScript_Revive_Old_Amber::
 	playfanfare MUS_OBTAIN_ITEM
 	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
 	givemon SPECIES_AERODACTYL, 10, ITEM_NONE
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Revive_Old_Amber_Mega::
+	goto_if_unset FLAG_RECEIVED_TM04 RustboroCity_DevonCorp_2F_EventScript_Revive_Old_Amber
+	goto_if_set FLAG_UNUSED_0x281 RustboroCity_DevonCorp_2F_EventScript_Revive_Old_Amber
+	checkitem ITEM_OLD_AMBER, 1
+	compare VAR_RESULT, FALSE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Fossil
+	bufferitemname 0, ITEM_OLD_AMBER
+	msgbox RustboroCity_DevonCorp_2F_Text_HandedFossilToResearcher, MSGBOX_DEFAULT
+	fadescreen 1
+	playfanfare MUS_HEAL
+	closemessage
+	removeitem ITEM_OLD_AMBER
+	bufferspeciesname 1, SPECIES_AERODACTYL
+	waitfanfare
+	fadescreen 0
+	delay 30
+	msgbox RustboroCity_DevonCorp_2F_Text_FossilizedMonBroughtBackToLife, MSGBOX_DEFAULT
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_AERODACTYL, 30, ITEM_AERODACTYLITE
+	setflag FLAG_UNUSED_0x281
 	waitfanfare
 	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
 	release
@@ -355,6 +382,66 @@ RustboroCity_DevonCorp_2F_EventScript_Revive_Sail_Fossil::
 	msgbox RustboroCity_DevonCorp_2F_Text_More_Fossils, MSGBOX_DEFAULT
 	release
 	end
+	
+//
+
+RustboroCity_DevonCorp_2F_EventScript_Porygon_Scientist:
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_TM04, RustboroCity_DevonCorp_2F_EventScript_Type_Null_Scientist
+	goto_if_set FLAG_UNUSED_0x2A0, RustboroCity_DevonCorp_2F_EventScript_ReceivedPorygon
+	msgbox RustboroCity_DevonCorp_2F_Text_PorygonTypeNull, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_DeclinePorygon
+	getpartysize
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_NoRoomForThis
+	bufferspeciesname 1, SPECIES_PORYGON
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_PORYGON, 10, ITEM_NONE
+	setflag FLAG_UNUSED_0x2A0
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_PorygonTypeNull_Accepted, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Type_Null_Scientist:
+	lock
+	faceplayer
+	goto_if_set FLAG_UNUSED_0x29F, RustboroCity_DevonCorp_2F_EventScript_ReceivedPorygon
+	msgbox RustboroCity_DevonCorp_2F_Text_PorygonTypeNull, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_DeclinePorygon
+	getpartysize
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_NoRoomForThis
+	bufferspeciesname 1, SPECIES_TYPE_NULL
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_TYPE_NULL, 25, ITEM_NONE
+	setflag FLAG_UNUSED_0x29F
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_PorygonTypeNull_Accepted, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_ReceivedPorygon::
+	msgbox RustboroCity_DevonCorp_2F_Text_WhatToWorkOnNext, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_DeclinePorygon::
+	msgbox RustboroCity_DevonCorp_2F_Text_PorygonTypeNull_Declined, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_NoRoomForThis::
+	msgbox Route117_PokemonDayCare_Text_NoRoomForThis, MSGBOX_DEFAULT
+	release
+	end
+	
+//
 
 @ This whole section has needless duplication and could be condensed considerably
 RustboroCity_DevonCorp_2F_EventScript_NoticeRootFossil:: @ 8211933
@@ -694,4 +781,20 @@ RustboroCity_DevonCorp_2F_Text_WhatToWorkOnNext: @ 8212386
 	.string "inspirations into reality.\p"
 	.string "One couldn't ask for a better\n"
 	.string "environment as an engineer.$"
+	
+RustboroCity_DevonCorp_2F_Text_PorygonTypeNull:
+	.string "I Just developed a new Pokémon\n"
+	.string "species using some available\p"
+	.string "data our company had laying\n"
+	.string "around, do you want it?.$"
+	
+RustboroCity_DevonCorp_2F_Text_PorygonTypeNull_Declined:
+	.string "Thats a shame.\p"
+	.string "Its really strong, you should\n"
+	.string "give it a try.$"
+	
+RustboroCity_DevonCorp_2F_Text_PorygonTypeNull_Accepted:
+	.string "Please treat it with care\n"
+	.string "it certainly can grow\p"
+	.string "stronger.$"
 

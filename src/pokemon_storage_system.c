@@ -4088,7 +4088,7 @@ static void LoadCursorMonSprite(void)
 }
 
 static void LoadCursorMonGfx(u16 species, u32 pid, u8 formId)
-{
+{//asdf
     u16 formSpeciesId = GetFormSpeciesId(species, formId);
     if (sPSSData->cursorMonSprite == NULL)
         return;
@@ -4100,6 +4100,7 @@ static void LoadCursorMonGfx(u16 species, u32 pid, u8 formId)
         CpuCopy32(sPSSData->field_22C4, sPSSData->field_223C, 0x800);
         LoadPalette(sPSSData->field_2244, sPSSData->field_223A, 0x20);
         sPSSData->cursorMonSprite->invisible = FALSE;
+		//sPSSData->cursorMonSprite->invisible = TRUE;
     }
     else
     {

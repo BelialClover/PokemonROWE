@@ -112,8 +112,7 @@ MauvilleCity_Gym_EventScript_WattsonDefeated:: @ 820DF2B
 MauvilleCity_Gym_EventScript_WattsonRematch:: @ 820DFDE
 	msgbox MauvilleCity_Gym_Text_WattsonPreRematch, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_WATTSON_1, MauvilleCity_Gym_Text_WattsonRematchDefeat
-	msgbox MauvilleCity_Gym_Text_WattsonPostRematch, MSGBOX_AUTOCLOSE
-	setflag FLAG_UNUSED_0x924
+	goto MauvilleCity_Gym_EventScript_GiveMegastone
 	end
 	
 MauvilleCity_Gym_EventScript_Wattson_PostBattle::
@@ -131,6 +130,21 @@ MauvilleCity_Gym_EventScript_GiveHM::
 	goto_if_unset FLAG_RECEIVED_TM40, MauvilleCity_Gym_EventScript_GiveHM06
 	goto_if_unset FLAG_RECEIVED_TM04, MauvilleCity_Gym_EventScript_GiveHM07
 	goto MauvilleCity_Gym_EventScript_GiveHM08
+	end
+	
+MauvilleCity_Gym_EventScript_GiveMegastone::
+	goto_if_unset FLAG_RECEIVED_TM04 MauvilleCity_Gym_EventScript_RematchEnd
+	goto_if_set FLAG_UNUSED_0x28C MauvilleCity_Gym_EventScript_RematchEnd
+	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_MANECTITE
+	setflag FLAG_UNUSED_0x28C
+	msgbox MauvilleCity_Gym_Text_WattsonPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x924
+	end
+	
+MauvilleCity_Gym_EventScript_RematchEnd::
+	msgbox MauvilleCity_Gym_Text_WattsonPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x924
 	end
 	
 MauvilleCity_Gym_EventScript_GiveHM01::
@@ -495,3 +509,6 @@ MauvilleCity_Gym_Text_WattsonRematchNeedTwoMons: @ 820EAFD
 	.string "Come see me with two or more\n"
 	.string "POKéMON, all right?$"
 
+MauvilleCity_Gym_Text_ReceivedMegaStone:
+	.string "Take this Mega Stone with\n"
+	.string "you.$"

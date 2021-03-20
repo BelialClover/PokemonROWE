@@ -8,6 +8,6 @@ SkyPillar_3F_OnTransition: @ 8239661
 	end
 
 SkyPillar_3F_EventScript_CleanFloor:: @ 823966D
-	setmaplayoutindex LAYOUT_SKY_PILLAR_3F_CLEAN
+	//setmaplayoutindex LAYOUT_SKY_PILLAR_3F_CLEAN
 	return
 

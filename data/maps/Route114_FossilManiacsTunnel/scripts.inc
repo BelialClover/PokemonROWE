@@ -133,7 +133,7 @@ Route114_FossilManiacsTunnel_EventScript_ClawFossil::
 //Skull Fossil
 Route114_FossilManiacsTunnel_EventScript_SkullFossil::
 	msgbox Route114_FossilManiacsTunnel_Text_HereYoGo, MSGBOX_DEFAULT
-	giveitem ITEM_CLAW_FOSSIL
+	giveitem ITEM_SKULL_FOSSIL
 	setflag FLAG_UNUSED_0x935
 	waitfanfare
 	msgbox Route114_FossilManiacsTunnel_Text_FossilGet, MSGBOX_DEFAULT

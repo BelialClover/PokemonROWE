@@ -8,6 +8,6 @@ SkyPillar_5F_OnTransition: @ 82396A8
 	return
 
 SkyPillar_5F_EventScript_CleanFloor:: @ 82396B4
-	setmaplayoutindex LAYOUT_SKY_PILLAR_5F_CLEAN
+	//setmaplayoutindex LAYOUT_SKY_PILLAR_5F_CLEAN
 	return
 

@@ -241,8 +241,11 @@
 #define OBJ_EVENT_GFX_LUGIA                      237
 #define OBJ_EVENT_GFX_HOOH                       238
 #define OBJ_EVENT_GFX_TM_BALL                    239
+#define OBJ_EVENT_GFX_ARTICUNO                   240
+#define OBJ_EVENT_GFX_ZAPDOS                     241
+#define OBJ_EVENT_GFX_MOLTRES                    242
 
-#define NUM_OBJ_EVENT_GFX                        240
+#define NUM_OBJ_EVENT_GFX                        243
 
 
 // These are dynamic object gfx ids.

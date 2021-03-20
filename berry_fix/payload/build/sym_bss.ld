@@ -1,0 +1,10 @@
+. = ALIGN(4);
+src/main.o(.bss);
+. = ALIGN(4);
+src/rtc.o(.bss);
+. = ALIGN(4);
+src/flash.o(.bss);
+. = ALIGN(4);
+src/agb_flash.o(.bss);
+. = ALIGN(4);
+src/siirtc.o(.bss);

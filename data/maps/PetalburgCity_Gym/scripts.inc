@@ -113,7 +113,6 @@ PetalburgCity_Gym_Movement_WallyExitGym: @ 82049EC
 PetalburgCity_Gym_EventScript_Norman_3:: @ 82049F1
 	lock
 	faceplayer
-	goto_if_unset FLAG_BADGE05_GET, PetalburgCity_Gym_EventScript_NormanBattle
 	goto PetalburgCity_Gym_EventScript_NormanBattle
 	end
 
@@ -395,10 +394,7 @@ PetalburgCity_Gym_EventScript_NormanBattle::
 	
 PetalburgCity_Gym_EventScript_NormanPostBattle:: @ 8204D80
 	goto_if_unset FLAG_UNUSED_0x926, PetalburgCity_Gym_EventScript_NormanRematch
-	call PetalburgCity_Gym_EventScript_ShouldGiveEnigmaBerry
-	compare VAR_RESULT, TRUE
-	goto_if_eq PetalburgCity_Gym_EventScript_GiveEnigmaBerry
-	goto_if_set FLAG_SYS_GAME_CLEAR, PetalburgCity_Gym_EventScript_NoAmountOfTrainingIsEnough
+	//goto_if_set FLAG_SYS_GAME_CLEAR, PetalburgCity_Gym_EventScript_NoAmountOfTrainingIsEnough
 	msgbox PetalburgCity_Gym_Text_DadGoingToKeepTraining, MSGBOX_DEFAULT
 	release
 	end
@@ -406,6 +402,20 @@ PetalburgCity_Gym_EventScript_NormanPostBattle:: @ 8204D80
 PetalburgCity_Gym_EventScript_NormanRematch:: @ 8204DB3
 	msgbox PetalburgCity_Gym_Text_NormanPreRematch, MSGBOX_DEFAULT
 	trainerbattle_no_intro TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanRematchDefeat
+	goto PetalburgCity_Gym_EventScript_GiveMegastone
+	end
+	
+PetalburgCity_Gym_EventScript_NormanRematchEnd::
+	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
+	setflag FLAG_UNUSED_0x926
+	end
+	
+PetalburgCity_Gym_EventScript_GiveMegastone::
+	goto_if_unset FLAG_RECEIVED_TM04 PetalburgCity_Gym_EventScript_NormanRematchEnd
+	goto_if_set FLAG_UNUSED_0x27F PetalburgCity_Gym_EventScript_NormanRematchEnd
+	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_KANGASKHANITE
+	setflag FLAG_UNUSED_0x27F
 	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
 	setflag FLAG_UNUSED_0x926
 	end
