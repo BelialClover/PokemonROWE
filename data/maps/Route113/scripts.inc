@@ -13,12 +13,7 @@ Route113_OnTransition: @ 81F2161
 	end
 
 Route113_EventScript_CheckSetAshWeather:: @ 81F216A
-	getplayerxy VAR_TEMP_0, VAR_TEMP_1
-	compare VAR_TEMP_0, 19
-	goto_if_lt Route113_EventScript_DontSetAshWeather
-	compare VAR_TEMP_0, 84
-	goto_if_gt Route113_EventScript_DontSetAshWeather
-	setweather WEATHER_VOLCANIC_ASH
+	goto Route113_EventScript_DontSetAshWeather
 	return
 
 Route113_EventScript_DontSetAshWeather:: @ 81F2189

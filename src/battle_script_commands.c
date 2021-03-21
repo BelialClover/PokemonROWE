@@ -1073,38 +1073,38 @@ static const u16 sNaturePowerMoves[] =
 static const u16 sPickupItems[] =
 {
     ITEM_POTION,
-    ITEM_ANTIDOTE,
-    ITEM_SUPER_POTION,
-    ITEM_GREAT_BALL,
+    ITEM_ETHER,
+    ITEM_POKE_BALL,
+    ITEM_ELIXIR,
     ITEM_REPEL,
     ITEM_ESCAPE_ROPE,
-    ITEM_X_ATTACK,
-    ITEM_FULL_HEAL,
-    ITEM_ULTRA_BALL,
-    ITEM_HYPER_POTION,
-    ITEM_RARE_CANDY,
+    ITEM_RED_SHARD,
+    ITEM_BLUE_SHARD,
+    ITEM_GREEN_SHARD,
+    ITEM_YELLOW_SHARD,
+    ITEM_SHELL_BELL,
     ITEM_PROTEIN,
-    ITEM_REVIVE,
+    ITEM_PP_UP,
     ITEM_HP_UP,
     ITEM_FULL_RESTORE,
     ITEM_MAX_REVIVE,
-    ITEM_PP_UP,
+    ITEM_PP_MAX,
     ITEM_MAX_ELIXIR,
 };
 
 static const u16 sRarePickupItems[] =
 {
-    ITEM_HYPER_POTION,
+    ITEM_RARE_CANDY,
     ITEM_NUGGET,
-    ITEM_KINGS_ROCK,
-    ITEM_FULL_RESTORE,
-    ITEM_ETHER,
+    ITEM_ABILITY_CAPSULE,
+    ITEM_RARE_CANDY,
+    ITEM_ULTRA_BALL,
     ITEM_WHITE_HERB,
-    ITEM_TM44_REST,
-    ITEM_ELIXIR,
-    ITEM_TM01_FOCUS_PUNCH,
+    ITEM_LIFE_ORB,
+    ITEM_PP_MAX,
+    ITEM_LUCKY_EGG,
     ITEM_LEFTOVERS,
-    ITEM_TM26_EARTHQUAKE,
+    ITEM_ABILITY_PATCH,
 };
 
 static const u8 sPickupProbabilities[] =
@@ -11805,11 +11805,14 @@ static void Cmd_pickup(void)
             else
                 ability = gBaseStats[species].abilities[0];
 
-            if (ability == ABILITY_PICKUP
+            if ((ability == ABILITY_PICKUP
                 && species != 0
                 && species != SPECIES_EGG
                 && heldItem == ITEM_NONE
-                && (Random() % 10) == 0)
+                && (Random() % 10) == 0) ||
+				(species == SPECIES_DELIBIRD
+				&& (Random() % 10) == 0)
+				)
             {
                 s32 j;
                 s32 rand = Random() % 100;

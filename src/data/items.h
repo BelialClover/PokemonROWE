@@ -1629,7 +1629,7 @@ const struct Item gItems[] =
         .name = _("Ability Patch"),
 #endif
         .itemId = ITEM_ABILITY_PATCH,
-        .price = 50000,
+        .price = 100,
         .holdEffectParam = 0,
         .description = sAbilityPatchDesc,
         .pocket = POCKET_POWER_UP,

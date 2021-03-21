@@ -46142,7 +46142,7 @@ gItems:
 	.byte	0xff
 	.space	4
 	.short	0x2b2
-	.short	0xc350
+	.short	0x64
 	.space	1
 	.byte	0x0
 	.word	sAbilityPatchDesc

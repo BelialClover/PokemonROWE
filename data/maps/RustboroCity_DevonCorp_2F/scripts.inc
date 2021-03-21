@@ -409,6 +409,7 @@ RustboroCity_DevonCorp_2F_EventScript_Porygon_Scientist:
 RustboroCity_DevonCorp_2F_EventScript_Type_Null_Scientist:
 	lock
 	faceplayer
+	goto_if_unset FLAG_UNUSED_0x2A0, RustboroCity_DevonCorp_2F_EventScript_Porygon_Scientist_2
 	goto_if_set FLAG_UNUSED_0x29F, RustboroCity_DevonCorp_2F_EventScript_ReceivedPorygon
 	msgbox RustboroCity_DevonCorp_2F_Text_PorygonTypeNull, MSGBOX_YESNO
 	compare VAR_RESULT, NO
@@ -438,6 +439,23 @@ RustboroCity_DevonCorp_2F_EventScript_DeclinePorygon::
 	
 RustboroCity_DevonCorp_2F_EventScript_NoRoomForThis::
 	msgbox Route117_PokemonDayCare_Text_NoRoomForThis, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_2F_EventScript_Porygon_Scientist_2:
+	msgbox RustboroCity_DevonCorp_2F_Text_PorygonTypeNull, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_DeclinePorygon
+	getpartysize
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_NoRoomForThis
+	bufferspeciesname 1, SPECIES_PORYGON
+	playfanfare MUS_OBTAIN_ITEM
+	message RustboroCity_DevonCorp_2F_Text_ReceivedMonFromResearcher
+	givemon SPECIES_PORYGON, 10, ITEM_NONE
+	setflag FLAG_UNUSED_0x2A0
+	waitfanfare
+	msgbox RustboroCity_DevonCorp_2F_Text_PorygonTypeNull_Accepted, MSGBOX_DEFAULT
 	release
 	end
 	

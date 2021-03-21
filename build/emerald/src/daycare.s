@@ -6189,12 +6189,12 @@ BuildEggMoveset:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0xc
+	add	sp, sp, #-0x64
 	add	r7, r0, #0
 	mov	sl, r1
 	mov	r9, r2
 	mov	r0, #0x0
-	str	r0, [sp]
+	str	r0, [sp, #0x58]
 	mov	r6, #0x0
 	ldr	r5, .L342
 	mov	r2, #0x0
@@ -6214,6 +6214,9 @@ BuildEggMoveset:
 	cmp	r6, #0x3
 	bls	.L273	@cond_branch
 	mov	r6, #0x0
+	mov	r1, #0x10
+	add	r1, r1, r7
+	mov	r8, r1
 	ldr	r2, .L342+0xc
 	mov	r1, #0x0
 .L278:
@@ -6244,8 +6247,16 @@ BuildEggMoveset:
 	lsl	r4, r4, #0x10
 	lsr	r4, r4, #0x10
 	ldr	r5, .L342+0x10
-	add	r0, r7, #0
-	mov	r1, #0x59
+	mov	r0, #0x59
+	str	r0, [sp, #0x54]
+	mov	r0, sp
+	mov	r1, r8
+	mov	r2, #0x54
+	bl	memcpy
+	ldr	r0, [r7]
+	ldr	r1, [r7, #0x4]
+	ldr	r2, [r7, #0x8]
+	ldr	r3, [r7, #0xc]
 	bl	GetMonData
 	add	r2, r0, #0
 	lsl	r2, r2, #0x18
@@ -6255,10 +6266,10 @@ BuildEggMoveset:
 	bl	GetLevelUpMovesBySpecies
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	str	r0, [sp, #0x4]
+	str	r0, [sp, #0x5c]
 	mov	r6, #0x0
-	ldr	r1, .L342+0x4
-	mov	r8, r1
+	ldr	r2, .L342+0x4
+	mov	r8, r2
 .L288:
 	add	r5, r6, #0
 	add	r5, r5, #0xd
@@ -6266,8 +6277,8 @@ BuildEggMoveset:
 	add	r1, r5, #0
 	bl	GetBoxMonData
 	lsl	r4, r6, #0x1
-	mov	r2, r8
-	add	r1, r4, r2
+	mov	r3, r8
+	add	r1, r4, r3
 	strh	r0, [r1]
 	mov	r0, r9
 	add	r1, r5, #0
@@ -6310,11 +6321,11 @@ BuildEggMoveset:
 	bne	.L297	@cond_branch
 	add	r1, r0, #0
 	add	r0, r7, #0
-	str	r2, [sp, #0x8]
+	str	r2, [sp, #0x60]
 	bl	GiveMoveToMon
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	ldr	r2, [sp, #0x8]
+	ldr	r2, [sp, #0x60]
 	cmp	r0, r2
 	bne	.L292	@cond_branch
 	ldrh	r1, [r4]
@@ -6340,8 +6351,8 @@ BuildEggMoveset:
 	add	r0, r6, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r6, r0, #0x10
-	ldr	r3, .L344
-	mov	r9, r3
+	ldr	r0, .L344
+	mov	r9, r0
 	cmp	r6, #0x3
 	bls	.L293	@cond_branch
 .L291:
@@ -6428,11 +6439,11 @@ BuildEggMoveset:
 	bne	.L324	@cond_branch
 	cmp	r1, #0
 	beq	.L324	@cond_branch
-	ldr	r1, [sp]
+	ldr	r1, [sp, #0x58]
 	add	r0, r1, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	str	r0, [sp]
+	str	r0, [sp, #0x58]
 	lsl	r1, r1, #0x1
 	add	r1, r1, ip
 	strh	r2, [r1]
@@ -6462,7 +6473,7 @@ BuildEggMoveset:
 	mov	r5, #0x0
 	add	r3, r6, #0x1
 	mov	r8, r3
-	ldr	r0, [sp, #0x4]
+	ldr	r0, [sp, #0x5c]
 	cmp	r5, r0
 	bcs	.L331	@cond_branch
 	ldr	r2, .L344+0x4
@@ -6481,11 +6492,11 @@ BuildEggMoveset:
 	bne	.L336	@cond_branch
 	add	r1, r0, #0
 	add	r0, r7, #0
-	str	r2, [sp, #0x8]
+	str	r2, [sp, #0x60]
 	bl	GiveMoveToMon
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	ldr	r2, [sp, #0x8]
+	ldr	r2, [sp, #0x60]
 	cmp	r0, r2
 	bne	.L331	@cond_branch
 	ldrh	r1, [r4]
@@ -6504,7 +6515,7 @@ BuildEggMoveset:
 	add	r0, r5, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r5, r0, #0x10
-	ldr	r0, [sp, #0x4]
+	ldr	r0, [sp, #0x5c]
 	cmp	r5, r0
 	bcc	.L337	@cond_branch
 .L331:
@@ -6521,7 +6532,7 @@ BuildEggMoveset:
 	cmp	r1, #0
 	bne	.L333	@cond_branch
 .L330:
-	add	sp, sp, #0xc
+	add	sp, sp, #0x64
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -6742,6 +6753,51 @@ AlterEggSpeciesWithIncenseItem:
 .Lfe39:
 	.size	 AlterEggSpeciesWithIncenseItem,.Lfe39-AlterEggSpeciesWithIncenseItem
 	.align	2, 0
+	.type	 GetMonFormId,function
+	.thumb_func
+GetMonFormId:
+	push	{r4, r5, r6, r7, lr}
+	add	r4, r0, #0
+	add	r5, r1, #0
+	add	r0, r5, #0
+	mov	r1, #0xb
+	bl	GetBoxMonData
+	lsl	r0, r0, #0x10
+	lsr	r7, r0, #0x10
+	add	r6, r5, #0
+	add	r6, r6, #0x8c
+	add	r0, r6, #0
+	mov	r1, #0xb
+	bl	GetBoxMonData
+	ldrh	r1, [r4]
+	cmp	r1, #0xac
+	beq	.L383	@cond_branch
+	mov	r0, #0xba
+	lsl	r0, r0, #0x2
+	cmp	r1, r0
+	bne	.L382	@cond_branch
+.L383:
+	mov	r0, #0x0
+	b	.L387
+.L382:
+	cmp	r7, #0x84
+	beq	.L385	@cond_branch
+	add	r0, r5, #0
+	b	.L389
+.L385:
+	add	r0, r6, #0
+.L389:
+	mov	r1, #0x59
+	bl	GetBoxMonData
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+.L387:
+	pop	{r4, r5, r6, r7}
+	pop	{r1}
+	bx	r1
+.Lfe40:
+	.size	 GetMonFormId,.Lfe40-GetMonFormId
+	.align	2, 0
 	.type	 GiveVoltTackleIfLightBall,function
 	.thumb_func
 GiveVoltTackleIfLightBall:
@@ -6759,32 +6815,32 @@ GiveVoltTackleIfLightBall:
 	mov	r1, #0xb6
 	lsl	r1, r1, #0x1
 	cmp	r5, r1
-	beq	.L383	@cond_branch
+	beq	.L392	@cond_branch
 	cmp	r0, r1
-	bne	.L382	@cond_branch
-.L383:
+	bne	.L391	@cond_branch
+.L392:
 	mov	r4, #0xac
 	lsl	r4, r4, #0x1
 	add	r0, r6, #0
 	add	r1, r4, #0
 	bl	GiveMoveToMon
 	lsl	r0, r0, #0x10
-	ldr	r1, .L385
+	ldr	r1, .L394
 	cmp	r0, r1
-	bne	.L382	@cond_branch
+	bne	.L391	@cond_branch
 	add	r0, r6, #0
 	add	r1, r4, #0
 	bl	DeleteFirstMoveAndGiveMoveToMon
-.L382:
+.L391:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L386:
+.L395:
 	.align	2, 0
-.L385:
+.L394:
 	.word	-0x10000
-.Lfe40:
-	.size	 GiveVoltTackleIfLightBall,.Lfe40-GiveVoltTackleIfLightBall
+.Lfe41:
+	.size	 GiveVoltTackleIfLightBall,.Lfe41-GiveVoltTackleIfLightBall
 	.align	2, 0
 	.type	 DetermineEggSpeciesAndParentSlots,function
 	.thumb_func
@@ -6798,7 +6854,7 @@ DetermineEggSpeciesAndParentSlots:
 	mov	r4, #0x0
 	mov	r0, #0x1
 	mov	r8, r0
-.L391:
+.L400:
 	mov	r0, #0x8c
 	mul	r0, r0, r4
 	add	r5, r7, r0
@@ -6811,31 +6867,31 @@ DetermineEggSpeciesAndParentSlots:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0x84
-	bne	.L392	@cond_branch
+	bne	.L401	@cond_branch
 	add	r0, r4, #0
 	mov	r1, r8
 	eor	r0, r0, r1
 	strb	r0, [r6]
 	strb	r4, [r6, #0x1]
-	b	.L390
-.L392:
+	b	.L399
+.L401:
 	add	r0, r5, #0
 	bl	GetBoxMonGender
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xfe
-	bne	.L390	@cond_branch
+	bne	.L399	@cond_branch
 	strb	r4, [r6]
 	add	r0, r4, #0
 	mov	r1, r8
 	eor	r0, r0, r1
 	strb	r0, [r6, #0x1]
-.L390:
+.L399:
 	add	r0, r4, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, #0x1
-	bls	.L391	@cond_branch
+	bls	.L400	@cond_branch
 	ldrb	r0, [r6]
 	lsl	r0, r0, #0x1
 	add	r0, r0, sp
@@ -6844,7 +6900,7 @@ DetermineEggSpeciesAndParentSlots:
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, #0x1d
-	bne	.L396	@cond_branch
+	bne	.L405	@cond_branch
 	mov	r1, #0x8c
 	lsl	r1, r1, #0x1
 	add	r0, r7, r1
@@ -6853,13 +6909,13 @@ DetermineEggSpeciesAndParentSlots:
 	lsl	r1, r1, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L396	@cond_branch
+	beq	.L405	@cond_branch
 	mov	r4, #0x20
-.L396:
+.L405:
 	mov	r0, #0x9d
 	lsl	r0, r0, #0x1
 	cmp	r4, r0
-	bne	.L397	@cond_branch
+	bne	.L406	@cond_branch
 	mov	r1, #0x8c
 	lsl	r1, r1, #0x1
 	add	r0, r7, r1
@@ -6868,15 +6924,15 @@ DetermineEggSpeciesAndParentSlots:
 	lsl	r1, r1, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L397	@cond_branch
-	ldr	r4, .L399
-.L397:
+	beq	.L406	@cond_branch
+	ldr	r4, .L408
+.L406:
 	ldrb	r0, [r6, #0x1]
 	lsl	r0, r0, #0x1
 	add	r0, r0, sp
 	ldrh	r0, [r0]
 	cmp	r0, #0x84
-	bne	.L398	@cond_branch
+	bne	.L407	@cond_branch
 	ldrb	r1, [r6]
 	mov	r0, #0x8c
 	mul	r0, r0, r1
@@ -6885,12 +6941,12 @@ DetermineEggSpeciesAndParentSlots:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xfe
-	beq	.L398	@cond_branch
+	beq	.L407	@cond_branch
 	ldrb	r1, [r6, #0x1]
 	ldrb	r0, [r6]
 	strb	r0, [r6, #0x1]
 	strb	r1, [r6]
-.L398:
+.L407:
 	add	r0, r4, #0
 	add	sp, sp, #0x4
 	pop	{r3}
@@ -6898,59 +6954,70 @@ DetermineEggSpeciesAndParentSlots:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L400:
+.L409:
 	.align	2, 0
-.L399:
+.L408:
 	.word	0x139
-.Lfe41:
-	.size	 DetermineEggSpeciesAndParentSlots,.Lfe41-DetermineEggSpeciesAndParentSlots
+.Lfe42:
+	.size	 DetermineEggSpeciesAndParentSlots,.Lfe42-DetermineEggSpeciesAndParentSlots
 	.align	2, 0
 	.type	 _GiveEggFromDaycare,function
 	.thumb_func
 _GiveEggFromDaycare:
-	push	{r4, r5, r6, lr}
+	push	{r4, r5, r6, r7, lr}
 	add	sp, sp, #-0x6c
-	add	r6, r0, #0
-	add	r5, sp, #0x64
-	add	r1, r5, #0
-	bl	DetermineEggSpeciesAndParentSlots
-	add	r4, sp, #0x68
-	strh	r0, [r4]
-	add	r0, r4, #0
+	add	r7, r0, #0
+	add	r6, sp, #0x64
 	add	r1, r6, #0
-	bl	AlterEggSpeciesWithIncenseItem
-	ldrh	r1, [r4]
+	bl	DetermineEggSpeciesAndParentSlots
+	add	r5, sp, #0x68
+	strh	r0, [r5]
+	add	r0, r5, #0
+	add	r1, r7, #0
+	bl	GetMonFormId
+	mov	r4, sp
+	add	r4, r4, #0x6a
+	strb	r0, [r4]
 	mov	r0, sp
-	add	r2, r6, #0
+	mov	r1, #0x59
+	add	r2, r4, #0
+	bl	SetMonData
+	ldrh	r1, [r5]
+	mov	r0, sp
+	add	r2, r7, #0
 	bl	SetInitialEggData
 	mov	r0, sp
-	add	r1, r6, #0
+	add	r1, r7, #0
 	bl	InheritIVs
-	ldrb	r0, [r5, #0x1]
+	ldrb	r0, [r6, #0x1]
 	mov	r2, #0x8c
 	mov	r1, r0
 	mul	r1, r1, r2
-	add	r1, r6, r1
-	ldrb	r0, [r5]
+	add	r1, r7, r1
+	ldrb	r0, [r6]
 	mul	r2, r2, r0
-	add	r2, r6, r2
+	add	r2, r7, r2
 	mov	r0, sp
 	bl	BuildEggMoveset
-	ldrh	r0, [r4]
-	cmp	r0, #0xac
-	bne	.L402	@cond_branch
 	mov	r0, sp
-	add	r1, r6, #0
+	mov	r1, #0x59
+	add	r2, r4, #0
+	bl	SetMonData
+	ldrh	r0, [r5]
+	cmp	r0, #0xac
+	bne	.L411	@cond_branch
+	mov	r0, sp
+	add	r1, r7, #0
 	bl	GiveVoltTackleIfLightBall
-.L402:
+.L411:
 	mov	r2, sp
-	add	r2, r2, #0x6a
+	add	r2, r2, #0x6b
 	mov	r0, #0x0
 	strb	r0, [r2]
 	mov	r0, sp
 	mov	r1, #0x2d
 	bl	SetMonData
-	ldr	r0, .L403
+	ldr	r0, .L412
 	mov	r1, #0xfa
 	lsl	r1, r1, #0x1
 	add	r0, r0, r1
@@ -6959,18 +7026,18 @@ _GiveEggFromDaycare:
 	bl	memcpy
 	bl	CompactPartySlots
 	bl	CalculatePlayerPartyCount
-	add	r0, r6, #0
+	add	r0, r7, #0
 	bl	RemoveEggFromDayCare
 	add	sp, sp, #0x6c
-	pop	{r4, r5, r6}
+	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L404:
+.L413:
 	.align	2, 0
-.L403:
+.L412:
 	.word	gPlayerParty
-.Lfe42:
-	.size	 _GiveEggFromDaycare,.Lfe42-_GiveEggFromDaycare
+.Lfe43:
+	.size	 _GiveEggFromDaycare,.Lfe43-_GiveEggFromDaycare
 	.align	2, 0
 	.globl	CreateEgg
 	.type	 CreateEgg,function
@@ -7010,7 +7077,7 @@ CreateEgg:
 	lsl	r2, r4, #0x3
 	add	r2, r2, r4
 	lsl	r2, r2, #0x2
-	ldr	r0, .L407
+	ldr	r0, .L416
 	add	r2, r2, r0
 	mov	r0, r8
 	mov	r1, #0x20
@@ -7020,7 +7087,7 @@ CreateEgg:
 	add	r2, r6, #0
 	bl	SetMonData
 	cmp	r5, #0
-	beq	.L406	@cond_branch
+	beq	.L415	@cond_branch
 	mov	r2, sp
 	add	r2, r2, #0x17
 	mov	r0, #0xfd
@@ -7028,7 +7095,7 @@ CreateEgg:
 	mov	r0, r8
 	mov	r1, #0x23
 	bl	SetMonData
-.L406:
+.L415:
 	add	r2, sp, #0x18
 	strb	r7, [r2]
 	mov	r0, r8
@@ -7040,95 +7107,95 @@ CreateEgg:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L408:
+.L417:
 	.align	2, 0
-.L407:
+.L416:
 	.word	gBaseStats+0x13
-.Lfe43:
-	.size	 CreateEgg,.Lfe43-CreateEgg
+.Lfe44:
+	.size	 CreateEgg,.Lfe44-CreateEgg
 	.align	2, 0
 	.type	 SetInitialEggData,function
 	.thumb_func
 SetInitialEggData:
 	push	{r4, r5, r6, lr}
-	mov	r6, r8
-	push	{r6}
-	add	sp, sp, #-0x18
-	add	r6, r0, #0
-	add	r5, r1, #0
-	lsl	r5, r5, #0x10
-	lsr	r5, r5, #0x10
-	mov	r0, #0x8c
-	lsl	r0, r0, #0x1
-	add	r2, r2, r0
-	ldr	r1, [r2]
-	mov	r0, #0x1
-	str	r0, [sp]
-	str	r1, [sp, #0x4]
+	add	sp, sp, #-0x1c
+	add	r5, r0, #0
+	add	r4, r2, #0
+	add	r0, sp, #0x14
+	strh	r1, [r0]
+	add	r1, r4, #0
+	bl	GetMonFormId
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	mov	r1, #0x8c
+	lsl	r1, r1, #0x1
+	add	r4, r4, r1
+	ldr	r3, [r4]
+	add	r1, sp, #0x14
+	ldrh	r1, [r1]
+	mov	r2, #0x1
+	str	r2, [sp]
+	str	r3, [sp, #0x4]
 	mov	r4, #0x0
 	str	r4, [sp, #0x8]
 	str	r4, [sp, #0xc]
-	str	r4, [sp, #0x10]
-	add	r0, r6, #0
-	add	r1, r5, #0
-	mov	r2, #0x1
+	str	r0, [sp, #0x10]
+	add	r0, r5, #0
 	mov	r3, #0x20
 	bl	CreateMon
-	mov	r0, #0x16
-	add	r0, r0, sp
-	mov	r8, r0
-	strb	r4, [r0]
-	mov	r1, #0x4
-	add	r0, sp, #0x14
-	strh	r1, [r0]
-	add	r0, r6, #0
+	add	r6, sp, #0x18
+	strb	r4, [r6]
+	mov	r2, sp
+	add	r2, r2, #0x16
+	mov	r0, #0x4
+	strh	r0, [r2]
+	add	r0, r5, #0
 	mov	r1, #0x26
-	add	r2, sp, #0x14
 	bl	SetMonData
-	lsl	r2, r5, #0x3
-	add	r2, r2, r5
-	lsl	r2, r2, #0x2
-	ldr	r0, .L410
+	add	r0, sp, #0x14
+	ldrh	r0, [r0]
+	lsl	r2, r0, #0x3
 	add	r2, r2, r0
-	add	r0, r6, #0
+	lsl	r2, r2, #0x2
+	ldr	r0, .L419
+	add	r2, r2, r0
+	add	r0, r5, #0
 	mov	r1, #0x20
 	bl	SetMonData
-	add	r0, r6, #0
+	add	r0, r5, #0
 	mov	r1, #0x24
-	mov	r2, r8
+	add	r2, r6, #0
 	bl	SetMonData
-	add	sp, sp, #0x18
-	pop	{r3}
-	mov	r8, r3
+	add	sp, sp, #0x1c
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L411:
+.L420:
 	.align	2, 0
-.L410:
+.L419:
 	.word	gBaseStats+0x13
-.Lfe44:
-	.size	 SetInitialEggData,.Lfe44-SetInitialEggData
+.Lfe45:
+	.size	 SetInitialEggData,.Lfe45-SetInitialEggData
 	.align	2, 0
 	.globl	GiveEggFromDaycare
 	.type	 GiveEggFromDaycare,function
 	.thumb_func
 GiveEggFromDaycare:
 	push	{lr}
-	ldr	r0, .L413
+	ldr	r0, .L422
 	ldr	r0, [r0]
-	ldr	r1, .L413+0x4
+	ldr	r1, .L422+0x4
 	add	r0, r0, r1
 	bl	_GiveEggFromDaycare
 	pop	{r0}
 	bx	r0
-.L414:
+.L423:
 	.align	2, 0
-.L413:
+.L422:
 	.word	gSaveBlock1Ptr
 	.word	0x2cb0
-.Lfe45:
-	.size	 GiveEggFromDaycare,.Lfe45-GiveEggFromDaycare
+.Lfe46:
+	.size	 GiveEggFromDaycare,.Lfe46-GiveEggFromDaycare
 	.align	2, 0
 	.type	 TryProduceOrHatchEgg,function
 	.thumb_func
@@ -7138,7 +7205,7 @@ TryProduceOrHatchEgg:
 	add	r6, r0, #0
 	mov	r7, #0x0
 	mov	r5, #0x0
-.L419:
+.L428:
 	mov	r0, #0x8c
 	mov	r4, r5
 	mul	r4, r4, r0
@@ -7146,7 +7213,7 @@ TryProduceOrHatchEgg:
 	mov	r1, #0x5
 	bl	GetBoxMonData
 	cmp	r0, #0
-	beq	.L418	@cond_branch
+	beq	.L427	@cond_branch
 	add	r1, r6, #0
 	add	r1, r1, #0x88
 	add	r1, r1, r4
@@ -7154,23 +7221,23 @@ TryProduceOrHatchEgg:
 	add	r0, r0, #0x1
 	str	r0, [r1]
 	add	r7, r7, #0x1
-.L418:
+.L427:
 	add	r5, r5, #0x1
 	cmp	r5, #0x1
-	bls	.L419	@cond_branch
+	bls	.L428	@cond_branch
 	mov	r1, #0x8c
 	lsl	r1, r1, #0x1
 	add	r0, r6, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L422	@cond_branch
+	bne	.L431	@cond_branch
 	cmp	r7, #0x2
-	bne	.L422	@cond_branch
+	bne	.L431	@cond_branch
 	sub	r1, r1, #0x4
 	add	r0, r6, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0xff
-	bne	.L422	@cond_branch
+	bne	.L431	@cond_branch
 	add	r0, r6, #0
 	bl	GetDaycareCompatibilityScore
 	lsl	r0, r0, #0x18
@@ -7184,12 +7251,12 @@ TryProduceOrHatchEgg:
 	lsr	r0, r0, #0x10
 	mov	r1, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L438
+	ldr	r1, .L447
 	bl	__udivsi3
 	cmp	r4, r0
-	bls	.L422	@cond_branch
+	bls	.L431	@cond_branch
 	bl	TriggerPendingDaycareEgg
-.L422:
+.L431:
 	mov	r0, #0x8e
 	lsl	r0, r0, #0x1
 	add	r1, r6, r0
@@ -7199,104 +7266,104 @@ TryProduceOrHatchEgg:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xff
-	bne	.L424	@cond_branch
+	bne	.L433	@cond_branch
 	bl	GetEggCyclesToSubtract
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
 	mov	r5, #0x0
-	ldr	r0, .L438+0x4
+	ldr	r0, .L447+0x4
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	bcs	.L424	@cond_branch
-	ldr	r4, .L438+0x8
-.L428:
+	bcs	.L433	@cond_branch
+	ldr	r4, .L447+0x8
+.L437:
 	add	r0, r4, #0
 	mov	r1, #0x2d
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L427	@cond_branch
+	beq	.L436	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x4
 	bl	GetMonData
 	cmp	r0, #0
-	bne	.L427	@cond_branch
+	bne	.L436	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x20
 	bl	GetMonData
 	add	r1, r0, #0
 	str	r1, [sp]
 	cmp	r0, #0
-	beq	.L431	@cond_branch
+	beq	.L440	@cond_branch
 	cmp	r0, r6
-	bcc	.L432	@cond_branch
+	bcc	.L441	@cond_branch
 	sub	r0, r0, r6
-	b	.L437
-.L439:
+	b	.L446
+.L448:
 	.align	2, 0
-.L438:
+.L447:
 	.word	0xffff
 	.word	gPlayerPartyCount
 	.word	gPlayerParty
-.L432:
+.L441:
 	sub	r0, r1, #0x1
-.L437:
+.L446:
 	str	r0, [sp]
 	add	r0, r4, #0
 	mov	r1, #0x20
 	mov	r2, sp
 	bl	SetMonData
-	b	.L427
-.L431:
-	ldr	r0, .L440
+	b	.L436
+.L440:
+	ldr	r0, .L449
 	strh	r5, [r0]
 	mov	r0, #0x1
-	b	.L436
-.L441:
+	b	.L445
+.L450:
 	.align	2, 0
-.L440:
+.L449:
 	.word	gSpecialVar_0x8004
-.L427:
+.L436:
 	add	r4, r4, #0x64
 	add	r5, r5, #0x1
-	ldr	r0, .L442
+	ldr	r0, .L451
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	bcc	.L428	@cond_branch
-.L424:
+	bcc	.L437	@cond_branch
+.L433:
 	mov	r0, #0x0
-.L436:
+.L445:
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L443:
+.L452:
 	.align	2, 0
-.L442:
+.L451:
 	.word	gPlayerPartyCount
-.Lfe46:
-	.size	 TryProduceOrHatchEgg,.Lfe46-TryProduceOrHatchEgg
+.Lfe47:
+	.size	 TryProduceOrHatchEgg,.Lfe47-TryProduceOrHatchEgg
 	.align	2, 0
 	.globl	ShouldEggHatch
 	.type	 ShouldEggHatch,function
 	.thumb_func
 ShouldEggHatch:
 	push	{lr}
-	ldr	r0, .L445
+	ldr	r0, .L454
 	ldr	r0, [r0]
-	ldr	r1, .L445+0x4
+	ldr	r1, .L454+0x4
 	add	r0, r0, r1
 	bl	TryProduceOrHatchEgg
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	pop	{r1}
 	bx	r1
-.L446:
+.L455:
 	.align	2, 0
-.L445:
+.L454:
 	.word	gSaveBlock1Ptr
 	.word	0x2cb0
-.Lfe47:
-	.size	 ShouldEggHatch,.Lfe47-ShouldEggHatch
+.Lfe48:
+	.size	 ShouldEggHatch,.Lfe48-ShouldEggHatch
 	.align	2, 0
 	.type	 IsEggPending,function
 	.thumb_func
@@ -7307,13 +7374,13 @@ IsEggPending:
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L448	@cond_branch
+	beq	.L457	@cond_branch
 	mov	r0, #0x1
-.L448:
+.L457:
 	pop	{r1}
 	bx	r1
-.Lfe48:
-	.size	 IsEggPending,.Lfe48-IsEggPending
+.Lfe49:
+	.size	 IsEggPending,.Lfe49-IsEggPending
 	.align	2, 0
 	.type	 _GetDaycareMonNicknames,function
 	.thumb_func
@@ -7324,40 +7391,40 @@ _GetDaycareMonNicknames:
 	mov	r1, #0xb
 	bl	GetBoxMonData
 	cmp	r0, #0
-	beq	.L450	@cond_branch
-	ldr	r1, .L452
+	beq	.L459	@cond_branch
+	ldr	r1, .L461
 	add	r0, r4, #0
 	bl	GetBoxMonNickname
 	add	r0, r4, #0
 	mov	r1, #0x7
 	mov	r2, sp
 	bl	GetBoxMonData
-	ldr	r0, .L452+0x4
+	ldr	r0, .L461+0x4
 	mov	r1, sp
 	bl	StringCopy
-.L450:
+.L459:
 	add	r4, r4, #0x8c
 	add	r0, r4, #0
 	mov	r1, #0xb
 	bl	GetBoxMonData
 	cmp	r0, #0
-	beq	.L451	@cond_branch
-	ldr	r1, .L452+0x8
+	beq	.L460	@cond_branch
+	ldr	r1, .L461+0x8
 	add	r0, r4, #0
 	bl	GetBoxMonNickname
-.L451:
+.L460:
 	add	sp, sp, #0xc
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L453:
+.L462:
 	.align	2, 0
-.L452:
+.L461:
 	.word	gStringVar1
 	.word	gStringVar3
 	.word	gStringVar2
-.Lfe49:
-	.size	 _GetDaycareMonNicknames,.Lfe49-_GetDaycareMonNicknames
+.Lfe50:
+	.size	 _GetDaycareMonNicknames,.Lfe50-_GetDaycareMonNicknames
 	.align	2, 0
 	.globl	GetSelectedMonNicknameAndSpecies
 	.type	 GetSelectedMonNicknameAndSpecies,function
@@ -7369,9 +7436,9 @@ GetSelectedMonNicknameAndSpecies:
 	lsr	r0, r0, #0x18
 	mov	r5, #0x64
 	mul	r0, r0, r5
-	ldr	r4, .L455
+	ldr	r4, .L464
 	add	r0, r0, r4
-	ldr	r1, .L455+0x4
+	ldr	r1, .L464+0x4
 	bl	GetBoxMonNickname
 	bl	GetCursorSelectionMonId
 	lsl	r0, r0, #0x18
@@ -7385,104 +7452,104 @@ GetSelectedMonNicknameAndSpecies:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.L456:
+.L465:
 	.align	2, 0
-.L455:
+.L464:
 	.word	gPlayerParty
 	.word	gStringVar1
-.Lfe50:
-	.size	 GetSelectedMonNicknameAndSpecies,.Lfe50-GetSelectedMonNicknameAndSpecies
+.Lfe51:
+	.size	 GetSelectedMonNicknameAndSpecies,.Lfe51-GetSelectedMonNicknameAndSpecies
 	.align	2, 0
 	.globl	GetDaycareMonNicknames
 	.type	 GetDaycareMonNicknames,function
 	.thumb_func
 GetDaycareMonNicknames:
 	push	{lr}
-	ldr	r0, .L458
+	ldr	r0, .L467
 	ldr	r0, [r0]
-	ldr	r1, .L458+0x4
+	ldr	r1, .L467+0x4
 	add	r0, r0, r1
 	bl	_GetDaycareMonNicknames
 	pop	{r0}
 	bx	r0
-.L459:
+.L468:
 	.align	2, 0
-.L458:
+.L467:
 	.word	gSaveBlock1Ptr
 	.word	0x2cb0
-.Lfe51:
-	.size	 GetDaycareMonNicknames,.Lfe51-GetDaycareMonNicknames
+.Lfe52:
+	.size	 GetDaycareMonNicknames,.Lfe52-GetDaycareMonNicknames
 	.align	2, 0
 	.globl	GetDaycareState
 	.type	 GetDaycareState,function
 	.thumb_func
 GetDaycareState:
 	push	{r4, lr}
-	ldr	r4, .L464
+	ldr	r4, .L473
 	ldr	r0, [r4]
-	ldr	r1, .L464+0x4
+	ldr	r1, .L473+0x4
 	add	r0, r0, r1
 	bl	IsEggPending
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L461	@cond_branch
+	beq	.L470	@cond_branch
 	mov	r0, #0x1
-	b	.L463
-.L465:
+	b	.L472
+.L474:
 	.align	2, 0
-.L464:
+.L473:
 	.word	gSaveBlock1Ptr
 	.word	0x2cb0
-.L461:
+.L470:
 	ldr	r0, [r4]
-	ldr	r1, .L466
+	ldr	r1, .L475
 	add	r0, r0, r1
 	bl	CountPokemonInDaycare
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L462	@cond_branch
+	bne	.L471	@cond_branch
 	mov	r0, #0x0
-	b	.L463
-.L467:
+	b	.L472
+.L476:
 	.align	2, 0
-.L466:
+.L475:
 	.word	0x2cb0
-.L462:
+.L471:
 	add	r0, r0, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-.L463:
+.L472:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.Lfe52:
-	.size	 GetDaycareState,.Lfe52-GetDaycareState
+.Lfe53:
+	.size	 GetDaycareState,.Lfe53-GetDaycareState
 	.align	2, 0
 	.type	 GetDaycarePokemonCount,function
 	.thumb_func
 GetDaycarePokemonCount:
 	push	{lr}
-	ldr	r0, .L471
+	ldr	r0, .L480
 	ldr	r0, [r0]
-	ldr	r1, .L471+0x4
+	ldr	r1, .L480+0x4
 	add	r0, r0, r1
 	bl	CountPokemonInDaycare
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L470	@cond_branch
+	bne	.L479	@cond_branch
 	mov	r0, #0x0
-.L470:
+.L479:
 	pop	{r1}
 	bx	r1
-.L472:
+.L481:
 	.align	2, 0
-.L471:
+.L480:
 	.word	gSaveBlock1Ptr
 	.word	0x2cb0
-.Lfe53:
-	.size	 GetDaycarePokemonCount,.Lfe53-GetDaycarePokemonCount
+.Lfe54:
+	.size	 GetDaycarePokemonCount,.Lfe54-GetDaycarePokemonCount
 	.align	2, 0
 	.type	 EggGroupsOverlap,function
 	.thumb_func
@@ -7491,32 +7558,32 @@ EggGroupsOverlap:
 	add	r5, r1, #0
 	mov	r4, #0x0
 	add	r1, r0, #0
-.L477:
+.L486:
 	mov	r3, #0x0
 	ldrh	r0, [r1]
 	add	r2, r5, #0
-.L481:
+.L490:
 	ldrh	r6, [r2]
 	cmp	r0, r6
-	bne	.L480	@cond_branch
+	bne	.L489	@cond_branch
 	mov	r0, #0x1
-	b	.L485
-.L480:
+	b	.L494
+.L489:
 	add	r2, r2, #0x2
 	add	r3, r3, #0x1
 	cmp	r3, #0x1
-	ble	.L481	@cond_branch
+	ble	.L490	@cond_branch
 	add	r1, r1, #0x2
 	add	r4, r4, #0x1
 	cmp	r4, #0x1
-	ble	.L477	@cond_branch
+	ble	.L486	@cond_branch
 	mov	r0, #0x0
-.L485:
+.L494:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.Lfe54:
-	.size	 EggGroupsOverlap,.Lfe54-EggGroupsOverlap
+.Lfe55:
+	.size	 EggGroupsOverlap,.Lfe55-EggGroupsOverlap
 	.align	2, 0
 	.type	 GetDaycareCompatibilityScore,function
 	.thumb_func
@@ -7538,7 +7605,7 @@ GetDaycareCompatibilityScore:
 	add	r2, r2, #0x14
 	str	r2, [sp, #0x24]
 	sub	r0, r0, #0x6
-	ldr	r1, .L512
+	ldr	r1, .L521
 	mov	sl, r1
 	ldr	r5, [sp, #0x20]
 	mov	r8, r0
@@ -7546,7 +7613,7 @@ GetDaycareCompatibilityScore:
 	str	r2, [sp, #0x28]
 	mov	r2, r9
 	str	r2, [sp, #0x2c]
-.L490:
+.L499:
 	mov	r0, #0x8c
 	mov	r4, r7
 	mul	r4, r4, r0
@@ -7594,75 +7661,75 @@ GetDaycareCompatibilityScore:
 	add	r6, r6, #0x4
 	add	r7, r7, #0x1
 	cmp	r7, #0x1
-	bls	.L490	@cond_branch
+	bls	.L499	@cond_branch
 	mov	r0, sp
 	ldrh	r1, [r0]
 	cmp	r1, #0xf
-	beq	.L511	@cond_branch
+	beq	.L520	@cond_branch
 	ldrh	r0, [r0, #0x4]
 	cmp	r0, #0xf
-	beq	.L511	@cond_branch
+	beq	.L520	@cond_branch
 	cmp	r1, #0xd
-	bne	.L508	@cond_branch
+	bne	.L517	@cond_branch
 	cmp	r0, #0xd
-	bne	.L496	@cond_branch
-.L511:
+	bne	.L505	@cond_branch
+.L520:
 	mov	r0, #0x0
-	b	.L507
-.L513:
+	b	.L516
+.L522:
 	.align	2, 0
-.L512:
+.L521:
 	.word	gBaseStats
-.L508:
+.L517:
 	cmp	r0, #0xd
-	bne	.L495	@cond_branch
-.L496:
+	bne	.L504	@cond_branch
+.L505:
 	ldr	r1, [sp, #0xc]
 	mov	r2, r9
 	ldr	r0, [r2, #0x4]
 	cmp	r1, r0
-	beq	.L510	@cond_branch
-	b	.L506
-.L495:
+	beq	.L519	@cond_branch
+	b	.L515
+.L504:
 	ldr	r0, [sp, #0x14]
 	ldr	r2, [sp, #0x24]
 	ldr	r1, [r2, #0x4]
 	cmp	r0, r1
-	beq	.L511	@cond_branch
+	beq	.L520	@cond_branch
 	cmp	r0, #0xff
-	beq	.L511	@cond_branch
+	beq	.L520	@cond_branch
 	cmp	r1, #0xff
-	beq	.L511	@cond_branch
+	beq	.L520	@cond_branch
 	add	r1, sp, #0x4
 	mov	r0, sp
 	bl	EggGroupsOverlap
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L511	@cond_branch
+	beq	.L520	@cond_branch
 	ldr	r0, [sp, #0x20]
 	ldrh	r1, [r0, #0x2]
 	ldrh	r0, [r0]
 	cmp	r0, r1
-	bne	.L503	@cond_branch
+	bne	.L512	@cond_branch
 	ldr	r1, [sp, #0xc]
 	mov	r2, r9
 	ldr	r0, [r2, #0x4]
 	cmp	r1, r0
-	beq	.L506	@cond_branch
+	beq	.L515	@cond_branch
 	mov	r0, #0x4b
-	b	.L507
-.L503:
+	b	.L516
+.L512:
 	ldr	r1, [sp, #0xc]
 	mov	r2, r9
 	ldr	r0, [r2, #0x4]
 	cmp	r1, r0
-	bne	.L506	@cond_branch
-.L510:
+	bne	.L515	@cond_branch
+.L519:
 	mov	r0, #0x23
-	b	.L507
-.L506:
+	b	.L516
+.L515:
 	mov	r0, #0x32
-.L507:
+.L516:
 	add	sp, sp, #0x30
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -7671,29 +7738,29 @@ GetDaycareCompatibilityScore:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.Lfe55:
-	.size	 GetDaycareCompatibilityScore,.Lfe55-GetDaycareCompatibilityScore
+.Lfe56:
+	.size	 GetDaycareCompatibilityScore,.Lfe56-GetDaycareCompatibilityScore
 	.align	2, 0
 	.type	 GetDaycareCompatibilityScoreFromSave,function
 	.thumb_func
 GetDaycareCompatibilityScoreFromSave:
 	push	{lr}
-	ldr	r0, .L515
+	ldr	r0, .L524
 	ldr	r0, [r0]
-	ldr	r1, .L515+0x4
+	ldr	r1, .L524+0x4
 	add	r0, r0, r1
 	bl	GetDaycareCompatibilityScore
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	pop	{r1}
 	bx	r1
-.L516:
+.L525:
 	.align	2, 0
-.L515:
+.L524:
 	.word	gSaveBlock1Ptr
 	.word	0x2cb0
-.Lfe56:
-	.size	 GetDaycareCompatibilityScoreFromSave,.Lfe56-GetDaycareCompatibilityScoreFromSave
+.Lfe57:
+	.size	 GetDaycareCompatibilityScoreFromSave,.Lfe57-GetDaycareCompatibilityScoreFromSave
 	.align	2, 0
 	.globl	SetDaycareCompatibilityString
 	.type	 SetDaycareCompatibilityString,function
@@ -7706,36 +7773,36 @@ SetDaycareCompatibilityString:
 	add	r2, r0, #0
 	mov	r1, #0x0
 	cmp	r0, #0
-	bne	.L518	@cond_branch
+	bne	.L527	@cond_branch
 	mov	r1, #0x3
-.L518:
+.L527:
 	cmp	r0, #0x23
-	bne	.L519	@cond_branch
+	bne	.L528	@cond_branch
 	mov	r1, #0x2
-.L519:
+.L528:
 	cmp	r0, #0x32
-	bne	.L520	@cond_branch
+	bne	.L529	@cond_branch
 	mov	r1, #0x1
-.L520:
+.L529:
 	cmp	r2, #0x4b
-	bne	.L521	@cond_branch
+	bne	.L530	@cond_branch
 	mov	r1, #0x0
-.L521:
-	ldr	r0, .L522
-	ldr	r2, .L522+0x4
+.L530:
+	ldr	r0, .L531
+	ldr	r2, .L531+0x4
 	lsl	r1, r1, #0x2
 	add	r1, r1, r2
 	ldr	r1, [r1]
 	bl	StringCopy
 	pop	{r0}
 	bx	r0
-.L523:
+.L532:
 	.align	2, 0
-.L522:
+.L531:
 	.word	gStringVar4
 	.word	sCompatibilityMessages
-.Lfe57:
-	.size	 SetDaycareCompatibilityString,.Lfe57-SetDaycareCompatibilityString
+.Lfe58:
+	.size	 SetDaycareCompatibilityString,.Lfe58-SetDaycareCompatibilityString
 	.align	2, 0
 	.globl	NameHasGenderSymbol
 	.type	 NameHasGenderSymbol,function
@@ -7754,64 +7821,64 @@ NameHasGenderSymbol:
 	mov	r3, #0x0
 	ldrb	r0, [r4]
 	cmp	r0, #0xff
-	beq	.L526	@cond_branch
-.L528:
+	beq	.L535	@cond_branch
+.L537:
 	add	r1, r4, r3
 	ldrb	r0, [r1]
 	cmp	r0, #0xb5
-	bne	.L529	@cond_branch
+	bne	.L538	@cond_branch
 	ldrb	r0, [r2]
 	add	r0, r0, #0x1
 	strb	r0, [r2]
-.L529:
+.L538:
 	ldrb	r0, [r1]
 	cmp	r0, #0xb6
-	bne	.L527	@cond_branch
+	bne	.L536	@cond_branch
 	ldrb	r0, [r2, #0x1]
 	add	r0, r0, #0x1
 	strb	r0, [r2, #0x1]
-.L527:
+.L536:
 	add	r0, r3, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r3, r0, #0x18
 	add	r0, r4, r3
 	ldrb	r0, [r0]
 	cmp	r0, #0xff
-	bne	.L528	@cond_branch
-.L526:
-	cmp	r5, #0
-	bne	.L532	@cond_branch
-	mov	r0, sp
-	ldrb	r0, [r0]
-	cmp	r0, #0
-	beq	.L532	@cond_branch
-	mov	r0, sp
-	ldrb	r0, [r0, #0x1]
-	cmp	r0, #0
-	beq	.L535	@cond_branch
-.L532:
-	cmp	r5, #0xfe
-	bne	.L533	@cond_branch
-	mov	r0, sp
-	ldrb	r0, [r0, #0x1]
-	cmp	r0, #0
-	beq	.L533	@cond_branch
-	mov	r0, sp
-	ldrb	r0, [r0]
-	cmp	r0, #0
-	bne	.L533	@cond_branch
+	bne	.L537	@cond_branch
 .L535:
+	cmp	r5, #0
+	bne	.L541	@cond_branch
+	mov	r0, sp
+	ldrb	r0, [r0]
+	cmp	r0, #0
+	beq	.L541	@cond_branch
+	mov	r0, sp
+	ldrb	r0, [r0, #0x1]
+	cmp	r0, #0
+	beq	.L544	@cond_branch
+.L541:
+	cmp	r5, #0xfe
+	bne	.L542	@cond_branch
+	mov	r0, sp
+	ldrb	r0, [r0, #0x1]
+	cmp	r0, #0
+	beq	.L542	@cond_branch
+	mov	r0, sp
+	ldrb	r0, [r0]
+	cmp	r0, #0
+	bne	.L542	@cond_branch
+.L544:
 	mov	r0, #0x1
-	b	.L534
-.L533:
+	b	.L543
+.L542:
 	mov	r0, #0x0
-.L534:
+.L543:
 	add	sp, sp, #0x4
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.Lfe58:
-	.size	 NameHasGenderSymbol,.Lfe58-NameHasGenderSymbol
+.Lfe59:
+	.size	 NameHasGenderSymbol,.Lfe59-NameHasGenderSymbol
 	.align	2, 0
 	.type	 AppendGenderSymbol,function
 	.thumb_func
@@ -7821,47 +7888,47 @@ AppendGenderSymbol:
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	cmp	r1, #0
-	bne	.L537	@cond_branch
+	bne	.L546	@cond_branch
 	mov	r1, #0x0
 	bl	NameHasGenderSymbol
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L539	@cond_branch
-	ldr	r1, .L546
-	b	.L544
-.L547:
+	bne	.L548	@cond_branch
+	ldr	r1, .L555
+	b	.L553
+.L556:
 	.align	2, 0
-.L546:
+.L555:
 	.word	gText_MaleSymbol4
-.L537:
+.L546:
 	cmp	r1, #0xfe
-	bne	.L539	@cond_branch
+	bne	.L548	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0xfe
 	bl	NameHasGenderSymbol
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L539	@cond_branch
-	ldr	r1, .L548
-	b	.L544
-.L549:
+	bne	.L548	@cond_branch
+	ldr	r1, .L557
+	b	.L553
+.L558:
 	.align	2, 0
-.L548:
+.L557:
 	.word	gText_FemaleSymbol4
-.L539:
-	ldr	r1, .L550
-.L544:
+.L548:
+	ldr	r1, .L559
+.L553:
 	add	r0, r4, #0
 	bl	StringAppend
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L551:
+.L560:
 	.align	2, 0
-.L550:
+.L559:
 	.word	gText_GenderlessSymbol
-.Lfe59:
-	.size	 AppendGenderSymbol,.Lfe59-AppendGenderSymbol
+.Lfe60:
+	.size	 AppendGenderSymbol,.Lfe60-AppendGenderSymbol
 	.align	2, 0
 	.type	 AppendMonGenderSymbol,function
 	.thumb_func
@@ -7878,8 +7945,8 @@ AppendMonGenderSymbol:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.Lfe60:
-	.size	 AppendMonGenderSymbol,.Lfe60-AppendMonGenderSymbol
+.Lfe61:
+	.size	 AppendMonGenderSymbol,.Lfe61-AppendMonGenderSymbol
 	.align	2, 0
 	.type	 GetDaycareLevelMenuText,function
 	.thumb_func
@@ -7896,7 +7963,7 @@ GetDaycareLevelMenuText:
 	mov	r6, #0x0
 	add	r0, sp, #0x14
 	mov	r9, r0
-.L557:
+.L566:
 	mov	r0, #0x8c
 	mov	r4, r6
 	mul	r4, r4, r0
@@ -7916,11 +7983,11 @@ GetDaycareLevelMenuText:
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
 	cmp	r6, #0x1
-	bls	.L557	@cond_branch
+	bls	.L566	@cond_branch
 	add	r0, r7, #0
 	mov	r1, sp
 	bl	StringCopy
-	ldr	r4, .L559
+	ldr	r4, .L568
 	add	r0, r7, #0
 	add	r1, r4, #0
 	bl	StringAppend
@@ -7930,7 +7997,7 @@ GetDaycareLevelMenuText:
 	add	r0, r7, #0
 	add	r1, r4, #0
 	bl	StringAppend
-	ldr	r1, .L559+0x4
+	ldr	r1, .L568+0x4
 	add	r0, r7, #0
 	bl	StringAppend
 	add	sp, sp, #0x28
@@ -7940,13 +8007,13 @@ GetDaycareLevelMenuText:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L560:
+.L569:
 	.align	2, 0
-.L559:
+.L568:
 	.word	gText_NewLine2
 	.word	gText_Exit4
-.Lfe61:
-	.size	 GetDaycareLevelMenuText,.Lfe61-GetDaycareLevelMenuText
+.Lfe62:
+	.size	 GetDaycareLevelMenuText,.Lfe62-GetDaycareLevelMenuText
 	.align	2, 0
 	.type	 GetDaycareLevelMenuLevelText,function
 	.thumb_func
@@ -7958,9 +8025,9 @@ GetDaycareLevelMenuLevelText:
 	mov	r0, #0xff
 	strb	r0, [r4]
 	mov	r5, #0x0
-.L565:
+.L574:
 	add	r0, r4, #0
-	ldr	r1, .L567
+	ldr	r1, .L576
 	bl	StringAppend
 	mov	r0, #0x8c
 	mov	r2, r5
@@ -7982,24 +8049,24 @@ GetDaycareLevelMenuLevelText:
 	mov	r1, sp
 	bl	StringAppend
 	add	r0, r4, #0
-	ldr	r1, .L567+0x4
+	ldr	r1, .L576+0x4
 	bl	StringAppend
 	add	r0, r5, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
 	cmp	r5, #0x1
-	bls	.L565	@cond_branch
+	bls	.L574	@cond_branch
 	add	sp, sp, #0x14
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L568:
+.L577:
 	.align	2, 0
-.L567:
+.L576:
 	.word	gText_Lv
 	.word	gText_NewLine2
-.Lfe62:
-	.size	 GetDaycareLevelMenuLevelText,.Lfe62-GetDaycareLevelMenuLevelText
+.Lfe63:
+	.size	 GetDaycareLevelMenuLevelText,.Lfe63-GetDaycareLevelMenuLevelText
 	.align	2, 0
 	.type	 DaycareAddTextPrinter,function
 	.thumb_func
@@ -8025,7 +8092,7 @@ DaycareAddTextPrinter:
 	add	r0, r2, #0
 	and	r0, r0, r1
 	strb	r0, [r3, #0xc]
-	ldr	r3, .L570
+	ldr	r3, .L579
 	ldrb	r1, [r3]
 	mov	r0, #0x3
 	neg	r0, r0
@@ -8059,12 +8126,12 @@ DaycareAddTextPrinter:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L571:
+.L580:
 	.align	2, 0
-.L570:
+.L579:
 	.word	gTextFlags
-.Lfe63:
-	.size	 DaycareAddTextPrinter,.Lfe63-DaycareAddTextPrinter
+.Lfe64:
+	.size	 DaycareAddTextPrinter,.Lfe64-DaycareAddTextPrinter
 	.align	2, 0
 	.type	 DaycarePrintMonNickname,function
 	.thumb_func
@@ -8094,8 +8161,8 @@ DaycarePrintMonNickname:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.Lfe64:
-	.size	 DaycarePrintMonNickname,.Lfe64-DaycarePrintMonNickname
+.Lfe65:
+	.size	 DaycarePrintMonNickname,.Lfe65-DaycarePrintMonNickname
 	.align	2, 0
 	.type	 DaycarePrintMonLvl,function
 	.thumb_func
@@ -8110,7 +8177,7 @@ DaycarePrintMonLvl:
 	mov	r8, r3
 	lsl	r5, r5, #0x18
 	lsr	r5, r5, #0x18
-	ldr	r1, .L574
+	ldr	r1, .L583
 	mov	r0, sp
 	bl	StringCopy
 	mov	r0, #0x8c
@@ -8147,12 +8214,12 @@ DaycarePrintMonLvl:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L575:
+.L584:
 	.align	2, 0
-.L574:
+.L583:
 	.word	gText_Lv
-.Lfe65:
-	.size	 DaycarePrintMonLvl,.Lfe65-DaycarePrintMonLvl
+.Lfe66:
+	.size	 DaycarePrintMonLvl,.Lfe66-DaycarePrintMonLvl
 	.align	2, 0
 	.type	 DaycarePrintMonInfo,function
 	.thumb_func
@@ -8166,11 +8233,11 @@ DaycarePrintMonInfo:
 	lsl	r2, r2, #0x18
 	lsr	r5, r2, #0x18
 	cmp	r6, #0x1
-	bhi	.L577	@cond_branch
-	ldr	r0, .L578
+	bhi	.L586	@cond_branch
+	ldr	r0, .L587
 	mov	r8, r0
 	ldr	r0, [r0]
-	ldr	r4, .L578+0x4
+	ldr	r4, .L587+0x4
 	add	r0, r0, r4
 	add	r1, r7, #0
 	add	r2, r6, #0
@@ -8183,19 +8250,19 @@ DaycarePrintMonInfo:
 	add	r2, r6, #0
 	add	r3, r5, #0
 	bl	DaycarePrintMonLvl
-.L577:
+.L586:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L579:
+.L588:
 	.align	2, 0
-.L578:
+.L587:
 	.word	gSaveBlock1Ptr
 	.word	0x2cb0
-.Lfe66:
-	.size	 DaycarePrintMonInfo,.Lfe66-DaycarePrintMonInfo
+.Lfe67:
+	.size	 DaycarePrintMonInfo,.Lfe67-DaycarePrintMonInfo
 	.align	2, 0
 	.type	 Task_HandleDaycareLevelMenuInput,function
 	.thumb_func
@@ -8204,7 +8271,7 @@ Task_HandleDaycareLevelMenuInput:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	add	r5, r0, #0
-	ldr	r1, .L590
+	ldr	r1, .L599
 	lsl	r0, r5, #0x2
 	add	r0, r0, r5
 	lsl	r0, r0, #0x3
@@ -8212,36 +8279,36 @@ Task_HandleDaycareLevelMenuInput:
 	ldrb	r0, [r4, #0x8]
 	bl	ListMenu_ProcessInput
 	add	r1, r0, #0
-	ldr	r0, .L590+0x4
+	ldr	r0, .L599+0x4
 	ldrh	r2, [r0, #0x2e]
 	mov	r0, #0x1
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L581	@cond_branch
+	beq	.L590	@cond_branch
 	cmp	r1, #0x1
-	bls	.L584	@cond_branch
+	bls	.L593	@cond_branch
 	cmp	r1, #0x5
-	beq	.L585	@cond_branch
-	b	.L582
-.L591:
+	beq	.L594	@cond_branch
+	b	.L591
+.L600:
 	.align	2, 0
-.L590:
+.L599:
 	.word	gTasks
 	.word	gMain
-.L584:
-	ldr	r0, .L592
-	strh	r1, [r0]
-	b	.L582
 .L593:
+	ldr	r0, .L601
+	strh	r1, [r0]
+	b	.L591
+.L602:
 	.align	2, 0
-.L592:
+.L601:
 	.word	gSpecialVar_Result
-.L585:
-	ldr	r1, .L594
+.L594:
+	ldr	r1, .L603
 	mov	r0, #0x2
 	strh	r0, [r1]
-.L582:
-	ldr	r0, .L594+0x4
+.L591:
+	ldr	r0, .L603+0x4
 	lsl	r4, r5, #0x2
 	add	r4, r4, r5
 	lsl	r4, r4, #0x3
@@ -8258,19 +8325,19 @@ Task_HandleDaycareLevelMenuInput:
 	add	r0, r5, #0
 	bl	DestroyTask
 	bl	EnableBothScriptContexts
-	b	.L588
-.L595:
+	b	.L597
+.L604:
 	.align	2, 0
-.L594:
+.L603:
 	.word	gSpecialVar_Result
 	.word	gTasks
-.L581:
+.L590:
 	mov	r1, #0x2
 	add	r0, r1, #0
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L588	@cond_branch
-	ldr	r0, .L596
+	beq	.L597	@cond_branch
+	ldr	r0, .L605
 	strh	r1, [r0]
 	ldrb	r0, [r4, #0x8]
 	mov	r1, #0x0
@@ -8284,16 +8351,16 @@ Task_HandleDaycareLevelMenuInput:
 	add	r0, r5, #0
 	bl	DestroyTask
 	bl	EnableBothScriptContexts
-.L588:
+.L597:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L597:
+.L606:
 	.align	2, 0
-.L596:
+.L605:
 	.word	gSpecialVar_Result
-.Lfe67:
-	.size	 Task_HandleDaycareLevelMenuInput,.Lfe67-Task_HandleDaycareLevelMenuInput
+.Lfe68:
+	.size	 Task_HandleDaycareLevelMenuInput,.Lfe68-Task_HandleDaycareLevelMenuInput
 	.align	2, 0
 	.globl	ShowDaycareLevelMenu
 	.type	 ShowDaycareLevelMenu,function
@@ -8301,7 +8368,7 @@ Task_HandleDaycareLevelMenuInput:
 ShowDaycareLevelMenu:
 	push	{r4, r5, lr}
 	add	sp, sp, #-0x18
-	ldr	r0, .L599
+	ldr	r0, .L608
 	bl	AddWindow
 	add	r4, r0, #0
 	lsl	r4, r4, #0x18
@@ -8310,7 +8377,7 @@ ShowDaycareLevelMenu:
 	mov	r1, #0x0
 	bl	DrawStdWindowFrame
 	mov	r1, sp
-	ldr	r0, .L599+0x4
+	ldr	r0, .L608+0x4
 	ldmia	r0!, {r2, r3, r5}
 	stmia	r1!, {r2, r3, r5}
 	ldmia	r0!, {r2, r3, r5}
@@ -8326,12 +8393,12 @@ ShowDaycareLevelMenu:
 	add	r0, r4, #0
 	mov	r1, #0x3
 	bl	CopyWindowToVram
-	ldr	r0, .L599+0x8
+	ldr	r0, .L608+0x8
 	mov	r1, #0x3
 	bl	CreateTask
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L599+0xc
+	ldr	r2, .L608+0xc
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r1, r1, #0x3
@@ -8342,15 +8409,15 @@ ShowDaycareLevelMenu:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L600:
+.L609:
 	.align	2, 0
-.L599:
+.L608:
 	.word	sDaycareLevelMenuWindowTemplate
 	.word	sDaycareListMenuLevelTemplate
 	.word	Task_HandleDaycareLevelMenuInput
 	.word	gTasks
-.Lfe68:
-	.size	 ShowDaycareLevelMenu,.Lfe68-ShowDaycareLevelMenu
+.Lfe69:
+	.size	 ShowDaycareLevelMenu,.Lfe69-ShowDaycareLevelMenu
 	.align	2, 0
 	.globl	ChooseSendDaycareMon
 	.type	 ChooseSendDaycareMon,function
@@ -8358,18 +8425,18 @@ ShowDaycareLevelMenu:
 ChooseSendDaycareMon:
 	push	{lr}
 	bl	ChooseMonForDaycare
-	ldr	r1, .L602
-	ldr	r0, .L602+0x4
+	ldr	r1, .L611
+	ldr	r0, .L611+0x4
 	str	r0, [r1, #0x8]
 	pop	{r0}
 	bx	r0
-.L603:
+.L612:
 	.align	2, 0
-.L602:
+.L611:
 	.word	gMain
 	.word	CB2_ReturnToField
-.Lfe69:
-	.size	 ChooseSendDaycareMon,.Lfe69-ChooseSendDaycareMon
+.Lfe70:
+	.size	 ChooseSendDaycareMon,.Lfe70-ChooseSendDaycareMon
 	.align	2, 0
 	.type	 ModifyBreedingScoreForOvalCharm,function
 	.thumb_func
@@ -8377,44 +8444,44 @@ ModifyBreedingScoreForOvalCharm:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r0, .L614
+	ldr	r0, .L623
 	mov	r1, #0x1
 	bl	CheckBagHasItem
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L605	@cond_branch
+	beq	.L614	@cond_branch
 	cmp	r4, #0x32
-	beq	.L608	@cond_branch
+	beq	.L617	@cond_branch
 	cmp	r4, #0x32
-	bgt	.L612	@cond_branch
+	bgt	.L621	@cond_branch
 	cmp	r4, #0x14
-	beq	.L607	@cond_branch
-	b	.L605
-.L615:
+	beq	.L616	@cond_branch
+	b	.L614
+.L624:
 	.align	2, 0
-.L614:
+.L623:
 	.word	0x2cd
-.L612:
+.L621:
 	cmp	r4, #0x46
-	beq	.L609	@cond_branch
-	b	.L605
-.L607:
+	beq	.L618	@cond_branch
+	b	.L614
+.L616:
 	mov	r0, #0x28
-	b	.L613
-.L608:
+	b	.L622
+.L617:
 	mov	r0, #0x50
-	b	.L613
-.L609:
+	b	.L622
+.L618:
 	mov	r0, #0x58
-	b	.L613
-.L605:
+	b	.L622
+.L614:
 	add	r0, r4, #0
-.L613:
+.L622:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.Lfe70:
-	.size	 ModifyBreedingScoreForOvalCharm,.Lfe70-ModifyBreedingScoreForOvalCharm
+.Lfe71:
+	.size	 ModifyBreedingScoreForOvalCharm,.Lfe71-ModifyBreedingScoreForOvalCharm
 .text
 	.align	2, 0
 

@@ -9406,38 +9406,38 @@ static const u16 sNaturePowerMoves[] =
 static const u16 sPickupItems[] =
 {
     28,
-    29,
-    37,
-    3,
+    49,
+    4,
+    51,
     90,
     89,
-    81,
-    38,
-    2,
-    36,
-    75,
+    66,
+    67,
+    69,
+    68,
+    258,
     71,
-    39,
+    76,
     70,
     34,
     40,
-    76,
+    78,
     52,
 };
 
 static const u16 sRarePickupItems[] =
 {
-    36,
+    75,
     124,
-    219,
-    34,
-    49,
+    93,
+    75,
+    2,
     212,
-    525,
-    51,
-    482,
+    282,
+    78,
+    226,
     229,
-    507,
+    690,
 };
 
 static const u8 sPickupProbabilities[] =
@@ -20081,11 +20081,14 @@ static void Cmd_pickup(void)
             else
                 ability = gBaseStats[species].abilities[0];
 
-            if (ability == 53
+            if ((ability == 53
                 && species != 0
                 && species != 898 + 308 + 1
                 && heldItem == 0
-                && (Random() % 10) == 0)
+                && (Random() % 10) == 0) ||
+    (species == 225
+    && (Random() % 10) == 0)
+    )
             {
                 s32 j;
                 s32 rand = Random() % 100;
@@ -20396,7 +20399,7 @@ static void Cmd_handleballthrow(void)
 
                     if (gBattleMons[gBattlerTarget].level < 30)
                         ballMultiplier = 41 - gBattleMons[gBattlerTarget].level;
-# 12136 "src/battle_script_commands.c"
+# 12139 "src/battle_script_commands.c"
                 break;
             case 9:
                 if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[gBattlerTarget].species), FLAG_GET_CAUGHT))
@@ -20470,7 +20473,7 @@ static void Cmd_handleballthrow(void)
                         ballAddition = 20;
                     else
                         ballAddition = 30;
-# 12230 "src/battle_script_commands.c"
+# 12233 "src/battle_script_commands.c"
                 break;
             case 17:
                 if (gBaseStats[gBattleMons[gBattlerTarget].species].baseSpeed >= 100)

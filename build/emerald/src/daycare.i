@@ -8488,6 +8488,7 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
 static u8 GetDaycareCompatibilityScore(struct DayCare *daycare);
 static void DaycarePrintMonInfo(u8 windowId, s32 daycareSlotId, u8 y);
 static u8 ModifyBreedingScoreForOvalCharm(u8 score);
+static u8 GetMonFormId(u16 *species, struct DayCare *daycare);
 
 
 __attribute__((section("ewram_data"))) static u16 sHatchedEggLevelUpMoves[(40 > 50 ? 40 : 50)] = {0};
@@ -10302,7 +10303,7 @@ const u16 gEggMoves[] = {
 
     0xFFFF
 };
-# 42 "src/daycare.c" 2
+# 43 "src/daycare.c" 2
 
 static const struct WindowTemplate sDaycareLevelMenuWindowTemplate =
 {
@@ -10519,7 +10520,7 @@ static u16 TakeSelectedPokemonFromDaycare(struct DaycareMon *daycareMon)
     GetBoxMonNickname(&daycareMon->mon, gStringVar1);
     species = GetBoxMonData(&daycareMon->mon, 11);
     BoxMonToMon(&daycareMon->mon, &pokemon);
-# 267 "src/daycare.c"
+# 268 "src/daycare.c"
     gPlayerParty[6 - 1] = pokemon;
     if (daycareMon->mail.message.itemId)
     {
@@ -10959,6 +10960,7 @@ static void BuildEggMoveset(struct Pokemon *egg, struct BoxPokemon *father, stru
     u32 numLevelUpMoves;
     u16 numEggMoves;
     u16 i, j;
+ u8 formId = 0;
 
     numSharedParentMoves = 0;
     for (i = 0; i < 4; i++)
@@ -10972,7 +10974,7 @@ static void BuildEggMoveset(struct Pokemon *egg, struct BoxPokemon *father, stru
     for (i = 0; i < (40 > 50 ? 40 : 50); i++)
         sHatchedEggLevelUpMoves[i] = 0;
 
-    numLevelUpMoves = GetLevelUpMovesBySpecies(GetMonData(egg, 11), sHatchedEggLevelUpMoves, GetMonData(egg, 89));
+    numLevelUpMoves = GetLevelUpMovesBySpecies(GetMonData(egg, 11), sHatchedEggLevelUpMoves, GetMonData(*egg, 89));
     for (i = 0; i < 4; i++)
     {
         sHatchedEggFatherMoves[i] = GetBoxMonData(father, 13 + i);
@@ -11054,7 +11056,7 @@ void RejectEggFromDayCare(void)
 
 static void AlterEggSpeciesWithIncenseItem(u16 *species, struct DayCare *daycare)
 {
-    u16 motherItem, fatherItem;
+ u16 motherItem, fatherItem;
     motherItem = GetBoxMonData(&daycare->mons[0].mon, 12);
     fatherItem = GetBoxMonData(&daycare->mons[1].mon, 12);
 
@@ -11090,6 +11092,19 @@ static void AlterEggSpeciesWithIncenseItem(u16 *species, struct DayCare *daycare
         else if (*species == 458 && motherItem != 318 && fatherItem != 318)
             *species = 226;
 
+}
+
+static u8 GetMonFormId(u16 *species, struct DayCare *daycare){
+    u16 motherSpecies, fatherSpecies;
+ motherSpecies = GetBoxMonData(&daycare->mons[0].mon, 11);
+ fatherSpecies = GetBoxMonData(&daycare->mons[1].mon, 11);
+
+ if(*species == 172 ||*species == 744 )
+  return 0;
+ else if(motherSpecies == 132)
+  return GetBoxMonData(&daycare->mons[1].mon, 89);
+ else
+  return GetBoxMonData(&daycare->mons[0].mon, 89);
 }
 
 static void GiveVoltTackleIfLightBall(struct Pokemon *mon, struct DayCare *daycare)
@@ -11148,16 +11163,20 @@ static u16 DetermineEggSpeciesAndParentSlots(struct DayCare *daycare, u8 *parent
 
 static void _GiveEggFromDaycare(struct DayCare *daycare)
 {
+
     struct Pokemon egg;
     u16 species;
+ u8 formId;
     u8 parentSlots[2];
     bool8 isEgg;
 
     species = DetermineEggSpeciesAndParentSlots(daycare, parentSlots);
-    AlterEggSpeciesWithIncenseItem(&species, daycare);
+ formId = GetMonFormId(&species, daycare);
+ SetMonData(&egg, 89, &formId);
     SetInitialEggData(&egg, species, daycare);
     InheritIVs(&egg, daycare);
     BuildEggMoveset(&egg, &daycare->mons[parentSlots[1]].mon, &daycare->mons[parentSlots[0]].mon);
+ SetMonData(&egg, 89, &formId);
 
     if (species == 172)
         GiveVoltTackleIfLightBall(&egg, daycare);
@@ -11203,9 +11222,10 @@ static void SetInitialEggData(struct Pokemon *mon, u16 species, struct DayCare *
     u16 ball;
     u8 metLevel;
     u8 language;
+ u8 formId = GetMonFormId(&species, daycare);
 
     personality = daycare->offspringPersonality;
-    CreateMon(mon, species, 1, 32, 1, personality, 0, 0, 0);
+    CreateMon(mon, species, 1, 32, 1, personality, 0, 0, formId);
     metLevel = 0;
     ball = 4;
     language = 1;

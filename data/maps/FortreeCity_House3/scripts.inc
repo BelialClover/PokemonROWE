@@ -167,7 +167,7 @@ FortreeCity_House3_EventScript_Give_Chespin::
 	
 //Litten
 FortreeCity_House3_EventScript_Give_Rowlet::
-	bufferspeciesname 1, SPECIES_LITTEN
+	bufferspeciesname 1, SPECIES_ROWLET
 	playfanfare MUS_OBTAIN_ITEM
 	message FortreeCity_House3_Text_ReceivedMonFromOldMan
 	givemon SPECIES_ROWLET, 10, ITEM_NONE

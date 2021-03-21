@@ -210,9 +210,9 @@ u8 getLeaderPokemonNum(){
 
 u8 getDoubleTrainerPokemonNum(){
 	if(IsHardMode() == 0)
-		normalnumMonsDouble[GetNumBadges()];
+		return normalnumMonsDouble[GetNumBadges()];
 	else
-		hardnumMonsDouble[GetNumBadges()];
+		return hardnumMonsDouble[GetNumBadges()];
 }
 
 u16 GetWildPokemon(u16 basespecies, u8 level, u16 heldItem){

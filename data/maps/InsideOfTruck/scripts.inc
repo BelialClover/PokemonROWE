@@ -435,7 +435,7 @@ Text_Start_Pacifidlog_Town::
 //Starters
 
 Start_Text_Starter_Chose:
-	.string "Oh, Welcome to Pokemon ROWE 1.0.7.\p"
+	.string "Oh, Welcome to Pokemon ROWE 1.0.8.1\p"
 	.string "Before starting i would like to\n"
 	.string "ask you some questions.\p"
 	.string "What Pokemon would you like\n"
