@@ -88,24 +88,144 @@ LavaridgeTown_Gym_EventScript_Flannery_PostBattle::
 	
 LavaridgeTown_Gym_1F_EventScript_FlanneryRematch:: @ 81FC89C
 	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPreRematch, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
-	goto LavaridgeTown_Gym_1F_EventScript_GiveMegastone
+	goto LavaridgeTown_Gym_1F_EventScript_Start_Rematch_1
 	end
 	
+//rematches
 LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd::
 	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostRematch, MSGBOX_AUTOCLOSE
 	setflag FLAG_UNUSED_0x925
 	end
 	
-LavaridgeTown_Gym_1F_EventScript_GiveMegastone::
-	goto_if_unset FLAG_RECEIVED_TM04 LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
-	goto_if_set FLAG_UNUSED_0x286 LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
-	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_1::
+	checkitem ITEM_TM61_WILL_O_WISP, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq LavaridgeTown_Gym_1F_EventScript_Start_Rematch_2
+	trainerbattle_no_intro TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM61_WILL_O_WISP
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_2::
+	goto_if_unset FLAG_RECEIVED_TM08 LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_1
+	checkitem ITEM_TM120_MYSTICAL_FIRE, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq LavaridgeTown_Gym_1F_EventScript_Start_Rematch_3
+	trainerbattle_no_intro TRAINER_FLANNERY_2, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM120_MYSTICAL_FIRE
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_3::
+	goto_if_unset FLAG_RECEIVED_TM42 LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_2
+	checkitem ITEM_TM111_HEAT_CRASH, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq LavaridgeTown_Gym_1F_EventScript_Start_Rematch_4
+	trainerbattle_no_intro TRAINER_FLANNERY_3, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM111_HEAT_CRASH
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_4::
+	goto_if_unset FLAG_RECEIVED_TM40 LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_3
+	checkitem ITEM_TM117_BLAZE_KICK, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq LavaridgeTown_Gym_1F_EventScript_Start_Rematch_5
+	trainerbattle_no_intro TRAINER_FLANNERY_4, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM117_BLAZE_KICK
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_5::
+	goto_if_unset FLAG_RECEIVED_TM04 LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_4
+	goto_if_set FLAG_UNUSED_0x286 LavaridgeTown_Gym_1F_EventScript_Start_Rematch_6
+	trainerbattle_no_intro TRAINER_FLANNERY_4, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_GetMegaStone, MSGBOX_DEFAULT
 	giveitem ITEM_HOUNDOOMINITE
 	setflag FLAG_UNUSED_0x286
-	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostRematch, MSGBOX_AUTOCLOSE
-	setflag FLAG_UNUSED_0x925
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
 	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_6::
+	goto_if_unset FLAG_RECEIVED_TM03 LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_4
+	checkitem ITEM_TM50_OVERHEAT, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Final
+	trainerbattle_no_intro TRAINER_FLANNERY_5, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM50_OVERHEAT
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Final::
+	random 5
+	switch VAR_RESULT
+	case 0, LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_1
+	case 1, LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_2
+	case 2, LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_3
+	case 3, LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_4
+	case 4, LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_5
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_1::
+	trainerbattle_no_intro TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	msgbox LavaridgeTown_Gym_1F_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_TIMID_MINT, 3
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_2::
+	trainerbattle_no_intro TRAINER_FLANNERY_2, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	msgbox LavaridgeTown_Gym_1F_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_MODEST_MINT, 3
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_3::
+	trainerbattle_no_intro TRAINER_FLANNERY_3, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	msgbox LavaridgeTown_Gym_1F_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_MILD_MINT, 3
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_4::
+	trainerbattle_no_intro TRAINER_FLANNERY_4, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	msgbox LavaridgeTown_Gym_1F_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_RASH_MINT, 3
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	end
+	
+LavaridgeTown_Gym_1F_EventScript_Start_Rematch_Party_5::
+	trainerbattle_no_intro TRAINER_FLANNERY_5, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	msgbox LavaridgeTown_Gym_1F_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_QUIET_MINT, 3
+	goto LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd
+	end
+	
+LavaridgeTown_Gym_1F_Text_GetTM:
+	.string "Flannery: Please take this\n"
+	.string "Technical Machine.$"
+
+LavaridgeTown_Gym_1F_Text_GetMegaStone:
+	.string "Flannery: Please take this\n"
+	.string "Mega Stone, with you.\p"
+	.string "Make an Aggron hold it to\n"
+	.string "unleash its Hidden Potential.$"
+	
+LavaridgeTown_Gym_1F_Text_GetReward:
+	.string "Flannery: Please take this\n"
+	.string "Item as a Reward.$"
+
+//rematches end
 
 LavaridgeTown_Gym_EventScript_GiveHM::
 	goto_if_unset FLAG_RECEIVED_TM39, LavaridgeTown_Gym_EventScript_GiveHM01

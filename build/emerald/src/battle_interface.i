@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -5340,13 +5341,13 @@ extern const u32 gMonFrontPic_Meltan[];
 extern const u32 gMonFrontPic_Melmetal[];
 extern const u32 gMonFrontPic_Grookey[];
 extern const u32 gMonFrontPic_Thwackey[];
-
+extern const u32 gMonFrontPic_Rillaboom[];
 extern const u32 gMonFrontPic_Scorbunny[];
 extern const u32 gMonFrontPic_Raboot[];
 extern const u32 gMonFrontPic_Cinderace[];
 extern const u32 gMonFrontPic_Sobble[];
 extern const u32 gMonFrontPic_Drizzile[];
-
+extern const u32 gMonFrontPic_Inteleon[];
 extern const u32 gMonFrontPic_Skwovet[];
 extern const u32 gMonFrontPic_Greedent[];
 extern const u32 gMonFrontPic_Rookidee[];
@@ -6480,13 +6481,13 @@ extern const u32 gMonBackPic_Meltan[];
 extern const u32 gMonBackPic_Melmetal[];
 extern const u32 gMonBackPic_Grookey[];
 extern const u32 gMonBackPic_Thwackey[];
-
+extern const u32 gMonBackPic_Rillaboom[];
 extern const u32 gMonBackPic_Scorbunny[];
 extern const u32 gMonBackPic_Raboot[];
 extern const u32 gMonBackPic_Cinderace[];
 extern const u32 gMonBackPic_Sobble[];
 extern const u32 gMonBackPic_Drizzile[];
-
+extern const u32 gMonBackPic_Inteleon[];
 extern const u32 gMonBackPic_Skwovet[];
 extern const u32 gMonBackPic_Greedent[];
 extern const u32 gMonBackPic_Rookidee[];
@@ -7618,13 +7619,13 @@ extern const u32 gMonPalette_Meltan[];
 extern const u32 gMonPalette_Melmetal[];
 extern const u32 gMonPalette_Grookey[];
 extern const u32 gMonPalette_Thwackey[];
-
+extern const u32 gMonPalette_Rillaboom[];
 extern const u32 gMonPalette_Scorbunny[];
 extern const u32 gMonPalette_Raboot[];
 extern const u32 gMonPalette_Cinderace[];
 extern const u32 gMonPalette_Sobble[];
 extern const u32 gMonPalette_Drizzile[];
-
+extern const u32 gMonPalette_Inteleon[];
 extern const u32 gMonPalette_Skwovet[];
 extern const u32 gMonPalette_Greedent[];
 extern const u32 gMonPalette_Rookidee[];
@@ -8783,13 +8784,13 @@ extern const u32 gMonShinyPalette_Meltan[];
 extern const u32 gMonShinyPalette_Melmetal[];
 extern const u32 gMonShinyPalette_Grookey[];
 extern const u32 gMonShinyPalette_Thwackey[];
-
+extern const u32 gMonShinyPalette_Rillaboom[];
 extern const u32 gMonShinyPalette_Scorbunny[];
 extern const u32 gMonShinyPalette_Raboot[];
 extern const u32 gMonShinyPalette_Cinderace[];
 extern const u32 gMonShinyPalette_Sobble[];
 extern const u32 gMonShinyPalette_Drizzile[];
-
+extern const u32 gMonShinyPalette_Inteleon[];
 extern const u32 gMonShinyPalette_Skwovet[];
 extern const u32 gMonShinyPalette_Greedent[];
 extern const u32 gMonShinyPalette_Rookidee[];
@@ -10097,6 +10098,25 @@ extern const u8 gMonIcon_GrimerAlolan[];
 extern const u8 gMonIcon_MukAlolan[];
 extern const u8 gMonIcon_ExeggutorAlolan[];
 extern const u8 gMonIcon_MarowakAlolan[];
+extern const u8 gMonIcon_MeowthGalarian[];
+extern const u8 gMonIcon_PonytaGalarian[];
+extern const u8 gMonIcon_RapidashGalarian[];
+extern const u8 gMonIcon_SlowpokeGalarian[];
+extern const u8 gMonIcon_SlowbroGalarian[];
+extern const u8 gMonIcon_FarfetchdGalarian[];
+extern const u8 gMonIcon_WeezingGalarian[];
+extern const u8 gMonIcon_MrmimeGalarian[];
+extern const u8 gMonIcon_ArticunoGalarian[];
+extern const u8 gMonIcon_ZapdosGalarian[];
+extern const u8 gMonIcon_MoltresGalarian[];
+extern const u8 gMonIcon_SlowkingGalarian[];
+extern const u8 gMonIcon_CorsolaGalarian[];
+extern const u8 gMonIcon_ZigzagoonGalarian[];
+extern const u8 gMonIcon_LinooneGalarian[];
+extern const u8 gMonIcon_DarumakaGalarian[];
+extern const u8 gMonIcon_DarmanitanGalarian[];
+extern const u8 gMonIcon_YamaskGalarian[];
+extern const u8 gMonIcon_StunfiskGalarian[];
 extern const u8 gMonIcon_PikachuCosplay[];
 extern const u8 gMonIcon_PikachuRockStar[];
 extern const u8 gMonIcon_PikachuBelle[];
@@ -13959,6 +13979,15 @@ extern const u32 gPokenavMessageBox_Tilemap[];
 extern const u16 gPokenavMessageBox_Pal[];
 extern const u32 gPokenavOptions_Gfx[];
 extern const u16 gPokenavOptions_Pal[];
+
+
+extern const u32 gItemIcon_Mint[];
+extern const u32 gItemIconPalette_RedMint[];
+extern const u32 gItemIconPalette_BlueMint[];
+extern const u32 gItemIconPalette_PinkMint[];
+extern const u32 gItemIconPalette_GreenMint[];
+extern const u32 gItemIconPalette_LightBlueMint[];
+extern const u32 gItemIconPalette_YellowMint[];
 # 8 "src/battle_interface.c" 2
 
 # 1 "gflib/window.h" 1
@@ -15285,6 +15314,9 @@ struct TrainerMonNoItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
 };
@@ -15293,8 +15325,12 @@ struct TrainerMonItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
 };
 
@@ -15302,8 +15338,12 @@ struct TrainerMonNoItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -15311,9 +15351,14 @@ struct TrainerMonItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -16747,7 +16792,8 @@ static void PrintSafariMonInfo(u8 healthboxSpriteId, struct Pokemon *mon)
     memcpy(text, sUnknown_0832C3C4, sizeof(sUnknown_0832C3C4));
     barFontGfx = &gMonSpritesGfxPtr->barFontGfx[0x520 + (GetBattlerPosition(gSprites[healthboxSpriteId].data[6]) * 384)];
     var = 5;
-    nature = GetNature(mon);
+
+ nature = GetNature(mon, 0);
     StringCopy(text + 6, gNatureNamePointers[nature]);
     RenderTextFont9(barFontGfx, 9, text);
 
@@ -16874,7 +16920,7 @@ void ChangeMegaTriggerSprite(u8 spriteId, u8 animId)
 {
     StartSpriteAnim(&gSprites[spriteId], animId);
 }
-# 1435 "src/battle_interface.c"
+# 1436 "src/battle_interface.c"
 void CreateMegaTriggerSprite(u8 battlerId, u8 palId)
 {
     LoadSpritePalette(&sSpritePalette_MegaTrigger);
@@ -17041,7 +17087,7 @@ static void SpriteCb_MegaIndicator(struct Sprite *sprite)
 {
 
 }
-# 1611 "src/battle_interface.c"
+# 1612 "src/battle_interface.c"
 u8 CreatePartyStatusSummarySprites(u8 battlerId, struct HpAndStatus *partyInfo, u8 arg2, bool8 isBattleStart)
 {
     bool8 isOpponent;
@@ -18227,7 +18273,7 @@ static void SafariTextIntoHealthboxObject(void *dest, u8 *windowTileData, u32 wi
     CpuSet(windowTileData, dest, 0x04000000 | ((windowWidth * 32)/(32/8) & 0x1FFFFF));
     CpuSet(windowTileData + 256, dest + 256, 0x04000000 | ((windowWidth * 32)/(32/8) & 0x1FFFFF));
 }
-# 2811 "src/battle_interface.c"
+# 2812 "src/battle_interface.c"
 static const u8 sAbilityPopUpGfx[] = INCBIN_U8("graphics/battle_interface/ability_pop_up.4bpp");
 static const u16 sAbilityPopUpPalette[] = INCBIN_U16("graphics/battle_interface/ability_pop_up.gbapal");
 
@@ -18405,7 +18451,7 @@ static void PrintAbilityOnAbilityPopUp(u32 ability, u8 spriteId1, u8 spriteId2)
                         4,
                         7, 9, 1);
 }
-# 2999 "src/battle_interface.c"
+# 3000 "src/battle_interface.c"
 static const u16 sOverwrittenPixelsTable[][2] =
 {
  {( ((0 / 8) * 32 * 8) + ((0 / 8) * 32) + ((((0) - ((0 / 8) * 8))) * 4) + ((((0) - ((0 / 8) * 8)) / 2))), 5},

@@ -7,9 +7,30 @@ Common_EventScript_PkmnCenterJack::
 	case 0, Common_EventScript_PkmnCenterJack_NameRater_ChooseMonToRate
 	case 1, Common_EventScript_PkmnCenterJack_MoveReminder_ChooseMon
 	case 2, Common_EventScript_PkmnCenterJack_MoveDeleter_ChooseMonAndMoveToForget
-	case 3, Common_EventScript_PkmnCenterJack_TeachMove
+	case 3, Common_EventScript_PkmnCenterJack_CheckIVs
 	case 4, Common_EventScript_PkmnCenterJack_ComeBackAnytime
 	case MULTI_B_PRESSED, Common_EventScript_PkmnCenterJack_ComeBackAnytime
+	end
+	
+Common_EventScript_PkmnCenterJack_CheckIVs::
+	lock
+	faceplayer
+	special ChoosePartyMon
+	waitstate
+	compare VAR_0x8004, 255
+	goto_if_eq Common_EventScript_PkmnCenterJack_ComeBackAnytime
+	compare VAR_0x8004, 255
+	goto_if_ne Common_EventScript_PkmnCenterJack_CheckIVs_Proceed
+	end
+	
+Common_EventScript_PkmnCenterJack_CheckIVs_Proceed::
+	lock
+	faceplayer
+	special GetHpIV
+	msgbox Text_IVChecker_2 6
+	special GetAtkIV
+	msgbox Text_IVChecker_3 4
+	release
 	end
 
 Common_EventScript_PkmnCenterJack_TeachMove::

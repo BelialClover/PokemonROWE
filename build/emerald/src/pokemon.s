@@ -10913,25 +10913,76 @@ gSpindaSpotGraphics:
 	.type	 GetHpIV,function
 	.thumb_func
 GetHpIV:
-	push	{lr}
-	bl	GetLeadMonIndex
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
+	push	{r4, r5, r6, lr}
+	mov	r6, r9
+	mov	r5, r8
+	push	{r5, r6}
+	ldr	r0, .L3
+	mov	r9, r0
+	ldrh	r0, [r0]
 	mov	r1, #0x64
-	mul	r0, r0, r1
-	ldr	r1, .L3
-	add	r0, r0, r1
+	mov	r8, r1
+	mov	r1, r8
+	mul	r1, r1, r0
+	add	r0, r1, #0
+	ldr	r4, .L3+0x4
+	add	r0, r0, r4
 	mov	r1, #0x27
-	mov	r2, #0x0
 	bl	GetMonData
-	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	pop	{r1}
-	bx	r1
+	add	r6, r0, #0
+	lsl	r6, r6, #0x18
+	lsr	r6, r6, #0x18
+	mov	r1, r9
+	ldrh	r0, [r1]
+	mov	r1, r8
+	mul	r1, r1, r0
+	add	r0, r1, #0
+	add	r0, r0, r4
+	mov	r1, #0x28
+	bl	GetMonData
+	add	r5, r0, #0
+	lsl	r5, r5, #0x18
+	lsr	r5, r5, #0x18
+	mov	r1, r9
+	ldrh	r0, [r1]
+	mov	r1, r8
+	mul	r1, r1, r0
+	add	r0, r1, #0
+	add	r0, r0, r4
+	mov	r1, #0x29
+	bl	GetMonData
+	add	r4, r0, #0
+	lsl	r4, r4, #0x18
+	lsr	r4, r4, #0x18
+	ldr	r0, .L3+0x8
+	add	r1, r6, #0
+	mov	r2, #0x2
+	mov	r3, #0x2
+	bl	ConvertIntToDecimalStringN
+	ldr	r0, .L3+0xc
+	add	r1, r5, #0
+	mov	r2, #0x2
+	mov	r3, #0x2
+	bl	ConvertIntToDecimalStringN
+	ldr	r0, .L3+0x10
+	add	r1, r4, #0
+	mov	r2, #0x2
+	mov	r3, #0x2
+	bl	ConvertIntToDecimalStringN
+	pop	{r3, r4}
+	mov	r8, r3
+	mov	r9, r4
+	pop	{r4, r5, r6}
+	pop	{r0}
+	bx	r0
 .L4:
 	.align	2, 0
 .L3:
+	.word	gSpecialVar_0x8004
 	.word	gPlayerParty
+	.word	gStringVar1
+	.word	gStringVar2
+	.word	gStringVar3
 .Lfe1:
 	.size	 GetHpIV,.Lfe1-GetHpIV
 	.align	2, 0
@@ -10939,25 +10990,76 @@ GetHpIV:
 	.type	 GetAtkIV,function
 	.thumb_func
 GetAtkIV:
-	push	{lr}
-	bl	GetLeadMonIndex
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
+	push	{r4, r5, r6, lr}
+	mov	r6, r9
+	mov	r5, r8
+	push	{r5, r6}
+	ldr	r0, .L6
+	mov	r9, r0
+	ldrh	r0, [r0]
 	mov	r1, #0x64
-	mul	r0, r0, r1
-	ldr	r1, .L6
-	add	r0, r0, r1
-	mov	r1, #0x28
-	mov	r2, #0x0
+	mov	r8, r1
+	mov	r1, r8
+	mul	r1, r1, r0
+	add	r0, r1, #0
+	ldr	r4, .L6+0x4
+	add	r0, r0, r4
+	mov	r1, #0x2b
 	bl	GetMonData
-	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	pop	{r1}
-	bx	r1
+	add	r6, r0, #0
+	lsl	r6, r6, #0x18
+	lsr	r6, r6, #0x18
+	mov	r1, r9
+	ldrh	r0, [r1]
+	mov	r1, r8
+	mul	r1, r1, r0
+	add	r0, r1, #0
+	add	r0, r0, r4
+	mov	r1, #0x2c
+	bl	GetMonData
+	add	r5, r0, #0
+	lsl	r5, r5, #0x18
+	lsr	r5, r5, #0x18
+	mov	r1, r9
+	ldrh	r0, [r1]
+	mov	r1, r8
+	mul	r1, r1, r0
+	add	r0, r1, #0
+	add	r0, r0, r4
+	mov	r1, #0x2a
+	bl	GetMonData
+	add	r4, r0, #0
+	lsl	r4, r4, #0x18
+	lsr	r4, r4, #0x18
+	ldr	r0, .L6+0x8
+	add	r1, r6, #0
+	mov	r2, #0x2
+	mov	r3, #0x2
+	bl	ConvertIntToDecimalStringN
+	ldr	r0, .L6+0xc
+	add	r1, r5, #0
+	mov	r2, #0x2
+	mov	r3, #0x2
+	bl	ConvertIntToDecimalStringN
+	ldr	r0, .L6+0x10
+	add	r1, r4, #0
+	mov	r2, #0x2
+	mov	r3, #0x2
+	bl	ConvertIntToDecimalStringN
+	pop	{r3, r4}
+	mov	r8, r3
+	mov	r9, r4
+	pop	{r4, r5, r6}
+	pop	{r0}
+	bx	r0
 .L7:
 	.align	2, 0
 .L6:
+	.word	gSpecialVar_0x8004
 	.word	gPlayerParty
+	.word	gStringVar1
+	.word	gStringVar2
+	.word	gStringVar3
 .Lfe2:
 	.size	 GetAtkIV,.Lfe2-GetAtkIV
 	.align	2, 0
@@ -10966,12 +11068,11 @@ GetAtkIV:
 	.thumb_func
 GetDefIV:
 	push	{lr}
-	bl	GetLeadMonIndex
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	mov	r1, #0x64
+	ldr	r0, .L9
+	ldrh	r1, [r0]
+	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L9
+	ldr	r1, .L9+0x4
 	add	r0, r0, r1
 	mov	r1, #0x29
 	mov	r2, #0x0
@@ -10983,6 +11084,7 @@ GetDefIV:
 .L10:
 	.align	2, 0
 .L9:
+	.word	gSpecialVar_0x8004
 	.word	gPlayerParty
 .Lfe3:
 	.size	 GetDefIV,.Lfe3-GetDefIV
@@ -10992,12 +11094,11 @@ GetDefIV:
 	.thumb_func
 GetSpAtkIV:
 	push	{lr}
-	bl	GetLeadMonIndex
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	mov	r1, #0x64
+	ldr	r0, .L12
+	ldrh	r1, [r0]
+	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L12
+	ldr	r1, .L12+0x4
 	add	r0, r0, r1
 	mov	r1, #0x2b
 	mov	r2, #0x0
@@ -11009,6 +11110,7 @@ GetSpAtkIV:
 .L13:
 	.align	2, 0
 .L12:
+	.word	gSpecialVar_0x8004
 	.word	gPlayerParty
 .Lfe4:
 	.size	 GetSpAtkIV,.Lfe4-GetSpAtkIV
@@ -11018,12 +11120,11 @@ GetSpAtkIV:
 	.thumb_func
 GetSpDefIV:
 	push	{lr}
-	bl	GetLeadMonIndex
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	mov	r1, #0x64
+	ldr	r0, .L15
+	ldrh	r1, [r0]
+	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L15
+	ldr	r1, .L15+0x4
 	add	r0, r0, r1
 	mov	r1, #0x2c
 	mov	r2, #0x0
@@ -11035,6 +11136,7 @@ GetSpDefIV:
 .L16:
 	.align	2, 0
 .L15:
+	.word	gSpecialVar_0x8004
 	.word	gPlayerParty
 .Lfe5:
 	.size	 GetSpDefIV,.Lfe5-GetSpDefIV
@@ -11044,12 +11146,11 @@ GetSpDefIV:
 	.thumb_func
 GetSpeedIV:
 	push	{lr}
-	bl	GetLeadMonIndex
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	mov	r1, #0x64
+	ldr	r0, .L18
+	ldrh	r1, [r0]
+	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L18
+	ldr	r1, .L18+0x4
 	add	r0, r0, r1
 	mov	r1, #0x2a
 	mov	r2, #0x0
@@ -11061,6 +11162,7 @@ GetSpeedIV:
 .L19:
 	.align	2, 0
 .L18:
+	.word	gSpecialVar_0x8004
 	.word	gPlayerParty
 .Lfe6:
 	.size	 GetSpeedIV,.Lfe6-GetSpeedIV
@@ -11967,6 +12069,7 @@ sBulbasaurTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -11975,12 +12078,17 @@ sBulbasaurTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x35
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sBulbasaurTMHMLearnset,22
+	.size	 sBulbasaurTMHMLearnset,28
 	.type	 sIvysaurTMHMLearnset,object
 sIvysaurTMHMLearnset:
 	.byte	0x5
@@ -11992,6 +12100,7 @@ sIvysaurTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -12000,12 +12109,17 @@ sIvysaurTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x35
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sIvysaurTMHMLearnset,22
+	.size	 sIvysaurTMHMLearnset,28
 	.type	 sVenusaurTMHMLearnset,object
 sVenusaurTMHMLearnset:
 	.byte	0x4
@@ -12019,6 +12133,7 @@ sVenusaurTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1f
@@ -12028,12 +12143,20 @@ sVenusaurTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x35
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sVenusaurTMHMLearnset,25
+	.size	 sVenusaurTMHMLearnset,34
 	.type	 sCharmanderTMHMLearnset,object
 sCharmanderTMHMLearnset:
 	.byte	0x0
@@ -12058,11 +12181,21 @@ sCharmanderTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sCharmanderTMHMLearnset,26
+	.size	 sCharmanderTMHMLearnset,36
 	.type	 sCharmeleonTMHMLearnset,object
 sCharmeleonTMHMLearnset:
 	.byte	0x0
@@ -12087,11 +12220,21 @@ sCharmeleonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sCharmeleonTMHMLearnset,26
+	.size	 sCharmeleonTMHMLearnset,36
 	.type	 sCharizardTMHMLearnset,object
 sCharizardTMHMLearnset:
 	.byte	0x0
@@ -12103,6 +12246,7 @@ sCharizardTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -12121,12 +12265,30 @@ sCharizardTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2e
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x39
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6e
+	.byte	0x73
+	.byte	0x74
+	.byte	0x77
 	.byte	0xff
-	.size	 sCharizardTMHMLearnset,32
+	.size	 sCharizardTMHMLearnset,51
 	.type	 sSquirtleTMHMLearnset,object
 sSquirtleTMHMLearnset:
 	.byte	0x0
@@ -12150,13 +12312,20 @@ sSquirtleTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x49
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x69
 	.byte	0xff
-	.size	 sSquirtleTMHMLearnset,27
+	.size	 sSquirtleTMHMLearnset,34
 	.type	 sWartortleTMHMLearnset,object
 sWartortleTMHMLearnset:
 	.byte	0x0
@@ -12180,13 +12349,20 @@ sWartortleTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x49
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x69
 	.byte	0xff
-	.size	 sWartortleTMHMLearnset,27
+	.size	 sWartortleTMHMLearnset,34
 	.type	 sBlastoiseTMHMLearnset,object
 sBlastoiseTMHMLearnset:
 	.byte	0x0
@@ -12213,13 +12389,27 @@ sBlastoiseTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x69
 	.byte	0xff
-	.size	 sBlastoiseTMHMLearnset,30
+	.size	 sBlastoiseTMHMLearnset,44
 	.type	 sCaterpieTMHMLearnset,object
 sCaterpieTMHMLearnset:
 	.byte	0xff
@@ -12239,6 +12429,7 @@ sButterfreeTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -12251,9 +12442,21 @@ sButterfreeTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6f
+	.byte	0x72
 	.byte	0xff
-	.size	 sButterfreeTMHMLearnset,23
+	.size	 sButterfreeTMHMLearnset,36
 	.type	 sWeedleTMHMLearnset,object
 sWeedleTMHMLearnset:
 	.byte	0xff
@@ -12271,6 +12474,7 @@ sBeedrillTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1e
 	.byte	0x1f
@@ -12282,11 +12486,22 @@ sBeedrillTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sBeedrillTMHMLearnset,22
+	.size	 sBeedrillTMHMLearnset,34
 	.type	 sPidgeyTMHMLearnset,object
 sPidgeyTMHMLearnset:
 	.byte	0x5
@@ -12305,9 +12520,15 @@ sPidgeyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sPidgeyTMHMLearnset,18
+	.size	 sPidgeyTMHMLearnset,24
 	.type	 sPidgeottoTMHMLearnset,object
 sPidgeottoTMHMLearnset:
 	.byte	0x5
@@ -12326,9 +12547,15 @@ sPidgeottoTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sPidgeottoTMHMLearnset,18
+	.size	 sPidgeottoTMHMLearnset,24
 	.type	 sPidgeotTMHMLearnset,object
 sPidgeotTMHMLearnset:
 	.byte	0x5
@@ -12348,9 +12575,16 @@ sPidgeotTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sPidgeotTMHMLearnset,19
+	.size	 sPidgeotTMHMLearnset,26
 	.type	 sRattataTMHMLearnset,object
 sRattataTMHMLearnset:
 	.byte	0x5
@@ -12375,10 +12609,17 @@ sRattataTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sRattataTMHMLearnset,25
+	.size	 sRattataTMHMLearnset,32
 	.type	 sRaticateTMHMLearnset,object
 sRaticateTMHMLearnset:
 	.byte	0x4
@@ -12405,11 +12646,19 @@ sRaticateTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sRaticateTMHMLearnset,28
+	.size	 sRaticateTMHMLearnset,36
 	.type	 sSpearowTMHMLearnset,object
 sSpearowTMHMLearnset:
 	.byte	0x5
@@ -12427,9 +12676,16 @@ sSpearowTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x35
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x75
 	.byte	0xff
-	.size	 sSpearowTMHMLearnset,17
+	.size	 sSpearowTMHMLearnset,24
 	.type	 sFearowTMHMLearnset,object
 sFearowTMHMLearnset:
 	.byte	0x5
@@ -12448,9 +12704,17 @@ sFearowTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x35
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x75
 	.byte	0xff
-	.size	 sFearowTMHMLearnset,18
+	.size	 sFearowTMHMLearnset,26
 	.type	 sEkansTMHMLearnset,object
 sEkansTMHMLearnset:
 	.byte	0x5
@@ -12474,9 +12738,21 @@ sEkansTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcb
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
 	.byte	0xff
-	.size	 sEkansTMHMLearnset,23
+	.size	 sEkansTMHMLearnset,35
 	.type	 sArbokTMHMLearnset,object
 sArbokTMHMLearnset:
 	.byte	0x5
@@ -12501,9 +12777,23 @@ sArbokTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcb
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
 	.byte	0xff
-	.size	 sArbokTMHMLearnset,24
+	.size	 sArbokTMHMLearnset,38
 	.type	 sPikachuTMHMLearnset,object
 sPikachuTMHMLearnset:
 	.byte	0x0
@@ -12528,12 +12818,21 @@ sPikachuTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x67
+	.byte	0x70
 	.byte	0xff
-	.size	 sPikachuTMHMLearnset,27
+	.size	 sPikachuTMHMLearnset,36
 	.type	 sRaichuTMHMLearnset,object
 sRaichuTMHMLearnset:
 	.byte	0x0
@@ -12560,12 +12859,24 @@ sRaichuTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x67
+	.byte	0x70
 	.byte	0xff
-	.size	 sRaichuTMHMLearnset,29
+	.size	 sRaichuTMHMLearnset,41
 	.type	 sSandshrewTMHMLearnset,object
 sSandshrewTMHMLearnset:
 	.byte	0x0
@@ -12589,11 +12900,23 @@ sSandshrewTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x40
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSandshrewTMHMLearnset,25
+	.size	 sSandshrewTMHMLearnset,37
 	.type	 sSandslashTMHMLearnset,object
 sSandslashTMHMLearnset:
 	.byte	0x0
@@ -12618,11 +12941,26 @@ sSandslashTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSandslashTMHMLearnset,26
+	.size	 sSandslashTMHMLearnset,41
 	.type	 sNidoranFTMHMLearnset,object
 sNidoranFTMHMLearnset:
 	.byte	0x2
@@ -12649,11 +12987,15 @@ sNidoranFTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sNidoranFTMHMLearnset,28
+	.size	 sNidoranFTMHMLearnset,32
 	.type	 sNidorinaTMHMLearnset,object
 sNidorinaTMHMLearnset:
 	.byte	0x2
@@ -12680,11 +13022,15 @@ sNidorinaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sNidorinaTMHMLearnset,28
+	.size	 sNidorinaTMHMLearnset,32
 	.type	 sNidoqueenTMHMLearnset,object
 sNidoqueenTMHMLearnset:
 	.byte	0x0
@@ -12723,12 +13069,26 @@ sNidoqueenTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sNidoqueenTMHMLearnset,41
+	.size	 sNidoqueenTMHMLearnset,55
 	.type	 sNidoranMTMHMLearnset,object
 sNidoranMTMHMLearnset:
 	.byte	0x2
@@ -12754,11 +13114,16 @@ sNidoranMTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x42
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sNidoranMTMHMLearnset,27
+	.size	 sNidoranMTMHMLearnset,32
 	.type	 sNidorinoTMHMLearnset,object
 sNidorinoTMHMLearnset:
 	.byte	0x2
@@ -12784,11 +13149,16 @@ sNidorinoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x42
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sNidorinoTMHMLearnset,27
+	.size	 sNidorinoTMHMLearnset,32
 	.type	 sNidokingTMHMLearnset,object
 sNidokingTMHMLearnset:
 	.byte	0x0
@@ -12826,12 +13196,27 @@ sNidokingTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x40
+	.byte	0x42
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sNidokingTMHMLearnset,40
+	.size	 sNidokingTMHMLearnset,55
 	.type	 sClefairyTMHMLearnset,object
 sClefairyTMHMLearnset:
 	.byte	0x0
@@ -12847,6 +13232,7 @@ sClefairyTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -12865,11 +13251,25 @@ sClefairyTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x38
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x6d
+	.byte	0x75
+	.byte	0x76
+	.byte	0x77
 	.byte	0xff
-	.size	 sClefairyTMHMLearnset,35
+	.size	 sClefairyTMHMLearnset,50
 	.type	 sClefableTMHMLearnset,object
 sClefableTMHMLearnset:
 	.byte	0x0
@@ -12886,6 +13286,7 @@ sClefableTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -12904,11 +13305,27 @@ sClefableTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x6d
+	.byte	0x75
+	.byte	0x76
+	.byte	0x77
 	.byte	0xff
-	.size	 sClefableTMHMLearnset,36
+	.size	 sClefableTMHMLearnset,53
 	.type	 sVulpixTMHMLearnset,object
 sVulpixTMHMLearnset:
 	.byte	0x4
@@ -12930,8 +13347,18 @@ sVulpixTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x34
+	.byte	0x3c
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x77
 	.byte	0xff
-	.size	 sVulpixTMHMLearnset,20
+	.size	 sVulpixTMHMLearnset,30
 	.type	 sNinetalesTMHMLearnset,object
 sNinetalesTMHMLearnset:
 	.byte	0x3
@@ -12943,6 +13370,7 @@ sNinetalesTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -12956,8 +13384,22 @@ sNinetalesTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x34
+	.byte	0x3c
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
+	.byte	0x77
 	.byte	0xff
-	.size	 sNinetalesTMHMLearnset,23
+	.size	 sNinetalesTMHMLearnset,38
 	.type	 sJigglypuffTMHMLearnset,object
 sJigglypuffTMHMLearnset:
 	.byte	0x0
@@ -12972,6 +13414,7 @@ sJigglypuffTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -12989,10 +13432,25 @@ sJigglypuffTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6d
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sJigglypuffTMHMLearnset,32
+	.size	 sJigglypuffTMHMLearnset,48
 	.type	 sWigglytuffTMHMLearnset,object
 sWigglytuffTMHMLearnset:
 	.byte	0x0
@@ -13008,6 +13466,7 @@ sWigglytuffTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -13025,10 +13484,27 @@ sWigglytuffTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6d
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sWigglytuffTMHMLearnset,33
+	.size	 sWigglytuffTMHMLearnset,51
 	.type	 sZubatTMHMLearnset,object
 sZubatTMHMLearnset:
 	.byte	0x5
@@ -13052,9 +13528,19 @@ sZubatTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x30
-	.byte	0xc9
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sZubatTMHMLearnset,23
+	.size	 sZubatTMHMLearnset,33
 	.type	 sGolbatTMHMLearnset,object
 sGolbatTMHMLearnset:
 	.byte	0x5
@@ -13079,9 +13565,20 @@ sGolbatTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x30
-	.byte	0xc9
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sGolbatTMHMLearnset,24
+	.size	 sGolbatTMHMLearnset,35
 	.type	 sOddishTMHMLearnset,object
 sOddishTMHMLearnset:
 	.byte	0x5
@@ -13091,6 +13588,7 @@ sOddishTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -13099,10 +13597,18 @@ sOddishTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sOddishTMHMLearnset,18
+	.size	 sOddishTMHMLearnset,27
 	.type	 sGloomTMHMLearnset,object
 sGloomTMHMLearnset:
 	.byte	0x5
@@ -13112,6 +13618,7 @@ sGloomTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -13120,10 +13627,20 @@ sGloomTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sGloomTMHMLearnset,18
+	.size	 sGloomTMHMLearnset,29
 	.type	 sVileplumeTMHMLearnset,object
 sVileplumeTMHMLearnset:
 	.byte	0x5
@@ -13135,6 +13652,7 @@ sVileplumeTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -13143,10 +13661,23 @@ sVileplumeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6f
+	.byte	0x76
 	.byte	0xff
-	.size	 sVileplumeTMHMLearnset,20
+	.size	 sVileplumeTMHMLearnset,34
 	.type	 sParasTMHMLearnset,object
 sParasTMHMLearnset:
 	.byte	0x5
@@ -13157,6 +13688,7 @@ sParasTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1e
@@ -13169,11 +13701,19 @@ sParasTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x35
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sParasTMHMLearnset,24
+	.size	 sParasTMHMLearnset,33
 	.type	 sParasectTMHMLearnset,object
 sParasectTMHMLearnset:
 	.byte	0x5
@@ -13185,6 +13725,7 @@ sParasectTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1e
@@ -13197,11 +13738,20 @@ sParasectTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x35
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sParasectTMHMLearnset,25
+	.size	 sParasectTMHMLearnset,35
 	.type	 sVenonatTMHMLearnset,object
 sVenonatTMHMLearnset:
 	.byte	0x5
@@ -13210,6 +13760,7 @@ sVenonatTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -13221,9 +13772,14 @@ sVenonatTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sVenonatTMHMLearnset,19
+	.size	 sVenonatTMHMLearnset,25
 	.type	 sVenomothTMHMLearnset,object
 sVenomothTMHMLearnset:
 	.byte	0x5
@@ -13233,6 +13789,7 @@ sVenomothTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -13245,9 +13802,20 @@ sVenomothTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sVenomothTMHMLearnset,21
+	.size	 sVenomothTMHMLearnset,33
 	.type	 sDiglettTMHMLearnset,object
 sDiglettTMHMLearnset:
 	.byte	0x5
@@ -13268,10 +13836,17 @@ sDiglettTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sDiglettTMHMLearnset,21
+	.size	 sDiglettTMHMLearnset,28
 	.type	 sDugtrioTMHMLearnset,object
 sDugtrioTMHMLearnset:
 	.byte	0x5
@@ -13293,10 +13868,21 @@ sDugtrioTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x75
 	.byte	0xff
-	.size	 sDugtrioTMHMLearnset,22
+	.size	 sDugtrioTMHMLearnset,33
 	.type	 sMeowthTMHMLearnset,object
 sMeowthTMHMLearnset:
 	.byte	0x2
@@ -13323,10 +13909,21 @@ sMeowthTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x40
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sMeowthTMHMLearnset,27
+	.size	 sMeowthTMHMLearnset,38
 	.type	 sPersianTMHMLearnset,object
 sPersianTMHMLearnset:
 	.byte	0x2
@@ -13355,10 +13952,24 @@ sPersianTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6a
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sPersianTMHMLearnset,29
+	.size	 sPersianTMHMLearnset,43
 	.type	 sPsyduckTMHMLearnset,object
 sPsyduckTMHMLearnset:
 	.byte	0x0
@@ -13384,14 +13995,19 @@ sPsyduckTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x40
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sPsyduckTMHMLearnset,30
+	.size	 sPsyduckTMHMLearnset,35
 	.type	 sGolduckTMHMLearnset,object
 sGolduckTMHMLearnset:
 	.byte	0x0
@@ -13418,14 +14034,23 @@ sGolduckTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x32
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x68
 	.byte	0xff
-	.size	 sGolduckTMHMLearnset,31
+	.size	 sGolduckTMHMLearnset,40
 	.type	 sMankeyTMHMLearnset,object
 sMankeyTMHMLearnset:
 	.byte	0x0
@@ -13453,10 +14078,23 @@ sMankeyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sMankeyTMHMLearnset,28
+	.size	 sMankeyTMHMLearnset,41
 	.type	 sPrimeapeTMHMLearnset,object
 sPrimeapeTMHMLearnset:
 	.byte	0x0
@@ -13485,10 +14123,25 @@ sPrimeapeTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sPrimeapeTMHMLearnset,29
+	.size	 sPrimeapeTMHMLearnset,44
 	.type	 sGrowlitheTMHMLearnset,object
 sGrowlitheTMHMLearnset:
 	.byte	0x4
@@ -13512,10 +14165,16 @@ sGrowlitheTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sGrowlitheTMHMLearnset,24
+	.size	 sGrowlitheTMHMLearnset,30
 	.type	 sArcanineTMHMLearnset,object
 sArcanineTMHMLearnset:
 	.byte	0x4
@@ -13526,6 +14185,7 @@ sArcanineTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -13540,10 +14200,18 @@ sArcanineTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sArcanineTMHMLearnset,25
+	.size	 sArcanineTMHMLearnset,34
 	.type	 sPoliwagTMHMLearnset,object
 sPoliwagTMHMLearnset:
 	.byte	0x2
@@ -13564,11 +14232,17 @@ sPoliwagTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sPoliwagTMHMLearnset,22
+	.size	 sPoliwagTMHMLearnset,28
 	.type	 sPoliwhirlTMHMLearnset,object
 sPoliwhirlTMHMLearnset:
 	.byte	0x0
@@ -13592,13 +14266,18 @@ sPoliwhirlTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sPoliwhirlTMHMLearnset,27
+	.size	 sPoliwhirlTMHMLearnset,32
 	.type	 sPoliwrathTMHMLearnset,object
 sPoliwrathTMHMLearnset:
 	.byte	0x0
@@ -13625,13 +14304,26 @@ sPoliwrathTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x32
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x76
 	.byte	0xff
-	.size	 sPoliwrathTMHMLearnset,30
+	.size	 sPoliwrathTMHMLearnset,43
 	.type	 sAbraTMHMLearnset,object
 sAbraTMHMLearnset:
 	.byte	0x0
@@ -13660,9 +14352,25 @@ sAbraTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3e
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sAbraTMHMLearnset,28
+	.size	 sAbraTMHMLearnset,44
 	.type	 sKadabraTMHMLearnset,object
 sKadabraTMHMLearnset:
 	.byte	0x0
@@ -13692,9 +14400,25 @@ sKadabraTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3e
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sKadabraTMHMLearnset,29
+	.size	 sKadabraTMHMLearnset,45
 	.type	 sAlakazamTMHMLearnset,object
 sAlakazamTMHMLearnset:
 	.byte	0x0
@@ -13725,9 +14449,28 @@ sAlakazamTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3e
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sAlakazamTMHMLearnset,30
+	.size	 sAlakazamTMHMLearnset,49
 	.type	 sMachopTMHMLearnset,object
 sMachopTMHMLearnset:
 	.byte	0x0
@@ -13752,10 +14495,19 @@ sMachopTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sMachopTMHMLearnset,25
+	.size	 sMachopTMHMLearnset,34
 	.type	 sMachokeTMHMLearnset,object
 sMachokeTMHMLearnset:
 	.byte	0x0
@@ -13780,10 +14532,19 @@ sMachokeTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sMachokeTMHMLearnset,25
+	.size	 sMachokeTMHMLearnset,34
 	.type	 sMachampTMHMLearnset,object
 sMachampTMHMLearnset:
 	.byte	0x0
@@ -13809,10 +14570,21 @@ sMachampTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sMachampTMHMLearnset,26
+	.size	 sMachampTMHMLearnset,37
 	.type	 sBellsproutTMHMLearnset,object
 sBellsproutTMHMLearnset:
 	.byte	0x5
@@ -13822,6 +14594,7 @@ sBellsproutTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -13831,10 +14604,19 @@ sBellsproutTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sBellsproutTMHMLearnset,19
+	.size	 sBellsproutTMHMLearnset,29
 	.type	 sWeepinbellTMHMLearnset,object
 sWeepinbellTMHMLearnset:
 	.byte	0x5
@@ -13844,6 +14626,7 @@ sWeepinbellTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -13853,10 +14636,19 @@ sWeepinbellTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sWeepinbellTMHMLearnset,19
+	.size	 sWeepinbellTMHMLearnset,29
 	.type	 sVictreebelTMHMLearnset,object
 sVictreebelTMHMLearnset:
 	.byte	0x5
@@ -13867,6 +14659,7 @@ sVictreebelTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -13876,10 +14669,20 @@ sVictreebelTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sVictreebelTMHMLearnset,20
+	.size	 sVictreebelTMHMLearnset,31
 	.type	 sTentacoolTMHMLearnset,object
 sTentacoolTMHMLearnset:
 	.byte	0x2
@@ -13902,12 +14705,22 @@ sTentacoolTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sTentacoolTMHMLearnset,25
+	.size	 sTentacoolTMHMLearnset,35
 	.type	 sTentacruelTMHMLearnset,object
 sTentacruelTMHMLearnset:
 	.byte	0x2
@@ -13931,12 +14744,23 @@ sTentacruelTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sTentacruelTMHMLearnset,26
+	.size	 sTentacruelTMHMLearnset,37
 	.type	 sGeodudeTMHMLearnset,object
 sGeodudeTMHMLearnset:
 	.byte	0x0
@@ -13958,11 +14782,22 @@ sGeodudeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x37
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGeodudeTMHMLearnset,23
+	.size	 sGeodudeTMHMLearnset,34
 	.type	 sGravelerTMHMLearnset,object
 sGravelerTMHMLearnset:
 	.byte	0x0
@@ -13984,11 +14819,22 @@ sGravelerTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x37
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGravelerTMHMLearnset,23
+	.size	 sGravelerTMHMLearnset,34
 	.type	 sGolemTMHMLearnset,object
 sGolemTMHMLearnset:
 	.byte	0x0
@@ -14012,11 +14858,24 @@ sGolemTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x33
+	.byte	0x37
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGolemTMHMLearnset,25
+	.size	 sGolemTMHMLearnset,38
 	.type	 sPonytaTMHMLearnset,object
 sPonytaTMHMLearnset:
 	.byte	0x5
@@ -14024,6 +14883,7 @@ sPonytaTMHMLearnset:
 	.byte	0xa
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1f
@@ -14035,9 +14895,16 @@ sPonytaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xcb
+	.byte	0x3c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x67
+	.byte	0x77
 	.byte	0xff
-	.size	 sPonytaTMHMLearnset,18
+	.size	 sPonytaTMHMLearnset,26
 	.type	 sRapidashTMHMLearnset,object
 sRapidashTMHMLearnset:
 	.byte	0x5
@@ -14046,6 +14913,7 @@ sRapidashTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1f
@@ -14057,9 +14925,20 @@ sRapidashTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xcb
+	.byte	0x3c
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x67
+	.byte	0x77
 	.byte	0xff
-	.size	 sRapidashTMHMLearnset,19
+	.size	 sRapidashTMHMLearnset,31
 	.type	 sSlowpokeTMHMLearnset,object
 sSlowpokeTMHMLearnset:
 	.byte	0x2
@@ -14090,12 +14969,23 @@ sSlowpokeTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x68
+	.byte	0x75
 	.byte	0xff
-	.size	 sSlowpokeTMHMLearnset,33
+	.size	 sSlowpokeTMHMLearnset,44
 	.type	 sSlowbroTMHMLearnset,object
 sSlowbroTMHMLearnset:
 	.byte	0x0
@@ -14130,13 +15020,28 @@ sSlowbroTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x68
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sSlowbroTMHMLearnset,38
+	.size	 sSlowbroTMHMLearnset,53
 	.type	 sMagnemiteTMHMLearnset,object
 sMagnemiteTMHMLearnset:
 	.byte	0x5
@@ -14155,10 +15060,20 @@ sMagnemiteTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sMagnemiteTMHMLearnset,19
+	.size	 sMagnemiteTMHMLearnset,29
 	.type	 sMagnetonTMHMLearnset,object
 sMagnetonTMHMLearnset:
 	.byte	0x5
@@ -14178,10 +15093,22 @@ sMagnetonTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x75
 	.byte	0xff
-	.size	 sMagnetonTMHMLearnset,20
+	.size	 sMagnetonTMHMLearnset,32
 	.type	 sFarfetchdTMHMLearnset,object
 sFarfetchdTMHMLearnset:
 	.byte	0x5
@@ -14200,10 +15127,21 @@ sFarfetchdTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
+	.byte	0x35
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sFarfetchdTMHMLearnset,19
+	.size	 sFarfetchdTMHMLearnset,30
 	.type	 sDoduoTMHMLearnset,object
 sDoduoTMHMLearnset:
 	.byte	0x5
@@ -14221,9 +15159,16 @@ sDoduoTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
+	.byte	0x75
 	.byte	0xff
-	.size	 sDoduoTMHMLearnset,17
+	.size	 sDoduoTMHMLearnset,24
 	.type	 sDodrioTMHMLearnset,object
 sDodrioTMHMLearnset:
 	.byte	0x5
@@ -14244,9 +15189,18 @@ sDodrioTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
+	.byte	0x75
 	.byte	0xff
-	.size	 sDodrioTMHMLearnset,20
+	.size	 sDodrioTMHMLearnset,29
 	.type	 sSeelTMHMLearnset,object
 sSeelTMHMLearnset:
 	.byte	0x2
@@ -14267,12 +15221,16 @@ sSeelTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x37
+	.byte	0x42
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sSeelTMHMLearnset,23
+	.size	 sSeelTMHMLearnset,27
 	.type	 sDewgongTMHMLearnset,object
 sDewgongTMHMLearnset:
 	.byte	0x2
@@ -14294,12 +15252,19 @@ sDewgongTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x37
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4e
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sDewgongTMHMLearnset,24
+	.size	 sDewgongTMHMLearnset,31
 	.type	 sGrimerTMHMLearnset,object
 sGrimerTMHMLearnset:
 	.byte	0x5
@@ -14327,10 +15292,20 @@ sGrimerTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
 	.byte	0x3f
-	.byte	0xcb
+	.byte	0x41
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
 	.byte	0xff
-	.size	 sGrimerTMHMLearnset,28
+	.size	 sGrimerTMHMLearnset,38
 	.type	 sMukTMHMLearnset,object
 sMukTMHMLearnset:
 	.byte	0x0
@@ -14361,11 +15336,23 @@ sMukTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x33
+	.byte	0x37
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
 	.byte	0xff
-	.size	 sMukTMHMLearnset,32
+	.size	 sMukTMHMLearnset,44
 	.type	 sShellderTMHMLearnset,object
 sShellderTMHMLearnset:
 	.byte	0x2
@@ -14385,10 +15372,16 @@ sShellderTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x41
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x75
 	.byte	0xff
-	.size	 sShellderTMHMLearnset,20
+	.size	 sShellderTMHMLearnset,26
 	.type	 sCloysterTMHMLearnset,object
 sCloysterTMHMLearnset:
 	.byte	0x2
@@ -14411,10 +15404,20 @@ sCloysterTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4e
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x75
 	.byte	0xff
-	.size	 sCloysterTMHMLearnset,23
+	.size	 sCloysterTMHMLearnset,33
 	.type	 sGastlyTMHMLearnset,object
 sGastlyTMHMLearnset:
 	.byte	0x5
@@ -14440,9 +15443,25 @@ sGastlyTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
+	.byte	0x34
+	.byte	0x3c
+	.byte	0x3e
 	.byte	0x3f
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x53
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sGastlyTMHMLearnset,25
+	.size	 sGastlyTMHMLearnset,41
 	.type	 sHaunterTMHMLearnset,object
 sHaunterTMHMLearnset:
 	.byte	0x5
@@ -14468,9 +15487,27 @@ sHaunterTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3e
 	.byte	0x3f
+	.byte	0x40
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x53
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sHaunterTMHMLearnset,25
+	.size	 sHaunterTMHMLearnset,43
 	.type	 sGengarTMHMLearnset,object
 sGengarTMHMLearnset:
 	.byte	0x0
@@ -14499,11 +15536,31 @@ sGengarTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x53
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x64
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sGengarTMHMLearnset,30
+	.size	 sGengarTMHMLearnset,50
 	.type	 sOnixTMHMLearnset,object
 sOnixTMHMLearnset:
 	.byte	0x4
@@ -14525,11 +15582,27 @@ sOnixTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x3a
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x73
 	.byte	0xff
-	.size	 sOnixTMHMLearnset,23
+	.size	 sOnixTMHMLearnset,39
 	.type	 sDrowzeeTMHMLearnset,object
 sDrowzeeTMHMLearnset:
 	.byte	0x0
@@ -14557,9 +15630,24 @@ sDrowzeeTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x32
+	.byte	0x37
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sDrowzeeTMHMLearnset,27
+	.size	 sDrowzeeTMHMLearnset,42
 	.type	 sHypnoTMHMLearnset,object
 sHypnoTMHMLearnset:
 	.byte	0x0
@@ -14588,9 +15676,26 @@ sHypnoTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sHypnoTMHMLearnset,28
+	.size	 sHypnoTMHMLearnset,45
 	.type	 sKrabbyTMHMLearnset,object
 sKrabbyTMHMLearnset:
 	.byte	0x2
@@ -14612,13 +15717,20 @@ sKrabbyTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xcf
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sKrabbyTMHMLearnset,25
+	.size	 sKrabbyTMHMLearnset,32
 	.type	 sKinglerTMHMLearnset,object
 sKinglerTMHMLearnset:
 	.byte	0x2
@@ -14641,13 +15753,23 @@ sKinglerTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xcf
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3b
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sKinglerTMHMLearnset,26
+	.size	 sKinglerTMHMLearnset,36
 	.type	 sVoltorbTMHMLearnset,object
 sVoltorbTMHMLearnset:
 	.byte	0x5
@@ -14668,10 +15790,18 @@ sVoltorbTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2d
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sVoltorbTMHMLearnset,21
+	.size	 sVoltorbTMHMLearnset,29
 	.type	 sElectrodeTMHMLearnset,object
 sElectrodeTMHMLearnset:
 	.byte	0x5
@@ -14693,10 +15823,19 @@ sElectrodeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2d
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sElectrodeTMHMLearnset,22
+	.size	 sElectrodeTMHMLearnset,31
 	.type	 sExeggcuteTMHMLearnset,object
 sExeggcuteTMHMLearnset:
 	.byte	0x5
@@ -14707,6 +15846,7 @@ sExeggcuteTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -14718,11 +15858,21 @@ sExeggcuteTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x34
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcc
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sExeggcuteTMHMLearnset,23
+	.size	 sExeggcuteTMHMLearnset,34
 	.type	 sExeggutorTMHMLearnset,object
 sExeggutorTMHMLearnset:
 	.byte	0x3
@@ -14735,6 +15885,7 @@ sExeggutorTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -14746,11 +15897,24 @@ sExeggutorTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x34
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x52
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sExeggutorTMHMLearnset,25
+	.size	 sExeggutorTMHMLearnset,39
 	.type	 sCuboneTMHMLearnset,object
 sCuboneTMHMLearnset:
 	.byte	0x0
@@ -14777,10 +15941,20 @@ sCuboneTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCuboneTMHMLearnset,27
+	.size	 sCuboneTMHMLearnset,37
 	.type	 sMarowakTMHMLearnset,object
 sMarowakTMHMLearnset:
 	.byte	0x0
@@ -14808,10 +15982,23 @@ sMarowakTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMarowakTMHMLearnset,28
+	.size	 sMarowakTMHMLearnset,41
 	.type	 sHitmonleeTMHMLearnset,object
 sHitmonleeTMHMLearnset:
 	.byte	0x0
@@ -14832,10 +16019,21 @@ sHitmonleeTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x69
+	.byte	0x74
 	.byte	0xff
-	.size	 sHitmonleeTMHMLearnset,21
+	.size	 sHitmonleeTMHMLearnset,32
 	.type	 sHitmonchanTMHMLearnset,object
 sHitmonchanTMHMLearnset:
 	.byte	0x0
@@ -14856,10 +16054,20 @@ sHitmonchanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x69
+	.byte	0x76
 	.byte	0xff
-	.size	 sHitmonchanTMHMLearnset,21
+	.size	 sHitmonchanTMHMLearnset,31
 	.type	 sLickitungTMHMLearnset,object
 sLickitungTMHMLearnset:
 	.byte	0x0
@@ -14873,6 +16081,7 @@ sLickitungTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -14892,12 +16101,22 @@ sLickitungTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sLickitungTMHMLearnset,35
+	.size	 sLickitungTMHMLearnset,46
 	.type	 sKoffingTMHMLearnset,object
 sKoffingTMHMLearnset:
 	.byte	0x5
@@ -14922,10 +16141,19 @@ sKoffingTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x3c
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x41
+	.byte	0x49
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sKoffingTMHMLearnset,25
+	.size	 sKoffingTMHMLearnset,34
 	.type	 sWeezingTMHMLearnset,object
 sWeezingTMHMLearnset:
 	.byte	0x5
@@ -14951,10 +16179,20 @@ sWeezingTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x3c
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x41
+	.byte	0x43
+	.byte	0x49
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sWeezingTMHMLearnset,26
+	.size	 sWeezingTMHMLearnset,36
 	.type	 sRhyhornTMHMLearnset,object
 sRhyhornTMHMLearnset:
 	.byte	0x4
@@ -14983,10 +16221,22 @@ sRhyhornTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x42
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sRhyhornTMHMLearnset,29
+	.size	 sRhyhornTMHMLearnset,41
 	.type	 sRhydonTMHMLearnset,object
 sRhydonTMHMLearnset:
 	.byte	0x0
@@ -15018,12 +16268,30 @@ sRhydonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sRhydonTMHMLearnset,34
+	.size	 sRhydonTMHMLearnset,52
 	.type	 sChanseyTMHMLearnset,object
 sChanseyTMHMLearnset:
 	.byte	0x0
@@ -15041,6 +16309,7 @@ sChanseyTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -15062,11 +16331,26 @@ sChanseyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6d
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sChanseyTMHMLearnset,40
+	.size	 sChanseyTMHMLearnset,56
 	.type	 sTangelaTMHMLearnset,object
 sTangelaTMHMLearnset:
 	.byte	0x5
@@ -15077,6 +16361,7 @@ sTangelaTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -15087,11 +16372,19 @@ sTangelaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sTangelaTMHMLearnset,22
+	.size	 sTangelaTMHMLearnset,31
 	.type	 sKangaskhanTMHMLearnset,object
 sKangaskhanTMHMLearnset:
 	.byte	0x0
@@ -15108,6 +16401,7 @@ sKangaskhanTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -15128,12 +16422,20 @@ sKangaskhanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sKangaskhanTMHMLearnset,39
+	.size	 sKangaskhanTMHMLearnset,48
 	.type	 sHorseaTMHMLearnset,object
 sHorseaTMHMLearnset:
 	.byte	0x2
@@ -15151,11 +16453,18 @@ sHorseaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x73
 	.byte	0xff
-	.size	 sHorseaTMHMLearnset,19
+	.size	 sHorseaTMHMLearnset,26
 	.type	 sSeadraTMHMLearnset,object
 sSeadraTMHMLearnset:
 	.byte	0x2
@@ -15174,11 +16483,19 @@ sSeadraTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x73
 	.byte	0xff
-	.size	 sSeadraTMHMLearnset,20
+	.size	 sSeadraTMHMLearnset,28
 	.type	 sGoldeenTMHMLearnset,object
 sGoldeenTMHMLearnset:
 	.byte	0x2
@@ -15196,11 +16513,18 @@ sGoldeenTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x42
+	.byte	0x4a
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sGoldeenTMHMLearnset,19
+	.size	 sGoldeenTMHMLearnset,26
 	.type	 sSeakingTMHMLearnset,object
 sSeakingTMHMLearnset:
 	.byte	0x2
@@ -15219,11 +16543,19 @@ sSeakingTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sSeakingTMHMLearnset,20
+	.size	 sSeakingTMHMLearnset,28
 	.type	 sStaryuTMHMLearnset,object
 sStaryuTMHMLearnset:
 	.byte	0x2
@@ -15246,12 +16578,22 @@ sStaryuTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x75
 	.byte	0xff
-	.size	 sStaryuTMHMLearnset,25
+	.size	 sStaryuTMHMLearnset,35
 	.type	 sStarmieTMHMLearnset,object
 sStarmieTMHMLearnset:
 	.byte	0x2
@@ -15276,12 +16618,27 @@ sStarmieTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6a
+	.byte	0x75
 	.byte	0xff
-	.size	 sStarmieTMHMLearnset,27
+	.size	 sStarmieTMHMLearnset,42
 	.type	 sMrMimeTMHMLearnset,object
 sMrMimeTMHMLearnset:
 	.byte	0x0
@@ -15296,6 +16653,7 @@ sMrMimeTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -15314,9 +16672,29 @@ sMrMimeTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
+	.byte	0x76
+	.byte	0x77
 	.byte	0xff
-	.size	 sMrMimeTMHMLearnset,32
+	.size	 sMrMimeTMHMLearnset,53
 	.type	 sScytherTMHMLearnset,object
 sScytherTMHMLearnset:
 	.byte	0x5
@@ -15338,10 +16716,20 @@ sScytherTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sScytherTMHMLearnset,22
+	.size	 sScytherTMHMLearnset,32
 	.type	 sJynxTMHMLearnset,object
 sJynxTMHMLearnset:
 	.byte	0x0
@@ -15371,9 +16759,26 @@ sJynxTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x45
+	.byte	0x4c
+	.byte	0x4e
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sJynxTMHMLearnset,29
+	.size	 sJynxTMHMLearnset,46
 	.type	 sElectabuzzTMHMLearnset,object
 sElectabuzzTMHMLearnset:
 	.byte	0x0
@@ -15399,11 +16804,20 @@ sElectabuzzTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sElectabuzzTMHMLearnset,27
+	.size	 sElectabuzzTMHMLearnset,36
 	.type	 sMagmarTMHMLearnset,object
 sMagmarTMHMLearnset:
 	.byte	0x0
@@ -15427,10 +16841,17 @@ sMagmarTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sMagmarTMHMLearnset,24
+	.size	 sMagmarTMHMLearnset,31
 	.type	 sPinsirTMHMLearnset,object
 sPinsirTMHMLearnset:
 	.byte	0x0
@@ -15453,11 +16874,23 @@ sPinsirTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sPinsirTMHMLearnset,24
+	.size	 sPinsirTMHMLearnset,36
 	.type	 sTaurosTMHMLearnset,object
 sTaurosTMHMLearnset:
 	.byte	0x2
@@ -15470,6 +16903,7 @@ sTaurosTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -15485,11 +16919,20 @@ sTaurosTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sTaurosTMHMLearnset,29
+	.size	 sTaurosTMHMLearnset,39
 	.type	 sMagikarpTMHMLearnset,object
 sMagikarpTMHMLearnset:
 	.byte	0xff
@@ -15523,13 +16966,24 @@ sGyaradosTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x61
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sGyaradosTMHMLearnset,33
+	.size	 sGyaradosTMHMLearnset,44
 	.type	 sLaprasTMHMLearnset,object
 sLaprasTMHMLearnset:
 	.byte	0x2
@@ -15544,6 +16998,7 @@ sLaprasTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -15556,13 +17011,21 @@ sLaprasTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x73
 	.byte	0xff
-	.size	 sLaprasTMHMLearnset,30
+	.size	 sLaprasTMHMLearnset,39
 	.type	 sDittoTMHMLearnset,object
 sDittoTMHMLearnset:
 	.byte	0xff
@@ -15585,8 +17048,12 @@ sEeveeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sEeveeTMHMLearnset,17
+	.size	 sEeveeTMHMLearnset,21
 	.type	 sVaporeonTMHMLearnset,object
 sVaporeonTMHMLearnset:
 	.byte	0x2
@@ -15611,13 +17078,17 @@ sVaporeonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sVaporeonTMHMLearnset,28
+	.size	 sVaporeonTMHMLearnset,32
 	.type	 sJolteonTMHMLearnset,object
 sJolteonTMHMLearnset:
 	.byte	0x4
@@ -15642,11 +17113,17 @@ sJolteonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sJolteonTMHMLearnset,26
+	.size	 sJolteonTMHMLearnset,32
 	.type	 sFlareonTMHMLearnset,object
 sFlareonTMHMLearnset:
 	.byte	0x4
@@ -15670,10 +17147,15 @@ sFlareonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x77
 	.byte	0xff
-	.size	 sFlareonTMHMLearnset,24
+	.size	 sFlareonTMHMLearnset,29
 	.type	 sPorygonTMHMLearnset,object
 sPorygonTMHMLearnset:
 	.byte	0x5
@@ -15685,6 +17167,7 @@ sPorygonTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -15699,9 +17182,20 @@ sPorygonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x75
 	.byte	0xff
-	.size	 sPorygonTMHMLearnset,25
+	.size	 sPorygonTMHMLearnset,37
 	.type	 sOmanyteTMHMLearnset,object
 sOmanyteTMHMLearnset:
 	.byte	0x2
@@ -15723,12 +17217,20 @@ sOmanyteTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x44
+	.byte	0x49
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sOmanyteTMHMLearnset,24
+	.size	 sOmanyteTMHMLearnset,32
 	.type	 sOmastarTMHMLearnset,object
 sOmastarTMHMLearnset:
 	.byte	0x2
@@ -15751,12 +17253,23 @@ sOmastarTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sOmastarTMHMLearnset,25
+	.size	 sOmastarTMHMLearnset,36
 	.type	 sKabutoTMHMLearnset,object
 sKabutoTMHMLearnset:
 	.byte	0x2
@@ -15781,11 +17294,22 @@ sKabutoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
+	.byte	0x36
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x66
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sKabutoTMHMLearnset,26
+	.size	 sKabutoTMHMLearnset,37
 	.type	 sKabutopsTMHMLearnset,object
 sKabutopsTMHMLearnset:
 	.byte	0x2
@@ -15812,13 +17336,26 @@ sKabutopsTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x66
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sKabutopsTMHMLearnset,30
+	.size	 sKabutopsTMHMLearnset,43
 	.type	 sAerodactylTMHMLearnset,object
 sAerodactylTMHMLearnset:
 	.byte	0x1
@@ -15848,11 +17385,24 @@ sAerodactylTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x39
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x73
 	.byte	0xff
-	.size	 sAerodactylTMHMLearnset,31
+	.size	 sAerodactylTMHMLearnset,44
 	.type	 sSnorlaxTMHMLearnset,object
 sSnorlaxTMHMLearnset:
 	.byte	0x0
@@ -15866,6 +17416,7 @@ sSnorlaxTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x19
@@ -15885,11 +17436,22 @@ sSnorlaxTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x6e
 	.byte	0xff
-	.size	 sSnorlaxTMHMLearnset,34
+	.size	 sSnorlaxTMHMLearnset,46
 	.type	 sArticunoTMHMLearnset,object
 sArticunoTMHMLearnset:
 	.byte	0x2
@@ -15913,10 +17475,19 @@ sArticunoTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcd
+	.byte	0x39
+	.byte	0x43
+	.byte	0x45
+	.byte	0x4b
+	.byte	0x4e
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sArticunoTMHMLearnset,24
+	.size	 sArticunoTMHMLearnset,33
 	.type	 sZapdosTMHMLearnset,object
 sZapdosTMHMLearnset:
 	.byte	0x4
@@ -15941,11 +17512,21 @@ sZapdosTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x39
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sZapdosTMHMLearnset,26
+	.size	 sZapdosTMHMLearnset,36
 	.type	 sMoltresTMHMLearnset,object
 sMoltresTMHMLearnset:
 	.byte	0x4
@@ -15957,6 +17538,7 @@ sMoltresTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -15969,10 +17551,19 @@ sMoltresTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2e
 	.byte	0x31
-	.byte	0xc9
-	.byte	0xcd
+	.byte	0x39
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
+	.byte	0x77
 	.byte	0xff
-	.size	 sMoltresTMHMLearnset,24
+	.size	 sMoltresTMHMLearnset,34
 	.type	 sDratiniTMHMLearnset,object
 sDratiniTMHMLearnset:
 	.byte	0x2
@@ -16001,10 +17592,19 @@ sDratiniTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x48
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sDratiniTMHMLearnset,29
+	.size	 sDratiniTMHMLearnset,38
 	.type	 sDragonairTMHMLearnset,object
 sDragonairTMHMLearnset:
 	.byte	0x2
@@ -16033,10 +17633,19 @@ sDragonairTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x48
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sDragonairTMHMLearnset,29
+	.size	 sDragonairTMHMLearnset,38
 	.type	 sDragoniteTMHMLearnset,object
 sDragoniteTMHMLearnset:
 	.byte	0x0
@@ -16074,15 +17683,26 @@ sDragoniteTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x37
+	.byte	0x39
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sDragoniteTMHMLearnset,43
+	.size	 sDragoniteTMHMLearnset,54
 	.type	 sMewtwoTMHMLearnset,object
 sMewtwoTMHMLearnset:
 	.byte	0x0
@@ -16102,6 +17722,7 @@ sMewtwoTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -16124,12 +17745,35 @@ sMewtwoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xcf
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x69
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sMewtwoTMHMLearnset,44
+	.size	 sMewtwoTMHMLearnset,68
 	.type	 sMewTMHMLearnset,object
 sMewTMHMLearnset:
 	.byte	0x0
@@ -16153,6 +17797,7 @@ sMewTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -16181,17 +17826,78 @@ sMewTMHMLearnset:
 	.byte	0x2f
 	.byte	0x30
 	.byte	0x31
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x38
+	.byte	0x39
+	.byte	0x3a
+	.byte	0x3b
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x40
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x44
+	.byte	0x45
+	.byte	0x46
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x51
+	.byte	0x52
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x66
+	.byte	0x67
+	.byte	0x68
+	.byte	0x69
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6c
+	.byte	0x6d
+	.byte	0x6e
+	.byte	0x6f
+	.byte	0x70
+	.byte	0x71
+	.byte	0x72
+	.byte	0x73
+	.byte	0x74
+	.byte	0x75
+	.byte	0x76
+	.byte	0x77
 	.byte	0xff
-	.size	 sMewTMHMLearnset,59
+	.size	 sMewTMHMLearnset,121
 	.type	 sChikoritaTMHMLearnset,object
 sChikoritaTMHMLearnset:
 	.byte	0x5
@@ -16203,6 +17909,7 @@ sChikoritaTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1f
@@ -16211,10 +17918,16 @@ sChikoritaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sChikoritaTMHMLearnset,20
+	.size	 sChikoritaTMHMLearnset,27
 	.type	 sBayleefTMHMLearnset,object
 sBayleefTMHMLearnset:
 	.byte	0x5
@@ -16226,6 +17939,7 @@ sBayleefTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1f
@@ -16234,12 +17948,16 @@ sBayleefTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sBayleefTMHMLearnset,22
+	.size	 sBayleefTMHMLearnset,27
 	.type	 sMeganiumTMHMLearnset,object
 sMeganiumTMHMLearnset:
 	.byte	0x5
@@ -16252,6 +17970,7 @@ sMeganiumTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -16261,12 +17980,19 @@ sMeganiumTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x51
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sMeganiumTMHMLearnset,24
+	.size	 sMeganiumTMHMLearnset,32
 	.type	 sCyndaquilTMHMLearnset,object
 sCyndaquilTMHMLearnset:
 	.byte	0x5
@@ -16286,9 +18012,15 @@ sCyndaquilTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
+	.byte	0x3c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sCyndaquilTMHMLearnset,19
+	.size	 sCyndaquilTMHMLearnset,25
 	.type	 sQuilavaTMHMLearnset,object
 sQuilavaTMHMLearnset:
 	.byte	0x0
@@ -16311,11 +18043,15 @@ sQuilavaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sQuilavaTMHMLearnset,24
+	.size	 sQuilavaTMHMLearnset,28
 	.type	 sTyphlosionTMHMLearnset,object
 sTyphlosionTMHMLearnset:
 	.byte	0x0
@@ -16326,6 +18062,7 @@ sTyphlosionTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -16341,11 +18078,22 @@ sTyphlosionTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sTyphlosionTMHMLearnset,27
+	.size	 sTyphlosionTMHMLearnset,39
 	.type	 sTotodileTMHMLearnset,object
 sTotodileTMHMLearnset:
 	.byte	0x0
@@ -16370,12 +18118,20 @@ sTotodileTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sTotodileTMHMLearnset,27
+	.size	 sTotodileTMHMLearnset,35
 	.type	 sCroconawTMHMLearnset,object
 sCroconawTMHMLearnset:
 	.byte	0x0
@@ -16401,14 +18157,20 @@ sCroconawTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sCroconawTMHMLearnset,30
+	.size	 sCroconawTMHMLearnset,36
 	.type	 sFeraligatrTMHMLearnset,object
 sFeraligatrTMHMLearnset:
 	.byte	0x0
@@ -16436,14 +18198,25 @@ sFeraligatrTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x73
 	.byte	0xff
-	.size	 sFeraligatrTMHMLearnset,32
+	.size	 sFeraligatrTMHMLearnset,43
 	.type	 sSentretTMHMLearnset,object
 sSentretTMHMLearnset:
 	.byte	0x0
@@ -16455,6 +18228,7 @@ sSentretTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x1a
@@ -16469,10 +18243,19 @@ sSentretTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sSentretTMHMLearnset,26
+	.size	 sSentretTMHMLearnset,36
 	.type	 sFurretTMHMLearnset,object
 sFurretTMHMLearnset:
 	.byte	0x0
@@ -16486,6 +18269,7 @@ sFurretTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -16501,12 +18285,21 @@ sFurretTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x43
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sFurretTMHMLearnset,31
+	.size	 sFurretTMHMLearnset,41
 	.type	 sHoothootTMHMLearnset,object
 sHoothootTMHMLearnset:
 	.byte	0x3
@@ -16528,10 +18321,16 @@ sHoothootTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcc
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sHoothootTMHMLearnset,22
+	.size	 sHoothootTMHMLearnset,28
 	.type	 sNoctowlTMHMLearnset,object
 sNoctowlTMHMLearnset:
 	.byte	0x3
@@ -16554,10 +18353,17 @@ sNoctowlTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sNoctowlTMHMLearnset,23
+	.size	 sNoctowlTMHMLearnset,30
 	.type	 sLedybaTMHMLearnset,object
 sLedybaTMHMLearnset:
 	.byte	0x0
@@ -16569,6 +18375,7 @@ sLedybaTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1e
@@ -16580,9 +18387,19 @@ sLedybaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
+	.byte	0x76
 	.byte	0xff
-	.size	 sLedybaTMHMLearnset,22
+	.size	 sLedybaTMHMLearnset,33
 	.type	 sLedianTMHMLearnset,object
 sLedianTMHMLearnset:
 	.byte	0x0
@@ -16595,6 +18412,7 @@ sLedianTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1e
@@ -16606,11 +18424,21 @@ sLedianTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
+	.byte	0x76
 	.byte	0xff
-	.size	 sLedianTMHMLearnset,25
+	.size	 sLedianTMHMLearnset,36
 	.type	 sSpinarakTMHMLearnset,object
 sSpinarakTMHMLearnset:
 	.byte	0x5
@@ -16619,6 +18447,7 @@ sSpinarakTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1c
@@ -16629,9 +18458,16 @@ sSpinarakTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sSpinarakTMHMLearnset,18
+	.size	 sSpinarakTMHMLearnset,26
 	.type	 sAriadosTMHMLearnset,object
 sAriadosTMHMLearnset:
 	.byte	0x5
@@ -16641,6 +18477,7 @@ sAriadosTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1c
@@ -16651,9 +18488,19 @@ sAriadosTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sAriadosTMHMLearnset,19
+	.size	 sAriadosTMHMLearnset,30
 	.type	 sCrobatTMHMLearnset,object
 sCrobatTMHMLearnset:
 	.byte	0x5
@@ -16678,9 +18525,22 @@ sCrobatTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x30
-	.byte	0xc9
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x66
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sCrobatTMHMLearnset,24
+	.size	 sCrobatTMHMLearnset,37
 	.type	 sChinchouTMHMLearnset,object
 sChinchouTMHMLearnset:
 	.byte	0x2
@@ -16701,12 +18561,20 @@ sChinchouTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sChinchouTMHMLearnset,23
+	.size	 sChinchouTMHMLearnset,31
 	.type	 sLanturnTMHMLearnset,object
 sLanturnTMHMLearnset:
 	.byte	0x2
@@ -16728,12 +18596,21 @@ sLanturnTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x38
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sLanturnTMHMLearnset,24
+	.size	 sLanturnTMHMLearnset,33
 	.type	 sPichuTMHMLearnset,object
 sPichuTMHMLearnset:
 	.byte	0x5
@@ -16753,10 +18630,21 @@ sPichuTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x67
+	.byte	0x70
 	.byte	0xff
-	.size	 sPichuTMHMLearnset,20
+	.size	 sPichuTMHMLearnset,31
 	.type	 sCleffaTMHMLearnset,object
 sCleffaTMHMLearnset:
 	.byte	0x2
@@ -16768,6 +18656,7 @@ sCleffaTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -16782,9 +18671,19 @@ sCleffaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
 	.byte	0xff
-	.size	 sCleffaTMHMLearnset,25
+	.size	 sCleffaTMHMLearnset,36
 	.type	 sIgglybuffTMHMLearnset,object
 sIgglybuffTMHMLearnset:
 	.byte	0x2
@@ -16796,6 +18695,7 @@ sIgglybuffTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1c
@@ -16809,9 +18709,19 @@ sIgglybuffTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sIgglybuffTMHMLearnset,24
+	.size	 sIgglybuffTMHMLearnset,35
 	.type	 sTogepiTMHMLearnset,object
 sTogepiTMHMLearnset:
 	.byte	0x2
@@ -16823,6 +18733,7 @@ sTogepiTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -16831,14 +18742,28 @@ sTogepiTMHMLearnset:
 	.byte	0x21
 	.byte	0x22
 	.byte	0x25
+	.byte	0x27
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x70
+	.byte	0x75
+	.byte	0x77
 	.byte	0xff
-	.size	 sTogepiTMHMLearnset,24
+	.size	 sTogepiTMHMLearnset,39
 	.type	 sTogeticTMHMLearnset,object
 sTogeticTMHMLearnset:
 	.byte	0x0
@@ -16852,6 +18777,7 @@ sTogeticTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -16867,11 +18793,27 @@ sTogeticTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x42
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
+	.byte	0x77
 	.byte	0xff
-	.size	 sTogeticTMHMLearnset,30
+	.size	 sTogeticTMHMLearnset,47
 	.type	 sNatuTMHMLearnset,object
 sNatuTMHMLearnset:
 	.byte	0x3
@@ -16883,6 +18825,7 @@ sNatuTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -16896,9 +18839,20 @@ sNatuTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sNatuTMHMLearnset,24
+	.size	 sNatuTMHMLearnset,36
 	.type	 sXatuTMHMLearnset,object
 sXatuTMHMLearnset:
 	.byte	0x3
@@ -16911,6 +18865,7 @@ sXatuTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -16924,10 +18879,22 @@ sXatuTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x2f
-	.byte	0xc9
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sXatuTMHMLearnset,26
+	.size	 sXatuTMHMLearnset,39
 	.type	 sMareepTMHMLearnset,object
 sMareepTMHMLearnset:
 	.byte	0x5
@@ -16942,14 +18909,22 @@ sMareepTMHMLearnset:
 	.byte	0x18
 	.byte	0x1a
 	.byte	0x1f
+	.byte	0x20
 	.byte	0x21
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6a
 	.byte	0xff
-	.size	 sMareepTMHMLearnset,19
+	.size	 sMareepTMHMLearnset,27
 	.type	 sFlaaffyTMHMLearnset,object
 sFlaaffyTMHMLearnset:
 	.byte	0x0
@@ -16966,16 +18941,24 @@ sFlaaffyTMHMLearnset:
 	.byte	0x1a
 	.byte	0x1e
 	.byte	0x1f
+	.byte	0x20
 	.byte	0x21
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6a
 	.byte	0xff
-	.size	 sFlaaffyTMHMLearnset,23
+	.size	 sFlaaffyTMHMLearnset,31
 	.type	 sAmpharosTMHMLearnset,object
 sAmpharosTMHMLearnset:
 	.byte	0x0
@@ -16993,16 +18976,28 @@ sAmpharosTMHMLearnset:
 	.byte	0x1a
 	.byte	0x1e
 	.byte	0x1f
+	.byte	0x20
 	.byte	0x21
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6a
 	.byte	0xff
-	.size	 sAmpharosTMHMLearnset,24
+	.size	 sAmpharosTMHMLearnset,36
 	.type	 sBellossomTMHMLearnset,object
 sBellossomTMHMLearnset:
 	.byte	0x5
@@ -17014,6 +19009,7 @@ sBellossomTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
@@ -17021,10 +19017,22 @@ sBellossomTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x76
 	.byte	0xff
-	.size	 sBellossomTMHMLearnset,19
+	.size	 sBellossomTMHMLearnset,32
 	.type	 sMarillTMHMLearnset,object
 sMarillTMHMLearnset:
 	.byte	0x0
@@ -17047,13 +19055,19 @@ sMarillTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sMarillTMHMLearnset,26
+	.size	 sMarillTMHMLearnset,32
 	.type	 sAzumarillTMHMLearnset,object
 sAzumarillTMHMLearnset:
 	.byte	0x0
@@ -17077,13 +19091,23 @@ sAzumarillTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x67
 	.byte	0xff
-	.size	 sAzumarillTMHMLearnset,27
+	.size	 sAzumarillTMHMLearnset,37
 	.type	 sSudowoodoTMHMLearnset,object
 sSudowoodoTMHMLearnset:
 	.byte	0x0
@@ -17107,11 +19131,22 @@ sSudowoodoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSudowoodoTMHMLearnset,25
+	.size	 sSudowoodoTMHMLearnset,36
 	.type	 sPolitoedTMHMLearnset,object
 sPolitoedTMHMLearnset:
 	.byte	0x0
@@ -17136,13 +19171,22 @@ sPolitoedTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6b
 	.byte	0xff
-	.size	 sPolitoedTMHMLearnset,28
+	.size	 sPolitoedTMHMLearnset,37
 	.type	 sHoppipTMHMLearnset,object
 sHoppipTMHMLearnset:
 	.byte	0x5
@@ -17152,6 +19196,7 @@ sHoppipTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -17160,9 +19205,20 @@ sHoppipTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sHoppipTMHMLearnset,17
+	.size	 sHoppipTMHMLearnset,29
 	.type	 sSkiploomTMHMLearnset,object
 sSkiploomTMHMLearnset:
 	.byte	0x5
@@ -17172,6 +19228,7 @@ sSkiploomTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -17180,9 +19237,20 @@ sSkiploomTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sSkiploomTMHMLearnset,17
+	.size	 sSkiploomTMHMLearnset,29
 	.type	 sJumpluffTMHMLearnset,object
 sJumpluffTMHMLearnset:
 	.byte	0x5
@@ -17193,6 +19261,7 @@ sJumpluffTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -17201,9 +19270,21 @@ sJumpluffTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sJumpluffTMHMLearnset,18
+	.size	 sJumpluffTMHMLearnset,31
 	.type	 sAipomTMHMLearnset,object
 sAipomTMHMLearnset:
 	.byte	0x0
@@ -17215,6 +19296,7 @@ sAipomTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -17231,11 +19313,23 @@ sAipomTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x48
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sAipomTMHMLearnset,29
+	.size	 sAipomTMHMLearnset,42
 	.type	 sSunkernTMHMLearnset,object
 sSunkernTMHMLearnset:
 	.byte	0x5
@@ -17247,6 +19341,7 @@ sSunkernTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
@@ -17254,10 +19349,17 @@ sSunkernTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sSunkernTMHMLearnset,19
+	.size	 sSunkernTMHMLearnset,27
 	.type	 sSunfloraTMHMLearnset,object
 sSunfloraTMHMLearnset:
 	.byte	0x5
@@ -17270,6 +19372,7 @@ sSunfloraTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
@@ -17277,10 +19380,18 @@ sSunfloraTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sSunfloraTMHMLearnset,20
+	.size	 sSunfloraTMHMLearnset,29
 	.type	 sYanmaTMHMLearnset,object
 sYanmaTMHMLearnset:
 	.byte	0x5
@@ -17289,6 +19400,7 @@ sYanmaTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -17300,9 +19412,16 @@ sYanmaTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xcc
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sYanmaTMHMLearnset,19
+	.size	 sYanmaTMHMLearnset,27
 	.type	 sWooperTMHMLearnset,object
 sWooperTMHMLearnset:
 	.byte	0x2
@@ -17326,13 +19445,19 @@ sWooperTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4d
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
 	.byte	0xff
-	.size	 sWooperTMHMLearnset,27
+	.size	 sWooperTMHMLearnset,33
 	.type	 sQuagsireTMHMLearnset,object
 sQuagsireTMHMLearnset:
 	.byte	0x0
@@ -17361,14 +19486,25 @@ sQuagsireTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x6b
 	.byte	0xff
-	.size	 sQuagsireTMHMLearnset,33
+	.size	 sQuagsireTMHMLearnset,44
 	.type	 sEspeonTMHMLearnset,object
 sEspeonTMHMLearnset:
 	.byte	0x3
@@ -17392,10 +19528,19 @@ sEspeonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sEspeonTMHMLearnset,24
+	.size	 sEspeonTMHMLearnset,33
 	.type	 sUmbreonTMHMLearnset,object
 sUmbreonTMHMLearnset:
 	.byte	0x5
@@ -17419,10 +19564,18 @@ sUmbreonTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sUmbreonTMHMLearnset,24
+	.size	 sUmbreonTMHMLearnset,32
 	.type	 sMurkrowTMHMLearnset,object
 sMurkrowTMHMLearnset:
 	.byte	0x3
@@ -17446,9 +19599,22 @@ sMurkrowTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x30
-	.byte	0xc9
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sMurkrowTMHMLearnset,23
+	.size	 sMurkrowTMHMLearnset,36
 	.type	 sSlowkingTMHMLearnset,object
 sSlowkingTMHMLearnset:
 	.byte	0x0
@@ -17481,13 +19647,31 @@ sSlowkingTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x51
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x68
+	.byte	0x6a
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sSlowkingTMHMLearnset,36
+	.size	 sSlowkingTMHMLearnset,54
 	.type	 sMisdreavusTMHMLearnset,object
 sMisdreavusTMHMLearnset:
 	.byte	0x3
@@ -17514,26 +19698,29 @@ sMisdreavusTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x70
 	.byte	0xff
-	.size	 sMisdreavusTMHMLearnset,26
+	.size	 sMisdreavusTMHMLearnset,41
 	.type	 sUnownTMHMLearnset,object
 sUnownTMHMLearnset:
-	.byte	0x3
-	.byte	0x5
 	.byte	0x9
-	.byte	0xa
-	.byte	0xf
-	.byte	0x10
-	.byte	0x13
-	.byte	0x14
-	.byte	0x1a
-	.byte	0x1c
-	.byte	0x1f
-	.byte	0x2a
-	.byte	0x2b
 	.byte	0xff
-	.size	 sUnownTMHMLearnset,14
+	.size	 sUnownTMHMLearnset,2
 	.type	 sWobbuffetTMHMLearnset,object
 sWobbuffetTMHMLearnset:
 	.byte	0x13
@@ -17565,11 +19752,23 @@ sGirafarigTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x38
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sGirafarigTMHMLearnset,28
+	.size	 sGirafarigTMHMLearnset,40
 	.type	 sPinecoTMHMLearnset,object
 sPinecoTMHMLearnset:
 	.byte	0x5
@@ -17579,6 +19778,7 @@ sPinecoTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -17591,10 +19791,17 @@ sPinecoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sPinecoTMHMLearnset,22
+	.size	 sPinecoTMHMLearnset,30
 	.type	 sForretressTMHMLearnset,object
 sForretressTMHMLearnset:
 	.byte	0x5
@@ -17605,6 +19812,7 @@ sForretressTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -17617,10 +19825,21 @@ sForretressTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x47
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sForretressTMHMLearnset,23
+	.size	 sForretressTMHMLearnset,35
 	.type	 sDunsparceTMHMLearnset,object
 sDunsparceTMHMLearnset:
 	.byte	0x2
@@ -17633,6 +19852,7 @@ sDunsparceTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -17650,10 +19870,22 @@ sDunsparceTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sDunsparceTMHMLearnset,30
+	.size	 sDunsparceTMHMLearnset,43
 	.type	 sGligarTMHMLearnset,object
 sGligarTMHMLearnset:
 	.byte	0x5
@@ -17680,11 +19912,28 @@ sGligarTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGligarTMHMLearnset,28
+	.size	 sGligarTMHMLearnset,45
 	.type	 sSteelixTMHMLearnset,object
 sSteelixTMHMLearnset:
 	.byte	0x4
@@ -17707,12 +19956,29 @@ sSteelixTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x3a
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x73
 	.byte	0xff
-	.size	 sSteelixTMHMLearnset,25
+	.size	 sSteelixTMHMLearnset,42
 	.type	 sSnubbullTMHMLearnset,object
 sSnubbullTMHMLearnset:
 	.byte	0x0
@@ -17726,6 +19992,7 @@ sSnubbullTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x19
@@ -17746,10 +20013,20 @@ sSnubbullTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sSnubbullTMHMLearnset,34
+	.size	 sSnubbullTMHMLearnset,45
 	.type	 sGranbullTMHMLearnset,object
 sGranbullTMHMLearnset:
 	.byte	0x0
@@ -17764,6 +20041,7 @@ sGranbullTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -17786,10 +20064,24 @@ sGranbullTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sGranbullTMHMLearnset,37
+	.size	 sGranbullTMHMLearnset,52
 	.type	 sQwilfishTMHMLearnset,object
 sQwilfishTMHMLearnset:
 	.byte	0x2
@@ -17811,12 +20103,23 @@ sQwilfishTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x36
 	.byte	0x3f
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x41
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
 	.byte	0xff
-	.size	 sQwilfishTMHMLearnset,24
+	.size	 sQwilfishTMHMLearnset,35
 	.type	 sScizorTMHMLearnset,object
 sScizorTMHMLearnset:
 	.byte	0x5
@@ -17839,11 +20142,22 @@ sScizorTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sScizorTMHMLearnset,24
+	.size	 sScizorTMHMLearnset,35
 	.type	 sShuckleTMHMLearnset,object
 sShuckleTMHMLearnset:
 	.byte	0x5
@@ -17863,11 +20177,21 @@ sShuckleTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sShuckleTMHMLearnset,21
+	.size	 sShuckleTMHMLearnset,31
 	.type	 sHeracrossTMHMLearnset,object
 sHeracrossTMHMLearnset:
 	.byte	0x0
@@ -17892,11 +20216,23 @@ sHeracrossTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x42
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sHeracrossTMHMLearnset,26
+	.size	 sHeracrossTMHMLearnset,38
 	.type	 sSneaselTMHMLearnset,object
 sSneaselTMHMLearnset:
 	.byte	0x0
@@ -17926,12 +20262,26 @@ sSneaselTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x50
+	.byte	0x53
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sSneaselTMHMLearnset,32
+	.size	 sSneaselTMHMLearnset,46
 	.type	 sTeddiursaTMHMLearnset,object
 sTeddiursaTMHMLearnset:
 	.byte	0x0
@@ -17957,11 +20307,20 @@ sTeddiursaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6c
 	.byte	0xff
-	.size	 sTeddiursaTMHMLearnset,27
+	.size	 sTeddiursaTMHMLearnset,36
 	.type	 sUrsaringTMHMLearnset,object
 sUrsaringTMHMLearnset:
 	.byte	0x0
@@ -17988,11 +20347,23 @@ sUrsaringTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6c
 	.byte	0xff
-	.size	 sUrsaringTMHMLearnset,28
+	.size	 sUrsaringTMHMLearnset,40
 	.type	 sSlugmaTMHMLearnset,object
 sSlugmaTMHMLearnset:
 	.byte	0x5
@@ -18012,9 +20383,17 @@ sSlugmaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sSlugmaTMHMLearnset,19
+	.size	 sSlugmaTMHMLearnset,27
 	.type	 sMagcargoTMHMLearnset,object
 sMagcargoTMHMLearnset:
 	.byte	0x5
@@ -18024,6 +20403,7 @@ sMagcargoTMHMLearnset:
 	.byte	0xf
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1f
@@ -18037,11 +20417,24 @@ sMagcargoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x3c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMagcargoTMHMLearnset,24
+	.size	 sMagcargoTMHMLearnset,38
 	.type	 sSwinubTMHMLearnset,object
 sSwinubTMHMLearnset:
 	.byte	0x4
@@ -18065,10 +20458,16 @@ sSwinubTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSwinubTMHMLearnset,24
+	.size	 sSwinubTMHMLearnset,30
 	.type	 sPiloswineTMHMLearnset,object
 sPiloswineTMHMLearnset:
 	.byte	0x4
@@ -18093,10 +20492,18 @@ sPiloswineTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sPiloswineTMHMLearnset,25
+	.size	 sPiloswineTMHMLearnset,33
 	.type	 sCorsolaTMHMLearnset,object
 sCorsolaTMHMLearnset:
 	.byte	0x2
@@ -18125,12 +20532,24 @@ sCorsolaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x36
 	.byte	0x3f
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCorsolaTMHMLearnset,31
+	.size	 sCorsolaTMHMLearnset,43
 	.type	 sRemoraidTMHMLearnset,object
 sRemoraidTMHMLearnset:
 	.byte	0x2
@@ -18154,11 +20573,18 @@ sRemoraidTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x38
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sRemoraidTMHMLearnset,25
+	.size	 sRemoraidTMHMLearnset,32
 	.type	 sOctilleryTMHMLearnset,object
 sOctilleryTMHMLearnset:
 	.byte	0x2
@@ -18183,11 +20609,24 @@ sOctilleryTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x34
+	.byte	0x36
+	.byte	0x38
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x6c
 	.byte	0xff
-	.size	 sOctilleryTMHMLearnset,26
+	.size	 sOctilleryTMHMLearnset,39
 	.type	 sDelibirdTMHMLearnset,object
 sDelibirdTMHMLearnset:
 	.byte	0x0
@@ -18210,9 +20649,19 @@ sDelibirdTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x45
+	.byte	0x4b
+	.byte	0x4e
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x71
 	.byte	0xff
-	.size	 sDelibirdTMHMLearnset,22
+	.size	 sDelibirdTMHMLearnset,32
 	.type	 sMantineTMHMLearnset,object
 sMantineTMHMLearnset:
 	.byte	0x2
@@ -18235,11 +20684,21 @@ sMantineTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6c
 	.byte	0xff
-	.size	 sMantineTMHMLearnset,24
+	.size	 sMantineTMHMLearnset,34
 	.type	 sSkarmoryTMHMLearnset,object
 sSkarmoryTMHMLearnset:
 	.byte	0x4
@@ -18261,12 +20720,22 @@ sSkarmoryTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x39
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6d
+	.byte	0x71
 	.byte	0xff
-	.size	 sSkarmoryTMHMLearnset,24
+	.size	 sSkarmoryTMHMLearnset,34
 	.type	 sHoundourTMHMLearnset,object
 sHoundourTMHMLearnset:
 	.byte	0x4
@@ -18276,6 +20745,7 @@ sHoundourTMHMLearnset:
 	.byte	0xb
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1d
@@ -18291,9 +20761,19 @@ sHoundourTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x31
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sHoundourTMHMLearnset,24
+	.size	 sHoundourTMHMLearnset,35
 	.type	 sHoundoomTMHMLearnset,object
 sHoundoomTMHMLearnset:
 	.byte	0x4
@@ -18304,6 +20784,7 @@ sHoundoomTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1d
@@ -18319,10 +20800,20 @@ sHoundoomTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sHoundoomTMHMLearnset,26
+	.size	 sHoundoomTMHMLearnset,37
 	.type	 sKingdraTMHMLearnset,object
 sKingdraTMHMLearnset:
 	.byte	0x2
@@ -18341,11 +20832,20 @@ sKingdraTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3b
+	.byte	0x43
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x73
 	.byte	0xff
-	.size	 sKingdraTMHMLearnset,20
+	.size	 sKingdraTMHMLearnset,29
 	.type	 sPhanpyTMHMLearnset,object
 sPhanpyTMHMLearnset:
 	.byte	0x4
@@ -18364,10 +20864,18 @@ sPhanpyTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6b
+	.byte	0x6c
+	.byte	0x6d
 	.byte	0xff
-	.size	 sPhanpyTMHMLearnset,19
+	.size	 sPhanpyTMHMLearnset,27
 	.type	 sDonphanTMHMLearnset,object
 sDonphanTMHMLearnset:
 	.byte	0x4
@@ -18387,10 +20895,24 @@ sDonphanTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6b
+	.byte	0x6c
+	.byte	0x6d
 	.byte	0xff
-	.size	 sDonphanTMHMLearnset,20
+	.size	 sDonphanTMHMLearnset,34
 	.type	 sPorygon2TMHMLearnset,object
 sPorygon2TMHMLearnset:
 	.byte	0x5
@@ -18402,6 +20924,7 @@ sPorygon2TMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -18415,9 +20938,20 @@ sPorygon2TMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x75
 	.byte	0xff
-	.size	 sPorygon2TMHMLearnset,24
+	.size	 sPorygon2TMHMLearnset,36
 	.type	 sStantlerTMHMLearnset,object
 sStantlerTMHMLearnset:
 	.byte	0x3
@@ -18429,6 +20963,7 @@ sStantlerTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -18445,9 +20980,22 @@ sStantlerTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sStantlerTMHMLearnset,27
+	.size	 sStantlerTMHMLearnset,41
 	.type	 sSmeargleTMHMLearnset,object
 sSmeargleTMHMLearnset:
 	.byte	0xff
@@ -18470,10 +21018,15 @@ sTyrogueTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sTyrogueTMHMLearnset,19
+	.size	 sTyrogueTMHMLearnset,24
 	.type	 sHitmontopTMHMLearnset,object
 sHitmontopTMHMLearnset:
 	.byte	0x5
@@ -18495,10 +21048,19 @@ sHitmontopTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x3a
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sHitmontopTMHMLearnset,22
+	.size	 sHitmontopTMHMLearnset,31
 	.type	 sSmoochumTMHMLearnset,object
 sSmoochumTMHMLearnset:
 	.byte	0x2
@@ -18523,9 +21085,22 @@ sSmoochumTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x41
+	.byte	0x45
+	.byte	0x4c
+	.byte	0x4e
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sSmoochumTMHMLearnset,24
+	.size	 sSmoochumTMHMLearnset,37
 	.type	 sElekidTMHMLearnset,object
 sElekidTMHMLearnset:
 	.byte	0x0
@@ -18547,10 +21122,17 @@ sElekidTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sElekidTMHMLearnset,22
+	.size	 sElekidTMHMLearnset,29
 	.type	 sMagbyTMHMLearnset,object
 sMagbyTMHMLearnset:
 	.byte	0x0
@@ -18572,9 +21154,14 @@ sMagbyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sMagbyTMHMLearnset,21
+	.size	 sMagbyTMHMLearnset,26
 	.type	 sMiltankTMHMLearnset,object
 sMiltankTMHMLearnset:
 	.byte	0x0
@@ -18588,6 +21175,7 @@ sMiltankTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -18603,11 +21191,23 @@ sMiltankTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x43
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMiltankTMHMLearnset,30
+	.size	 sMiltankTMHMLearnset,43
 	.type	 sBlisseyTMHMLearnset,object
 sBlisseyTMHMLearnset:
 	.byte	0x0
@@ -18625,6 +21225,7 @@ sBlisseyTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -18645,11 +21246,27 @@ sBlisseyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6d
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sBlisseyTMHMLearnset,39
+	.size	 sBlisseyTMHMLearnset,56
 	.type	 sRaikouTMHMLearnset,object
 sRaikouTMHMLearnset:
 	.byte	0x3
@@ -18675,12 +21292,23 @@ sRaikouTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x36
+	.byte	0x38
+	.byte	0x3b
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x69
 	.byte	0xff
-	.size	 sRaikouTMHMLearnset,28
+	.size	 sRaikouTMHMLearnset,39
 	.type	 sEnteiTMHMLearnset,object
 sEnteiTMHMLearnset:
 	.byte	0x3
@@ -18692,6 +21320,7 @@ sEnteiTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -18705,12 +21334,19 @@ sEnteiTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x3b
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x63
 	.byte	0xff
-	.size	 sEnteiTMHMLearnset,27
+	.size	 sEnteiTMHMLearnset,35
 	.type	 sSuicuneTMHMLearnset,object
 sSuicuneTMHMLearnset:
 	.byte	0x2
@@ -18736,13 +21372,21 @@ sSuicuneTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3b
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sSuicuneTMHMLearnset,29
+	.size	 sSuicuneTMHMLearnset,37
 	.type	 sLarvitarTMHMLearnset,object
 sLarvitarTMHMLearnset:
 	.byte	0x5
@@ -18766,9 +21410,22 @@ sLarvitarTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x73
 	.byte	0xff
-	.size	 sLarvitarTMHMLearnset,23
+	.size	 sLarvitarTMHMLearnset,36
 	.type	 sPupitarTMHMLearnset,object
 sPupitarTMHMLearnset:
 	.byte	0x5
@@ -18792,9 +21449,22 @@ sPupitarTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x73
 	.byte	0xff
-	.size	 sPupitarTMHMLearnset,23
+	.size	 sPupitarTMHMLearnset,36
 	.type	 sTyranitarTMHMLearnset,object
 sTyranitarTMHMLearnset:
 	.byte	0x0
@@ -18830,12 +21500,30 @@ sTyranitarTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x73
 	.byte	0xff
-	.size	 sTyranitarTMHMLearnset,38
+	.size	 sTyranitarTMHMLearnset,56
 	.type	 sLugiaTMHMLearnset,object
 sLugiaTMHMLearnset:
 	.byte	0x2
@@ -18871,15 +21559,25 @@ sLugiaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2e
 	.byte	0x2f
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x38
+	.byte	0x39
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x51
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6b
 	.byte	0xff
-	.size	 sLugiaTMHMLearnset,41
+	.size	 sLugiaTMHMLearnset,51
 	.type	 sHoOhTMHMLearnset,object
 sHoOhTMHMLearnset:
 	.byte	0x3
@@ -18894,6 +21592,7 @@ sHoOhTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x19
@@ -18912,12 +21611,24 @@ sHoOhTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2e
 	.byte	0x31
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x39
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x71
+	.byte	0x77
 	.byte	0xff
-	.size	 sHoOhTMHMLearnset,35
+	.size	 sHoOhTMHMLearnset,48
 	.type	 sCelebiTMHMLearnset,object
 sCelebiTMHMLearnset:
 	.byte	0x2
@@ -18932,6 +21643,7 @@ sCelebiTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -18944,10 +21656,30 @@ sCelebiTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x69
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x6f
+	.byte	0x70
 	.byte	0xff
-	.size	 sCelebiTMHMLearnset,27
+	.size	 sCelebiTMHMLearnset,48
 	.type	 sTreeckoTMHMLearnset,object
 sTreeckoTMHMLearnset:
 	.byte	0x0
@@ -18959,6 +21691,7 @@ sTreeckoTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -18970,12 +21703,20 @@ sTreeckoTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sTreeckoTMHMLearnset,25
+	.size	 sTreeckoTMHMLearnset,34
 	.type	 sGrovyleTMHMLearnset,object
 sGrovyleTMHMLearnset:
 	.byte	0x0
@@ -18987,6 +21728,7 @@ sGrovyleTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -18998,12 +21740,23 @@ sGrovyleTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sGrovyleTMHMLearnset,25
+	.size	 sGrovyleTMHMLearnset,37
 	.type	 sSceptileTMHMLearnset,object
 sSceptileTMHMLearnset:
 	.byte	0x0
@@ -19018,6 +21771,7 @@ sSceptileTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -19030,12 +21784,28 @@ sSceptileTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x73
+	.byte	0x76
 	.byte	0xff
-	.size	 sSceptileTMHMLearnset,29
+	.size	 sSceptileTMHMLearnset,46
 	.type	 sTorchicTMHMLearnset,object
 sTorchicTMHMLearnset:
 	.byte	0x5
@@ -19055,11 +21825,16 @@ sTorchicTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sTorchicTMHMLearnset,21
+	.size	 sTorchicTMHMLearnset,26
 	.type	 sCombuskenTMHMLearnset,object
 sCombuskenTMHMLearnset:
 	.byte	0x0
@@ -19082,11 +21857,21 @@ sCombuskenTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x74
 	.byte	0xff
-	.size	 sCombuskenTMHMLearnset,24
+	.size	 sCombuskenTMHMLearnset,34
 	.type	 sBlazikenTMHMLearnset,object
 sBlazikenTMHMLearnset:
 	.byte	0x0
@@ -19098,6 +21883,7 @@ sBlazikenTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -19112,11 +21898,29 @@ sBlazikenTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x69
+	.byte	0x6e
+	.byte	0x71
+	.byte	0x74
 	.byte	0xff
-	.size	 sBlazikenTMHMLearnset,27
+	.size	 sBlazikenTMHMLearnset,46
 	.type	 sMudkipTMHMLearnset,object
 sMudkipTMHMLearnset:
 	.byte	0x2
@@ -19137,13 +21941,18 @@ sMudkipTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
 	.byte	0xff
-	.size	 sMudkipTMHMLearnset,24
+	.size	 sMudkipTMHMLearnset,29
 	.type	 sMarshtompTMHMLearnset,object
 sMarshtompTMHMLearnset:
 	.byte	0x2
@@ -19166,13 +21975,21 @@ sMarshtompTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMarshtompTMHMLearnset,26
+	.size	 sMarshtompTMHMLearnset,34
 	.type	 sSwampertTMHMLearnset,object
 sSwampertTMHMLearnset:
 	.byte	0x0
@@ -19199,13 +22016,25 @@ sSwampertTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSwampertTMHMLearnset,30
+	.size	 sSwampertTMHMLearnset,42
 	.type	 sPoochyenaTMHMLearnset,object
 sPoochyenaTMHMLearnset:
 	.byte	0x4
@@ -19228,9 +22057,18 @@ sPoochyenaTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcd
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sPoochyenaTMHMLearnset,22
+	.size	 sPoochyenaTMHMLearnset,31
 	.type	 sMightyenaTMHMLearnset,object
 sMightyenaTMHMLearnset:
 	.byte	0x4
@@ -19254,10 +22092,19 @@ sMightyenaTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sMightyenaTMHMLearnset,24
+	.size	 sMightyenaTMHMLearnset,33
 	.type	 sZigzagoonTMHMLearnset,object
 sZigzagoonTMHMLearnset:
 	.byte	0x2
@@ -19282,11 +22129,18 @@ sZigzagoonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x38
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sZigzagoonTMHMLearnset,26
+	.size	 sZigzagoonTMHMLearnset,33
 	.type	 sLinooneTMHMLearnset,object
 sLinooneTMHMLearnset:
 	.byte	0x2
@@ -19313,12 +22167,21 @@ sLinooneTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x38
+	.byte	0x40
+	.byte	0x43
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6c
 	.byte	0xff
-	.size	 sLinooneTMHMLearnset,29
+	.size	 sLinooneTMHMLearnset,38
 	.type	 sWurmpleTMHMLearnset,object
 sWurmpleTMHMLearnset:
 	.byte	0xff
@@ -19337,6 +22200,7 @@ sBeautiflyTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -19347,9 +22211,18 @@ sBeautiflyTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sBeautiflyTMHMLearnset,20
+	.size	 sBeautiflyTMHMLearnset,30
 	.type	 sCascoonTMHMLearnset,object
 sCascoonTMHMLearnset:
 	.byte	0xff
@@ -19364,6 +22237,7 @@ sDustoxTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -19375,9 +22249,18 @@ sDustoxTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sDustoxTMHMLearnset,21
+	.size	 sDustoxTMHMLearnset,31
 	.type	 sLotadTMHMLearnset,object
 sLotadTMHMLearnset:
 	.byte	0x2
@@ -19392,18 +22275,26 @@ sLotadTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0x77
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x36
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sLotadTMHMLearnset,23
+	.size	 sLotadTMHMLearnset,31
 	.type	 sLombreTMHMLearnset,object
 sLombreTMHMLearnset:
 	.byte	0x2
@@ -19418,6 +22309,7 @@ sLombreTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1e
 	.byte	0x1f
@@ -19426,14 +22318,21 @@ sLombreTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x34
+	.byte	0x36
+	.byte	0x37
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x61
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sLombreTMHMLearnset,27
+	.size	 sLombreTMHMLearnset,35
 	.type	 sLudicoloTMHMLearnset,object
 sLudicoloTMHMLearnset:
 	.byte	0x0
@@ -19450,6 +22349,7 @@ sLudicoloTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1e
 	.byte	0x1f
@@ -19458,14 +22358,23 @@ sLudicoloTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x34
+	.byte	0x36
+	.byte	0x37
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x61
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sLudicoloTMHMLearnset,29
+	.size	 sLudicoloTMHMLearnset,39
 	.type	 sSeedotTMHMLearnset,object
 sSeedotTMHMLearnset:
 	.byte	0x5
@@ -19475,6 +22384,7 @@ sSeedotTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1d
@@ -19483,11 +22393,20 @@ sSeedotTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x35
 	.byte	0x3f
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sSeedotTMHMLearnset,19
+	.size	 sSeedotTMHMLearnset,29
 	.type	 sNuzleafTMHMLearnset,object
 sNuzleafTMHMLearnset:
 	.byte	0x5
@@ -19498,6 +22417,7 @@ sNuzleafTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1d
@@ -19510,13 +22430,27 @@ sNuzleafTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x32
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sNuzleafTMHMLearnset,26
+	.size	 sNuzleafTMHMLearnset,41
 	.type	 sShiftryTMHMLearnset,object
 sShiftryTMHMLearnset:
 	.byte	0x5
@@ -19527,6 +22461,7 @@ sShiftryTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1d
@@ -19540,13 +22475,31 @@ sShiftryTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sShiftryTMHMLearnset,27
+	.size	 sShiftryTMHMLearnset,46
 	.type	 sTaillowTMHMLearnset,object
 sTaillowTMHMLearnset:
 	.byte	0x5
@@ -19564,9 +22517,15 @@ sTaillowTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sTaillowTMHMLearnset,17
+	.size	 sTaillowTMHMLearnset,23
 	.type	 sSwellowTMHMLearnset,object
 sSwellowTMHMLearnset:
 	.byte	0x5
@@ -19585,9 +22544,16 @@ sSwellowTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sSwellowTMHMLearnset,18
+	.size	 sSwellowTMHMLearnset,25
 	.type	 sWingullTMHMLearnset,object
 sWingullTMHMLearnset:
 	.byte	0x2
@@ -19609,9 +22575,16 @@ sWingullTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x36
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sWingullTMHMLearnset,21
+	.size	 sWingullTMHMLearnset,28
 	.type	 sPelipperTMHMLearnset,object
 sPelipperTMHMLearnset:
 	.byte	0x2
@@ -19634,10 +22607,23 @@ sPelipperTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xca
+	.byte	0x36
+	.byte	0x37
+	.byte	0x39
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6c
+	.byte	0x71
 	.byte	0xff
-	.size	 sPelipperTMHMLearnset,23
+	.size	 sPelipperTMHMLearnset,36
 	.type	 sRaltsTMHMLearnset,object
 sRaltsTMHMLearnset:
 	.byte	0x3
@@ -19665,9 +22651,22 @@ sRaltsTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sRaltsTMHMLearnset,27
+	.size	 sRaltsTMHMLearnset,40
 	.type	 sKirliaTMHMLearnset,object
 sKirliaTMHMLearnset:
 	.byte	0x3
@@ -19695,9 +22694,22 @@ sKirliaTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sKirliaTMHMLearnset,27
+	.size	 sKirliaTMHMLearnset,40
 	.type	 sGardevoirTMHMLearnset,object
 sGardevoirTMHMLearnset:
 	.byte	0x3
@@ -19726,9 +22738,26 @@ sGardevoirTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x77
 	.byte	0xff
-	.size	 sGardevoirTMHMLearnset,28
+	.size	 sGardevoirTMHMLearnset,45
 	.type	 sSurskitTMHMLearnset,object
 sSurskitTMHMLearnset:
 	.byte	0x2
@@ -19741,6 +22770,7 @@ sSurskitTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1f
@@ -19749,9 +22779,16 @@ sSurskitTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x36
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sSurskitTMHMLearnset,20
+	.size	 sSurskitTMHMLearnset,28
 	.type	 sMasquerainTMHMLearnset,object
 sMasquerainTMHMLearnset:
 	.byte	0x2
@@ -19765,6 +22802,7 @@ sMasquerainTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1f
@@ -19774,9 +22812,20 @@ sMasquerainTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x36
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x65
+	.byte	0x72
 	.byte	0xff
-	.size	 sMasquerainTMHMLearnset,22
+	.size	 sMasquerainTMHMLearnset,34
 	.type	 sShroomishTMHMLearnset,object
 sShroomishTMHMLearnset:
 	.byte	0x0
@@ -19788,6 +22837,7 @@ sShroomishTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
@@ -19796,9 +22846,17 @@ sShroomishTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x35
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sShroomishTMHMLearnset,19
+	.size	 sShroomishTMHMLearnset,28
 	.type	 sBreloomTMHMLearnset,object
 sBreloomTMHMLearnset:
 	.byte	0x0
@@ -19812,6 +22870,7 @@ sBreloomTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1e
@@ -19823,12 +22882,23 @@ sBreloomTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sBreloomTMHMLearnset,27
+	.size	 sBreloomTMHMLearnset,39
 	.type	 sSlakothTMHMLearnset,object
 sSlakothTMHMLearnset:
 	.byte	0x0
@@ -19842,6 +22912,7 @@ sSlakothTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -19857,11 +22928,17 @@ sSlakothTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x40
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6c
 	.byte	0xff
-	.size	 sSlakothTMHMLearnset,30
+	.size	 sSlakothTMHMLearnset,37
 	.type	 sVigorothTMHMLearnset,object
 sVigorothTMHMLearnset:
 	.byte	0x0
@@ -19877,6 +22954,7 @@ sVigorothTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x19
@@ -19893,11 +22971,19 @@ sVigorothTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x40
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sVigorothTMHMLearnset,33
+	.size	 sVigorothTMHMLearnset,42
 	.type	 sSlakingTMHMLearnset,object
 sSlakingTMHMLearnset:
 	.byte	0x0
@@ -19914,6 +23000,7 @@ sSlakingTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x19
@@ -19930,11 +23017,21 @@ sSlakingTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sSlakingTMHMLearnset,34
+	.size	 sSlakingTMHMLearnset,45
 	.type	 sNincadaTMHMLearnset,object
 sNincadaTMHMLearnset:
 	.byte	0x5
@@ -19943,6 +23040,7 @@ sNincadaTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1d
@@ -19952,10 +23050,16 @@ sNincadaTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x35
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sNincadaTMHMLearnset,18
+	.size	 sNincadaTMHMLearnset,25
 	.type	 sNinjaskTMHMLearnset,object
 sNinjaskTMHMLearnset:
 	.byte	0x5
@@ -19965,6 +23069,7 @@ sNinjaskTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1d
@@ -19976,10 +23081,20 @@ sNinjaskTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x35
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sNinjaskTMHMLearnset,21
+	.size	 sNinjaskTMHMLearnset,32
 	.type	 sShedinjaTMHMLearnset,object
 sShedinjaTMHMLearnset:
 	.byte	0x5
@@ -19989,6 +23104,7 @@ sShedinjaTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1d
@@ -19999,10 +23115,20 @@ sShedinjaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x35
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x43
+	.byte	0x50
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sShedinjaTMHMLearnset,20
+	.size	 sShedinjaTMHMLearnset,31
 	.type	 sWhismurTMHMLearnset,object
 sWhismurTMHMLearnset:
 	.byte	0x2
@@ -20015,6 +23141,7 @@ sWhismurTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1f
@@ -20025,8 +23152,14 @@ sWhismurTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x37
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sWhismurTMHMLearnset,21
+	.size	 sWhismurTMHMLearnset,28
 	.type	 sLoudredTMHMLearnset,object
 sLoudredTMHMLearnset:
 	.byte	0x2
@@ -20040,6 +23173,7 @@ sLoudredTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1d
@@ -20055,10 +23189,16 @@ sLoudredTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sLoudredTMHMLearnset,29
+	.size	 sLoudredTMHMLearnset,36
 	.type	 sExploudTMHMLearnset,object
 sExploudTMHMLearnset:
 	.byte	0x2
@@ -20073,6 +23213,7 @@ sExploudTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1d
@@ -20088,11 +23229,19 @@ sExploudTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sExploudTMHMLearnset,31
+	.size	 sExploudTMHMLearnset,40
 	.type	 sMakuhitaTMHMLearnset,object
 sMakuhitaTMHMLearnset:
 	.byte	0x0
@@ -20113,11 +23262,19 @@ sMakuhitaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sMakuhitaTMHMLearnset,22
+	.size	 sMakuhitaTMHMLearnset,30
 	.type	 sHariyamaTMHMLearnset,object
 sHariyamaTMHMLearnset:
 	.byte	0x0
@@ -20139,11 +23296,22 @@ sHariyamaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sHariyamaTMHMLearnset,23
+	.size	 sHariyamaTMHMLearnset,34
 	.type	 sAzurillTMHMLearnset,object
 sAzurillTMHMLearnset:
 	.byte	0x2
@@ -20163,10 +23331,16 @@ sAzurillTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
+	.byte	0x36
+	.byte	0x3a
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sAzurillTMHMLearnset,20
+	.size	 sAzurillTMHMLearnset,26
 	.type	 sNosepassTMHMLearnset,object
 sNosepassTMHMLearnset:
 	.byte	0x5
@@ -20189,10 +23363,22 @@ sNosepassTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x46
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sNosepassTMHMLearnset,23
+	.size	 sNosepassTMHMLearnset,35
 	.type	 sSkittyTMHMLearnset,object
 sSkittyTMHMLearnset:
 	.byte	0x2
@@ -20206,6 +23392,7 @@ sSkittyTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -20218,9 +23405,20 @@ sSkittyTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sSkittyTMHMLearnset,25
+	.size	 sSkittyTMHMLearnset,37
 	.type	 sDelcattyTMHMLearnset,object
 sDelcattyTMHMLearnset:
 	.byte	0x2
@@ -20235,6 +23433,7 @@ sDelcattyTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -20247,11 +23446,20 @@ sDelcattyTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sDelcattyTMHMLearnset,28
+	.size	 sDelcattyTMHMLearnset,38
 	.type	 sSableyeTMHMLearnset,object
 sSableyeTMHMLearnset:
 	.byte	0x0
@@ -20280,11 +23488,29 @@ sSableyeTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x53
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sSableyeTMHMLearnset,30
+	.size	 sSableyeTMHMLearnset,48
 	.type	 sMawileTMHMLearnset,object
 sMawileTMHMLearnset:
 	.byte	0x0
@@ -20297,6 +23523,7 @@ sMawileTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1e
@@ -20312,10 +23539,29 @@ sMawileTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMawileTMHMLearnset,28
+	.size	 sMawileTMHMLearnset,48
 	.type	 sAronTMHMLearnset,object
 sAronTMHMLearnset:
 	.byte	0x2
@@ -20339,11 +23585,18 @@ sAronTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x44
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sAronTMHMLearnset,25
+	.size	 sAronTMHMLearnset,32
 	.type	 sLaironTMHMLearnset,object
 sLaironTMHMLearnset:
 	.byte	0x2
@@ -20367,11 +23620,19 @@ sLaironTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sLaironTMHMLearnset,25
+	.size	 sLaironTMHMLearnset,33
 	.type	 sAggronTMHMLearnset,object
 sAggronTMHMLearnset:
 	.byte	0x0
@@ -20388,6 +23649,7 @@ sAggronTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -20406,12 +23668,30 @@ sAggronTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sAggronTMHMLearnset,37
+	.size	 sAggronTMHMLearnset,56
 	.type	 sMedititeTMHMLearnset,object
 sMedititeTMHMLearnset:
 	.byte	0x0
@@ -20435,11 +23715,22 @@ sMedititeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x68
+	.byte	0x76
 	.byte	0xff
-	.size	 sMedititeTMHMLearnset,25
+	.size	 sMedititeTMHMLearnset,36
 	.type	 sMedichamTMHMLearnset,object
 sMedichamTMHMLearnset:
 	.byte	0x0
@@ -20464,11 +23755,24 @@ sMedichamTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x68
+	.byte	0x76
 	.byte	0xff
-	.size	 sMedichamTMHMLearnset,26
+	.size	 sMedichamTMHMLearnset,39
 	.type	 sElectrikeTMHMLearnset,object
 sElectrikeTMHMLearnset:
 	.byte	0x4
@@ -20490,10 +23794,17 @@ sElectrikeTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
 	.byte	0xff
-	.size	 sElectrikeTMHMLearnset,22
+	.size	 sElectrikeTMHMLearnset,29
 	.type	 sManectricTMHMLearnset,object
 sManectricTMHMLearnset:
 	.byte	0x4
@@ -20517,10 +23828,18 @@ sManectricTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
 	.byte	0xff
-	.size	 sManectricTMHMLearnset,24
+	.size	 sManectricTMHMLearnset,32
 	.type	 sPlusleTMHMLearnset,object
 sPlusleTMHMLearnset:
 	.byte	0x5
@@ -20539,9 +23858,19 @@ sPlusleTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sPlusleTMHMLearnset,18
+	.size	 sPlusleTMHMLearnset,28
 	.type	 sMinunTMHMLearnset,object
 sMinunTMHMLearnset:
 	.byte	0x5
@@ -20560,9 +23889,19 @@ sMinunTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sMinunTMHMLearnset,18
+	.size	 sMinunTMHMLearnset,28
 	.type	 sVolbeatTMHMLearnset,object
 sVolbeatTMHMLearnset:
 	.byte	0x0
@@ -20575,6 +23914,7 @@ sVolbeatTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -20588,9 +23928,22 @@ sVolbeatTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x72
 	.byte	0xff
-	.size	 sVolbeatTMHMLearnset,25
+	.size	 sVolbeatTMHMLearnset,39
 	.type	 sIllumiseTMHMLearnset,object
 sIllumiseTMHMLearnset:
 	.byte	0x0
@@ -20603,6 +23956,7 @@ sIllumiseTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -20616,9 +23970,22 @@ sIllumiseTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x72
 	.byte	0xff
-	.size	 sIllumiseTMHMLearnset,25
+	.size	 sIllumiseTMHMLearnset,39
 	.type	 sRoseliaTMHMLearnset,object
 sRoseliaTMHMLearnset:
 	.byte	0x5
@@ -20629,6 +23996,7 @@ sRoseliaTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1f
@@ -20637,10 +24005,19 @@ sRoseliaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sRoseliaTMHMLearnset,19
+	.size	 sRoseliaTMHMLearnset,29
 	.type	 sGulpinTMHMLearnset,object
 sGulpinTMHMLearnset:
 	.byte	0x2
@@ -20653,6 +24030,7 @@ sGulpinTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1f
@@ -20664,10 +24042,16 @@ sGulpinTMHMLearnset:
 	.byte	0x2c
 	.byte	0x30
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
 	.byte	0xff
-	.size	 sGulpinTMHMLearnset,24
+	.size	 sGulpinTMHMLearnset,31
 	.type	 sSwalotTMHMLearnset,object
 sSwalotTMHMLearnset:
 	.byte	0x2
@@ -20681,6 +24065,7 @@ sSwalotTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1d
@@ -20693,10 +24078,18 @@ sSwalotTMHMLearnset:
 	.byte	0x2c
 	.byte	0x30
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
 	.byte	0xff
-	.size	 sSwalotTMHMLearnset,26
+	.size	 sSwalotTMHMLearnset,35
 	.type	 sCarvanhaTMHMLearnset,object
 sCarvanhaTMHMLearnset:
 	.byte	0x2
@@ -20717,11 +24110,19 @@ sCarvanhaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x41
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sCarvanhaTMHMLearnset,22
+	.size	 sCarvanhaTMHMLearnset,30
 	.type	 sSharpedoTMHMLearnset,object
 sSharpedoTMHMLearnset:
 	.byte	0x2
@@ -20746,13 +24147,22 @@ sSharpedoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sSharpedoTMHMLearnset,28
+	.size	 sSharpedoTMHMLearnset,37
 	.type	 sWailmerTMHMLearnset,object
 sWailmerTMHMLearnset:
 	.byte	0x2
@@ -20773,13 +24183,16 @@ sWailmerTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sWailmerTMHMLearnset,24
+	.size	 sWailmerTMHMLearnset,27
 	.type	 sWailordTMHMLearnset,object
 sWailordTMHMLearnset:
 	.byte	0x2
@@ -20801,13 +24214,18 @@ sWailordTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sWailordTMHMLearnset,25
+	.size	 sWailordTMHMLearnset,30
 	.type	 sNumelTMHMLearnset,object
 sNumelTMHMLearnset:
 	.byte	0x5
@@ -20828,10 +24246,18 @@ sNumelTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sNumelTMHMLearnset,21
+	.size	 sNumelTMHMLearnset,29
 	.type	 sCameruptTMHMLearnset,object
 sCameruptTMHMLearnset:
 	.byte	0x4
@@ -20841,6 +24267,7 @@ sCameruptTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -20854,11 +24281,23 @@ sCameruptTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x3c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCameruptTMHMLearnset,24
+	.size	 sCameruptTMHMLearnset,37
 	.type	 sTorkoalTMHMLearnset,object
 sTorkoalTMHMLearnset:
 	.byte	0x5
@@ -20867,6 +24306,7 @@ sTorkoalTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -20880,11 +24320,23 @@ sTorkoalTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x3c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sTorkoalTMHMLearnset,23
+	.size	 sTorkoalTMHMLearnset,36
 	.type	 sSpoinkTMHMLearnset,object
 sSpoinkTMHMLearnset:
 	.byte	0x3
@@ -20911,9 +24363,21 @@ sSpoinkTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6a
 	.byte	0xff
-	.size	 sSpoinkTMHMLearnset,26
+	.size	 sSpoinkTMHMLearnset,38
 	.type	 sGrumpigTMHMLearnset,object
 sGrumpigTMHMLearnset:
 	.byte	0x0
@@ -20943,9 +24407,27 @@ sGrumpigTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6a
+	.byte	0x76
 	.byte	0xff
-	.size	 sGrumpigTMHMLearnset,29
+	.size	 sGrumpigTMHMLearnset,47
 	.type	 sSpindaTMHMLearnset,object
 sSpindaTMHMLearnset:
 	.byte	0x0
@@ -20973,11 +24455,19 @@ sSpindaTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sSpindaTMHMLearnset,29
+	.size	 sSpindaTMHMLearnset,37
 	.type	 sTrapinchTMHMLearnset,object
 sTrapinchTMHMLearnset:
 	.byte	0x5
@@ -20987,6 +24477,7 @@ sTrapinchTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -20997,10 +24488,15 @@ sTrapinchTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sTrapinchTMHMLearnset,20
+	.size	 sTrapinchTMHMLearnset,26
 	.type	 sVibravaTMHMLearnset,object
 sVibravaTMHMLearnset:
 	.byte	0x5
@@ -21010,6 +24506,7 @@ sVibravaTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -21021,11 +24518,19 @@ sVibravaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x72
 	.byte	0xff
-	.size	 sVibravaTMHMLearnset,22
+	.size	 sVibravaTMHMLearnset,31
 	.type	 sFlygonTMHMLearnset,object
 sFlygonTMHMLearnset:
 	.byte	0x1
@@ -21036,6 +24541,7 @@ sFlygonTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -21051,11 +24557,23 @@ sFlygonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x72
+	.byte	0x73
 	.byte	0xff
-	.size	 sFlygonTMHMLearnset,27
+	.size	 sFlygonTMHMLearnset,40
 	.type	 sCacneaTMHMLearnset,object
 sCacneaTMHMLearnset:
 	.byte	0x0
@@ -21066,6 +24584,7 @@ sCacneaTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1e
 	.byte	0x1f
@@ -21074,10 +24593,22 @@ sCacneaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sCacneaTMHMLearnset,19
+	.size	 sCacneaTMHMLearnset,32
 	.type	 sCacturneTMHMLearnset,object
 sCacturneTMHMLearnset:
 	.byte	0x0
@@ -21089,6 +24620,7 @@ sCacturneTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1e
 	.byte	0x1f
@@ -21097,11 +24629,25 @@ sCacturneTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sCacturneTMHMLearnset,21
+	.size	 sCacturneTMHMLearnset,36
 	.type	 sSwabluTMHMLearnset,object
 sSwabluTMHMLearnset:
 	.byte	0x5
@@ -21112,6 +24658,7 @@ sSwabluTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x27
@@ -21121,9 +24668,18 @@ sSwabluTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x35
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sSwabluTMHMLearnset,19
+	.size	 sSwabluTMHMLearnset,29
 	.type	 sAltariaTMHMLearnset,object
 sAltariaTMHMLearnset:
 	.byte	0x1
@@ -21137,6 +24693,7 @@ sAltariaTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -21150,10 +24707,21 @@ sAltariaTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x73
 	.byte	0xff
-	.size	 sAltariaTMHMLearnset,27
+	.size	 sAltariaTMHMLearnset,39
 	.type	 sZangooseTMHMLearnset,object
 sZangooseTMHMLearnset:
 	.byte	0x0
@@ -21169,6 +24737,7 @@ sZangooseTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -21187,10 +24756,23 @@ sZangooseTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sZangooseTMHMLearnset,34
+	.size	 sZangooseTMHMLearnset,48
 	.type	 sSeviperTMHMLearnset,object
 sSeviperTMHMLearnset:
 	.byte	0x5
@@ -21214,10 +24796,22 @@ sSeviperTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x50
+	.byte	0x51
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sSeviperTMHMLearnset,24
+	.size	 sSeviperTMHMLearnset,36
 	.type	 sLunatoneTMHMLearnset,object
 sLunatoneTMHMLearnset:
 	.byte	0x3
@@ -21244,10 +24838,31 @@ sLunatoneTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x70
 	.byte	0xff
-	.size	 sLunatoneTMHMLearnset,27
+	.size	 sLunatoneTMHMLearnset,48
 	.type	 sSolrockTMHMLearnset,object
 sSolrockTMHMLearnset:
 	.byte	0x3
@@ -21260,6 +24875,7 @@ sSolrockTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1c
@@ -21275,10 +24891,31 @@ sSolrockTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2f
 	.byte	0x31
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSolrockTMHMLearnset,28
+	.size	 sSolrockTMHMLearnset,50
 	.type	 sBarboachTMHMLearnset,object
 sBarboachTMHMLearnset:
 	.byte	0x2
@@ -21299,11 +24936,18 @@ sBarboachTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x73
 	.byte	0xff
-	.size	 sBarboachTMHMLearnset,22
+	.size	 sBarboachTMHMLearnset,29
 	.type	 sWhiscashTMHMLearnset,object
 sWhiscashTMHMLearnset:
 	.byte	0x2
@@ -21325,13 +24969,22 @@ sWhiscashTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x73
 	.byte	0xff
-	.size	 sWhiscashTMHMLearnset,25
+	.size	 sWhiscashTMHMLearnset,34
 	.type	 sCorphishTMHMLearnset,object
 sCorphishTMHMLearnset:
 	.byte	0x2
@@ -21355,13 +25008,22 @@ sCorphishTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sCorphishTMHMLearnset,27
+	.size	 sCorphishTMHMLearnset,36
 	.type	 sCrawdauntTMHMLearnset,object
 sCrawdauntTMHMLearnset:
 	.byte	0x2
@@ -21386,14 +25048,29 @@ sCrawdauntTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x70
+	.byte	0x73
 	.byte	0xff
-	.size	 sCrawdauntTMHMLearnset,29
+	.size	 sCrawdauntTMHMLearnset,44
 	.type	 sBaltoyTMHMLearnset,object
 sBaltoyTMHMLearnset:
 	.byte	0x3
@@ -21406,6 +25083,7 @@ sBaltoyTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -21419,10 +25097,26 @@ sBaltoyTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x44
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBaltoyTMHMLearnset,26
+	.size	 sBaltoyTMHMLearnset,43
 	.type	 sClaydolTMHMLearnset,object
 sClaydolTMHMLearnset:
 	.byte	0x3
@@ -21436,6 +25130,7 @@ sClaydolTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -21449,12 +25144,29 @@ sClaydolTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x70
 	.byte	0xff
-	.size	 sClaydolTMHMLearnset,29
+	.size	 sClaydolTMHMLearnset,47
 	.type	 sLileepTMHMLearnset,object
 sLileepTMHMLearnset:
 	.byte	0x5
@@ -21464,6 +25176,7 @@ sLileepTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
@@ -21473,9 +25186,21 @@ sLileepTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x44
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sLileepTMHMLearnset,18
+	.size	 sLileepTMHMLearnset,31
 	.type	 sCradilyTMHMLearnset,object
 sCradilyTMHMLearnset:
 	.byte	0x5
@@ -21486,6 +25211,7 @@ sCradilyTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -21497,11 +25223,25 @@ sCradilyTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCradilyTMHMLearnset,23
+	.size	 sCradilyTMHMLearnset,38
 	.type	 sAnorithTMHMLearnset,object
 sAnorithTMHMLearnset:
 	.byte	0x2
@@ -21521,10 +25261,19 @@ sAnorithTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x44
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sAnorithTMHMLearnset,20
+	.size	 sAnorithTMHMLearnset,29
 	.type	 sArmaldoTMHMLearnset,object
 sArmaldoTMHMLearnset:
 	.byte	0x2
@@ -21547,11 +25296,26 @@ sArmaldoTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sArmaldoTMHMLearnset,24
+	.size	 sArmaldoTMHMLearnset,39
 	.type	 sFeebasTMHMLearnset,object
 sFeebasTMHMLearnset:
 	.byte	0x2
@@ -21571,11 +25335,15 @@ sFeebasTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sFeebasTMHMLearnset,21
+	.size	 sFeebasTMHMLearnset,25
 	.type	 sMiloticTMHMLearnset,object
 sMiloticTMHMLearnset:
 	.byte	0x2
@@ -21597,11 +25365,21 @@ sMiloticTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sMiloticTMHMLearnset,23
+	.size	 sMiloticTMHMLearnset,33
 	.type	 sCastformTMHMLearnset,object
 sCastformTMHMLearnset:
 	.byte	0x2
@@ -21614,6 +25392,7 @@ sCastformTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -21628,9 +25407,16 @@ sCastformTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x36
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sCastformTMHMLearnset,26
+	.size	 sCastformTMHMLearnset,34
 	.type	 sKecleonTMHMLearnset,object
 sKecleonTMHMLearnset:
 	.byte	0x0
@@ -21643,6 +25429,7 @@ sKecleonTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -21663,12 +25450,23 @@ sKecleonTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x38
+	.byte	0x40
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x6d
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sKecleonTMHMLearnset,35
+	.size	 sKecleonTMHMLearnset,47
 	.type	 sShuppetTMHMLearnset,object
 sShuppetTMHMLearnset:
 	.byte	0x3
@@ -21694,9 +25492,23 @@ sShuppetTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sShuppetTMHMLearnset,25
+	.size	 sShuppetTMHMLearnset,39
 	.type	 sBanetteTMHMLearnset,object
 sBanetteTMHMLearnset:
 	.byte	0x3
@@ -21723,9 +25535,27 @@ sBanetteTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sBanetteTMHMLearnset,26
+	.size	 sBanetteTMHMLearnset,44
 	.type	 sDuskullTMHMLearnset,object
 sDuskullTMHMLearnset:
 	.byte	0x3
@@ -21750,9 +25580,22 @@ sDuskullTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sDuskullTMHMLearnset,24
+	.size	 sDuskullTMHMLearnset,37
 	.type	 sDusclopsTMHMLearnset,object
 sDusclopsTMHMLearnset:
 	.byte	0x0
@@ -21782,11 +25625,25 @@ sDusclopsTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sDusclopsTMHMLearnset,31
+	.size	 sDusclopsTMHMLearnset,45
 	.type	 sTropiusTMHMLearnset,object
 sTropiusTMHMLearnset:
 	.byte	0x4
@@ -21799,6 +25656,7 @@ sTropiusTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1f
@@ -21808,13 +25666,21 @@ sTropiusTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sTropiusTMHMLearnset,25
+	.size	 sTropiusTMHMLearnset,34
 	.type	 sChimechoTMHMLearnset,object
 sChimechoTMHMLearnset:
 	.byte	0x3
@@ -21840,9 +25706,21 @@ sChimechoTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sChimechoTMHMLearnset,25
+	.size	 sChimechoTMHMLearnset,37
 	.type	 sAbsolTMHMLearnset,object
 sAbsolTMHMLearnset:
 	.byte	0x2
@@ -21877,12 +25755,29 @@ sAbsolTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sAbsolTMHMLearnset,37
+	.size	 sAbsolTMHMLearnset,54
 	.type	 sWynautTMHMLearnset,object
 sWynautTMHMLearnset:
 	.byte	0x13
@@ -21908,9 +25803,13 @@ sSnoruntTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x4e
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sSnoruntTMHMLearnset,20
+	.size	 sSnoruntTMHMLearnset,24
 	.type	 sGlalieTMHMLearnset,object
 sGlalieTMHMLearnset:
 	.byte	0x2
@@ -21936,9 +25835,18 @@ sGlalieTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x41
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sGlalieTMHMLearnset,25
+	.size	 sGlalieTMHMLearnset,34
 	.type	 sSphealTMHMLearnset,object
 sSphealTMHMLearnset:
 	.byte	0x2
@@ -21959,13 +25867,17 @@ sSphealTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sSphealTMHMLearnset,24
+	.size	 sSphealTMHMLearnset,28
 	.type	 sSealeoTMHMLearnset,object
 sSealeoTMHMLearnset:
 	.byte	0x2
@@ -21987,13 +25899,17 @@ sSealeoTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sSealeoTMHMLearnset,25
+	.size	 sSealeoTMHMLearnset,29
 	.type	 sWalreinTMHMLearnset,object
 sWalreinTMHMLearnset:
 	.byte	0x2
@@ -22016,13 +25932,20 @@ sWalreinTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sWalreinTMHMLearnset,26
+	.size	 sWalreinTMHMLearnset,33
 	.type	 sClamperlTMHMLearnset,object
 sClamperlTMHMLearnset:
 	.byte	0x2
@@ -22040,11 +25963,15 @@ sClamperlTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sClamperlTMHMLearnset,19
+	.size	 sClamperlTMHMLearnset,23
 	.type	 sHuntailTMHMLearnset,object
 sHuntailTMHMLearnset:
 	.byte	0x2
@@ -22065,11 +25992,17 @@ sHuntailTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sHuntailTMHMLearnset,22
+	.size	 sHuntailTMHMLearnset,28
 	.type	 sGorebyssTMHMLearnset,object
 sGorebyssTMHMLearnset:
 	.byte	0x2
@@ -22091,11 +26024,18 @@ sGorebyssTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sGorebyssTMHMLearnset,23
+	.size	 sGorebyssTMHMLearnset,30
 	.type	 sRelicanthTMHMLearnset,object
 sRelicanthTMHMLearnset:
 	.byte	0x2
@@ -22119,12 +26059,24 @@ sRelicanthTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sRelicanthTMHMLearnset,26
+	.size	 sRelicanthTMHMLearnset,38
 	.type	 sLuvdiscTMHMLearnset,object
 sLuvdiscTMHMLearnset:
 	.byte	0x2
@@ -22143,11 +26095,17 @@ sLuvdiscTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sLuvdiscTMHMLearnset,20
+	.size	 sLuvdiscTMHMLearnset,26
 	.type	 sBagonTMHMLearnset,object
 sBagonTMHMLearnset:
 	.byte	0x1
@@ -22169,11 +26127,15 @@ sBagonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sBagonTMHMLearnset,23
+	.size	 sBagonTMHMLearnset,27
 	.type	 sShelgonTMHMLearnset,object
 sShelgonTMHMLearnset:
 	.byte	0x1
@@ -22195,11 +26157,15 @@ sShelgonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sShelgonTMHMLearnset,23
+	.size	 sShelgonTMHMLearnset,27
 	.type	 sSalamenceTMHMLearnset,object
 sSalamenceTMHMLearnset:
 	.byte	0x1
@@ -22225,12 +26191,21 @@ sSalamenceTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sSalamenceTMHMLearnset,28
+	.size	 sSalamenceTMHMLearnset,37
 	.type	 sBeldumTMHMLearnset,object
 sBeldumTMHMLearnset:
 	.byte	0xff
@@ -22260,12 +26235,21 @@ sMetangTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMetangTMHMLearnset,28
+	.size	 sMetangTMHMLearnset,37
 	.type	 sMetagrossTMHMLearnset,object
 sMetagrossTMHMLearnset:
 	.byte	0x5
@@ -22290,13 +26274,24 @@ sMetagrossTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
+	.byte	0x3a
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMetagrossTMHMLearnset,28
+	.size	 sMetagrossTMHMLearnset,39
 	.type	 sRegirockTMHMLearnset,object
 sRegirockTMHMLearnset:
 	.byte	0x0
@@ -22320,11 +26315,27 @@ sRegirockTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x76
 	.byte	0xff
-	.size	 sRegirockTMHMLearnset,25
+	.size	 sRegirockTMHMLearnset,41
 	.type	 sRegiceTMHMLearnset,object
 sRegiceTMHMLearnset:
 	.byte	0x0
@@ -22349,11 +26360,25 @@ sRegiceTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x45
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
 	.byte	0xff
-	.size	 sRegiceTMHMLearnset,26
+	.size	 sRegiceTMHMLearnset,40
 	.type	 sRegisteelTMHMLearnset,object
 sRegisteelTMHMLearnset:
 	.byte	0x0
@@ -22378,11 +26403,25 @@ sRegisteelTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x43
+	.byte	0x44
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sRegisteelTMHMLearnset,26
+	.size	 sRegisteelTMHMLearnset,40
 	.type	 sLatiasTMHMLearnset,object
 sLatiasTMHMLearnset:
 	.byte	0x1
@@ -22399,6 +26438,7 @@ sLatiasTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x19
@@ -22415,14 +26455,29 @@ sLatiasTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x34
+	.byte	0x38
+	.byte	0x40
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x68
+	.byte	0x69
+	.byte	0x73
+	.byte	0x75
+	.byte	0x77
 	.byte	0xff
-	.size	 sLatiasTMHMLearnset,37
+	.size	 sLatiasTMHMLearnset,53
 	.type	 sLatiosTMHMLearnset,object
 sLatiosTMHMLearnset:
 	.byte	0x1
@@ -22439,6 +26494,7 @@ sLatiosTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x19
@@ -22455,14 +26511,29 @@ sLatiosTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x34
+	.byte	0x38
+	.byte	0x40
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x68
+	.byte	0x69
+	.byte	0x73
+	.byte	0x75
+	.byte	0x77
 	.byte	0xff
-	.size	 sLatiosTMHMLearnset,37
+	.size	 sLatiosTMHMLearnset,53
 	.type	 sKyogreTMHMLearnset,object
 sKyogreTMHMLearnset:
 	.byte	0x2
@@ -22489,13 +26560,21 @@ sKyogreTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sKyogreTMHMLearnset,30
+	.size	 sKyogreTMHMLearnset,38
 	.type	 sGroudonTMHMLearnset,object
 sGroudonTMHMLearnset:
 	.byte	0x1
@@ -22508,6 +26587,7 @@ sGroudonTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -22526,11 +26606,28 @@ sGroudonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sGroudonTMHMLearnset,32
+	.size	 sGroudonTMHMLearnset,50
 	.type	 sRayquazaTMHMLearnset,object
 sRayquazaTMHMLearnset:
 	.byte	0x1
@@ -22546,6 +26643,7 @@ sRayquazaTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -22563,14 +26661,32 @@ sRayquazaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x31
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x39
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x73
 	.byte	0xff
-	.size	 sRayquazaTMHMLearnset,37
+	.size	 sRayquazaTMHMLearnset,56
 	.type	 sJirachiTMHMLearnset,object
 sJirachiTMHMLearnset:
 	.byte	0x2
@@ -22598,9 +26714,29 @@ sJirachiTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x69
+	.byte	0x6d
+	.byte	0x76
 	.byte	0xff
-	.size	 sJirachiTMHMLearnset,27
+	.size	 sJirachiTMHMLearnset,47
 	.type	 sDeoxysTMHMLearnset,object
 sDeoxysTMHMLearnset:
 	.byte	0x0
@@ -22617,6 +26753,7 @@ sDeoxysTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -22634,12 +26771,31 @@ sDeoxysTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6d
+	.byte	0x76
 	.byte	0xff
-	.size	 sDeoxysTMHMLearnset,36
+	.size	 sDeoxysTMHMLearnset,56
 	.type	 sTurtwigTMHMLearnset,object
 sTurtwigTMHMLearnset:
 	.byte	0x5
@@ -22651,6 +26807,7 @@ sTurtwigTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1f
@@ -22659,12 +26816,18 @@ sTurtwigTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sTurtwigTMHMLearnset,22
+	.size	 sTurtwigTMHMLearnset,29
 	.type	 sGrotleTMHMLearnset,object
 sGrotleTMHMLearnset:
 	.byte	0x5
@@ -22676,6 +26839,7 @@ sGrotleTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1f
@@ -22684,12 +26848,18 @@ sGrotleTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGrotleTMHMLearnset,22
+	.size	 sGrotleTMHMLearnset,29
 	.type	 sTorterraTMHMLearnset,object
 sTorterraTMHMLearnset:
 	.byte	0x4
@@ -22703,6 +26873,7 @@ sTorterraTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -22714,12 +26885,23 @@ sTorterraTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sTorterraTMHMLearnset,27
+	.size	 sTorterraTMHMLearnset,39
 	.type	 sChimcharTMHMLearnset,object
 sChimcharTMHMLearnset:
 	.byte	0x0
@@ -22744,11 +26926,24 @@ sChimcharTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x6d
+	.byte	0x70
+	.byte	0x74
 	.byte	0xff
-	.size	 sChimcharTMHMLearnset,26
+	.size	 sChimcharTMHMLearnset,39
 	.type	 sMonfernoTMHMLearnset,object
 sMonfernoTMHMLearnset:
 	.byte	0x0
@@ -22774,11 +26969,26 @@ sMonfernoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x6d
+	.byte	0x74
 	.byte	0xff
-	.size	 sMonfernoTMHMLearnset,27
+	.size	 sMonfernoTMHMLearnset,42
 	.type	 sInfernapeTMHMLearnset,object
 sInfernapeTMHMLearnset:
 	.byte	0x0
@@ -22792,6 +27002,7 @@ sInfernapeTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -22808,11 +27019,29 @@ sInfernapeTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x6d
+	.byte	0x74
 	.byte	0xff
-	.size	 sInfernapeTMHMLearnset,31
+	.size	 sInfernapeTMHMLearnset,50
 	.type	 sPiplupTMHMLearnset,object
 sPiplupTMHMLearnset:
 	.byte	0x2
@@ -22834,12 +27063,19 @@ sPiplupTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sPiplupTMHMLearnset,24
+	.size	 sPiplupTMHMLearnset,31
 	.type	 sPrinplupTMHMLearnset,object
 sPrinplupTMHMLearnset:
 	.byte	0x2
@@ -22861,14 +27097,20 @@ sPrinplupTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x40
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sPrinplupTMHMLearnset,26
+	.size	 sPrinplupTMHMLearnset,32
 	.type	 sEmpoleonTMHMLearnset,object
 sEmpoleonTMHMLearnset:
 	.byte	0x2
@@ -22894,14 +27136,26 @@ sEmpoleonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6d
 	.byte	0xff
-	.size	 sEmpoleonTMHMLearnset,30
+	.size	 sEmpoleonTMHMLearnset,42
 	.type	 sStarlyTMHMLearnset,object
 sStarlyTMHMLearnset:
 	.byte	0x5
@@ -22919,9 +27173,15 @@ sStarlyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sStarlyTMHMLearnset,17
+	.size	 sStarlyTMHMLearnset,23
 	.type	 sStaraviaTMHMLearnset,object
 sStaraviaTMHMLearnset:
 	.byte	0x5
@@ -22939,9 +27199,15 @@ sStaraviaTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sStaraviaTMHMLearnset,17
+	.size	 sStaraviaTMHMLearnset,23
 	.type	 sStaraptorTMHMLearnset,object
 sStaraptorTMHMLearnset:
 	.byte	0x5
@@ -22960,9 +27226,16 @@ sStaraptorTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sStaraptorTMHMLearnset,18
+	.size	 sStaraptorTMHMLearnset,25
 	.type	 sBidoofTMHMLearnset,object
 sBidoofTMHMLearnset:
 	.byte	0x5
@@ -22987,10 +27260,17 @@ sBidoofTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBidoofTMHMLearnset,25
+	.size	 sBidoofTMHMLearnset,32
 	.type	 sBibarelTMHMLearnset,object
 sBibarelTMHMLearnset:
 	.byte	0x0
@@ -23018,14 +27298,24 @@ sBibarelTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBibarelTMHMLearnset,32
+	.size	 sBibarelTMHMLearnset,42
 	.type	 sKricketotTMHMLearnset,object
 sKricketotTMHMLearnset:
 	.byte	0xff
@@ -23048,12 +27338,19 @@ sKricketuneTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sKricketuneTMHMLearnset,21
+	.size	 sKricketuneTMHMLearnset,28
 	.type	 sShinxTMHMLearnset,object
 sShinxTMHMLearnset:
 	.byte	0x4
@@ -23074,10 +27371,18 @@ sShinxTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sShinxTMHMLearnset,21
+	.size	 sShinxTMHMLearnset,29
 	.type	 sLuxioTMHMLearnset,object
 sLuxioTMHMLearnset:
 	.byte	0x4
@@ -23098,10 +27403,18 @@ sLuxioTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sLuxioTMHMLearnset,21
+	.size	 sLuxioTMHMLearnset,29
 	.type	 sLuxrayTMHMLearnset,object
 sLuxrayTMHMLearnset:
 	.byte	0x4
@@ -23123,10 +27436,19 @@ sLuxrayTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sLuxrayTMHMLearnset,22
+	.size	 sLuxrayTMHMLearnset,31
 	.type	 sBudewTMHMLearnset,object
 sBudewTMHMLearnset:
 	.byte	0x5
@@ -23137,6 +27459,7 @@ sBudewTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1f
@@ -23145,10 +27468,18 @@ sBudewTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sBudewTMHMLearnset,19
+	.size	 sBudewTMHMLearnset,28
 	.type	 sRoseradeTMHMLearnset,object
 sRoseradeTMHMLearnset:
 	.byte	0x5
@@ -23160,6 +27491,7 @@ sRoseradeTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1f
@@ -23168,10 +27500,20 @@ sRoseradeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sRoseradeTMHMLearnset,20
+	.size	 sRoseradeTMHMLearnset,31
 	.type	 sCranidosTMHMLearnset,object
 sCranidosTMHMLearnset:
 	.byte	0x4
@@ -23200,10 +27542,21 @@ sCranidosTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x41
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCranidosTMHMLearnset,29
+	.size	 sCranidosTMHMLearnset,40
 	.type	 sRampardosTMHMLearnset,object
 sRampardosTMHMLearnset:
 	.byte	0x0
@@ -23235,12 +27588,25 @@ sRampardosTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sRampardosTMHMLearnset,34
+	.size	 sRampardosTMHMLearnset,47
 	.type	 sShieldonTMHMLearnset,object
 sShieldonTMHMLearnset:
 	.byte	0x4
@@ -23270,10 +27636,19 @@ sShieldonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sShieldonTMHMLearnset,30
+	.size	 sShieldonTMHMLearnset,39
 	.type	 sBastiodonTMHMLearnset,object
 sBastiodonTMHMLearnset:
 	.byte	0x4
@@ -23304,10 +27679,20 @@ sBastiodonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBastiodonTMHMLearnset,31
+	.size	 sBastiodonTMHMLearnset,41
 	.type	 sBurmyTMHMLearnset,object
 sBurmyTMHMLearnset:
 	.byte	0x9
@@ -23326,6 +27711,7 @@ sWormadamTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -23336,9 +27722,19 @@ sWormadamTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sWormadamTMHMLearnset,22
+	.size	 sWormadamTMHMLearnset,33
 	.type	 sMothimTMHMLearnset,object
 sMothimTMHMLearnset:
 	.byte	0x5
@@ -23350,6 +27746,7 @@ sMothimTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -23361,13 +27758,25 @@ sMothimTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sMothimTMHMLearnset,22
+	.size	 sMothimTMHMLearnset,34
 	.type	 sCombeeTMHMLearnset,object
 sCombeeTMHMLearnset:
+	.byte	0x72
 	.byte	0xff
-	.size	 sCombeeTMHMLearnset,1
+	.size	 sCombeeTMHMLearnset,2
 	.type	 sVespiquenTMHMLearnset,object
 sVespiquenTMHMLearnset:
 	.byte	0x5
@@ -23386,10 +27795,21 @@ sVespiquenTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x50
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x72
 	.byte	0xff
-	.size	 sVespiquenTMHMLearnset,19
+	.size	 sVespiquenTMHMLearnset,30
 	.type	 sPachirisuTMHMLearnset,object
 sPachirisuTMHMLearnset:
 	.byte	0x5
@@ -23409,10 +27829,19 @@ sPachirisuTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sPachirisuTMHMLearnset,20
+	.size	 sPachirisuTMHMLearnset,29
 	.type	 sBuizelTMHMLearnset,object
 sBuizelTMHMLearnset:
 	.byte	0x0
@@ -23436,13 +27865,15 @@ sBuizelTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sBuizelTMHMLearnset,27
+	.size	 sBuizelTMHMLearnset,29
 	.type	 sFloatzelTMHMLearnset,object
 sFloatzelTMHMLearnset:
 	.byte	0x0
@@ -23470,13 +27901,19 @@ sFloatzelTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x41
+	.byte	0x43
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sFloatzelTMHMLearnset,31
+	.size	 sFloatzelTMHMLearnset,37
 	.type	 sCherubiTMHMLearnset,object
 sCherubiTMHMLearnset:
 	.byte	0x5
@@ -23487,15 +27924,25 @@ sCherubiTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6f
 	.byte	0xff
-	.size	 sCherubiTMHMLearnset,16
+	.size	 sCherubiTMHMLearnset,26
 	.type	 sCherrimTMHMLearnset,object
 sCherrimTMHMLearnset:
 	.byte	0x5
@@ -23507,15 +27954,27 @@ sCherrimTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6f
 	.byte	0xff
-	.size	 sCherrimTMHMLearnset,17
+	.size	 sCherrimTMHMLearnset,29
 	.type	 sShellosTMHMLearnset,object
 sShellosTMHMLearnset:
 	.byte	0x2
@@ -23533,10 +27992,16 @@ sShellosTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sShellosTMHMLearnset,18
+	.size	 sShellosTMHMLearnset,24
 	.type	 sGastrodonTMHMLearnset,object
 sGastrodonTMHMLearnset:
 	.byte	0x2
@@ -23560,14 +28025,22 @@ sGastrodonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
 	.byte	0xff
-	.size	 sGastrodonTMHMLearnset,28
+	.size	 sGastrodonTMHMLearnset,36
 	.type	 sAmbipomTMHMLearnset,object
 sAmbipomTMHMLearnset:
 	.byte	0x0
@@ -23580,6 +28053,7 @@ sAmbipomTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -23596,11 +28070,24 @@ sAmbipomTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sAmbipomTMHMLearnset,30
+	.size	 sAmbipomTMHMLearnset,44
 	.type	 sDrifloonTMHMLearnset,object
 sDrifloonTMHMLearnset:
 	.byte	0x3
@@ -23623,11 +28110,23 @@ sDrifloonTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x41
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sDrifloonTMHMLearnset,24
+	.size	 sDrifloonTMHMLearnset,36
 	.type	 sDrifblimTMHMLearnset,object
 sDrifblimTMHMLearnset:
 	.byte	0x3
@@ -23651,12 +28150,25 @@ sDrifblimTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcc
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sDrifblimTMHMLearnset,26
+	.size	 sDrifblimTMHMLearnset,39
 	.type	 sBunearyTMHMLearnset,object
 sBunearyTMHMLearnset:
 	.byte	0x0
@@ -23668,6 +28180,7 @@ sBunearyTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x1a
@@ -23679,10 +28192,20 @@ sBunearyTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x37
+	.byte	0x38
+	.byte	0x41
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x67
+	.byte	0x76
 	.byte	0xff
-	.size	 sBunearyTMHMLearnset,23
+	.size	 sBunearyTMHMLearnset,34
 	.type	 sLopunnyTMHMLearnset,object
 sLopunnyTMHMLearnset:
 	.byte	0x0
@@ -23696,6 +28219,7 @@ sLopunnyTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -23708,11 +28232,26 @@ sLopunnyTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x67
+	.byte	0x69
+	.byte	0x76
 	.byte	0xff
-	.size	 sLopunnyTMHMLearnset,27
+	.size	 sLopunnyTMHMLearnset,43
 	.type	 sMismagiusTMHMLearnset,object
 sMismagiusTMHMLearnset:
 	.byte	0x3
@@ -23740,9 +28279,27 @@ sMismagiusTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x70
+	.byte	0x77
 	.byte	0xff
-	.size	 sMismagiusTMHMLearnset,27
+	.size	 sMismagiusTMHMLearnset,45
 	.type	 sHonchkrowTMHMLearnset,object
 sHonchkrowTMHMLearnset:
 	.byte	0x3
@@ -23767,9 +28324,24 @@ sHonchkrowTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x30
-	.byte	0xc9
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sHonchkrowTMHMLearnset,24
+	.size	 sHonchkrowTMHMLearnset,39
 	.type	 sGlameowTMHMLearnset,object
 sGlameowTMHMLearnset:
 	.byte	0x2
@@ -23796,10 +28368,18 @@ sGlameowTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x40
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sGlameowTMHMLearnset,27
+	.size	 sGlameowTMHMLearnset,35
 	.type	 sPuruglyTMHMLearnset,object
 sPuruglyTMHMLearnset:
 	.byte	0x2
@@ -23828,10 +28408,19 @@ sPuruglyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sPuruglyTMHMLearnset,29
+	.size	 sPuruglyTMHMLearnset,38
 	.type	 sChinglingTMHMLearnset,object
 sChinglingTMHMLearnset:
 	.byte	0x3
@@ -23857,9 +28446,20 @@ sChinglingTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sChinglingTMHMLearnset,25
+	.size	 sChinglingTMHMLearnset,36
 	.type	 sStunkyTMHMLearnset,object
 sStunkyTMHMLearnset:
 	.byte	0x4
@@ -23886,10 +28486,18 @@ sStunkyTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x41
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x70
 	.byte	0xff
-	.size	 sStunkyTMHMLearnset,27
+	.size	 sStunkyTMHMLearnset,35
 	.type	 sSkuntankTMHMLearnset,object
 sSkuntankTMHMLearnset:
 	.byte	0x4
@@ -23917,11 +28525,20 @@ sSkuntankTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x70
 	.byte	0xff
-	.size	 sSkuntankTMHMLearnset,29
+	.size	 sSkuntankTMHMLearnset,38
 	.type	 sBronzorTMHMLearnset,object
 sBronzorTMHMLearnset:
 	.byte	0x3
@@ -23933,6 +28550,7 @@ sBronzorTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1c
@@ -23945,9 +28563,25 @@ sBronzorTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x41
+	.byte	0x44
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBronzorTMHMLearnset,23
+	.size	 sBronzorTMHMLearnset,40
 	.type	 sBronzongTMHMLearnset,object
 sBronzongTMHMLearnset:
 	.byte	0x3
@@ -23960,6 +28594,7 @@ sBronzongTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1c
@@ -23972,12 +28607,27 @@ sBronzongTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBronzongTMHMLearnset,27
+	.size	 sBronzongTMHMLearnset,43
 	.type	 sBonslyTMHMLearnset,object
 sBonslyTMHMLearnset:
 	.byte	0x3
@@ -23998,8 +28648,18 @@ sBonslyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x3f
+	.byte	0x44
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBonslyTMHMLearnset,19
+	.size	 sBonslyTMHMLearnset,29
 	.type	 sMimeJrTMHMLearnset,object
 sMimeJrTMHMLearnset:
 	.byte	0x0
@@ -24013,6 +28673,7 @@ sMimeJrTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -24030,9 +28691,24 @@ sMimeJrTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sMimeJrTMHMLearnset,30
+	.size	 sMimeJrTMHMLearnset,46
 	.type	 sHappinyTMHMLearnset,object
 sHappinyTMHMLearnset:
 	.byte	0x2
@@ -24045,6 +28721,7 @@ sHappinyTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -24056,9 +28733,18 @@ sHappinyTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sHappinyTMHMLearnset,23
+	.size	 sHappinyTMHMLearnset,33
 	.type	 sChatotTMHMLearnset,object
 sChatotTMHMLearnset:
 	.byte	0x5
@@ -24078,9 +28764,15 @@ sChatotTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sChatotTMHMLearnset,19
+	.size	 sChatotTMHMLearnset,25
 	.type	 sSpiritombTMHMLearnset,object
 sSpiritombTMHMLearnset:
 	.byte	0x2
@@ -24106,9 +28798,23 @@ sSpiritombTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x3b
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sSpiritombTMHMLearnset,25
+	.size	 sSpiritombTMHMLearnset,39
 	.type	 sGibleTMHMLearnset,object
 sGibleTMHMLearnset:
 	.byte	0x1
@@ -24133,11 +28839,18 @@ sGibleTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGibleTMHMLearnset,26
+	.size	 sGibleTMHMLearnset,33
 	.type	 sGabiteTMHMLearnset,object
 sGabiteTMHMLearnset:
 	.byte	0x1
@@ -24162,11 +28875,18 @@ sGabiteTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGabiteTMHMLearnset,26
+	.size	 sGabiteTMHMLearnset,33
 	.type	 sGarchompTMHMLearnset,object
 sGarchompTMHMLearnset:
 	.byte	0x1
@@ -24193,12 +28913,26 @@ sGarchompTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGarchompTMHMLearnset,29
+	.size	 sGarchompTMHMLearnset,43
 	.type	 sMunchlaxTMHMLearnset,object
 sMunchlaxTMHMLearnset:
 	.byte	0x0
@@ -24211,6 +28945,7 @@ sMunchlaxTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x19
@@ -24229,11 +28964,17 @@ sMunchlaxTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sMunchlaxTMHMLearnset,32
+	.size	 sMunchlaxTMHMLearnset,39
 	.type	 sRioluTMHMLearnset,object
 sRioluTMHMLearnset:
 	.byte	0x0
@@ -24256,10 +28997,24 @@ sRioluTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x70
+	.byte	0x74
+	.byte	0x76
 	.byte	0xff
-	.size	 sRioluTMHMLearnset,23
+	.size	 sRioluTMHMLearnset,37
 	.type	 sLucarioTMHMLearnset,object
 sLucarioTMHMLearnset:
 	.byte	0x0
@@ -24287,10 +29042,29 @@ sLucarioTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x60
+	.byte	0x63
+	.byte	0x69
+	.byte	0x70
+	.byte	0x74
+	.byte	0x76
 	.byte	0xff
-	.size	 sLucarioTMHMLearnset,28
+	.size	 sLucarioTMHMLearnset,47
 	.type	 sHippopotasTMHMLearnset,object
 sHippopotasTMHMLearnset:
 	.byte	0x2
@@ -24311,10 +29085,16 @@ sHippopotasTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sHippopotasTMHMLearnset,21
+	.size	 sHippopotasTMHMLearnset,27
 	.type	 sHippowdonTMHMLearnset,object
 sHippowdonTMHMLearnset:
 	.byte	0x2
@@ -24336,10 +29116,18 @@ sHippowdonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sHippowdonTMHMLearnset,22
+	.size	 sHippowdonTMHMLearnset,30
 	.type	 sSkorupiTMHMLearnset,object
 sSkorupiTMHMLearnset:
 	.byte	0x5
@@ -24364,12 +29152,21 @@ sSkorupiTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sSkorupiTMHMLearnset,27
+	.size	 sSkorupiTMHMLearnset,36
 	.type	 sDrapionTMHMLearnset,object
 sDrapionTMHMLearnset:
 	.byte	0x4
@@ -24397,12 +29194,27 @@ sDrapionTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sDrapionTMHMLearnset,30
+	.size	 sDrapionTMHMLearnset,45
 	.type	 sCroagunkTMHMLearnset,object
 sCroagunkTMHMLearnset:
 	.byte	0x0
@@ -24429,10 +29241,26 @@ sCroagunkTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sCroagunkTMHMLearnset,27
+	.size	 sCroagunkTMHMLearnset,43
 	.type	 sToxicroakTMHMLearnset,object
 sToxicroakTMHMLearnset:
 	.byte	0x0
@@ -24460,11 +29288,29 @@ sToxicroakTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sToxicroakTMHMLearnset,29
+	.size	 sToxicroakTMHMLearnset,47
 	.type	 sCarnivineTMHMLearnset,object
 sCarnivineTMHMLearnset:
 	.byte	0x5
@@ -24475,6 +29321,7 @@ sCarnivineTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
@@ -24483,10 +29330,20 @@ sCarnivineTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x52
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sCarnivineTMHMLearnset,19
+	.size	 sCarnivineTMHMLearnset,30
 	.type	 sFinneonTMHMLearnset,object
 sFinneonTMHMLearnset:
 	.byte	0x2
@@ -24505,12 +29362,19 @@ sFinneonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sFinneonTMHMLearnset,21
+	.size	 sFinneonTMHMLearnset,28
 	.type	 sLumineonTMHMLearnset,object
 sLumineonTMHMLearnset:
 	.byte	0x2
@@ -24530,12 +29394,19 @@ sLumineonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sLumineonTMHMLearnset,22
+	.size	 sLumineonTMHMLearnset,29
 	.type	 sMantykeTMHMLearnset,object
 sMantykeTMHMLearnset:
 	.byte	0x2
@@ -24555,11 +29426,18 @@ sMantykeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3d
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sMantykeTMHMLearnset,21
+	.size	 sMantykeTMHMLearnset,28
 	.type	 sSnoverTMHMLearnset,object
 sSnoverTMHMLearnset:
 	.byte	0x2
@@ -24575,6 +29453,7 @@ sSnoverTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1d
@@ -24583,9 +29462,16 @@ sSnoverTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x4e
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sSnoverTMHMLearnset,23
+	.size	 sSnoverTMHMLearnset,31
 	.type	 sAbomasnowTMHMLearnset,object
 sAbomasnowTMHMLearnset:
 	.byte	0x0
@@ -24603,6 +29489,7 @@ sAbomasnowTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -24614,11 +29501,23 @@ sAbomasnowTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x43
+	.byte	0x45
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sAbomasnowTMHMLearnset,30
+	.size	 sAbomasnowTMHMLearnset,43
 	.type	 sWeavileTMHMLearnset,object
 sWeavileTMHMLearnset:
 	.byte	0x0
@@ -24649,12 +29548,29 @@ sWeavileTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x50
+	.byte	0x53
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sWeavileTMHMLearnset,33
+	.size	 sWeavileTMHMLearnset,50
 	.type	 sMagnezoneTMHMLearnset,object
 sMagnezoneTMHMLearnset:
 	.byte	0x5
@@ -24674,10 +29590,22 @@ sMagnezoneTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x75
 	.byte	0xff
-	.size	 sMagnezoneTMHMLearnset,20
+	.size	 sMagnezoneTMHMLearnset,32
 	.type	 sLickilickyTMHMLearnset,object
 sLickilickyTMHMLearnset:
 	.byte	0x0
@@ -24691,6 +29619,7 @@ sLickilickyTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -24710,13 +29639,25 @@ sLickilickyTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sLickilickyTMHMLearnset,36
+	.size	 sLickilickyTMHMLearnset,49
 	.type	 sRhyperiorTMHMLearnset,object
 sRhyperiorTMHMLearnset:
 	.byte	0x0
@@ -24748,12 +29689,31 @@ sRhyperiorTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sRhyperiorTMHMLearnset,34
+	.size	 sRhyperiorTMHMLearnset,53
 	.type	 sTangrowthTMHMLearnset,object
 sTangrowthTMHMLearnset:
 	.byte	0x5
@@ -24764,6 +29724,7 @@ sTangrowthTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1e
@@ -24778,12 +29739,26 @@ sTangrowthTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sTangrowthTMHMLearnset,27
+	.size	 sTangrowthTMHMLearnset,42
 	.type	 sElectivireTMHMLearnset,object
 sElectivireTMHMLearnset:
 	.byte	0x0
@@ -24813,11 +29788,22 @@ sElectivireTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sElectivireTMHMLearnset,31
+	.size	 sElectivireTMHMLearnset,42
 	.type	 sMagmortarTMHMLearnset,object
 sMagmortarTMHMLearnset:
 	.byte	0x0
@@ -24828,6 +29814,7 @@ sMagmortarTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x19
@@ -24845,10 +29832,20 @@ sMagmortarTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x77
 	.byte	0xff
-	.size	 sMagmortarTMHMLearnset,28
+	.size	 sMagmortarTMHMLearnset,39
 	.type	 sTogekissTMHMLearnset,object
 sTogekissTMHMLearnset:
 	.byte	0x0
@@ -24862,6 +29859,7 @@ sTogekissTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -24877,11 +29875,28 @@ sTogekissTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x42
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x69
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
+	.byte	0x77
 	.byte	0xff
-	.size	 sTogekissTMHMLearnset,30
+	.size	 sTogekissTMHMLearnset,48
 	.type	 sYanmegaTMHMLearnset,object
 sYanmegaTMHMLearnset:
 	.byte	0x5
@@ -24891,6 +29906,7 @@ sYanmegaTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -24902,9 +29918,18 @@ sYanmegaTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sYanmegaTMHMLearnset,20
+	.size	 sYanmegaTMHMLearnset,30
 	.type	 sLeafeonTMHMLearnset,object
 sLeafeonTMHMLearnset:
 	.byte	0x4
@@ -24917,6 +29942,7 @@ sLeafeonTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -24927,11 +29953,18 @@ sLeafeonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sLeafeonTMHMLearnset,24
+	.size	 sLeafeonTMHMLearnset,32
 	.type	 sGlaceonTMHMLearnset,object
 sGlaceonTMHMLearnset:
 	.byte	0x2
@@ -24955,10 +29988,15 @@ sGlaceonTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x45
+	.byte	0x4e
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sGlaceonTMHMLearnset,24
+	.size	 sGlaceonTMHMLearnset,29
 	.type	 sGliscorTMHMLearnset,object
 sGliscorTMHMLearnset:
 	.byte	0x5
@@ -24986,11 +30024,29 @@ sGliscorTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGliscorTMHMLearnset,29
+	.size	 sGliscorTMHMLearnset,47
 	.type	 sMamoswineTMHMLearnset,object
 sMamoswineTMHMLearnset:
 	.byte	0x4
@@ -25015,10 +30071,18 @@ sMamoswineTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMamoswineTMHMLearnset,25
+	.size	 sMamoswineTMHMLearnset,33
 	.type	 sPorygonZTMHMLearnset,object
 sPorygonZTMHMLearnset:
 	.byte	0x5
@@ -25030,6 +30094,7 @@ sPorygonZTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -25043,9 +30108,23 @@ sPorygonZTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x3e
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
+	.byte	0x75
 	.byte	0xff
-	.size	 sPorygonZTMHMLearnset,24
+	.size	 sPorygonZTMHMLearnset,39
 	.type	 sGalladeTMHMLearnset,object
 sGalladeTMHMLearnset:
 	.byte	0x0
@@ -25080,12 +30159,35 @@ sGalladeTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x69
+	.byte	0x76
 	.byte	0xff
-	.size	 sGalladeTMHMLearnset,37
+	.size	 sGalladeTMHMLearnset,60
 	.type	 sProbopassTMHMLearnset,object
 sProbopassTMHMLearnset:
 	.byte	0x5
@@ -25109,10 +30211,25 @@ sProbopassTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x75
 	.byte	0xff
-	.size	 sProbopassTMHMLearnset,24
+	.size	 sProbopassTMHMLearnset,39
 	.type	 sDusknoirTMHMLearnset,object
 sDusknoirTMHMLearnset:
 	.byte	0x0
@@ -25142,11 +30259,26 @@ sDusknoirTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sDusknoirTMHMLearnset,31
+	.size	 sDusknoirTMHMLearnset,46
 	.type	 sFroslassTMHMLearnset,object
 sFroslassTMHMLearnset:
 	.byte	0x2
@@ -25176,9 +30308,22 @@ sFroslassTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x45
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4e
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sFroslassTMHMLearnset,29
+	.size	 sFroslassTMHMLearnset,42
 	.type	 sRotomTMHMLearnset,object
 sRotomTMHMLearnset:
 	.byte	0x5
@@ -25200,9 +30345,20 @@ sRotomTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sRotomTMHMLearnset,21
+	.size	 sRotomTMHMLearnset,32
 	.type	 sUxieTMHMLearnset,object
 sUxieTMHMLearnset:
 	.byte	0x2
@@ -25217,6 +30373,7 @@ sUxieTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -25231,9 +30388,30 @@ sUxieTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x6d
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sUxieTMHMLearnset,28
+	.size	 sUxieTMHMLearnset,50
 	.type	 sMespritTMHMLearnset,object
 sMespritTMHMLearnset:
 	.byte	0x2
@@ -25263,9 +30441,30 @@ sMespritTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x6d
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sMespritTMHMLearnset,29
+	.size	 sMespritTMHMLearnset,50
 	.type	 sAzelfTMHMLearnset,object
 sAzelfTMHMLearnset:
 	.byte	0x2
@@ -25297,10 +30496,32 @@ sAzelfTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3d
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x6d
+	.byte	0x70
+	.byte	0x75
+	.byte	0x76
 	.byte	0xff
-	.size	 sAzelfTMHMLearnset,32
+	.size	 sAzelfTMHMLearnset,54
 	.type	 sDialgaTMHMLearnset,object
 sDialgaTMHMLearnset:
 	.byte	0x1
@@ -25333,12 +30554,26 @@ sDialgaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x69
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sDialgaTMHMLearnset,35
+	.size	 sDialgaTMHMLearnset,49
 	.type	 sPalkiaTMHMLearnset,object
 sPalkiaTMHMLearnset:
 	.byte	0x0
@@ -25372,13 +30607,28 @@ sPalkiaTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x37
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x69
+	.byte	0x6a
+	.byte	0x6b
 	.byte	0xff
-	.size	 sPalkiaTMHMLearnset,37
+	.size	 sPalkiaTMHMLearnset,52
 	.type	 sHeatranTMHMLearnset,object
 sHeatranTMHMLearnset:
 	.byte	0x4
@@ -25389,6 +30639,7 @@ sHeatranTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -25402,11 +30653,25 @@ sHeatranTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x3c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sHeatranTMHMLearnset,25
+	.size	 sHeatranTMHMLearnset,40
 	.type	 sRegigigasTMHMLearnset,object
 sRegigigasTMHMLearnset:
 	.byte	0x0
@@ -25430,10 +30695,26 @@ sRegigigasTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6e
+	.byte	0x76
 	.byte	0xff
-	.size	 sRegigigasTMHMLearnset,24
+	.size	 sRegigigasTMHMLearnset,40
 	.type	 sGiratinaTMHMLearnset,object
 sGiratinaTMHMLearnset:
 	.byte	0x1
@@ -25461,12 +30742,29 @@ sGiratinaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x51
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x69
+	.byte	0x6b
 	.byte	0xff
-	.size	 sGiratinaTMHMLearnset,30
+	.size	 sGiratinaTMHMLearnset,47
 	.type	 sCresseliaTMHMLearnset,object
 sCresseliaTMHMLearnset:
 	.byte	0x3
@@ -25480,6 +30778,7 @@ sCresseliaTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -25490,9 +30789,21 @@ sCresseliaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sCresseliaTMHMLearnset,23
+	.size	 sCresseliaTMHMLearnset,36
 	.type	 sPhioneTMHMLearnset,object
 sPhioneTMHMLearnset:
 	.byte	0x2
@@ -25510,11 +30821,21 @@ sPhioneTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sPhioneTMHMLearnset,19
+	.size	 sPhioneTMHMLearnset,29
 	.type	 sManaphyTMHMLearnset,object
 sManaphyTMHMLearnset:
 	.byte	0x2
@@ -25539,12 +30860,23 @@ sManaphyTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2f
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x34
+	.byte	0x36
+	.byte	0x37
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sManaphyTMHMLearnset,27
+	.size	 sManaphyTMHMLearnset,38
 	.type	 sDarkraiTMHMLearnset,object
 sDarkraiTMHMLearnset:
 	.byte	0x0
@@ -25576,12 +30908,31 @@ sDarkraiTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sDarkraiTMHMLearnset,34
+	.size	 sDarkraiTMHMLearnset,53
 	.type	 sShayminTMHMLearnset,object
 sShayminTMHMLearnset:
 	.byte	0x5
@@ -25593,15 +30944,27 @@ sShayminTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6b
 	.byte	0xff
-	.size	 sShayminTMHMLearnset,17
+	.size	 sShayminTMHMLearnset,29
 	.type	 sArceusTMHMLearnset,object
 sArceusTMHMLearnset:
 	.byte	0x1
@@ -25622,6 +30985,7 @@ sArceusTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -25643,16 +31007,41 @@ sArceusTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x34
+	.byte	0x38
+	.byte	0x3b
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x68
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sArceusTMHMLearnset,48
+	.size	 sArceusTMHMLearnset,74
 	.type	 sVictiniTMHMLearnset,object
 sVictiniTMHMLearnset:
 	.byte	0x5
@@ -25664,6 +31053,7 @@ sVictiniTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -25679,10 +31069,29 @@ sVictiniTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2f
 	.byte	0x31
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5c
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x74
+	.byte	0x77
 	.byte	0xff
-	.size	 sVictiniTMHMLearnset,27
+	.size	 sVictiniTMHMLearnset,47
 	.type	 sSnivyTMHMLearnset,object
 sSnivyTMHMLearnset:
 	.byte	0x3
@@ -25695,6 +31104,7 @@ sSnivyTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1f
@@ -25706,10 +31116,16 @@ sSnivyTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sSnivyTMHMLearnset,24
+	.size	 sSnivyTMHMLearnset,31
 	.type	 sServineTMHMLearnset,object
 sServineTMHMLearnset:
 	.byte	0x3
@@ -25722,6 +31138,7 @@ sServineTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1f
@@ -25733,10 +31150,16 @@ sServineTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sServineTMHMLearnset,24
+	.size	 sServineTMHMLearnset,31
 	.type	 sSerperiorTMHMLearnset,object
 sSerperiorTMHMLearnset:
 	.byte	0x3
@@ -25750,6 +31173,7 @@ sSerperiorTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1f
@@ -25761,12 +31185,19 @@ sSerperiorTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x51
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sSerperiorTMHMLearnset,27
+	.size	 sSerperiorTMHMLearnset,35
 	.type	 sTepigTMHMLearnset,object
 sTepigTMHMLearnset:
 	.byte	0x4
@@ -25776,6 +31207,7 @@ sTepigTMHMLearnset:
 	.byte	0xb
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1f
@@ -25787,10 +31219,17 @@ sTepigTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x49
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6e
 	.byte	0xff
-	.size	 sTepigTMHMLearnset,21
+	.size	 sTepigTMHMLearnset,29
 	.type	 sPigniteTMHMLearnset,object
 sPigniteTMHMLearnset:
 	.byte	0x0
@@ -25801,6 +31240,7 @@ sPigniteTMHMLearnset:
 	.byte	0xb
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1e
@@ -25813,10 +31253,24 @@ sPigniteTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6e
 	.byte	0xff
-	.size	 sPigniteTMHMLearnset,23
+	.size	 sPigniteTMHMLearnset,38
 	.type	 sEmboarTMHMLearnset,object
 sEmboarTMHMLearnset:
 	.byte	0x0
@@ -25829,6 +31283,7 @@ sEmboarTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -25842,10 +31297,26 @@ sEmboarTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6e
 	.byte	0xff
-	.size	 sEmboarTMHMLearnset,26
+	.size	 sEmboarTMHMLearnset,43
 	.type	 sOshawottTMHMLearnset,object
 sOshawottTMHMLearnset:
 	.byte	0x2
@@ -25867,13 +31338,20 @@ sOshawottTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sOshawottTMHMLearnset,25
+	.size	 sOshawottTMHMLearnset,32
 	.type	 sDewottTMHMLearnset,object
 sDewottTMHMLearnset:
 	.byte	0x2
@@ -25895,13 +31373,20 @@ sDewottTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sDewottTMHMLearnset,25
+	.size	 sDewottTMHMLearnset,32
 	.type	 sSamurottTMHMLearnset,object
 sSamurottTMHMLearnset:
 	.byte	0x2
@@ -25924,17 +31409,28 @@ sSamurottTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x51
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sSamurottTMHMLearnset,27
+	.size	 sSamurottTMHMLearnset,37
 	.type	 sPatratTMHMLearnset,object
 sPatratTMHMLearnset:
 	.byte	0x5
+	.byte	0x8
 	.byte	0x9
 	.byte	0xa
 	.byte	0x10
@@ -25951,13 +31447,22 @@ sPatratTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
+	.byte	0x37
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sPatratTMHMLearnset,19
+	.size	 sPatratTMHMLearnset,28
 	.type	 sWatchogTMHMLearnset,object
 sWatchogTMHMLearnset:
 	.byte	0x0
 	.byte	0x5
+	.byte	0x8
 	.byte	0x9
 	.byte	0xa
 	.byte	0xe
@@ -25978,12 +31483,22 @@ sWatchogTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sWatchogTMHMLearnset,27
+	.size	 sWatchogTMHMLearnset,38
 	.type	 sLillipupTMHMLearnset,object
 sLillipupTMHMLearnset:
 	.byte	0x4
@@ -26005,9 +31520,18 @@ sLillipupTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sLillipupTMHMLearnset,21
+	.size	 sLillipupTMHMLearnset,30
 	.type	 sHerdierTMHMLearnset,object
 sHerdierTMHMLearnset:
 	.byte	0x4
@@ -26029,11 +31553,19 @@ sHerdierTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sHerdierTMHMLearnset,23
+	.size	 sHerdierTMHMLearnset,31
 	.type	 sStoutlandTMHMLearnset,object
 sStoutlandTMHMLearnset:
 	.byte	0x4
@@ -26057,11 +31589,19 @@ sStoutlandTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sStoutlandTMHMLearnset,25
+	.size	 sStoutlandTMHMLearnset,33
 	.type	 sPurrloinTMHMLearnset,object
 sPurrloinTMHMLearnset:
 	.byte	0x5
@@ -26083,9 +31623,25 @@ sPurrloinTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sPurrloinTMHMLearnset,21
+	.size	 sPurrloinTMHMLearnset,37
 	.type	 sLiepardTMHMLearnset,object
 sLiepardTMHMLearnset:
 	.byte	0x5
@@ -26108,20 +31664,38 @@ sLiepardTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sLiepardTMHMLearnset,23
+	.size	 sLiepardTMHMLearnset,39
 	.type	 sPansageTMHMLearnset,object
 sPansageTMHMLearnset:
 	.byte	0x0
 	.byte	0x5
+	.byte	0x8
 	.byte	0x9
 	.byte	0xa
 	.byte	0xb
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -26133,15 +31707,27 @@ sPansageTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sPansageTMHMLearnset,23
+	.size	 sPansageTMHMLearnset,36
 	.type	 sSimisageTMHMLearnset,object
 sSimisageTMHMLearnset:
 	.byte	0x0
 	.byte	0x5
+	.byte	0x8
 	.byte	0x9
 	.byte	0xa
 	.byte	0xb
@@ -26149,6 +31735,7 @@ sSimisageTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -26161,11 +31748,25 @@ sSimisageTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sSimisageTMHMLearnset,25
+	.size	 sSimisageTMHMLearnset,41
 	.type	 sPansearTMHMLearnset,object
 sPansearTMHMLearnset:
 	.byte	0x0
@@ -26175,6 +31776,7 @@ sPansearTMHMLearnset:
 	.byte	0xb
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -26189,10 +31791,21 @@ sPansearTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sPansearTMHMLearnset,24
+	.size	 sPansearTMHMLearnset,36
 	.type	 sSimisearTMHMLearnset,object
 sSimisearTMHMLearnset:
 	.byte	0x0
@@ -26203,6 +31816,7 @@ sSimisearTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -26218,10 +31832,24 @@ sSimisearTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sSimisearTMHMLearnset,26
+	.size	 sSimisearTMHMLearnset,41
 	.type	 sPanpourTMHMLearnset,object
 sPanpourTMHMLearnset:
 	.byte	0x0
@@ -26246,13 +31874,23 @@ sPanpourTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x32
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sPanpourTMHMLearnset,28
+	.size	 sPanpourTMHMLearnset,38
 	.type	 sSimipourTMHMLearnset,object
 sSimipourTMHMLearnset:
 	.byte	0x0
@@ -26279,13 +31917,26 @@ sSimipourTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x32
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sSimipourTMHMLearnset,30
+	.size	 sSimipourTMHMLearnset,43
 	.type	 sMunnaTMHMLearnset,object
 sMunnaTMHMLearnset:
 	.byte	0x3
@@ -26309,9 +31960,22 @@ sMunnaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sMunnaTMHMLearnset,23
+	.size	 sMunnaTMHMLearnset,36
 	.type	 sMusharnaTMHMLearnset,object
 sMusharnaTMHMLearnset:
 	.byte	0x3
@@ -26336,9 +32000,23 @@ sMusharnaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sMusharnaTMHMLearnset,24
+	.size	 sMusharnaTMHMLearnset,38
 	.type	 sPidoveTMHMLearnset,object
 sPidoveTMHMLearnset:
 	.byte	0x5
@@ -26356,9 +32034,14 @@ sPidoveTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sPidoveTMHMLearnset,17
+	.size	 sPidoveTMHMLearnset,22
 	.type	 sTranquillTMHMLearnset,object
 sTranquillTMHMLearnset:
 	.byte	0x5
@@ -26376,9 +32059,14 @@ sTranquillTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sTranquillTMHMLearnset,17
+	.size	 sTranquillTMHMLearnset,22
 	.type	 sUnfezantTMHMLearnset,object
 sUnfezantTMHMLearnset:
 	.byte	0x5
@@ -26397,9 +32085,17 @@ sUnfezantTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sUnfezantTMHMLearnset,18
+	.size	 sUnfezantTMHMLearnset,26
 	.type	 sBlitzleTMHMLearnset,object
 sBlitzleTMHMLearnset:
 	.byte	0x5
@@ -26418,9 +32114,16 @@ sBlitzleTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sBlitzleTMHMLearnset,18
+	.size	 sBlitzleTMHMLearnset,25
 	.type	 sZebstrikaTMHMLearnset,object
 sZebstrikaTMHMLearnset:
 	.byte	0x5
@@ -26441,10 +32144,17 @@ sZebstrikaTMHMLearnset:
 	.byte	0x2c
 	.byte	0x30
 	.byte	0x31
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sZebstrikaTMHMLearnset,21
+	.size	 sZebstrikaTMHMLearnset,28
 	.type	 sRoggenrolaTMHMLearnset,object
 sRoggenrolaTMHMLearnset:
 	.byte	0x5
@@ -26461,10 +32171,20 @@ sRoggenrolaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sRoggenrolaTMHMLearnset,17
+	.size	 sRoggenrolaTMHMLearnset,27
 	.type	 sBoldoreTMHMLearnset,object
 sBoldoreTMHMLearnset:
 	.byte	0x5
@@ -26481,10 +32201,21 @@ sBoldoreTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBoldoreTMHMLearnset,17
+	.size	 sBoldoreTMHMLearnset,28
 	.type	 sGigalithTMHMLearnset,object
 sGigalithTMHMLearnset:
 	.byte	0x5
@@ -26492,6 +32223,7 @@ sGigalithTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1f
@@ -26502,10 +32234,22 @@ sGigalithTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGigalithTMHMLearnset,18
+	.size	 sGigalithTMHMLearnset,31
 	.type	 sWoobatTMHMLearnset,object
 sWoobatTMHMLearnset:
 	.byte	0x3
@@ -26533,10 +32277,25 @@ sWoobatTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x2f
-	.byte	0xc9
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x3e
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sWoobatTMHMLearnset,28
+	.size	 sWoobatTMHMLearnset,43
 	.type	 sSwoobatTMHMLearnset,object
 sSwoobatTMHMLearnset:
 	.byte	0x3
@@ -26565,10 +32324,26 @@ sSwoobatTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x2f
-	.byte	0xc9
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x3e
+	.byte	0x43
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sSwoobatTMHMLearnset,29
+	.size	 sSwoobatTMHMLearnset,45
 	.type	 sDrilburTMHMLearnset,object
 sDrilburTMHMLearnset:
 	.byte	0x5
@@ -26588,11 +32363,21 @@ sDrilburTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sDrilburTMHMLearnset,21
+	.size	 sDrilburTMHMLearnset,31
 	.type	 sExcadrillTMHMLearnset,object
 sExcadrillTMHMLearnset:
 	.byte	0x5
@@ -26613,11 +32398,25 @@ sExcadrillTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sExcadrillTMHMLearnset,22
+	.size	 sExcadrillTMHMLearnset,36
 	.type	 sAudinoTMHMLearnset,object
 sAudinoTMHMLearnset:
 	.byte	0x0
@@ -26633,6 +32432,7 @@ sAudinoTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -26650,10 +32450,25 @@ sAudinoTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xca
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x76
 	.byte	0xff
-	.size	 sAudinoTMHMLearnset,33
+	.size	 sAudinoTMHMLearnset,49
 	.type	 sTimburrTMHMLearnset,object
 sTimburrTMHMLearnset:
 	.byte	0x0
@@ -26674,10 +32489,22 @@ sTimburrTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x46
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sTimburrTMHMLearnset,21
+	.size	 sTimburrTMHMLearnset,33
 	.type	 sGurdurrTMHMLearnset,object
 sGurdurrTMHMLearnset:
 	.byte	0x0
@@ -26698,10 +32525,22 @@ sGurdurrTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x46
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sGurdurrTMHMLearnset,21
+	.size	 sGurdurrTMHMLearnset,33
 	.type	 sConkeldurrTMHMLearnset,object
 sConkeldurrTMHMLearnset:
 	.byte	0x0
@@ -26724,10 +32563,24 @@ sConkeldurrTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sConkeldurrTMHMLearnset,23
+	.size	 sConkeldurrTMHMLearnset,37
 	.type	 sTympoleTMHMLearnset,object
 sTympoleTMHMLearnset:
 	.byte	0x2
@@ -26744,9 +32597,17 @@ sTympoleTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
+	.byte	0x36
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
 	.byte	0xff
-	.size	 sTympoleTMHMLearnset,16
+	.size	 sTympoleTMHMLearnset,24
 	.type	 sPalpitoadTMHMLearnset,object
 sPalpitoadTMHMLearnset:
 	.byte	0x0
@@ -26764,10 +32625,19 @@ sPalpitoadTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcd
+	.byte	0x36
+	.byte	0x4d
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sPalpitoadTMHMLearnset,18
+	.size	 sPalpitoadTMHMLearnset,27
 	.type	 sSeismitoadTMHMLearnset,object
 sSeismitoadTMHMLearnset:
 	.byte	0x0
@@ -26790,12 +32660,28 @@ sSeismitoadTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x76
 	.byte	0xff
-	.size	 sSeismitoadTMHMLearnset,25
+	.size	 sSeismitoadTMHMLearnset,41
 	.type	 sThrohTMHMLearnset,object
 sThrohTMHMLearnset:
 	.byte	0x0
@@ -26817,10 +32703,22 @@ sThrohTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sThrohTMHMLearnset,22
+	.size	 sThrohTMHMLearnset,34
 	.type	 sSawkTMHMLearnset,object
 sSawkTMHMLearnset:
 	.byte	0x0
@@ -26842,10 +32740,22 @@ sSawkTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sSawkTMHMLearnset,22
+	.size	 sSawkTMHMLearnset,34
 	.type	 sSewaddleTMHMLearnset,object
 sSewaddleTMHMLearnset:
 	.byte	0x3
@@ -26857,16 +32767,25 @@ sSewaddleTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x41
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sSewaddleTMHMLearnset,18
+	.size	 sSewaddleTMHMLearnset,27
 	.type	 sSwadloonTMHMLearnset,object
 sSwadloonTMHMLearnset:
 	.byte	0x3
@@ -26878,16 +32797,24 @@ sSwadloonTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x41
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sSwadloonTMHMLearnset,18
+	.size	 sSwadloonTMHMLearnset,26
 	.type	 sLeavannyTMHMLearnset,object
 sLeavannyTMHMLearnset:
 	.byte	0x3
@@ -26900,6 +32827,7 @@ sLeavannyTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -26909,10 +32837,23 @@ sLeavannyTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x35
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sLeavannyTMHMLearnset,22
+	.size	 sLeavannyTMHMLearnset,36
 	.type	 sVenipedeTMHMLearnset,object
 sVenipedeTMHMLearnset:
 	.byte	0x5
@@ -26920,6 +32861,7 @@ sVenipedeTMHMLearnset:
 	.byte	0xa
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
@@ -26927,9 +32869,16 @@ sVenipedeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x49
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sVenipedeTMHMLearnset,14
+	.size	 sVenipedeTMHMLearnset,22
 	.type	 sWhirlipedeTMHMLearnset,object
 sWhirlipedeTMHMLearnset:
 	.byte	0x5
@@ -26937,6 +32886,7 @@ sWhirlipedeTMHMLearnset:
 	.byte	0xa
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
@@ -26944,9 +32894,16 @@ sWhirlipedeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x49
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sWhirlipedeTMHMLearnset,14
+	.size	 sWhirlipedeTMHMLearnset,22
 	.type	 sScolipedeTMHMLearnset,object
 sScolipedeTMHMLearnset:
 	.byte	0x5
@@ -26955,6 +32912,7 @@ sScolipedeTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -26967,11 +32925,22 @@ sScolipedeTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sScolipedeTMHMLearnset,22
+	.size	 sScolipedeTMHMLearnset,34
 	.type	 sCottoneeTMHMLearnset,object
 sCottoneeTMHMLearnset:
 	.byte	0x5
@@ -26982,15 +32951,24 @@ sCottoneeTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sCottoneeTMHMLearnset,16
+	.size	 sCottoneeTMHMLearnset,25
 	.type	 sWhimsicottTMHMLearnset,object
 sWhimsicottTMHMLearnset:
 	.byte	0x5
@@ -27003,6 +32981,7 @@ sWhimsicottTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -27012,9 +32991,22 @@ sWhimsicottTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x43
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sWhimsicottTMHMLearnset,21
+	.size	 sWhimsicottTMHMLearnset,35
 	.type	 sPetililTMHMLearnset,object
 sPetililTMHMLearnset:
 	.byte	0x5
@@ -27024,16 +33016,24 @@ sPetililTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6f
 	.byte	0xff
-	.size	 sPetililTMHMLearnset,16
+	.size	 sPetililTMHMLearnset,24
 	.type	 sLilligantTMHMLearnset,object
 sLilligantTMHMLearnset:
 	.byte	0x5
@@ -27045,16 +33045,26 @@ sLilligantTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6f
 	.byte	0xff
-	.size	 sLilligantTMHMLearnset,18
+	.size	 sLilligantTMHMLearnset,28
 	.type	 sBasculinTMHMLearnset,object
 sBasculinTMHMLearnset:
 	.byte	0x5
@@ -27071,12 +33081,16 @@ sBasculinTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sBasculinTMHMLearnset,19
+	.size	 sBasculinTMHMLearnset,23
 	.type	 sSandileTMHMLearnset,object
 sSandileTMHMLearnset:
 	.byte	0x4
@@ -27100,9 +33114,21 @@ sSandileTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSandileTMHMLearnset,23
+	.size	 sSandileTMHMLearnset,35
 	.type	 sKrokorokTMHMLearnset,object
 sKrokorokTMHMLearnset:
 	.byte	0x0
@@ -27128,11 +33154,26 @@ sKrokorokTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sKrokorokTMHMLearnset,27
+	.size	 sKrokorokTMHMLearnset,42
 	.type	 sKrookodileTMHMLearnset,object
 sKrookodileTMHMLearnset:
 	.byte	0x0
@@ -27162,11 +33203,29 @@ sKrookodileTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sKrookodileTMHMLearnset,31
+	.size	 sKrookodileTMHMLearnset,49
 	.type	 sDarumakaTMHMLearnset,object
 sDarumakaTMHMLearnset:
 	.byte	0x0
@@ -27177,6 +33236,7 @@ sDarumakaTMHMLearnset:
 	.byte	0xb
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1e
@@ -27191,10 +33251,18 @@ sDarumakaTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x49
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sDarumakaTMHMLearnset,25
+	.size	 sDarumakaTMHMLearnset,34
 	.type	 sDarmanitanTMHMLearnset,object
 sDarmanitanTMHMLearnset:
 	.byte	0x0
@@ -27207,6 +33275,7 @@ sDarmanitanTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -27224,10 +33293,24 @@ sDarmanitanTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x77
 	.byte	0xff
-	.size	 sDarmanitanTMHMLearnset,30
+	.size	 sDarmanitanTMHMLearnset,45
 	.type	 sMaractusTMHMLearnset,object
 sMaractusTMHMLearnset:
 	.byte	0x5
@@ -27239,6 +33322,7 @@ sMaractusTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x27
@@ -27246,14 +33330,24 @@ sMaractusTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sMaractusTMHMLearnset,17
+	.size	 sMaractusTMHMLearnset,27
 	.type	 sDwebbleTMHMLearnset,object
 sDwebbleTMHMLearnset:
 	.byte	0x5
 	.byte	0x9
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -27265,11 +33359,22 @@ sDwebbleTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sDwebbleTMHMLearnset,19
+	.size	 sDwebbleTMHMLearnset,31
 	.type	 sCrustleTMHMLearnset,object
 sCrustleTMHMLearnset:
 	.byte	0x5
@@ -27277,6 +33382,7 @@ sCrustleTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -27288,11 +33394,23 @@ sCrustleTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCrustleTMHMLearnset,20
+	.size	 sCrustleTMHMLearnset,33
 	.type	 sScraggyTMHMLearnset,object
 sScraggyTMHMLearnset:
 	.byte	0x0
@@ -27320,10 +33438,25 @@ sScraggyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x46
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x73
+	.byte	0x76
 	.byte	0xff
-	.size	 sScraggyTMHMLearnset,28
+	.size	 sScraggyTMHMLearnset,43
 	.type	 sScraftyTMHMLearnset,object
 sScraftyTMHMLearnset:
 	.byte	0x0
@@ -27352,10 +33485,26 @@ sScraftyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x73
+	.byte	0x76
 	.byte	0xff
-	.size	 sScraftyTMHMLearnset,29
+	.size	 sScraftyTMHMLearnset,45
 	.type	 sSigilyphTMHMLearnset,object
 sSigilyphTMHMLearnset:
 	.byte	0x3
@@ -27368,6 +33517,7 @@ sSigilyphTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -27382,10 +33532,24 @@ sSigilyphTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x2f
-	.byte	0xc9
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sSigilyphTMHMLearnset,27
+	.size	 sSigilyphTMHMLearnset,42
 	.type	 sYamaskTMHMLearnset,object
 sYamaskTMHMLearnset:
 	.byte	0x3
@@ -27407,9 +33571,22 @@ sYamaskTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sYamaskTMHMLearnset,21
+	.size	 sYamaskTMHMLearnset,34
 	.type	 sCofagrigusTMHMLearnset,object
 sCofagrigusTMHMLearnset:
 	.byte	0x3
@@ -27432,9 +33609,25 @@ sCofagrigusTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sCofagrigusTMHMLearnset,22
+	.size	 sCofagrigusTMHMLearnset,38
 	.type	 sTirtougaTMHMLearnset,object
 sTirtougaTMHMLearnset:
 	.byte	0x2
@@ -27456,13 +33649,22 @@ sTirtougaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sTirtougaTMHMLearnset,25
+	.size	 sTirtougaTMHMLearnset,34
 	.type	 sCarracostaTMHMLearnset,object
 sCarracostaTMHMLearnset:
 	.byte	0x2
@@ -27485,13 +33687,24 @@ sCarracostaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCarracostaTMHMLearnset,26
+	.size	 sCarracostaTMHMLearnset,37
 	.type	 sArchenTMHMLearnset,object
 sArchenTMHMLearnset:
 	.byte	0x1
@@ -27515,10 +33728,21 @@ sArchenTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sArchenTMHMLearnset,24
+	.size	 sArchenTMHMLearnset,35
 	.type	 sArcheopsTMHMLearnset,object
 sArcheopsTMHMLearnset:
 	.byte	0x1
@@ -27543,11 +33767,25 @@ sArcheopsTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sArcheopsTMHMLearnset,26
+	.size	 sArcheopsTMHMLearnset,40
 	.type	 sTrubbishTMHMLearnset,object
 sTrubbishTMHMLearnset:
 	.byte	0x5
@@ -27566,8 +33804,18 @@ sTrubbishTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x3f
+	.byte	0x41
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
+	.byte	0x76
 	.byte	0xff
-	.size	 sTrubbishTMHMLearnset,17
+	.size	 sTrubbishTMHMLearnset,27
 	.type	 sGarbodorTMHMLearnset,object
 sGarbodorTMHMLearnset:
 	.byte	0x5
@@ -27578,6 +33826,7 @@ sGarbodorTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x1a
 	.byte	0x1c
@@ -27588,9 +33837,23 @@ sGarbodorTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x33
+	.byte	0x37
 	.byte	0x3f
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
+	.byte	0x76
 	.byte	0xff
-	.size	 sGarbodorTMHMLearnset,20
+	.size	 sGarbodorTMHMLearnset,35
 	.type	 sZoruaTMHMLearnset,object
 sZoruaTMHMLearnset:
 	.byte	0x3
@@ -27615,9 +33878,22 @@ sZoruaTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sZoruaTMHMLearnset,24
+	.size	 sZoruaTMHMLearnset,37
 	.type	 sZoroarkTMHMLearnset,object
 sZoroarkTMHMLearnset:
 	.byte	0x3
@@ -27644,10 +33920,26 @@ sZoroarkTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sZoroarkTMHMLearnset,27
+	.size	 sZoroarkTMHMLearnset,43
 	.type	 sMinccinoTMHMLearnset,object
 sMinccinoTMHMLearnset:
 	.byte	0x3
@@ -27669,8 +33961,19 @@ sMinccinoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6c
 	.byte	0xff
-	.size	 sMinccinoTMHMLearnset,20
+	.size	 sMinccinoTMHMLearnset,31
 	.type	 sCinccinoTMHMLearnset,object
 sCinccinoTMHMLearnset:
 	.byte	0x3
@@ -27696,8 +33999,21 @@ sCinccinoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x33
+	.byte	0x37
+	.byte	0x43
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6c
 	.byte	0xff
-	.size	 sCinccinoTMHMLearnset,24
+	.size	 sCinccinoTMHMLearnset,37
 	.type	 sGothitaTMHMLearnset,object
 sGothitaTMHMLearnset:
 	.byte	0x3
@@ -27725,9 +34041,26 @@ sGothitaTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sGothitaTMHMLearnset,27
+	.size	 sGothitaTMHMLearnset,44
 	.type	 sGothoritaTMHMLearnset,object
 sGothoritaTMHMLearnset:
 	.byte	0x3
@@ -27755,9 +34088,26 @@ sGothoritaTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sGothoritaTMHMLearnset,27
+	.size	 sGothoritaTMHMLearnset,44
 	.type	 sGothitelleTMHMLearnset,object
 sGothitelleTMHMLearnset:
 	.byte	0x3
@@ -27787,9 +34137,28 @@ sGothitelleTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x32
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sGothitelleTMHMLearnset,29
+	.size	 sGothitelleTMHMLearnset,48
 	.type	 sSolosisTMHMLearnset,object
 sSolosisTMHMLearnset:
 	.byte	0x3
@@ -27814,10 +34183,24 @@ sSolosisTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
+	.byte	0x34
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sSolosisTMHMLearnset,25
+	.size	 sSolosisTMHMLearnset,39
 	.type	 sDuosionTMHMLearnset,object
 sDuosionTMHMLearnset:
 	.byte	0x3
@@ -27842,10 +34225,24 @@ sDuosionTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
+	.byte	0x34
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sDuosionTMHMLearnset,25
+	.size	 sDuosionTMHMLearnset,39
 	.type	 sReuniclusTMHMLearnset,object
 sReuniclusTMHMLearnset:
 	.byte	0x0
@@ -27872,12 +34269,29 @@ sReuniclusTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3e
 	.byte	0x3f
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x63
+	.byte	0x68
+	.byte	0x76
 	.byte	0xff
-	.size	 sReuniclusTMHMLearnset,29
+	.size	 sReuniclusTMHMLearnset,46
 	.type	 sDucklettTMHMLearnset,object
 sDucklettTMHMLearnset:
 	.byte	0x2
@@ -27896,11 +34310,17 @@ sDucklettTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x71
 	.byte	0xff
-	.size	 sDucklettTMHMLearnset,20
+	.size	 sDucklettTMHMLearnset,26
 	.type	 sSwannaTMHMLearnset,object
 sSwannaTMHMLearnset:
 	.byte	0x2
@@ -27920,11 +34340,18 @@ sSwannaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x71
 	.byte	0xff
-	.size	 sSwannaTMHMLearnset,21
+	.size	 sSwannaTMHMLearnset,28
 	.type	 sVanilliteTMHMLearnset,object
 sVanilliteTMHMLearnset:
 	.byte	0x2
@@ -27945,8 +34372,15 @@ sVanilliteTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
+	.byte	0x45
+	.byte	0x4e
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
 	.byte	0xff
-	.size	 sVanilliteTMHMLearnset,19
+	.size	 sVanilliteTMHMLearnset,26
 	.type	 sVanillishTMHMLearnset,object
 sVanillishTMHMLearnset:
 	.byte	0x2
@@ -27967,8 +34401,15 @@ sVanillishTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
+	.byte	0x45
+	.byte	0x4e
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
 	.byte	0xff
-	.size	 sVanillishTMHMLearnset,19
+	.size	 sVanillishTMHMLearnset,26
 	.type	 sVanilluxeTMHMLearnset,object
 sVanilluxeTMHMLearnset:
 	.byte	0x2
@@ -27990,8 +34431,16 @@ sVanilluxeTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x3f
+	.byte	0x43
+	.byte	0x45
+	.byte	0x4e
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
 	.byte	0xff
-	.size	 sVanilluxeTMHMLearnset,20
+	.size	 sVanilluxeTMHMLearnset,28
 	.type	 sDeerlingTMHMLearnset,object
 sDeerlingTMHMLearnset:
 	.byte	0x5
@@ -28003,6 +34452,7 @@ sDeerlingTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1f
@@ -28010,9 +34460,17 @@ sDeerlingTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sDeerlingTMHMLearnset,18
+	.size	 sDeerlingTMHMLearnset,27
 	.type	 sSawsbuckTMHMLearnset,object
 sSawsbuckTMHMLearnset:
 	.byte	0x5
@@ -28025,6 +34483,7 @@ sSawsbuckTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1f
@@ -28032,11 +34491,19 @@ sSawsbuckTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sSawsbuckTMHMLearnset,21
+	.size	 sSawsbuckTMHMLearnset,30
 	.type	 sEmolgaTMHMLearnset,object
 sEmolgaTMHMLearnset:
 	.byte	0x5
@@ -28046,6 +34513,7 @@ sEmolgaTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -28057,10 +34525,20 @@ sEmolgaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sEmolgaTMHMLearnset,21
+	.size	 sEmolgaTMHMLearnset,32
 	.type	 sKarrablastTMHMLearnset,object
 sKarrablastTMHMLearnset:
 	.byte	0x5
@@ -28076,9 +34554,19 @@ sKarrablastTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
+	.byte	0x34
+	.byte	0x35
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sKarrablastTMHMLearnset,15
+	.size	 sKarrablastTMHMLearnset,25
 	.type	 sEscavalierTMHMLearnset,object
 sEscavalierTMHMLearnset:
 	.byte	0x5
@@ -28096,10 +34584,23 @@ sEscavalierTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x34
+	.byte	0x35
+	.byte	0x3a
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sEscavalierTMHMLearnset,18
+	.size	 sEscavalierTMHMLearnset,31
 	.type	 sFoongusTMHMLearnset,object
 sFoongusTMHMLearnset:
 	.byte	0x5
@@ -28109,6 +34610,7 @@ sFoongusTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
@@ -28116,9 +34618,17 @@ sFoongusTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x41
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6f
 	.byte	0xff
-	.size	 sFoongusTMHMLearnset,16
+	.size	 sFoongusTMHMLearnset,25
 	.type	 sAmoongussTMHMLearnset,object
 sAmoongussTMHMLearnset:
 	.byte	0x5
@@ -28129,6 +34639,7 @@ sAmoongussTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
@@ -28136,9 +34647,18 @@ sAmoongussTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x41
+	.byte	0x43
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6f
 	.byte	0xff
-	.size	 sAmoongussTMHMLearnset,17
+	.size	 sAmoongussTMHMLearnset,27
 	.type	 sFrillishTMHMLearnset,object
 sFrillishTMHMLearnset:
 	.byte	0x2
@@ -28163,12 +34683,23 @@ sFrillishTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x34
+	.byte	0x36
+	.byte	0x3c
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sFrillishTMHMLearnset,27
+	.size	 sFrillishTMHMLearnset,38
 	.type	 sJellicentTMHMLearnset,object
 sJellicentTMHMLearnset:
 	.byte	0x2
@@ -28194,12 +34725,24 @@ sJellicentTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x34
+	.byte	0x36
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sJellicentTMHMLearnset,28
+	.size	 sJellicentTMHMLearnset,40
 	.type	 sAlomomolaTMHMLearnset,object
 sAlomomolaTMHMLearnset:
 	.byte	0x2
@@ -28222,11 +34765,17 @@ sAlomomolaTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sAlomomolaTMHMLearnset,24
+	.size	 sAlomomolaTMHMLearnset,30
 	.type	 sJoltikTMHMLearnset,object
 sJoltikTMHMLearnset:
 	.byte	0x5
@@ -28245,10 +34794,22 @@ sJoltikTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sJoltikTMHMLearnset,19
+	.size	 sJoltikTMHMLearnset,31
 	.type	 sGalvantulaTMHMLearnset,object
 sGalvantulaTMHMLearnset:
 	.byte	0x5
@@ -28269,10 +34830,23 @@ sGalvantulaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sGalvantulaTMHMLearnset,21
+	.size	 sGalvantulaTMHMLearnset,34
 	.type	 sFerroseedTMHMLearnset,object
 sFerroseedTMHMLearnset:
 	.byte	0x5
@@ -28282,6 +34856,7 @@ sFerroseedTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x1a
 	.byte	0x1f
@@ -28289,11 +34864,22 @@ sFerroseedTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
 	.byte	0x3f
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x44
+	.byte	0x48
+	.byte	0x49
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sFerroseedTMHMLearnset,18
+	.size	 sFerroseedTMHMLearnset,30
 	.type	 sFerrothornTMHMLearnset,object
 sFerrothornTMHMLearnset:
 	.byte	0x5
@@ -28304,6 +34890,7 @@ sFerrothornTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -28314,13 +34901,28 @@ sFerrothornTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x3a
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sFerrothornTMHMLearnset,24
+	.size	 sFerrothornTMHMLearnset,40
 	.type	 sKlinkTMHMLearnset,object
 sKlinkTMHMLearnset:
 	.byte	0x5
@@ -28336,9 +34938,19 @@ sKlinkTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x44
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6a
 	.byte	0xff
-	.size	 sKlinkTMHMLearnset,15
+	.size	 sKlinkTMHMLearnset,25
 	.type	 sKlangTMHMLearnset,object
 sKlangTMHMLearnset:
 	.byte	0x5
@@ -28354,9 +34966,19 @@ sKlangTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x44
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6a
 	.byte	0xff
-	.size	 sKlangTMHMLearnset,15
+	.size	 sKlangTMHMLearnset,25
 	.type	 sKlinklangTMHMLearnset,object
 sKlinklangTMHMLearnset:
 	.byte	0x5
@@ -28373,13 +34995,27 @@ sKlinklangTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x43
+	.byte	0x44
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6a
 	.byte	0xff
-	.size	 sKlinklangTMHMLearnset,16
+	.size	 sKlinklangTMHMLearnset,28
 	.type	 sTynamoTMHMLearnset,object
 sTynamoTMHMLearnset:
+	.byte	0x38
+	.byte	0x48
 	.byte	0xff
-	.size	 sTynamoTMHMLearnset,1
+	.size	 sTynamoTMHMLearnset,3
 	.type	 sEelektrikTMHMLearnset,object
 sEelektrikTMHMLearnset:
 	.byte	0x5
@@ -28399,9 +35035,19 @@ sEelektrikTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sEelektrikTMHMLearnset,19
+	.size	 sEelektrikTMHMLearnset,29
 	.type	 sEelektrossTMHMLearnset,object
 sEelektrossTMHMLearnset:
 	.byte	0x0
@@ -28428,12 +35074,24 @@ sEelektrossTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sEelektrossTMHMLearnset,29
+	.size	 sEelektrossTMHMLearnset,41
 	.type	 sElgyemTMHMLearnset,object
 sElgyemTMHMLearnset:
 	.byte	0x3
@@ -28460,9 +35118,23 @@ sElgyemTMHMLearnset:
 	.byte	0x2e
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x3e
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sElgyemTMHMLearnset,26
+	.size	 sElgyemTMHMLearnset,40
 	.type	 sBeheeyemTMHMLearnset,object
 sBeheeyemTMHMLearnset:
 	.byte	0x3
@@ -28490,9 +35162,26 @@ sBeheeyemTMHMLearnset:
 	.byte	0x2e
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x3e
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
+	.byte	0x75
 	.byte	0xff
-	.size	 sBeheeyemTMHMLearnset,27
+	.size	 sBeheeyemTMHMLearnset,44
 	.type	 sLitwickTMHMLearnset,object
 sLitwickTMHMLearnset:
 	.byte	0x3
@@ -28503,6 +35192,7 @@ sLitwickTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -28516,9 +35206,21 @@ sLitwickTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x77
 	.byte	0xff
-	.size	 sLitwickTMHMLearnset,23
+	.size	 sLitwickTMHMLearnset,36
 	.type	 sLampentTMHMLearnset,object
 sLampentTMHMLearnset:
 	.byte	0x3
@@ -28529,6 +35231,7 @@ sLampentTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -28542,9 +35245,21 @@ sLampentTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x77
 	.byte	0xff
-	.size	 sLampentTMHMLearnset,23
+	.size	 sLampentTMHMLearnset,36
 	.type	 sChandelureTMHMLearnset,object
 sChandelureTMHMLearnset:
 	.byte	0x3
@@ -28556,6 +35271,7 @@ sChandelureTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -28569,9 +35285,22 @@ sChandelureTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x77
 	.byte	0xff
-	.size	 sChandelureTMHMLearnset,24
+	.size	 sChandelureTMHMLearnset,38
 	.type	 sAxewTMHMLearnset,object
 sAxewTMHMLearnset:
 	.byte	0x1
@@ -28594,11 +35323,20 @@ sAxewTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sAxewTMHMLearnset,24
+	.size	 sAxewTMHMLearnset,33
 	.type	 sFraxureTMHMLearnset,object
 sFraxureTMHMLearnset:
 	.byte	0x1
@@ -28621,11 +35359,22 @@ sFraxureTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x51
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sFraxureTMHMLearnset,24
+	.size	 sFraxureTMHMLearnset,35
 	.type	 sHaxorusTMHMLearnset,object
 sHaxorusTMHMLearnset:
 	.byte	0x1
@@ -28651,12 +35400,29 @@ sHaxorusTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x51
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sHaxorusTMHMLearnset,28
+	.size	 sHaxorusTMHMLearnset,45
 	.type	 sCubchooTMHMLearnset,object
 sCubchooTMHMLearnset:
 	.byte	0x0
@@ -28678,12 +35444,18 @@ sCubchooTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x40
+	.byte	0x4e
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sCubchooTMHMLearnset,24
+	.size	 sCubchooTMHMLearnset,30
 	.type	 sBearticTMHMLearnset,object
 sBearticTMHMLearnset:
 	.byte	0x0
@@ -28710,13 +35482,25 @@ sBearticTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x37
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x67
 	.byte	0xff
-	.size	 sBearticTMHMLearnset,30
+	.size	 sBearticTMHMLearnset,42
 	.type	 sCryogonalTMHMLearnset,object
 sCryogonalTMHMLearnset:
 	.byte	0x2
@@ -28730,6 +35514,7 @@ sCryogonalTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
@@ -28737,9 +35522,18 @@ sCryogonalTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x3d
 	.byte	0x3f
+	.byte	0x45
+	.byte	0x4e
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
 	.byte	0xff
-	.size	 sCryogonalTMHMLearnset,20
+	.size	 sCryogonalTMHMLearnset,30
 	.type	 sShelmetTMHMLearnset,object
 sShelmetTMHMLearnset:
 	.byte	0x5
@@ -28755,8 +35549,16 @@ sShelmetTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sShelmetTMHMLearnset,14
+	.size	 sShelmetTMHMLearnset,22
 	.type	 sAccelgorTMHMLearnset,object
 sAccelgorTMHMLearnset:
 	.byte	0x5
@@ -28774,8 +35576,20 @@ sAccelgorTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x33
+	.byte	0x34
+	.byte	0x43
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
+	.byte	0x76
 	.byte	0xff
-	.size	 sAccelgorTMHMLearnset,16
+	.size	 sAccelgorTMHMLearnset,28
 	.type	 sStunfiskTMHMLearnset,object
 sStunfiskTMHMLearnset:
 	.byte	0x2
@@ -28798,10 +35612,23 @@ sStunfiskTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
+	.byte	0x36
+	.byte	0x41
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sStunfiskTMHMLearnset,23
+	.size	 sStunfiskTMHMLearnset,36
 	.type	 sMienfooTMHMLearnset,object
 sMienfooTMHMLearnset:
 	.byte	0x0
@@ -28825,10 +35652,26 @@ sMienfooTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x69
+	.byte	0x76
 	.byte	0xff
-	.size	 sMienfooTMHMLearnset,24
+	.size	 sMienfooTMHMLearnset,40
 	.type	 sMienshaoTMHMLearnset,object
 sMienshaoTMHMLearnset:
 	.byte	0x0
@@ -28853,10 +35696,29 @@ sMienshaoTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x69
+	.byte	0x74
+	.byte	0x76
 	.byte	0xff
-	.size	 sMienshaoTMHMLearnset,25
+	.size	 sMienshaoTMHMLearnset,44
 	.type	 sDruddigonTMHMLearnset,object
 sDruddigonTMHMLearnset:
 	.byte	0x1
@@ -28885,12 +35747,27 @@ sDruddigonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x6d
 	.byte	0xff
-	.size	 sDruddigonTMHMLearnset,31
+	.size	 sDruddigonTMHMLearnset,46
 	.type	 sGolettTMHMLearnset,object
 sGolettTMHMLearnset:
 	.byte	0x0
@@ -28914,11 +35791,23 @@ sGolettTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x44
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x76
 	.byte	0xff
-	.size	 sGolettTMHMLearnset,25
+	.size	 sGolettTMHMLearnset,37
 	.type	 sGolurkTMHMLearnset,object
 sGolurkTMHMLearnset:
 	.byte	0x0
@@ -28930,6 +35819,7 @@ sGolurkTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x19
 	.byte	0x1a
@@ -28944,12 +35834,29 @@ sGolurkTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2d
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x6e
+	.byte	0x76
 	.byte	0xff
-	.size	 sGolurkTMHMLearnset,28
+	.size	 sGolurkTMHMLearnset,46
 	.type	 sPawniardTMHMLearnset,object
 sPawniardTMHMLearnset:
 	.byte	0x5
@@ -28972,10 +35879,27 @@ sPawniardTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x44
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sPawniardTMHMLearnset,23
+	.size	 sPawniardTMHMLearnset,40
 	.type	 sBisharpTMHMLearnset,object
 sBisharpTMHMLearnset:
 	.byte	0x5
@@ -28999,10 +35923,30 @@ sBisharpTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBisharpTMHMLearnset,24
+	.size	 sBisharpTMHMLearnset,44
 	.type	 sBouffalantTMHMLearnset,object
 sBouffalantTMHMLearnset:
 	.byte	0x5
@@ -29021,12 +35965,22 @@ sBouffalantTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sBouffalantTMHMLearnset,21
+	.size	 sBouffalantTMHMLearnset,31
 	.type	 sRuffletTMHMLearnset,object
 sRuffletTMHMLearnset:
 	.byte	0x5
@@ -29045,12 +35999,18 @@ sRuffletTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x39
+	.byte	0x40
+	.byte	0x4b
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sRuffletTMHMLearnset,21
+	.size	 sRuffletTMHMLearnset,27
 	.type	 sBraviaryTMHMLearnset,object
 sBraviaryTMHMLearnset:
 	.byte	0x5
@@ -29070,12 +36030,19 @@ sBraviaryTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x39
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sBraviaryTMHMLearnset,22
+	.size	 sBraviaryTMHMLearnset,29
 	.type	 sVullabyTMHMLearnset,object
 sVullabyTMHMLearnset:
 	.byte	0x5
@@ -29098,11 +36065,21 @@ sVullabyTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcd
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sVullabyTMHMLearnset,24
+	.size	 sVullabyTMHMLearnset,34
 	.type	 sMandibuzzTMHMLearnset,object
 sMandibuzzTMHMLearnset:
 	.byte	0x5
@@ -29126,11 +36103,22 @@ sMandibuzzTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcd
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sMandibuzzTMHMLearnset,25
+	.size	 sMandibuzzTMHMLearnset,36
 	.type	 sHeatmorTMHMLearnset,object
 sHeatmorTMHMLearnset:
 	.byte	0x0
@@ -29142,6 +36130,7 @@ sHeatmorTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1f
@@ -29156,10 +36145,19 @@ sHeatmorTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x43
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sHeatmorTMHMLearnset,26
+	.size	 sHeatmorTMHMLearnset,36
 	.type	 sDurantTMHMLearnset,object
 sDurantTMHMLearnset:
 	.byte	0x5
@@ -29176,11 +36174,22 @@ sDurantTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x40
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
 	.byte	0xff
-	.size	 sDurantTMHMLearnset,18
+	.size	 sDurantTMHMLearnset,29
 	.type	 sDeinoTMHMLearnset,object
 sDeinoTMHMLearnset:
 	.byte	0x4
@@ -29200,10 +36209,18 @@ sDeinoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x70
 	.byte	0xff
-	.size	 sDeinoTMHMLearnset,20
+	.size	 sDeinoTMHMLearnset,28
 	.type	 sZweilousTMHMLearnset,object
 sZweilousTMHMLearnset:
 	.byte	0x4
@@ -29223,10 +36240,18 @@ sZweilousTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x70
 	.byte	0xff
-	.size	 sZweilousTMHMLearnset,20
+	.size	 sZweilousTMHMLearnset,28
 	.type	 sHydreigonTMHMLearnset,object
 sHydreigonTMHMLearnset:
 	.byte	0x4
@@ -29254,12 +36279,34 @@ sHydreigonTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x70
+	.byte	0x73
+	.byte	0x75
 	.byte	0xff
-	.size	 sHydreigonTMHMLearnset,30
+	.size	 sHydreigonTMHMLearnset,52
 	.type	 sLarvestaTMHMLearnset,object
 sLarvestaTMHMLearnset:
 	.byte	0x3
@@ -29271,6 +36318,7 @@ sLarvestaTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -29281,8 +36329,18 @@ sLarvestaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sLarvestaTMHMLearnset,20
+	.size	 sLarvestaTMHMLearnset,31
 	.type	 sVolcaronaTMHMLearnset,object
 sVolcaronaTMHMLearnset:
 	.byte	0x3
@@ -29295,6 +36353,7 @@ sVolcaronaTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -29306,9 +36365,22 @@ sVolcaronaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
-	.byte	0xc9
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
+	.byte	0x77
 	.byte	0xff
-	.size	 sVolcaronaTMHMLearnset,23
+	.size	 sVolcaronaTMHMLearnset,37
 	.type	 sCobalionTMHMLearnset,object
 sCobalionTMHMLearnset:
 	.byte	0x3
@@ -29329,11 +36401,26 @@ sCobalionTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x42
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCobalionTMHMLearnset,22
+	.size	 sCobalionTMHMLearnset,37
 	.type	 sTerrakionTMHMLearnset,object
 sTerrakionTMHMLearnset:
 	.byte	0x3
@@ -29356,11 +36443,26 @@ sTerrakionTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x42
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sTerrakionTMHMLearnset,24
+	.size	 sTerrakionTMHMLearnset,39
 	.type	 sVirizionTMHMLearnset,object
 sVirizionTMHMLearnset:
 	.byte	0x3
@@ -29375,6 +36477,7 @@ sVirizionTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1e
 	.byte	0x1f
@@ -29383,12 +36486,23 @@ sVirizionTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x34
+	.byte	0x35
+	.byte	0x42
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x50
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sVirizionTMHMLearnset,25
+	.size	 sVirizionTMHMLearnset,37
 	.type	 sTornadusTMHMLearnset,object
 sTornadusTMHMLearnset:
 	.byte	0x5
@@ -29412,11 +36526,26 @@ sTornadusTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x39
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x70
 	.byte	0xff
-	.size	 sTornadusTMHMLearnset,25
+	.size	 sTornadusTMHMLearnset,40
 	.type	 sThundurusTMHMLearnset,object
 sThundurusTMHMLearnset:
 	.byte	0x5
@@ -29442,11 +36571,31 @@ sThundurusTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x39
+	.byte	0x3a
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x70
 	.byte	0xff
-	.size	 sThundurusTMHMLearnset,27
+	.size	 sThundurusTMHMLearnset,47
 	.type	 sReshiramTMHMLearnset,object
 sReshiramTMHMLearnset:
 	.byte	0x1
@@ -29459,6 +36608,7 @@ sReshiramTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -29472,12 +36622,27 @@ sReshiramTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2e
 	.byte	0x31
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4b
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6e
+	.byte	0x73
+	.byte	0x77
 	.byte	0xff
-	.size	 sReshiramTMHMLearnset,28
+	.size	 sReshiramTMHMLearnset,44
 	.type	 sZekromTMHMLearnset,object
 sZekromTMHMLearnset:
 	.byte	0x1
@@ -29502,13 +36667,29 @@ sZekromTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x73
 	.byte	0xff
-	.size	 sZekromTMHMLearnset,28
+	.size	 sZekromTMHMLearnset,44
 	.type	 sLandorusTMHMLearnset,object
 sLandorusTMHMLearnset:
 	.byte	0x3
@@ -29532,12 +36713,29 @@ sLandorusTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
 	.byte	0x3f
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sLandorusTMHMLearnset,26
+	.size	 sLandorusTMHMLearnset,43
 	.type	 sKyuremTMHMLearnset,object
 sKyuremTMHMLearnset:
 	.byte	0x1
@@ -29563,12 +36761,25 @@ sKyuremTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4b
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x73
 	.byte	0xff
-	.size	 sKyuremTMHMLearnset,28
+	.size	 sKyuremTMHMLearnset,41
 	.type	 sKeldeoTMHMLearnset,object
 sKeldeoTMHMLearnset:
 	.byte	0x2
@@ -29592,12 +36803,25 @@ sKeldeoTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x36
+	.byte	0x42
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x65
+	.byte	0x69
 	.byte	0xff
-	.size	 sKeldeoTMHMLearnset,26
+	.size	 sKeldeoTMHMLearnset,39
 	.type	 sMeloettaTMHMLearnset,object
 sMeloettaTMHMLearnset:
 	.byte	0x0
@@ -29624,11 +36848,32 @@ sMeloettaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x76
 	.byte	0xff
-	.size	 sMeloettaTMHMLearnset,28
+	.size	 sMeloettaTMHMLearnset,49
 	.type	 sGenesectTMHMLearnset,object
 sGenesectTMHMLearnset:
 	.byte	0x5
@@ -29640,6 +36885,7 @@ sGenesectTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -29652,11 +36898,30 @@ sGenesectTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
+	.byte	0x34
+	.byte	0x38
 	.byte	0x3f
-	.byte	0xc9
-	.byte	0xcc
+	.byte	0x40
+	.byte	0x43
+	.byte	0x44
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x50
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x60
+	.byte	0x63
+	.byte	0x66
+	.byte	0x6c
+	.byte	0x72
+	.byte	0x74
+	.byte	0x75
 	.byte	0xff
-	.size	 sGenesectTMHMLearnset,25
+	.size	 sGenesectTMHMLearnset,45
 	.type	 sChespinTMHMLearnset,object
 sChespinTMHMLearnset:
 	.byte	0x0
@@ -29669,6 +36934,7 @@ sChespinTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -29682,12 +36948,26 @@ sChespinTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x34
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sChespinTMHMLearnset,28
+	.size	 sChespinTMHMLearnset,43
 	.type	 sQuilladinTMHMLearnset,object
 sQuilladinTMHMLearnset:
 	.byte	0x0
@@ -29700,6 +36980,7 @@ sQuilladinTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -29713,12 +36994,26 @@ sQuilladinTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x34
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sQuilladinTMHMLearnset,28
+	.size	 sQuilladinTMHMLearnset,43
 	.type	 sChesnaughtTMHMLearnset,object
 sChesnaughtTMHMLearnset:
 	.byte	0x0
@@ -29733,6 +37028,7 @@ sChesnaughtTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -29747,12 +37043,28 @@ sChesnaughtTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sChesnaughtTMHMLearnset,31
+	.size	 sChesnaughtTMHMLearnset,48
 	.type	 sFennekinTMHMLearnset,object
 sFennekinTMHMLearnset:
 	.byte	0x5
@@ -29763,6 +37075,7 @@ sFennekinTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1c
@@ -29775,9 +37088,18 @@ sFennekinTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x31
-	.byte	0xc8
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sFennekinTMHMLearnset,22
+	.size	 sFennekinTMHMLearnset,32
 	.type	 sBraixenTMHMLearnset,object
 sBraixenTMHMLearnset:
 	.byte	0x5
@@ -29788,6 +37110,7 @@ sBraixenTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1c
@@ -29803,9 +37126,18 @@ sBraixenTMHMLearnset:
 	.byte	0x2f
 	.byte	0x30
 	.byte	0x31
-	.byte	0xc8
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sBraixenTMHMLearnset,25
+	.size	 sBraixenTMHMLearnset,35
 	.type	 sDelphoxTMHMLearnset,object
 sDelphoxTMHMLearnset:
 	.byte	0x3
@@ -29818,6 +37150,7 @@ sDelphoxTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1c
@@ -29834,9 +37167,22 @@ sDelphoxTMHMLearnset:
 	.byte	0x2f
 	.byte	0x30
 	.byte	0x31
-	.byte	0xc8
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x77
 	.byte	0xff
-	.size	 sDelphoxTMHMLearnset,28
+	.size	 sDelphoxTMHMLearnset,42
 	.type	 sFroakieTMHMLearnset,object
 sFroakieTMHMLearnset:
 	.byte	0x2
@@ -29859,14 +37205,20 @@ sFroakieTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
 	.byte	0xff
-	.size	 sFroakieTMHMLearnset,27
+	.size	 sFroakieTMHMLearnset,33
 	.type	 sFrogadierTMHMLearnset,object
 sFrogadierTMHMLearnset:
 	.byte	0x2
@@ -29889,14 +37241,22 @@ sFrogadierTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sFrogadierTMHMLearnset,27
+	.size	 sFrogadierTMHMLearnset,35
 	.type	 sGreninjaTMHMLearnset,object
 sGreninjaTMHMLearnset:
 	.byte	0x2
@@ -29920,14 +37280,24 @@ sGreninjaTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x61
+	.byte	0x63
+	.byte	0x6c
 	.byte	0xff
-	.size	 sGreninjaTMHMLearnset,28
+	.size	 sGreninjaTMHMLearnset,38
 	.type	 sBunnelbyTMHMLearnset,object
 sBunnelbyTMHMLearnset:
 	.byte	0x5
@@ -29950,12 +37320,23 @@ sBunnelbyTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x41
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sBunnelbyTMHMLearnset,25
+	.size	 sBunnelbyTMHMLearnset,36
 	.type	 sDiggersbyTMHMLearnset,object
 sDiggersbyTMHMLearnset:
 	.byte	0x0
@@ -29981,12 +37362,27 @@ sDiggersbyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6c
 	.byte	0xff
-	.size	 sDiggersbyTMHMLearnset,28
+	.size	 sDiggersbyTMHMLearnset,43
 	.type	 sFletchlingTMHMLearnset,object
 sFletchlingTMHMLearnset:
 	.byte	0x5
@@ -30006,9 +37402,17 @@ sFletchlingTMHMLearnset:
 	.byte	0x2e
 	.byte	0x30
 	.byte	0x31
-	.byte	0xc9
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sFletchlingTMHMLearnset,19
+	.size	 sFletchlingTMHMLearnset,27
 	.type	 sFletchinderTMHMLearnset,object
 sFletchinderTMHMLearnset:
 	.byte	0x5
@@ -30030,9 +37434,17 @@ sFletchinderTMHMLearnset:
 	.byte	0x2e
 	.byte	0x30
 	.byte	0x31
-	.byte	0xc9
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sFletchinderTMHMLearnset,21
+	.size	 sFletchinderTMHMLearnset,29
 	.type	 sTalonflameTMHMLearnset,object
 sTalonflameTMHMLearnset:
 	.byte	0x5
@@ -30043,6 +37455,7 @@ sTalonflameTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x22
@@ -30056,9 +37469,19 @@ sTalonflameTMHMLearnset:
 	.byte	0x2e
 	.byte	0x30
 	.byte	0x31
-	.byte	0xc9
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sTalonflameTMHMLearnset,23
+	.size	 sTalonflameTMHMLearnset,34
 	.type	 sScatterbugTMHMLearnset,object
 sScatterbugTMHMLearnset:
 	.byte	0xff
@@ -30081,6 +37504,7 @@ sVivillonTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -30090,9 +37514,20 @@ sVivillonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sVivillonTMHMLearnset,22
+	.size	 sVivillonTMHMLearnset,34
 	.type	 sLitleoTMHMLearnset,object
 sLitleoTMHMLearnset:
 	.byte	0x4
@@ -30103,6 +37538,7 @@ sLitleoTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -30116,10 +37552,18 @@ sLitleoTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x41
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sLitleoTMHMLearnset,24
+	.size	 sLitleoTMHMLearnset,33
 	.type	 sPyroarTMHMLearnset,object
 sPyroarTMHMLearnset:
 	.byte	0x4
@@ -30131,6 +37575,7 @@ sPyroarTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -30144,10 +37589,19 @@ sPyroarTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x31
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3c
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sPyroarTMHMLearnset,25
+	.size	 sPyroarTMHMLearnset,35
 	.type	 sFlabebeTMHMLearnset,object
 sFlabebeTMHMLearnset:
 	.byte	0x3
@@ -30159,6 +37613,7 @@ sFlabebeTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -30166,9 +37621,16 @@ sFlabebeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sFlabebeTMHMLearnset,18
+	.size	 sFlabebeTMHMLearnset,26
 	.type	 sFloetteTMHMLearnset,object
 sFloetteTMHMLearnset:
 	.byte	0x3
@@ -30180,6 +37642,7 @@ sFloetteTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -30187,9 +37650,16 @@ sFloetteTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sFloetteTMHMLearnset,18
+	.size	 sFloetteTMHMLearnset,26
 	.type	 sFlorgesTMHMLearnset,object
 sFlorgesTMHMLearnset:
 	.byte	0x3
@@ -30203,6 +37673,7 @@ sFlorgesTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -30210,9 +37681,17 @@ sFlorgesTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x43
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sFlorgesTMHMLearnset,20
+	.size	 sFlorgesTMHMLearnset,29
 	.type	 sSkiddoTMHMLearnset,object
 sSkiddoTMHMLearnset:
 	.byte	0x4
@@ -30224,6 +37703,7 @@ sSkiddoTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
@@ -30233,11 +37713,20 @@ sSkiddoTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x41
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sSkiddoTMHMLearnset,22
+	.size	 sSkiddoTMHMLearnset,32
 	.type	 sGogoatTMHMLearnset,object
 sGogoatTMHMLearnset:
 	.byte	0x4
@@ -30250,6 +37739,7 @@ sGogoatTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -30261,11 +37751,21 @@ sGogoatTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x63
 	.byte	0xff
-	.size	 sGogoatTMHMLearnset,25
+	.size	 sGogoatTMHMLearnset,36
 	.type	 sPanchamTMHMLearnset,object
 sPanchamTMHMLearnset:
 	.byte	0x0
@@ -30291,12 +37791,27 @@ sPanchamTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x40
+	.byte	0x41
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x76
 	.byte	0xff
-	.size	 sPanchamTMHMLearnset,28
+	.size	 sPanchamTMHMLearnset,43
 	.type	 sPangoroTMHMLearnset,object
 sPangoroTMHMLearnset:
 	.byte	0x0
@@ -30326,12 +37841,34 @@ sPangoroTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x76
 	.byte	0xff
-	.size	 sPangoroTMHMLearnset,32
+	.size	 sPangoroTMHMLearnset,54
 	.type	 sFurfrouTMHMLearnset,object
 sFurfrouTMHMLearnset:
 	.byte	0x4
@@ -30349,11 +37886,21 @@ sFurfrouTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sFurfrouTMHMLearnset,19
+	.size	 sFurfrouTMHMLearnset,29
 	.type	 sEspurrTMHMLearnset,object
 sEspurrTMHMLearnset:
 	.byte	0x3
@@ -30379,10 +37926,23 @@ sEspurrTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x41
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sEspurrTMHMLearnset,26
+	.size	 sEspurrTMHMLearnset,39
 	.type	 sMeowsticTMHMLearnset,object
 sMeowsticTMHMLearnset:
 	.byte	0x3
@@ -30411,10 +37971,24 @@ sMeowsticTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sMeowsticTMHMLearnset,29
+	.size	 sMeowsticTMHMLearnset,43
 	.type	 sHonedgeTMHMLearnset,object
 sHonedgeTMHMLearnset:
 	.byte	0x5
@@ -30432,10 +38006,19 @@ sHonedgeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
 	.byte	0xff
-	.size	 sHonedgeTMHMLearnset,18
+	.size	 sHonedgeTMHMLearnset,27
 	.type	 sDoubladeTMHMLearnset,object
 sDoubladeTMHMLearnset:
 	.byte	0x5
@@ -30453,10 +38036,19 @@ sDoubladeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
 	.byte	0xff
-	.size	 sDoubladeTMHMLearnset,18
+	.size	 sDoubladeTMHMLearnset,27
 	.type	 sAegislashTMHMLearnset,object
 sAegislashTMHMLearnset:
 	.byte	0x5
@@ -30477,10 +38069,20 @@ sAegislashTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
 	.byte	0xff
-	.size	 sAegislashTMHMLearnset,21
+	.size	 sAegislashTMHMLearnset,31
 	.type	 sSpritzeeTMHMLearnset,object
 sSpritzeeTMHMLearnset:
 	.byte	0x3
@@ -30502,9 +38104,21 @@ sSpritzeeTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sSpritzeeTMHMLearnset,21
+	.size	 sSpritzeeTMHMLearnset,33
 	.type	 sAromatisseTMHMLearnset,object
 sAromatisseTMHMLearnset:
 	.byte	0x3
@@ -30528,9 +38142,24 @@ sAromatisseTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sAromatisseTMHMLearnset,23
+	.size	 sAromatisseTMHMLearnset,38
 	.type	 sSwirlixTMHMLearnset,object
 sSwirlixTMHMLearnset:
 	.byte	0x3
@@ -30552,10 +38181,18 @@ sSwirlixTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sSwirlixTMHMLearnset,22
+	.size	 sSwirlixTMHMLearnset,30
 	.type	 sSlurpuffTMHMLearnset,object
 sSlurpuffTMHMLearnset:
 	.byte	0x3
@@ -30579,10 +38216,20 @@ sSlurpuffTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x76
 	.byte	0xff
-	.size	 sSlurpuffTMHMLearnset,24
+	.size	 sSlurpuffTMHMLearnset,34
 	.type	 sInkayTMHMLearnset,object
 sInkayTMHMLearnset:
 	.byte	0x3
@@ -30608,10 +38255,21 @@ sInkayTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x65
+	.byte	0x70
 	.byte	0xff
-	.size	 sInkayTMHMLearnset,26
+	.size	 sInkayTMHMLearnset,37
 	.type	 sMalamarTMHMLearnset,object
 sMalamarTMHMLearnset:
 	.byte	0x3
@@ -30638,10 +38296,24 @@ sMalamarTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x65
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sMalamarTMHMLearnset,27
+	.size	 sMalamarTMHMLearnset,41
 	.type	 sBinacleTMHMLearnset,object
 sBinacleTMHMLearnset:
 	.byte	0x2
@@ -30669,12 +38341,32 @@ sBinacleTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBinacleTMHMLearnset,30
+	.size	 sBinacleTMHMLearnset,50
 	.type	 sBarbaracleTMHMLearnset,object
 sBarbaracleTMHMLearnset:
 	.byte	0x1
@@ -30705,13 +38397,36 @@ sBarbaracleTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sBarbaracleTMHMLearnset,34
+	.size	 sBarbaracleTMHMLearnset,57
 	.type	 sSkrelpTMHMLearnset,object
 sSkrelpTMHMLearnset:
 	.byte	0x2
@@ -30732,11 +38447,19 @@ sSkrelpTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x67
+	.byte	0x6c
 	.byte	0xff
-	.size	 sSkrelpTMHMLearnset,22
+	.size	 sSkrelpTMHMLearnset,30
 	.type	 sDragalgeTMHMLearnset,object
 sDragalgeTMHMLearnset:
 	.byte	0x2
@@ -30759,11 +38482,21 @@ sDragalgeTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x43
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x67
+	.byte	0x6c
 	.byte	0xff
-	.size	 sDragalgeTMHMLearnset,24
+	.size	 sDragalgeTMHMLearnset,34
 	.type	 sClauncherTMHMLearnset,object
 sClauncherTMHMLearnset:
 	.byte	0x2
@@ -30781,12 +38514,21 @@ sClauncherTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x69
 	.byte	0xff
-	.size	 sClauncherTMHMLearnset,20
+	.size	 sClauncherTMHMLearnset,29
 	.type	 sClawitzerTMHMLearnset,object
 sClawitzerTMHMLearnset:
 	.byte	0x2
@@ -30806,12 +38548,25 @@ sClawitzerTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x36
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x69
 	.byte	0xff
-	.size	 sClawitzerTMHMLearnset,22
+	.size	 sClawitzerTMHMLearnset,35
 	.type	 sHelioptileTMHMLearnset,object
 sHelioptileTMHMLearnset:
 	.byte	0x5
@@ -30833,11 +38588,25 @@ sHelioptileTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcc
+	.byte	0x32
+	.byte	0x38
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sHelioptileTMHMLearnset,23
+	.size	 sHelioptileTMHMLearnset,37
 	.type	 sHelioliskTMHMLearnset,object
 sHelioliskTMHMLearnset:
 	.byte	0x5
@@ -30848,6 +38617,7 @@ sHelioliskTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -30861,11 +38631,28 @@ sHelioliskTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc8
-	.byte	0xca
-	.byte	0xcc
+	.byte	0x32
+	.byte	0x33
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sHelioliskTMHMLearnset,25
+	.size	 sHelioliskTMHMLearnset,43
 	.type	 sTyruntTMHMLearnset,object
 sTyruntTMHMLearnset:
 	.byte	0x1
@@ -30888,10 +38675,22 @@ sTyruntTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x73
 	.byte	0xff
-	.size	 sTyruntTMHMLearnset,23
+	.size	 sTyruntTMHMLearnset,35
 	.type	 sTyrantrumTMHMLearnset,object
 sTyrantrumTMHMLearnset:
 	.byte	0x1
@@ -30915,10 +38714,24 @@ sTyrantrumTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x73
 	.byte	0xff
-	.size	 sTyrantrumTMHMLearnset,24
+	.size	 sTyrantrumTMHMLearnset,38
 	.type	 sAmauraTMHMLearnset,object
 sAmauraTMHMLearnset:
 	.byte	0x2
@@ -30946,10 +38759,28 @@ sAmauraTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x44
+	.byte	0x45
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sAmauraTMHMLearnset,28
+	.size	 sAmauraTMHMLearnset,46
 	.type	 sAurorusTMHMLearnset,object
 sAurorusTMHMLearnset:
 	.byte	0x2
@@ -30980,10 +38811,29 @@ sAurorusTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x38
+	.byte	0x43
+	.byte	0x44
+	.byte	0x45
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sAurorusTMHMLearnset,31
+	.size	 sAurorusTMHMLearnset,50
 	.type	 sSylveonTMHMLearnset,object
 sSylveonTMHMLearnset:
 	.byte	0x3
@@ -31007,10 +38857,18 @@ sSylveonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x77
 	.byte	0xff
-	.size	 sSylveonTMHMLearnset,24
+	.size	 sSylveonTMHMLearnset,32
 	.type	 sHawluchaTMHMLearnset,object
 sHawluchaTMHMLearnset:
 	.byte	0x0
@@ -31034,12 +38892,30 @@ sHawluchaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x39
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x71
+	.byte	0x76
 	.byte	0xff
-	.size	 sHawluchaTMHMLearnset,26
+	.size	 sHawluchaTMHMLearnset,44
 	.type	 sDedenneTMHMLearnset,object
 sDedenneTMHMLearnset:
 	.byte	0x5
@@ -31061,10 +38937,22 @@ sDedenneTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sDedenneTMHMLearnset,22
+	.size	 sDedenneTMHMLearnset,34
 	.type	 sCarbinkTMHMLearnset,object
 sCarbinkTMHMLearnset:
 	.byte	0x3
@@ -31087,9 +38975,23 @@ sCarbinkTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2f
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCarbinkTMHMLearnset,22
+	.size	 sCarbinkTMHMLearnset,36
 	.type	 sGoomyTMHMLearnset,object
 sGoomyTMHMLearnset:
 	.byte	0x2
@@ -31109,8 +39011,15 @@ sGoomyTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sGoomyTMHMLearnset,18
+	.size	 sGoomyTMHMLearnset,25
 	.type	 sSliggooTMHMLearnset,object
 sSliggooTMHMLearnset:
 	.byte	0x2
@@ -31132,8 +39041,15 @@ sSliggooTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sSliggooTMHMLearnset,20
+	.size	 sSliggooTMHMLearnset,27
 	.type	 sGoodraTMHMLearnset,object
 sGoodraTMHMLearnset:
 	.byte	0x0
@@ -31162,11 +39078,21 @@ sGoodraTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sGoodraTMHMLearnset,30
+	.size	 sGoodraTMHMLearnset,40
 	.type	 sKlefkiTMHMLearnset,object
 sKlefkiTMHMLearnset:
 	.byte	0x3
@@ -31189,9 +39115,19 @@ sKlefkiTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc8
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
 	.byte	0xff
-	.size	 sKlefkiTMHMLearnset,22
+	.size	 sKlefkiTMHMLearnset,32
 	.type	 sPhantumpTMHMLearnset,object
 sPhantumpTMHMLearnset:
 	.byte	0x5
@@ -31201,6 +39137,7 @@ sPhantumpTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1c
@@ -31213,11 +39150,23 @@ sPhantumpTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x34
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sPhantumpTMHMLearnset,23
+	.size	 sPhantumpTMHMLearnset,36
 	.type	 sTrevenantTMHMLearnset,object
 sTrevenantTMHMLearnset:
 	.byte	0x3
@@ -31229,6 +39178,7 @@ sTrevenantTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1b
@@ -31242,11 +39192,28 @@ sTrevenantTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x34
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sTrevenantTMHMLearnset,26
+	.size	 sTrevenantTMHMLearnset,44
 	.type	 sPumpkabooTMHMLearnset,object
 sPumpkabooTMHMLearnset:
 	.byte	0x5
@@ -31258,6 +39225,7 @@ sPumpkabooTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -31271,11 +39239,24 @@ sPumpkabooTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x34
+	.byte	0x38
+	.byte	0x3c
 	.byte	0x3f
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x49
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x77
 	.byte	0xff
-	.size	 sPumpkabooTMHMLearnset,26
+	.size	 sPumpkabooTMHMLearnset,40
 	.type	 sGourgeistTMHMLearnset,object
 sGourgeistTMHMLearnset:
 	.byte	0x5
@@ -31288,6 +39269,7 @@ sGourgeistTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -31301,11 +39283,28 @@ sGourgeistTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x33
+	.byte	0x34
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3c
 	.byte	0x3f
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
+	.byte	0x77
 	.byte	0xff
-	.size	 sGourgeistTMHMLearnset,27
+	.size	 sGourgeistTMHMLearnset,45
 	.type	 sBergmiteTMHMLearnset,object
 sBergmiteTMHMLearnset:
 	.byte	0x2
@@ -31325,12 +39324,20 @@ sBergmiteTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x44
+	.byte	0x45
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sBergmiteTMHMLearnset,22
+	.size	 sBergmiteTMHMLearnset,30
 	.type	 sAvaluggTMHMLearnset,object
 sAvaluggTMHMLearnset:
 	.byte	0x2
@@ -31353,12 +39360,22 @@ sAvaluggTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x44
+	.byte	0x45
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x63
 	.byte	0xff
-	.size	 sAvaluggTMHMLearnset,25
+	.size	 sAvaluggTMHMLearnset,35
 	.type	 sNoibatTMHMLearnset,object
 sNoibatTMHMLearnset:
 	.byte	0x2
@@ -31368,6 +39385,7 @@ sNoibatTMHMLearnset:
 	.byte	0xb
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1c
@@ -31383,10 +39401,21 @@ sNoibatTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xc9
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x4b
+	.byte	0x50
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x60
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sNoibatTMHMLearnset,25
+	.size	 sNoibatTMHMLearnset,37
 	.type	 sNoivernTMHMLearnset,object
 sNoivernTMHMLearnset:
 	.byte	0x1
@@ -31398,6 +39427,7 @@ sNoivernTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1c
@@ -31414,10 +39444,24 @@ sNoivernTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xc9
+	.byte	0x33
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x50
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x60
+	.byte	0x63
+	.byte	0x66
+	.byte	0x73
 	.byte	0xff
-	.size	 sNoivernTMHMLearnset,28
+	.size	 sNoivernTMHMLearnset,43
 	.type	 sXerneasTMHMLearnset,object
 sXerneasTMHMLearnset:
 	.byte	0x3
@@ -31440,10 +39484,24 @@ sXerneasTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x33
+	.byte	0x42
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
 	.byte	0xff
-	.size	 sXerneasTMHMLearnset,23
+	.size	 sXerneasTMHMLearnset,37
 	.type	 sYveltalTMHMLearnset,object
 sYveltalTMHMLearnset:
 	.byte	0x1
@@ -31466,10 +39524,25 @@ sYveltalTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
+	.byte	0x33
+	.byte	0x39
+	.byte	0x3d
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sYveltalTMHMLearnset,23
+	.size	 sYveltalTMHMLearnset,38
 	.type	 sZygardeTMHMLearnset,object
 sZygardeTMHMLearnset:
 	.byte	0x5
@@ -31490,10 +39563,23 @@ sZygardeTMHMLearnset:
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x73
 	.byte	0xff
-	.size	 sZygardeTMHMLearnset,21
+	.size	 sZygardeTMHMLearnset,34
 	.type	 sDiancieTMHMLearnset,object
 sDiancieTMHMLearnset:
 	.byte	0x3
@@ -31517,9 +39603,27 @@ sDiancieTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2f
 	.byte	0x3f
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x77
 	.byte	0xff
-	.size	 sDiancieTMHMLearnset,23
+	.size	 sDiancieTMHMLearnset,41
 	.type	 sHoopaTMHMLearnset,object
 sHoopaTMHMLearnset:
 	.byte	0x0
@@ -31549,9 +39653,29 @@ sHoopaTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6c
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sHoopaTMHMLearnset,29
+	.size	 sHoopaTMHMLearnset,49
 	.type	 sVolcanionTMHMLearnset,object
 sVolcanionTMHMLearnset:
 	.byte	0x2
@@ -31563,6 +39687,7 @@ sVolcanionTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1e
@@ -31575,12 +39700,27 @@ sVolcanionTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x31
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3c
 	.byte	0x3f
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x6e
 	.byte	0xff
-	.size	 sVolcanionTMHMLearnset,26
+	.size	 sVolcanionTMHMLearnset,42
 	.type	 sRowletTMHMLearnset,object
 sRowletTMHMLearnset:
 	.byte	0x5
@@ -31591,14 +39731,27 @@ sRowletTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
+	.byte	0x34
+	.byte	0x35
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sRowletTMHMLearnset,15
+	.size	 sRowletTMHMLearnset,28
 	.type	 sDartrixTMHMLearnset,object
 sDartrixTMHMLearnset:
 	.byte	0x5
@@ -31609,14 +39762,27 @@ sDartrixTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
+	.byte	0x34
+	.byte	0x35
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sDartrixTMHMLearnset,15
+	.size	 sDartrixTMHMLearnset,28
 	.type	 sDecidueyeTMHMLearnset,object
 sDecidueyeTMHMLearnset:
 	.byte	0x5
@@ -31628,6 +39794,7 @@ sDecidueyeTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1d
 	.byte	0x1f
@@ -31635,8 +39802,24 @@ sDecidueyeTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
+	.byte	0x32
+	.byte	0x34
+	.byte	0x35
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sDecidueyeTMHMLearnset,17
+	.size	 sDecidueyeTMHMLearnset,34
 	.type	 sLittenTMHMLearnset,object
 sLittenTMHMLearnset:
 	.byte	0x4
@@ -31656,8 +39839,19 @@ sLittenTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x70
 	.byte	0xff
-	.size	 sLittenTMHMLearnset,18
+	.size	 sLittenTMHMLearnset,29
 	.type	 sTorracatTMHMLearnset,object
 sTorracatTMHMLearnset:
 	.byte	0x4
@@ -31677,8 +39871,19 @@ sTorracatTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x4a
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x70
 	.byte	0xff
-	.size	 sTorracatTMHMLearnset,18
+	.size	 sTorracatTMHMLearnset,29
 	.type	 sIncineroarTMHMLearnset,object
 sIncineroarTMHMLearnset:
 	.byte	0x0
@@ -31703,8 +39908,32 @@ sIncineroarTMHMLearnset:
 	.byte	0x2c
 	.byte	0x30
 	.byte	0x31
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3b
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x66
+	.byte	0x6e
+	.byte	0x70
+	.byte	0x74
+	.byte	0x76
 	.byte	0xff
-	.size	 sIncineroarTMHMLearnset,23
+	.size	 sIncineroarTMHMLearnset,47
 	.type	 sPopplioTMHMLearnset,object
 sPopplioTMHMLearnset:
 	.byte	0x2
@@ -31722,11 +39951,17 @@ sPopplioTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sPopplioTMHMLearnset,19
+	.size	 sPopplioTMHMLearnset,25
 	.type	 sBrionneTMHMLearnset,object
 sBrionneTMHMLearnset:
 	.byte	0x2
@@ -31744,11 +39979,17 @@ sBrionneTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sBrionneTMHMLearnset,19
+	.size	 sBrionneTMHMLearnset,25
 	.type	 sPrimarinaTMHMLearnset,object
 sPrimarinaTMHMLearnset:
 	.byte	0x2
@@ -31772,11 +40013,22 @@ sPrimarinaTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x34
+	.byte	0x36
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x65
+	.byte	0x67
 	.byte	0xff
-	.size	 sPrimarinaTMHMLearnset,25
+	.size	 sPrimarinaTMHMLearnset,36
 	.type	 sPikipekTMHMLearnset,object
 sPikipekTMHMLearnset:
 	.byte	0x5
@@ -31793,10 +40045,17 @@ sPikipekTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcd
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x71
 	.byte	0xff
-	.size	 sPikipekTMHMLearnset,17
+	.size	 sPikipekTMHMLearnset,24
 	.type	 sTrumbeakTMHMLearnset,object
 sTrumbeakTMHMLearnset:
 	.byte	0x5
@@ -31813,10 +40072,17 @@ sTrumbeakTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xcd
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x71
 	.byte	0xff
-	.size	 sTrumbeakTMHMLearnset,17
+	.size	 sTrumbeakTMHMLearnset,24
 	.type	 sToucannonTMHMLearnset,object
 sToucannonTMHMLearnset:
 	.byte	0x5
@@ -31834,10 +40100,18 @@ sToucannonTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2e
 	.byte	0x31
-	.byte	0xc9
-	.byte	0xcd
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x71
 	.byte	0xff
-	.size	 sToucannonTMHMLearnset,18
+	.size	 sToucannonTMHMLearnset,26
 	.type	 sYungoosTMHMLearnset,object
 sYungoosTMHMLearnset:
 	.byte	0x5
@@ -31857,8 +40131,14 @@ sYungoosTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x41
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sYungoosTMHMLearnset,18
+	.size	 sYungoosTMHMLearnset,24
 	.type	 sGumshoosTMHMLearnset,object
 sGumshoosTMHMLearnset:
 	.byte	0x4
@@ -31879,8 +40159,16 @@ sGumshoosTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x41
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sGumshoosTMHMLearnset,19
+	.size	 sGumshoosTMHMLearnset,27
 	.type	 sGrubbinTMHMLearnset,object
 sGrubbinTMHMLearnset:
 	.byte	0x5
@@ -31897,8 +40185,19 @@ sGrubbinTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x47
+	.byte	0x48
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sGrubbinTMHMLearnset,15
+	.size	 sGrubbinTMHMLearnset,26
 	.type	 sCharjabugTMHMLearnset,object
 sCharjabugTMHMLearnset:
 	.byte	0x5
@@ -31915,8 +40214,19 @@ sCharjabugTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x38
+	.byte	0x3d
+	.byte	0x47
+	.byte	0x48
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sCharjabugTMHMLearnset,15
+	.size	 sCharjabugTMHMLearnset,26
 	.type	 sVikavoltTMHMLearnset,object
 sVikavoltTMHMLearnset:
 	.byte	0x5
@@ -31926,6 +40236,7 @@ sVikavoltTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -31935,9 +40246,25 @@ sVikavoltTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc9
+	.byte	0x34
+	.byte	0x38
+	.byte	0x39
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sVikavoltTMHMLearnset,18
+	.size	 sVikavoltTMHMLearnset,35
 	.type	 sCrabrawlerTMHMLearnset,object
 sCrabrawlerTMHMLearnset:
 	.byte	0x0
@@ -31957,9 +40284,22 @@ sCrabrawlerTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sCrabrawlerTMHMLearnset,19
+	.size	 sCrabrawlerTMHMLearnset,32
 	.type	 sCrabominableTMHMLearnset,object
 sCrabominableTMHMLearnset:
 	.byte	0x0
@@ -31982,9 +40322,23 @@ sCrabominableTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sCrabominableTMHMLearnset,22
+	.size	 sCrabominableTMHMLearnset,36
 	.type	 sOricorioTMHMLearnset,object
 sOricorioTMHMLearnset:
 	.byte	0x3
@@ -32002,9 +40356,18 @@ sOricorioTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x3b
+	.byte	0x3d
+	.byte	0x3e
+	.byte	0x4a
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sOricorioTMHMLearnset,17
+	.size	 sOricorioTMHMLearnset,26
 	.type	 sCutieflyTMHMLearnset,object
 sCutieflyTMHMLearnset:
 	.byte	0x3
@@ -32025,8 +40388,22 @@ sCutieflyTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x66
+	.byte	0x67
+	.byte	0x72
 	.byte	0xff
-	.size	 sCutieflyTMHMLearnset,19
+	.size	 sCutieflyTMHMLearnset,33
 	.type	 sRibombeeTMHMLearnset,object
 sRibombeeTMHMLearnset:
 	.byte	0x3
@@ -32038,6 +40415,7 @@ sRibombeeTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -32048,8 +40426,25 @@ sRibombeeTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x66
+	.byte	0x67
+	.byte	0x6f
+	.byte	0x72
 	.byte	0xff
-	.size	 sRibombeeTMHMLearnset,20
+	.size	 sRibombeeTMHMLearnset,38
 	.type	 sRockruffTMHMLearnset,object
 sRockruffTMHMLearnset:
 	.byte	0x4
@@ -32065,8 +40460,20 @@ sRockruffTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sRockruffTMHMLearnset,14
+	.size	 sRockruffTMHMLearnset,26
 	.type	 sLycanrocTMHMLearnset,object
 sLycanrocTMHMLearnset:
 	.byte	0x4
@@ -32085,8 +40492,21 @@ sLycanrocTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sLycanrocTMHMLearnset,17
+	.size	 sLycanrocTMHMLearnset,30
 	.type	 sWishiwashiTMHMLearnset,object
 sWishiwashiTMHMLearnset:
 	.byte	0x2
@@ -32104,11 +40524,18 @@ sWishiwashiTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4d
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sWishiwashiTMHMLearnset,19
+	.size	 sWishiwashiTMHMLearnset,26
 	.type	 sMareanieTMHMLearnset,object
 sMareanieTMHMLearnset:
 	.byte	0x2
@@ -32128,9 +40555,21 @@ sMareanieTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xca
+	.byte	0x36
+	.byte	0x41
+	.byte	0x4e
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x6c
 	.byte	0xff
-	.size	 sMareanieTMHMLearnset,19
+	.size	 sMareanieTMHMLearnset,31
 	.type	 sToxapexTMHMLearnset,object
 sToxapexTMHMLearnset:
 	.byte	0x2
@@ -32151,9 +40590,21 @@ sToxapexTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xca
+	.byte	0x36
+	.byte	0x41
+	.byte	0x4e
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x6c
 	.byte	0xff
-	.size	 sToxapexTMHMLearnset,20
+	.size	 sToxapexTMHMLearnset,32
 	.type	 sMudbrayTMHMLearnset,object
 sMudbrayTMHMLearnset:
 	.byte	0x4
@@ -32169,10 +40620,18 @@ sMudbrayTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x41
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMudbrayTMHMLearnset,16
+	.size	 sMudbrayTMHMLearnset,24
 	.type	 sMudsdaleTMHMLearnset,object
 sMudsdaleTMHMLearnset:
 	.byte	0x4
@@ -32189,10 +40648,20 @@ sMudsdaleTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMudsdaleTMHMLearnset,17
+	.size	 sMudsdaleTMHMLearnset,27
 	.type	 sDewpiderTMHMLearnset,object
 sDewpiderTMHMLearnset:
 	.byte	0x2
@@ -32209,10 +40678,22 @@ sDewpiderTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
+	.byte	0x36
+	.byte	0x4e
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sDewpiderTMHMLearnset,17
+	.size	 sDewpiderTMHMLearnset,29
 	.type	 sAraquanidTMHMLearnset,object
 sAraquanidTMHMLearnset:
 	.byte	0x2
@@ -32231,11 +40712,22 @@ sAraquanidTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x4e
+	.byte	0x50
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sAraquanidTMHMLearnset,20
+	.size	 sAraquanidTMHMLearnset,31
 	.type	 sFomantisTMHMLearnset,object
 sFomantisTMHMLearnset:
 	.byte	0x5
@@ -32246,13 +40738,28 @@ sFomantisTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sFomantisTMHMLearnset,14
+	.size	 sFomantisTMHMLearnset,29
 	.type	 sLurantisTMHMLearnset,object
 sLurantisTMHMLearnset:
 	.byte	0x5
@@ -32264,6 +40771,7 @@ sLurantisTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1e
 	.byte	0x1f
@@ -32271,8 +40779,24 @@ sLurantisTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x32
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x66
 	.byte	0xff
-	.size	 sLurantisTMHMLearnset,17
+	.size	 sLurantisTMHMLearnset,34
 	.type	 sMorelullTMHMLearnset,object
 sMorelullTMHMLearnset:
 	.byte	0x5
@@ -32283,15 +40807,26 @@ sMorelullTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x48
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6f
 	.byte	0xff
-	.size	 sMorelullTMHMLearnset,16
+	.size	 sMorelullTMHMLearnset,27
 	.type	 sShiinoticTMHMLearnset,object
 sShiinoticTMHMLearnset:
 	.byte	0x5
@@ -32304,15 +40839,29 @@ sShiinoticTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x23
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x43
+	.byte	0x48
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6f
+	.byte	0x76
 	.byte	0xff
-	.size	 sShiinoticTMHMLearnset,18
+	.size	 sShiinoticTMHMLearnset,32
 	.type	 sSalanditTMHMLearnset,object
 sSalanditTMHMLearnset:
 	.byte	0x1
@@ -32334,8 +40883,22 @@ sSalanditTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x31
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x41
+	.byte	0x48
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x66
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sSalanditTMHMLearnset,20
+	.size	 sSalanditTMHMLearnset,34
 	.type	 sSalazzleTMHMLearnset,object
 sSalazzleTMHMLearnset:
 	.byte	0x1
@@ -32357,8 +40920,25 @@ sSalazzleTMHMLearnset:
 	.byte	0x2d
 	.byte	0x30
 	.byte	0x31
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x48
+	.byte	0x51
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x66
+	.byte	0x6c
+	.byte	0x70
+	.byte	0x73
 	.byte	0xff
-	.size	 sSalazzleTMHMLearnset,20
+	.size	 sSalazzleTMHMLearnset,37
 	.type	 sStuffulTMHMLearnset,object
 sStuffulTMHMLearnset:
 	.byte	0x0
@@ -32378,9 +40958,20 @@ sStuffulTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sStuffulTMHMLearnset,19
+	.size	 sStuffulTMHMLearnset,30
 	.type	 sBewearTMHMLearnset,object
 sBewearTMHMLearnset:
 	.byte	0x0
@@ -32402,9 +40993,23 @@ sBewearTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
+	.byte	0x32
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x76
 	.byte	0xff
-	.size	 sBewearTMHMLearnset,21
+	.size	 sBewearTMHMLearnset,35
 	.type	 sBounsweetTMHMLearnset,object
 sBounsweetTMHMLearnset:
 	.byte	0x5
@@ -32415,14 +41020,24 @@ sBounsweetTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sBounsweetTMHMLearnset,15
+	.size	 sBounsweetTMHMLearnset,25
 	.type	 sSteeneeTMHMLearnset,object
 sSteeneeTMHMLearnset:
 	.byte	0x5
@@ -32433,14 +41048,27 @@ sSteeneeTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x32
+	.byte	0x34
+	.byte	0x37
+	.byte	0x41
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sSteeneeTMHMLearnset,15
+	.size	 sSteeneeTMHMLearnset,28
 	.type	 sTsareenaTMHMLearnset,object
 sTsareenaTMHMLearnset:
 	.byte	0x5
@@ -32453,14 +41081,30 @@ sTsareenaTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x20
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x32
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sTsareenaTMHMLearnset,17
+	.size	 sTsareenaTMHMLearnset,33
 	.type	 sComfeyTMHMLearnset,object
 sComfeyTMHMLearnset:
 	.byte	0x3
@@ -32475,14 +41119,30 @@ sComfeyTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6f
 	.byte	0xff
-	.size	 sComfeyTMHMLearnset,19
+	.size	 sComfeyTMHMLearnset,35
 	.type	 sOranguruTMHMLearnset,object
 sOranguruTMHMLearnset:
 	.byte	0x3
@@ -32509,8 +41169,29 @@ sOranguruTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sOranguruTMHMLearnset,25
+	.size	 sOranguruTMHMLearnset,46
 	.type	 sPassimianTMHMLearnset,object
 sPassimianTMHMLearnset:
 	.byte	0x0
@@ -32537,9 +41218,27 @@ sPassimianTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x76
 	.byte	0xff
-	.size	 sPassimianTMHMLearnset,26
+	.size	 sPassimianTMHMLearnset,44
 	.type	 sWimpodTMHMLearnset,object
 sWimpodTMHMLearnset:
 	.byte	0x5
@@ -32554,10 +41253,17 @@ sWimpodTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
+	.byte	0x36
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sWimpodTMHMLearnset,15
+	.size	 sWimpodTMHMLearnset,22
 	.type	 sGolisopodTMHMLearnset,object
 sGolisopodTMHMLearnset:
 	.byte	0x2
@@ -32581,12 +41287,33 @@ sGolisopodTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x35
+	.byte	0x36
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x61
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
+	.byte	0x66
+	.byte	0x72
 	.byte	0xff
-	.size	 sGolisopodTMHMLearnset,26
+	.size	 sGolisopodTMHMLearnset,47
 	.type	 sSandygastTMHMLearnset,object
 sSandygastTMHMLearnset:
 	.byte	0x5
@@ -32606,8 +41333,20 @@ sSandygastTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
+	.byte	0x34
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSandygastTMHMLearnset,18
+	.size	 sSandygastTMHMLearnset,30
 	.type	 sPalossandTMHMLearnset,object
 sPalossandTMHMLearnset:
 	.byte	0x5
@@ -32627,8 +41366,24 @@ sPalossandTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sPalossandTMHMLearnset,18
+	.size	 sPalossandTMHMLearnset,34
 	.type	 sPyukumukuTMHMLearnset,object
 sPyukumukuTMHMLearnset:
 	.byte	0x5
@@ -32642,8 +41397,14 @@ sPyukumukuTMHMLearnset:
 	.byte	0x20
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x3b
+	.byte	0x4c
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sPyukumukuTMHMLearnset,12
+	.size	 sPyukumukuTMHMLearnset,18
 	.type	 sTypeNullTMHMLearnset,object
 sTypeNullTMHMLearnset:
 	.byte	0x1
@@ -32662,8 +41423,21 @@ sTypeNullTMHMLearnset:
 	.byte	0x27
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x75
 	.byte	0xff
-	.size	 sTypeNullTMHMLearnset,17
+	.size	 sTypeNullTMHMLearnset,30
 	.type	 sSilvallyTMHMLearnset,object
 sSilvallyTMHMLearnset:
 	.byte	0x1
@@ -32688,9 +41462,24 @@ sSilvallyTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2e
 	.byte	0x3f
-	.byte	0xca
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x75
 	.byte	0xff
-	.size	 sSilvallyTMHMLearnset,24
+	.size	 sSilvallyTMHMLearnset,39
 	.type	 sMiniorTMHMLearnset,object
 sMiniorTMHMLearnset:
 	.byte	0x3
@@ -32701,6 +41490,7 @@ sMiniorTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1c
@@ -32711,9 +41501,26 @@ sMiniorTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x38
+	.byte	0x3d
 	.byte	0x3f
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x62
+	.byte	0x63
+	.byte	0x6a
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMiniorTMHMLearnset,20
+	.size	 sMiniorTMHMLearnset,38
 	.type	 sKomalaTMHMLearnset,object
 sKomalaTMHMLearnset:
 	.byte	0x3
@@ -32729,8 +41536,23 @@ sKomalaTMHMLearnset:
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2c
+	.byte	0x32
+	.byte	0x3b
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sKomalaTMHMLearnset,14
+	.size	 sKomalaTMHMLearnset,29
 	.type	 sTurtonatorTMHMLearnset,object
 sTurtonatorTMHMLearnset:
 	.byte	0x1
@@ -32743,6 +41565,7 @@ sTurtonatorTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -32755,9 +41578,25 @@ sTurtonatorTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3c
 	.byte	0x3f
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6e
 	.byte	0xff
-	.size	 sTurtonatorTMHMLearnset,24
+	.size	 sTurtonatorTMHMLearnset,41
 	.type	 sTogedemaruTMHMLearnset,object
 sTogedemaruTMHMLearnset:
 	.byte	0x5
@@ -32776,8 +41615,23 @@ sTogedemaruTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x38
+	.byte	0x41
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x63
 	.byte	0xff
-	.size	 sTogedemaruTMHMLearnset,17
+	.size	 sTogedemaruTMHMLearnset,32
 	.type	 sMimikyuTMHMLearnset,object
 sMimikyuTMHMLearnset:
 	.byte	0x5
@@ -32801,8 +41655,31 @@ sMimikyuTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x50
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x66
+	.byte	0x67
+	.byte	0x76
 	.byte	0xff
-	.size	 sMimikyuTMHMLearnset,22
+	.size	 sMimikyuTMHMLearnset,45
 	.type	 sBruxishTMHMLearnset,object
 sBruxishTMHMLearnset:
 	.byte	0x2
@@ -32829,10 +41706,24 @@ sBruxishTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x30
-	.byte	0xca
-	.byte	0xce
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3e
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4e
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x63
+	.byte	0x65
 	.byte	0xff
-	.size	 sBruxishTMHMLearnset,27
+	.size	 sBruxishTMHMLearnset,41
 	.type	 sDrampaTMHMLearnset,object
 sDrampaTMHMLearnset:
 	.byte	0x1
@@ -32850,6 +41741,7 @@ sDrampaTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x19
@@ -32863,10 +41755,28 @@ sDrampaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xca
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x40
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x55
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x67
+	.byte	0x73
 	.byte	0xff
-	.size	 sDrampaTMHMLearnset,31
+	.size	 sDrampaTMHMLearnset,50
 	.type	 sDhelmiseTMHMLearnset,object
 sDhelmiseTMHMLearnset:
 	.byte	0x5
@@ -32877,6 +41787,7 @@ sDhelmiseTMHMLearnset:
 	.byte	0x11
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1d
@@ -32887,11 +41798,30 @@ sDhelmiseTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
+	.byte	0x34
+	.byte	0x3a
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x64
+	.byte	0x65
 	.byte	0xff
-	.size	 sDhelmiseTMHMLearnset,20
+	.size	 sDhelmiseTMHMLearnset,39
 	.type	 sJangmoOTMHMLearnset,object
 sJangmoOTMHMLearnset:
+	.byte	0x0
 	.byte	0x1
 	.byte	0x4
 	.byte	0x5
@@ -32912,10 +41842,26 @@ sJangmoOTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x73
 	.byte	0xff
-	.size	 sJangmoOTMHMLearnset,21
+	.size	 sJangmoOTMHMLearnset,37
 	.type	 sHakamoOTMHMLearnset,object
 sHakamoOTMHMLearnset:
+	.byte	0x0
 	.byte	0x1
 	.byte	0x4
 	.byte	0x5
@@ -32936,8 +41882,25 @@ sHakamoOTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x73
+	.byte	0x76
 	.byte	0xff
-	.size	 sHakamoOTMHMLearnset,21
+	.size	 sHakamoOTMHMLearnset,39
 	.type	 sKommoOTMHMLearnset,object
 sKommoOTMHMLearnset:
 	.byte	0x0
@@ -32965,8 +41928,31 @@ sKommoOTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x51
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x69
+	.byte	0x6d
+	.byte	0x73
+	.byte	0x76
 	.byte	0xff
-	.size	 sKommoOTMHMLearnset,26
+	.size	 sKommoOTMHMLearnset,49
 	.type	 sTapuKokoTMHMLearnset,object
 sTapuKokoTMHMLearnset:
 	.byte	0x3
@@ -32992,9 +41978,26 @@ sTapuKokoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x35
+	.byte	0x39
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x71
 	.byte	0xff
-	.size	 sTapuKokoTMHMLearnset,25
+	.size	 sTapuKokoTMHMLearnset,42
 	.type	 sTapuLeleTMHMLearnset,object
 sTapuLeleTMHMLearnset:
 	.byte	0x3
@@ -33019,8 +42022,23 @@ sTapuLeleTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
 	.byte	0xff
-	.size	 sTapuLeleTMHMLearnset,23
+	.size	 sTapuLeleTMHMLearnset,38
 	.type	 sTapuBuluTMHMLearnset,object
 sTapuBuluTMHMLearnset:
 	.byte	0x0
@@ -33038,6 +42056,7 @@ sTapuBuluTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1e
 	.byte	0x20
@@ -33045,9 +42064,28 @@ sTapuBuluTMHMLearnset:
 	.byte	0x28
 	.byte	0x29
 	.byte	0x2b
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sTapuBuluTMHMLearnset,24
+	.size	 sTapuBuluTMHMLearnset,44
 	.type	 sTapuFiniTMHMLearnset,object
 sTapuFiniTMHMLearnset:
 	.byte	0x2
@@ -33070,11 +42108,23 @@ sTapuFiniTMHMLearnset:
 	.byte	0x28
 	.byte	0x29
 	.byte	0x2b
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x61
+	.byte	0x62
+	.byte	0x63
+	.byte	0x67
 	.byte	0xff
-	.size	 sTapuFiniTMHMLearnset,24
+	.size	 sTapuFiniTMHMLearnset,36
 	.type	 sCosmogTMHMLearnset,object
 sCosmogTMHMLearnset:
 	.byte	0xff
@@ -33095,6 +42145,7 @@ sSolgaleoTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x17
 	.byte	0x18
@@ -33109,8 +42160,27 @@ sSolgaleoTMHMLearnset:
 	.byte	0x26
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x33
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6e
+	.byte	0x77
 	.byte	0xff
-	.size	 sSolgaleoTMHMLearnset,25
+	.size	 sSolgaleoTMHMLearnset,45
 	.type	 sLunalaTMHMLearnset,object
 sLunalaTMHMLearnset:
 	.byte	0x3
@@ -33125,6 +42195,7 @@ sLunalaTMHMLearnset:
 	.byte	0x10
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -33136,9 +42207,26 @@ sLunalaTMHMLearnset:
 	.byte	0x27
 	.byte	0x29
 	.byte	0x2b
-	.byte	0xc9
+	.byte	0x33
+	.byte	0x38
+	.byte	0x39
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sLunalaTMHMLearnset,25
+	.size	 sLunalaTMHMLearnset,43
 	.type	 sNihilegoTMHMLearnset,object
 sNihilegoTMHMLearnset:
 	.byte	0x5
@@ -33158,8 +42246,25 @@ sNihilegoTMHMLearnset:
 	.byte	0x26
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x48
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x64
+	.byte	0x68
+	.byte	0x6a
+	.byte	0x6c
+	.byte	0x6d
 	.byte	0xff
-	.size	 sNihilegoTMHMLearnset,18
+	.size	 sNihilegoTMHMLearnset,35
 	.type	 sBuzzwoleTMHMLearnset,object
 sBuzzwoleTMHMLearnset:
 	.byte	0x0
@@ -33176,8 +42281,24 @@ sBuzzwoleTMHMLearnset:
 	.byte	0x26
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x32
+	.byte	0x35
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x76
 	.byte	0xff
-	.size	 sBuzzwoleTMHMLearnset,15
+	.size	 sBuzzwoleTMHMLearnset,31
 	.type	 sPheromosaTMHMLearnset,object
 sPheromosaTMHMLearnset:
 	.byte	0x5
@@ -33196,8 +42317,20 @@ sPheromosaTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x30
+	.byte	0x32
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x43
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x63
+	.byte	0x72
 	.byte	0xff
-	.size	 sPheromosaTMHMLearnset,17
+	.size	 sPheromosaTMHMLearnset,29
 	.type	 sXurkitreeTMHMLearnset,object
 sXurkitreeTMHMLearnset:
 	.byte	0x3
@@ -33209,6 +42342,7 @@ sXurkitreeTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -33217,8 +42351,23 @@ sXurkitreeTMHMLearnset:
 	.byte	0x21
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sXurkitreeTMHMLearnset,18
+	.size	 sXurkitreeTMHMLearnset,34
 	.type	 sCelesteelaTMHMLearnset,object
 sCelesteelaTMHMLearnset:
 	.byte	0x5
@@ -33227,6 +42376,7 @@ sCelesteelaTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1f
@@ -33235,10 +42385,25 @@ sCelesteelaTMHMLearnset:
 	.byte	0x25
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x34
+	.byte	0x3a
+	.byte	0x3d
 	.byte	0x3f
-	.byte	0xc9
+	.byte	0x42
+	.byte	0x43
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4b
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
 	.byte	0xff
-	.size	 sCelesteelaTMHMLearnset,17
+	.size	 sCelesteelaTMHMLearnset,33
 	.type	 sKartanaTMHMLearnset,object
 sKartanaTMHMLearnset:
 	.byte	0x3
@@ -33252,9 +42417,17 @@ sKartanaTMHMLearnset:
 	.byte	0x1f
 	.byte	0x27
 	.byte	0x2b
-	.byte	0xc8
+	.byte	0x35
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
 	.byte	0xff
-	.size	 sKartanaTMHMLearnset,13
+	.size	 sKartanaTMHMLearnset,21
 	.type	 sGuzzlordTMHMLearnset,object
 sGuzzlordTMHMLearnset:
 	.byte	0x1
@@ -33276,8 +42449,26 @@ sGuzzlordTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x53
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x64
+	.byte	0x6e
+	.byte	0x76
 	.byte	0xff
-	.size	 sGuzzlordTMHMLearnset,20
+	.size	 sGuzzlordTMHMLearnset,38
 	.type	 sNecrozmaTMHMLearnset,object
 sNecrozmaTMHMLearnset:
 	.byte	0x3
@@ -33287,6 +42478,7 @@ sNecrozmaTMHMLearnset:
 	.byte	0xf
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1a
 	.byte	0x1c
@@ -33299,8 +42491,35 @@ sNecrozmaTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x42
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x73
 	.byte	0xff
-	.size	 sNecrozmaTMHMLearnset,20
+	.size	 sNecrozmaTMHMLearnset,48
 	.type	 sMagearnaTMHMLearnset,object
 sMagearnaTMHMLearnset:
 	.byte	0x3
@@ -33310,6 +42529,7 @@ sMagearnaTMHMLearnset:
 	.byte	0xf
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x1a
 	.byte	0x1d
@@ -33318,9 +42538,27 @@ sMagearnaTMHMLearnset:
 	.byte	0x20
 	.byte	0x21
 	.byte	0x2b
+	.byte	0x33
+	.byte	0x34
+	.byte	0x35
+	.byte	0x38
+	.byte	0x3e
 	.byte	0x3f
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x55
+	.byte	0x56
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x63
+	.byte	0x69
+	.byte	0x75
 	.byte	0xff
-	.size	 sMagearnaTMHMLearnset,17
+	.size	 sMagearnaTMHMLearnset,36
 	.type	 sMarshadowTMHMLearnset,object
 sMarshadowTMHMLearnset:
 	.byte	0x0
@@ -33340,8 +42578,29 @@ sMarshadowTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x30
+	.byte	0x32
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x69
+	.byte	0x74
+	.byte	0x76
 	.byte	0xff
-	.size	 sMarshadowTMHMLearnset,18
+	.size	 sMarshadowTMHMLearnset,39
 	.type	 sPoipoleTMHMLearnset,object
 sPoipoleTMHMLearnset:
 	.byte	0x5
@@ -33354,8 +42613,15 @@ sPoipoleTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x30
+	.byte	0x53
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sPoipoleTMHMLearnset,11
+	.size	 sPoipoleTMHMLearnset,18
 	.type	 sNaganadelTMHMLearnset,object
 sNaganadelTMHMLearnset:
 	.byte	0x1
@@ -33377,9 +42643,28 @@ sNaganadelTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xc9
+	.byte	0x39
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x50
+	.byte	0x51
+	.byte	0x53
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x66
+	.byte	0x6c
+	.byte	0x70
+	.byte	0x73
 	.byte	0xff
-	.size	 sNaganadelTMHMLearnset,21
+	.size	 sNaganadelTMHMLearnset,40
 	.type	 sStakatakaTMHMLearnset,object
 sStakatakaTMHMLearnset:
 	.byte	0x5
@@ -33396,8 +42681,22 @@ sStakatakaTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2f
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sStakatakaTMHMLearnset,15
+	.size	 sStakatakaTMHMLearnset,29
 	.type	 sBlacephalonTMHMLearnset,object
 sBlacephalonTMHMLearnset:
 	.byte	0x3
@@ -33409,6 +42708,7 @@ sBlacephalonTMHMLearnset:
 	.byte	0xf
 	.byte	0x10
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1d
@@ -33420,9 +42720,21 @@ sBlacephalonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x31
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x3c
 	.byte	0x3f
+	.byte	0x40
+	.byte	0x41
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x77
 	.byte	0xff
-	.size	 sBlacephalonTMHMLearnset,22
+	.size	 sBlacephalonTMHMLearnset,35
 	.type	 sZeraoraTMHMLearnset,object
 sZeraoraTMHMLearnset:
 	.byte	0x0
@@ -33445,8 +42757,27 @@ sZeraoraTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x30
+	.byte	0x32
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x55
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
+	.byte	0x69
+	.byte	0x74
+	.byte	0x76
 	.byte	0xff
-	.size	 sZeraoraTMHMLearnset,21
+	.size	 sZeraoraTMHMLearnset,40
 	.type	 sMeltanTMHMLearnset,object
 sMeltanTMHMLearnset:
 	.byte	0x5
@@ -33454,14 +42785,20 @@ sMeltanTMHMLearnset:
 	.byte	0x17
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x48
+	.byte	0x49
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
 	.byte	0xff
-	.size	 sMeltanTMHMLearnset,6
+	.size	 sMeltanTMHMLearnset,11
 	.type	 sMelmetalTMHMLearnset,object
 sMelmetalTMHMLearnset:
 	.byte	0x5
 	.byte	0xc
 	.byte	0xe
 	.byte	0x10
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x19
@@ -33469,30 +42806,62 @@ sMelmetalTMHMLearnset:
 	.byte	0x26
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4f
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
 	.byte	0xff
-	.size	 sMelmetalTMHMLearnset,12
+	.size	 sMelmetalTMHMLearnset,21
 	.type	 sGrookeyTMHMLearnset,object
 sGrookeyTMHMLearnset:
 	.byte	0xa
 	.byte	0xb
 	.byte	0x10
 	.byte	0x12
+	.byte	0x15
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x76
 	.byte	0xff
-	.size	 sGrookeyTMHMLearnset,8
+	.size	 sGrookeyTMHMLearnset,20
 	.type	 sThwackeyTMHMLearnset,object
 sThwackeyTMHMLearnset:
 	.byte	0xa
 	.byte	0xb
 	.byte	0x10
 	.byte	0x12
+	.byte	0x15
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x76
 	.byte	0xff
-	.size	 sThwackeyTMHMLearnset,8
+	.size	 sThwackeyTMHMLearnset,20
 	.type	 sRillaboomTMHMLearnset,object
 sRillaboomTMHMLearnset:
 	.byte	0x7
@@ -33502,13 +42871,31 @@ sRillaboomTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x12
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1e
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x33
+	.byte	0x34
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x55
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x5f
+	.byte	0x6b
+	.byte	0x76
 	.byte	0xff
-	.size	 sRillaboomTMHMLearnset,13
+	.size	 sRillaboomTMHMLearnset,31
 	.type	 sScorbunnyTMHMLearnset,object
 sScorbunnyTMHMLearnset:
 	.byte	0xa
@@ -33520,8 +42907,15 @@ sScorbunnyTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x32
+	.byte	0x3d
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x6c
+	.byte	0x74
 	.byte	0xff
-	.size	 sScorbunnyTMHMLearnset,10
+	.size	 sScorbunnyTMHMLearnset,17
 	.type	 sRabootTMHMLearnset,object
 sRabootTMHMLearnset:
 	.byte	0x7
@@ -33534,8 +42928,15 @@ sRabootTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x32
+	.byte	0x3d
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x6c
+	.byte	0x74
 	.byte	0xff
-	.size	 sRabootTMHMLearnset,11
+	.size	 sRabootTMHMLearnset,18
 	.type	 sCinderaceTMHMLearnset,object
 sCinderaceTMHMLearnset:
 	.byte	0x7
@@ -33550,8 +42951,18 @@ sCinderaceTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x32
+	.byte	0x33
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x6c
+	.byte	0x74
 	.byte	0xff
-	.size	 sCinderaceTMHMLearnset,13
+	.size	 sCinderaceTMHMLearnset,23
 	.type	 sSobbleTMHMLearnset,object
 sSobbleTMHMLearnset:
 	.byte	0x2
@@ -33559,14 +42970,18 @@ sSobbleTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x13
+	.byte	0x1f
 	.byte	0x20
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x65
 	.byte	0xff
-	.size	 sSobbleTMHMLearnset,12
+	.size	 sSobbleTMHMLearnset,16
 	.type	 sDrizzileTMHMLearnset,object
 sDrizzileTMHMLearnset:
 	.byte	0x2
@@ -33574,14 +42989,19 @@ sDrizzileTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x13
+	.byte	0x1f
 	.byte	0x20
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x37
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x65
 	.byte	0xff
-	.size	 sDrizzileTMHMLearnset,12
+	.size	 sDrizzileTMHMLearnset,17
 	.type	 sInteleonTMHMLearnset,object
 sInteleonTMHMLearnset:
 	.byte	0x2
@@ -33593,15 +43013,25 @@ sInteleonTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x1d
+	.byte	0x1f
 	.byte	0x20
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x60
+	.byte	0x61
+	.byte	0x65
 	.byte	0xff
-	.size	 sInteleonTMHMLearnset,17
+	.size	 sInteleonTMHMLearnset,27
 	.type	 sSkwovetTMHMLearnset,object
 sSkwovetTMHMLearnset:
 	.byte	0x8
@@ -33612,8 +43042,14 @@ sSkwovetTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x49
+	.byte	0x57
+	.byte	0x59
 	.byte	0xff
-	.size	 sSkwovetTMHMLearnset,9
+	.size	 sSkwovetTMHMLearnset,15
 	.type	 sGreedentTMHMLearnset,object
 sGreedentTMHMLearnset:
 	.byte	0x8
@@ -33626,8 +43062,17 @@ sGreedentTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
 	.byte	0xff
-	.size	 sGreedentTMHMLearnset,11
+	.size	 sGreedentTMHMLearnset,20
 	.type	 sRookideeTMHMLearnset,object
 sRookideeTMHMLearnset:
 	.byte	0xb
@@ -33636,9 +43081,16 @@ sRookideeTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc9
+	.byte	0x41
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sRookideeTMHMLearnset,8
+	.size	 sRookideeTMHMLearnset,15
 	.type	 sCorvisquireTMHMLearnset,object
 sCorvisquireTMHMLearnset:
 	.byte	0xb
@@ -33647,9 +43099,16 @@ sCorvisquireTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xc9
+	.byte	0x41
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sCorvisquireTMHMLearnset,8
+	.size	 sCorvisquireTMHMLearnset,15
 	.type	 sCorviknightTMHMLearnset,object
 sCorviknightTMHMLearnset:
 	.byte	0x7
@@ -33663,19 +43122,30 @@ sCorviknightTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x70
+	.byte	0x71
 	.byte	0xff
-	.size	 sCorviknightTMHMLearnset,13
+	.size	 sCorviknightTMHMLearnset,22
 	.type	 sBlipbugTMHMLearnset,object
 sBlipbugTMHMLearnset:
+	.byte	0x52
 	.byte	0xff
-	.size	 sBlipbugTMHMLearnset,1
+	.size	 sBlipbugTMHMLearnset,2
 	.type	 sDottlerTMHMLearnset,object
 sDottlerTMHMLearnset:
 	.byte	0x3
 	.byte	0xf
 	.byte	0x10
 	.byte	0x13
+	.byte	0x15
 	.byte	0x1c
 	.byte	0x1d
 	.byte	0x20
@@ -33683,8 +43153,17 @@ sDottlerTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
+	.byte	0x34
+	.byte	0x41
+	.byte	0x52
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x66
+	.byte	0x68
+	.byte	0x72
 	.byte	0xff
-	.size	 sDottlerTMHMLearnset,12
+	.size	 sDottlerTMHMLearnset,22
 	.type	 sOrbeetleTMHMLearnset,object
 sOrbeetleTMHMLearnset:
 	.byte	0x3
@@ -33693,6 +43172,7 @@ sOrbeetleTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x13
+	.byte	0x15
 	.byte	0x1c
 	.byte	0x1d
 	.byte	0x20
@@ -33700,19 +43180,36 @@ sOrbeetleTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
+	.byte	0x34
+	.byte	0x41
+	.byte	0x43
+	.byte	0x52
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x66
+	.byte	0x68
+	.byte	0x72
 	.byte	0xff
-	.size	 sOrbeetleTMHMLearnset,14
+	.size	 sOrbeetleTMHMLearnset,26
 	.type	 sNickitTMHMLearnset,object
 sNickitTMHMLearnset:
 	.byte	0xb
 	.byte	0x10
 	.byte	0x1b
+	.byte	0x28
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x67
+	.byte	0x70
 	.byte	0xff
-	.size	 sNickitTMHMLearnset,8
+	.size	 sNickitTMHMLearnset,14
 	.type	 sThievulTMHMLearnset,object
 sThievulTMHMLearnset:
 	.byte	0xb
@@ -33721,12 +43218,24 @@ sThievulTMHMLearnset:
 	.byte	0x1b
 	.byte	0x1c
 	.byte	0x1d
+	.byte	0x28
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x3d
+	.byte	0x40
+	.byte	0x43
+	.byte	0x55
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x67
+	.byte	0x70
 	.byte	0xff
-	.size	 sThievulTMHMLearnset,11
+	.size	 sThievulTMHMLearnset,23
 	.type	 sGossifleurTMHMLearnset,object
 sGossifleurTMHMLearnset:
 	.byte	0x8
@@ -33734,11 +43243,17 @@ sGossifleurTMHMLearnset:
 	.byte	0xf
 	.byte	0x10
 	.byte	0x12
+	.byte	0x15
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x55
+	.byte	0x57
+	.byte	0x59
+	.byte	0x6f
 	.byte	0xff
-	.size	 sGossifleurTMHMLearnset,9
+	.size	 sGossifleurTMHMLearnset,15
 	.type	 sEldegossTMHMLearnset,object
 sEldegossTMHMLearnset:
 	.byte	0x8
@@ -33747,19 +43262,32 @@ sEldegossTMHMLearnset:
 	.byte	0xf
 	.byte	0x10
 	.byte	0x12
+	.byte	0x15
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x43
+	.byte	0x55
+	.byte	0x57
+	.byte	0x59
+	.byte	0x6f
 	.byte	0xff
-	.size	 sEldegossTMHMLearnset,10
+	.size	 sEldegossTMHMLearnset,17
 	.type	 sWoolooTMHMLearnset,object
 sWoolooTMHMLearnset:
 	.byte	0x10
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x41
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
 	.byte	0xff
-	.size	 sWoolooTMHMLearnset,5
+	.size	 sWoolooTMHMLearnset,11
 	.type	 sDubwoolTMHMLearnset,object
 sDubwoolTMHMLearnset:
 	.byte	0xe
@@ -33767,8 +43295,16 @@ sDubwoolTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
 	.byte	0xff
-	.size	 sDubwoolTMHMLearnset,6
+	.size	 sDubwoolTMHMLearnset,14
 	.type	 sChewtleTMHMLearnset,object
 sChewtleTMHMLearnset:
 	.byte	0x10
@@ -33776,10 +43312,14 @@ sChewtleTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x41
+	.byte	0x51
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x65
 	.byte	0xff
-	.size	 sChewtleTMHMLearnset,8
+	.size	 sChewtleTMHMLearnset,12
 	.type	 sDrednawTMHMLearnset,object
 sDrednawTMHMLearnset:
 	.byte	0xc
@@ -33795,11 +43335,27 @@ sDrednawTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x35
+	.byte	0x36
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x53
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x65
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sDrednawTMHMLearnset,17
+	.size	 sDrednawTMHMLearnset,33
 	.type	 sYamperTMHMLearnset,object
 sYamperTMHMLearnset:
 	.byte	0x4
@@ -33810,8 +43366,15 @@ sYamperTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x47
+	.byte	0x48
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x67
 	.byte	0xff
-	.size	 sYamperTMHMLearnset,9
+	.size	 sYamperTMHMLearnset,16
 	.type	 sBoltundTMHMLearnset,object
 sBoltundTMHMLearnset:
 	.byte	0x4
@@ -33824,8 +43387,16 @@ sBoltundTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x67
 	.byte	0xff
-	.size	 sBoltundTMHMLearnset,11
+	.size	 sBoltundTMHMLearnset,19
 	.type	 sRolycolyTMHMLearnset,object
 sRolycolyTMHMLearnset:
 	.byte	0x10
@@ -33836,8 +43407,18 @@ sRolycolyTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x3c
+	.byte	0x3f
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4f
+	.byte	0x57
+	.byte	0x59
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sRolycolyTMHMLearnset,9
+	.size	 sRolycolyTMHMLearnset,19
 	.type	 sCarkolTMHMLearnset,object
 sCarkolTMHMLearnset:
 	.byte	0x10
@@ -33851,12 +43432,24 @@ sCarkolTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x36
+	.byte	0x3c
+	.byte	0x3f
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4f
+	.byte	0x57
+	.byte	0x59
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sCarkolTMHMLearnset,12
+	.size	 sCarkolTMHMLearnset,23
 	.type	 sCoalossalTMHMLearnset,object
 sCoalossalTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
+	.byte	0x15
 	.byte	0x19
 	.byte	0x1b
 	.byte	0x20
@@ -33868,8 +43461,22 @@ sCoalossalTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x36
+	.byte	0x3c
+	.byte	0x3f
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x57
+	.byte	0x59
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sCoalossalTMHMLearnset,14
+	.size	 sCoalossalTMHMLearnset,29
 	.type	 sApplinTMHMLearnset,object
 sApplinTMHMLearnset:
 	.byte	0x2c
@@ -33882,12 +43489,21 @@ sFlappleTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x12
+	.byte	0x15
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xc9
+	.byte	0x34
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x55
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x73
 	.byte	0xff
-	.size	 sFlappleTMHMLearnset,10
+	.size	 sFlappleTMHMLearnset,19
 	.type	 sAppletunTMHMLearnset,object
 sAppletunTMHMLearnset:
 	.byte	0x8
@@ -33897,13 +43513,22 @@ sAppletunTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x13
+	.byte	0x15
 	.byte	0x19
 	.byte	0x20
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x41
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x55
+	.byte	0x57
+	.byte	0x59
 	.byte	0xff
-	.size	 sAppletunTMHMLearnset,13
+	.size	 sAppletunTMHMLearnset,22
 	.type	 sSilicobraTMHMLearnset,object
 sSilicobraTMHMLearnset:
 	.byte	0x10
@@ -33913,8 +43538,13 @@ sSilicobraTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x3a
+	.byte	0x4d
+	.byte	0x57
+	.byte	0x59
+	.byte	0x6b
 	.byte	0xff
-	.size	 sSilicobraTMHMLearnset,8
+	.size	 sSilicobraTMHMLearnset,13
 	.type	 sSandacondaTMHMLearnset,object
 sSandacondaTMHMLearnset:
 	.byte	0xe
@@ -33926,8 +43556,17 @@ sSandacondaTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x57
+	.byte	0x59
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSandacondaTMHMLearnset,10
+	.size	 sSandacondaTMHMLearnset,19
 	.type	 sCramorantTMHMLearnset,object
 sCramorantTMHMLearnset:
 	.byte	0xc
@@ -33935,16 +43574,22 @@ sCramorantTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x11
+	.byte	0x27
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x65
+	.byte	0x71
 	.byte	0xff
-	.size	 sCramorantTMHMLearnset,14
+	.size	 sCramorantTMHMLearnset,20
 	.type	 sArrokudaTMHMLearnset,object
 sArrokudaTMHMLearnset:
 	.byte	0x10
@@ -33953,10 +43598,14 @@ sArrokudaTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x53
+	.byte	0x57
+	.byte	0x59
+	.byte	0x61
+	.byte	0x65
 	.byte	0xff
-	.size	 sArrokudaTMHMLearnset,9
+	.size	 sArrokudaTMHMLearnset,13
 	.type	 sBarraskewdaTMHMLearnset,object
 sBarraskewdaTMHMLearnset:
 	.byte	0xe
@@ -33966,19 +43615,26 @@ sBarraskewdaTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x43
+	.byte	0x53
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x65
 	.byte	0xff
-	.size	 sBarraskewdaTMHMLearnset,11
+	.size	 sBarraskewdaTMHMLearnset,16
 	.type	 sToxelTMHMLearnset,object
 sToxelTMHMLearnset:
 	.byte	0x10
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x57
+	.byte	0x59
 	.byte	0xff
-	.size	 sToxelTMHMLearnset,5
+	.size	 sToxelTMHMLearnset,7
 	.type	 sToxtricityTMHMLearnset,object
 sToxtricityTMHMLearnset:
 	.byte	0x5
@@ -33992,8 +43648,22 @@ sToxtricityTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x64
+	.byte	0x6c
+	.byte	0x76
 	.byte	0xff
-	.size	 sToxtricityTMHMLearnset,12
+	.size	 sToxtricityTMHMLearnset,26
 	.type	 sSizzlipedeTMHMLearnset,object
 sSizzlipedeTMHMLearnset:
 	.byte	0xa
@@ -34001,21 +43671,40 @@ sSizzlipedeTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x36
+	.byte	0x3a
+	.byte	0x57
+	.byte	0x59
+	.byte	0x66
+	.byte	0x6e
+	.byte	0x72
 	.byte	0xff
-	.size	 sSizzlipedeTMHMLearnset,6
+	.size	 sSizzlipedeTMHMLearnset,13
 	.type	 sCentiskorchTMHMLearnset,object
 sCentiskorchTMHMLearnset:
 	.byte	0xa
 	.byte	0xe
 	.byte	0x10
+	.byte	0x15
 	.byte	0x22
 	.byte	0x25
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x31
+	.byte	0x36
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x50
+	.byte	0x57
+	.byte	0x59
+	.byte	0x66
+	.byte	0x6e
+	.byte	0x72
+	.byte	0x77
 	.byte	0xff
-	.size	 sCentiskorchTMHMLearnset,10
+	.size	 sCentiskorchTMHMLearnset,22
 	.type	 sClobbopusTMHMLearnset,object
 sClobbopusTMHMLearnset:
 	.byte	0x7
@@ -34025,11 +43714,14 @@ sClobbopusTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x41
+	.byte	0x57
+	.byte	0x59
+	.byte	0x61
+	.byte	0x65
 	.byte	0xff
-	.size	 sClobbopusTMHMLearnset,11
+	.size	 sClobbopusTMHMLearnset,14
 	.type	 sGrapploctTMHMLearnset,object
 sGrapploctTMHMLearnset:
 	.byte	0x7
@@ -34041,12 +43733,18 @@ sGrapploctTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xcd
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x33
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x65
+	.byte	0x76
 	.byte	0xff
-	.size	 sGrapploctTMHMLearnset,14
+	.size	 sGrapploctTMHMLearnset,20
 	.type	 sSinisteaTMHMLearnset,object
 sSinisteaTMHMLearnset:
 	.byte	0x10
@@ -34055,8 +43753,15 @@ sSinisteaTMHMLearnset:
 	.byte	0x1d
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x3c
+	.byte	0x41
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sSinisteaTMHMLearnset,7
+	.size	 sSinisteaTMHMLearnset,14
 	.type	 sPolteageistTMHMLearnset,object
 sPolteageistTMHMLearnset:
 	.byte	0xe
@@ -34068,8 +43773,16 @@ sPolteageistTMHMLearnset:
 	.byte	0x20
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x3c
+	.byte	0x41
+	.byte	0x43
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sPolteageistTMHMLearnset,10
+	.size	 sPolteageistTMHMLearnset,18
 	.type	 sHatennaTMHMLearnset,object
 sHatennaTMHMLearnset:
 	.byte	0x3
@@ -34082,8 +43795,17 @@ sHatennaTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
+	.byte	0x3b
+	.byte	0x48
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x62
+	.byte	0x67
+	.byte	0x68
+	.byte	0x77
 	.byte	0xff
-	.size	 sHatennaTMHMLearnset,11
+	.size	 sHatennaTMHMLearnset,20
 	.type	 sHattremTMHMLearnset,object
 sHattremTMHMLearnset:
 	.byte	0x3
@@ -34096,8 +43818,18 @@ sHattremTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
+	.byte	0x3a
+	.byte	0x3b
+	.byte	0x48
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x62
+	.byte	0x67
+	.byte	0x68
+	.byte	0x77
 	.byte	0xff
-	.size	 sHattremTMHMLearnset,11
+	.size	 sHattremTMHMLearnset,21
 	.type	 sHattereneTMHMLearnset,object
 sHattereneTMHMLearnset:
 	.byte	0x3
@@ -34112,8 +43844,22 @@ sHattereneTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2f
+	.byte	0x3a
+	.byte	0x3b
+	.byte	0x40
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4a
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x62
+	.byte	0x67
+	.byte	0x68
+	.byte	0x77
 	.byte	0xff
-	.size	 sHattereneTMHMLearnset,13
+	.size	 sHattereneTMHMLearnset,27
 	.type	 sImpidimpTMHMLearnset,object
 sImpidimpTMHMLearnset:
 	.byte	0xb
@@ -34123,8 +43869,19 @@ sImpidimpTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x66
+	.byte	0x67
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sImpidimpTMHMLearnset,8
+	.size	 sImpidimpTMHMLearnset,19
 	.type	 sMorgremTMHMLearnset,object
 sMorgremTMHMLearnset:
 	.byte	0xb
@@ -34136,8 +43893,20 @@ sMorgremTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x40
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x66
+	.byte	0x67
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sMorgremTMHMLearnset,10
+	.size	 sMorgremTMHMLearnset,22
 	.type	 sGrimmsnarlTMHMLearnset,object
 sGrimmsnarlTMHMLearnset:
 	.byte	0x7
@@ -34152,8 +43921,23 @@ sGrimmsnarlTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x32
+	.byte	0x33
+	.byte	0x40
+	.byte	0x43
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x66
+	.byte	0x67
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sGrimmsnarlTMHMLearnset,13
+	.size	 sGrimmsnarlTMHMLearnset,28
 	.type	 sObstagoonTMHMLearnset,object
 sObstagoonTMHMLearnset:
 	.byte	0x7
@@ -34174,9 +43958,20 @@ sObstagoonTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x50
+	.byte	0x55
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5e
+	.byte	0x6c
 	.byte	0xff
-	.size	 sObstagoonTMHMLearnset,20
+	.size	 sObstagoonTMHMLearnset,31
 	.type	 sPerrserkerTMHMLearnset,object
 sPerrserkerTMHMLearnset:
 	.byte	0xa
@@ -34193,10 +43988,25 @@ sPerrserkerTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x60
+	.byte	0x67
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sPerrserkerTMHMLearnset,15
+	.size	 sPerrserkerTMHMLearnset,29
 	.type	 sCursolaTMHMLearnset,object
 sCursolaTMHMLearnset:
+	.byte	0x2
 	.byte	0x3
 	.byte	0x6
 	.byte	0xa
@@ -34218,9 +44028,23 @@ sCursolaTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
+	.byte	0x36
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x5f
+	.byte	0x65
+	.byte	0x66
+	.byte	0x6a
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCursolaTMHMLearnset,23
+	.size	 sCursolaTMHMLearnset,38
 	.type	 sSirfetchdTMHMLearnset,object
 sSirfetchdTMHMLearnset:
 	.byte	0xa
@@ -34230,9 +44054,14 @@ sSirfetchdTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2e
-	.byte	0xcd
+	.byte	0x3a
+	.byte	0x4a
+	.byte	0x53
+	.byte	0x57
+	.byte	0x59
+	.byte	0x71
 	.byte	0xff
-	.size	 sSirfetchdTMHMLearnset,9
+	.size	 sSirfetchdTMHMLearnset,14
 	.type	 sMrRimeTMHMLearnset,object
 sMrRimeTMHMLearnset:
 	.byte	0x3
@@ -34246,6 +44075,7 @@ sMrRimeTMHMLearnset:
 	.byte	0x10
 	.byte	0x11
 	.byte	0x13
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1c
@@ -34257,8 +44087,22 @@ sMrRimeTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x55
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x68
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sMrRimeTMHMLearnset,23
+	.size	 sMrRimeTMHMLearnset,38
 	.type	 sRunerigusTMHMLearnset,object
 sRunerigusTMHMLearnset:
 	.byte	0x3
@@ -34277,16 +44121,37 @@ sRunerigusTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x34
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x70
 	.byte	0xff
-	.size	 sRunerigusTMHMLearnset,17
+	.size	 sRunerigusTMHMLearnset,34
 	.type	 sMilceryTMHMLearnset,object
 sMilceryTMHMLearnset:
 	.byte	0x10
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x37
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
 	.byte	0xff
-	.size	 sMilceryTMHMLearnset,5
+	.size	 sMilceryTMHMLearnset,9
 	.type	 sAlcremieTMHMLearnset,object
 sAlcremieTMHMLearnset:
 	.byte	0x3
@@ -34295,12 +44160,24 @@ sAlcremieTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x13
+	.byte	0x15
 	.byte	0x1c
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x37
+	.byte	0x43
+	.byte	0x57
+	.byte	0x59
+	.byte	0x62
+	.byte	0x67
+	.byte	0x68
+	.byte	0x75
+	.byte	0x76
+	.byte	0x77
 	.byte	0xff
-	.size	 sAlcremieTMHMLearnset,11
+	.size	 sAlcremieTMHMLearnset,23
 	.type	 sFalinksTMHMLearnset,object
 sFalinksTMHMLearnset:
 	.byte	0x7
@@ -34310,9 +44187,18 @@ sFalinksTMHMLearnset:
 	.byte	0x26
 	.byte	0x29
 	.byte	0x2b
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x35
+	.byte	0x41
+	.byte	0x42
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x57
+	.byte	0x59
 	.byte	0xff
-	.size	 sFalinksTMHMLearnset,9
+	.size	 sFalinksTMHMLearnset,18
 	.type	 sPincurchinTMHMLearnset,object
 sPincurchinTMHMLearnset:
 	.byte	0x10
@@ -34322,17 +44208,27 @@ sPincurchinTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
+	.byte	0x36
+	.byte	0x41
+	.byte	0x48
+	.byte	0x53
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x65
 	.byte	0xff
-	.size	 sPincurchinTMHMLearnset,9
+	.size	 sPincurchinTMHMLearnset,16
 	.type	 sSnomTMHMLearnset,object
 sSnomTMHMLearnset:
 	.byte	0x10
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x57
+	.byte	0x59
+	.byte	0x72
 	.byte	0xff
-	.size	 sSnomTMHMLearnset,5
+	.size	 sSnomTMHMLearnset,8
 	.type	 sFrosmothTMHMLearnset,object
 sFrosmothTMHMLearnset:
 	.byte	0x3
@@ -34348,8 +44244,19 @@ sFrosmothTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x45
+	.byte	0x52
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x62
+	.byte	0x66
+	.byte	0x67
+	.byte	0x72
 	.byte	0xff
-	.size	 sFrosmothTMHMLearnset,14
+	.size	 sFrosmothTMHMLearnset,25
 	.type	 sStonjournerTMHMLearnset,object
 sStonjournerTMHMLearnset:
 	.byte	0xe
@@ -34361,8 +44268,19 @@ sStonjournerTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x57
+	.byte	0x59
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sStonjournerTMHMLearnset,10
+	.size	 sStonjournerTMHMLearnset,21
 	.type	 sEiscueTMHMLearnset,object
 sEiscueTMHMLearnset:
 	.byte	0x6
@@ -34373,11 +44291,14 @@ sEiscueTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x45
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x65
 	.byte	0xff
-	.size	 sEiscueTMHMLearnset,12
+	.size	 sEiscueTMHMLearnset,15
 	.type	 sIndeedeeTMHMLearnset,object
 sIndeedeeTMHMLearnset:
 	.byte	0x3
@@ -34387,8 +44308,19 @@ sIndeedeeTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x34
+	.byte	0x4c
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x62
+	.byte	0x67
+	.byte	0x68
+	.byte	0x75
+	.byte	0x76
+	.byte	0x77
 	.byte	0xff
-	.size	 sIndeedeeTMHMLearnset,8
+	.size	 sIndeedeeTMHMLearnset,19
 	.type	 sMorpekoTMHMLearnset,object
 sMorpekoTMHMLearnset:
 	.byte	0x8
@@ -34402,8 +44334,20 @@ sMorpekoTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x3b
+	.byte	0x41
+	.byte	0x47
+	.byte	0x48
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x70
 	.byte	0xff
-	.size	 sMorpekoTMHMLearnset,12
+	.size	 sMorpekoTMHMLearnset,24
 	.type	 sCufantTMHMLearnset,object
 sCufantTMHMLearnset:
 	.byte	0x10
@@ -34413,10 +44357,18 @@ sCufantTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x67
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sCufantTMHMLearnset,10
+	.size	 sCufantTMHMLearnset,18
 	.type	 sCopperajahTMHMLearnset,object
 sCopperajahTMHMLearnset:
 	.byte	0xb
@@ -34429,10 +44381,24 @@ sCopperajahTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5e
+	.byte	0x67
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x6e
 	.byte	0xff
-	.size	 sCopperajahTMHMLearnset,13
+	.size	 sCopperajahTMHMLearnset,27
 	.type	 sDracozoltTMHMLearnset,object
 sDracozoltTMHMLearnset:
 	.byte	0x1
@@ -34451,8 +44417,19 @@ sDracozoltTMHMLearnset:
 	.byte	0x27
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x6b
 	.byte	0xff
-	.size	 sDracozoltTMHMLearnset,17
+	.size	 sDracozoltTMHMLearnset,28
 	.type	 sArctozoltTMHMLearnset,object
 sArctozoltTMHMLearnset:
 	.byte	0x6
@@ -34468,9 +44445,18 @@ sArctozoltTMHMLearnset:
 	.byte	0x26
 	.byte	0x29
 	.byte	0x2b
-	.byte	0xca
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
 	.byte	0xff
-	.size	 sArctozoltTMHMLearnset,15
+	.size	 sArctozoltTMHMLearnset,24
 	.type	 sDracovishTMHMLearnset,object
 sDracovishTMHMLearnset:
 	.byte	0xe
@@ -34480,11 +44466,21 @@ sDracovishTMHMLearnset:
 	.byte	0x26
 	.byte	0x29
 	.byte	0x2b
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x65
+	.byte	0x66
+	.byte	0x6b
 	.byte	0xff
-	.size	 sDracovishTMHMLearnset,11
+	.size	 sDracovishTMHMLearnset,21
 	.type	 sArctovishTMHMLearnset,object
 sArctovishTMHMLearnset:
 	.byte	0x6
@@ -34496,17 +44492,24 @@ sArctovishTMHMLearnset:
 	.byte	0x26
 	.byte	0x29
 	.byte	0x2b
-	.byte	0xca
-	.byte	0xce
-	.byte	0xcf
+	.byte	0x43
+	.byte	0x45
+	.byte	0x46
+	.byte	0x4f
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x61
+	.byte	0x65
 	.byte	0xff
-	.size	 sArctovishTMHMLearnset,13
+	.size	 sArctovishTMHMLearnset,19
 	.type	 sDuraludonTMHMLearnset,object
 sDuraludonTMHMLearnset:
 	.byte	0x1
 	.byte	0xe
 	.byte	0xf
 	.byte	0x10
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1e
@@ -34515,23 +44518,42 @@ sDuraludonTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcd
+	.byte	0x43
+	.byte	0x46
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x6d
 	.byte	0xff
-	.size	 sDuraludonTMHMLearnset,14
+	.size	 sDuraludonTMHMLearnset,27
 	.type	 sDreepyTMHMLearnset,object
 sDreepyTMHMLearnset:
 	.byte	0x10
+	.byte	0x1f
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x48
+	.byte	0x51
+	.byte	0x52
+	.byte	0x57
+	.byte	0x59
 	.byte	0xff
-	.size	 sDreepyTMHMLearnset,5
+	.size	 sDreepyTMHMLearnset,11
 	.type	 sDrakloakTMHMLearnset,object
 sDrakloakTMHMLearnset:
 	.byte	0x10
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1d
+	.byte	0x1f
 	.byte	0x22
 	.byte	0x25
 	.byte	0x29
@@ -34539,19 +44561,30 @@ sDrakloakTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x48
+	.byte	0x51
+	.byte	0x52
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x73
 	.byte	0xff
-	.size	 sDrakloakTMHMLearnset,14
+	.size	 sDrakloakTMHMLearnset,24
 	.type	 sDragapultTMHMLearnset,object
 sDragapultTMHMLearnset:
 	.byte	0x1
 	.byte	0xe
 	.byte	0xf
 	.byte	0x10
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1d
+	.byte	0x1f
 	.byte	0x20
 	.byte	0x22
 	.byte	0x25
@@ -34560,11 +44593,22 @@ sDragapultTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2e
-	.byte	0xc9
-	.byte	0xca
-	.byte	0xcf
+	.byte	0x36
+	.byte	0x3c
+	.byte	0x3d
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4b
+	.byte	0x51
+	.byte	0x52
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5d
+	.byte	0x73
+	.byte	0x75
 	.byte	0xff
-	.size	 sDragapultTMHMLearnset,19
+	.size	 sDragapultTMHMLearnset,32
 	.type	 sZacianTMHMLearnset,object
 sZacianTMHMLearnset:
 	.byte	0xe
@@ -34574,36 +44618,69 @@ sZacianTMHMLearnset:
 	.byte	0x1e
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x33
+	.byte	0x35
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x67
 	.byte	0xff
-	.size	 sZacianTMHMLearnset,8
+	.size	 sZacianTMHMLearnset,18
 	.type	 sZamazentaTMHMLearnset,object
 sZamazentaTMHMLearnset:
 	.byte	0xe
 	.byte	0xf
 	.byte	0x10
 	.byte	0x13
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1b
 	.byte	0x20
 	.byte	0x29
 	.byte	0x2b
+	.byte	0x33
+	.byte	0x41
+	.byte	0x43
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5c
+	.byte	0x5e
+	.byte	0x62
+	.byte	0x67
 	.byte	0xff
-	.size	 sZamazentaTMHMLearnset,10
+	.size	 sZamazentaTMHMLearnset,21
 	.type	 sEternatusTMHMLearnset,object
 sEternatusTMHMLearnset:
 	.byte	0x5
 	.byte	0xe
 	.byte	0xf
 	.byte	0x10
+	.byte	0x15
 	.byte	0x1d
 	.byte	0x20
 	.byte	0x22
 	.byte	0x23
 	.byte	0x29
 	.byte	0x2b
-	.byte	0xc9
+	.byte	0x3a
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4b
+	.byte	0x51
+	.byte	0x53
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x64
+	.byte	0x73
+	.byte	0x77
 	.byte	0xff
-	.size	 sEternatusTMHMLearnset,12
+	.size	 sEternatusTMHMLearnset,24
 	.type	 sKubfuTMHMLearnset,object
 sKubfuTMHMLearnset:
 	.byte	0x0
@@ -34615,9 +44692,13 @@ sKubfuTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x3d
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
 	.byte	0xff
-	.size	 sKubfuTMHMLearnset,11
+	.size	 sKubfuTMHMLearnset,15
 	.type	 sUrshifuTMHMLearnset,object
 sUrshifuTMHMLearnset:
 	.byte	0x0
@@ -34631,9 +44712,25 @@ sUrshifuTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x69
+	.byte	0x76
 	.byte	0xff
-	.size	 sUrshifuTMHMLearnset,13
+	.size	 sUrshifuTMHMLearnset,29
 	.type	 sZarudeTMHMLearnset,object
 sZarudeTMHMLearnset:
 	.byte	0x7
@@ -34643,6 +44740,7 @@ sZarudeTMHMLearnset:
 	.byte	0xe
 	.byte	0x10
 	.byte	0x12
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1b
 	.byte	0x1e
@@ -34650,8 +44748,24 @@ sZarudeTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2d
+	.byte	0x34
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3d
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4f
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x70
+	.byte	0x76
 	.byte	0xff
-	.size	 sZarudeTMHMLearnset,15
+	.size	 sZarudeTMHMLearnset,32
 	.type	 sRattataAlolanTMHMLearnset,object
 sRattataAlolanTMHMLearnset:
 	.byte	0x5
@@ -34676,8 +44790,19 @@ sRattataAlolanTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
 	.byte	0xff
-	.size	 sRattataAlolanTMHMLearnset,23
+	.size	 sRattataAlolanTMHMLearnset,34
 	.type	 sRaticateAlolanTMHMLearnset,object
 sRaticateAlolanTMHMLearnset:
 	.byte	0x4
@@ -34705,8 +44830,22 @@ sRaticateAlolanTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
 	.byte	0xff
-	.size	 sRaticateAlolanTMHMLearnset,26
+	.size	 sRaticateAlolanTMHMLearnset,40
 	.type	 sRaichuAlolanTMHMLearnset,object
 sRaichuAlolanTMHMLearnset:
 	.byte	0x0
@@ -34733,9 +44872,24 @@ sRaichuAlolanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
-	.byte	0xca
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x43
+	.byte	0x47
+	.byte	0x48
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5d
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sRaichuAlolanTMHMLearnset,26
+	.size	 sRaichuAlolanTMHMLearnset,41
 	.type	 sSandshrewAlolanTMHMLearnset,object
 sSandshrewAlolanTMHMLearnset:
 	.byte	0x0
@@ -34760,8 +44914,24 @@ sSandshrewAlolanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x40
+	.byte	0x45
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSandshrewAlolanTMHMLearnset,23
+	.size	 sSandshrewAlolanTMHMLearnset,39
 	.type	 sSandslashAlolanTMHMLearnset,object
 sSandslashAlolanTMHMLearnset:
 	.byte	0x0
@@ -34787,8 +44957,26 @@ sSandslashAlolanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x33
+	.byte	0x37
+	.byte	0x40
+	.byte	0x43
+	.byte	0x45
+	.byte	0x49
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4e
+	.byte	0x4f
+	.byte	0x50
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x66
+	.byte	0x6d
 	.byte	0xff
-	.size	 sSandslashAlolanTMHMLearnset,24
+	.size	 sSandslashAlolanTMHMLearnset,42
 	.type	 sVulpixAlolanTMHMLearnset,object
 sVulpixAlolanTMHMLearnset:
 	.byte	0x4
@@ -34807,10 +44995,21 @@ sVulpixAlolanTMHMLearnset:
 	.byte	0x1f
 	.byte	0x20
 	.byte	0x29
+	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x41
+	.byte	0x45
+	.byte	0x4c
+	.byte	0x4e
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sVulpixAlolanTMHMLearnset,19
+	.size	 sVulpixAlolanTMHMLearnset,30
 	.type	 sNinetalesAlolanTMHMLearnset,object
 sNinetalesAlolanTMHMLearnset:
 	.byte	0x3
@@ -34825,16 +45024,32 @@ sNinetalesAlolanTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x1a
 	.byte	0x1b
 	.byte	0x1f
 	.byte	0x20
 	.byte	0x29
+	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x41
+	.byte	0x43
+	.byte	0x45
+	.byte	0x4c
+	.byte	0x4e
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x62
+	.byte	0x63
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sNinetalesAlolanTMHMLearnset,21
+	.size	 sNinetalesAlolanTMHMLearnset,37
 	.type	 sDiglettAlolanTMHMLearnset,object
 sDiglettAlolanTMHMLearnset:
 	.byte	0x5
@@ -34854,8 +45069,18 @@ sDiglettAlolanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x40
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sDiglettAlolanTMHMLearnset,18
+	.size	 sDiglettAlolanTMHMLearnset,28
 	.type	 sDugtrioAlolanTMHMLearnset,object
 sDugtrioAlolanTMHMLearnset:
 	.byte	0x5
@@ -34876,8 +45101,22 @@ sDugtrioAlolanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x40
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x75
 	.byte	0xff
-	.size	 sDugtrioAlolanTMHMLearnset,19
+	.size	 sDugtrioAlolanTMHMLearnset,33
 	.type	 sMeowthAlolanTMHMLearnset,object
 sMeowthAlolanTMHMLearnset:
 	.byte	0x2
@@ -34903,8 +45142,23 @@ sMeowthAlolanTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sMeowthAlolanTMHMLearnset,24
+	.size	 sMeowthAlolanTMHMLearnset,39
 	.type	 sPersianAlolanTMHMLearnset,object
 sPersianAlolanTMHMLearnset:
 	.byte	0x2
@@ -34932,8 +45186,26 @@ sPersianAlolanTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x30
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x58
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6a
+	.byte	0x6c
+	.byte	0x70
 	.byte	0xff
-	.size	 sPersianAlolanTMHMLearnset,26
+	.size	 sPersianAlolanTMHMLearnset,44
 	.type	 sGeodudeAlolanTMHMLearnset,object
 sGeodudeAlolanTMHMLearnset:
 	.byte	0x0
@@ -34956,9 +45228,26 @@ sGeodudeAlolanTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
 	.byte	0x3f
+	.byte	0x44
+	.byte	0x46
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGeodudeAlolanTMHMLearnset,22
+	.size	 sGeodudeAlolanTMHMLearnset,39
 	.type	 sGravelerAlolanTMHMLearnset,object
 sGravelerAlolanTMHMLearnset:
 	.byte	0x0
@@ -34982,9 +45271,26 @@ sGravelerAlolanTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
 	.byte	0x3f
+	.byte	0x44
+	.byte	0x46
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGravelerAlolanTMHMLearnset,23
+	.size	 sGravelerAlolanTMHMLearnset,40
 	.type	 sGolemAlolanTMHMLearnset,object
 sGolemAlolanTMHMLearnset:
 	.byte	0x0
@@ -35010,9 +45316,29 @@ sGolemAlolanTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x33
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
 	.byte	0x3f
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x47
+	.byte	0x48
+	.byte	0x49
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5c
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sGolemAlolanTMHMLearnset,25
+	.size	 sGolemAlolanTMHMLearnset,45
 	.type	 sGrimerAlolanTMHMLearnset,object
 sGrimerAlolanTMHMLearnset:
 	.byte	0x5
@@ -35037,9 +45363,26 @@ sGrimerAlolanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3b
+	.byte	0x3e
 	.byte	0x3f
+	.byte	0x41
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
 	.byte	0xff
-	.size	 sGrimerAlolanTMHMLearnset,24
+	.size	 sGrimerAlolanTMHMLearnset,41
 	.type	 sMukAlolanTMHMLearnset,object
 sMukAlolanTMHMLearnset:
 	.byte	0x0
@@ -35067,9 +45410,29 @@ sMukAlolanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3b
+	.byte	0x3e
 	.byte	0x3f
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4f
+	.byte	0x52
+	.byte	0x53
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x60
+	.byte	0x63
+	.byte	0x64
+	.byte	0x6c
 	.byte	0xff
-	.size	 sMukAlolanTMHMLearnset,27
+	.size	 sMukAlolanTMHMLearnset,47
 	.type	 sExeggutorAlolanTMHMLearnset,object
 sExeggutorAlolanTMHMLearnset:
 	.byte	0x5
@@ -35081,6 +45444,7 @@ sExeggutorAlolanTMHMLearnset:
 	.byte	0x10
 	.byte	0x12
 	.byte	0x14
+	.byte	0x15
 	.byte	0x16
 	.byte	0x19
 	.byte	0x1a
@@ -35095,9 +45459,26 @@ sExeggutorAlolanTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
+	.byte	0x34
+	.byte	0x3a
 	.byte	0x3f
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x51
+	.byte	0x52
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x5f
+	.byte	0x63
+	.byte	0x68
 	.byte	0xff
-	.size	 sExeggutorAlolanTMHMLearnset,25
+	.size	 sExeggutorAlolanTMHMLearnset,43
 	.type	 sMarowakAlolanTMHMLearnset,object
 sMarowakAlolanTMHMLearnset:
 	.byte	0x0
@@ -35128,8 +45509,26 @@ sMarowakAlolanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2c
 	.byte	0x2d
+	.byte	0x33
+	.byte	0x35
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x3c
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4d
+	.byte	0x4f
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sMarowakAlolanTMHMLearnset,29
+	.size	 sMarowakAlolanTMHMLearnset,47
 	.type	 sWormadamSandyCloakTMHMLearnset,object
 sWormadamSandyCloakTMHMLearnset:
 	.byte	0x5
@@ -35154,9 +45553,20 @@ sWormadamSandyCloakTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x4c
+	.byte	0x4d
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x6d
+	.byte	0x72
 	.byte	0xff
-	.size	 sWormadamSandyCloakTMHMLearnset,24
+	.size	 sWormadamSandyCloakTMHMLearnset,35
 	.type	 sWormadamTrashCloakTMHMLearnset,object
 sWormadamTrashCloakTMHMLearnset:
 	.byte	0x5
@@ -35177,9 +45587,21 @@ sWormadamTrashCloakTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2d
 	.byte	0x2f
-	.byte	0xcc
+	.byte	0x43
+	.byte	0x49
+	.byte	0x4c
+	.byte	0x52
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6c
+	.byte	0x6d
+	.byte	0x72
 	.byte	0xff
-	.size	 sWormadamTrashCloakTMHMLearnset,20
+	.size	 sWormadamTrashCloakTMHMLearnset,32
 	.type	 sRotomHeatTMHMLearnset,object
 sRotomHeatTMHMLearnset:
 	.byte	0x5
@@ -35201,9 +45623,20 @@ sRotomHeatTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sRotomHeatTMHMLearnset,21
+	.size	 sRotomHeatTMHMLearnset,32
 	.type	 sRotomWashTMHMLearnset,object
 sRotomWashTMHMLearnset:
 	.byte	0x5
@@ -35225,9 +45658,20 @@ sRotomWashTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sRotomWashTMHMLearnset,21
+	.size	 sRotomWashTMHMLearnset,32
 	.type	 sRotomFrostTMHMLearnset,object
 sRotomFrostTMHMLearnset:
 	.byte	0x5
@@ -35249,9 +45693,20 @@ sRotomFrostTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sRotomFrostTMHMLearnset,21
+	.size	 sRotomFrostTMHMLearnset,32
 	.type	 sRotomFanTMHMLearnset,object
 sRotomFanTMHMLearnset:
 	.byte	0x5
@@ -35273,9 +45728,20 @@ sRotomFanTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sRotomFanTMHMLearnset,21
+	.size	 sRotomFanTMHMLearnset,32
 	.type	 sRotomMowTMHMLearnset,object
 sRotomMowTMHMLearnset:
 	.byte	0x5
@@ -35297,9 +45763,20 @@ sRotomMowTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2d
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x38
+	.byte	0x3c
+	.byte	0x47
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x60
+	.byte	0x63
+	.byte	0x70
 	.byte	0xff
-	.size	 sRotomMowTMHMLearnset,21
+	.size	 sRotomMowTMHMLearnset,32
 	.type	 sShayminSkyTMHMLearnset,object
 sShayminSkyTMHMLearnset:
 	.byte	0x5
@@ -35311,15 +45788,26 @@ sShayminSkyTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
 	.byte	0x29
 	.byte	0x2a
 	.byte	0x2b
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x43
+	.byte	0x4a
+	.byte	0x4c
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sShayminSkyTMHMLearnset,17
+	.size	 sShayminSkyTMHMLearnset,28
 	.type	 sKyuremBlackTMHMLearnset,object
 sKyuremBlackTMHMLearnset:
 	.byte	0x1
@@ -35345,12 +45833,25 @@ sKyuremBlackTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4b
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x73
 	.byte	0xff
-	.size	 sKyuremBlackTMHMLearnset,28
+	.size	 sKyuremBlackTMHMLearnset,41
 	.type	 sKyuremWhiteTMHMLearnset,object
 sKyuremWhiteTMHMLearnset:
 	.byte	0x1
@@ -35376,12 +45877,25 @@ sKyuremWhiteTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2e
-	.byte	0xc8
-	.byte	0xc9
-	.byte	0xcb
-	.byte	0xcd
+	.byte	0x33
+	.byte	0x37
+	.byte	0x3a
+	.byte	0x40
+	.byte	0x41
+	.byte	0x43
+	.byte	0x46
+	.byte	0x4b
+	.byte	0x4f
+	.byte	0x51
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x63
+	.byte	0x6b
+	.byte	0x73
 	.byte	0xff
-	.size	 sKyuremWhiteTMHMLearnset,28
+	.size	 sKyuremWhiteTMHMLearnset,41
 	.type	 sFloetteEternalFlowerTMHMLearnset,object
 sFloetteEternalFlowerTMHMLearnset:
 	.byte	0x3
@@ -35393,6 +45907,7 @@ sFloetteEternalFlowerTMHMLearnset:
 	.byte	0x12
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x1a
 	.byte	0x1c
 	.byte	0x1f
@@ -35400,9 +45915,16 @@ sFloetteEternalFlowerTMHMLearnset:
 	.byte	0x2a
 	.byte	0x2b
 	.byte	0x2c
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5f
+	.byte	0x62
+	.byte	0x63
 	.byte	0xff
-	.size	 sFloetteEternalFlowerTMHMLearnset,18
+	.size	 sFloetteEternalFlowerTMHMLearnset,26
 	.type	 sMeowsticFemaleTMHMLearnset,object
 sMeowsticFemaleTMHMLearnset:
 	.byte	0x3
@@ -35431,10 +45953,24 @@ sMeowsticFemaleTMHMLearnset:
 	.byte	0x2c
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcc
+	.byte	0x34
+	.byte	0x38
+	.byte	0x41
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x67
+	.byte	0x68
+	.byte	0x70
 	.byte	0xff
-	.size	 sMeowsticFemaleTMHMLearnset,29
+	.size	 sMeowsticFemaleTMHMLearnset,43
 	.type	 sHoopaUnboundTMHMLearnset,object
 sHoopaUnboundTMHMLearnset:
 	.byte	0x0
@@ -35464,9 +46000,28 @@ sHoopaUnboundTMHMLearnset:
 	.byte	0x2d
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xcc
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3b
+	.byte	0x3e
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6c
+	.byte	0x76
 	.byte	0xff
-	.size	 sHoopaUnboundTMHMLearnset,29
+	.size	 sHoopaUnboundTMHMLearnset,48
 	.type	 sLycanrocMidnightTMHMLearnset,object
 sLycanrocMidnightTMHMLearnset:
 	.byte	0x0
@@ -35486,8 +46041,23 @@ sLycanrocMidnightTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x32
+	.byte	0x41
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sLycanrocMidnightTMHMLearnset,18
+	.size	 sLycanrocMidnightTMHMLearnset,33
 	.type	 sLycanrocDuskTMHMLearnset,object
 sLycanrocDuskTMHMLearnset:
 	.byte	0x4
@@ -35506,8 +46076,21 @@ sLycanrocDuskTMHMLearnset:
 	.byte	0x29
 	.byte	0x2b
 	.byte	0x2c
+	.byte	0x43
+	.byte	0x44
+	.byte	0x46
+	.byte	0x4a
+	.byte	0x4f
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5e
+	.byte	0x63
+	.byte	0x67
+	.byte	0x6b
+	.byte	0x6d
 	.byte	0xff
-	.size	 sLycanrocDuskTMHMLearnset,17
+	.size	 sLycanrocDuskTMHMLearnset,30
 	.type	 sDeoxysAttackTMHMLearnset,object
 sDeoxysAttackTMHMLearnset:
 	.byte	0x0
@@ -35524,6 +46107,7 @@ sDeoxysAttackTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -35541,12 +46125,31 @@ sDeoxysAttackTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6d
+	.byte	0x76
 	.byte	0xff
-	.size	 sDeoxysAttackTMHMLearnset,36
+	.size	 sDeoxysAttackTMHMLearnset,56
 	.type	 sDeoxysDefenseTMHMLearnset,object
 sDeoxysDefenseTMHMLearnset:
 	.byte	0x0
@@ -35563,6 +46166,7 @@ sDeoxysDefenseTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -35580,12 +46184,31 @@ sDeoxysDefenseTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6d
+	.byte	0x76
 	.byte	0xff
-	.size	 sDeoxysDefenseTMHMLearnset,36
+	.size	 sDeoxysDefenseTMHMLearnset,56
 	.type	 sDeoxysSpeedTMHMLearnset,object
 sDeoxysSpeedTMHMLearnset:
 	.byte	0x0
@@ -35602,6 +46225,7 @@ sDeoxysSpeedTMHMLearnset:
 	.byte	0x11
 	.byte	0x13
 	.byte	0x14
+	.byte	0x15
 	.byte	0x17
 	.byte	0x18
 	.byte	0x1a
@@ -35619,12 +46243,31 @@ sDeoxysSpeedTMHMLearnset:
 	.byte	0x2b
 	.byte	0x2f
 	.byte	0x30
-	.byte	0xc8
-	.byte	0xcb
-	.byte	0xcc
-	.byte	0xcd
+	.byte	0x32
+	.byte	0x33
+	.byte	0x34
+	.byte	0x37
+	.byte	0x38
+	.byte	0x3a
+	.byte	0x43
+	.byte	0x48
+	.byte	0x4c
+	.byte	0x4f
+	.byte	0x53
+	.byte	0x54
+	.byte	0x55
+	.byte	0x56
+	.byte	0x57
+	.byte	0x59
+	.byte	0x5a
+	.byte	0x5b
+	.byte	0x60
+	.byte	0x63
+	.byte	0x68
+	.byte	0x6d
+	.byte	0x76
 	.byte	0xff
-	.size	 sDeoxysSpeedTMHMLearnset,36
+	.size	 sDeoxysSpeedTMHMLearnset,56
 	.globl	gTMHMLearnsets
 	.align	2, 0
 	.type	 gTMHMLearnsets,object
@@ -38920,7 +49563,8 @@ gBaseStats:
 	.space	1
 	.short	0x9a
 	.byte	0x80
-	.space	3
+	.space	1
+	.short	0x7c
 	.short	0x7c
 	.byte	0x7f
 	.byte	0x14
@@ -44369,9 +55013,9 @@ gBaseStats:
 	.space	1
 	.byte	0x5
 	.space	4
-	.byte	0x4e
-	.byte	0x46
-	.byte	0x3d
+	.byte	0x50
+	.byte	0x5a
+	.byte	0x41
 	.byte	0x64
 	.byte	0x32
 	.byte	0x3d
@@ -44450,7 +55094,7 @@ gBaseStats:
 	.byte	0x3c
 	.byte	0x46
 	.byte	0x32
-	.byte	0x41
+	.byte	0x4b
 	.byte	0x64
 	.byte	0x32
 	.byte	0x6
@@ -44500,10 +55144,10 @@ gBaseStats:
 	.space	4
 	.byte	0x3c
 	.byte	0x32
+	.byte	0x3c
+	.byte	0x4b
 	.byte	0x46
-	.byte	0x41
-	.byte	0x32
-	.byte	0x5a
+	.byte	0x50
 	.byte	0x6
 	.byte	0x3
 	.byte	0x2d
@@ -47402,7 +58046,8 @@ gBaseStats:
 	.short	0x10e
 	.space	1
 	.byte	0xc
-	.space	4
+	.short	0x1a6
+	.short	0x1a6
 	.byte	0xfe
 	.byte	0x78
 	.byte	0x5a
@@ -47427,7 +58072,8 @@ gBaseStats:
 	.short	0x10e
 	.space	1
 	.byte	0x3
-	.space	4
+	.short	0x1a7
+	.short	0x1a7
 	.byte	0x0
 	.byte	0x78
 	.byte	0x5a
@@ -53446,7 +64092,7 @@ gBaseStats:
 	.byte	0x0
 	.byte	0x5
 	.byte	0x5
-	.short	0x75
+	.short	0x51
 	.short	0xca
 	.short	0x21
 	.space	1
@@ -56563,8 +67209,8 @@ gBaseStats:
 	.byte	0x4d
 	.byte	0x46
 	.byte	0x5a
-	.byte	0x2b
-	.byte	0x91
+	.byte	0x46
+	.byte	0x82
 	.byte	0x4b
 	.byte	0x6
 	.byte	0xd
@@ -56605,16 +67251,16 @@ gBaseStats:
 	.byte	0x0
 	.byte	0x9
 	.byte	0x9
-	.short	0x34
-	.short	0x59
 	.short	0x53
+	.short	0x59
+	.short	0x48
 	.space	1
 	.byte	0x6
 	.space	4
 	.byte	0x61
 	.byte	0x84
 	.byte	0x4d
-	.byte	0x2b
+	.byte	0x41
 	.byte	0x3e
 	.byte	0x43
 	.byte	0x1
@@ -56631,9 +67277,9 @@ gBaseStats:
 	.byte	0x0
 	.byte	0x9
 	.byte	0x9
-	.short	0x34
-	.short	0x59
 	.short	0x53
+	.short	0x59
+	.short	0xa9
 	.space	1
 	.byte	0x8
 	.space	4
@@ -58857,12 +69503,12 @@ gBaseStats:
 	.space	1
 	.byte	0x5
 	.space	4
+	.byte	0x3c
+	.byte	0x64
+	.byte	0x3c
+	.byte	0x6e
 	.byte	0x46
-	.byte	0x3a
-	.byte	0x3a
-	.byte	0x5a
-	.byte	0x57
-	.byte	0x5c
+	.byte	0x46
 	.byte	0x11
 	.byte	0x11
 	.byte	0x7f
@@ -66925,8 +77571,9 @@ gBaseStats:
 	.byte	0x5
 	.byte	0x5
 	.short	0xb5
-	.short	0x0
-	.space	3
+	.short	0x92
+	.short	0x48
+	.space	1
 	.byte	0x5
 	.space	4
 	.byte	0x2d
@@ -69265,6 +79912,8 @@ sFearowLevelUpLearnset:
 	.short	0x1
 	.short	0x16d
 	.short	0x1
+	.short	0x6
+	.short	0x1
 	.short	0xe4
 	.short	0x1
 	.short	0x1f
@@ -69295,7 +79944,7 @@ sFearowLevelUpLearnset:
 	.short	0x33
 	.short	0xffff
 	.space	2
-	.size	 sFearowLevelUpLearnset,92
+	.size	 sFearowLevelUpLearnset,96
 	.align	2, 0
 	.type	 sEkansLevelUpLearnset,object
 sEkansLevelUpLearnset:
@@ -73301,6 +83950,8 @@ sDrowzeeLevelUpLearnset:
 	.short	0x2a
 	.short	0x1ac
 	.short	0x2b
+	.short	0xbb
+	.short	0x2d
 	.short	0x1a1
 	.short	0x30
 	.short	0xf8
@@ -73309,7 +83960,7 @@ sDrowzeeLevelUpLearnset:
 	.short	0x39
 	.short	0xffff
 	.space	2
-	.size	 sDrowzeeLevelUpLearnset,76
+	.size	 sDrowzeeLevelUpLearnset,80
 	.align	2, 0
 	.type	 sHypnoLevelUpLearnset,object
 sHypnoLevelUpLearnset:
@@ -73349,6 +84000,8 @@ sHypnoLevelUpLearnset:
 	.short	0x24
 	.short	0x1e5
 	.short	0x25
+	.short	0x111
+	.short	0x2d
 	.short	0xcf
 	.short	0x2d
 	.short	0x5e
@@ -73357,6 +84010,8 @@ sHypnoLevelUpLearnset:
 	.short	0x2f
 	.short	0x1a1
 	.short	0x34
+	.short	0xbb
+	.short	0x35
 	.short	0x8a
 	.short	0x37
 	.short	0x1d9
@@ -73365,7 +84020,7 @@ sHypnoLevelUpLearnset:
 	.short	0x3e
 	.short	0xffff
 	.space	2
-	.size	 sHypnoLevelUpLearnset,104
+	.size	 sHypnoLevelUpLearnset,112
 	.align	2, 0
 	.type	 sKrabbyLevelUpLearnset,object
 sKrabbyLevelUpLearnset:
@@ -74311,6 +84966,8 @@ sChanseyLevelUpLearnset:
 	.short	0x21
 	.short	0x79
 	.short	0x27
+	.short	0x111
+	.short	0x28
 	.short	0x71
 	.short	0x29
 	.short	0x183
@@ -74321,7 +84978,7 @@ sChanseyLevelUpLearnset:
 	.short	0x32
 	.short	0xffff
 	.space	2
-	.size	 sChanseyLevelUpLearnset,132
+	.size	 sChanseyLevelUpLearnset,136
 	.align	2, 0
 	.type	 sTangelaLevelUpLearnset,object
 sTangelaLevelUpLearnset:
@@ -75411,6 +86068,8 @@ sJolteonLevelUpLearnset:
 	.short	0x1f
 	.short	0x56
 	.short	0x22
+	.short	0x144
+	.short	0x26
 	.short	0x61
 	.short	0x2a
 	.short	0x1b3
@@ -75421,7 +86080,7 @@ sJolteonLevelUpLearnset:
 	.short	0x33
 	.short	0xffff
 	.space	2
-	.size	 sJolteonLevelUpLearnset,128
+	.size	 sJolteonLevelUpLearnset,132
 	.align	2, 0
 	.type	 sFlareonLevelUpLearnset,object
 sFlareonLevelUpLearnset:
@@ -75871,6 +86530,8 @@ sSnorlaxLevelUpLearnset:
 	.short	0x1
 	.short	0x157
 	.short	0x1
+	.short	0x12f
+	.short	0x1
 	.short	0xfe
 	.short	0x1
 	.short	0x100
@@ -75953,7 +86614,7 @@ sSnorlaxLevelUpLearnset:
 	.short	0x41
 	.short	0xffff
 	.space	2
-	.size	 sSnorlaxLevelUpLearnset,172
+	.size	 sSnorlaxLevelUpLearnset,176
 	.align	2, 0
 	.type	 sArticunoLevelUpLearnset,object
 sArticunoLevelUpLearnset:
@@ -79833,11 +90494,19 @@ sOctilleryLevelUpLearnset:
 sDelibirdLevelUpLearnset:
 	.short	0xd9
 	.short	0x1
+	.short	0x25b
+	.short	0x1
+	.short	0x6
+	.short	0x1
 	.short	0x41
 	.short	0x19
+	.short	0xfc
+	.short	0x23
+	.short	0x1a4
+	.short	0x2d
 	.short	0xffff
 	.space	2
-	.size	 sDelibirdLevelUpLearnset,12
+	.size	 sDelibirdLevelUpLearnset,28
 	.align	2, 0
 	.type	 sMantineLevelUpLearnset,object
 sMantineLevelUpLearnset:
@@ -81777,9 +92446,11 @@ sLinooneLevelUpLearnset:
 	.short	0x30
 	.short	0xbb
 	.short	0x31
+	.short	0xf5
+	.short	0x31
 	.short	0xffff
 	.space	2
-	.size	 sLinooneLevelUpLearnset,116
+	.size	 sLinooneLevelUpLearnset,120
 	.align	2, 0
 	.type	 sWurmpleLevelUpLearnset,object
 sWurmpleLevelUpLearnset:
@@ -83351,6 +94022,8 @@ sSkittyLevelUpLearnset:
 	.short	0xf
 	.short	0x17f
 	.short	0x11
+	.short	0x6
+	.short	0x14
 	.short	0x112
 	.short	0x17
 	.short	0xcc
@@ -83371,23 +94044,55 @@ sSkittyLevelUpLearnset:
 	.short	0x2e
 	.short	0xffff
 	.space	2
-	.size	 sSkittyLevelUpLearnset,84
+	.size	 sSkittyLevelUpLearnset,88
 	.align	2, 0
 	.type	 sDelcattyLevelUpLearnset,object
 sDelcattyLevelUpLearnset:
 	.short	0xfc
 	.short	0x1
-	.short	0x2f
-	.short	0x1
-	.short	0xd5
-	.short	0x1
-	.short	0x3
-	.short	0x1
 	.short	0x2d
 	.short	0x1
+	.short	0x27
+	.short	0x1
+	.short	0x21
+	.short	0x1
+	.short	0x27
+	.short	0x3
+	.short	0xc1
+	.short	0x4
+	.short	0xd5
+	.short	0x8
+	.short	0x2f
+	.short	0x9
+	.short	0x23e
+	.short	0xd
+	.short	0x3
+	.short	0xf
+	.short	0x17f
+	.short	0x11
+	.short	0x6
+	.short	0x14
+	.short	0x112
+	.short	0x17
+	.short	0xcc
+	.short	0x18
+	.short	0xb9
+	.short	0x1a
+	.short	0x166
+	.short	0x1e
+	.short	0x157
+	.short	0x22
+	.short	0xd7
+	.short	0x25
+	.short	0x26
+	.short	0x28
+	.short	0x1bd
+	.short	0x2c
+	.short	0x247
+	.short	0x2e
 	.short	0xffff
 	.space	2
-	.size	 sDelcattyLevelUpLearnset,24
+	.size	 sDelcattyLevelUpLearnset,88
 	.align	2, 0
 	.type	 sSableyeLevelUpLearnset,object
 sSableyeLevelUpLearnset:
@@ -86511,6 +97216,8 @@ sWalreinLevelUpLearnset:
 	.short	0x1f
 	.short	0xcf
 	.short	0x20
+	.short	0x144
+	.short	0x24
 	.short	0x102
 	.short	0x2b
 	.short	0x1a7
@@ -86521,9 +97228,11 @@ sWalreinLevelUpLearnset:
 	.short	0x34
 	.short	0x149
 	.short	0x42
+	.short	0x5a
+	.short	0x42
 	.short	0xffff
 	.space	2
-	.size	 sWalreinLevelUpLearnset,104
+	.size	 sWalreinLevelUpLearnset,112
 	.align	2, 0
 	.type	 sClamperlLevelUpLearnset,object
 sClamperlLevelUpLearnset:
@@ -87365,6 +98074,8 @@ sGroudonLevelUpLearnset:
 	.align	2, 0
 	.type	 sRayquazaLevelUpLearnset,object
 sRayquazaLevelUpLearnset:
+	.short	0x22d
+	.short	0x1
 	.short	0x26c
 	.short	0x1
 	.short	0xef
@@ -87405,7 +98116,7 @@ sRayquazaLevelUpLearnset:
 	.short	0x52
 	.short	0xffff
 	.space	2
-	.size	 sRayquazaLevelUpLearnset,80
+	.size	 sRayquazaLevelUpLearnset,84
 	.align	2, 0
 	.type	 sJirachiLevelUpLearnset,object
 sJirachiLevelUpLearnset:
@@ -90725,10 +101436,14 @@ sLickilickyLevelUpLearnset:
 	.short	0x25
 	.short	0x17e
 	.short	0x27
+	.short	0x111
+	.short	0x28
 	.short	0x11f
 	.short	0x2b
 	.short	0x67
 	.short	0x2d
+	.short	0x22
+	.short	0x30
 	.short	0x1b6
 	.short	0x34
 	.short	0x17a
@@ -90739,7 +101454,7 @@ sLickilickyLevelUpLearnset:
 	.short	0x3c
 	.short	0xffff
 	.space	2
-	.size	 sLickilickyLevelUpLearnset,92
+	.size	 sLickilickyLevelUpLearnset,100
 	.align	2, 0
 	.type	 sRhyperiorLevelUpLearnset,object
 sRhyperiorLevelUpLearnset:
@@ -100959,6 +111674,8 @@ sMalamarLevelUpLearnset:
 	.short	0x1
 	.short	0x114
 	.short	0x1
+	.short	0x25b
+	.short	0x1
 	.short	0x73
 	.short	0x4
 	.short	0x95
@@ -100991,7 +111708,7 @@ sMalamarLevelUpLearnset:
 	.short	0x2f
 	.short	0xffff
 	.space	2
-	.size	 sMalamarLevelUpLearnset,96
+	.size	 sMalamarLevelUpLearnset,100
 	.align	2, 0
 	.type	 sBinacleLevelUpLearnset,object
 sBinacleLevelUpLearnset:
@@ -101495,6 +112212,10 @@ sAmauraLevelUpLearnset:
 sAurorusLevelUpLearnset:
 	.short	0x23d
 	.short	0x0
+	.short	0x198
+	.short	0x1
+	.short	0x291
+	.short	0x1
 	.short	0xb5
 	.short	0x1
 	.short	0x2d
@@ -101545,7 +112266,7 @@ sAurorusLevelUpLearnset:
 	.short	0x42
 	.short	0xffff
 	.space	2
-	.size	 sAurorusLevelUpLearnset,104
+	.size	 sAurorusLevelUpLearnset,112
 	.align	2, 0
 	.type	 sSylveonLevelUpLearnset,object
 sSylveonLevelUpLearnset:
@@ -103447,6 +114168,8 @@ sCrabominableLevelUpLearnset:
 	.short	0x21
 	.short	0x274
 	.short	0x25
+	.short	0x199
+	.short	0x28
 	.short	0x14e
 	.short	0x2a
 	.short	0xdf
@@ -103455,7 +114178,7 @@ sCrabominableLevelUpLearnset:
 	.short	0x31
 	.short	0xffff
 	.space	2
-	.size	 sCrabominableLevelUpLearnset,76
+	.size	 sCrabominableLevelUpLearnset,80
 	.align	2, 0
 	.type	 sOricorioLevelUpLearnset,object
 sOricorioLevelUpLearnset:
@@ -104295,6 +115018,8 @@ sBewearLevelUpLearnset:
 	.short	0x1b
 	.short	0x167
 	.short	0x24
+	.short	0x199
+	.short	0x28
 	.short	0x25
 	.short	0x2a
 	.short	0xdc
@@ -104305,7 +115030,7 @@ sBewearLevelUpLearnset:
 	.short	0x3c
 	.short	0xffff
 	.space	2
-	.size	 sBewearLevelUpLearnset,80
+	.size	 sBewearLevelUpLearnset,84
 	.align	2, 0
 	.type	 sBounsweetLevelUpLearnset,object
 sBounsweetLevelUpLearnset:
@@ -106993,6 +117718,14 @@ sNickitLevelUpLearnset:
 sThievulLevelUpLearnset:
 	.short	0xa8
 	.short	0x0
+	.short	0x1a6
+	.short	0x1
+	.short	0x1a7
+	.short	0x1
+	.short	0x1a8
+	.short	0x1
+	.short	0xfc
+	.short	0x1
 	.short	0xa8
 	.short	0x1
 	.short	0x62
@@ -107009,19 +117742,23 @@ sThievulLevelUpLearnset:
 	.short	0x10
 	.short	0x1a1
 	.short	0x16
+	.short	0x1a5
+	.short	0x1a
 	.short	0x185
 	.short	0x1c
 	.short	0x190
 	.short	0x22
 	.short	0x21d
 	.short	0x28
+	.short	0x247
+	.short	0x2c
 	.short	0x1ec
 	.short	0x2e
 	.short	0x23f
 	.short	0x34
 	.short	0xffff
 	.space	2
-	.size	 sThievulLevelUpLearnset,60
+	.size	 sThievulLevelUpLearnset,84
 	.align	2, 0
 	.type	 sGossifleurLevelUpLearnset,object
 sGossifleurLevelUpLearnset:
@@ -107667,13 +118404,15 @@ sToxtricityLevelUpLearnset:
 	.short	0x24
 	.short	0x18e
 	.short	0x28
+	.short	0x2ca
+	.short	0x2c
 	.short	0x24a
 	.short	0x30
 	.short	0x1fc
 	.short	0x34
 	.short	0xffff
 	.space	2
-	.size	 sToxtricityLevelUpLearnset,104
+	.size	 sToxtricityLevelUpLearnset,108
 	.align	2, 0
 	.type	 sSizzlipedeLevelUpLearnset,object
 sSizzlipedeLevelUpLearnset:
@@ -109531,9 +120270,11 @@ sRaichuAlolanLevelUpLearnset:
 	.short	0x1
 	.short	0x286
 	.short	0x1
+	.short	0x39
+	.short	0x1
 	.short	0xffff
 	.space	2
-	.size	 sRaichuAlolanLevelUpLearnset,104
+	.size	 sRaichuAlolanLevelUpLearnset,108
 	.align	2, 0
 	.type	 sSandshrewAlolanLevelUpLearnset,object
 sSandshrewAlolanLevelUpLearnset:
@@ -111971,13 +122712,15 @@ sToxtricityLowKeyLevelUpLearnset:
 	.short	0x24
 	.short	0x18e
 	.short	0x28
+	.short	0x2ca
+	.short	0x2c
 	.short	0x24a
 	.short	0x30
 	.short	0x25a
 	.short	0x34
 	.short	0xffff
 	.space	2
-	.size	 sToxtricityLowKeyLevelUpLearnset,104
+	.size	 sToxtricityLowKeyLevelUpLearnset,108
 	.align	2, 0
 	.type	 sIndeedeeFemaleLevelUpLearnset,object
 sIndeedeeFemaleLevelUpLearnset:
@@ -112604,11 +123347,11 @@ gEvolutionTable:
 	.short	0x1cf
 	.space	2
 	.space	72
-	.short	0x4
+	.short	0x13
 	.short	0x23
 	.short	0x6e
 	.space	2
-	.short	0x22
+	.short	0x12
 	.short	0x23
 	.short	0x3cd
 	.space	2
@@ -113713,7 +124456,11 @@ gEvolutionTable:
 	.short	0x66
 	.short	0x7a
 	.space	2
-	.space	72
+	.short	0x21
+	.short	0x6e
+	.short	0x3ce
+	.space	2
+	.space	64
 	.short	0x15
 	.short	0xe7
 	.short	0x71
@@ -114322,7 +125069,7 @@ gEvolutionTable:
 	.space	2
 	.space	72
 	.space	80
-	.short	0x1e
+	.short	0x4
 	.short	0x20
 	.short	0x2a3
 	.space	2
@@ -114696,7 +125443,7 @@ gEvolutionTable:
 	.space	72
 	.space	80
 	.short	0x4
-	.short	0x12
+	.short	0x1c
 	.short	0x33c
 	.space	2
 	.space	72
@@ -116445,8 +127192,9 @@ sDugtrioFormSpeciesIdTable:
 sMeowthFormSpeciesIdTable:
 	.short	0x34
 	.short	0x3be
+	.short	0x3c7
 	.short	0xffff
-	.size	 sMeowthFormSpeciesIdTable,6
+	.size	 sMeowthFormSpeciesIdTable,8
 	.align	1, 0
 	.type	 sPersianFormSpeciesIdTable,object
 sPersianFormSpeciesIdTable:
@@ -117264,6 +128012,20 @@ sMagearnaFormSpeciesIdTable:
 	.short	0x49f
 	.short	0xffff
 	.size	 sMagearnaFormSpeciesIdTable,6
+	.align	1, 0
+	.type	 sFarfetchdFormSpeciesIdTable,object
+sFarfetchdFormSpeciesIdTable:
+	.short	0x53
+	.short	0x3cc
+	.short	0xffff
+	.size	 sFarfetchdFormSpeciesIdTable,6
+	.align	1, 0
+	.type	 sPonytaFormSpeciesIdTable,object
+sPonytaFormSpeciesIdTable:
+	.short	0x4d
+	.short	0x3c8
+	.short	0xffff
+	.size	 sPonytaFormSpeciesIdTable,6
 	.globl	gFormSpeciesIdTables
 	.align	2, 0
 	.type	 gFormSpeciesIdTables,object
@@ -117300,9 +128062,12 @@ gFormSpeciesIdTables:
 	.word	sGeodudeFormSpeciesIdTable
 	.word	sGravelerFormSpeciesIdTable
 	.word	sGolemFormSpeciesIdTable
-	.space	12
+	.word	sPonytaFormSpeciesIdTable
+	.space	8
 	.word	sSlowbroFormSpeciesIdTable
-	.space	28
+	.space	8
+	.word	sFarfetchdFormSpeciesIdTable
+	.space	16
 	.word	sGrimerFormSpeciesIdTable
 	.word	sMukFormSpeciesIdTable
 	.space	16
@@ -117528,7 +128293,11 @@ gFormSpeciesIdTables:
 	.word	sMukFormSpeciesIdTable
 	.word	sExeggutorFormSpeciesIdTable
 	.word	sMarowakFormSpeciesIdTable
-	.space	76
+	.word	sMeowthFormSpeciesIdTable
+	.word	sPonytaFormSpeciesIdTable
+	.space	12
+	.word	sFarfetchdFormSpeciesIdTable
+	.space	52
 	.word	sPikachuFormSpeciesIdTable
 	.word	sPikachuFormSpeciesIdTable
 	.word	sPikachuFormSpeciesIdTable
@@ -119523,6 +130292,12 @@ CreateBoxMon:
 	ldr	r2, [sp, #0x28]
 	bl	SetBoxMonData
 .L73:
+	mov	r0, #0x0
+	str	r0, [sp, #0x18]
+	add	r0, r7, #0
+	mov	r1, #0x5a
+	ldr	r2, [sp, #0x28]
+	bl	SetBoxMonData
 	add	r0, r7, #0
 	bl	GiveBoxMonInitialMoveset
 	add	sp, sp, #0x30
@@ -121095,6 +131870,7 @@ GetDeoxysStat:
 	mov	r2, #0x0
 	bl	GetMonData
 	add	r0, r4, #0
+	mov	r1, #0x1
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -121625,6 +132401,7 @@ CalculateMonStats:
 	add	r0, r0, #0x5
 	str	r0, [sp, #0x8]
 	add	r0, r5, #0
+	mov	r1, #0x1
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -121657,6 +132434,7 @@ CalculateMonStats:
 	add	r0, r0, #0x5
 	str	r0, [sp, #0xc]
 	add	r0, r5, #0
+	mov	r1, #0x1
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -121689,6 +132467,7 @@ CalculateMonStats:
 	add	r0, r0, #0x5
 	str	r0, [sp, #0x10]
 	add	r0, r5, #0
+	mov	r1, #0x1
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -121721,6 +132500,7 @@ CalculateMonStats:
 	add	r0, r0, #0x5
 	str	r0, [sp, #0x14]
 	add	r0, r5, #0
+	mov	r1, #0x1
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -121753,6 +132533,7 @@ CalculateMonStats:
 	add	r0, r0, #0x5
 	str	r0, [sp, #0x18]
 	add	r0, r5, #0
+	mov	r1, #0x1
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -123307,9 +134088,9 @@ GetSubstruct:
 	mov	r1, #0x18
 	bl	__umodsi3
 	cmp	r0, #0x17
-	bls	.LCB5648
+	bls	.LCB5741
 	b	.L537	@long jump
-.LCB5648:
+.LCB5741:
 	lsl	r0, r0, #0x2
 	ldr	r1, .L764
 	add	r0, r0, r1
@@ -123350,132 +134131,132 @@ GetSubstruct:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5672
+	bne	.LCB5765
 	b	.L749	@long jump
-.LCB5672:
+.LCB5765:
 	cmp	r4, #0x1
 	bgt	.L546	@cond_branch
 .L756:
 	cmp	r4, #0
-	bne	.LCB5677
+	bne	.LCB5770
 	b	.L750	@long jump
-.LCB5677:
+.LCB5770:
 	b	.L537
 .L546:
 	cmp	r4, #0x2
-	bne	.LCB5682
+	bne	.LCB5775
 	b	.L748	@long jump
-.LCB5682:
+.LCB5775:
 .L757:
 	cmp	r4, #0x3
-	beq	.LCB5685
+	beq	.LCB5778
 	b	.L537	@long jump
-.LCB5685:
+.LCB5778:
 	b	.L747
 .L547:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5696
+	bne	.LCB5789
 	b	.L749	@long jump
-.LCB5696:
+.LCB5789:
 	cmp	r4, #0x1
 	ble	.L756	@cond_branch
 .L555:
 	cmp	r4, #0x2
-	bne	.LCB5701
+	bne	.LCB5794
 	b	.L747	@long jump
-.LCB5701:
+.LCB5794:
 .L758:
 	cmp	r4, #0x3
-	beq	.LCB5704
+	beq	.LCB5797
 	b	.L537	@long jump
-.LCB5704:
+.LCB5797:
 	b	.L748
 .L556:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5716
+	bne	.LCB5809
 	b	.L748	@long jump
-.LCB5716:
+.LCB5809:
 	cmp	r4, #0x1
 	ble	.L756	@cond_branch
 	cmp	r4, #0x2
-	bne	.LCB5720
+	bne	.LCB5813
 	b	.L749	@long jump
-.LCB5720:
+.LCB5813:
 	b	.L757
 .L565:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5732
+	bne	.LCB5825
 	b	.L747	@long jump
-.LCB5732:
+.LCB5825:
 	cmp	r4, #0x1
 	ble	.L756	@cond_branch
 	cmp	r4, #0x2
-	bne	.LCB5736
+	bne	.LCB5829
 	b	.L749	@long jump
-.LCB5736:
+.LCB5829:
 	b	.L758
 .L574:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5748
+	bne	.LCB5841
 	b	.L748	@long jump
-.LCB5748:
+.LCB5841:
 	cmp	r4, #0x1
 	ble	.L756	@cond_branch
 .L582:
 	cmp	r4, #0x2
-	bne	.LCB5753
+	bne	.LCB5846
 	b	.L747	@long jump
-.LCB5753:
+.LCB5846:
 .L759:
 	cmp	r4, #0x3
-	beq	.LCB5756
+	beq	.LCB5849
 	b	.L537	@long jump
-.LCB5756:
+.LCB5849:
 	b	.L749
 .L583:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5768
+	bne	.LCB5861
 	b	.L747	@long jump
-.LCB5768:
+.LCB5861:
 	cmp	r4, #0x1
 	ble	.L756	@cond_branch
 	cmp	r4, #0x2
-	bne	.LCB5772
+	bne	.LCB5865
 	b	.L748	@long jump
-.LCB5772:
+.LCB5865:
 	b	.L759
 .L592:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5784
+	bne	.LCB5877
 	b	.L750	@long jump
-.LCB5784:
+.LCB5877:
 	cmp	r4, #0x1
 	bgt	.L546	@cond_branch
 .L760:
 	cmp	r4, #0
-	bne	.LCB5789
+	bne	.LCB5882
 	b	.L749	@long jump
-.LCB5789:
+.LCB5882:
 	b	.L537
 .L601:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5801
+	bne	.LCB5894
 	b	.L750	@long jump
-.LCB5801:
+.LCB5894:
 	cmp	r4, #0x1
 	ble	.L760	@cond_branch
 	b	.L555
@@ -123483,46 +134264,46 @@ GetSubstruct:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5815
+	bne	.LCB5908
 	b	.L750	@long jump
-.LCB5815:
+.LCB5908:
 	cmp	r4, #0x1
 	bgt	.L618	@cond_branch
 .L762:
 	cmp	r4, #0
-	bne	.LCB5820
+	bne	.LCB5913
 	b	.L748	@long jump
-.LCB5820:
+.LCB5913:
 	b	.L537
 .L618:
 	cmp	r4, #0x2
-	bne	.LCB5825
+	bne	.LCB5918
 	b	.L749	@long jump
-.LCB5825:
+.LCB5918:
 	b	.L757
 .L619:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5837
+	bne	.LCB5930
 	b	.L750	@long jump
-.LCB5837:
+.LCB5930:
 	cmp	r4, #0x1
-	bgt	.LCB5839
+	bgt	.LCB5932
 	b	.L761	@long jump
-.LCB5839:
+.LCB5932:
 	cmp	r4, #0x2
-	bne	.LCB5841
+	bne	.LCB5934
 	b	.L749	@long jump
-.LCB5841:
+.LCB5934:
 	b	.L758
 .L628:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5853
+	bne	.LCB5946
 	b	.L750	@long jump
-.LCB5853:
+.LCB5946:
 	cmp	r4, #0x1
 	ble	.L762	@cond_branch
 	b	.L582
@@ -123530,9 +134311,9 @@ GetSubstruct:
 	add	r0, r5, #0
 	add	r0, r0, #0x20
 	cmp	r4, #0x1
-	bne	.LCB5867
+	bne	.LCB5960
 	b	.L750	@long jump
-.LCB5867:
+.LCB5960:
 	cmp	r4, #0x1
 	ble	.L761	@cond_branch
 	cmp	r4, #0x2
@@ -123618,9 +134399,9 @@ GetSubstruct:
 	cmp	r4, #0x1
 	beq	.L747	@cond_branch
 	cmp	r4, #0x1
-	bgt	.LCB6001
+	bgt	.LCB6094
 	b	.L760	@long jump
-.LCB6001:
+.LCB6094:
 	cmp	r4, #0x2
 	beq	.L748	@cond_branch
 	b	.L763
@@ -123648,9 +134429,9 @@ GetSubstruct:
 	cmp	r4, #0x1
 	beq	.L747	@cond_branch
 	cmp	r4, #0x1
-	bgt	.LCB6047
+	bgt	.LCB6140
 	b	.L762	@long jump
-.LCB6047:
+.LCB6140:
 	cmp	r4, #0x2
 	beq	.L749	@cond_branch
 	b	.L763
@@ -123872,22 +134653,22 @@ GetBoxMonData:
 	strb	r0, [r5, #0x7]
 .L788:
 	ldr	r0, [sp]
-	cmp	r0, #0x59
-	bls	.LCB6280
+	cmp	r0, #0x5a
+	bls	.LCB6373
 	b	.L790	@long jump
-.LCB6280:
+.LCB6373:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L916
+	ldr	r1, .L917
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
+.L918:
+	.align	2, 0
 .L917:
-	.align	2, 0
-.L916:
-	.word	.L908
+	.word	.L909
 	.align	2, 0
 	.align	2, 0
-.L908:
+.L909:
 	.word	.L791
 	.word	.L792
 	.word	.L793
@@ -123978,6 +134759,7 @@ GetBoxMonData:
 	.word	.L790
 	.word	.L790
 	.word	.L832
+	.word	.L907
 .L791:
 	mov	r1, r9
 	ldr	r4, [r1]
@@ -123994,11 +134776,11 @@ GetBoxMonData:
 	cmp	r0, #0
 	beq	.L794	@cond_branch
 	mov	r4, #0x0
-	ldr	r0, .L918
+	ldr	r0, .L919
 	ldrb	r1, [r0]
 	add	r2, r0, #0
 	cmp	r1, #0xff
-	beq	.L910	@cond_branch
+	beq	.L911	@cond_branch
 	add	r3, r2, #0
 .L797:
 	add	r0, r6, r4
@@ -124007,22 +134789,22 @@ GetBoxMonData:
 	strb	r1, [r0]
 	add	r4, r4, #0x1
 	cmp	r4, #0x9
-	bhi	.L910	@cond_branch
+	bhi	.L911	@cond_branch
 	add	r0, r4, r2
 	ldrb	r0, [r0]
 	cmp	r0, #0xff
 	bne	.L797	@cond_branch
-	b	.L910
-.L919:
+	b	.L911
+.L920:
 	.align	2, 0
-.L918:
+.L919:
 	.word	gText_BadEgg
 .L794:
 	mov	r0, #0x4
 	and	r0, r0, r1
 	cmp	r0, #0
 	beq	.L802	@cond_branch
-	ldr	r1, .L920
+	ldr	r1, .L921
 	add	r0, r6, #0
 	bl	StringCopy
 	add	r0, r6, #0
@@ -124030,9 +134812,9 @@ GetBoxMonData:
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	b	.L790
-.L921:
+.L922:
 	.align	2, 0
-.L920:
+.L921:
 	.word	gText_EggNickname
 .L802:
 	mov	r1, r9
@@ -124071,7 +134853,7 @@ GetBoxMonData:
 	mov	r0, #0x16
 	strb	r0, [r1]
 	add	r4, r4, #0x1
-	b	.L910
+	b	.L911
 .L804:
 	mov	r4, #0x0
 	mov	r2, r9
@@ -124084,7 +134866,7 @@ GetBoxMonData:
 	add	r4, r4, #0x1
 	cmp	r4, #0x9
 	bls	.L814	@cond_branch
-	b	.L910
+	b	.L911
 .L817:
 	mov	r2, r9
 	ldrb	r4, [r2, #0x12]
@@ -124092,15 +134874,15 @@ GetBoxMonData:
 .L818:
 	mov	r6, r9
 	ldrb	r0, [r6, #0x13]
-	b	.L911
+	b	.L912
 .L819:
 	mov	r1, r9
 	ldrb	r0, [r1, #0x13]
-	b	.L912
+	b	.L913
 .L820:
 	mov	r2, r9
 	ldrb	r0, [r2, #0x13]
-	b	.L913
+	b	.L914
 .L821:
 	mov	r4, #0x0
 	mov	r2, r9
@@ -124113,7 +134895,7 @@ GetBoxMonData:
 	add	r4, r4, #0x1
 	cmp	r4, #0x6
 	bls	.L824	@cond_branch
-.L910:
+.L911:
 	add	r1, r6, r4
 	mov	r0, #0xff
 	strb	r0, [r1]
@@ -124136,9 +134918,9 @@ GetBoxMonData:
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB6531
+	beq	.LCB6624
 	b	.L893	@long jump
-.LCB6531:
+.LCB6624:
 	mov	r6, r8
 	ldrh	r0, [r6]
 	lsl	r0, r0, #0x15
@@ -124235,19 +135017,19 @@ GetBoxMonData:
 	lsl	r0, r0, #0x19
 	lsr	r4, r0, #0x1c
 	cmp	r4, #0
-	beq	.LCB6665
+	beq	.LCB6758
 	b	.L790	@long jump
-.LCB6665:
+.LCB6758:
 	mov	r2, r8
 	ldrb	r0, [r2, #0xa]
-	b	.L914
+	b	.L915
 .L863:
 	ldrb	r0, [r5, #0x3]
 	lsr	r4, r0, #0x7
 	b	.L790
 .L864:
 	ldrb	r0, [r5, #0x4]
-.L914:
+.L915:
 	lsl	r0, r0, #0x1b
 	lsr	r4, r0, #0x1b
 	b	.L790
@@ -124278,7 +135060,7 @@ GetBoxMonData:
 	b	.L790
 .L870:
 	ldrb	r0, [r5, #0x7]
-	b	.L915
+	b	.L916
 .L871:
 	ldrb	r0, [r5, #0xb]
 	lsl	r0, r0, #0x1a
@@ -124314,20 +135096,20 @@ GetBoxMonData:
 	b	.L790
 .L877:
 	ldrb	r0, [r5, #0x9]
-	b	.L915
+	b	.L916
 .L878:
 	ldrb	r0, [r5, #0x9]
 	lsr	r4, r0, #0x7
 	b	.L790
 .L879:
 	ldrb	r0, [r5, #0xa]
-	b	.L911
+	b	.L912
 .L880:
 	ldrb	r0, [r5, #0xa]
-	b	.L912
+	b	.L913
 .L881:
 	ldrb	r0, [r5, #0xa]
-.L913:
+.L914:
 	lsl	r0, r0, #0x1d
 	lsr	r4, r0, #0x1f
 	b	.L790
@@ -124348,20 +135130,20 @@ GetBoxMonData:
 	b	.L790
 .L885:
 	ldrb	r0, [r5, #0xa]
-	b	.L915
+	b	.L916
 .L886:
 	ldrb	r0, [r5, #0xa]
 	lsr	r4, r0, #0x7
 	b	.L790
 .L887:
 	ldrb	r0, [r5, #0xb]
-.L911:
+.L912:
 	lsl	r0, r0, #0x1f
 	lsr	r4, r0, #0x1f
 	b	.L790
 .L888:
 	ldrb	r0, [r5, #0xb]
-.L912:
+.L913:
 	lsl	r0, r0, #0x1e
 	lsr	r4, r0, #0x1f
 	b	.L790
@@ -124372,7 +135154,7 @@ GetBoxMonData:
 	b	.L790
 .L890:
 	ldrb	r0, [r5, #0xb]
-.L915:
+.L916:
 	lsl	r0, r0, #0x19
 	lsr	r4, r0, #0x1f
 	b	.L790
@@ -124381,12 +135163,12 @@ GetBoxMonData:
 	ldrh	r1, [r6]
 	lsl	r0, r1, #0x15
 	lsr	r4, r0, #0x15
-	ldr	r0, .L922
+	ldr	r0, .L923
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB6857
+	bne	.LCB6950
 	b	.L790	@long jump
-.LCB6857:
+.LCB6950:
 	ldrb	r0, [r5, #0x7]
 	lsl	r0, r0, #0x19
 	cmp	r0, #0
@@ -124396,15 +135178,15 @@ GetBoxMonData:
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB6870
+	bne	.LCB6963
 	b	.L790	@long jump
-.LCB6870:
+.LCB6963:
 .L893:
-	ldr	r4, .L922+0x4
+	ldr	r4, .L923+0x4
 	b	.L790
-.L923:
+.L924:
 	.align	2, 0
-.L922:
+.L923:
 	.word	0x7ff
 	.word	0x4b7
 .L894:
@@ -124440,29 +135222,29 @@ GetBoxMonData:
 .L895:
 	mov	r2, r8
 	ldrh	r1, [r2]
-	ldr	r0, .L924
+	ldr	r0, .L925
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB6924
+	bne	.LCB7017
 	b	.L790	@long jump
-.LCB6924:
+.LCB7017:
 	ldrb	r0, [r5, #0x7]
 	lsl	r0, r0, #0x19
 	cmp	r0, #0
-	bge	.LCB6929
+	bge	.LCB7022
 	b	.L790	@long jump
-.LCB6929:
+.LCB7022:
 	ldrh	r0, [r6]
-	ldr	r1, .L924+0x4
+	ldr	r1, .L925+0x4
 	cmp	r0, r1
-	bne	.LCB6940
+	bne	.LCB7033
 	b	.L790	@long jump
-.LCB6940:
+.LCB7033:
 	mov	r0, sl
 	ldrh	r5, [r0]
 	add	r7, r1, #0
 	add	r2, r6, #0
-	ldr	r1, .L924+0x8
+	ldr	r1, .L925+0x8
 .L899:
 	ldrh	r3, [r2]
 	cmp	r5, r3
@@ -124487,9 +135269,9 @@ GetBoxMonData:
 	cmp	r0, r7
 	bne	.L899	@cond_branch
 	b	.L790
-.L925:
+.L926:
 	.align	2, 0
-.L924:
+.L925:
 	.word	0x7ff
 	.word	0x2f3
 	.word	gBitTable
@@ -124497,18 +135279,18 @@ GetBoxMonData:
 	mov	r4, #0x0
 	mov	r0, r8
 	ldrh	r1, [r0]
-	ldr	r0, .L926
+	ldr	r0, .L927
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB7009
+	bne	.LCB7102
 	b	.L790	@long jump
-.LCB7009:
+.LCB7102:
 	ldrb	r2, [r5, #0x7]
 	lsl	r0, r2, #0x19
 	cmp	r0, #0
-	bge	.LCB7014
+	bge	.LCB7107
 	b	.L790	@long jump
-.LCB7014:
+.LCB7107:
 	lsr	r2, r2, #0x7
 	ldrb	r1, [r5, #0x8]
 	mov	r0, #0x3
@@ -124564,15 +135346,15 @@ GetBoxMonData:
 	lsr	r1, r1, #0x1f
 	add	r4, r4, r1
 	b	.L790
-.L927:
+.L928:
 	.align	2, 0
-.L926:
+.L927:
 	.word	0x7ff
 .L905:
 	mov	r4, #0x0
 	mov	r2, r8
 	ldrh	r1, [r2]
-	ldr	r0, .L928
+	ldr	r0, .L929
 	and	r0, r0, r1
 	cmp	r0, #0
 	beq	.L790	@cond_branch
@@ -124649,13 +135431,21 @@ GetBoxMonData:
 	lsr	r1, r1, #0x1f
 	lsl	r1, r1, #0x1a
 	orr	r4, r4, r1
+	b	.L790
+.L930:
+	.align	2, 0
+.L929:
+	.word	0x7ff
+.L907:
+	mov	r6, r8
+	ldrb	r4, [r6, #0xb]
 .L790:
-	ldr	r6, [sp]
-	cmp	r6, #0xa
-	ble	.L909	@cond_branch
+	ldr	r0, [sp]
+	cmp	r0, #0xa
+	ble	.L910	@cond_branch
 	mov	r0, r9
 	bl	EncryptBoxMon
-.L909:
+.L910:
 	add	r0, r4, #0
 	add	sp, sp, #0x4
 	pop	{r3, r4, r5}
@@ -124665,10 +135455,6 @@ GetBoxMonData:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L929:
-	.align	2, 0
-.L928:
-	.word	0x7ff
 .Lfe59:
 	.size	 GetBoxMonData,.Lfe59-GetBoxMonData
 	.align	2, 0
@@ -124681,20 +135467,19 @@ SetMonData:
 	add	r0, r1, #0
 	sub	r0, r0, #0x37
 	cmp	r0, #0xa
-	bhi	.L943	@cond_branch
+	bhi	.L944	@cond_branch
 	lsl	r0, r0, #0x2
-	ldr	r1, .L945
+	ldr	r1, .L946
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
+.L947:
+	.align	2, 0
 .L946:
+	.word	.L945
+	.align	2, 0
 	.align	2, 0
 .L945:
-	.word	.L944
-	.align	2, 0
-	.align	2, 0
-.L944:
-	.word	.L932
 	.word	.L933
 	.word	.L934
 	.word	.L935
@@ -124704,8 +135489,9 @@ SetMonData:
 	.word	.L939
 	.word	.L940
 	.word	.L941
-	.word	.L931
-.L932:
+	.word	.L942
+	.word	.L932
+.L933:
 	ldrb	r1, [r2]
 	ldrb	r0, [r2, #0x1]
 	lsl	r0, r0, #0x8
@@ -124717,14 +135503,14 @@ SetMonData:
 	lsl	r0, r0, #0x18
 	add	r1, r1, r0
 	str	r1, [r3, #0x50]
-	b	.L931
-.L933:
+	b	.L932
+.L934:
 	ldrb	r1, [r2]
 	add	r0, r3, #0
 	add	r0, r0, #0x54
 	strb	r1, [r0]
-	b	.L931
-.L934:
+	b	.L932
+.L935:
 	ldrb	r0, [r2]
 	ldrb	r1, [r2, #0x1]
 	lsl	r1, r1, #0x8
@@ -124732,8 +135518,8 @@ SetMonData:
 	add	r1, r3, #0
 	add	r1, r1, #0x56
 	strh	r0, [r1]
-	b	.L931
-.L935:
+	b	.L932
+.L936:
 	ldrb	r0, [r2]
 	ldrb	r1, [r2, #0x1]
 	lsl	r1, r1, #0x8
@@ -124741,8 +135527,8 @@ SetMonData:
 	add	r1, r3, #0
 	add	r1, r1, #0x58
 	strh	r0, [r1]
-	b	.L931
-.L936:
+	b	.L932
+.L937:
 	ldrb	r0, [r2]
 	ldrb	r1, [r2, #0x1]
 	lsl	r1, r1, #0x8
@@ -124750,8 +135536,8 @@ SetMonData:
 	add	r1, r3, #0
 	add	r1, r1, #0x5a
 	strh	r0, [r1]
-	b	.L931
-.L937:
+	b	.L932
+.L938:
 	ldrb	r0, [r2]
 	ldrb	r1, [r2, #0x1]
 	lsl	r1, r1, #0x8
@@ -124759,8 +135545,8 @@ SetMonData:
 	add	r1, r3, #0
 	add	r1, r1, #0x5c
 	strh	r0, [r1]
-	b	.L931
-.L938:
+	b	.L932
+.L939:
 	ldrb	r0, [r2]
 	ldrb	r1, [r2, #0x1]
 	lsl	r1, r1, #0x8
@@ -124768,8 +135554,8 @@ SetMonData:
 	add	r1, r3, #0
 	add	r1, r1, #0x5e
 	strh	r0, [r1]
-	b	.L931
-.L939:
+	b	.L932
+.L940:
 	ldrb	r0, [r2]
 	ldrb	r1, [r2, #0x1]
 	lsl	r1, r1, #0x8
@@ -124777,8 +135563,8 @@ SetMonData:
 	add	r1, r3, #0
 	add	r1, r1, #0x60
 	strh	r0, [r1]
-	b	.L931
-.L940:
+	b	.L932
+.L941:
 	ldrb	r0, [r2]
 	ldrb	r1, [r2, #0x1]
 	lsl	r1, r1, #0x8
@@ -124786,17 +135572,17 @@ SetMonData:
 	add	r1, r3, #0
 	add	r1, r1, #0x62
 	strh	r0, [r1]
-	b	.L931
-.L941:
+	b	.L932
+.L942:
 	ldrb	r1, [r2]
 	add	r0, r3, #0
 	add	r0, r0, #0x55
 	strb	r1, [r0]
-	b	.L931
-.L943:
+	b	.L932
+.L944:
 	add	r0, r3, #0
 	bl	SetBoxMonData
-.L931:
+.L932:
 	pop	{r0}
 	bx	r0
 .Lfe60:
@@ -124820,7 +135606,7 @@ SetBoxMonData:
 	mov	r6, #0x0
 	mov	r5, #0x0
 	cmp	r1, #0xa
-	ble	.L948	@cond_branch
+	ble	.L949	@cond_branch
 	ldr	r1, [r7]
 	add	r0, r7, #0
 	mov	r2, #0x0
@@ -124849,7 +135635,7 @@ SetBoxMonData:
 	lsr	r0, r0, #0x10
 	ldrh	r1, [r7, #0x1c]
 	cmp	r0, r1
-	beq	.L948	@cond_branch
+	beq	.L949	@cond_branch
 	ldrb	r0, [r7, #0x13]
 	mov	r1, #0x1
 	orr	r0, r0, r1
@@ -124862,93 +135648,92 @@ SetBoxMonData:
 	strb	r0, [r5, #0x7]
 	add	r0, r7, #0
 	bl	EncryptBoxMon
-	b	.L947
-.L948:
+	b	.L948
+.L949:
 	mov	r0, sl
-	cmp	r0, #0x59
-	bls	.LCB7414
-	b	.L950	@long jump
-.LCB7414:
+	cmp	r0, #0x5a
+	bls	.LCB7512
+	b	.L951	@long jump
+.LCB7512:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1048
+	ldr	r1, .L1049
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
+.L1050:
+	.align	2, 0
 .L1049:
-	.align	2, 0
-.L1048:
-	.word	.L1039
+	.word	.L1041
 	.align	2, 0
 	.align	2, 0
-.L1039:
-	.word	.L951
+.L1041:
 	.word	.L952
 	.word	.L953
-	.word	.L959
+	.word	.L954
 	.word	.L960
 	.word	.L961
 	.word	.L962
 	.word	.L963
-	.word	.L969
+	.word	.L964
 	.word	.L970
 	.word	.L971
 	.word	.L972
-	.word	.L976
-	.word	.L983
-	.word	.L983
-	.word	.L983
-	.word	.L983
-	.word	.L987
-	.word	.L987
-	.word	.L987
-	.word	.L987
-	.word	.L978
-	.word	.L994
+	.word	.L973
+	.word	.L977
+	.word	.L984
+	.word	.L984
+	.word	.L984
+	.word	.L984
+	.word	.L988
+	.word	.L988
+	.word	.L988
+	.word	.L988
+	.word	.L979
 	.word	.L995
 	.word	.L996
-	.word	.L977
-	.word	.L988
+	.word	.L997
+	.word	.L978
 	.word	.L989
 	.word	.L990
 	.word	.L991
 	.word	.L992
 	.word	.L993
-	.word	.L979
-	.word	.L997
-	.word	.L1000
+	.word	.L994
+	.word	.L980
+	.word	.L998
 	.word	.L1001
 	.word	.L1002
 	.word	.L1003
 	.word	.L1004
-	.word	.L1008
+	.word	.L1005
 	.word	.L1009
 	.word	.L1010
 	.word	.L1011
 	.word	.L1012
 	.word	.L1013
 	.word	.L1014
-	.word	.L1017
-	.word	.L998
-	.word	.L999
-	.word	.L1007
+	.word	.L1015
 	.word	.L1018
+	.word	.L999
+	.word	.L1000
+	.word	.L1008
 	.word	.L1019
 	.word	.L1020
 	.word	.L1021
 	.word	.L1022
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L1037
 	.word	.L1023
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L1038
 	.word	.L1024
 	.word	.L1025
 	.word	.L1026
@@ -124962,28 +135747,17 @@ SetBoxMonData:
 	.word	.L1034
 	.word	.L1035
 	.word	.L1036
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L950
-	.word	.L975
-.L951:
-	ldrb	r1, [r4]
-	ldrb	r0, [r4, #0x1]
-	lsl	r0, r0, #0x8
-	add	r1, r1, r0
-	ldrb	r0, [r4, #0x2]
-	lsl	r0, r0, #0x10
-	add	r1, r1, r0
-	ldrb	r0, [r4, #0x3]
-	lsl	r0, r0, #0x18
-	add	r1, r1, r0
-	str	r1, [r7]
-	b	.L950
+	.word	.L1037
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L951
+	.word	.L976
+	.word	.L1039
 .L952:
 	ldrb	r1, [r4]
 	ldrb	r0, [r4, #0x1]
@@ -124995,26 +135769,39 @@ SetBoxMonData:
 	ldrb	r0, [r4, #0x3]
 	lsl	r0, r0, #0x18
 	add	r1, r1, r0
-	str	r1, [r7, #0x4]
-	b	.L950
+	str	r1, [r7]
+	b	.L951
 .L953:
+	ldrb	r1, [r4]
+	ldrb	r0, [r4, #0x1]
+	lsl	r0, r0, #0x8
+	add	r1, r1, r0
+	ldrb	r0, [r4, #0x2]
+	lsl	r0, r0, #0x10
+	add	r1, r1, r0
+	ldrb	r0, [r4, #0x3]
+	lsl	r0, r0, #0x18
+	add	r1, r1, r0
+	str	r1, [r7, #0x4]
+	b	.L951
+.L954:
 	mov	r2, #0x0
 	add	r3, r7, #0
 	add	r3, r3, #0x8
-.L957:
+.L958:
 	add	r0, r3, r2
 	add	r1, r4, r2
 	ldrb	r1, [r1]
 	strb	r1, [r0]
 	add	r2, r2, #0x1
 	cmp	r2, #0x9
-	ble	.L957	@cond_branch
-	b	.L950
-.L959:
+	ble	.L958	@cond_branch
+	b	.L951
+.L960:
 	ldrb	r0, [r4]
 	strb	r0, [r7, #0x12]
-	b	.L950
-.L960:
+	b	.L951
+.L961:
 	ldrb	r0, [r4]
 	mov	r1, #0x1
 	and	r1, r1, r0
@@ -125022,8 +135809,8 @@ SetBoxMonData:
 	mov	r0, #0x2
 	neg	r0, r0
 	and	r0, r0, r2
-	b	.L1041
-.L961:
+	b	.L1043
+.L962:
 	ldrb	r0, [r4]
 	mov	r1, #0x1
 	and	r1, r1, r0
@@ -125032,8 +135819,8 @@ SetBoxMonData:
 	mov	r0, #0x3
 	neg	r0, r0
 	and	r0, r0, r2
-	b	.L1041
-.L962:
+	b	.L1043
+.L963:
 	ldrb	r0, [r4]
 	mov	r1, #0x1
 	and	r1, r1, r0
@@ -125042,70 +135829,70 @@ SetBoxMonData:
 	mov	r0, #0x5
 	neg	r0, r0
 	and	r0, r0, r2
-	b	.L1041
-.L963:
+	b	.L1043
+.L964:
 	mov	r2, #0x0
 	add	r3, r7, #0
 	add	r3, r3, #0x14
-.L967:
+.L968:
 	add	r0, r3, r2
 	add	r1, r4, r2
 	ldrb	r1, [r1]
 	strb	r1, [r0]
 	add	r2, r2, #0x1
 	cmp	r2, #0x6
-	ble	.L967	@cond_branch
-	b	.L950
-.L969:
+	ble	.L968	@cond_branch
+	b	.L951
+.L970:
 	ldrb	r0, [r4]
 	strb	r0, [r7, #0x1b]
-	b	.L950
-.L970:
-	ldrb	r1, [r4]
-	ldrb	r0, [r4, #0x1]
-	lsl	r0, r0, #0x8
-	add	r1, r1, r0
-	strh	r1, [r7, #0x1c]
-	b	.L950
+	b	.L951
 .L971:
 	ldrb	r1, [r4]
 	ldrb	r0, [r4, #0x1]
 	lsl	r0, r0, #0x8
 	add	r1, r1, r0
-	strh	r1, [r7, #0x1e]
-	b	.L950
+	strh	r1, [r7, #0x1c]
+	b	.L951
 .L972:
 	ldrb	r1, [r4]
 	ldrb	r0, [r4, #0x1]
 	lsl	r0, r0, #0x8
 	add	r1, r1, r0
-	ldr	r0, .L1050
+	strh	r1, [r7, #0x1e]
+	b	.L951
+.L973:
+	ldrb	r1, [r4]
+	ldrb	r0, [r4, #0x1]
+	lsl	r0, r0, #0x8
+	add	r1, r1, r0
+	ldr	r0, .L1051
 	add	r3, r0, #0
 	and	r1, r1, r3
 	mov	r0, r8
 	ldrh	r2, [r0]
-	ldr	r0, .L1050+0x4
+	ldr	r0, .L1051+0x4
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	mov	r1, r8
 	strh	r0, [r1]
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L973	@cond_branch
+	beq	.L974	@cond_branch
 	ldrb	r0, [r7, #0x13]
 	mov	r1, #0x2
-	b	.L1041
-.L1051:
+	b	.L1043
+.L1052:
 	.align	2, 0
-.L1050:
+.L1051:
 	.word	0x7ff
 	.word	-0x800
-.L973:
+.L974:
 	ldrb	r1, [r7, #0x13]
 	mov	r0, #0x3
 	neg	r0, r0
-	b	.L1042
-.L975:
+	b	.L1044
+.L976:
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x3
 	mov	r1, r8
@@ -125115,16 +135902,16 @@ SetBoxMonData:
 	orr	r1, r1, r0
 	mov	r0, r8
 	strb	r1, [r0, #0x1]
-	b	.L950
-.L976:
+	b	.L951
+.L977:
 	ldrb	r1, [r4]
 	ldrb	r0, [r4, #0x1]
 	lsl	r0, r0, #0x8
 	add	r1, r1, r0
 	mov	r0, r8
 	strh	r1, [r0, #0x2]
-	b	.L950
-.L977:
+	b	.L951
+.L978:
 	ldrb	r1, [r4]
 	ldrb	r0, [r4, #0x1]
 	lsl	r0, r0, #0x8
@@ -125137,18 +135924,18 @@ SetBoxMonData:
 	add	r1, r1, r0
 	mov	r0, r8
 	str	r1, [r0, #0x4]
-	b	.L950
-.L978:
-	ldrb	r0, [r4]
-	mov	r1, r8
-	strb	r0, [r1, #0x8]
-	b	.L950
+	b	.L951
 .L979:
 	ldrb	r0, [r4]
 	mov	r1, r8
+	strb	r0, [r1, #0x8]
+	b	.L951
+.L980:
+	ldrb	r0, [r4]
+	mov	r1, r8
 	strb	r0, [r1, #0x9]
-	b	.L950
-.L983:
+	b	.L951
+.L984:
 	mov	r2, sl
 	sub	r2, r2, #0xd
 	lsl	r2, r2, #0x1
@@ -125158,71 +135945,71 @@ SetBoxMonData:
 	lsl	r0, r0, #0x8
 	add	r1, r1, r0
 	strh	r1, [r2]
-	b	.L950
-.L987:
+	b	.L951
+.L988:
 	mov	r0, r9
 	add	r0, r0, sl
 	sub	r0, r0, #0x9
 	ldrb	r1, [r4]
 	strb	r1, [r0]
-	b	.L950
-.L988:
-	ldrb	r0, [r4]
-	strb	r0, [r6]
-	b	.L950
+	b	.L951
 .L989:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0x1]
-	b	.L950
+	strb	r0, [r6]
+	b	.L951
 .L990:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0x2]
-	b	.L950
+	strb	r0, [r6, #0x1]
+	b	.L951
 .L991:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0x3]
-	b	.L950
+	strb	r0, [r6, #0x2]
+	b	.L951
 .L992:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0x4]
-	b	.L950
+	strb	r0, [r6, #0x3]
+	b	.L951
 .L993:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0x5]
-	b	.L950
+	strb	r0, [r6, #0x4]
+	b	.L951
 .L994:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0x6]
-	b	.L950
+	strb	r0, [r6, #0x5]
+	b	.L951
 .L995:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0x7]
-	b	.L950
+	strb	r0, [r6, #0x6]
+	b	.L951
 .L996:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0x8]
-	b	.L950
+	strb	r0, [r6, #0x7]
+	b	.L951
 .L997:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0x9]
-	b	.L950
+	strb	r0, [r6, #0x8]
+	b	.L951
 .L998:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0xa]
-	b	.L950
+	strb	r0, [r6, #0x9]
+	b	.L951
 .L999:
 	ldrb	r0, [r4]
-	strb	r0, [r6, #0xb]
-	b	.L950
+	strb	r0, [r6, #0xa]
+	b	.L951
 .L1000:
 	ldrb	r0, [r4]
-	strb	r0, [r5]
-	b	.L950
+	strb	r0, [r6, #0xb]
+	b	.L951
 .L1001:
 	ldrb	r0, [r4]
-	strb	r0, [r5, #0x1]
-	b	.L950
+	strb	r0, [r5]
+	b	.L951
 .L1002:
+	ldrb	r0, [r4]
+	strb	r0, [r5, #0x1]
+	b	.L951
+.L1003:
 	ldrb	r1, [r4]
 	mov	r0, #0x7f
 	and	r1, r1, r0
@@ -125232,23 +136019,23 @@ SetBoxMonData:
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strb	r0, [r5, #0x2]
-	b	.L950
-.L1003:
+	b	.L951
+.L1004:
 	ldrb	r1, [r4]
 	mov	r0, #0xf
 	and	r1, r1, r0
 	lsl	r1, r1, #0x7
 	ldrh	r2, [r5, #0x2]
-	ldr	r0, .L1052
+	ldr	r0, .L1053
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strh	r0, [r5, #0x2]
-	b	.L950
-.L1053:
+	b	.L951
+.L1054:
 	.align	2, 0
-.L1052:
+.L1053:
 	.word	-0x781
-.L1004:
+.L1005:
 	ldrb	r3, [r4]
 	mov	r0, #0x1f
 	and	r0, r0, r3
@@ -125261,7 +136048,7 @@ SetBoxMonData:
 	mov	r0, r8
 	strb	r1, [r0, #0xa]
 	cmp	r3, #0xc
-	bhi	.L1005	@cond_branch
+	bhi	.L1006	@cond_branch
 	mov	r0, #0xf
 	and	r3, r3, r0
 	lsl	r2, r3, #0x3
@@ -125271,25 +136058,25 @@ SetBoxMonData:
 	and	r0, r0, r1
 	orr	r0, r0, r2
 	strb	r0, [r5, #0x3]
-	b	.L950
-.L1005:
+	b	.L951
+.L1006:
 	ldrb	r0, [r5, #0x3]
 	mov	r1, #0x79
 	neg	r1, r1
 	and	r1, r1, r0
 	mov	r0, #0x20
-	b	.L1043
-.L1007:
+	b	.L1045
+.L1008:
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x7
 	ldrb	r2, [r5, #0x3]
 	mov	r1, #0x7f
 	and	r1, r1, r2
-.L1043:
+.L1045:
 	orr	r1, r1, r0
 	strb	r1, [r5, #0x3]
-	b	.L950
-.L1008:
+	b	.L951
+.L1009:
 	ldrb	r1, [r4]
 	mov	r0, #0x1f
 	and	r1, r1, r0
@@ -125299,23 +136086,23 @@ SetBoxMonData:
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strb	r0, [r5, #0x4]
-	b	.L950
-.L1009:
+	b	.L951
+.L1010:
 	ldrb	r1, [r4]
 	mov	r0, #0x1f
 	and	r1, r1, r0
 	lsl	r1, r1, #0x5
 	ldrh	r2, [r5, #0x4]
-	ldr	r0, .L1054
+	ldr	r0, .L1055
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strh	r0, [r5, #0x4]
-	b	.L950
-.L1055:
+	b	.L951
+.L1056:
 	.align	2, 0
-.L1054:
+.L1055:
 	.word	-0x3e1
-.L1010:
+.L1011:
 	ldrb	r1, [r4]
 	mov	r0, #0x1f
 	and	r1, r1, r0
@@ -125326,38 +136113,38 @@ SetBoxMonData:
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strb	r0, [r5, #0x5]
-	b	.L950
-.L1011:
+	b	.L951
+.L1012:
 	ldrb	r2, [r4]
 	mov	r0, #0x1f
 	and	r2, r2, r0
 	lsl	r2, r2, #0xf
 	ldr	r0, [r5, #0x4]
-	ldr	r1, .L1056
+	ldr	r1, .L1057
 	and	r0, r0, r1
 	orr	r0, r0, r2
 	str	r0, [r5, #0x4]
-	b	.L950
-.L1057:
+	b	.L951
+.L1058:
 	.align	2, 0
-.L1056:
+.L1057:
 	.word	-0xf8001
-.L1012:
+.L1013:
 	ldrb	r1, [r4]
 	mov	r0, #0x1f
 	and	r1, r1, r0
 	lsl	r1, r1, #0x4
 	ldrh	r2, [r5, #0x6]
-	ldr	r0, .L1058
+	ldr	r0, .L1059
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strh	r0, [r5, #0x6]
-	b	.L950
-.L1059:
+	b	.L951
+.L1060:
 	.align	2, 0
-.L1058:
+.L1059:
 	.word	-0x1f1
-.L1013:
+.L1014:
 	ldrb	r1, [r4]
 	mov	r0, #0x1f
 	and	r1, r1, r0
@@ -125367,8 +136154,9 @@ SetBoxMonData:
 	neg	r0, r0
 	and	r0, r0, r2
 	orr	r0, r0, r1
-	b	.L1044
-.L1014:
+	strb	r0, [r5, #0x7]
+	b	.L951
+.L1015:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -125381,22 +136169,22 @@ SetBoxMonData:
 	strb	r0, [r5, #0x7]
 	lsl	r0, r0, #0x19
 	cmp	r0, #0
-	bge	.L1015	@cond_branch
+	bge	.L1016	@cond_branch
 	ldrb	r0, [r7, #0x13]
 	mov	r1, #0x4
-.L1041:
+.L1043:
 	orr	r0, r0, r1
 	strb	r0, [r7, #0x13]
-	b	.L950
-.L1015:
+	b	.L951
+.L1016:
 	ldrb	r1, [r7, #0x13]
 	mov	r0, #0x5
 	neg	r0, r0
-.L1042:
+.L1044:
 	and	r0, r0, r1
 	strb	r0, [r7, #0x13]
-	b	.L950
-.L1017:
+	b	.L951
+.L1018:
 	ldrb	r1, [r4]
 	mov	r0, #0x3
 	and	r1, r1, r0
@@ -125404,8 +136192,8 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0xb]
 	mov	r0, #0x31
 	neg	r0, r0
-	b	.L1045
-.L1018:
+	b	.L1046
+.L1019:
 	ldrb	r3, [r4]
 	mov	r1, #0x1
 	and	r1, r1, r3
@@ -125423,8 +136211,8 @@ SetBoxMonData:
 	and	r0, r0, r1
 	orr	r0, r0, r3
 	strb	r0, [r5, #0x8]
-	b	.L950
-.L1019:
+	b	.L951
+.L1020:
 	ldrb	r1, [r4]
 	mov	r0, #0x7
 	and	r1, r1, r0
@@ -125435,8 +136223,8 @@ SetBoxMonData:
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strb	r0, [r5, #0x8]
-	b	.L950
-.L1020:
+	b	.L951
+.L1021:
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x5
 	ldrb	r2, [r5, #0x8]
@@ -125444,16 +136232,16 @@ SetBoxMonData:
 	and	r1, r1, r2
 	orr	r1, r1, r0
 	strb	r1, [r5, #0x8]
-	b	.L950
-.L1021:
+	b	.L951
+.L1022:
 	ldrb	r1, [r4]
 	mov	r0, #0x7
 	and	r1, r1, r0
 	ldrb	r2, [r5, #0x9]
 	mov	r0, #0x8
 	neg	r0, r0
-	b	.L1046
-.L1022:
+	b	.L1047
+.L1023:
 	ldrb	r1, [r4]
 	mov	r0, #0x7
 	and	r1, r1, r0
@@ -125461,8 +136249,8 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0x9]
 	mov	r0, #0x39
 	neg	r0, r0
-	b	.L1046
-.L1023:
+	b	.L1047
+.L1024:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -125470,12 +136258,12 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0x9]
 	mov	r0, #0x41
 	neg	r0, r0
-.L1046:
+.L1047:
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strb	r0, [r5, #0x9]
-	b	.L950
-.L1024:
+	b	.L951
+.L1025:
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x7
 	ldrb	r2, [r5, #0x9]
@@ -125483,16 +136271,16 @@ SetBoxMonData:
 	and	r1, r1, r2
 	orr	r1, r1, r0
 	strb	r1, [r5, #0x9]
-	b	.L950
-.L1025:
+	b	.L951
+.L1026:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
 	ldrb	r2, [r5, #0xa]
 	mov	r0, #0x2
 	neg	r0, r0
-	b	.L1047
-.L1026:
+	b	.L1048
+.L1027:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -125500,8 +136288,8 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0xa]
 	mov	r0, #0x3
 	neg	r0, r0
-	b	.L1047
-.L1027:
+	b	.L1048
+.L1028:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -125509,8 +136297,8 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0xa]
 	mov	r0, #0x5
 	neg	r0, r0
-	b	.L1047
-.L1028:
+	b	.L1048
+.L1029:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -125518,8 +136306,8 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0xa]
 	mov	r0, #0x9
 	neg	r0, r0
-	b	.L1047
-.L1029:
+	b	.L1048
+.L1030:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -125527,8 +136315,8 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0xa]
 	mov	r0, #0x11
 	neg	r0, r0
-	b	.L1047
-.L1030:
+	b	.L1048
+.L1031:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -125536,8 +136324,8 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0xa]
 	mov	r0, #0x21
 	neg	r0, r0
-	b	.L1047
-.L1031:
+	b	.L1048
+.L1032:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -125545,12 +136333,12 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0xa]
 	mov	r0, #0x41
 	neg	r0, r0
-.L1047:
+.L1048:
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strb	r0, [r5, #0xa]
-	b	.L950
-.L1032:
+	b	.L951
+.L1033:
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x7
 	ldrb	r2, [r5, #0xa]
@@ -125558,16 +136346,16 @@ SetBoxMonData:
 	and	r1, r1, r2
 	orr	r1, r1, r0
 	strb	r1, [r5, #0xa]
-	b	.L950
-.L1033:
+	b	.L951
+.L1034:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
 	ldrb	r2, [r5, #0xb]
 	mov	r0, #0x2
 	neg	r0, r0
-	b	.L1045
-.L1034:
+	b	.L1046
+.L1035:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -125575,8 +136363,8 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0xb]
 	mov	r0, #0x3
 	neg	r0, r0
-	b	.L1045
-.L1035:
+	b	.L1046
+.L1036:
 	ldrb	r1, [r4]
 	mov	r0, #0x3
 	and	r1, r1, r0
@@ -125584,8 +136372,8 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0xb]
 	mov	r0, #0xd
 	neg	r0, r0
-	b	.L1045
-.L1036:
+	b	.L1046
+.L1037:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -125593,12 +136381,12 @@ SetBoxMonData:
 	ldrb	r2, [r5, #0xb]
 	mov	r0, #0x41
 	neg	r0, r0
-.L1045:
+.L1046:
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strb	r0, [r5, #0xb]
-	b	.L950
-.L1037:
+	b	.L951
+.L1038:
 	ldrb	r3, [r4]
 	ldrb	r0, [r4, #0x1]
 	lsl	r0, r0, #0x8
@@ -125622,7 +136410,7 @@ SetBoxMonData:
 	and	r1, r1, r4
 	lsl	r1, r1, #0x5
 	ldrh	r2, [r5, #0x4]
-	ldr	r0, .L1060
+	ldr	r0, .L1061
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strh	r0, [r5, #0x4]
@@ -125639,7 +136427,7 @@ SetBoxMonData:
 	and	r1, r1, r4
 	lsl	r1, r1, #0xf
 	ldr	r0, [r5, #0x4]
-	ldr	r2, .L1060+0x4
+	ldr	r2, .L1061+0x4
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	str	r0, [r5, #0x4]
@@ -125647,7 +136435,7 @@ SetBoxMonData:
 	and	r1, r1, r4
 	lsl	r1, r1, #0x4
 	ldrh	r2, [r5, #0x6]
-	ldr	r0, .L1060+0x8
+	ldr	r0, .L1061+0x8
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	strh	r0, [r5, #0x6]
@@ -125659,18 +136447,28 @@ SetBoxMonData:
 	neg	r0, r0
 	and	r0, r0, r1
 	orr	r0, r0, r3
-.L1044:
 	strb	r0, [r5, #0x7]
-.L950:
-	mov	r1, sl
-	cmp	r1, #0xa
-	ble	.L947	@cond_branch
+	b	.L951
+.L1062:
+	.align	2, 0
+.L1061:
+	.word	-0x3e1
+	.word	-0xf8001
+	.word	-0x1f1
+.L1039:
+	ldrb	r0, [r4]
+	mov	r1, r8
+	strb	r0, [r1, #0xb]
+.L951:
+	mov	r0, sl
+	cmp	r0, #0xa
+	ble	.L948	@cond_branch
 	add	r0, r7, #0
 	bl	CalculateBoxMonChecksum
 	strh	r0, [r7, #0x1c]
 	add	r0, r7, #0
 	bl	EncryptBoxMon
-.L947:
+.L948:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -125678,12 +136476,6 @@ SetBoxMonData:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1061:
-	.align	2, 0
-.L1060:
-	.word	-0x3e1
-	.word	-0xf8001
-	.word	-0x1f1
 .Lfe61:
 	.size	 SetBoxMonData,.Lfe61-SetBoxMonData
 	.align	2, 0
@@ -125704,7 +136496,7 @@ CopyMon:
 GiveMonToPlayer:
 	push	{r4, r5, r6, lr}
 	add	r6, r0, #0
-	ldr	r4, .L1072
+	ldr	r4, .L1073
 	ldr	r2, [r4]
 	mov	r1, #0x7
 	bl	SetMonData
@@ -125719,47 +136511,47 @@ GiveMonToPlayer:
 	mov	r1, #0x1
 	bl	SetMonData
 	mov	r5, #0x0
-	b	.L1064
-.L1073:
+	b	.L1065
+.L1074:
 	.align	2, 0
-.L1072:
+.L1073:
 	.word	gSaveBlock2Ptr
-.L1066:
+.L1067:
 	add	r5, r5, #0x1
-.L1064:
+.L1065:
 	cmp	r5, #0x5
-	bgt	.L1070	@cond_branch
+	bgt	.L1071	@cond_branch
 	mov	r0, #0x64
 	mov	r1, r5
 	mul	r1, r1, r0
-	ldr	r0, .L1074
+	ldr	r0, .L1075
 	add	r4, r1, r0
 	add	r0, r4, #0
 	mov	r1, #0xb
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	bne	.L1066	@cond_branch
+	bne	.L1067	@cond_branch
 	add	r0, r4, #0
 	add	r1, r6, #0
 	mov	r2, #0x64
 	bl	CopyMon
-	ldr	r1, .L1074+0x4
+	ldr	r1, .L1075+0x4
 	add	r0, r5, #0x1
 	strb	r0, [r1]
 	mov	r0, #0x0
-	b	.L1071
-.L1075:
+	b	.L1072
+.L1076:
 	.align	2, 0
-.L1074:
+.L1075:
 	.word	gPlayerParty
 	.word	gPlayerPartyCount
-.L1070:
+.L1071:
 	add	r0, r6, #0
 	bl	SendMonToPC
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-.L1071:
+.L1072:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
@@ -125774,7 +136566,7 @@ SendMonToPC:
 	mov	r7, r8
 	push	{r7}
 	mov	r8, r0
-	ldr	r0, .L1091
+	ldr	r0, .L1092
 	bl	VarGet
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -125782,10 +136574,10 @@ SendMonToPC:
 	bl	StorageGetCurrentBox
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
-.L1077:
+.L1078:
 	mov	r6, #0x0
 	lsl	r7, r5, #0x18
-.L1083:
+.L1084:
 	lsl	r1, r6, #0x18
 	lsr	r1, r1, #0x18
 	lsr	r0, r7, #0x18
@@ -125795,54 +136587,54 @@ SendMonToPC:
 	mov	r2, #0x0
 	bl	GetBoxMonData
 	cmp	r0, #0
-	bne	.L1082	@cond_branch
+	bne	.L1083	@cond_branch
 	mov	r0, r8
 	bl	MonRestorePP
 	add	r0, r4, #0
 	mov	r1, r8
 	mov	r2, #0x50
 	bl	CopyMon
-	ldr	r0, .L1091+0x4
+	ldr	r0, .L1092+0x4
 	strh	r5, [r0]
-	ldr	r0, .L1091+0x8
+	ldr	r0, .L1092+0x8
 	strh	r6, [r0]
 	bl	GetPCBoxToSendMon
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, r5
-	beq	.L1085	@cond_branch
-	ldr	r0, .L1091+0xc
+	beq	.L1086	@cond_branch
+	ldr	r0, .L1092+0xc
 	bl	FlagClear
-.L1085:
+.L1086:
 	lsl	r1, r5, #0x10
-	ldr	r0, .L1091
+	ldr	r0, .L1092
 	lsr	r1, r1, #0x10
 	bl	VarSet
 	mov	r0, #0x1
-	b	.L1090
-.L1092:
+	b	.L1091
+.L1093:
 	.align	2, 0
-.L1091:
+.L1092:
 	.word	0x4036
 	.word	gSpecialVar_MonBoxId
 	.word	gSpecialVar_MonBoxPos
 	.word	0x8d7
-.L1082:
+.L1083:
 	add	r6, r6, #0x1
 	cmp	r6, #0x1d
-	ble	.L1083	@cond_branch
+	ble	.L1084	@cond_branch
 	add	r5, r5, #0x1
 	cmp	r5, #0xe
-	bne	.L1079	@cond_branch
+	bne	.L1080	@cond_branch
 	mov	r5, #0x0
-.L1079:
+.L1080:
 	bl	StorageGetCurrentBox
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r5, r0
-	bne	.L1077	@cond_branch
+	bne	.L1078	@cond_branch
 	mov	r0, #0x2
-.L1090:
+.L1091:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
@@ -125856,42 +136648,42 @@ SendMonToPC:
 	.thumb_func
 CalculatePlayerPartyCount:
 	push	{r4, lr}
-	ldr	r0, .L1099
+	ldr	r0, .L1100
 	mov	r1, #0x0
 	strb	r1, [r0]
-	b	.L1094
-.L1100:
+	b	.L1095
+.L1101:
 	.align	2, 0
-.L1099:
+.L1100:
 	.word	gPlayerPartyCount
-.L1096:
+.L1097:
 	ldrb	r0, [r4]
 	add	r0, r0, #0x1
 	strb	r0, [r4]
 	add	r0, r4, #0
-.L1094:
+.L1095:
 	add	r4, r0, #0
 	ldrb	r0, [r4]
 	cmp	r0, #0x5
-	bhi	.L1095	@cond_branch
+	bhi	.L1096	@cond_branch
 	add	r1, r0, #0
 	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L1101
+	ldr	r1, .L1102
 	add	r0, r0, r1
 	mov	r1, #0xb
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	bne	.L1096	@cond_branch
-.L1095:
+	bne	.L1097	@cond_branch
+.L1096:
 	ldrb	r0, [r4]
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L1102:
+.L1103:
 	.align	2, 0
-.L1101:
+.L1102:
 	.word	gPlayerParty
 .Lfe65:
 	.size	 CalculatePlayerPartyCount,.Lfe65-CalculatePlayerPartyCount
@@ -125901,42 +136693,42 @@ CalculatePlayerPartyCount:
 	.thumb_func
 CalculateEnemyPartyCount:
 	push	{r4, lr}
-	ldr	r0, .L1109
+	ldr	r0, .L1110
 	mov	r1, #0x0
 	strb	r1, [r0]
-	b	.L1104
-.L1110:
+	b	.L1105
+.L1111:
 	.align	2, 0
-.L1109:
+.L1110:
 	.word	gEnemyPartyCount
-.L1106:
+.L1107:
 	ldrb	r0, [r4]
 	add	r0, r0, #0x1
 	strb	r0, [r4]
 	add	r0, r4, #0
-.L1104:
+.L1105:
 	add	r4, r0, #0
 	ldrb	r0, [r4]
 	cmp	r0, #0x5
-	bhi	.L1105	@cond_branch
+	bhi	.L1106	@cond_branch
 	add	r1, r0, #0
 	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L1111
+	ldr	r1, .L1112
 	add	r0, r0, r1
 	mov	r1, #0xb
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	bne	.L1106	@cond_branch
-.L1105:
+	bne	.L1107	@cond_branch
+.L1106:
 	ldrb	r0, [r4]
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L1112:
+.L1113:
 	.align	2, 0
-.L1111:
+.L1112:
 	.word	gEnemyParty
 .Lfe66:
 	.size	 CalculateEnemyPartyCount,.Lfe66-CalculateEnemyPartyCount
@@ -125948,58 +136740,58 @@ GetMonsStateToDoubles:
 	push	{r4, r5, r6, lr}
 	mov	r6, #0x0
 	bl	CalculatePlayerPartyCount
-	ldr	r1, .L1124
+	ldr	r1, .L1125
 	ldrb	r0, [r1]
 	cmp	r0, #0x1
-	beq	.L1123	@cond_branch
+	beq	.L1124	@cond_branch
 	mov	r5, #0x0
 	ldrb	r1, [r1]
 	cmp	r6, r1
-	bge	.L1116	@cond_branch
-.L1118:
+	bge	.L1117	@cond_branch
+.L1119:
 	mov	r0, #0x64
 	mov	r1, r5
 	mul	r1, r1, r0
-	ldr	r0, .L1124+0x4
+	ldr	r0, .L1125+0x4
 	add	r4, r1, r0
 	add	r0, r4, #0
 	mov	r1, #0x41
 	mov	r2, #0x0
 	bl	GetMonData
-	ldr	r1, .L1124+0x8
+	ldr	r1, .L1125+0x8
 	cmp	r0, r1
-	beq	.L1117	@cond_branch
+	beq	.L1118	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x39
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L1117	@cond_branch
+	beq	.L1118	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x41
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L1117	@cond_branch
+	beq	.L1118	@cond_branch
 	add	r6, r6, #0x1
-.L1117:
+.L1118:
 	add	r5, r5, #0x1
-	ldr	r0, .L1124
+	ldr	r0, .L1125
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	blt	.L1118	@cond_branch
-.L1116:
+	blt	.L1119	@cond_branch
+.L1117:
 	mov	r0, #0x0
 	cmp	r6, #0x1
-	bgt	.L1123	@cond_branch
+	bgt	.L1124	@cond_branch
 	mov	r0, #0x2
-.L1123:
+.L1124:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.L1125:
+.L1126:
 	.align	2, 0
-.L1124:
+.L1125:
 	.word	gPlayerPartyCount
 	.word	gPlayerParty
 	.word	0x4b7
@@ -126013,48 +136805,48 @@ GetMonsStateToDoubles_2:
 	push	{r4, r5, r6, lr}
 	mov	r6, #0x0
 	mov	r5, #0x0
-.L1130:
+.L1131:
 	mov	r0, #0x64
 	mov	r1, r5
 	mul	r1, r1, r0
-	ldr	r0, .L1137
+	ldr	r0, .L1138
 	add	r4, r1, r0
 	add	r0, r4, #0
 	mov	r1, #0x41
 	mov	r2, #0x0
 	bl	GetMonData
 	add	r1, r0, #0
-	ldr	r0, .L1137+0x4
+	ldr	r0, .L1138+0x4
 	cmp	r1, r0
-	beq	.L1129	@cond_branch
+	beq	.L1130	@cond_branch
 	cmp	r1, #0
-	beq	.L1129	@cond_branch
+	beq	.L1130	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x39
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L1129	@cond_branch
+	beq	.L1130	@cond_branch
 	add	r6, r6, #0x1
-.L1129:
+.L1130:
 	add	r5, r5, #0x1
 	cmp	r5, #0x5
-	ble	.L1130	@cond_branch
+	ble	.L1131	@cond_branch
 	cmp	r6, #0x1
-	bne	.L1133	@cond_branch
+	bne	.L1134	@cond_branch
 	mov	r0, #0x1
-	b	.L1136
-.L1138:
+	b	.L1137
+.L1139:
 	.align	2, 0
-.L1137:
+.L1138:
 	.word	gPlayerParty
 	.word	0x4b7
-.L1133:
+.L1134:
 	mov	r0, #0x0
 	cmp	r6, #0x1
-	bgt	.L1136	@cond_branch
+	bgt	.L1137	@cond_branch
 	mov	r0, #0x2
-.L1136:
+.L1137:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
@@ -126078,53 +136870,53 @@ GetAbilityBySpecies:
 	lsr	r3, r0, #0x10
 	add	r4, r3, #0
 	cmp	r5, #0x2
-	bne	.L1140	@cond_branch
-	ldr	r2, .L1145
-	ldr	r1, .L1145+0x4
+	bne	.L1141	@cond_branch
+	ldr	r2, .L1146
+	ldr	r1, .L1146+0x4
 	lsl	r0, r3, #0x3
 	add	r0, r0, r3
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldrh	r0, [r0, #0x1c]
-	b	.L1144
-.L1146:
+	b	.L1145
+.L1147:
 	.align	2, 0
-.L1145:
+.L1146:
 	.word	gLastUsedAbility
 	.word	gBaseStats
-.L1140:
+.L1141:
 	cmp	r5, #0x1
-	bne	.L1142	@cond_branch
-	ldr	r2, .L1147
-	ldr	r1, .L1147+0x4
+	bne	.L1143	@cond_branch
+	ldr	r2, .L1148
+	ldr	r1, .L1148+0x4
 	lsl	r0, r3, #0x3
 	add	r0, r0, r3
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldrh	r0, [r0, #0x1a]
-	b	.L1144
-.L1148:
+	b	.L1145
+.L1149:
 	.align	2, 0
-.L1147:
+.L1148:
 	.word	gLastUsedAbility
 	.word	gBaseStats
-.L1142:
-	ldr	r2, .L1149
-	ldr	r1, .L1149+0x4
+.L1143:
+	ldr	r2, .L1150
+	ldr	r1, .L1150+0x4
 	lsl	r0, r4, #0x3
 	add	r0, r0, r4
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldrh	r0, [r0, #0x18]
-.L1144:
+.L1145:
 	strh	r0, [r2]
 	ldrh	r0, [r2]
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.L1150:
+.L1151:
 	.align	2, 0
-.L1149:
+.L1150:
 	.word	gLastUsedAbility
 	.word	gBaseStats
 .Lfe69:
@@ -126179,7 +136971,7 @@ CreateSecretBaseEnemyParty:
 	add	sp, sp, #-0x18
 	add	r5, r0, #0
 	bl	ZeroEnemyPartyMons
-	ldr	r4, .L1169
+	ldr	r4, .L1170
 	ldr	r0, [r4]
 	ldr	r0, [r0]
 	add	r1, r5, #0
@@ -126187,8 +136979,8 @@ CreateSecretBaseEnemyParty:
 	bl	memcpy
 	mov	r0, #0x0
 	mov	r9, r0
-.L1156:
-	ldr	r1, .L1169
+.L1157:
+	ldr	r1, .L1170
 	ldr	r3, [r1]
 	ldr	r2, [r3]
 	mov	r4, r9
@@ -126200,11 +136992,11 @@ CreateSecretBaseEnemyParty:
 	add	r4, r4, #0x1
 	str	r4, [sp, #0x14]
 	cmp	r0, #0
-	beq	.L1155	@cond_branch
+	beq	.L1156	@cond_branch
 	mov	r0, #0x64
 	mov	r6, r9
 	mul	r6, r6, r0
-	ldr	r4, .L1169+0x4
+	ldr	r4, .L1170+0x4
 	mov	r8, r4
 	add	r5, r6, r4
 	ldrh	r1, [r1]
@@ -126229,7 +137021,7 @@ CreateSecretBaseEnemyParty:
 	add	r0, r5, #0
 	mov	r3, #0xf
 	bl	CreateMon
-	ldr	r1, .L1169
+	ldr	r1, .L1170
 	ldr	r0, [r1]
 	add	r1, r7, #0
 	add	r1, r1, #0x88
@@ -126243,10 +137035,10 @@ CreateSecretBaseEnemyParty:
 	mov	r7, r9
 	add	r7, r7, #0x9a
 	mov	r4, r8
-.L1161:
+.L1162:
 	add	r1, r5, #0
 	add	r1, r1, #0x1a
-	ldr	r2, .L1169
+	ldr	r2, .L1170
 	ldr	r0, [r2]
 	ldr	r2, [r0]
 	add	r2, r2, r7
@@ -126254,22 +137046,22 @@ CreateSecretBaseEnemyParty:
 	bl	SetMonData
 	add	r5, r5, #0x1
 	cmp	r5, #0x5
-	ble	.L1161	@cond_branch
+	ble	.L1162	@cond_branch
 	mov	r5, #0x0
 	mov	r3, #0x64
 	mov	r0, r9
 	mul	r0, r0, r3
-	ldr	r1, .L1169+0x4
+	ldr	r1, .L1170+0x4
 	add	r7, r0, r1
 	mov	r4, sl
 	lsl	r0, r4, #0x1
 	add	r6, r0, #0
 	add	r6, r6, #0x4c
 	add	r4, r0, #0
-.L1166:
+.L1167:
 	add	r1, r5, #0
 	add	r1, r1, #0xd
-	ldr	r2, .L1169
+	ldr	r2, .L1170
 	ldr	r0, [r2]
 	ldr	r2, [r0]
 	add	r2, r2, r6
@@ -126277,7 +137069,7 @@ CreateSecretBaseEnemyParty:
 	bl	SetMonData
 	add	r1, r5, #0
 	add	r1, r1, #0x11
-	ldr	r3, .L1169
+	ldr	r3, .L1170
 	ldr	r0, [r3]
 	ldr	r0, [r0]
 	add	r0, r0, #0x4c
@@ -126286,7 +137078,7 @@ CreateSecretBaseEnemyParty:
 	lsl	r2, r0, #0x2
 	add	r2, r2, r0
 	lsl	r2, r2, #0x2
-	ldr	r0, .L1169+0x8
+	ldr	r0, .L1170+0x8
 	add	r2, r2, r0
 	add	r0, r7, #0
 	bl	SetMonData
@@ -126294,12 +137086,12 @@ CreateSecretBaseEnemyParty:
 	add	r4, r4, #0x2
 	add	r5, r5, #0x1
 	cmp	r5, #0x3
-	ble	.L1166	@cond_branch
-.L1155:
+	ble	.L1167	@cond_branch
+.L1156:
 	ldr	r4, [sp, #0x14]
 	mov	r9, r4
 	cmp	r4, #0x5
-	ble	.L1156	@cond_branch
+	ble	.L1157	@cond_branch
 	add	sp, sp, #0x18
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -126308,9 +137100,9 @@ CreateSecretBaseEnemyParty:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1170:
+.L1171:
 	.align	2, 0
-.L1169:
+.L1170:
 	.word	gBattleResources
 	.word	gEnemyParty
 	.word	gBattleMoves+0x5
@@ -126322,8 +137114,8 @@ CreateSecretBaseEnemyParty:
 	.thumb_func
 GetSecretBaseTrainerPicIndex:
 	push	{r4, r5, lr}
-	ldr	r5, .L1172
-	ldr	r0, .L1172+0x4
+	ldr	r5, .L1173
+	ldr	r0, .L1173+0x4
 	ldr	r0, [r0]
 	ldr	r4, [r0]
 	ldrb	r0, [r4, #0x9]
@@ -126339,15 +137131,15 @@ GetSecretBaseTrainerPicIndex:
 	add	r0, r0, r1
 	add	r0, r0, r5
 	ldrb	r0, [r0]
-	ldr	r1, .L1172+0x8
+	ldr	r1, .L1173+0x8
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.L1173:
+.L1174:
 	.align	2, 0
-.L1172:
+.L1173:
 	.word	sSecretBaseFacilityClasses
 	.word	gBattleResources
 	.word	gFacilityClassToPicIndex
@@ -126359,8 +137151,8 @@ GetSecretBaseTrainerPicIndex:
 	.thumb_func
 GetSecretBaseTrainerClass:
 	push	{r4, r5, lr}
-	ldr	r5, .L1175
-	ldr	r0, .L1175+0x4
+	ldr	r5, .L1176
+	ldr	r0, .L1176+0x4
 	ldr	r0, [r0]
 	ldr	r4, [r0]
 	ldrb	r0, [r4, #0x9]
@@ -126376,15 +137168,15 @@ GetSecretBaseTrainerClass:
 	add	r0, r0, r1
 	add	r0, r0, r5
 	ldrb	r0, [r0]
-	ldr	r1, .L1175+0x8
+	ldr	r1, .L1176+0x8
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.L1176:
+.L1177:
 	.align	2, 0
-.L1175:
+.L1176:
 	.word	sSecretBaseFacilityClasses
 	.word	gBattleResources
 	.word	gFacilityClassToTrainerClass
@@ -126397,30 +137189,30 @@ GetSecretBaseTrainerClass:
 IsPlayerPartyAndPokemonStorageFull:
 	push	{r4, lr}
 	mov	r4, #0x0
-.L1181:
+.L1182:
 	mov	r0, #0x64
 	mul	r0, r0, r4
-	ldr	r1, .L1185
+	ldr	r1, .L1186
 	add	r0, r0, r1
 	mov	r1, #0xb
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	bne	.L1180	@cond_branch
+	bne	.L1181	@cond_branch
 	mov	r0, #0x0
-	b	.L1184
-.L1186:
+	b	.L1185
+.L1187:
 	.align	2, 0
-.L1185:
+.L1186:
 	.word	gPlayerParty
-.L1180:
+.L1181:
 	add	r4, r4, #0x1
 	cmp	r4, #0x5
-	ble	.L1181	@cond_branch
+	ble	.L1182	@cond_branch
 	bl	IsPokemonStorageFull
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-.L1184:
+.L1185:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
@@ -126433,28 +137225,28 @@ IsPlayerPartyAndPokemonStorageFull:
 IsPokemonStorageFull:
 	push	{r4, r5, r6, lr}
 	mov	r6, #0x0
-.L1191:
+.L1192:
 	mov	r4, #0x0
 	lsl	r5, r6, #0x18
-.L1195:
+.L1196:
 	lsl	r1, r4, #0x18
 	lsr	r1, r1, #0x18
 	lsr	r0, r5, #0x18
 	mov	r2, #0xb
 	bl	GetBoxMonDataAt
 	cmp	r0, #0
-	bne	.L1194	@cond_branch
+	bne	.L1195	@cond_branch
 	mov	r0, #0x0
-	b	.L1199
-.L1194:
+	b	.L1200
+.L1195:
 	add	r4, r4, #0x1
 	cmp	r4, #0x1d
-	ble	.L1195	@cond_branch
+	ble	.L1196	@cond_branch
 	add	r6, r6, #0x1
 	cmp	r6, #0xd
-	ble	.L1191	@cond_branch
+	ble	.L1192	@cond_branch
 	mov	r0, #0x1
-.L1199:
+.L1200:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
@@ -126470,40 +137262,40 @@ GetSpeciesName:
 	lsl	r1, r1, #0x10
 	lsr	r5, r1, #0x10
 	mov	r1, #0x0
-	ldr	r0, .L1210
+	ldr	r0, .L1211
 	mov	ip, r0
-	ldr	r7, .L1210+0x4
+	ldr	r7, .L1211+0x4
 	mov	r0, #0xb
 	mul	r0, r0, r5
 	add	r3, r0, r7
 	add	r2, r6, #0
-	b	.L1201
-.L1211:
+	b	.L1202
+.L1212:
 	.align	2, 0
-.L1210:
+.L1211:
 	.word	0x4b7
 	.word	gSpeciesNames
-.L1203:
+.L1204:
 	add	r3, r3, #0x1
 	add	r2, r2, #0x1
 	add	r1, r1, #0x1
-.L1201:
+.L1202:
 	add	r4, r6, r1
 	cmp	r1, #0xa
-	bgt	.L1202	@cond_branch
+	bgt	.L1203	@cond_branch
 	cmp	r5, ip
-	bls	.L1205	@cond_branch
+	bls	.L1206	@cond_branch
 	add	r0, r1, r7
 	ldrb	r0, [r0]
-	b	.L1209
-.L1205:
+	b	.L1210
+.L1206:
 	ldrb	r0, [r3]
-.L1209:
+.L1210:
 	strb	r0, [r2]
 	ldrb	r0, [r4]
 	cmp	r0, #0xff
-	bne	.L1203	@cond_branch
-.L1202:
+	bne	.L1204	@cond_branch
+.L1203:
 	mov	r0, #0xff
 	strb	r0, [r4]
 	pop	{r4, r5, r6, r7}
@@ -126521,13 +137313,13 @@ CalculatePPWithBonus:
 	lsr	r0, r0, #0x10
 	lsl	r2, r2, #0x18
 	lsr	r2, r2, #0x18
-	ldr	r4, .L1213
+	ldr	r4, .L1214
 	lsl	r3, r0, #0x2
 	add	r3, r3, r0
 	lsl	r3, r3, #0x2
 	add	r3, r3, r4
 	ldrb	r4, [r3, #0x5]
-	ldr	r0, .L1213+0x4
+	ldr	r0, .L1214+0x4
 	add	r0, r2, r0
 	ldrb	r3, [r0]
 	and	r3, r3, r1
@@ -126546,9 +137338,9 @@ CalculatePPWithBonus:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L1214:
+.L1215:
 	.align	2, 0
-.L1213:
+.L1214:
 	.word	gBattleMoves
 	.word	gPPUpGetMask
 .Lfe77:
@@ -126570,7 +137362,7 @@ RemoveMonPPBonus:
 	lsr	r0, r0, #0x18
 	mov	r1, sp
 	strb	r0, [r1]
-	ldr	r1, .L1216
+	ldr	r1, .L1217
 	add	r4, r4, r1
 	ldrb	r1, [r4]
 	and	r1, r1, r0
@@ -126584,9 +137376,9 @@ RemoveMonPPBonus:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L1217:
+.L1218:
 	.align	2, 0
-.L1216:
+.L1217:
 	.word	gPPUpSetMask
 .Lfe78:
 	.size	 RemoveMonPPBonus,.Lfe78-RemoveMonPPBonus
@@ -126598,16 +137390,16 @@ RemoveBattleMonPPBonus:
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	add	r0, r0, #0x3d
-	ldr	r2, .L1219
+	ldr	r2, .L1220
 	add	r1, r1, r2
 	ldrb	r2, [r0]
 	ldrb	r1, [r1]
 	and	r1, r1, r2
 	strb	r1, [r0]
 	bx	lr
-.L1220:
+.L1221:
 	.align	2, 0
-.L1219:
+.L1220:
 	.word	gPPUpSetMask
 .Lfe79:
 	.size	 RemoveBattleMonPPBonus,.Lfe79-RemoveBattleMonPPBonus
@@ -126621,7 +137413,7 @@ PokemonToBattleMon:
 	add	r7, r0, #0
 	add	r6, r1, #0
 	mov	r4, #0x0
-.L1225:
+.L1226:
 	add	r1, r4, #0
 	add	r1, r1, #0xd
 	add	r0, r7, #0
@@ -126643,16 +137435,16 @@ PokemonToBattleMon:
 	strb	r0, [r1]
 	add	r4, r4, #0x1
 	cmp	r4, #0x3
-	ble	.L1225	@cond_branch
+	ble	.L1226	@cond_branch
 	add	r0, r7, #0
 	mov	r1, #0xb
 	mov	r2, #0x0
 	bl	GetMonData
-	ldr	r2, .L1232
+	ldr	r2, .L1233
 	add	r1, r2, #0
 	and	r0, r0, r1
 	ldrh	r2, [r6]
-	ldr	r1, .L1232+0x4
+	ldr	r1, .L1233+0x4
 	and	r1, r1, r2
 	orr	r1, r1, r0
 	strh	r1, [r6]
@@ -126710,7 +137502,7 @@ PokemonToBattleMon:
 	and	r0, r0, r5
 	lsl	r0, r0, #0x5
 	ldrh	r2, [r6, #0x14]
-	ldr	r1, .L1232+0x8
+	ldr	r1, .L1233+0x8
 	and	r1, r1, r2
 	orr	r1, r1, r0
 	strh	r1, [r6, #0x14]
@@ -126734,7 +137526,7 @@ PokemonToBattleMon:
 	and	r1, r1, r0
 	lsl	r1, r1, #0xf
 	ldr	r0, [r6, #0x14]
-	ldr	r2, .L1232+0xc
+	ldr	r2, .L1233+0xc
 	and	r0, r0, r2
 	orr	r0, r0, r1
 	str	r0, [r6, #0x14]
@@ -126745,7 +137537,7 @@ PokemonToBattleMon:
 	and	r0, r0, r5
 	lsl	r0, r0, #0x4
 	ldrh	r2, [r6, #0x16]
-	ldr	r1, .L1232+0x10
+	ldr	r1, .L1233+0x10
 	and	r1, r1, r2
 	orr	r1, r1, r0
 	strh	r1, [r6, #0x16]
@@ -126834,7 +137626,7 @@ PokemonToBattleMon:
 	ldrb	r1, [r6, #0x1]
 	lsr	r1, r1, #0x3
 	bl	GetFormSpeciesId
-	ldr	r4, .L1232+0x14
+	ldr	r4, .L1233+0x14
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	lsl	r1, r0, #0x3
@@ -126891,20 +137683,20 @@ PokemonToBattleMon:
 	mov	r2, #0x6
 	add	r0, r6, #0
 	add	r0, r0, #0x1f
-.L1230:
+.L1231:
 	strb	r2, [r0]
 	sub	r0, r0, #0x1
 	cmp	r0, r1
-	bge	.L1230	@cond_branch
+	bge	.L1231	@cond_branch
 	mov	r0, #0x0
 	str	r0, [r6, #0x54]
 	add	sp, sp, #0x14
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1233:
+.L1234:
 	.align	2, 0
-.L1232:
+.L1233:
 	.word	0x7ff
 	.word	-0x800
 	.word	-0x3e1
@@ -126926,18 +137718,18 @@ CopyPlayerPartyMonToBattleData:
 	lsr	r1, r1, #0x18
 	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L1235
+	ldr	r1, .L1236
 	add	r0, r0, r1
 	mov	r1, #0x5c
 	mov	r5, r4
 	mul	r5, r5, r1
-	ldr	r1, .L1235+0x4
+	ldr	r1, .L1236+0x4
 	add	r5, r5, r1
 	add	r1, r5, #0
 	bl	PokemonToBattleMon
 	add	r0, r4, #0
 	bl	GetBattlerSide
-	ldr	r1, .L1235+0x8
+	ldr	r1, .L1236+0x8
 	ldr	r1, [r1]
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x17
@@ -126953,9 +137745,9 @@ CopyPlayerPartyMonToBattleData:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L1236:
+.L1237:
 	.align	2, 0
-.L1235:
+.L1236:
 	.word	gPlayerParty
 	.word	gBattleMons
 	.word	gBattleStruct
@@ -127026,48 +137818,48 @@ PokemonUseItemEffects:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0xcd
-	bne	.L1239	@cond_branch
-	ldr	r0, .L1424
-	ldr	r1, .L1424+0x4
+	bne	.L1240	@cond_branch
+	ldr	r0, .L1425
+	ldr	r1, .L1425+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1240	@cond_branch
-	ldr	r2, .L1424+0x8
-	ldr	r0, .L1424+0xc
+	beq	.L1241	@cond_branch
+	ldr	r2, .L1425+0x8
+	ldr	r0, .L1425+0xc
 	ldrb	r1, [r0]
 	lsl	r0, r1, #0x3
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x2
 	add	r0, r0, r2
 	ldrb	r0, [r0, #0x7]
-	b	.L1416
-.L1425:
+	b	.L1417
+.L1426:
 	.align	2, 0
-.L1424:
+.L1425:
 	.word	gMain
 	.word	0x439
 	.word	gEnigmaBerries
 	.word	gBattlerInMenuId
-.L1240:
+.L1241:
 	mov	r2, #0x0
 	str	r2, [sp, #0x3c]
-	b	.L1242
-.L1239:
+	b	.L1243
+.L1240:
 	bl	ItemId_GetHoldEffect
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-.L1416:
+.L1417:
 	str	r0, [sp, #0x3c]
-.L1242:
-	ldr	r1, .L1426
-	ldr	r0, .L1426+0x4
+.L1243:
+	ldr	r1, .L1427
+	ldr	r0, .L1427+0x4
 	ldrb	r2, [r0]
 	strb	r2, [r1]
-	ldr	r0, .L1426+0x8
-	ldr	r3, .L1426+0xc
+	ldr	r0, .L1427+0x8
+	ldr	r3, .L1427+0xc
 	add	r0, r0, r3
 	ldrb	r1, [r0]
 	mov	r0, #0x2
@@ -127075,8 +137867,8 @@ PokemonUseItemEffects:
 	lsl	r0, r0, #0x18
 	lsr	r1, r0, #0x18
 	cmp	r1, #0
-	beq	.L1243	@cond_branch
-	ldr	r0, .L1426+0x10
+	beq	.L1244	@cond_branch
+	ldr	r0, .L1427+0x10
 	strb	r2, [r0]
 	ldrb	r0, [r0]
 	bl	GetBattlerSide
@@ -127086,14 +137878,14 @@ PokemonUseItemEffects:
 	orr	r1, r1, r0
 	lsr	r1, r1, #0x1f
 	str	r1, [sp, #0x24]
-	ldr	r0, .L1426+0x14
+	ldr	r0, .L1427+0x14
 	ldr	r1, [sp, #0x14]
 	lsl	r5, r1, #0x2
 	ldr	r2, [sp, #0x24]
 	ldrb	r0, [r0]
 	cmp	r2, r0
-	bge	.L1250	@cond_branch
-	ldr	r2, .L1426+0x18
+	bge	.L1251	@cond_branch
+	ldr	r2, .L1427+0x18
 	ldr	r3, [sp, #0x24]
 	lsl	r0, r3, #0x1
 	add	r0, r0, r2
@@ -127103,13 +137895,13 @@ PokemonUseItemEffects:
 	lsr	r1, r0, #0x10
 	add	r4, r0, #0
 	cmp	r3, r1
-	bne	.L1248	@cond_branch
+	bne	.L1249	@cond_branch
 	ldr	r2, [sp, #0x24]
 	str	r2, [sp, #0x40]
-	b	.L1250
-.L1427:
+	b	.L1251
+.L1428:
 	.align	2, 0
-.L1426:
+.L1427:
 	.word	gPotentialItemEffectBattler
 	.word	gBattlerInMenuId
 	.word	gMain
@@ -127117,85 +137909,85 @@ PokemonUseItemEffects:
 	.word	gActiveBattler
 	.word	gBattlersCount
 	.word	gBattlerPartyIndexes
-.L1248:
+.L1249:
 	ldr	r3, [sp, #0x24]
 	add	r3, r3, #0x2
 	str	r3, [sp, #0x24]
-	ldr	r0, .L1428
+	ldr	r0, .L1429
 	ldrb	r0, [r0]
 	cmp	r3, r0
-	bge	.L1250	@cond_branch
+	bge	.L1251	@cond_branch
 	lsl	r0, r3, #0x1
 	add	r0, r0, r2
 	ldrh	r1, [r0]
 	lsr	r0, r4, #0x10
 	cmp	r1, r0
-	bne	.L1248	@cond_branch
+	bne	.L1249	@cond_branch
 	lsl	r0, r3, #0x18
 	lsr	r0, r0, #0x18
 	str	r0, [sp, #0x40]
-	b	.L1250
-.L1429:
+	b	.L1251
+.L1430:
 	.align	2, 0
-.L1428:
+.L1429:
 	.word	gBattlersCount
-.L1243:
-	ldr	r0, .L1430
+.L1244:
+	ldr	r0, .L1431
 	strb	r1, [r0]
 	mov	r5, #0x4
 	str	r5, [sp, #0x40]
 	ldr	r0, [sp, #0x14]
 	lsl	r5, r0, #0x2
-.L1250:
-	ldr	r0, .L1430+0x4
+.L1251:
+	ldr	r0, .L1431+0x4
 	add	r0, r5, r0
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L1251	@cond_branch
+	bne	.L1252	@cond_branch
 	ldr	r1, [sp, #0x14]
 	cmp	r1, #0xcd
-	beq	.L1412	@cond_branch
-.L1417:
+	beq	.L1413	@cond_branch
+.L1418:
 	mov	r0, #0x1
-	bl	.L1410	@ far jump
-.L1431:
+	bl	.L1411	@ far jump
+.L1432:
 	.align	2, 0
-.L1430:
+.L1431:
 	.word	gActiveBattler
 	.word	gItemEffectTable
-.L1251:
+.L1252:
 	ldr	r2, [sp, #0x14]
 	cmp	r2, #0xcd
-	bne	.L1252	@cond_branch
-.L1412:
-	ldr	r0, .L1432
-	ldr	r3, .L1432+0x4
+	bne	.L1253	@cond_branch
+.L1413:
+	ldr	r0, .L1433
+	ldr	r3, .L1433+0x4
 	add	r0, r0, r3
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1253	@cond_branch
-	ldr	r0, .L1432+0x8
+	beq	.L1254	@cond_branch
+	ldr	r0, .L1433+0x8
 	ldrb	r1, [r0]
 	lsl	r0, r1, #0x3
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1432+0xc
+	ldr	r1, .L1433+0xc
 	add	r0, r0, r1
-	b	.L1252
-.L1433:
+	b	.L1253
+.L1434:
 	.align	2, 0
-.L1432:
+.L1433:
 	.word	gMain
 	.word	0x439
 	.word	gActiveBattler
 	.word	gEnigmaBerries+0x8
-.L1253:
+.L1254:
 	mov	r5, #0x0
 	str	r5, [sp, #0x2c]
-	b	.L1255
-.L1414:
+	b	.L1256
+.L1415:
 	add	r0, sp, #0x4
 	ldrb	r0, [r0]
 	str	r0, [sp]
@@ -127204,37 +137996,37 @@ PokemonUseItemEffects:
 	ldr	r3, [sp, #0x18]
 	bl	BeginEvolutionScene
 	mov	r0, #0x0
-	bl	.L1410	@ far jump
-.L1252:
+	bl	.L1411	@ far jump
+.L1253:
 	str	r0, [sp, #0x2c]
-.L1255:
+.L1256:
 	mov	r0, #0x0
 	str	r0, [sp, #0x24]
-.L1259:
+.L1260:
 	ldr	r1, [sp, #0x24]
 	cmp	r1, #0x5
-	bls	.LCB10263
-	bl	.L1258	@far jump
-.LCB10263:
+	bls	.LCB10367
+	bl	.L1259	@far jump
+.LCB10367:
 	lsl	r0, r1, #0x2
-	ldr	r1, .L1434
+	ldr	r1, .L1435
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
+.L1436:
+	.align	2, 0
 .L1435:
-	.align	2, 0
-.L1434:
-	.word	.L1407
+	.word	.L1408
 	.align	2, 0
 	.align	2, 0
-.L1407:
-	.word	.L1261
-	.word	.L1266
-	.word	.L1271
-	.word	.L1276
-	.word	.L1286
-	.word	.L1351
-.L1261:
+.L1408:
+	.word	.L1262
+	.word	.L1267
+	.word	.L1272
+	.word	.L1277
+	.word	.L1287
+	.word	.L1352
+.L1262:
 	ldr	r3, [sp, #0x2c]
 	ldr	r5, [sp, #0x24]
 	add	r2, r3, r5
@@ -127243,19 +138035,19 @@ PokemonUseItemEffects:
 	and	r0, r0, r1
 	add	r6, r2, #0
 	cmp	r0, #0
-	beq	.L1262	@cond_branch
-	ldr	r0, .L1436
-	ldr	r1, .L1436+0x4
+	beq	.L1263	@cond_branch
+	ldr	r0, .L1437
+	ldr	r1, .L1437+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1262	@cond_branch
+	beq	.L1263	@cond_branch
 	ldr	r2, [sp, #0x40]
 	cmp	r2, #0x4
-	beq	.L1262	@cond_branch
-	ldr	r1, .L1436+0x8
+	beq	.L1263	@cond_branch
+	ldr	r1, .L1437+0x8
 	mov	r0, #0x5c
 	mul	r0, r0, r2
 	add	r1, r1, #0x54
@@ -127265,20 +138057,20 @@ PokemonUseItemEffects:
 	lsl	r0, r0, #0xc
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1262	@cond_branch
-	ldr	r0, .L1436+0xc
+	beq	.L1263	@cond_branch
+	ldr	r0, .L1437+0xc
 	and	r1, r1, r0
 	str	r1, [r2]
 	mov	r3, #0x0
 	str	r3, [sp, #0x28]
-.L1262:
+.L1263:
 	ldrb	r1, [r6]
 	mov	r0, #0x30
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1263	@cond_branch
-	ldr	r1, .L1436+0x8
-	ldr	r0, .L1436+0x10
+	beq	.L1264	@cond_branch
+	ldr	r1, .L1437+0x8
+	ldr	r0, .L1437+0x10
 	ldrb	r2, [r0]
 	mov	r0, #0x5c
 	mul	r0, r0, r2
@@ -127290,21 +138082,21 @@ PokemonUseItemEffects:
 	add	r0, r1, #0
 	and	r0, r0, r3
 	cmp	r0, #0
-	bne	.L1263	@cond_branch
+	bne	.L1264	@cond_branch
 	orr	r1, r1, r3
 	str	r1, [r2]
 	mov	r5, #0x0
 	str	r5, [sp, #0x28]
-.L1263:
+.L1264:
 	ldrb	r0, [r6]
 	mov	r3, #0xf
 	and	r3, r3, r0
 	cmp	r3, #0
-	bne	.LCB10360
-	bl	.L1258	@far jump
-.LCB10360:
-	ldr	r6, .L1436+0x8
-	ldr	r5, .L1436+0x10
+	bne	.LCB10464
+	bl	.L1259	@far jump
+.LCB10464:
+	ldr	r6, .L1437+0x8
+	ldr	r5, .L1437+0x10
 	ldrb	r0, [r5]
 	mov	r4, #0x5c
 	mul	r0, r0, r4
@@ -127313,9 +138105,9 @@ PokemonUseItemEffects:
 	mov	r0, #0x19
 	ldrsb	r0, [r1, r0]
 	cmp	r0, #0xb
-	ble	.LCB10371
-	bl	.L1258	@far jump
-.LCB10371:
+	ble	.LCB10475
+	bl	.L1259	@far jump
+.LCB10475:
 	add	r0, r2, r3
 	strb	r0, [r1, #0x19]
 	ldrb	r0, [r5]
@@ -127324,21 +138116,21 @@ PokemonUseItemEffects:
 	mov	r0, #0x19
 	ldrsb	r0, [r1, r0]
 	cmp	r0, #0xc
-	bgt	.LCB10382
-	b	.L1275	@long jump
-.LCB10382:
+	bgt	.LCB10486
+	b	.L1276	@long jump
+.LCB10486:
 	mov	r0, #0xc
 	strb	r0, [r1, #0x19]
-	b	.L1275
-.L1437:
+	b	.L1276
+.L1438:
 	.align	2, 0
-.L1436:
+.L1437:
 	.word	gMain
 	.word	0x439
 	.word	gBattleMons
 	.word	-0xf0001
 	.word	gActiveBattler
-.L1266:
+.L1267:
 	ldr	r1, [sp, #0x2c]
 	ldr	r3, [sp, #0x24]
 	add	r2, r1, r3
@@ -127348,9 +138140,9 @@ PokemonUseItemEffects:
 	lsl	r3, r0, #0x18
 	add	r6, r2, #0
 	cmp	r3, #0
-	beq	.L1267	@cond_branch
-	ldr	r7, .L1438
-	ldr	r5, .L1438+0x4
+	beq	.L1268	@cond_branch
+	ldr	r7, .L1439
+	ldr	r5, .L1439+0x4
 	ldrb	r0, [r5]
 	mov	r4, #0x5c
 	mul	r0, r0, r4
@@ -127359,7 +138151,7 @@ PokemonUseItemEffects:
 	mov	r0, #0x1a
 	ldrsb	r0, [r1, r0]
 	cmp	r0, #0xb
-	bgt	.L1267	@cond_branch
+	bgt	.L1268	@cond_branch
 	lsr	r0, r3, #0x1c
 	add	r0, r2, r0
 	strb	r0, [r1, #0x1a]
@@ -127369,22 +138161,22 @@ PokemonUseItemEffects:
 	mov	r0, #0x1a
 	ldrsb	r0, [r1, r0]
 	cmp	r0, #0xc
-	ble	.L1268	@cond_branch
+	ble	.L1269	@cond_branch
 	mov	r0, #0xc
 	strb	r0, [r1, #0x1a]
-.L1268:
+.L1269:
 	mov	r5, #0x0
 	str	r5, [sp, #0x28]
-.L1267:
+.L1268:
 	ldrb	r0, [r6]
 	mov	r3, #0xf
 	and	r3, r3, r0
 	cmp	r3, #0
-	bne	.LCB10445
-	bl	.L1258	@far jump
-.LCB10445:
-	ldr	r6, .L1438
-	ldr	r5, .L1438+0x4
+	bne	.LCB10549
+	bl	.L1259	@far jump
+.LCB10549:
+	ldr	r6, .L1439
+	ldr	r5, .L1439+0x4
 	ldrb	r0, [r5]
 	mov	r4, #0x5c
 	mul	r0, r0, r4
@@ -127393,9 +138185,9 @@ PokemonUseItemEffects:
 	mov	r0, #0x1b
 	ldrsb	r0, [r1, r0]
 	cmp	r0, #0xb
-	ble	.LCB10456
-	bl	.L1258	@far jump
-.LCB10456:
+	ble	.LCB10560
+	bl	.L1259	@far jump
+.LCB10560:
 	add	r0, r2, r3
 	strb	r0, [r1, #0x1b]
 	ldrb	r0, [r5]
@@ -127404,16 +138196,16 @@ PokemonUseItemEffects:
 	mov	r0, #0x1b
 	ldrsb	r0, [r1, r0]
 	cmp	r0, #0xc
-	ble	.L1275	@cond_branch
+	ble	.L1276	@cond_branch
 	mov	r0, #0xc
 	strb	r0, [r1, #0x1b]
-	b	.L1275
-.L1439:
+	b	.L1276
+.L1440:
 	.align	2, 0
-.L1438:
+.L1439:
 	.word	gBattleMons
 	.word	gActiveBattler
-.L1271:
+.L1272:
 	ldr	r1, [sp, #0x2c]
 	ldr	r3, [sp, #0x24]
 	add	r2, r1, r3
@@ -127423,9 +138215,9 @@ PokemonUseItemEffects:
 	lsl	r3, r0, #0x18
 	add	r6, r2, #0
 	cmp	r3, #0
-	beq	.L1272	@cond_branch
-	ldr	r7, .L1440
-	ldr	r5, .L1440+0x4
+	beq	.L1273	@cond_branch
+	ldr	r7, .L1441
+	ldr	r5, .L1441+0x4
 	ldrb	r0, [r5]
 	mov	r4, #0x5c
 	mul	r0, r0, r4
@@ -127434,7 +138226,7 @@ PokemonUseItemEffects:
 	mov	r0, #0x1e
 	ldrsb	r0, [r1, r0]
 	cmp	r0, #0xb
-	bgt	.L1272	@cond_branch
+	bgt	.L1273	@cond_branch
 	lsr	r0, r3, #0x1c
 	add	r0, r2, r0
 	strb	r0, [r1, #0x1e]
@@ -127444,22 +138236,22 @@ PokemonUseItemEffects:
 	mov	r0, #0x1e
 	ldrsb	r0, [r1, r0]
 	cmp	r0, #0xc
-	ble	.L1273	@cond_branch
+	ble	.L1274	@cond_branch
 	mov	r0, #0xc
 	strb	r0, [r1, #0x1e]
-.L1273:
+.L1274:
 	mov	r5, #0x0
 	str	r5, [sp, #0x28]
-.L1272:
+.L1273:
 	ldrb	r0, [r6]
 	mov	r3, #0xf
 	and	r3, r3, r0
 	cmp	r3, #0
-	bne	.LCB10527
-	bl	.L1258	@far jump
-.LCB10527:
-	ldr	r6, .L1440
-	ldr	r5, .L1440+0x4
+	bne	.LCB10631
+	bl	.L1259	@far jump
+.LCB10631:
+	ldr	r6, .L1441
+	ldr	r5, .L1441+0x4
 	ldrb	r0, [r5]
 	mov	r4, #0x5c
 	mul	r0, r0, r4
@@ -127468,9 +138260,9 @@ PokemonUseItemEffects:
 	mov	r0, #0x1c
 	ldrsb	r0, [r1, r0]
 	cmp	r0, #0xb
-	ble	.LCB10538
-	bl	.L1258	@far jump
-.LCB10538:
+	ble	.LCB10642
+	bl	.L1259	@far jump
+.LCB10642:
 	add	r0, r2, r3
 	strb	r0, [r1, #0x1c]
 	ldrb	r0, [r5]
@@ -127479,19 +138271,19 @@ PokemonUseItemEffects:
 	mov	r0, #0x1c
 	ldrsb	r0, [r1, r0]
 	cmp	r0, #0xc
-	ble	.L1275	@cond_branch
+	ble	.L1276	@cond_branch
 	mov	r0, #0xc
 	strb	r0, [r1, #0x1c]
-.L1275:
+.L1276:
 	mov	r0, #0x0
 	str	r0, [sp, #0x28]
-	bl	.L1258	@ far jump
-.L1441:
+	bl	.L1259	@ far jump
+.L1442:
 	.align	2, 0
-.L1440:
+.L1441:
 	.word	gBattleMons
 	.word	gActiveBattler
-.L1276:
+.L1277:
 	ldr	r1, [sp, #0x2c]
 	ldr	r3, [sp, #0x24]
 	add	r2, r1, r3
@@ -127500,9 +138292,9 @@ PokemonUseItemEffects:
 	and	r0, r0, r1
 	add	r6, r2, #0
 	cmp	r0, #0
-	beq	.L1277	@cond_branch
-	ldr	r5, .L1442
-	ldr	r4, .L1442+0x4
+	beq	.L1278	@cond_branch
+	ldr	r5, .L1443
+	ldr	r4, .L1443+0x4
 	ldrb	r0, [r4]
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
@@ -127513,7 +138305,7 @@ PokemonUseItemEffects:
 	add	r1, r1, r5
 	ldrb	r0, [r1, #0x4]
 	cmp	r0, #0
-	bne	.L1277	@cond_branch
+	bne	.L1278	@cond_branch
 	ldrb	r0, [r4]
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
@@ -127526,19 +138318,19 @@ PokemonUseItemEffects:
 	strb	r0, [r1, #0x4]
 	mov	r5, #0x0
 	str	r5, [sp, #0x28]
-.L1277:
+.L1278:
 	ldrb	r1, [r6]
 	mov	r0, #0x40
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1278	@cond_branch
+	beq	.L1279	@cond_branch
 	mov	r0, r8
 	mov	r1, #0x38
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0x64
-	beq	.L1278	@cond_branch
-	ldr	r5, .L1442+0x8
+	beq	.L1279	@cond_branch
+	ldr	r5, .L1443+0x8
 	mov	r0, r8
 	mov	r1, #0x38
 	mov	r2, #0x0
@@ -127550,7 +138342,7 @@ PokemonUseItemEffects:
 	bl	GetMonData
 	add	r4, r4, #0x1
 	lsl	r4, r4, #0x2
-	ldr	r2, .L1442+0xc
+	ldr	r2, .L1443+0xc
 	lsl	r1, r0, #0x3
 	add	r1, r1, r0
 	lsl	r1, r1, #0x2
@@ -127571,12 +138363,12 @@ PokemonUseItemEffects:
 	bl	CalculateMonStats
 	mov	r0, #0x0
 	str	r0, [sp, #0x28]
-.L1278:
+.L1279:
 	ldrb	r1, [r6]
 	mov	r0, #0x20
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1279	@cond_branch
+	beq	.L1280	@cond_branch
 	mov	r0, r8
 	ldr	r1, [sp, #0x18]
 	mov	r2, #0x7
@@ -127584,11 +138376,11 @@ PokemonUseItemEffects:
 	bl	HealStatusConditions
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1279	@cond_branch
+	bne	.L1280	@cond_branch
 	ldr	r1, [sp, #0x40]
 	cmp	r1, #0x4
-	beq	.L1280	@cond_branch
-	ldr	r1, .L1442+0x10
+	beq	.L1281	@cond_branch
+	ldr	r1, .L1443+0x10
 	mov	r0, #0x5c
 	ldr	r3, [sp, #0x40]
 	mov	r2, r3
@@ -127596,34 +138388,34 @@ PokemonUseItemEffects:
 	add	r1, r1, #0x54
 	add	r2, r2, r1
 	ldr	r0, [r2]
-	ldr	r1, .L1442+0x14
+	ldr	r1, .L1443+0x14
 	and	r0, r0, r1
 	str	r0, [r2]
-.L1280:
+.L1281:
 	mov	r5, #0x0
 	str	r5, [sp, #0x28]
-.L1279:
+.L1280:
 	ldrb	r1, [r6]
 	mov	r0, #0x10
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1281	@cond_branch
-	ldr	r2, .L1442+0x18
+	beq	.L1282	@cond_branch
+	ldr	r2, .L1443+0x18
 	mov	r0, r8
 	ldr	r1, [sp, #0x18]
 	ldr	r3, [sp, #0x40]
 	bl	HealStatusConditions
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1281	@cond_branch
+	bne	.L1282	@cond_branch
 	mov	r0, #0x0
 	str	r0, [sp, #0x28]
-.L1281:
+.L1282:
 	ldrb	r1, [r6]
 	mov	r0, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1282	@cond_branch
+	beq	.L1283	@cond_branch
 	mov	r0, r8
 	ldr	r1, [sp, #0x18]
 	mov	r2, #0x10
@@ -127631,15 +138423,15 @@ PokemonUseItemEffects:
 	bl	HealStatusConditions
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1282	@cond_branch
+	bne	.L1283	@cond_branch
 	mov	r1, #0x0
 	str	r1, [sp, #0x28]
-.L1282:
+.L1283:
 	ldrb	r1, [r6]
 	mov	r0, #0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1283	@cond_branch
+	beq	.L1284	@cond_branch
 	mov	r0, r8
 	ldr	r1, [sp, #0x18]
 	mov	r2, #0x20
@@ -127647,15 +138439,15 @@ PokemonUseItemEffects:
 	bl	HealStatusConditions
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1283	@cond_branch
+	bne	.L1284	@cond_branch
 	mov	r2, #0x0
 	str	r2, [sp, #0x28]
-.L1283:
+.L1284:
 	ldrb	r1, [r6]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1284	@cond_branch
+	beq	.L1285	@cond_branch
 	mov	r0, r8
 	ldr	r1, [sp, #0x18]
 	mov	r2, #0x40
@@ -127663,33 +138455,33 @@ PokemonUseItemEffects:
 	bl	HealStatusConditions
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1284	@cond_branch
+	bne	.L1285	@cond_branch
 	mov	r3, #0x0
 	str	r3, [sp, #0x28]
-.L1284:
+.L1285:
 	ldrb	r1, [r6]
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB10789
-	bl	.L1258	@far jump
-.LCB10789:
-	ldr	r0, .L1442+0x1c
-	ldr	r5, .L1442+0x20
+	bne	.LCB10893
+	bl	.L1259	@far jump
+.LCB10893:
+	ldr	r0, .L1443+0x1c
+	ldr	r5, .L1443+0x20
 	add	r0, r0, r5
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB10800
-	bl	.L1258	@far jump
-.LCB10800:
+	bne	.LCB10904
+	bl	.L1259	@far jump
+.LCB10904:
 	ldr	r0, [sp, #0x40]
 	cmp	r0, #0x4
-	bne	.LCB10803
-	bl	.L1258	@far jump
-.LCB10803:
-	ldr	r1, .L1442+0x10
+	bne	.LCB10907
+	bl	.L1259	@far jump
+.LCB10907:
+	ldr	r1, .L1443+0x10
 	mov	r0, #0x5c
 	ldr	r2, [sp, #0x40]
 	mul	r0, r0, r2
@@ -127699,19 +138491,19 @@ PokemonUseItemEffects:
 	mov	r0, #0x7
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB10814
-	bl	.L1258	@far jump
-.LCB10814:
+	bne	.LCB10918
+	bl	.L1259	@far jump
+.LCB10918:
 	mov	r0, #0x8
 	neg	r0, r0
 	and	r1, r1, r0
 	str	r1, [r2]
 	mov	r3, #0x0
 	str	r3, [sp, #0x28]
-	bl	.L1258	@ far jump
-.L1443:
+	bl	.L1259	@ far jump
+.L1444:
 	.align	2, 0
-.L1442:
+.L1443:
 	.word	gSideTimers
 	.word	gActiveBattler
 	.word	gExperienceTables
@@ -127721,7 +138513,7 @@ PokemonUseItemEffects:
 	.word	0xf88
 	.word	gMain
 	.word	0x439
-.L1286:
+.L1287:
 	ldr	r5, [sp, #0x2c]
 	ldr	r1, [sp, #0x24]
 	add	r0, r5, r1
@@ -127731,7 +138523,7 @@ PokemonUseItemEffects:
 	mov	r2, sl
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L1287	@cond_branch
+	beq	.L1288	@cond_branch
 	mov	r0, #0xdf
 	and	r2, r2, r0
 	mov	sl, r2
@@ -127739,7 +138531,7 @@ PokemonUseItemEffects:
 	mov	r1, #0x15
 	mov	r2, #0x0
 	bl	GetMonData
-	ldr	r1, .L1444
+	ldr	r1, .L1445
 	ldr	r3, [sp, #0x1c]
 	add	r1, r3, r1
 	ldrb	r1, [r1]
@@ -127771,15 +138563,15 @@ PokemonUseItemEffects:
 	str	r0, [sp, #0x34]
 	ldr	r0, [sp, #0x8]
 	cmp	r0, #0x2
-	bhi	.L1287	@cond_branch
+	bhi	.L1288	@cond_branch
 	ldr	r5, [sp, #0x34]
 	cmp	r5, #0x4
-	bls	.L1287	@cond_branch
+	bls	.L1288	@cond_branch
 	mov	r0, r8
 	mov	r1, #0x15
 	mov	r2, #0x0
 	bl	GetMonData
-	ldr	r1, .L1444+0x4
+	ldr	r1, .L1445+0x4
 	ldr	r2, [sp, #0x1c]
 	add	r1, r2, r1
 	ldrb	r1, [r1]
@@ -127821,50 +138613,50 @@ PokemonUseItemEffects:
 	bl	SetMonData
 	mov	r5, #0x0
 	str	r5, [sp, #0x28]
-.L1287:
+.L1288:
 	mov	r0, #0x0
 	str	r0, [sp, #0x34]
 	mov	r1, sl
 	cmp	r1, #0
-	bne	.LCB10959
-	bl	.L1258	@far jump
-.LCB10959:
-.L1291:
+	bne	.LCB11063
+	bl	.L1259	@far jump
+.LCB11063:
+.L1292:
 	mov	r0, #0x1
 	mov	r2, sl
 	and	r0, r0, r2
 	cmp	r0, #0
-	bne	.LCB10969
-	b	.L1292	@long jump
-.LCB10969:
+	bne	.LCB11073
+	b	.L1293	@long jump
+.LCB11073:
 	ldr	r3, [sp, #0x34]
 	cmp	r3, #0x7
-	bls	.LCB10973
-	b	.L1292	@long jump
-.LCB10973:
+	bls	.LCB11077
+	b	.L1293	@long jump
+.LCB11077:
 	lsl	r0, r3, #0x2
-	ldr	r1, .L1444+0x8
+	ldr	r1, .L1445+0x8
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1445:
+.L1446:
 	.align	2, 0
-.L1444:
+.L1445:
 	.word	gPPUpGetMask
 	.word	gPPUpAddMask
-	.word	.L1348
+	.word	.L1349
 	.align	2, 0
 	.align	2, 0
-.L1348:
-	.word	.L1295
-	.word	.L1295
-	.word	.L1307
-	.word	.L1332
-	.word	.L1292
-	.word	.L1292
-	.word	.L1292
-	.word	.L1346
-.L1295:
+.L1349:
+	.word	.L1296
+	.word	.L1296
+	.word	.L1308
+	.word	.L1333
+	.word	.L1293
+	.word	.L1293
+	.word	.L1293
+	.word	.L1347
+.L1296:
 	mov	r0, r8
 	bl	GetMonEVCount
 	lsl	r0, r0, #0x10
@@ -127873,7 +138665,7 @@ PokemonUseItemEffects:
 	ldr	r2, [sp, #0x30]
 	add	r0, r1, r2
 	ldrb	r6, [r0]
-	ldr	r0, .L1446
+	ldr	r0, .L1447
 	ldr	r3, [sp, #0x34]
 	add	r0, r3, r0
 	ldrb	r1, [r0]
@@ -127885,68 +138677,68 @@ PokemonUseItemEffects:
 	lsl	r0, r6, #0x18
 	asr	r3, r0, #0x18
 	cmp	r3, #0
-	ble	.L1296	@cond_branch
-	ldr	r0, .L1446+0x4
+	ble	.L1297	@cond_branch
+	ldr	r0, .L1447+0x4
 	cmp	r5, r0
-	bls	.LCB11024
-	b	.L1417	@long jump
-.LCB11024:
+	bls	.LCB11128
+	b	.L1418	@long jump
+.LCB11128:
 	ldr	r0, [sp, #0x2c]
 	ldrb	r1, [r0, #0xa]
 	mov	r0, #0x1
 	and	r0, r0, r1
 	mov	r1, #0xfc
 	cmp	r0, #0
-	beq	.L1298	@cond_branch
+	beq	.L1299	@cond_branch
 	mov	r1, #0x64
-.L1298:
+.L1299:
 	cmp	r2, r1
-	blt	.LCB11039
-	b	.L1292	@long jump
-.LCB11039:
+	blt	.LCB11143
+	b	.L1293	@long jump
+.LCB11143:
 	add	r0, r2, r3
 	cmp	r0, r1
-	ble	.L1301	@cond_branch
+	ble	.L1302	@cond_branch
 	sub	r0, r1, r0
 	add	r6, r0, r3
-	b	.L1302
-.L1447:
+	b	.L1303
+.L1448:
 	.align	2, 0
-.L1446:
+.L1447:
 	.word	sGetMonDataEVConstants
 	.word	0x1fd
-.L1301:
-	add	r6, r3, #0
 .L1302:
+	add	r6, r3, #0
+.L1303:
 	add	r1, r5, r6
 	mov	r0, #0xff
 	lsl	r0, r0, #0x1
 	cmp	r1, r0
-	bls	.L1303	@cond_branch
+	bls	.L1304	@cond_branch
 	add	r0, r6, r0
 	sub	r6, r0, r1
-.L1303:
+.L1304:
 	add	r0, r2, r6
-	b	.L1418
-.L1296:
+	b	.L1419
+.L1297:
 	cmp	r2, #0
-	bne	.L1305	@cond_branch
+	bne	.L1306	@cond_branch
 	mov	r1, #0x1
 	str	r1, [sp, #0x44]
 	ldr	r0, [sp, #0x30]
 	add	r0, r0, #0x1
 	lsl	r0, r0, #0x18
-	b	.L1419
-.L1305:
+	b	.L1420
+.L1306:
 	add	r0, r2, r3
 	str	r0, [sp, #0xc]
 	cmp	r0, #0
-	bge	.L1304	@cond_branch
+	bge	.L1305	@cond_branch
 	mov	r0, #0x0
-.L1418:
+.L1419:
 	str	r0, [sp, #0xc]
-.L1304:
-	ldr	r0, .L1448
+.L1305:
+	ldr	r0, .L1449
 	ldr	r2, [sp, #0x34]
 	add	r0, r2, r0
 	ldrb	r1, [r0]
@@ -127962,42 +138754,42 @@ PokemonUseItemEffects:
 	str	r0, [sp, #0x30]
 	mov	r3, #0x0
 	str	r3, [sp, #0x28]
-	b	.L1292
-.L1449:
+	b	.L1293
+.L1450:
 	.align	2, 0
-.L1448:
+.L1449:
 	.word	sGetMonDataEVConstants
-.L1307:
+.L1308:
 	mov	r0, #0x10
 	mov	r5, sl
 	and	r0, r0, r5
 	cmp	r0, #0
-	beq	.L1308	@cond_branch
+	beq	.L1309	@cond_branch
 	mov	r0, r8
 	mov	r1, #0x39
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L1309	@cond_branch
+	beq	.L1310	@cond_branch
 	ldr	r0, [sp, #0x30]
 	add	r0, r0, #0x1
 	lsl	r0, r0, #0x18
-	b	.L1419
-.L1309:
-	ldr	r0, .L1450
-	ldr	r1, .L1450+0x4
+	b	.L1420
+.L1310:
+	ldr	r0, .L1451
+	ldr	r1, .L1451+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r4, #0x2
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1315	@cond_branch
+	beq	.L1316	@cond_branch
 	ldr	r2, [sp, #0x40]
 	cmp	r2, #0x4
-	beq	.L1311	@cond_branch
-	ldr	r2, .L1450+0x8
-	ldr	r1, .L1450+0xc
+	beq	.L1312	@cond_branch
+	ldr	r2, .L1451+0x8
+	ldr	r1, .L1451+0xc
 	ldr	r3, [sp, #0x40]
 	lsl	r0, r3, #0x2
 	add	r0, r0, r1
@@ -128005,7 +138797,7 @@ PokemonUseItemEffects:
 	ldrb	r0, [r2]
 	bic	r0, r0, r1
 	strb	r0, [r2]
-	ldr	r1, .L1450+0x10
+	ldr	r1, .L1451+0x10
 	lsl	r0, r3, #0x1
 	add	r0, r0, r1
 	ldrb	r0, [r0]
@@ -128015,22 +138807,22 @@ PokemonUseItemEffects:
 	lsr	r1, r1, #0x18
 	ldr	r0, [sp, #0x40]
 	bl	CopyPlayerPartyMonToBattleData
-	ldr	r0, .L1450+0x14
+	ldr	r0, .L1451+0x14
 	ldrb	r0, [r0]
-	b	.L1420
-.L1451:
+	b	.L1421
+.L1452:
 	.align	2, 0
-.L1450:
+.L1451:
 	.word	gMain
 	.word	0x439
 	.word	gAbsentBattlerFlags
 	.word	gBitTable
 	.word	gBattlerPartyIndexes
 	.word	gActiveBattler
-.L1311:
-	ldr	r3, .L1452
-	ldr	r1, .L1452+0x4
-	ldr	r2, .L1452+0x8
+.L1312:
+	ldr	r3, .L1453
+	ldr	r1, .L1453+0x4
+	ldr	r2, .L1453+0x8
 	ldrb	r0, [r2]
 	eor	r0, r0, r4
 	lsl	r0, r0, #0x2
@@ -128040,37 +138832,37 @@ PokemonUseItemEffects:
 	bic	r0, r0, r1
 	strb	r0, [r3]
 	ldrb	r0, [r2]
-.L1420:
+.L1421:
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1315	@cond_branch
-	ldr	r1, .L1452+0xc
+	bne	.L1316	@cond_branch
+	ldr	r1, .L1453+0xc
 	ldrb	r0, [r1, #0x4]
 	cmp	r0, #0xfe
-	bhi	.L1315	@cond_branch
+	bhi	.L1316	@cond_branch
 	add	r0, r0, #0x1
 	strb	r0, [r1, #0x4]
-	b	.L1315
-.L1453:
+	b	.L1316
+.L1454:
 	.align	2, 0
-.L1452:
+.L1453:
 	.word	gAbsentBattlerFlags
 	.word	gBitTable
 	.word	gActiveBattler
 	.word	gBattleResults
-.L1308:
+.L1309:
 	mov	r0, r8
 	mov	r1, #0x39
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	bne	.L1315	@cond_branch
+	bne	.L1316	@cond_branch
 	ldr	r0, [sp, #0x30]
 	add	r0, r0, #0x1
 	lsl	r0, r0, #0x18
-	b	.L1419
-.L1315:
+	b	.L1420
+.L1316:
 	ldr	r1, [sp, #0x30]
 	add	r0, r1, #0x1
 	lsl	r0, r0, #0x18
@@ -128082,15 +138874,15 @@ PokemonUseItemEffects:
 	str	r1, [sp, #0x8]
 	add	r0, r1, #0
 	cmp	r0, #0xfe
-	beq	.L1319	@cond_branch
+	beq	.L1320	@cond_branch
 	cmp	r0, #0xfe
-	bhi	.L1324	@cond_branch
+	bhi	.L1325	@cond_branch
 	cmp	r0, #0xfd
-	beq	.L1321	@cond_branch
-	b	.L1317
-.L1324:
+	beq	.L1322	@cond_branch
+	b	.L1318
+.L1325:
 	cmp	r1, #0xff
-	bne	.L1317	@cond_branch
+	bne	.L1318	@cond_branch
 	mov	r0, r8
 	mov	r1, #0x3a
 	mov	r2, #0x0
@@ -128102,8 +138894,8 @@ PokemonUseItemEffects:
 	bl	GetMonData
 	sub	r4, r4, r0
 	str	r4, [sp, #0x8]
-	b	.L1317
-.L1319:
+	b	.L1318
+.L1320:
 	mov	r0, r8
 	mov	r1, #0x3a
 	mov	r2, #0x0
@@ -128111,16 +138903,16 @@ PokemonUseItemEffects:
 	lsr	r0, r0, #0x1
 	str	r0, [sp, #0x8]
 	cmp	r0, #0
-	bne	.L1317	@cond_branch
+	bne	.L1318	@cond_branch
 	mov	r0, #0x1
-	b	.L1421
-.L1321:
-	ldr	r0, .L1454
+	b	.L1422
+.L1322:
+	ldr	r0, .L1455
 	add	r0, r0, #0x23
 	ldrb	r0, [r0]
-.L1421:
+.L1422:
 	str	r0, [sp, #0x8]
-.L1317:
+.L1318:
 	mov	r0, r8
 	mov	r1, #0x3a
 	mov	r2, #0x0
@@ -128131,10 +138923,10 @@ PokemonUseItemEffects:
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r4, r0
-	beq	.L1325	@cond_branch
+	beq	.L1326	@cond_branch
 	ldr	r0, [sp, #0x20]
 	cmp	r0, #0
-	bne	.L1326	@cond_branch
+	bne	.L1327	@cond_branch
 	mov	r0, r8
 	mov	r1, #0x39
 	mov	r2, #0x0
@@ -128148,29 +138940,29 @@ PokemonUseItemEffects:
 	bl	GetMonData
 	ldr	r1, [sp, #0x8]
 	cmp	r1, r0
-	bls	.L1327	@cond_branch
+	bls	.L1328	@cond_branch
 	mov	r0, r8
 	mov	r1, #0x3a
 	mov	r2, #0x0
 	bl	GetMonData
 	str	r0, [sp, #0x8]
-.L1327:
+.L1328:
 	add	r2, sp, #0x8
 	mov	r0, r8
 	mov	r1, #0x39
 	bl	SetMonData
-	ldr	r0, .L1454+0x4
-	ldr	r1, .L1454+0x8
+	ldr	r0, .L1455+0x4
+	ldr	r1, .L1455+0x8
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1331	@cond_branch
+	beq	.L1332	@cond_branch
 	ldr	r2, [sp, #0x40]
 	cmp	r2, #0x4
-	beq	.L1331	@cond_branch
-	ldr	r1, .L1454+0xc
+	beq	.L1332	@cond_branch
+	ldr	r1, .L1455+0xc
 	mov	r0, #0x5c
 	mul	r0, r0, r2
 	add	r0, r0, r1
@@ -128180,20 +138972,20 @@ PokemonUseItemEffects:
 	mov	r3, sl
 	and	r0, r0, r3
 	cmp	r0, #0
-	bne	.L1331	@cond_branch
-	ldr	r4, .L1454+0x10
+	bne	.L1332	@cond_branch
+	ldr	r4, .L1455+0x10
 	ldrb	r0, [r4]
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1331	@cond_branch
-	ldr	r1, .L1454+0x14
+	bne	.L1332	@cond_branch
+	ldr	r1, .L1455+0x14
 	ldrb	r0, [r1, #0x3]
 	cmp	r0, #0xfe
-	bhi	.L1330	@cond_branch
+	bhi	.L1331	@cond_branch
 	add	r0, r0, #0x1
 	strb	r0, [r1, #0x3]
-.L1330:
+.L1331:
 	ldrb	r6, [r4]
 	add	r5, sp, #0x40
 	ldrb	r5, [r5]
@@ -128205,47 +138997,47 @@ PokemonUseItemEffects:
 	ldrb	r0, [r4]
 	bl	MarkBattlerForControllerExec
 	strb	r6, [r4]
-	b	.L1331
-.L1455:
+	b	.L1332
+.L1456:
 	.align	2, 0
-.L1454:
+.L1455:
 	.word	gBattleScripting
 	.word	gMain
 	.word	0x439
 	.word	gBattleMons
 	.word	gActiveBattler
 	.word	gBattleResults
-.L1326:
-	ldr	r1, .L1456
+.L1327:
+	ldr	r1, .L1457
 	ldr	r0, [sp, #0x8]
 	neg	r0, r0
 	str	r0, [r1]
-.L1331:
+.L1332:
 	mov	r0, #0x0
 	str	r0, [sp, #0x28]
-.L1325:
+.L1326:
 	mov	r0, #0xef
 	mov	r1, sl
 	and	r1, r1, r0
 	mov	sl, r1
-	b	.L1292
-.L1457:
+	b	.L1293
+.L1458:
 	.align	2, 0
-.L1456:
+.L1457:
 	.word	gBattleMoveDamage
-.L1332:
+.L1333:
 	mov	r7, #0x2
 	mov	r0, sl
 	and	r0, r0, r7
 	cmp	r0, #0
-	beq	.LCB11476
-	b	.L1333	@long jump
-.LCB11476:
+	beq	.LCB11580
+	b	.L1334	@long jump
+.LCB11580:
 	mov	r6, #0x0
 	ldr	r2, [sp, #0x30]
 	add	r2, r2, #0x1
 	str	r2, [sp, #0x48]
-.L1337:
+.L1338:
 	mov	r3, #0x11
 	add	r3, r3, r6
 	mov	r9, r3
@@ -128279,7 +139071,7 @@ PokemonUseItemEffects:
 	lsr	r0, r0, #0x18
 	ldr	r1, [sp, #0x8]
 	cmp	r1, r0
-	beq	.L1336	@cond_branch
+	beq	.L1337	@cond_branch
 	ldr	r2, [sp, #0x2c]
 	ldr	r3, [sp, #0x30]
 	add	r0, r2, r3
@@ -128307,7 +139099,7 @@ PokemonUseItemEffects:
 	lsr	r0, r0, #0x18
 	ldr	r1, [sp, #0x8]
 	cmp	r1, r0
-	bls	.L1339	@cond_branch
+	bls	.L1340	@cond_branch
 	mov	r0, r8
 	add	r1, r7, #0
 	mov	r2, #0x0
@@ -128328,23 +139120,23 @@ PokemonUseItemEffects:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	str	r0, [sp, #0x8]
-.L1339:
+.L1340:
 	mov	r0, r8
 	mov	r1, r9
 	add	r2, sp, #0x8
 	bl	SetMonData
-	ldr	r0, .L1458
-	ldr	r5, .L1458+0x4
+	ldr	r0, .L1459
+	ldr	r5, .L1459+0x4
 	add	r0, r0, r5
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1340	@cond_branch
+	beq	.L1341	@cond_branch
 	ldr	r0, [sp, #0x40]
 	cmp	r0, #0x4
-	beq	.L1340	@cond_branch
-	ldr	r4, .L1458+0x8
+	beq	.L1341	@cond_branch
+	ldr	r4, .L1459+0x8
 	mov	r0, #0x5c
 	ldr	r1, [sp, #0x40]
 	mov	r3, r1
@@ -128357,8 +139149,8 @@ PokemonUseItemEffects:
 	lsl	r0, r0, #0xe
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L1340	@cond_branch
-	ldr	r1, .L1458+0xc
+	bne	.L1341	@cond_branch
+	ldr	r1, .L1459+0xc
 	ldr	r2, [sp, #0x40]
 	lsl	r0, r2, #0x2
 	add	r0, r0, r2
@@ -128367,43 +139159,43 @@ PokemonUseItemEffects:
 	ldrb	r1, [r0, #0x1a]
 	lsl	r1, r1, #0x1a
 	lsr	r1, r1, #0x1c
-	ldr	r2, .L1458+0x10
+	ldr	r2, .L1459+0x10
 	lsl	r0, r6, #0x2
 	add	r0, r0, r2
 	ldr	r0, [r0]
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L1340	@cond_branch
+	bne	.L1341	@cond_branch
 	add	r0, r6, r3
 	add	r1, r4, #0
 	add	r1, r1, #0x25
 	add	r0, r0, r1
 	ldr	r1, [sp, #0x8]
 	strb	r1, [r0]
-.L1340:
+.L1341:
 	mov	r3, #0x0
 	str	r3, [sp, #0x28]
-.L1336:
+.L1337:
 	add	r6, r6, #0x1
 	cmp	r6, #0x3
-	bgt	.LCB11644
-	b	.L1337	@long jump
-.LCB11644:
+	bgt	.LCB11748
+	b	.L1338	@long jump
+.LCB11748:
 	ldr	r5, [sp, #0x48]
 	lsl	r0, r5, #0x18
-.L1419:
+.L1420:
 	lsr	r0, r0, #0x18
 	str	r0, [sp, #0x30]
-	b	.L1292
-.L1459:
+	b	.L1293
+.L1460:
 	.align	2, 0
-.L1458:
+.L1459:
 	.word	gMain
 	.word	0x439
 	.word	gBattleMons
 	.word	gDisableStructs
 	.word	gBitTable
-.L1333:
+.L1334:
 	ldr	r6, [sp, #0x1c]
 	add	r6, r6, #0x11
 	mov	r0, r8
@@ -128434,9 +139226,9 @@ PokemonUseItemEffects:
 	lsr	r0, r0, #0x18
 	ldr	r2, [sp, #0x8]
 	cmp	r2, r0
-	bne	.LCB11699
-	b	.L1292	@long jump
-.LCB11699:
+	bne	.LCB11803
+	b	.L1293	@long jump
+.LCB11803:
 	ldr	r1, [sp, #0x30]
 	add	r0, r1, #0x1
 	lsl	r0, r0, #0x18
@@ -128468,7 +139260,7 @@ PokemonUseItemEffects:
 	lsr	r0, r0, #0x18
 	ldr	r1, [sp, #0x8]
 	cmp	r1, r0
-	bls	.L1344	@cond_branch
+	bls	.L1345	@cond_branch
 	mov	r0, r8
 	add	r1, r5, #0
 	mov	r2, #0x0
@@ -128489,23 +139281,23 @@ PokemonUseItemEffects:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	str	r0, [sp, #0x8]
-.L1344:
+.L1345:
 	add	r2, sp, #0x8
 	mov	r0, r8
 	add	r1, r6, #0
 	bl	SetMonData
-	ldr	r0, .L1460
-	ldr	r1, .L1460+0x4
+	ldr	r0, .L1461
+	ldr	r1, .L1461+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	add	r0, r7, #0
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1345	@cond_branch
+	beq	.L1346	@cond_branch
 	ldr	r2, [sp, #0x40]
 	cmp	r2, #0x4
-	beq	.L1345	@cond_branch
-	ldr	r4, .L1460+0x8
+	beq	.L1346	@cond_branch
+	ldr	r4, .L1461+0x8
 	mov	r0, #0x5c
 	mov	r3, r2
 	mul	r3, r3, r0
@@ -128517,8 +139309,8 @@ PokemonUseItemEffects:
 	lsl	r1, r1, #0xe
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1345	@cond_branch
-	ldr	r1, .L1460+0xc
+	bne	.L1346	@cond_branch
+	ldr	r1, .L1461+0xc
 	lsl	r0, r2, #0x2
 	add	r0, r0, r2
 	lsl	r0, r0, #0x3
@@ -128526,33 +139318,33 @@ PokemonUseItemEffects:
 	ldrb	r1, [r0, #0x1a]
 	lsl	r1, r1, #0x1a
 	lsr	r1, r1, #0x1c
-	ldr	r2, .L1460+0x10
+	ldr	r2, .L1461+0x10
 	ldr	r5, [sp, #0x1c]
 	lsl	r0, r5, #0x2
 	add	r0, r0, r2
 	ldr	r0, [r0]
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L1345	@cond_branch
+	bne	.L1346	@cond_branch
 	add	r0, r5, r3
 	add	r1, r4, #0
 	add	r1, r1, #0x25
 	add	r0, r0, r1
 	ldr	r1, [sp, #0x8]
 	strb	r1, [r0]
-.L1345:
+.L1346:
 	mov	r0, #0x0
 	str	r0, [sp, #0x28]
-	b	.L1292
-.L1461:
+	b	.L1293
+.L1462:
 	.align	2, 0
-.L1460:
+.L1461:
 	.word	gMain
 	.word	0x439
 	.word	gBattleMons
 	.word	gDisableStructs
 	.word	gBitTable
-.L1346:
+.L1347:
 	add	r1, sp, #0x4
 	str	r1, [sp]
 	mov	r0, r8
@@ -128563,10 +139355,10 @@ PokemonUseItemEffects:
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
 	cmp	r1, #0
-	beq	.LCB11844
-	bl	.L1414	@far jump
-.LCB11844:
-.L1292:
+	beq	.LCB11948
+	bl	.L1415	@far jump
+.LCB11948:
+.L1293:
 	ldr	r2, [sp, #0x34]
 	add	r2, r2, #0x1
 	str	r2, [sp, #0x34]
@@ -128574,11 +139366,11 @@ PokemonUseItemEffects:
 	lsr	r3, r3, #0x1
 	mov	sl, r3
 	cmp	r3, #0
-	beq	.LCB11858
-	b	.L1291	@long jump
-.LCB11858:
-	b	.L1258
-.L1351:
+	beq	.LCB11962
+	b	.L1292	@long jump
+.LCB11962:
+	b	.L1259
+.L1352:
 	ldr	r5, [sp, #0x2c]
 	ldr	r1, [sp, #0x24]
 	add	r0, r5, r1
@@ -128587,43 +139379,43 @@ PokemonUseItemEffects:
 	mov	r2, #0x0
 	str	r2, [sp, #0x34]
 	cmp	r0, #0
-	bne	.LCB11871
-	b	.L1258	@long jump
-.LCB11871:
-.L1354:
+	bne	.LCB11975
+	b	.L1259	@long jump
+.LCB11975:
+.L1355:
 	mov	r0, #0x1
 	mov	r3, sl
 	and	r0, r0, r3
 	cmp	r0, #0
-	bne	.LCB11881
-	b	.L1355	@long jump
-.LCB11881:
+	bne	.LCB11985
+	b	.L1356	@long jump
+.LCB11985:
 	ldr	r5, [sp, #0x34]
 	cmp	r5, #0x7
-	bls	.LCB11885
-	b	.L1355	@long jump
-.LCB11885:
+	bls	.LCB11989
+	b	.L1356	@long jump
+.LCB11989:
 	lsl	r0, r5, #0x2
-	ldr	r1, .L1462
+	ldr	r1, .L1463
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
+.L1464:
+	.align	2, 0
 .L1463:
-	.align	2, 0
-.L1462:
-	.word	.L1404
+	.word	.L1405
 	.align	2, 0
 	.align	2, 0
-.L1404:
-	.word	.L1360
-	.word	.L1360
-	.word	.L1360
-	.word	.L1360
-	.word	.L1372
-	.word	.L1374
-	.word	.L1384
-	.word	.L1394
-.L1360:
+.L1405:
+	.word	.L1361
+	.word	.L1361
+	.word	.L1361
+	.word	.L1361
+	.word	.L1373
+	.word	.L1375
+	.word	.L1385
+	.word	.L1395
+.L1361:
 	mov	r0, r8
 	bl	GetMonEVCount
 	lsl	r0, r0, #0x10
@@ -128632,7 +139424,7 @@ PokemonUseItemEffects:
 	ldr	r2, [sp, #0x30]
 	add	r0, r1, r2
 	ldrb	r6, [r0]
-	ldr	r0, .L1464
+	ldr	r0, .L1465
 	ldr	r4, [sp, #0x34]
 	add	r4, r4, #0x2
 	add	r0, r4, r0
@@ -128645,65 +139437,65 @@ PokemonUseItemEffects:
 	lsl	r0, r6, #0x18
 	asr	r3, r0, #0x18
 	cmp	r3, #0
-	ble	.L1361	@cond_branch
-	ldr	r0, .L1464+0x4
+	ble	.L1362	@cond_branch
+	ldr	r0, .L1465+0x4
 	cmp	r5, r0
-	bls	.LCB11936
-	bl	.L1417	@far jump
-.LCB11936:
+	bls	.LCB12040
+	bl	.L1418	@far jump
+.LCB12040:
 	ldr	r0, [sp, #0x2c]
 	ldrb	r1, [r0, #0xa]
 	mov	r0, #0x1
 	and	r0, r0, r1
 	mov	r1, #0xfc
 	cmp	r0, #0
-	beq	.L1363	@cond_branch
+	beq	.L1364	@cond_branch
 	mov	r1, #0x64
-.L1363:
+.L1364:
 	cmp	r2, r1
-	blt	.LCB11951
-	b	.L1355	@long jump
-.LCB11951:
+	blt	.LCB12055
+	b	.L1356	@long jump
+.LCB12055:
 	add	r0, r2, r3
 	cmp	r0, r1
-	ble	.L1366	@cond_branch
+	ble	.L1367	@cond_branch
 	sub	r0, r1, r0
 	add	r6, r0, r3
-	b	.L1367
-.L1465:
+	b	.L1368
+.L1466:
 	.align	2, 0
-.L1464:
+.L1465:
 	.word	sGetMonDataEVConstants
 	.word	0x1fd
-.L1366:
-	add	r6, r3, #0
 .L1367:
+	add	r6, r3, #0
+.L1368:
 	add	r1, r5, r6
 	mov	r0, #0xff
 	lsl	r0, r0, #0x1
 	cmp	r1, r0
-	bls	.L1368	@cond_branch
+	bls	.L1369	@cond_branch
 	add	r0, r6, r0
 	sub	r6, r0, r1
-.L1368:
+.L1369:
 	add	r0, r2, r6
-	b	.L1422
-.L1361:
+	b	.L1423
+.L1362:
 	cmp	r2, #0
-	bne	.L1370	@cond_branch
+	bne	.L1371	@cond_branch
 	mov	r1, #0x1
 	str	r1, [sp, #0x44]
-	b	.L1395
-.L1370:
+	b	.L1396
+.L1371:
 	add	r0, r2, r3
 	str	r0, [sp, #0xc]
 	cmp	r0, #0
-	bge	.L1369	@cond_branch
+	bge	.L1370	@cond_branch
 	mov	r0, #0x0
-.L1422:
+.L1423:
 	str	r0, [sp, #0xc]
-.L1369:
-	ldr	r0, .L1466
+.L1370:
+	ldr	r0, .L1467
 	add	r0, r4, r0
 	ldrb	r1, [r0]
 	add	r2, sp, #0xc
@@ -128713,17 +139505,17 @@ PokemonUseItemEffects:
 	bl	CalculateMonStats
 	mov	r2, #0x0
 	str	r2, [sp, #0x28]
-	b	.L1395
-.L1467:
+	b	.L1396
+.L1468:
 	.align	2, 0
-.L1466:
+.L1467:
 	.word	sGetMonDataEVConstants
-.L1372:
+.L1373:
 	mov	r0, r8
 	mov	r1, #0x15
 	mov	r2, #0x0
 	bl	GetMonData
-	ldr	r1, .L1468
+	ldr	r1, .L1469
 	ldr	r3, [sp, #0x1c]
 	add	r1, r3, r1
 	ldrb	r1, [r1]
@@ -128754,25 +139546,25 @@ PokemonUseItemEffects:
 	lsr	r6, r0, #0x18
 	ldr	r0, [sp, #0x8]
 	cmp	r0, #0x2
-	bls	.LCB12063
-	b	.L1355	@long jump
-.LCB12063:
+	bls	.LCB12167
+	b	.L1356	@long jump
+.LCB12167:
 	cmp	r6, #0x4
-	bhi	.LCB12065
-	b	.L1355	@long jump
-.LCB12065:
+	bhi	.LCB12169
+	b	.L1356	@long jump
+.LCB12169:
 	mov	r0, r8
 	mov	r1, #0x15
 	mov	r2, #0x0
 	bl	GetMonData
 	str	r0, [sp, #0x8]
-	ldr	r1, .L1468+0x4
+	ldr	r1, .L1469+0x4
 	ldr	r5, [sp, #0x1c]
 	add	r1, r5, r1
 	ldrb	r2, [r1]
 	and	r2, r2, r0
 	str	r2, [sp, #0x8]
-	ldr	r0, .L1468+0x8
+	ldr	r0, .L1469+0x8
 	add	r0, r5, r0
 	ldrb	r1, [r0]
 	lsl	r0, r1, #0x1
@@ -128814,42 +139606,42 @@ PokemonUseItemEffects:
 	bl	SetMonData
 	mov	r0, #0x0
 	str	r0, [sp, #0x28]
-	b	.L1355
-.L1469:
+	b	.L1356
+.L1470:
 	.align	2, 0
-.L1468:
+.L1469:
 	.word	gPPUpGetMask
 	.word	gPPUpSetMask
 	.word	gPPUpAddMask
-.L1374:
+.L1375:
 	mov	r0, r8
 	mov	r1, #0x20
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0x63
-	bls	.LCB12146
-	b	.L1395	@long jump
-.LCB12146:
+	bls	.LCB12250
+	b	.L1396	@long jump
+.LCB12250:
 	ldr	r1, [sp, #0x28]
 	cmp	r1, #0
-	beq	.L1376	@cond_branch
+	beq	.L1377	@cond_branch
 	ldr	r2, [sp, #0x44]
 	cmp	r2, #0
-	bne	.LCB12152
-	b	.L1395	@long jump
-.LCB12152:
-.L1376:
+	bne	.LCB12256
+	b	.L1396	@long jump
+.LCB12256:
+.L1377:
 	bl	ShouldSkipFriendshipChange
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB12159
-	b	.L1395	@long jump
-.LCB12159:
+	beq	.LCB12263
+	b	.L1396	@long jump
+.LCB12263:
 	ldr	r3, [sp, #0x38]
 	cmp	r3, #0
-	beq	.LCB12164
-	b	.L1395	@long jump
-.LCB12164:
+	beq	.LCB12268
+	b	.L1396	@long jump
+.LCB12268:
 	ldr	r5, [sp, #0x2c]
 	ldr	r1, [sp, #0x30]
 	add	r0, r5, r1
@@ -128865,10 +139657,10 @@ PokemonUseItemEffects:
 	lsl	r4, r2, #0x18
 	asr	r1, r4, #0x18
 	cmp	r1, #0
-	ble	.L1397	@cond_branch
+	ble	.L1398	@cond_branch
 	ldr	r3, [sp, #0x3c]
 	cmp	r3, #0x1b
-	bne	.L1397	@cond_branch
+	bne	.L1398	@cond_branch
 	mov	r0, #0x96
 	mul	r0, r0, r1
 	mov	r1, #0x64
@@ -128876,40 +139668,40 @@ PokemonUseItemEffects:
 	add	r0, r5, r0
 	str	r0, [sp, #0x10]
 	add	r2, r4, #0
-	b	.L1398
-.L1384:
+	b	.L1399
+.L1385:
 	mov	r0, r8
 	mov	r1, #0x20
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0x63
-	bhi	.LCB12212
-	b	.L1395	@long jump
-.LCB12212:
+	bhi	.LCB12316
+	b	.L1396	@long jump
+.LCB12316:
 	mov	r0, r8
 	mov	r1, #0x20
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0xc7
-	bls	.LCB12219
-	b	.L1395	@long jump
-.LCB12219:
+	bls	.LCB12323
+	b	.L1396	@long jump
+.LCB12323:
 	ldr	r1, [sp, #0x28]
 	cmp	r1, #0
-	beq	.L1386	@cond_branch
+	beq	.L1387	@cond_branch
 	ldr	r2, [sp, #0x44]
 	cmp	r2, #0
-	bne	.LCB12225
-	b	.L1395	@long jump
-.LCB12225:
-.L1386:
+	bne	.LCB12329
+	b	.L1396	@long jump
+.LCB12329:
+.L1387:
 	bl	ShouldSkipFriendshipChange
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1395	@cond_branch
+	bne	.L1396	@cond_branch
 	ldr	r3, [sp, #0x38]
 	cmp	r3, #0
-	bne	.L1395	@cond_branch
+	bne	.L1396	@cond_branch
 	ldr	r5, [sp, #0x2c]
 	ldr	r1, [sp, #0x30]
 	add	r0, r5, r1
@@ -128925,32 +139717,32 @@ PokemonUseItemEffects:
 	lsl	r5, r2, #0x18
 	asr	r1, r5, #0x18
 	cmp	r1, #0
-	ble	.L1397	@cond_branch
+	ble	.L1398	@cond_branch
 	ldr	r3, [sp, #0x3c]
 	cmp	r3, #0x1b
-	beq	.L1423	@cond_branch
-	b	.L1397
-.L1394:
+	beq	.L1424	@cond_branch
+	b	.L1398
+.L1395:
 	mov	r0, r8
 	mov	r1, #0x20
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0xc7
-	bls	.L1395	@cond_branch
+	bls	.L1396	@cond_branch
 	ldr	r1, [sp, #0x28]
 	cmp	r1, #0
+	beq	.L1397	@cond_branch
+	ldr	r2, [sp, #0x44]
+	cmp	r2, #0
 	beq	.L1396	@cond_branch
-	ldr	r2, [sp, #0x44]
-	cmp	r2, #0
-	beq	.L1395	@cond_branch
-.L1396:
+.L1397:
 	bl	ShouldSkipFriendshipChange
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1395	@cond_branch
+	bne	.L1396	@cond_branch
 	ldr	r3, [sp, #0x38]
 	cmp	r3, #0
-	bne	.L1395	@cond_branch
+	bne	.L1396	@cond_branch
 	ldr	r5, [sp, #0x2c]
 	ldr	r1, [sp, #0x30]
 	add	r0, r5, r1
@@ -128966,11 +139758,11 @@ PokemonUseItemEffects:
 	lsl	r5, r2, #0x18
 	asr	r1, r5, #0x18
 	cmp	r1, #0
-	ble	.L1397	@cond_branch
+	ble	.L1398	@cond_branch
 	ldr	r3, [sp, #0x3c]
 	cmp	r3, #0x1b
-	bne	.L1397	@cond_branch
-.L1423:
+	bne	.L1398	@cond_branch
+.L1424:
 	mov	r0, #0x96
 	mul	r0, r0, r1
 	mov	r1, #0x64
@@ -128978,27 +139770,27 @@ PokemonUseItemEffects:
 	add	r0, r4, r0
 	str	r0, [sp, #0x10]
 	add	r2, r5, #0
-	b	.L1398
-.L1397:
+	b	.L1399
+.L1398:
 	ldr	r5, [sp, #0x38]
 	lsl	r2, r5, #0x18
 	asr	r1, r2, #0x18
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r1
 	str	r0, [sp, #0x10]
-.L1398:
+.L1399:
 	cmp	r2, #0
-	ble	.L1399	@cond_branch
+	ble	.L1400	@cond_branch
 	mov	r0, r8
 	mov	r1, #0x26
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0xb
-	bne	.L1400	@cond_branch
+	bne	.L1401	@cond_branch
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, #0x1
 	str	r0, [sp, #0x10]
-.L1400:
+.L1401:
 	mov	r0, r8
 	mov	r1, #0x23
 	mov	r2, #0x0
@@ -129008,36 +139800,36 @@ PokemonUseItemEffects:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r4, r0
-	bne	.L1399	@cond_branch
+	bne	.L1400	@cond_branch
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, #0x1
 	str	r0, [sp, #0x10]
-.L1399:
+.L1400:
 	ldr	r0, [sp, #0x10]
 	cmp	r0, #0
-	bge	.L1402	@cond_branch
+	bge	.L1403	@cond_branch
 	mov	r0, #0x0
 	str	r0, [sp, #0x10]
-.L1402:
+.L1403:
 	ldr	r0, [sp, #0x10]
 	cmp	r0, #0xff
-	ble	.L1403	@cond_branch
+	ble	.L1404	@cond_branch
 	mov	r0, #0xff
 	str	r0, [sp, #0x10]
-.L1403:
+.L1404:
 	add	r2, sp, #0x10
 	mov	r0, r8
 	mov	r1, #0x20
 	bl	SetMonData
 	mov	r0, #0x0
 	str	r0, [sp, #0x28]
-.L1395:
+.L1396:
 	ldr	r0, [sp, #0x30]
 	add	r0, r0, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	str	r0, [sp, #0x30]
-.L1355:
+.L1356:
 	ldr	r1, [sp, #0x34]
 	add	r1, r1, #0x1
 	str	r1, [sp, #0x34]
@@ -129045,19 +139837,19 @@ PokemonUseItemEffects:
 	lsr	r2, r2, #0x1
 	mov	sl, r2
 	cmp	r2, #0
-	beq	.LCB12409
-	b	.L1354	@long jump
-.LCB12409:
-.L1258:
+	beq	.LCB12513
+	b	.L1355	@long jump
+.LCB12513:
+.L1259:
 	ldr	r3, [sp, #0x24]
 	add	r3, r3, #0x1
 	str	r3, [sp, #0x24]
 	cmp	r3, #0x5
-	bgt	.LCB12418
-	bl	.L1259	@far jump
-.LCB12418:
+	bgt	.LCB12522
+	bl	.L1260	@far jump
+.LCB12522:
 	ldr	r0, [sp, #0x28]
-.L1410:
+.L1411:
 	add	sp, sp, #0x4c
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -129086,7 +139878,7 @@ HealStatusConditions:
 	str	r1, [sp]
 	and	r0, r0, r4
 	cmp	r0, #0
-	beq	.L1471	@cond_branch
+	beq	.L1472	@cond_branch
 	mvn	r4, r4
 	and	r1, r1, r4
 	str	r1, [sp]
@@ -129094,17 +139886,17 @@ HealStatusConditions:
 	mov	r1, #0x37
 	mov	r2, sp
 	bl	SetMonData
-	ldr	r0, .L1475
-	ldr	r1, .L1475+0x4
+	ldr	r0, .L1476
+	ldr	r1, .L1476+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1472	@cond_branch
+	beq	.L1473	@cond_branch
 	cmp	r6, #0x4
-	beq	.L1472	@cond_branch
-	ldr	r0, .L1475+0x8
+	beq	.L1473	@cond_branch
+	ldr	r0, .L1476+0x8
 	mov	r1, #0x5c
 	mul	r1, r1, r6
 	add	r0, r0, #0x50
@@ -129112,18 +139904,18 @@ HealStatusConditions:
 	ldr	r0, [r1]
 	and	r0, r0, r4
 	str	r0, [r1]
-.L1472:
+.L1473:
 	mov	r0, #0x0
-	b	.L1474
-.L1476:
+	b	.L1475
+.L1477:
 	.align	2, 0
-.L1475:
+.L1476:
 	.word	gMain
 	.word	0x439
 	.word	gBattleMons
-.L1471:
+.L1472:
 	mov	r0, #0x1
-.L1474:
+.L1475:
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6}
 	pop	{r1}
@@ -129143,182 +139935,182 @@ GetItemEffectParamOffset:
 	lsl	r2, r2, #0x18
 	lsr	r5, r2, #0x18
 	mov	r7, #0x6
-	ldr	r1, .L1547
+	ldr	r1, .L1548
 	lsl	r0, r3, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L1478	@cond_branch
-	cmp	r3, #0xcd
-	beq	.L1536	@cond_branch
-.L1545:
-	mov	r0, #0x0
-	b	.L1535
-.L1548:
-	.align	2, 0
-.L1547:
-	.word	gItemEffectTable
-.L1478:
-	cmp	r3, #0xcd
 	bne	.L1479	@cond_branch
-.L1536:
-	ldr	r0, .L1549
+	cmp	r3, #0xcd
+	beq	.L1537	@cond_branch
+.L1546:
+	mov	r0, #0x0
+	b	.L1536
+.L1549:
+	.align	2, 0
+.L1548:
+	.word	gItemEffectTable
+.L1479:
+	cmp	r3, #0xcd
+	bne	.L1480	@cond_branch
+.L1537:
+	ldr	r0, .L1550
 	ldrb	r1, [r0]
 	lsl	r0, r1, #0x3
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1549+0x4
+	ldr	r1, .L1550+0x4
 	add	r0, r0, r1
-.L1479:
+.L1480:
 	mov	ip, r0
 	mov	r2, #0x0
-.L1483:
+.L1484:
 	cmp	r2, #0x4
-	beq	.L1490	@cond_branch
+	beq	.L1491	@cond_branch
 	cmp	r2, #0x4
-	ble	.L1533	@cond_branch
+	ble	.L1534	@cond_branch
 	cmp	r2, #0x5
-	beq	.L1511	@cond_branch
-	b	.L1482
-.L1550:
+	beq	.L1512	@cond_branch
+	b	.L1483
+.L1551:
 	.align	2, 0
-.L1549:
+.L1550:
 	.word	gActiveBattler
 	.word	gEnigmaBerries+0x8
-.L1533:
+.L1534:
 	cmp	r2, #0
-	blt	.L1482	@cond_branch
+	blt	.L1483	@cond_branch
 	cmp	r2, r4
-	bne	.L1482	@cond_branch
-	b	.L1545
-.L1490:
+	bne	.L1483	@cond_branch
+	b	.L1546
+.L1491:
 	mov	r0, ip
 	ldrb	r3, [r0, #0x4]
 	mov	r0, #0x20
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L1491	@cond_branch
+	beq	.L1492	@cond_branch
 	mov	r0, #0xdf
 	and	r3, r3, r0
-.L1491:
+.L1492:
 	mov	r6, #0x0
 	cmp	r3, #0
-	beq	.L1482	@cond_branch
-.L1494:
+	beq	.L1483	@cond_branch
+.L1495:
 	mov	r0, #0x1
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L1495	@cond_branch
+	beq	.L1496	@cond_branch
 	cmp	r6, #0x7
-	bhi	.L1495	@cond_branch
+	bhi	.L1496	@cond_branch
 	lsl	r0, r6, #0x2
-	ldr	r1, .L1551
+	ldr	r1, .L1552
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
+.L1553:
+	.align	2, 0
 .L1552:
-	.align	2, 0
-.L1551:
-	.word	.L1507
+	.word	.L1508
 	.align	2, 0
 	.align	2, 0
-.L1507:
-	.word	.L1503
-	.word	.L1501
-	.word	.L1497
-	.word	.L1503
-	.word	.L1495
-	.word	.L1495
-	.word	.L1495
-	.word	.L1505
-.L1497:
+.L1508:
+	.word	.L1504
+	.word	.L1502
+	.word	.L1498
+	.word	.L1504
+	.word	.L1496
+	.word	.L1496
+	.word	.L1496
+	.word	.L1506
+.L1498:
 	mov	r0, #0x10
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L1503	@cond_branch
+	beq	.L1504	@cond_branch
 	mov	r0, #0xef
 	and	r3, r3, r0
-.L1501:
-.L1503:
+.L1502:
+.L1504:
 	cmp	r2, r4
-	bne	.L1504	@cond_branch
+	bne	.L1505	@cond_branch
 	add	r0, r3, #0
 	and	r0, r0, r5
 	cmp	r0, #0
-	bne	.L1543	@cond_branch
-.L1504:
+	bne	.L1544	@cond_branch
+.L1505:
 	add	r0, r7, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
-	b	.L1495
-.L1505:
+	b	.L1496
+.L1506:
 	cmp	r2, r4
-	beq	.L1545	@cond_branch
-.L1495:
+	beq	.L1546	@cond_branch
+.L1496:
 	add	r0, r6, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
 	lsr	r3, r3, #0x1
 	cmp	r2, r4
-	bne	.L1492	@cond_branch
+	bne	.L1493	@cond_branch
 	lsr	r5, r5, #0x1
-.L1492:
+.L1493:
 	cmp	r3, #0
-	bne	.L1494	@cond_branch
-	b	.L1482
-.L1511:
+	bne	.L1495	@cond_branch
+	b	.L1483
+.L1512:
 	mov	r0, ip
 	ldrb	r3, [r0, #0x5]
 	mov	r6, #0x0
-.L1546:
+.L1547:
 	cmp	r3, #0
-	beq	.L1482	@cond_branch
+	beq	.L1483	@cond_branch
 	mov	r0, #0x1
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L1515	@cond_branch
+	beq	.L1516	@cond_branch
 	cmp	r6, #0
-	blt	.L1515	@cond_branch
+	blt	.L1516	@cond_branch
 	cmp	r6, #0x6
-	ble	.L1523	@cond_branch
+	ble	.L1524	@cond_branch
 	cmp	r6, #0x7
-	beq	.L1525	@cond_branch
-	b	.L1515
-.L1523:
+	beq	.L1526	@cond_branch
+	b	.L1516
+.L1524:
 	cmp	r2, r4
-	bne	.L1524	@cond_branch
+	bne	.L1525	@cond_branch
 	add	r0, r3, #0
 	and	r0, r0, r5
 	cmp	r0, #0
-	bne	.L1543	@cond_branch
-.L1524:
+	bne	.L1544	@cond_branch
+.L1525:
 	add	r0, r7, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
-	b	.L1515
-.L1525:
+	b	.L1516
+.L1526:
 	cmp	r2, r4
-	bne	.LCB12726
-	b	.L1545	@long jump
-.LCB12726:
-.L1515:
+	bne	.LCB12830
+	b	.L1546	@long jump
+.LCB12830:
+.L1516:
 	add	r0, r6, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
 	lsr	r3, r3, #0x1
 	cmp	r2, r4
-	bne	.L1546	@cond_branch
+	bne	.L1547	@cond_branch
 	lsr	r5, r5, #0x1
-	b	.L1546
-.L1482:
+	b	.L1547
+.L1483:
 	add	r2, r2, #0x1
 	cmp	r2, #0x5
-	bgt	.LCB12751
-	b	.L1483	@long jump
-.LCB12751:
-.L1543:
+	bgt	.LCB12855
+	b	.L1484	@long jump
+.LCB12855:
+.L1544:
 	add	r0, r7, #0
-.L1535:
+.L1536:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
@@ -129329,13 +140121,13 @@ GetItemEffectParamOffset:
 	.thumb_func
 BufferStatRoseMessage:
 	push	{r4, lr}
-	ldr	r2, .L1554
-	ldr	r1, .L1554+0x4
+	ldr	r2, .L1555
+	ldr	r1, .L1555+0x4
 	ldrb	r1, [r1]
 	strb	r1, [r2]
-	ldr	r3, .L1554+0x8
-	ldr	r2, .L1554+0xc
-	ldr	r1, .L1554+0x10
+	ldr	r3, .L1555+0x8
+	ldr	r2, .L1555+0xc
+	ldr	r1, .L1555+0x10
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x2
@@ -129343,21 +140135,21 @@ BufferStatRoseMessage:
 	ldr	r1, [r0]
 	add	r0, r3, #0
 	bl	StringCopy
-	ldr	r4, .L1554+0x14
-	ldr	r1, .L1554+0x18
+	ldr	r4, .L1555+0x14
+	ldr	r1, .L1555+0x18
 	add	r0, r4, #0
 	bl	StringCopy
-	ldr	r1, .L1554+0x1c
+	ldr	r1, .L1555+0x1c
 	add	r0, r4, #0
 	bl	StringAppend
-	ldr	r0, .L1554+0x20
+	ldr	r0, .L1555+0x20
 	bl	BattleStringExpandPlaceholdersToDisplayedString
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L1555:
+.L1556:
 	.align	2, 0
-.L1554:
+.L1555:
 	.word	gBattlerTarget
 	.word	gBattlerInMenuId
 	.word	gBattleTextBuff1
@@ -129380,108 +140172,108 @@ UseStatIncreaseItem:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0xcd
-	bne	.L1557	@cond_branch
-	ldr	r0, .L1572
-	ldr	r1, .L1572+0x4
+	bne	.L1558	@cond_branch
+	ldr	r0, .L1573
+	ldr	r1, .L1573+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1558	@cond_branch
-	ldr	r2, .L1572+0x8
+	beq	.L1559	@cond_branch
+	ldr	r2, .L1573+0x8
 	ldrb	r1, [r2]
 	lsl	r0, r1, #0x3
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1572+0xc
+	ldr	r1, .L1573+0xc
 	add	r7, r0, r1
-	b	.L1560
-.L1573:
+	b	.L1561
+.L1574:
 	.align	2, 0
-.L1572:
+.L1573:
 	.word	gMain
 	.word	0x439
 	.word	gBattlerInMenuId
 	.word	gEnigmaBerries+0x8
-.L1558:
+.L1559:
 	mov	r7, #0x0
-	b	.L1571
-.L1557:
-	ldr	r1, .L1574
+	b	.L1572
+.L1558:
+	ldr	r1, .L1575
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldr	r7, [r0]
-.L1571:
-	ldr	r2, .L1574+0x4
-.L1560:
-	ldr	r1, .L1574+0x8
+.L1572:
+	ldr	r2, .L1575+0x4
+.L1561:
+	ldr	r1, .L1575+0x8
 	ldrb	r0, [r2]
 	strb	r0, [r1]
 	mov	r5, #0x0
-	ldr	r0, .L1574+0xc
+	ldr	r0, .L1575+0xc
 	mov	r8, r0
 	mov	r6, #0x0
-.L1564:
+.L1565:
 	add	r4, r7, r5
 	ldrb	r1, [r4]
 	mov	r0, #0xf
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1565	@cond_branch
+	beq	.L1566	@cond_branch
 	add	r0, r6, #0
 	bl	BufferStatRoseMessage
-.L1565:
+.L1566:
 	ldrb	r1, [r4]
 	mov	r0, #0xf0
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1563	@cond_branch
+	beq	.L1564	@cond_branch
 	cmp	r5, #0
-	beq	.L1567	@cond_branch
+	beq	.L1568	@cond_branch
 	add	r0, r6, #0x1
 	bl	BufferStatRoseMessage
-	b	.L1563
-.L1575:
+	b	.L1564
+.L1576:
 	.align	2, 0
-.L1574:
+.L1575:
 	.word	gItemEffectTable
 	.word	gBattlerInMenuId
 	.word	gPotentialItemEffectBattler
 	.word	gBattlerAttacker
-.L1567:
-	ldr	r0, .L1576
+.L1568:
+	ldr	r0, .L1577
 	ldrb	r0, [r0]
 	mov	r1, r8
 	strb	r0, [r1]
-	ldr	r0, .L1576+0x4
+	ldr	r0, .L1577+0x4
 	bl	BattleStringExpandPlaceholdersToDisplayedString
-.L1563:
+.L1564:
 	add	r6, r6, #0x2
 	add	r5, r5, #0x1
 	cmp	r5, #0x2
-	ble	.L1564	@cond_branch
+	ble	.L1565	@cond_branch
 	ldrb	r1, [r7, #0x3]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1570	@cond_branch
-	ldr	r1, .L1576+0x8
-	ldr	r0, .L1576
+	beq	.L1571	@cond_branch
+	ldr	r1, .L1577+0x8
+	ldr	r0, .L1577
 	ldrb	r0, [r0]
 	strb	r0, [r1]
-	ldr	r0, .L1576+0xc
+	ldr	r0, .L1577+0xc
 	bl	BattleStringExpandPlaceholdersToDisplayedString
-.L1570:
-	ldr	r0, .L1576+0x10
+.L1571:
+	ldr	r0, .L1577+0x10
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L1577:
+.L1578:
 	.align	2, 0
-.L1576:
+.L1577:
 	.word	gBattlerInMenuId
 	.word	gText_PkmnGettingPumped
 	.word	gBattlerAttacker
@@ -129494,14 +140286,37 @@ UseStatIncreaseItem:
 	.type	 GetNature,function
 	.thumb_func
 GetNature:
-	push	{lr}
+	push	{r4, lr}
+	add	r4, r0, #0
+	cmp	r1, #0
+	beq	.L1581	@cond_branch
+	mov	r1, #0x5a
+	mov	r2, #0x0
+	bl	GetMonData
+	cmp	r0, #0
+	beq	.L1581	@cond_branch
+	add	r0, r4, #0
+	mov	r1, #0x5a
+	mov	r2, #0x0
+	bl	GetMonData
+	cmp	r0, #0
+	bne	.L1580	@cond_branch
+.L1581:
+	add	r0, r4, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	GetMonData
-	mov	r1, #0x19
-	bl	__umodsi3
+	bl	GetNatureFromPersonality
+	b	.L1585
+.L1580:
+	add	r0, r4, #0
+	mov	r1, #0x5a
+	mov	r2, #0x0
+	bl	GetMonData
+.L1585:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
+	pop	{r4}
 	pop	{r1}
 	bx	r1
 .Lfe88:
@@ -129586,42 +140401,42 @@ GetEvolutionTargetSpecies:
 	mov	r0, sp
 	ldrh	r0, [r0]
 	cmp	r0, #0xcd
-	bne	.L1581	@cond_branch
+	bne	.L1588	@cond_branch
 	mov	r0, #0x0
-	b	.L1582
-.L1581:
+	b	.L1589
+.L1588:
 	bl	ItemId_GetHoldEffect
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-.L1582:
+.L1589:
 	cmp	r0, #0x26
-	bne	.L1583	@cond_branch
+	bne	.L1590	@cond_branch
 	cmp	r5, #0x3
-	beq	.L1583	@cond_branch
+	beq	.L1590	@cond_branch
 	mov	r0, #0x0
-	bl	.L1704	@ far jump
-.L1583:
+	bl	.L1711	@ far jump
+.L1590:
 	cmp	r5, #0x1
-	bne	.LCB13113
-	b	.L1667	@long jump
-.LCB13113:
+	bne	.LCB13242
+	b	.L1674	@long jump
+.LCB13242:
 	cmp	r5, #0x1
-	bgt	.L1703	@cond_branch
+	bgt	.L1710	@cond_branch
 	cmp	r5, #0
-	beq	.L1585	@cond_branch
-	bl	.L1584	@ far jump
-.L1703:
+	beq	.L1592	@cond_branch
+	bl	.L1591	@ far jump
+.L1710:
 	cmp	r5, #0x3
-	ble	.LCB13122
-	bl	.L1584	@far jump
-.LCB13122:
+	ble	.LCB13251
+	bl	.L1591	@far jump
+.LCB13251:
 	mov	r0, #0x0
 	mov	sl, r0
 	ldr	r1, [sp, #0x10]
 	lsl	r1, r1, #0x2
 	mov	r9, r1
-	bl	.L1687	@ far jump
-.L1585:
+	bl	.L1694	@ far jump
+.L1592:
 	ldr	r0, [sp, #0x4]
 	mov	r1, #0x38
 	mov	r2, #0x0
@@ -129641,8 +140456,8 @@ GetEvolutionTargetSpecies:
 	ldr	r0, [sp, #0x10]
 	lsl	r0, r0, #0x2
 	mov	r9, r0
-.L1589:
-	ldr	r1, .L1712
+.L1596:
+	ldr	r1, .L1719
 	mov	r0, sl
 	lsl	r2, r0, #0x3
 	ldr	r0, [sp, #0x10]
@@ -129658,65 +140473,65 @@ GetEvolutionTargetSpecies:
 	add	r1, r1, sl
 	mov	r8, r1
 	cmp	r0, #0x21
-	bls	.LCB13178
-	b	.L1588	@long jump
-.LCB13178:
+	bls	.LCB13307
+	b	.L1595	@long jump
+.LCB13307:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1712+0x4
+	ldr	r1, .L1719+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1713:
+.L1720:
 	.align	2, 0
-.L1712:
+.L1719:
 	.word	gEvolutionTable
-	.word	.L1664
+	.word	.L1671
 	.align	2, 0
 	.align	2, 0
-.L1664:
-	.word	.L1591
-	.word	.L1593
-	.word	.L1597
-	.word	.L1607
-	.word	.L1588
-	.word	.L1588
-	.word	.L1588
-	.word	.L1613
-	.word	.L1616
-	.word	.L1619
-	.word	.L1622
-	.word	.L1624
-	.word	.L1626
-	.word	.L1588
-	.word	.L1628
-	.word	.L1609
-	.word	.L1611
-	.word	.L1599
+.L1671:
+	.word	.L1598
+	.word	.L1600
+	.word	.L1604
+	.word	.L1614
 	.word	.L1595
-	.word	.L1605
-	.word	.L1603
-	.word	.L1601
-	.word	.L1630
-	.word	.L1632
-	.word	.L1658
-	.word	.L1588
-	.word	.L1588
-	.word	.L1655
+	.word	.L1595
+	.word	.L1595
+	.word	.L1620
+	.word	.L1623
+	.word	.L1626
+	.word	.L1629
+	.word	.L1631
+	.word	.L1633
+	.word	.L1595
+	.word	.L1635
+	.word	.L1616
+	.word	.L1618
+	.word	.L1606
+	.word	.L1602
+	.word	.L1612
+	.word	.L1610
+	.word	.L1608
+	.word	.L1637
 	.word	.L1639
-	.word	.L1646
-	.word	.L1588
-	.word	.L1660
-	.word	.L1588
+	.word	.L1665
+	.word	.L1595
+	.word	.L1595
 	.word	.L1662
-.L1591:
+	.word	.L1646
+	.word	.L1653
+	.word	.L1595
+	.word	.L1667
+	.word	.L1595
+	.word	.L1669
+.L1598:
 	mov	r2, #0x1
 	add	r2, r2, sl
 	mov	r8, r2
 	ldr	r0, [sp, #0x18]
 	cmp	r0, #0xdb
-	bhi	.LCB13204
-	b	.L1588	@long jump
-.LCB13204:
+	bhi	.LCB13333
+	b	.L1595	@long jump
+.LCB13333:
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -129727,8 +140542,8 @@ GetEvolutionTargetSpecies:
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1593:
+	b	.L1714
+.L1600:
 	bl	RtcCalcLocalTime
 	bl	IsCurrentlyDay
 	lsl	r0, r0, #0x18
@@ -129736,124 +140551,50 @@ GetEvolutionTargetSpecies:
 	add	r2, r2, sl
 	mov	r8, r2
 	cmp	r0, #0
-	bne	.LCB13234
-	b	.L1588	@long jump
-.LCB13234:
+	bne	.LCB13363
+	b	.L1595	@long jump
+.LCB13363:
 	ldr	r0, [sp, #0x18]
 	cmp	r0, #0xdb
-	bhi	.LCB13238
-	b	.L1588	@long jump
-.LCB13238:
-	ldr	r1, .L1714
-	ldr	r0, [sp, #0x10]
-	add	r0, r0, r9
-	lsl	r0, r0, #0x4
-	add	r0, r7, r0
-	add	r0, r0, r1
-	ldrh	r4, [r0, #0x4]
-	add	r0, r4, #0
-	bl	GetFormIdFromFormSpeciesId
-	ldr	r1, [sp, #0x44]
-	strb	r0, [r1]
-	b	.L1707
-.L1715:
-	.align	2, 0
-.L1714:
-	.word	gEvolutionTable
-.L1595:
-	bl	RtcCalcLocalTime
-	bl	IsCurrentlyDay
-	lsl	r0, r0, #0x18
-	mov	r2, #0x1
-	add	r2, r2, sl
-	mov	r8, r2
-	cmp	r0, #0
-	bne	.LCB13274
-	b	.L1588	@long jump
-.LCB13274:
-	ldr	r0, .L1716
-	ldrb	r0, [r0, #0x2]
-	lsl	r0, r0, #24
-	asr	r0, r0, #24
-	cmp	r0, #0x11
-	bne	.LCB13281
-	b	.L1588	@long jump
-.LCB13281:
-	ldr	r0, .L1716+0x4
-	ldr	r1, [sp, #0x10]
-	add	r1, r1, r9
-	lsl	r1, r1, #0x4
-	add	r1, r7, r1
-	add	r1, r1, r0
-	ldrh	r0, [r1, #0x2]
-	ldr	r2, [sp, #0x14]
-	cmp	r0, r2
-	bls	.LCB13298
-	b	.L1588	@long jump
-.LCB13298:
-	ldrh	r4, [r1, #0x4]
-	add	r0, r4, #0
-	bl	GetFormIdFromFormSpeciesId
-	ldr	r1, [sp, #0x44]
-	strb	r0, [r1]
-	b	.L1707
-.L1717:
-	.align	2, 0
-.L1716:
-	.word	gLocalTime
-	.word	gEvolutionTable
-.L1597:
-	bl	RtcCalcLocalTime
-	bl	IsCurrentlyDay
-	lsl	r0, r0, #0x18
-	mov	r2, #0x1
-	add	r2, r2, sl
-	mov	r8, r2
-	cmp	r0, #0
-	beq	.LCB13327
-	b	.L1588	@long jump
-.LCB13327:
-	ldr	r0, [sp, #0x18]
-	cmp	r0, #0xdb
-	bhi	.LCB13331
-	b	.L1588	@long jump
-.LCB13331:
-	ldr	r1, .L1718
-	ldr	r0, [sp, #0x10]
-	add	r0, r0, r9
-	lsl	r0, r0, #0x4
-	add	r0, r7, r0
-	add	r0, r0, r1
-	ldrh	r4, [r0, #0x4]
-	add	r0, r4, #0
-	bl	GetFormIdFromFormSpeciesId
-	ldr	r1, [sp, #0x44]
-	strb	r0, [r1]
-	b	.L1707
-.L1719:
-	.align	2, 0
-.L1718:
-	.word	gEvolutionTable
-.L1599:
-	bl	RtcCalcLocalTime
-	bl	IsCurrentlyDay
-	lsl	r0, r0, #0x18
-	mov	r2, #0x1
-	add	r2, r2, sl
-	mov	r8, r2
-	cmp	r0, #0
-	beq	.LCB13367
-	b	.L1588	@long jump
+	bhi	.LCB13367
+	b	.L1595	@long jump
 .LCB13367:
-	ldr	r0, .L1720
+	ldr	r1, .L1721
+	ldr	r0, [sp, #0x10]
+	add	r0, r0, r9
+	lsl	r0, r0, #0x4
+	add	r0, r7, r0
+	add	r0, r0, r1
+	ldrh	r4, [r0, #0x4]
+	add	r0, r4, #0
+	bl	GetFormIdFromFormSpeciesId
+	ldr	r1, [sp, #0x44]
+	strb	r0, [r1]
+	b	.L1714
+.L1722:
+	.align	2, 0
+.L1721:
+	.word	gEvolutionTable
+.L1602:
+	bl	RtcCalcLocalTime
+	bl	IsCurrentlyDay
+	lsl	r0, r0, #0x18
+	mov	r2, #0x1
+	add	r2, r2, sl
+	mov	r8, r2
+	cmp	r0, #0
+	bne	.LCB13403
+	b	.L1595	@long jump
+.LCB13403:
+	ldr	r0, .L1723
 	ldrb	r0, [r0, #0x2]
 	lsl	r0, r0, #24
 	asr	r0, r0, #24
 	cmp	r0, #0x11
-	bne	.LCB13374
-	b	.L1588	@long jump
-.LCB13374:
-	ldr	r0, .L1720+0x4
+	bne	.LCB13410
+	b	.L1595	@long jump
+.LCB13410:
+	ldr	r0, .L1723+0x4
 	ldr	r1, [sp, #0x10]
 	add	r1, r1, r9
 	lsl	r1, r1, #0x4
@@ -129862,21 +140603,95 @@ GetEvolutionTargetSpecies:
 	ldrh	r0, [r1, #0x2]
 	ldr	r2, [sp, #0x14]
 	cmp	r0, r2
-	bls	.LCB13391
-	b	.L1588	@long jump
-.LCB13391:
+	bls	.LCB13427
+	b	.L1595	@long jump
+.LCB13427:
 	ldrh	r4, [r1, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1721:
+	b	.L1714
+.L1724:
 	.align	2, 0
-.L1720:
+.L1723:
 	.word	gLocalTime
 	.word	gEvolutionTable
-.L1601:
+.L1604:
+	bl	RtcCalcLocalTime
+	bl	IsCurrentlyDay
+	lsl	r0, r0, #0x18
+	mov	r2, #0x1
+	add	r2, r2, sl
+	mov	r8, r2
+	cmp	r0, #0
+	beq	.LCB13456
+	b	.L1595	@long jump
+.LCB13456:
+	ldr	r0, [sp, #0x18]
+	cmp	r0, #0xdb
+	bhi	.LCB13460
+	b	.L1595	@long jump
+.LCB13460:
+	ldr	r1, .L1725
+	ldr	r0, [sp, #0x10]
+	add	r0, r0, r9
+	lsl	r0, r0, #0x4
+	add	r0, r7, r0
+	add	r0, r0, r1
+	ldrh	r4, [r0, #0x4]
+	add	r0, r4, #0
+	bl	GetFormIdFromFormSpeciesId
+	ldr	r1, [sp, #0x44]
+	strb	r0, [r1]
+	b	.L1714
+.L1726:
+	.align	2, 0
+.L1725:
+	.word	gEvolutionTable
+.L1606:
+	bl	RtcCalcLocalTime
+	bl	IsCurrentlyDay
+	lsl	r0, r0, #0x18
+	mov	r2, #0x1
+	add	r2, r2, sl
+	mov	r8, r2
+	cmp	r0, #0
+	beq	.LCB13496
+	b	.L1595	@long jump
+.LCB13496:
+	ldr	r0, .L1727
+	ldrb	r0, [r0, #0x2]
+	lsl	r0, r0, #24
+	asr	r0, r0, #24
+	cmp	r0, #0x11
+	bne	.LCB13503
+	b	.L1595	@long jump
+.LCB13503:
+	ldr	r0, .L1727+0x4
+	ldr	r1, [sp, #0x10]
+	add	r1, r1, r9
+	lsl	r1, r1, #0x4
+	add	r1, r7, r1
+	add	r1, r1, r0
+	ldrh	r0, [r1, #0x2]
+	ldr	r2, [sp, #0x14]
+	cmp	r0, r2
+	bls	.LCB13520
+	b	.L1595	@long jump
+.LCB13520:
+	ldrh	r4, [r1, #0x4]
+	add	r0, r4, #0
+	bl	GetFormIdFromFormSpeciesId
+	ldr	r1, [sp, #0x44]
+	strb	r0, [r1]
+	b	.L1714
+.L1728:
+	.align	2, 0
+.L1727:
+	.word	gLocalTime
+	.word	gEvolutionTable
+.L1608:
 	bl	RtcCalcLocalTime
 	bl	IsCurrentlyDay
 	lsl	r0, r0, #0x18
@@ -129885,10 +140700,10 @@ GetEvolutionTargetSpecies:
 	add	r0, r0, sl
 	mov	r8, r0
 	cmp	r2, #0
-	beq	.LCB13420
-	b	.L1588	@long jump
-.LCB13420:
-	ldr	r1, .L1722
+	beq	.LCB13549
+	b	.L1595	@long jump
+.LCB13549:
+	ldr	r1, .L1729
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -129898,9 +140713,9 @@ GetEvolutionTargetSpecies:
 	ldrh	r0, [r0]
 	ldrh	r1, [r4, #0x2]
 	cmp	r0, r1
-	beq	.LCB13439
-	b	.L1588	@long jump
-.LCB13439:
+	beq	.LCB13568
+	b	.L1595	@long jump
+.LCB13568:
 	mov	r0, sp
 	strh	r2, [r0]
 	ldr	r0, [sp, #0x4]
@@ -129908,12 +140723,12 @@ GetEvolutionTargetSpecies:
 	mov	r2, sp
 	bl	SetMonData
 	ldrh	r4, [r4, #0x4]
-	b	.L1708
-.L1723:
+	b	.L1715
+.L1730:
 	.align	2, 0
-.L1722:
+.L1729:
 	.word	gEvolutionTable
-.L1603:
+.L1610:
 	bl	RtcCalcLocalTime
 	bl	IsCurrentlyDay
 	lsl	r0, r0, #0x18
@@ -129921,11 +140736,11 @@ GetEvolutionTargetSpecies:
 	add	r1, r1, sl
 	mov	r8, r1
 	cmp	r0, #0
-	bne	.LCB13469
-	b	.L1588	@long jump
-.LCB13469:
+	bne	.LCB13598
+	b	.L1595	@long jump
+.LCB13598:
 	mov	r2, sp
-	ldr	r1, .L1724
+	ldr	r1, .L1731
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -129934,9 +140749,9 @@ GetEvolutionTargetSpecies:
 	ldrh	r0, [r2]
 	ldrh	r2, [r4, #0x2]
 	cmp	r0, r2
-	beq	.LCB13488
-	b	.L1588	@long jump
-.LCB13488:
+	beq	.LCB13617
+	b	.L1595	@long jump
+.LCB13617:
 	mov	r1, sp
 	mov	r0, #0x0
 	strh	r0, [r1]
@@ -129949,14 +140764,14 @@ GetEvolutionTargetSpecies:
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1725:
+	b	.L1714
+.L1732:
 	.align	2, 0
-.L1724:
+.L1731:
 	.word	gEvolutionTable
-.L1605:
+.L1612:
 	bl	RtcCalcLocalTime
-	ldr	r0, .L1726
+	ldr	r0, .L1733
 	ldrb	r0, [r0, #0x2]
 	lsl	r0, r0, #24
 	asr	r0, r0, #24
@@ -129964,10 +140779,10 @@ GetEvolutionTargetSpecies:
 	add	r2, r2, sl
 	mov	r8, r2
 	cmp	r0, #0x11
-	beq	.LCB13523
-	b	.L1588	@long jump
-.LCB13523:
-	ldr	r0, .L1726+0x4
+	beq	.LCB13652
+	b	.L1595	@long jump
+.LCB13652:
+	ldr	r0, .L1733+0x4
 	ldr	r1, [sp, #0x10]
 	add	r1, r1, r9
 	lsl	r1, r1, #0x4
@@ -129976,21 +140791,21 @@ GetEvolutionTargetSpecies:
 	ldrh	r0, [r1, #0x2]
 	ldr	r2, [sp, #0x14]
 	cmp	r0, r2
-	bls	.LCB13540
-	b	.L1588	@long jump
-.LCB13540:
+	bls	.LCB13669
+	b	.L1595	@long jump
+.LCB13669:
 	ldrh	r4, [r1, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1727:
+	b	.L1714
+.L1734:
 	.align	2, 0
-.L1726:
+.L1733:
 	.word	gLocalTime
 	.word	gEvolutionTable
-.L1607:
+.L1614:
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -130002,163 +140817,41 @@ GetEvolutionTargetSpecies:
 	mov	r8, r2
 	ldr	r2, [sp, #0x14]
 	cmp	r0, r2
-	bls	.LCB13578
-	b	.L1588	@long jump
-.LCB13578:
+	bls	.LCB13707
+	b	.L1595	@long jump
+.LCB13707:
 	ldrh	r4, [r1, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1609:
-	ldr	r0, [sp, #0x10]
-	add	r0, r0, r9
-	lsl	r0, r0, #0x4
-	add	r0, r7, r0
-	add	r4, r0, r3
-	ldrh	r0, [r4, #0x2]
-	mov	r2, #0x1
-	add	r2, r2, sl
-	mov	r8, r2
-	ldr	r1, [sp, #0x14]
-	cmp	r0, r1
-	bls	.LCB13609
-	b	.L1588	@long jump
-.LCB13609:
-	ldr	r0, [sp, #0x4]
-	bl	GetMonGender
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	cmp	r0, #0xfe
-	beq	.LCB13617
-	b	.L1588	@long jump
-.LCB13617:
-	ldrh	r4, [r4, #0x4]
-	b	.L1708
-.L1611:
-	ldr	r0, [sp, #0x10]
-	add	r0, r0, r9
-	lsl	r0, r0, #0x4
-	add	r0, r7, r0
-	add	r4, r0, r3
-	ldrh	r0, [r4, #0x2]
-	mov	r1, #0x1
-	add	r1, r1, sl
-	mov	r8, r1
-	ldr	r2, [sp, #0x14]
-	cmp	r0, r2
-	bls	.LCB13644
-	b	.L1588	@long jump
-.LCB13644:
-	ldr	r0, [sp, #0x4]
-	bl	GetMonGender
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.LCB13652
-	b	.L1588	@long jump
-.LCB13652:
-	ldrh	r4, [r4, #0x4]
-	add	r0, r4, #0
-	bl	GetFormIdFromFormSpeciesId
-	ldr	r1, [sp, #0x44]
-	strb	r0, [r1]
-	b	.L1707
-.L1613:
-	ldr	r0, [sp, #0x10]
-	add	r0, r0, r9
-	lsl	r0, r0, #0x4
-	add	r0, r7, r0
-	add	r5, r0, r3
-	ldrh	r0, [r5, #0x2]
-	mov	r2, #0x1
-	add	r2, r2, sl
-	mov	r8, r2
-	ldr	r1, [sp, #0x14]
-	cmp	r0, r1
-	bls	.LCB13683
-	b	.L1588	@long jump
-.LCB13683:
-	ldr	r0, [sp, #0x4]
-	mov	r1, #0x3b
-	mov	r2, #0x0
-	bl	GetMonData
-	add	r4, r0, #0
-	ldr	r0, [sp, #0x4]
-	mov	r1, #0x3c
-	mov	r2, #0x0
-	bl	GetMonData
-	cmp	r4, r0
-	bhi	.LCB13696
-	b	.L1588	@long jump
-.LCB13696:
-	ldrh	r4, [r5, #0x4]
-	b	.L1708
+	b	.L1714
 .L1616:
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
 	add	r0, r7, r0
-	add	r5, r0, r3
-	ldrh	r0, [r5, #0x2]
-	mov	r1, #0x1
-	add	r1, r1, sl
-	mov	r8, r1
-	ldr	r2, [sp, #0x14]
-	cmp	r0, r2
-	bls	.LCB13723
-	b	.L1588	@long jump
-.LCB13723:
-	ldr	r0, [sp, #0x4]
-	mov	r1, #0x3b
-	mov	r2, #0x0
-	bl	GetMonData
-	add	r4, r0, #0
-	ldr	r0, [sp, #0x4]
-	mov	r1, #0x3c
-	mov	r2, #0x0
-	bl	GetMonData
-	cmp	r4, r0
-	beq	.LCB13736
-	b	.L1588	@long jump
-.LCB13736:
-	ldrh	r4, [r5, #0x4]
-	add	r0, r4, #0
-	bl	GetFormIdFromFormSpeciesId
-	ldr	r1, [sp, #0x44]
-	strb	r0, [r1]
-	b	.L1707
-.L1619:
-	ldr	r0, [sp, #0x10]
-	add	r0, r0, r9
-	lsl	r0, r0, #0x4
-	add	r0, r7, r0
-	add	r5, r0, r3
-	ldrh	r0, [r5, #0x2]
+	add	r4, r0, r3
+	ldrh	r0, [r4, #0x2]
 	mov	r2, #0x1
 	add	r2, r2, sl
 	mov	r8, r2
 	ldr	r1, [sp, #0x14]
 	cmp	r0, r1
-	bls	.LCB13767
-	b	.L1588	@long jump
-.LCB13767:
+	bls	.LCB13738
+	b	.L1595	@long jump
+.LCB13738:
 	ldr	r0, [sp, #0x4]
-	mov	r1, #0x3b
-	mov	r2, #0x0
-	bl	GetMonData
-	add	r4, r0, #0
-	ldr	r0, [sp, #0x4]
-	mov	r1, #0x3c
-	mov	r2, #0x0
-	bl	GetMonData
-	cmp	r4, r0
-	bcc	.LCB13780
-	b	.L1588	@long jump
-.LCB13780:
-	ldrh	r4, [r5, #0x4]
-	b	.L1708
-.L1622:
+	bl	GetMonGender
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0xfe
+	beq	.LCB13746
+	b	.L1595	@long jump
+.LCB13746:
+	ldrh	r4, [r4, #0x4]
+	b	.L1715
+.L1618:
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -130170,51 +140863,173 @@ GetEvolutionTargetSpecies:
 	mov	r8, r1
 	ldr	r2, [sp, #0x14]
 	cmp	r0, r2
-	bls	.LCB13807
-	b	.L1588	@long jump
-.LCB13807:
-	ldr	r0, [sp, #0x20]
-	mov	r1, #0xa
-	bl	__umodsi3
-	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	cmp	r0, #0x4
-	bls	.LCB13816
-	b	.L1588	@long jump
-.LCB13816:
+	bls	.LCB13773
+	b	.L1595	@long jump
+.LCB13773:
+	ldr	r0, [sp, #0x4]
+	bl	GetMonGender
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.LCB13781
+	b	.L1595	@long jump
+.LCB13781:
 	ldrh	r4, [r4, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1624:
+	b	.L1714
+.L1620:
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
 	add	r0, r7, r0
-	add	r4, r0, r3
-	ldrh	r0, [r4, #0x2]
+	add	r5, r0, r3
+	ldrh	r0, [r5, #0x2]
 	mov	r2, #0x1
 	add	r2, r2, sl
 	mov	r8, r2
 	ldr	r1, [sp, #0x14]
 	cmp	r0, r1
-	bls	.LCB13847
-	b	.L1588	@long jump
-.LCB13847:
-	ldr	r0, [sp, #0x20]
-	mov	r1, #0xa
-	bl	__umodsi3
-	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	cmp	r0, #0x4
-	bhi	.LCB13856
-	b	.L1588	@long jump
-.LCB13856:
-	ldrh	r4, [r4, #0x4]
-	b	.L1708
+	bls	.LCB13812
+	b	.L1595	@long jump
+.LCB13812:
+	ldr	r0, [sp, #0x4]
+	mov	r1, #0x3b
+	mov	r2, #0x0
+	bl	GetMonData
+	add	r4, r0, #0
+	ldr	r0, [sp, #0x4]
+	mov	r1, #0x3c
+	mov	r2, #0x0
+	bl	GetMonData
+	cmp	r4, r0
+	bhi	.LCB13825
+	b	.L1595	@long jump
+.LCB13825:
+	ldrh	r4, [r5, #0x4]
+	b	.L1715
+.L1623:
+	ldr	r0, [sp, #0x10]
+	add	r0, r0, r9
+	lsl	r0, r0, #0x4
+	add	r0, r7, r0
+	add	r5, r0, r3
+	ldrh	r0, [r5, #0x2]
+	mov	r1, #0x1
+	add	r1, r1, sl
+	mov	r8, r1
+	ldr	r2, [sp, #0x14]
+	cmp	r0, r2
+	bls	.LCB13852
+	b	.L1595	@long jump
+.LCB13852:
+	ldr	r0, [sp, #0x4]
+	mov	r1, #0x3b
+	mov	r2, #0x0
+	bl	GetMonData
+	add	r4, r0, #0
+	ldr	r0, [sp, #0x4]
+	mov	r1, #0x3c
+	mov	r2, #0x0
+	bl	GetMonData
+	cmp	r4, r0
+	beq	.LCB13865
+	b	.L1595	@long jump
+.LCB13865:
+	ldrh	r4, [r5, #0x4]
+	add	r0, r4, #0
+	bl	GetFormIdFromFormSpeciesId
+	ldr	r1, [sp, #0x44]
+	strb	r0, [r1]
+	b	.L1714
 .L1626:
+	ldr	r0, [sp, #0x10]
+	add	r0, r0, r9
+	lsl	r0, r0, #0x4
+	add	r0, r7, r0
+	add	r5, r0, r3
+	ldrh	r0, [r5, #0x2]
+	mov	r2, #0x1
+	add	r2, r2, sl
+	mov	r8, r2
+	ldr	r1, [sp, #0x14]
+	cmp	r0, r1
+	bls	.LCB13896
+	b	.L1595	@long jump
+.LCB13896:
+	ldr	r0, [sp, #0x4]
+	mov	r1, #0x3b
+	mov	r2, #0x0
+	bl	GetMonData
+	add	r4, r0, #0
+	ldr	r0, [sp, #0x4]
+	mov	r1, #0x3c
+	mov	r2, #0x0
+	bl	GetMonData
+	cmp	r4, r0
+	bcc	.LCB13909
+	b	.L1595	@long jump
+.LCB13909:
+	ldrh	r4, [r5, #0x4]
+	b	.L1715
+.L1629:
+	ldr	r0, [sp, #0x10]
+	add	r0, r0, r9
+	lsl	r0, r0, #0x4
+	add	r0, r7, r0
+	add	r4, r0, r3
+	ldrh	r0, [r4, #0x2]
+	mov	r1, #0x1
+	add	r1, r1, sl
+	mov	r8, r1
+	ldr	r2, [sp, #0x14]
+	cmp	r0, r2
+	bls	.LCB13936
+	b	.L1595	@long jump
+.LCB13936:
+	ldr	r0, [sp, #0x20]
+	mov	r1, #0xa
+	bl	__umodsi3
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	cmp	r0, #0x4
+	bls	.LCB13945
+	b	.L1595	@long jump
+.LCB13945:
+	ldrh	r4, [r4, #0x4]
+	add	r0, r4, #0
+	bl	GetFormIdFromFormSpeciesId
+	ldr	r1, [sp, #0x44]
+	strb	r0, [r1]
+	b	.L1714
+.L1631:
+	ldr	r0, [sp, #0x10]
+	add	r0, r0, r9
+	lsl	r0, r0, #0x4
+	add	r0, r7, r0
+	add	r4, r0, r3
+	ldrh	r0, [r4, #0x2]
+	mov	r2, #0x1
+	add	r2, r2, sl
+	mov	r8, r2
+	ldr	r1, [sp, #0x14]
+	cmp	r0, r1
+	bls	.LCB13976
+	b	.L1595	@long jump
+.LCB13976:
+	ldr	r0, [sp, #0x20]
+	mov	r1, #0xa
+	bl	__umodsi3
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	cmp	r0, #0x4
+	bhi	.LCB13985
+	b	.L1595	@long jump
+.LCB13985:
+	ldrh	r4, [r4, #0x4]
+	b	.L1715
+.L1633:
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -130226,16 +141041,16 @@ GetEvolutionTargetSpecies:
 	mov	r8, r2
 	ldr	r2, [sp, #0x14]
 	cmp	r0, r2
-	bls	.LCB13883
-	b	.L1588	@long jump
-.LCB13883:
+	bls	.LCB14012
+	b	.L1595	@long jump
+.LCB14012:
 	ldrh	r4, [r1, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1628:
+	b	.L1714
+.L1635:
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -130247,16 +141062,16 @@ GetEvolutionTargetSpecies:
 	mov	r8, r2
 	ldr	r2, [sp, #0x1c]
 	cmp	r0, r2
-	bls	.LCB13914
-	b	.L1588	@long jump
-.LCB13914:
+	bls	.LCB14043
+	b	.L1595	@long jump
+.LCB14043:
 	ldrh	r4, [r1, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1630:
+	b	.L1714
+.L1637:
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -130270,28 +141085,28 @@ GetEvolutionTargetSpecies:
 	add	r2, r2, sl
 	mov	r8, r2
 	cmp	r0, #0
-	bne	.LCB13946
-	b	.L1588	@long jump
-.LCB13946:
+	bne	.LCB14075
+	b	.L1595	@long jump
+.LCB14075:
 	ldrh	r4, [r4, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1632:
+	b	.L1714
+.L1639:
 	mov	r6, #0x0
 	mov	r2, #0x1
 	add	r2, r2, sl
 	mov	r8, r2
-	ldr	r5, .L1728
-	ldr	r1, .L1728+0x4
+	ldr	r5, .L1735
+	ldr	r1, .L1735+0x4
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
 	add	r0, r7, r0
 	add	r4, r0, r1
-.L1636:
+.L1643:
 	add	r1, r6, #0
 	add	r1, r1, #0xd
 	ldr	r0, [sp, #0x4]
@@ -130304,52 +141119,52 @@ GetEvolutionTargetSpecies:
 	ldrb	r0, [r1, #0x3]
 	ldrh	r1, [r4, #0x2]
 	cmp	r0, r1
-	bne	.LCB13997
-	b	.L1705	@long jump
-.LCB13997:
+	bne	.LCB14126
+	b	.L1712	@long jump
+.LCB14126:
 	add	r6, r6, #0x1
 	cmp	r6, #0x3
-	ble	.L1636	@cond_branch
-	b	.L1588
-.L1729:
+	ble	.L1643	@cond_branch
+	b	.L1595
+.L1736:
 	.align	2, 0
-.L1728:
+.L1735:
 	.word	gBattleMoves
 	.word	gEvolutionTable
-.L1639:
+.L1646:
 	mov	r6, #0x0
 	mov	r2, #0x1
 	add	r2, r2, sl
 	mov	r8, r2
-	ldr	r1, .L1730
+	ldr	r1, .L1737
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
 	add	r0, r7, r0
 	add	r4, r0, r1
-.L1643:
+.L1650:
 	mov	r0, #0x64
 	mul	r0, r0, r6
-	ldr	r1, .L1730+0x4
+	ldr	r1, .L1737+0x4
 	add	r0, r0, r1
 	mov	r1, #0xb
 	mov	r2, #0x0
 	bl	GetMonData
 	ldrh	r1, [r4, #0x2]
 	cmp	r0, r1
-	bne	.LCB14043
-	b	.L1706	@long jump
-.LCB14043:
+	bne	.LCB14172
+	b	.L1713	@long jump
+.LCB14172:
 	add	r6, r6, #0x1
 	cmp	r6, #0x5
-	ble	.L1643	@cond_branch
-	b	.L1588
-.L1731:
+	ble	.L1650	@cond_branch
+	b	.L1595
+.L1738:
 	.align	2, 0
-.L1730:
+.L1737:
 	.word	gEvolutionTable
 	.word	gPlayerParty
-.L1646:
+.L1653:
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -130361,16 +141176,16 @@ GetEvolutionTargetSpecies:
 	mov	r8, r2
 	ldr	r1, [sp, #0x14]
 	cmp	r0, r1
-	bls	.LCB14078
-	b	.L1588	@long jump
-.LCB14078:
+	bls	.LCB14207
+	b	.L1595	@long jump
+.LCB14207:
 	mov	r6, #0x0
 	mov	sl, r3
-.L1651:
+.L1658:
 	mov	r0, #0x64
 	mov	r5, r6
 	mul	r5, r5, r0
-	ldr	r0, .L1732
+	ldr	r0, .L1739
 	add	r5, r5, r0
 	add	r0, r5, #0
 	mov	r1, #0xb
@@ -130391,52 +141206,52 @@ GetEvolutionTargetSpecies:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	add	r2, r0, #0
-	ldr	r1, .L1732+0x4
+	ldr	r1, .L1739+0x4
 	lsl	r0, r2, #0x3
 	add	r0, r0, r2
 	lsl	r0, r0, #0x2
 	add	r1, r0, r1
 	ldrb	r0, [r1, #0x6]
 	cmp	r0, #0x11
-	beq	.L1653	@cond_branch
+	beq	.L1660	@cond_branch
 	ldrb	r0, [r1, #0x7]
 	cmp	r0, #0x11
-	bne	.L1650	@cond_branch
-.L1653:
+	bne	.L1657	@cond_branch
+.L1660:
 	lsl	r0, r2, #0x2
 	add	r0, r0, r2
 	lsl	r0, r0, #0x4
 	add	r0, r7, r0
 	add	r0, r0, sl
 	ldrh	r4, [r0, #0x4]
-	b	.L1708
-.L1733:
+	b	.L1715
+.L1740:
 	.align	2, 0
-.L1732:
+.L1739:
 	.word	gPlayerParty
 	.word	gBaseStats
-.L1650:
+.L1657:
 	add	r6, r6, #0x1
 	cmp	r6, #0x5
-	ble	.L1651	@cond_branch
-	b	.L1588
-.L1655:
+	ble	.L1658	@cond_branch
+	b	.L1595
+.L1662:
 	bl	GetCurrentWeather
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
 	cmp	r6, #0x3
-	beq	.L1657	@cond_branch
+	beq	.L1664	@cond_branch
 	cmp	r6, #0x5
-	beq	.L1657	@cond_branch
+	beq	.L1664	@cond_branch
 	mov	r0, #0x1
 	add	r0, r0, sl
 	mov	r8, r0
 	cmp	r6, #0xd
-	beq	.LCB14173
-	b	.L1588	@long jump
-.LCB14173:
-.L1657:
-	ldr	r1, .L1734
+	beq	.LCB14302
+	b	.L1595	@long jump
+.LCB14302:
+.L1664:
+	ldr	r1, .L1741
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -130456,13 +141271,13 @@ GetEvolutionTargetSpecies:
 	mov	r2, #0x1
 	add	r2, r2, sl
 	mov	r8, r2
-	b	.L1588
-.L1735:
+	b	.L1595
+.L1742:
 	.align	2, 0
-.L1734:
+.L1741:
 	.word	gEvolutionTable
-.L1658:
-	ldr	r0, .L1736
+.L1665:
+	ldr	r0, .L1743
 	ldr	r1, [sp, #0x10]
 	add	r1, r1, r9
 	lsl	r1, r1, #0x4
@@ -130474,19 +141289,19 @@ GetEvolutionTargetSpecies:
 	mov	r8, r2
 	ldrh	r2, [r1, #0x2]
 	cmp	r0, r2
-	bne	.L1588	@cond_branch
+	bne	.L1595	@cond_branch
 	ldrh	r4, [r1, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1737:
+	b	.L1714
+.L1744:
 	.align	2, 0
-.L1736:
+.L1743:
 	.word	gMapHeader
-.L1660:
-	ldr	r0, .L1738
+.L1667:
+	ldr	r0, .L1745
 	ldr	r1, [r0]
 	mov	r0, #0x4
 	ldrsb	r0, [r1, r0]
@@ -130508,7 +141323,7 @@ GetEvolutionTargetSpecies:
 	mov	r8, r2
 	ldrh	r0, [r0, #0x2]
 	cmp	r1, r0
-	bne	.L1588	@cond_branch
+	bne	.L1595	@cond_branch
 	ldr	r0, [sp, #0x10]
 	add	r0, r0, r9
 	lsl	r0, r0, #0x4
@@ -130519,22 +141334,22 @@ GetEvolutionTargetSpecies:
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1739:
+	b	.L1714
+.L1746:
 	.align	2, 0
-.L1738:
+.L1745:
 	.word	gSaveBlock1Ptr
-.L1705:
+.L1712:
 	ldrh	r4, [r4, #0x4]
-	b	.L1708
-.L1706:
+	b	.L1715
+.L1713:
 	ldrh	r4, [r4, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1707
-.L1662:
+	b	.L1714
+.L1669:
 	bl	RtcCalcLocalTime
 	bl	IsCurrentlyDay
 	lsl	r0, r0, #0x18
@@ -130542,8 +141357,8 @@ GetEvolutionTargetSpecies:
 	add	r2, r2, sl
 	mov	r8, r2
 	cmp	r0, #0
-	bne	.L1588	@cond_branch
-	ldr	r0, .L1740
+	bne	.L1595	@cond_branch
+	ldr	r0, .L1747
 	ldr	r1, [sp, #0x10]
 	add	r1, r1, r9
 	lsl	r1, r1, #0x4
@@ -130552,47 +141367,47 @@ GetEvolutionTargetSpecies:
 	ldrh	r0, [r2, #0x2]
 	ldr	r1, [sp, #0x14]
 	cmp	r0, r1
-	bhi	.L1588	@cond_branch
+	bhi	.L1595	@cond_branch
 	mov	r0, sp
 	ldrh	r1, [r0]
-	ldr	r0, .L1740+0x4
+	ldr	r0, .L1747+0x4
 	cmp	r1, r0
-	bne	.L1588	@cond_branch
+	bne	.L1595	@cond_branch
 	ldrh	r4, [r2, #0x4]
-.L1708:
+.L1715:
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r2, [sp, #0x44]
 	strb	r0, [r2]
-.L1707:
+.L1714:
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	GetFormSpeciesId
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x8]
-.L1588:
+.L1595:
 	mov	sl, r8
 	mov	r0, sl
 	cmp	r0, #0x9
-	bgt	.LCB14376
-	b	.L1589	@long jump
-.LCB14376:
-	b	.L1584
-.L1741:
+	bgt	.LCB14505
+	b	.L1596	@long jump
+.LCB14505:
+	b	.L1591
+.L1748:
 	.align	2, 0
-.L1740:
+.L1747:
 	.word	gEvolutionTable
 	.word	0x2cf
-.L1667:
+.L1674:
 	mov	r1, #0x0
 	mov	sl, r1
 	ldr	r2, [sp, #0x10]
 	lsl	r2, r2, #0x2
 	mov	r9, r2
-	ldr	r6, .L1742
+	ldr	r6, .L1749
 	mov	r5, sp
-.L1671:
+.L1678:
 	mov	r0, sl
 	lsl	r1, r0, #0x3
 	ldr	r0, [sp, #0x10]
@@ -130602,32 +141417,32 @@ GetEvolutionTargetSpecies:
 	add	r4, r1, r6
 	ldrh	r0, [r4]
 	cmp	r0, #0x6
-	beq	.L1674	@cond_branch
+	beq	.L1681	@cond_branch
 	cmp	r0, #0x6
-	bgt	.L1680	@cond_branch
+	bgt	.L1687	@cond_branch
 	cmp	r0, #0x5
-	beq	.L1673	@cond_branch
-	b	.L1670
-.L1743:
+	beq	.L1680	@cond_branch
+	b	.L1677
+.L1750:
 	.align	2, 0
-.L1742:
+.L1749:
 	.word	gEvolutionTable
-.L1680:
+.L1687:
 	cmp	r0, #0x1f
-	beq	.L1676	@cond_branch
-	b	.L1670
-.L1673:
+	beq	.L1683	@cond_branch
+	b	.L1677
+.L1680:
 	ldrh	r4, [r4, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1709
-.L1674:
+	b	.L1716
+.L1681:
 	ldrh	r0, [r4, #0x2]
 	ldrh	r2, [r5]
 	cmp	r0, r2
-	bne	.L1670	@cond_branch
+	bne	.L1677	@cond_branch
 	mov	r0, #0x0
 	strh	r0, [r5]
 	ldr	r0, [sp, #0x4]
@@ -130639,32 +141454,32 @@ GetEvolutionTargetSpecies:
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1709
-.L1676:
+	b	.L1716
+.L1683:
 	ldrh	r0, [r4, #0x2]
 	cmp	r0, r7
-	bne	.L1670	@cond_branch
+	bne	.L1677	@cond_branch
 	ldrh	r4, [r4, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r2, [sp, #0x44]
 	strb	r0, [r2]
-.L1709:
+.L1716:
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	GetFormSpeciesId
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x8]
-.L1670:
+.L1677:
 	mov	r0, #0x1
 	add	sl, sl, r0
 	mov	r1, sl
 	cmp	r1, #0x9
-	ble	.L1671	@cond_branch
-	b	.L1584
-.L1687:
-	ldr	r2, .L1744
+	ble	.L1678	@cond_branch
+	b	.L1591
+.L1694:
+	ldr	r2, .L1751
 	mov	r0, sl
 	lsl	r1, r0, #0x3
 	ldr	r0, [sp, #0x10]
@@ -130674,89 +141489,89 @@ GetEvolutionTargetSpecies:
 	add	r4, r1, r2
 	ldrh	r0, [r4]
 	cmp	r0, #0x1a
-	beq	.L1693	@cond_branch
+	beq	.L1700	@cond_branch
 	cmp	r0, #0x1a
-	bgt	.L1699	@cond_branch
+	bgt	.L1706	@cond_branch
 	cmp	r0, #0x7
-	beq	.L1689	@cond_branch
-	b	.L1686
-.L1745:
+	beq	.L1696	@cond_branch
+	b	.L1693
+.L1752:
 	.align	2, 0
-.L1744:
+.L1751:
 	.word	gEvolutionTable
-.L1699:
+.L1706:
 	cmp	r0, #0x1b
-	beq	.L1691	@cond_branch
+	beq	.L1698	@cond_branch
 	cmp	r0, #0x21
-	beq	.L1695	@cond_branch
-	b	.L1686
-.L1689:
+	beq	.L1702	@cond_branch
+	b	.L1693
+.L1696:
 	ldrh	r0, [r4, #0x2]
 	cmp	r0, r6
-	bne	.L1686	@cond_branch
+	bne	.L1693	@cond_branch
 	ldrh	r4, [r4, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1710
-.L1691:
+	b	.L1717
+.L1698:
 	ldr	r0, [sp, #0x4]
 	bl	GetMonGender
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xfe
-	bne	.L1686	@cond_branch
+	bne	.L1693	@cond_branch
 	ldrh	r0, [r4, #0x2]
 	cmp	r0, r6
-	bne	.L1686	@cond_branch
-	b	.L1711
-.L1693:
+	bne	.L1693	@cond_branch
+	b	.L1718
+.L1700:
 	ldr	r0, [sp, #0x4]
 	bl	GetMonGender
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1686	@cond_branch
+	bne	.L1693	@cond_branch
 	ldrh	r0, [r4, #0x2]
 	cmp	r0, r6
-	bne	.L1686	@cond_branch
+	bne	.L1693	@cond_branch
 	ldrh	r4, [r4, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r1, [sp, #0x44]
 	strb	r0, [r1]
-	b	.L1710
-.L1695:
+	b	.L1717
+.L1702:
 	ldrh	r0, [r4, #0x2]
 	cmp	r0, r6
-	bne	.L1686	@cond_branch
+	bne	.L1693	@cond_branch
 	mov	r0, sp
 	ldrh	r1, [r0]
-	ldr	r0, .L1746
+	ldr	r0, .L1753
 	cmp	r1, r0
-	bne	.L1686	@cond_branch
-.L1711:
+	bne	.L1693	@cond_branch
+.L1718:
 	ldrh	r4, [r4, #0x4]
 	add	r0, r4, #0
 	bl	GetFormIdFromFormSpeciesId
 	ldr	r2, [sp, #0x44]
 	strb	r0, [r2]
-.L1710:
+.L1717:
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	GetFormSpeciesId
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x8]
-.L1686:
+.L1693:
 	mov	r0, #0x1
 	add	sl, sl, r0
 	mov	r1, sl
 	cmp	r1, #0x9
-	ble	.L1687	@cond_branch
-.L1584:
+	ble	.L1694	@cond_branch
+.L1591:
 	ldr	r0, [sp, #0x8]
-.L1704:
+.L1711:
 	add	sp, sp, #0x24
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -130765,9 +141580,9 @@ GetEvolutionTargetSpecies:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L1747:
+.L1754:
 	.align	2, 0
-.L1746:
+.L1753:
 	.word	0x2cf
 .Lfe90:
 	.size	 GetEvolutionTargetSpecies,.Lfe90-GetEvolutionTargetSpecies
@@ -130780,41 +141595,41 @@ HoennPokedexNumToSpecies:
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	cmp	r2, #0
-	beq	.L1755	@cond_branch
+	beq	.L1762	@cond_branch
 	mov	r1, #0x0
-	ldr	r3, .L1757
+	ldr	r3, .L1764
 	ldrh	r0, [r3]
 	cmp	r0, r2
-	beq	.L1751	@cond_branch
-	ldr	r4, .L1757+0x4
-.L1752:
+	beq	.L1758	@cond_branch
+	ldr	r4, .L1764+0x4
+.L1759:
 	add	r0, r1, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
 	cmp	r1, r4
-	bhi	.L1751	@cond_branch
+	bhi	.L1758	@cond_branch
 	lsl	r0, r1, #0x1
 	add	r0, r0, r3
 	ldrh	r0, [r0]
 	cmp	r0, r2
-	bne	.L1752	@cond_branch
-.L1751:
-	ldr	r0, .L1757+0x8
+	bne	.L1759	@cond_branch
+.L1758:
+	ldr	r0, .L1764+0x8
 	cmp	r1, r0
-	beq	.L1755	@cond_branch
+	beq	.L1762	@cond_branch
 	add	r0, r1, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	b	.L1756
-.L1758:
+	b	.L1763
+.L1765:
 	.align	2, 0
-.L1757:
+.L1764:
 	.word	gSpeciesToHoennPokedexNum
 	.word	0x4b5
 	.word	0x4b6
-.L1755:
+.L1762:
 	mov	r0, #0x0
-.L1756:
+.L1763:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
@@ -130829,41 +141644,41 @@ NationalPokedexNumToSpecies:
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	cmp	r2, #0
-	beq	.L1766	@cond_branch
+	beq	.L1773	@cond_branch
 	mov	r1, #0x0
-	ldr	r3, .L1768
+	ldr	r3, .L1775
 	ldrh	r0, [r3]
 	cmp	r0, r2
-	beq	.L1762	@cond_branch
-	ldr	r4, .L1768+0x4
-.L1763:
+	beq	.L1769	@cond_branch
+	ldr	r4, .L1775+0x4
+.L1770:
 	add	r0, r1, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
 	cmp	r1, r4
-	bhi	.L1762	@cond_branch
+	bhi	.L1769	@cond_branch
 	lsl	r0, r1, #0x1
 	add	r0, r0, r3
 	ldrh	r0, [r0]
 	cmp	r0, r2
-	bne	.L1763	@cond_branch
-.L1762:
-	ldr	r0, .L1768+0x8
+	bne	.L1770	@cond_branch
+.L1769:
+	ldr	r0, .L1775+0x8
 	cmp	r1, r0
-	beq	.L1766	@cond_branch
+	beq	.L1773	@cond_branch
 	add	r0, r1, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	b	.L1767
-.L1769:
+	b	.L1774
+.L1776:
 	.align	2, 0
-.L1768:
+.L1775:
 	.word	gSpeciesToNationalPokedexNum
 	.word	0x4b5
 	.word	0x4b6
-.L1766:
+.L1773:
 	mov	r0, #0x0
-.L1767:
+.L1774:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
@@ -130878,37 +141693,37 @@ NationalToHoennOrder:
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	cmp	r2, #0
-	beq	.L1777	@cond_branch
+	beq	.L1784	@cond_branch
 	mov	r1, #0x0
-	ldr	r3, .L1779
+	ldr	r3, .L1786
 	ldrh	r0, [r3]
 	cmp	r0, r2
-	beq	.L1773	@cond_branch
-.L1774:
+	beq	.L1780	@cond_branch
+.L1781:
 	add	r0, r1, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
 	cmp	r1, #0xd2
-	bhi	.L1777	@cond_branch
+	bhi	.L1784	@cond_branch
 	lsl	r0, r1, #0x1
 	add	r0, r0, r3
 	ldrh	r0, [r0]
 	cmp	r0, r2
-	bne	.L1774	@cond_branch
-.L1773:
+	bne	.L1781	@cond_branch
+.L1780:
 	cmp	r1, #0xd2
-	bhi	.L1777	@cond_branch
+	bhi	.L1784	@cond_branch
 	add	r0, r1, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	b	.L1778
-.L1780:
+	b	.L1785
+.L1787:
 	.align	2, 0
-.L1779:
+.L1786:
 	.word	gHoennToNationalOrder
-.L1777:
+.L1784:
 	mov	r0, #0x0
-.L1778:
+.L1785:
 	pop	{r1}
 	bx	r1
 .Lfe93:
@@ -130922,31 +141737,31 @@ SpeciesToNationalPokedexNum:
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	cmp	r2, #0
-	bne	.L1782	@cond_branch
+	bne	.L1789	@cond_branch
 	mov	r0, #0x0
-	b	.L1784
-.L1782:
-	ldr	r1, .L1786
+	b	.L1791
+.L1789:
+	ldr	r1, .L1793
 	lsl	r0, r2, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L1783	@cond_branch
-	ldr	r0, .L1786+0x4
+	bne	.L1790	@cond_branch
+	ldr	r0, .L1793+0x4
 	sub	r1, r2, #0x1
 	lsl	r1, r1, #0x1
 	add	r1, r1, r0
 	ldrh	r0, [r1]
-	b	.L1785
-.L1787:
+	b	.L1792
+.L1794:
 	.align	2, 0
-.L1786:
+.L1793:
 	.word	gFormSpeciesIdTables
 	.word	gSpeciesToNationalPokedexNum
-.L1783:
+.L1790:
 	ldrh	r0, [r0]
-.L1785:
-.L1784:
+.L1792:
+.L1791:
 	pop	{r1}
 	bx	r1
 .Lfe94:
@@ -130960,20 +141775,20 @@ SpeciesToHoennPokedexNum:
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
 	cmp	r1, #0
-	beq	.L1789	@cond_branch
-	ldr	r0, .L1791
+	beq	.L1796	@cond_branch
+	ldr	r0, .L1798
 	sub	r1, r1, #0x1
 	lsl	r1, r1, #0x1
 	add	r1, r1, r0
 	ldrh	r0, [r1]
-	b	.L1790
-.L1792:
+	b	.L1797
+.L1799:
 	.align	2, 0
-.L1791:
+.L1798:
 	.word	gSpeciesToHoennPokedexNum
-.L1789:
+.L1796:
 	mov	r0, #0x0
-.L1790:
+.L1797:
 	pop	{r1}
 	bx	r1
 .Lfe95:
@@ -130990,19 +141805,19 @@ HoennToNationalOrder:
 	lsl	r0, r1, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0xd2
-	bhi	.L1794	@cond_branch
-	ldr	r0, .L1796
+	bhi	.L1801	@cond_branch
+	ldr	r0, .L1803
 	lsl	r1, r1, #0x1
 	add	r1, r1, r0
 	ldrh	r0, [r1]
-	b	.L1795
-.L1797:
+	b	.L1802
+.L1804:
 	.align	2, 0
-.L1796:
+.L1803:
 	.word	gHoennToNationalOrder
-.L1794:
+.L1801:
 	mov	r0, #0x0
-.L1795:
+.L1802:
 	pop	{r1}
 	bx	r1
 .Lfe96:
@@ -131021,23 +141836,23 @@ sub_806D544:
 	add	r6, r1, #0
 	mov	sl, r2
 	lsl	r0, r0, #0x10
-	ldr	r1, .L1823
+	ldr	r1, .L1830
 	cmp	r0, r1
-	bne	.L1799	@cond_branch
-	ldr	r0, .L1823+0x4
+	bne	.L1806	@cond_branch
+	ldr	r0, .L1830+0x4
 	ldr	r1, [r0]
 	ldr	r0, [r1, #0x4]
 	cmp	sl, r0
-	beq	.L1799	@cond_branch
+	beq	.L1806	@cond_branch
 	ldr	r0, [r1, #0xc]
 	cmp	sl, r0
-	beq	.L1799	@cond_branch
+	beq	.L1806	@cond_branch
 	mov	r5, #0x0
-.L1803:
+.L1810:
 	lsl	r3, r5, #0x3
 	add	r3, r3, r5
 	lsl	r3, r3, #0x2
-	ldr	r0, .L1823+0x8
+	ldr	r0, .L1830+0x8
 	add	r4, r3, r0
 	ldrb	r1, [r4]
 	add	r1, r1, #0xf8
@@ -131062,10 +141877,10 @@ sub_806D544:
 	add	r5, r5, #0x1
 	str	r5, [sp]
 	mov	r9, r3
-.L1807:
+.L1814:
 	lsl	r0, r2, #0x1
 	add	r0, r0, r9
-	ldr	r3, .L1823+0xc
+	ldr	r3, .L1830+0xc
 	add	r0, r0, r3
 	ldrh	r3, [r0]
 	mov	r4, ip
@@ -131075,18 +141890,18 @@ sub_806D544:
 	add	r2, r2, #0x1
 	mov	r8, r2
 	cmp	r4, r0
-	bge	.L1809	@cond_branch
+	bge	.L1816	@cond_branch
 	lsr	r0, r1, #0x3
 	lsl	r6, r0, #0x8
 	mov	r0, #0x7
 	and	r1, r1, r0
 	lsl	r5, r1, #0x2
-.L1811:
+.L1818:
 	add	r0, r4, #0
 	cmp	r4, #0
-	bge	.L1812	@cond_branch
+	bge	.L1819	@cond_branch
 	add	r0, r4, #0x7
-.L1812:
+.L1819:
 	asr	r0, r0, #0x3
 	lsl	r2, r0, #0x5
 	add	r2, r2, sl
@@ -131102,11 +141917,11 @@ sub_806D544:
 	add	r0, r3, #0
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1814	@cond_branch
+	beq	.L1821	@cond_branch
 	add	r0, r4, #0
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1815	@cond_branch
+	beq	.L1822	@cond_branch
 	ldrb	r1, [r2]
 	mov	r0, #0xf0
 	and	r0, r0, r1
@@ -131114,18 +141929,18 @@ sub_806D544:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x20
-	bhi	.L1814	@cond_branch
+	bhi	.L1821	@cond_branch
 	add	r0, r1, #0
 	add	r0, r0, #0x40
-	b	.L1822
-.L1824:
+	b	.L1829
+.L1831:
 	.align	2, 0
-.L1823:
+.L1830:
 	.word	0x1470000
 	.word	gMonSpritesGfxPtr
 	.word	gSpindaSpotGraphics
 	.word	gSpindaSpotGraphics+0x2
-.L1815:
+.L1822:
 	ldrb	r1, [r2]
 	mov	r0, #0xf
 	and	r0, r0, r1
@@ -131133,28 +141948,28 @@ sub_806D544:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x2
-	bhi	.L1814	@cond_branch
+	bhi	.L1821	@cond_branch
 	add	r0, r1, #0x4
-.L1822:
+.L1829:
 	strb	r0, [r2]
-.L1814:
+.L1821:
 	asr	r3, r3, #0x1
 	add	r4, r4, #0x1
 	mov	r0, ip
 	add	r0, r0, #0x10
 	cmp	r4, r0
-	blt	.L1811	@cond_branch
-.L1809:
+	blt	.L1818	@cond_branch
+.L1816:
 	lsl	r0, r7, #0x18
 	lsr	r1, r0, #0x18
 	mov	r2, r8
 	cmp	r2, #0xf
-	ble	.L1807	@cond_branch
+	ble	.L1814	@cond_branch
 	ldr	r6, [sp, #0x4]
 	ldr	r5, [sp]
 	cmp	r5, #0x3
-	ble	.L1803	@cond_branch
-.L1799:
+	ble	.L1810	@cond_branch
+.L1806:
 	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -131181,17 +141996,17 @@ DrawSpindaSpots:
 	lsl	r0, r0, #0x10
 	lsl	r3, r3, #0x18
 	lsr	r3, r3, #0x18
-	ldr	r1, .L1850
+	ldr	r1, .L1857
 	cmp	r0, r1
-	bne	.L1826	@cond_branch
+	bne	.L1833	@cond_branch
 	cmp	r3, #0
-	beq	.L1826	@cond_branch
+	beq	.L1833	@cond_branch
 	mov	r6, #0x0
-.L1830:
+.L1837:
 	lsl	r3, r6, #0x3
 	add	r3, r3, r6
 	lsl	r3, r3, #0x2
-	ldr	r0, .L1850+0x4
+	ldr	r0, .L1857+0x4
 	add	r4, r3, r0
 	ldrb	r1, [r4]
 	add	r1, r1, #0xf8
@@ -131216,10 +142031,10 @@ DrawSpindaSpots:
 	add	r6, r6, #0x1
 	mov	sl, r6
 	mov	r9, r3
-.L1834:
+.L1841:
 	lsl	r0, r2, #0x1
 	add	r0, r0, r9
-	ldr	r3, .L1850+0x8
+	ldr	r3, .L1857+0x8
 	add	r0, r0, r3
 	ldrh	r3, [r0]
 	mov	r4, ip
@@ -131229,18 +142044,18 @@ DrawSpindaSpots:
 	add	r2, r2, #0x1
 	mov	r8, r2
 	cmp	r4, r0
-	bge	.L1836	@cond_branch
+	bge	.L1843	@cond_branch
 	lsr	r0, r1, #0x3
 	lsl	r6, r0, #0x8
 	mov	r0, #0x7
 	and	r1, r1, r0
 	lsl	r5, r1, #0x2
-.L1838:
+.L1845:
 	add	r0, r4, #0
 	cmp	r4, #0
-	bge	.L1839	@cond_branch
+	bge	.L1846	@cond_branch
 	add	r0, r4, #0x7
-.L1839:
+.L1846:
 	asr	r0, r0, #0x3
 	lsl	r2, r0, #0x5
 	ldr	r1, [sp]
@@ -131257,11 +142072,11 @@ DrawSpindaSpots:
 	add	r0, r3, #0
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1841	@cond_branch
+	beq	.L1848	@cond_branch
 	add	r0, r4, #0
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1842	@cond_branch
+	beq	.L1849	@cond_branch
 	ldrb	r1, [r2]
 	mov	r0, #0xf0
 	and	r0, r0, r1
@@ -131269,17 +142084,17 @@ DrawSpindaSpots:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x20
-	bhi	.L1841	@cond_branch
+	bhi	.L1848	@cond_branch
 	add	r0, r1, #0
 	add	r0, r0, #0x40
-	b	.L1849
-.L1851:
+	b	.L1856
+.L1858:
 	.align	2, 0
-.L1850:
+.L1857:
 	.word	0x1470000
 	.word	gSpindaSpotGraphics
 	.word	gSpindaSpotGraphics+0x2
-.L1842:
+.L1849:
 	ldrb	r1, [r2]
 	mov	r0, #0xf
 	and	r0, r0, r1
@@ -131287,28 +142102,28 @@ DrawSpindaSpots:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x2
-	bhi	.L1841	@cond_branch
+	bhi	.L1848	@cond_branch
 	add	r0, r1, #0x4
-.L1849:
+.L1856:
 	strb	r0, [r2]
-.L1841:
+.L1848:
 	asr	r3, r3, #0x1
 	add	r4, r4, #0x1
 	mov	r0, ip
 	add	r0, r0, #0x10
 	cmp	r4, r0
-	blt	.L1838	@cond_branch
-.L1836:
+	blt	.L1845	@cond_branch
+.L1843:
 	lsl	r0, r7, #0x18
 	lsr	r1, r0, #0x18
 	mov	r2, r8
 	cmp	r2, #0xf
-	ble	.L1834	@cond_branch
+	ble	.L1841	@cond_branch
 	ldr	r5, [sp, #0x4]
 	mov	r6, sl
 	cmp	r6, #0x3
-	ble	.L1830	@cond_branch
-.L1826:
+	ble	.L1837	@cond_branch
+.L1833:
 	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -131335,7 +142150,7 @@ EvolutionRenameMon:
 	lsl	r2, r2, #0x10
 	lsr	r2, r2, #0x10
 	mov	r8, r2
-	ldr	r0, .L1854
+	ldr	r0, .L1861
 	mov	r9, r0
 	add	r0, r5, #0
 	mov	r1, #0x2
@@ -131350,23 +142165,23 @@ EvolutionRenameMon:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x2
-	bne	.L1853	@cond_branch
+	bne	.L1860	@cond_branch
 	mov	r6, #0xb
 	mov	r0, r7
 	mul	r0, r0, r6
-	ldr	r4, .L1854+0x4
+	ldr	r4, .L1861+0x4
 	add	r0, r0, r4
 	mov	r1, r9
 	bl	StringCompare
 	cmp	r0, #0
-	bne	.L1853	@cond_branch
+	bne	.L1860	@cond_branch
 	mov	r2, r8
 	mul	r2, r2, r6
 	add	r2, r2, r4
 	add	r0, r5, #0
 	mov	r1, #0x2
 	bl	SetMonData
-.L1853:
+.L1860:
 	add	sp, sp, #0x4
 	pop	{r3, r4}
 	mov	r8, r3
@@ -131374,9 +142189,9 @@ EvolutionRenameMon:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1855:
+.L1862:
 	.align	2, 0
-.L1854:
+.L1861:
 	.word	gStringVar1
 	.word	gSpeciesNames
 .Lfe99:
@@ -131388,7 +142203,7 @@ EvolutionRenameMon:
 GetPlayerFlankId:
 	push	{r4, r5, lr}
 	mov	r5, #0x0
-	ldr	r4, .L1865
+	ldr	r4, .L1872
 	bl	GetMultiplayerId
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -131398,25 +142213,25 @@ GetPlayerFlankId:
 	add	r1, r1, r4
 	ldrh	r0, [r1, #0x18]
 	cmp	r0, #0x2
-	bgt	.L1864	@cond_branch
+	bgt	.L1871	@cond_branch
 	cmp	r0, #0x1
-	bge	.L1861	@cond_branch
+	bge	.L1868	@cond_branch
 	cmp	r0, #0
-	beq	.L1859	@cond_branch
-	b	.L1857
-.L1866:
+	beq	.L1866	@cond_branch
+	b	.L1864
+.L1873:
 	.align	2, 0
-.L1865:
+.L1872:
 	.word	gLinkPlayers
-.L1864:
+.L1871:
 	cmp	r0, #0x3
-	bne	.L1857	@cond_branch
-.L1859:
+	bne	.L1864	@cond_branch
+.L1866:
 	mov	r5, #0x0
-	b	.L1857
-.L1861:
+	b	.L1864
+.L1868:
 	mov	r5, #0x1
-.L1857:
+.L1864:
 	add	r0, r5, #0
 	pop	{r4, r5}
 	pop	{r1}
@@ -131432,32 +142247,32 @@ GetLinkTrainerFlankId:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	mov	r3, #0x0
-	ldr	r2, .L1876
+	ldr	r2, .L1883
 	lsl	r1, r0, #0x3
 	sub	r1, r1, r0
 	lsl	r1, r1, #0x2
 	add	r1, r1, r2
 	ldrh	r0, [r1, #0x18]
 	cmp	r0, #0x2
-	bgt	.L1875	@cond_branch
+	bgt	.L1882	@cond_branch
 	cmp	r0, #0x1
-	bge	.L1872	@cond_branch
+	bge	.L1879	@cond_branch
 	cmp	r0, #0
-	beq	.L1870	@cond_branch
-	b	.L1868
-.L1877:
+	beq	.L1877	@cond_branch
+	b	.L1875
+.L1884:
 	.align	2, 0
-.L1876:
+.L1883:
 	.word	gLinkPlayers
-.L1875:
+.L1882:
 	cmp	r0, #0x3
-	bne	.L1868	@cond_branch
-.L1870:
+	bne	.L1875	@cond_branch
+.L1877:
 	mov	r3, #0x0
-	b	.L1868
-.L1872:
+	b	.L1875
+.L1879:
 	mov	r3, #0x1
-.L1868:
+.L1875:
 	add	r0, r3, #0
 	pop	{r1}
 	bx	r1
@@ -131472,22 +142287,22 @@ GetBattlerMultiplayerId:
 	lsl	r0, r0, #0x10
 	lsr	r3, r0, #0x10
 	mov	r2, #0x0
-	ldr	r1, .L1886
-	b	.L1885
-.L1887:
+	ldr	r1, .L1893
+	b	.L1892
+.L1894:
 	.align	2, 0
-.L1886:
+.L1893:
 	.word	gLinkPlayers
-.L1881:
+.L1888:
 	add	r1, r1, #0x1c
 	add	r2, r2, #0x1
 	cmp	r2, #0x3
-	bgt	.L1880	@cond_branch
-.L1885:
+	bgt	.L1887	@cond_branch
+.L1892:
 	ldrh	r0, [r1, #0x18]
 	cmp	r0, r3
-	bne	.L1881	@cond_branch
-.L1880:
+	bne	.L1888	@cond_branch
+.L1887:
 	add	r0, r2, #0
 	pop	{r1}
 	bx	r1
@@ -131505,16 +142320,16 @@ GetTrainerEncounterMusicId:
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L1889	@cond_branch
+	beq	.L1896	@cond_branch
 	add	r0, r4, #0
 	bl	GetBattlePyramindTrainerEncounterMusicId
-	b	.L1895
-.L1889:
+	b	.L1902
+.L1896:
 	bl	InTrainerHillChallenge
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1891	@cond_branch
-	ldr	r1, .L1897
+	bne	.L1898	@cond_branch
+	ldr	r1, .L1904
 	lsl	r0, r4, #0x2
 	add	r0, r0, r4
 	lsl	r0, r0, #0x3
@@ -131522,18 +142337,18 @@ GetTrainerEncounterMusicId:
 	ldrb	r1, [r0, #0x2]
 	mov	r0, #0x7f
 	and	r0, r0, r1
-	b	.L1896
-.L1898:
+	b	.L1903
+.L1905:
 	.align	2, 0
-.L1897:
+.L1904:
 	.word	gTrainers
-.L1891:
+.L1898:
 	add	r0, r5, #0
 	bl	GetTrainerEncounterMusicIdInTrainerHill
-.L1895:
+.L1902:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-.L1896:
+.L1903:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
@@ -131556,11 +142371,11 @@ ModifyStatByNature:
 	add	r2, r2, r0
 	lsr	r2, r2, #0x18
 	cmp	r2, #0x4
-	bls	.L1900	@cond_branch
+	bls	.L1907	@cond_branch
 	add	r0, r3, #0
-	b	.L1906
-.L1900:
-	ldr	r0, .L1908
+	b	.L1913
+.L1907:
+	ldr	r0, .L1915
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	sub	r1, r1, #0x1
@@ -131572,18 +142387,18 @@ ModifyStatByNature:
 	mov	r0, #0x1
 	neg	r0, r0
 	cmp	r1, r0
-	beq	.L1903	@cond_branch
+	beq	.L1910	@cond_branch
 	cmp	r1, #0x1
-	bne	.L1904	@cond_branch
+	bne	.L1911	@cond_branch
 	mov	r0, #0x6e
-	b	.L1907
-.L1909:
+	b	.L1914
+.L1916:
 	.align	2, 0
-.L1908:
+.L1915:
 	.word	gNatureStatTable
-.L1903:
+.L1910:
 	mov	r0, #0x5a
-.L1907:
+.L1914:
 	mul	r0, r0, r3
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -131591,10 +142406,10 @@ ModifyStatByNature:
 	bl	__udivsi3
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	b	.L1906
-.L1904:
+	b	.L1913
+.L1911:
 	add	r0, r3, #0
-.L1906:
+.L1913:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
@@ -131613,9 +142428,9 @@ AdjustFriendship:
 	bl	ShouldSkipFriendshipChange
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB15716
-	b	.L1910	@long jump
-.LCB15716:
+	beq	.LCB15845
+	b	.L1917	@long jump
+.LCB15845:
 	add	r0, r7, #0
 	mov	r1, #0x41
 	mov	r2, #0x0
@@ -131629,41 +142444,41 @@ AdjustFriendship:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0xcd
-	bne	.L1912	@cond_branch
-	ldr	r0, .L1928
-	ldr	r1, .L1928+0x4
+	bne	.L1919	@cond_branch
+	ldr	r0, .L1935
+	ldr	r1, .L1935+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1913	@cond_branch
-	ldr	r0, .L1928+0x8
+	beq	.L1920	@cond_branch
+	ldr	r0, .L1935+0x8
 	ldrb	r4, [r0, #0x7]
-	b	.L1915
-.L1929:
+	b	.L1922
+.L1936:
 	.align	2, 0
-.L1928:
+.L1935:
 	.word	gMain
 	.word	0x439
 	.word	gEnigmaBerries
-.L1913:
+.L1920:
 	mov	r4, #0x0
-	b	.L1915
-.L1912:
+	b	.L1922
+.L1919:
 	bl	ItemId_GetHoldEffect
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-.L1915:
+.L1922:
 	cmp	r6, #0
-	bne	.LCB15770
-	b	.L1910	@long jump
-.LCB15770:
-	ldr	r0, .L1930
+	bne	.LCB15899
+	b	.L1917	@long jump
+.LCB15899:
+	ldr	r0, .L1937
 	cmp	r6, r0
-	bne	.LCB15775
-	b	.L1910	@long jump
-.LCB15775:
+	bne	.LCB15904
+	b	.L1917	@long jump
+.LCB15904:
 	mov	r6, #0x0
 	add	r0, r7, #0
 	mov	r1, #0x20
@@ -131676,33 +142491,33 @@ AdjustFriendship:
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	cmp	r0, #0x63
-	ble	.L1917	@cond_branch
+	ble	.L1924	@cond_branch
 	mov	r6, #0x1
-.L1917:
+.L1924:
 	cmp	r0, #0xc7
-	ble	.L1918	@cond_branch
+	ble	.L1925	@cond_branch
 	add	r0, r6, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
-.L1918:
+.L1925:
 	cmp	r5, #0x5
-	bne	.L1920	@cond_branch
+	bne	.L1927	@cond_branch
 	bl	Random
 	mov	r1, #0x1
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L1910	@cond_branch
-.L1920:
+	bne	.L1917	@cond_branch
+.L1927:
 	cmp	r5, #0x3
-	bne	.L1921	@cond_branch
-	ldr	r0, .L1930+0x4
+	bne	.L1928	@cond_branch
+	ldr	r0, .L1937+0x4
 	ldr	r0, [r0]
 	mov	r1, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1910	@cond_branch
-	ldr	r2, .L1930+0x8
-	ldr	r0, .L1930+0xc
+	beq	.L1917	@cond_branch
+	ldr	r2, .L1937+0x8
+	ldr	r0, .L1937+0xc
 	ldrh	r1, [r0]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
@@ -131714,11 +142529,11 @@ AdjustFriendship:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bls	.L1921	@cond_branch
+	bls	.L1928	@cond_branch
 	cmp	r1, #0x26
-	bne	.L1910	@cond_branch
-.L1921:
-	ldr	r1, .L1930+0x10
+	bne	.L1917	@cond_branch
+.L1928:
+	ldr	r1, .L1937+0x10
 	lsl	r0, r5, #0x1
 	add	r0, r0, r5
 	add	r0, r6, r0
@@ -131727,16 +142542,16 @@ AdjustFriendship:
 	mov	r1, #0x0
 	ldrsb	r1, [r0, r1]
 	cmp	r1, #0
-	ble	.L1922	@cond_branch
+	ble	.L1929	@cond_branch
 	cmp	r4, #0x1b
-	bne	.L1922	@cond_branch
+	bne	.L1929	@cond_branch
 	mov	r0, #0x96
 	mul	r0, r0, r1
 	mov	r1, #0x64
 	bl	__divsi3
 	lsl	r0, r0, #0x18
 	lsr	r2, r0, #0x18
-.L1922:
+.L1929:
 	lsl	r2, r2, #0x18
 	asr	r2, r2, #0x18
 	mov	r0, sp
@@ -131746,20 +142561,20 @@ AdjustFriendship:
 	mov	r1, sp
 	strh	r0, [r1]
 	cmp	r2, #0
-	ble	.L1923	@cond_branch
+	ble	.L1930	@cond_branch
 	add	r0, r7, #0
 	mov	r1, #0x26
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0xb
-	bne	.L1924	@cond_branch
+	bne	.L1931	@cond_branch
 	mov	r0, sp
 	mov	r1, #0x0
 	ldrsh	r0, [r0, r1]
 	add	r0, r0, #0x1
 	mov	r1, sp
 	strh	r0, [r1]
-.L1924:
+.L1931:
 	add	r0, r7, #0
 	mov	r1, #0x23
 	mov	r2, #0x0
@@ -131769,44 +142584,44 @@ AdjustFriendship:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r4, r0
-	bne	.L1923	@cond_branch
+	bne	.L1930	@cond_branch
 	mov	r0, sp
 	mov	r1, #0x0
 	ldrsh	r0, [r0, r1]
 	add	r0, r0, #0x1
 	mov	r1, sp
 	strh	r0, [r1]
-.L1923:
+.L1930:
 	mov	r0, sp
 	mov	r1, #0x0
 	ldrsh	r0, [r0, r1]
 	cmp	r0, #0
-	bge	.L1926	@cond_branch
+	bge	.L1933	@cond_branch
 	mov	r1, #0x0
 	mov	r0, sp
 	strh	r1, [r0]
-.L1926:
+.L1933:
 	mov	r0, sp
 	mov	r1, #0x0
 	ldrsh	r0, [r0, r1]
 	cmp	r0, #0xff
-	ble	.L1927	@cond_branch
+	ble	.L1934	@cond_branch
 	mov	r1, #0xff
 	mov	r0, sp
 	strh	r1, [r0]
-.L1927:
+.L1934:
 	add	r0, r7, #0
 	mov	r1, #0x20
 	mov	r2, sp
 	bl	SetMonData
-.L1910:
+.L1917:
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1931:
+.L1938:
 	.align	2, 0
-.L1930:
+.L1937:
 	.word	0x4b7
 	.word	gBattleTypeFlags
 	.word	gTrainers
@@ -131844,33 +142659,33 @@ MonGainEVs:
 	lsl	r0, r0, #0x10
 	lsr	r6, r0, #0x10
 	cmp	r6, #0xcd
-	bne	.L1933	@cond_branch
-	ldr	r0, .L1978
-	ldr	r1, .L1978+0x4
+	bne	.L1940	@cond_branch
+	ldr	r0, .L1985
+	ldr	r1, .L1985+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1934	@cond_branch
-	ldr	r0, .L1978+0x8
+	beq	.L1941	@cond_branch
+	ldr	r0, .L1985+0x8
 	ldrb	r7, [r0, #0x7]
-	b	.L1936
-.L1979:
+	b	.L1943
+.L1986:
 	.align	2, 0
-.L1978:
+.L1985:
 	.word	gMain
 	.word	0x439
 	.word	gEnigmaBerries
-.L1934:
+.L1941:
 	mov	r7, #0x0
-	b	.L1936
-.L1933:
+	b	.L1943
+.L1940:
 	add	r0, r6, #0
 	bl	ItemId_GetHoldEffect
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
-.L1936:
+.L1943:
 	add	r0, r6, #0
 	bl	ItemId_GetSecondaryId
 	lsl	r0, r0, #0x18
@@ -131882,7 +142697,7 @@ MonGainEVs:
 	lsr	r0, r0, #0x18
 	mov	r8, r0
 	mov	r6, #0x0
-.L1940:
+.L1947:
 	add	r1, r6, #0
 	add	r1, r1, #0x1a
 	ldr	r0, [sp, #0x8]
@@ -131898,48 +142713,48 @@ MonGainEVs:
 	mov	sl, r0
 	add	r6, r6, #0x1
 	cmp	r6, #0x5
-	ble	.L1940	@cond_branch
+	ble	.L1947	@cond_branch
 	mov	r6, #0x0
-	b	.L1974
-.L1946:
+	b	.L1981
+.L1953:
 	ldr	r0, [sp, #0x8]
 	mov	r1, #0x0
 	bl	CheckPartyHasHadPokerus
 	lsl	r0, r0, #0x18
 	mov	r2, #0x1
 	cmp	r0, #0
-	beq	.L1947	@cond_branch
+	beq	.L1954	@cond_branch
 	mov	r2, #0x2
-.L1947:
+.L1954:
 	cmp	r6, #0x5
-	bls	.LCB16083
-	b	.L1949	@long jump
-.LCB16083:
+	bls	.LCB16212
+	b	.L1956	@long jump
+.LCB16212:
 	lsl	r0, r6, #0x2
-	ldr	r1, .L1980
+	ldr	r1, .L1987
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1981:
+.L1988:
 	.align	2, 0
-.L1980:
-	.word	.L1968
+.L1987:
+	.word	.L1975
 	.align	2, 0
 	.align	2, 0
-.L1968:
-	.word	.L1950
-	.word	.L1953
-	.word	.L1956
-	.word	.L1959
-	.word	.L1962
-	.word	.L1965
-.L1950:
+.L1975:
+	.word	.L1957
+	.word	.L1960
+	.word	.L1963
+	.word	.L1966
+	.word	.L1969
+	.word	.L1972
+.L1957:
 	cmp	r7, #0x63
-	bne	.L1951	@cond_branch
+	bne	.L1958	@cond_branch
 	mov	r0, r9
 	cmp	r0, #0
-	bne	.L1951	@cond_branch
-	ldr	r0, .L1982
+	bne	.L1958	@cond_branch
+	ldr	r0, .L1989
 	lsl	r1, r5, #0x3
 	add	r1, r1, r5
 	lsl	r1, r1, #0x2
@@ -131948,128 +142763,128 @@ MonGainEVs:
 	lsl	r0, r0, #0x1e
 	lsr	r0, r0, #0x1e
 	add	r0, r0, r8
-	b	.L1975
-.L1983:
-	.align	2, 0
-.L1982:
-	.word	gBaseStats
-.L1951:
-	ldr	r0, .L1984
-	lsl	r1, r5, #0x3
-	add	r1, r1, r5
-	lsl	r1, r1, #0x2
-	add	r1, r1, r0
-	ldrb	r0, [r1, #0xc]
-	lsl	r0, r0, #0x1e
-	b	.L1976
-.L1985:
-	.align	2, 0
-.L1984:
-	.word	gBaseStats
-.L1953:
-	cmp	r7, #0x63
-	bne	.L1954	@cond_branch
-	mov	r1, r9
-	cmp	r1, #0x1
-	bne	.L1954	@cond_branch
-	ldr	r0, .L1986
-	lsl	r1, r5, #0x3
-	add	r1, r1, r5
-	lsl	r1, r1, #0x2
-	add	r1, r1, r0
-	ldrb	r0, [r1, #0xc]
-	lsl	r0, r0, #0x1c
-	lsr	r0, r0, #0x1e
-	add	r0, r0, r8
-	b	.L1975
-.L1987:
-	.align	2, 0
-.L1986:
-	.word	gBaseStats
-.L1954:
-	ldr	r0, .L1988
-	lsl	r1, r5, #0x3
-	add	r1, r1, r5
-	lsl	r1, r1, #0x2
-	add	r1, r1, r0
-	ldrb	r0, [r1, #0xc]
-	b	.L1977
-.L1989:
-	.align	2, 0
-.L1988:
-	.word	gBaseStats
-.L1956:
-	cmp	r7, #0x63
-	bne	.L1957	@cond_branch
-	mov	r0, r9
-	cmp	r0, #0x2
-	bne	.L1957	@cond_branch
-	ldr	r0, .L1990
-	lsl	r1, r5, #0x3
-	add	r1, r1, r5
-	lsl	r1, r1, #0x2
-	add	r1, r1, r0
-	ldrb	r0, [r1, #0xc]
-	lsl	r0, r0, #0x1a
-	lsr	r0, r0, #0x1e
-	add	r0, r0, r8
-	b	.L1975
-.L1991:
-	.align	2, 0
+	b	.L1982
 .L1990:
+	.align	2, 0
+.L1989:
 	.word	gBaseStats
-.L1957:
-	ldr	r0, .L1992
+.L1958:
+	ldr	r0, .L1991
 	lsl	r1, r5, #0x3
 	add	r1, r1, r5
 	lsl	r1, r1, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0xc]
-	lsl	r0, r0, #0x1a
-	b	.L1976
-.L1993:
-	.align	2, 0
+	lsl	r0, r0, #0x1e
+	b	.L1983
 .L1992:
-	.word	gBaseStats
-.L1959:
-	cmp	r7, #0x63
-	bne	.L1960	@cond_branch
-	mov	r1, r9
-	cmp	r1, #0x3
-	bne	.L1960	@cond_branch
-	ldr	r0, .L1994
-	lsl	r1, r5, #0x3
-	add	r1, r1, r5
-	lsl	r1, r1, #0x2
-	add	r1, r1, r0
-	ldrb	r0, [r1, #0xc]
-	lsr	r0, r0, #0x6
-	add	r0, r0, r8
-	b	.L1975
-.L1995:
 	.align	2, 0
-.L1994:
+.L1991:
 	.word	gBaseStats
 .L1960:
-	ldr	r0, .L1996
+	cmp	r7, #0x63
+	bne	.L1961	@cond_branch
+	mov	r1, r9
+	cmp	r1, #0x1
+	bne	.L1961	@cond_branch
+	ldr	r0, .L1993
+	lsl	r1, r5, #0x3
+	add	r1, r1, r5
+	lsl	r1, r1, #0x2
+	add	r1, r1, r0
+	ldrb	r0, [r1, #0xc]
+	lsl	r0, r0, #0x1c
+	lsr	r0, r0, #0x1e
+	add	r0, r0, r8
+	b	.L1982
+.L1994:
+	.align	2, 0
+.L1993:
+	.word	gBaseStats
+.L1961:
+	ldr	r0, .L1995
+	lsl	r1, r5, #0x3
+	add	r1, r1, r5
+	lsl	r1, r1, #0x2
+	add	r1, r1, r0
+	ldrb	r0, [r1, #0xc]
+	b	.L1984
+.L1996:
+	.align	2, 0
+.L1995:
+	.word	gBaseStats
+.L1963:
+	cmp	r7, #0x63
+	bne	.L1964	@cond_branch
+	mov	r0, r9
+	cmp	r0, #0x2
+	bne	.L1964	@cond_branch
+	ldr	r0, .L1997
+	lsl	r1, r5, #0x3
+	add	r1, r1, r5
+	lsl	r1, r1, #0x2
+	add	r1, r1, r0
+	ldrb	r0, [r1, #0xc]
+	lsl	r0, r0, #0x1a
+	lsr	r0, r0, #0x1e
+	add	r0, r0, r8
+	b	.L1982
+.L1998:
+	.align	2, 0
+.L1997:
+	.word	gBaseStats
+.L1964:
+	ldr	r0, .L1999
+	lsl	r1, r5, #0x3
+	add	r1, r1, r5
+	lsl	r1, r1, #0x2
+	add	r1, r1, r0
+	ldrb	r0, [r1, #0xc]
+	lsl	r0, r0, #0x1a
+	b	.L1983
+.L2000:
+	.align	2, 0
+.L1999:
+	.word	gBaseStats
+.L1966:
+	cmp	r7, #0x63
+	bne	.L1967	@cond_branch
+	mov	r1, r9
+	cmp	r1, #0x3
+	bne	.L1967	@cond_branch
+	ldr	r0, .L2001
 	lsl	r1, r5, #0x3
 	add	r1, r1, r5
 	lsl	r1, r1, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0xc]
 	lsr	r0, r0, #0x6
-	b	.L1975
-.L1997:
+	add	r0, r0, r8
+	b	.L1982
+.L2002:
 	.align	2, 0
-.L1996:
+.L2001:
 	.word	gBaseStats
-.L1962:
+.L1967:
+	ldr	r0, .L2003
+	lsl	r1, r5, #0x3
+	add	r1, r1, r5
+	lsl	r1, r1, #0x2
+	add	r1, r1, r0
+	ldrb	r0, [r1, #0xc]
+	lsr	r0, r0, #0x6
+	b	.L1982
+.L2004:
+	.align	2, 0
+.L2003:
+	.word	gBaseStats
+.L1969:
 	cmp	r7, #0x63
-	bne	.L1963	@cond_branch
+	bne	.L1970	@cond_branch
 	mov	r0, r9
 	cmp	r0, #0x4
-	bne	.L1963	@cond_branch
-	ldr	r0, .L1998
+	bne	.L1970	@cond_branch
+	ldr	r0, .L2005
 	lsl	r1, r5, #0x3
 	add	r1, r1, r5
 	lsl	r1, r1, #0x2
@@ -132078,31 +142893,31 @@ MonGainEVs:
 	lsl	r0, r0, #0x1e
 	lsr	r0, r0, #0x1e
 	add	r0, r0, r8
-	b	.L1975
-.L1999:
+	b	.L1982
+.L2006:
 	.align	2, 0
-.L1998:
+.L2005:
 	.word	gBaseStats
-.L1963:
-	ldr	r0, .L2000
+.L1970:
+	ldr	r0, .L2007
 	lsl	r1, r5, #0x3
 	add	r1, r1, r5
 	lsl	r1, r1, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0xd]
 	lsl	r0, r0, #0x1e
-	b	.L1976
-.L2001:
+	b	.L1983
+.L2008:
 	.align	2, 0
-.L2000:
+.L2007:
 	.word	gBaseStats
-.L1965:
+.L1972:
 	cmp	r7, #0x63
-	bne	.L1966	@cond_branch
+	bne	.L1973	@cond_branch
 	mov	r1, r9
 	cmp	r1, #0x5
-	bne	.L1966	@cond_branch
-	ldr	r0, .L2002
+	bne	.L1973	@cond_branch
+	ldr	r0, .L2009
 	lsl	r1, r5, #0x3
 	add	r1, r1, r5
 	lsl	r1, r1, #0x2
@@ -132111,31 +142926,31 @@ MonGainEVs:
 	lsl	r0, r0, #0x1c
 	lsr	r0, r0, #0x1e
 	add	r0, r0, r8
-	b	.L1975
-.L2003:
+	b	.L1982
+.L2010:
 	.align	2, 0
-.L2002:
+.L2009:
 	.word	gBaseStats
-.L1966:
-	ldr	r0, .L2004
+.L1973:
+	ldr	r0, .L2011
 	lsl	r1, r5, #0x3
 	add	r1, r1, r5
 	lsl	r1, r1, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0xd]
-.L1977:
+.L1984:
 	lsl	r0, r0, #0x1c
-.L1976:
+.L1983:
 	lsr	r0, r0, #0x1e
-.L1975:
+.L1982:
 	mov	r4, r0
 	mul	r4, r4, r2
-.L1949:
+.L1956:
 	cmp	r7, #0x18
-	bne	.L1970	@cond_branch
+	bne	.L1977	@cond_branch
 	lsl	r0, r4, #0x11
 	lsr	r4, r0, #0x10
-.L1970:
+.L1977:
 	lsl	r0, r4, #0x10
 	asr	r2, r0, #0x10
 	mov	r0, sl
@@ -132143,14 +142958,14 @@ MonGainEVs:
 	mov	r0, #0xff
 	lsl	r0, r0, #0x1
 	cmp	r1, r0
-	ble	.L1971	@cond_branch
+	ble	.L1978	@cond_branch
 	add	r0, r2, r0
 	mov	r2, sl
 	add	r1, r2, r4
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
-.L1971:
+.L1978:
 	mov	r0, sp
 	add	r2, r0, r6
 	ldrb	r3, [r2]
@@ -132158,14 +142973,14 @@ MonGainEVs:
 	asr	r1, r0, #0x10
 	add	r0, r3, r1
 	cmp	r0, #0xfc
-	ble	.L1972	@cond_branch
+	ble	.L1979	@cond_branch
 	add	r0, r1, #0
 	add	r0, r0, #0xfc
 	add	r1, r3, r4
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
-.L1972:
+.L1979:
 	add	r0, r3, r4
 	strb	r0, [r2]
 	mov	r1, sl
@@ -132179,14 +142994,14 @@ MonGainEVs:
 	bl	SetMonData
 	add	r6, r6, #0x1
 	cmp	r6, #0x5
-	bgt	.L1943	@cond_branch
-.L1974:
-	ldr	r0, .L2004+0x4
+	bgt	.L1950	@cond_branch
+.L1981:
+	ldr	r0, .L2011+0x4
 	cmp	sl, r0
-	bhi	.LCB16443
-	b	.L1946	@long jump
-.LCB16443:
-.L1943:
+	bhi	.LCB16572
+	b	.L1953	@long jump
+.LCB16572:
+.L1950:
 	add	sp, sp, #0xc
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -132195,9 +143010,9 @@ MonGainEVs:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2005:
+.L2012:
 	.align	2, 0
-.L2004:
+.L2011:
 	.word	gBaseStats
 	.word	0x1fd
 .Lfe106:
@@ -132211,7 +143026,7 @@ GetMonEVCount:
 	add	r6, r0, #0
 	mov	r5, #0x0
 	mov	r4, #0x0
-.L2010:
+.L2017:
 	add	r1, r4, #0
 	add	r1, r1, #0x1a
 	add	r0, r6, #0
@@ -132222,7 +143037,7 @@ GetMonEVCount:
 	lsr	r5, r0, #0x10
 	add	r4, r4, #0x1
 	cmp	r4, #0x5
-	ble	.L2010	@cond_branch
+	ble	.L2017	@cond_branch
 	add	r0, r5, #0
 	pop	{r4, r5, r6}
 	pop	{r1}
@@ -132243,16 +143058,16 @@ RandomlyGivePartyPokerus:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x7
 	cmp	r5, r0
-	beq	.L2018	@cond_branch
+	beq	.L2025	@cond_branch
 	mov	r0, #0x80
 	lsl	r0, r0, #0x8
 	cmp	r5, r0
-	beq	.L2018	@cond_branch
+	beq	.L2025	@cond_branch
 	mov	r0, #0xc0
 	lsl	r0, r0, #0x8
 	cmp	r5, r0
-	bne	.L2013	@cond_branch
-.L2018:
+	bne	.L2020	@cond_branch
+.L2025:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -132268,14 +143083,14 @@ RandomlyGivePartyPokerus:
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L2018	@cond_branch
+	beq	.L2025	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x2d
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	bne	.L2018	@cond_branch
-	ldr	r1, .L2032
+	bne	.L2025	@cond_branch
+	ldr	r1, .L2039
 	lsl	r0, r5, #0x2
 	add	r0, r0, r1
 	ldrb	r1, [r0]
@@ -132283,9 +143098,9 @@ RandomlyGivePartyPokerus:
 	bl	CheckPartyHasHadPokerus
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L2013	@cond_branch
+	bne	.L2020	@cond_branch
 	mov	r4, #0x7
-.L2026:
+.L2033:
 	bl	Random
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -132295,14 +143110,14 @@ RandomlyGivePartyPokerus:
 	add	r1, r2, #0
 	and	r1, r1, r4
 	cmp	r1, #0
-	beq	.L2026	@cond_branch
+	beq	.L2033	@cond_branch
 	mov	r0, #0xf0
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L2031	@cond_branch
+	beq	.L2038	@cond_branch
 	mov	r0, sp
 	strb	r1, [r0]
-.L2031:
+.L2038:
 	mov	r0, sp
 	ldrb	r0, [r0]
 	lsl	r1, r0, #0x4
@@ -132323,14 +143138,14 @@ RandomlyGivePartyPokerus:
 	mov	r1, #0x22
 	mov	r2, sp
 	bl	SetMonData
-.L2013:
+.L2020:
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2033:
+.L2040:
 	.align	2, 0
-.L2032:
+.L2039:
 	.word	gBitTable
 .Lfe108:
 	.size	 RandomlyGivePartyPokerus,.Lfe108-RandomlyGivePartyPokerus
@@ -132348,12 +143163,12 @@ CheckPartyPokerus:
 	mov	r6, #0x1
 	mov	r5, #0x0
 	cmp	r4, #0
-	beq	.L2035	@cond_branch
-.L2036:
+	beq	.L2042	@cond_branch
+.L2043:
 	mov	r0, #0x1
 	and	r0, r0, r4
 	cmp	r0, #0
-	beq	.L2039	@cond_branch
+	beq	.L2046	@cond_branch
 	mov	r0, #0x64
 	mul	r0, r0, r3
 	add	r0, r7, r0
@@ -132365,18 +143180,18 @@ CheckPartyPokerus:
 	and	r1, r1, r0
 	ldr	r3, [sp]
 	cmp	r1, #0
-	beq	.L2039	@cond_branch
+	beq	.L2046	@cond_branch
 	orr	r5, r5, r6
 	lsl	r0, r5, #0x18
 	lsr	r5, r0, #0x18
-.L2039:
+.L2046:
 	add	r3, r3, #0x1
 	lsl	r6, r6, #0x1
 	lsr	r4, r4, #0x1
 	cmp	r4, #0
-	bne	.L2036	@cond_branch
-	b	.L2042
-.L2035:
+	bne	.L2043	@cond_branch
+	b	.L2049
+.L2042:
 	add	r0, r7, #0
 	mov	r1, #0x22
 	mov	r2, #0x0
@@ -132384,9 +143199,9 @@ CheckPartyPokerus:
 	mov	r1, #0xf
 	and	r1, r1, r0
 	cmp	r1, #0
-	beq	.L2042	@cond_branch
+	beq	.L2049	@cond_branch
 	mov	r5, #0x1
-.L2042:
+.L2049:
 	add	r0, r5, #0
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6, r7}
@@ -132408,12 +143223,12 @@ CheckPartyHasHadPokerus:
 	mov	r6, #0x1
 	mov	r5, #0x0
 	cmp	r4, #0
-	beq	.L2045	@cond_branch
-.L2046:
+	beq	.L2052	@cond_branch
+.L2053:
 	mov	r0, #0x1
 	and	r0, r0, r4
 	cmp	r0, #0
-	beq	.L2049	@cond_branch
+	beq	.L2056	@cond_branch
 	mov	r0, #0x64
 	mul	r0, r0, r3
 	add	r0, r7, r0
@@ -132423,26 +143238,26 @@ CheckPartyHasHadPokerus:
 	bl	GetMonData
 	ldr	r3, [sp]
 	cmp	r0, #0
-	beq	.L2049	@cond_branch
+	beq	.L2056	@cond_branch
 	orr	r5, r5, r6
 	lsl	r0, r5, #0x18
 	lsr	r5, r0, #0x18
-.L2049:
+.L2056:
 	add	r3, r3, #0x1
 	lsl	r6, r6, #0x1
 	lsr	r4, r4, #0x1
 	cmp	r4, #0
-	bne	.L2046	@cond_branch
-	b	.L2052
-.L2045:
+	bne	.L2053	@cond_branch
+	b	.L2059
+.L2052:
 	add	r0, r7, #0
 	mov	r1, #0x22
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L2052	@cond_branch
+	beq	.L2059	@cond_branch
 	mov	r5, #0x1
-.L2052:
+.L2059:
 	add	r0, r5, #0
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6, r7}
@@ -132461,18 +143276,18 @@ UpdatePartyPokerusTime:
 	lsr	r7, r0, #0x10
 	mov	r6, #0x0
 	mov	r5, sp
-.L2058:
+.L2065:
 	mov	r0, #0x64
 	mov	r1, r6
 	mul	r1, r1, r0
-	ldr	r0, .L2067
+	ldr	r0, .L2074
 	add	r4, r1, r0
 	add	r0, r4, #0
 	mov	r1, #0xb
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L2057	@cond_branch
+	beq	.L2064	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x22
 	mov	r2, #0x0
@@ -132484,47 +143299,47 @@ UpdatePartyPokerusTime:
 	add	r2, r0, #0
 	and	r1, r1, r2
 	cmp	r1, #0
-	beq	.L2057	@cond_branch
+	beq	.L2064	@cond_branch
 	cmp	r1, r7
-	bcc	.L2062	@cond_branch
+	bcc	.L2069	@cond_branch
 	cmp	r7, #0x4
-	bls	.L2061	@cond_branch
-.L2062:
+	bls	.L2068	@cond_branch
+.L2069:
 	mov	r0, #0xf0
 	and	r0, r0, r2
-	b	.L2066
-.L2068:
+	b	.L2073
+.L2075:
 	.align	2, 0
-.L2067:
+.L2074:
 	.word	gPlayerParty
-.L2061:
+.L2068:
 	sub	r0, r2, r7
-.L2066:
+.L2073:
 	strb	r0, [r5]
 	ldrb	r0, [r5]
 	cmp	r0, #0
-	bne	.L2064	@cond_branch
+	bne	.L2071	@cond_branch
 	mov	r0, #0x10
 	strb	r0, [r5]
-.L2064:
+.L2071:
 	mov	r0, #0x64
 	mul	r0, r0, r6
-	ldr	r1, .L2069
+	ldr	r1, .L2076
 	add	r0, r0, r1
 	mov	r1, #0x22
 	mov	r2, sp
 	bl	SetMonData
-.L2057:
+.L2064:
 	add	r6, r6, #0x1
 	cmp	r6, #0x5
-	ble	.L2058	@cond_branch
+	ble	.L2065	@cond_branch
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2070:
+.L2077:
 	.align	2, 0
-.L2069:
+.L2076:
 	.word	gPlayerParty
 .Lfe111:
 	.size	 UpdatePartyPokerusTime,.Lfe111-UpdatePartyPokerusTime
@@ -132543,9 +143358,9 @@ PartySpreadPokerus:
 	bl	__umodsi3
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L2072	@cond_branch
+	bne	.L2079	@cond_branch
 	mov	r5, #0x0
-.L2076:
+.L2083:
 	mov	r0, #0x64
 	mov	r6, r5
 	mul	r6, r6, r0
@@ -132555,7 +143370,7 @@ PartySpreadPokerus:
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L2075	@cond_branch
+	beq	.L2082	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x22
 	mov	r2, #0x0
@@ -132565,13 +143380,13 @@ PartySpreadPokerus:
 	mov	r0, sp
 	strb	r1, [r0]
 	cmp	r1, #0
-	beq	.L2075	@cond_branch
+	beq	.L2082	@cond_branch
 	mov	r0, #0xf
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2075	@cond_branch
+	beq	.L2082	@cond_branch
 	cmp	r5, #0
-	beq	.L2080	@cond_branch
+	beq	.L2087	@cond_branch
 	add	r0, r6, #0
 	sub	r0, r0, #0x64
 	add	r4, r7, r0
@@ -132582,14 +143397,14 @@ PartySpreadPokerus:
 	mov	r1, #0xf0
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L2080	@cond_branch
+	bne	.L2087	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x22
 	mov	r2, sp
 	bl	SetMonData
-.L2080:
+.L2087:
 	cmp	r5, #0x5
-	beq	.L2075	@cond_branch
+	beq	.L2082	@cond_branch
 	mov	r0, #0x64
 	mul	r0, r0, r5
 	add	r0, r0, #0x64
@@ -132601,17 +143416,17 @@ PartySpreadPokerus:
 	mov	r1, #0xf0
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L2075	@cond_branch
+	bne	.L2082	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x22
 	mov	r2, sp
 	bl	SetMonData
 	add	r5, r5, #0x1
-.L2075:
+.L2082:
 	add	r5, r5, #0x1
 	cmp	r5, #0x5
-	ble	.L2076	@cond_branch
-.L2072:
+	ble	.L2083	@cond_branch
+.L2079:
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
@@ -132656,8 +143471,8 @@ TryIncrementMonLevel:
 	mov	r2, #0x0
 	bl	GetMonData
 	str	r0, [sp, #0x4]
-	ldr	r6, .L2089
-	ldr	r2, .L2089+0x4
+	ldr	r6, .L2096
+	ldr	r2, .L2096+0x4
 	lsl	r1, r4, #0x3
 	add	r1, r1, r4
 	lsl	r1, r1, #0x2
@@ -132673,39 +143488,39 @@ TryIncrementMonLevel:
 	add	r1, r4, r1
 	ldr	r1, [r1]
 	cmp	r0, r1
-	bls	.L2084	@cond_branch
+	bls	.L2091	@cond_branch
 	str	r1, [sp, #0x4]
 	add	r2, sp, #0x4
 	add	r0, r5, #0
 	mov	r1, #0x19
 	bl	SetMonData
-.L2084:
+.L2091:
 	mov	r0, sp
 	ldrb	r0, [r0]
 	cmp	r0, #0x64
-	bhi	.L2086	@cond_branch
+	bhi	.L2093	@cond_branch
 	lsl	r0, r0, #0x2
 	add	r0, r0, r4
 	add	r0, r0, r6
 	ldr	r1, [sp, #0x4]
 	ldr	r0, [r0]
 	cmp	r1, r0
-	bcs	.L2085	@cond_branch
-.L2086:
+	bcs	.L2092	@cond_branch
+.L2093:
 	mov	r0, #0x0
-	b	.L2088
-.L2090:
+	b	.L2095
+.L2097:
 	.align	2, 0
-.L2089:
+.L2096:
 	.word	gExperienceTables
 	.word	gBaseStats
-.L2085:
+.L2092:
 	add	r0, r5, #0
 	mov	r1, #0x38
 	mov	r2, sp
 	bl	SetMonData
 	mov	r0, #0x1
-.L2088:
+.L2095:
 	add	sp, sp, #0x8
 	pop	{r4, r5, r6}
 	pop	{r1}
@@ -132738,39 +143553,39 @@ CanMonLearnTMHM:
 	bl	GetFormSpeciesId
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
-	ldr	r0, .L2101
+	ldr	r0, .L2108
 	cmp	r4, r0
-	bne	.L2092	@cond_branch
-	b	.L2094
-.L2102:
+	bne	.L2099	@cond_branch
+	b	.L2101
+.L2109:
 	.align	2, 0
-.L2101:
+.L2108:
 	.word	0x4b7
-.L2099:
+.L2106:
 	mov	r0, #0x1
-	b	.L2098
-.L2092:
-	ldr	r0, .L2103
+	b	.L2105
+.L2099:
+	ldr	r0, .L2110
 	lsl	r1, r1, #0x2
 	add	r1, r1, r0
 	ldr	r1, [r1]
-	b	.L2100
-.L2104:
+	b	.L2107
+.L2111:
 	.align	2, 0
-.L2103:
+.L2110:
 	.word	gTMHMLearnsets
-.L2095:
+.L2102:
 	cmp	r2, r6
-	beq	.L2099	@cond_branch
+	beq	.L2106	@cond_branch
 	add	r1, r1, #0x1
-.L2100:
+.L2107:
 	ldrb	r2, [r1]
 	add	r0, r2, #0
 	cmp	r0, #0xff
-	bne	.L2095	@cond_branch
-.L2094:
+	bne	.L2102	@cond_branch
+.L2101:
 	mov	r0, #0x0
-.L2098:
+.L2105:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
@@ -132786,39 +143601,39 @@ CanSpeciesLearnTMHM:
 	lsr	r2, r0, #0x10
 	lsl	r1, r1, #0x18
 	lsr	r3, r1, #0x18
-	ldr	r0, .L2115
+	ldr	r0, .L2122
 	cmp	r2, r0
-	bne	.L2106	@cond_branch
-	b	.L2108
-.L2116:
+	bne	.L2113	@cond_branch
+	b	.L2115
+.L2123:
 	.align	2, 0
-.L2115:
+.L2122:
 	.word	0x4b7
-.L2113:
+.L2120:
 	mov	r0, #0x1
-	b	.L2112
-.L2106:
-	ldr	r0, .L2117
+	b	.L2119
+.L2113:
+	ldr	r0, .L2124
 	lsl	r1, r2, #0x2
 	add	r1, r1, r0
 	ldr	r1, [r1]
-	b	.L2114
-.L2118:
+	b	.L2121
+.L2125:
 	.align	2, 0
-.L2117:
+.L2124:
 	.word	gTMHMLearnsets
-.L2109:
+.L2116:
 	cmp	r2, r3
-	beq	.L2113	@cond_branch
+	beq	.L2120	@cond_branch
 	add	r1, r1, #0x1
-.L2114:
+.L2121:
 	ldrb	r2, [r1]
 	add	r0, r2, #0
 	cmp	r0, #0xff
-	bne	.L2109	@cond_branch
-.L2108:
+	bne	.L2116	@cond_branch
+.L2115:
 	mov	r0, #0x0
-.L2112:
+.L2119:
 	pop	{r1}
 	bx	r1
 .Lfe115:
@@ -132833,19 +143648,29 @@ GetMoveRelearnerMoves:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x14
-	add	r6, r0, #0
-	mov	sl, r1
+	add	sp, sp, #-0x2c
+	add	r7, r0, #0
+	mov	r9, r1
 	mov	r0, #0x0
 	mov	r8, r0
-	add	r0, r6, #0
+	add	r0, r7, #0
 	mov	r1, #0xb
 	mov	r2, #0x0
 	bl	GetMonData
 	add	r4, r0, #0
 	lsl	r4, r4, #0x10
 	lsr	r4, r4, #0x10
-	add	r0, r6, #0
+	add	r0, r4, #0
+	bl	GetFirstEvolution
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	add	r5, sp, #0x8
+	add	r1, r5, #0
+	bl	GetEggMovesSpecies
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	str	r0, [sp, #0x1c]
+	add	r0, r7, #0
 	mov	r1, #0x59
 	mov	r2, #0x0
 	bl	GetMonData
@@ -132855,130 +143680,155 @@ GetMoveRelearnerMoves:
 	add	r0, r4, #0
 	bl	GetFormSpeciesId
 	lsl	r0, r0, #0x10
-	lsr	r7, r0, #0x10
-	add	r0, r6, #0
+	lsr	r0, r0, #0x10
+	mov	sl, r0
+	add	r0, r7, #0
 	mov	r1, #0x38
 	mov	r2, #0x0
 	bl	GetMonData
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	str	r0, [sp, #0x8]
-	mov	r5, #0x0
+	str	r0, [sp, #0x20]
+	mov	r6, #0x0
 	mov	r4, sp
-.L2123:
-	add	r1, r5, #0
+.L2130:
+	add	r1, r6, #0
 	add	r1, r1, #0xd
-	add	r0, r6, #0
+	add	r0, r7, #0
 	mov	r2, #0x0
 	bl	GetMonData
 	strh	r0, [r4]
 	add	r4, r4, #0x2
-	add	r5, r5, #0x1
-	cmp	r5, #0x3
-	ble	.L2123	@cond_branch
-	mov	r5, #0x0
-	ldr	r6, .L2146
-	lsl	r1, r7, #0x2
-	add	r2, r1, r6
+	add	r6, r6, #0x1
+	cmp	r6, #0x3
+	ble	.L2130	@cond_branch
+	mov	r6, #0x0
+	ldr	r5, .L2159
+	mov	r2, sl
+	lsl	r1, r2, #0x2
+	add	r2, r1, r5
 	ldr	r3, [r2]
 	ldrh	r0, [r3]
-	ldr	r4, .L2146+0x4
-	mov	r9, r1
+	ldr	r4, .L2159+0x4
+	mov	sl, r1
 	cmp	r0, r4
-	beq	.L2126	@cond_branch
-	mov	ip, r2
-	str	r3, [sp, #0xc]
-	ldr	r1, [sp, #0x8]
-	str	r1, [sp, #0x10]
-.L2129:
-	lsl	r0, r5, #0x2
-	ldr	r1, [sp, #0xc]
+	beq	.L2133	@cond_branch
+	add	r7, r2, #0
+	str	r3, [sp, #0x24]
+	ldr	r0, [sp, #0x20]
+	str	r0, [sp, #0x28]
+.L2136:
+	lsl	r0, r6, #0x2
+	ldr	r1, [sp, #0x24]
 	add	r2, r0, r1
 	ldrh	r1, [r2, #0x2]
-	add	r7, r5, #0x1
-	add	r6, r0, #0
-	ldr	r0, [sp, #0x10]
+	add	r6, r6, #0x1
+	mov	ip, r6
+	add	r5, r0, #0
+	ldr	r0, [sp, #0x28]
 	cmp	r1, r0
-	bhi	.L2127	@cond_branch
+	bhi	.L2134	@cond_branch
 	mov	r3, #0x0
 	mov	r0, sp
 	ldrh	r0, [r0]
 	ldrh	r2, [r2]
 	cmp	r0, r2
-	beq	.L2132	@cond_branch
-	ldr	r5, .L2146
-	add	r5, r5, r9
-	mov	r2, sp
-	add	r4, r6, #0
-.L2133:
-	add	r2, r2, #0x2
-	add	r3, r3, #0x1
-	cmp	r3, #0x3
-	bgt	.L2132	@cond_branch
-	ldr	r0, [r5]
-	add	r0, r4, r0
-	ldrh	r1, [r2]
-	ldrh	r0, [r0]
-	cmp	r1, r0
-	bne	.L2133	@cond_branch
-.L2132:
-	cmp	r3, #0x4
-	bne	.L2127	@cond_branch
-	mov	r3, #0x0
-	cmp	r3, r8
-	bge	.L2139	@cond_branch
-	mov	r1, ip
-	ldr	r0, [r1]
-	add	r0, r6, r0
-	mov	r2, sl
-	ldrh	r1, [r2]
-	ldrh	r0, [r0]
-	cmp	r1, r0
 	beq	.L2139	@cond_branch
-	ldr	r5, .L2146
-	add	r5, r5, r9
-	add	r4, r6, #0
+	ldr	r6, .L2159
+	add	r6, r6, sl
+	mov	r2, sp
+	add	r4, r5, #0
 .L2140:
 	add	r2, r2, #0x2
 	add	r3, r3, #0x1
-	cmp	r3, r8
-	bge	.L2139	@cond_branch
-	ldr	r0, [r5]
+	cmp	r3, #0x3
+	bgt	.L2139	@cond_branch
+	ldr	r0, [r6]
 	add	r0, r4, r0
 	ldrh	r1, [r2]
 	ldrh	r0, [r0]
 	cmp	r1, r0
 	bne	.L2140	@cond_branch
 .L2139:
+	cmp	r3, #0x4
+	bne	.L2134	@cond_branch
+	mov	r3, #0x0
 	cmp	r3, r8
-	bne	.L2127	@cond_branch
+	bge	.L2146	@cond_branch
+	ldr	r0, [r7]
+	add	r0, r5, r0
+	mov	r2, r9
+	ldrh	r1, [r2]
+	ldrh	r0, [r0]
+	cmp	r1, r0
+	beq	.L2146	@cond_branch
+	ldr	r6, .L2159
+	add	r6, r6, sl
+	add	r4, r5, #0
+.L2147:
+	add	r2, r2, #0x2
+	add	r3, r3, #0x1
+	cmp	r3, r8
+	bge	.L2146	@cond_branch
+	ldr	r0, [r6]
+	add	r0, r4, r0
+	ldrh	r1, [r2]
+	ldrh	r0, [r0]
+	cmp	r1, r0
+	bne	.L2147	@cond_branch
+.L2146:
+	cmp	r3, r8
+	bne	.L2134	@cond_branch
 	mov	r0, r8
 	add	r0, r0, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	mov	r8, r0
 	lsl	r1, r3, #0x1
-	add	r1, r1, sl
-	mov	r2, ip
-	ldr	r0, [r2]
-	add	r0, r6, r0
+	add	r1, r1, r9
+	ldr	r0, [r7]
+	add	r0, r5, r0
 	ldrh	r0, [r0]
 	strh	r0, [r1]
-.L2127:
-	add	r5, r7, #0
-	cmp	r7, #0x27
-	bgt	.L2126	@cond_branch
-	mov	r1, ip
-	ldr	r0, [r1]
-	lsl	r1, r7, #0x2
+.L2134:
+	mov	r6, ip
+	cmp	r6, #0x27
+	bgt	.L2133	@cond_branch
+	ldr	r0, [r7]
+	lsl	r1, r6, #0x2
 	add	r1, r1, r0
 	ldrh	r0, [r1]
-	ldr	r2, .L2146+0x4
-	cmp	r0, r2
-	bne	.L2129	@cond_branch
-.L2126:
+	ldr	r1, .L2159+0x4
+	cmp	r0, r1
+	bne	.L2136	@cond_branch
+.L2133:
+	bl	GetNumBadges
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x5
+	bls	.L2153	@cond_branch
+	ldr	r2, [sp, #0x1c]
+	cmp	r2, #0
+	beq	.L2153	@cond_branch
+	add	r5, sp, #0x8
+	add	r6, r2, #0
+.L2157:
 	mov	r0, r8
-	add	sp, sp, #0x14
+	add	r1, r0, #0x1
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
+	mov	r8, r1
+	lsl	r0, r0, #0x1
+	add	r0, r0, r9
+	ldrh	r1, [r5]
+	strh	r1, [r0]
+	add	r5, r5, #0x2
+	sub	r6, r6, #0x1
+	cmp	r6, #0
+	bne	.L2157	@cond_branch
+.L2153:
+	mov	r0, r8
+	add	sp, sp, #0x2c
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -132986,9 +143836,9 @@ GetMoveRelearnerMoves:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L2147:
+.L2160:
 	.align	2, 0
-.L2146:
+.L2159:
 	.word	gLevelUpLearnsets
 	.word	0xffff
 .Lfe116:
@@ -133009,17 +143859,17 @@ GetLevelUpMovesBySpecies:
 	lsl	r0, r0, #0x10
 	mov	r4, #0x0
 	mov	r3, #0x0
-	ldr	r1, .L2155
+	ldr	r1, .L2168
 	lsr	r0, r0, #0xe
 	add	r0, r0, r1
 	ldr	r1, [r0]
 	ldrh	r0, [r1]
-	ldr	r2, .L2155+0x4
+	ldr	r2, .L2168+0x4
 	cmp	r0, r2
-	beq	.L2150	@cond_branch
+	beq	.L2163	@cond_branch
 	add	r5, r2, #0
 	add	r2, r1, #0
-.L2152:
+.L2165:
 	add	r0, r4, #0
 	add	r1, r0, #0x1
 	lsl	r1, r1, #0x18
@@ -133031,18 +143881,18 @@ GetLevelUpMovesBySpecies:
 	add	r2, r2, #0x4
 	add	r3, r3, #0x1
 	cmp	r3, #0x27
-	bgt	.L2150	@cond_branch
+	bgt	.L2163	@cond_branch
 	ldrh	r0, [r2]
 	cmp	r0, r5
-	bne	.L2152	@cond_branch
-.L2150:
+	bne	.L2165	@cond_branch
+.L2163:
 	add	r0, r4, #0
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.L2156:
+.L2169:
 	.align	2, 0
-.L2155:
+.L2168:
 	.word	gLevelUpLearnsets
 	.word	0xffff
 .Lfe117:
@@ -133057,17 +143907,37 @@ GetNumberOfRelearnableMoves:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x5c
+	add	sp, sp, #-0x34
+	mov	r7, sp
 	add	r6, r0, #0
-	mov	r0, #0x0
-	mov	r8, r0
+	mov	r1, sp
+	add	r0, r1, #0
+	str	r0, [r7, #0x28]
+	mov	r2, #0x0
+	mov	r8, r2
 	add	r0, r6, #0
 	mov	r1, #0x41
-	mov	r2, #0x0
 	bl	GetMonData
 	add	r4, r0, #0
 	lsl	r4, r4, #0x10
 	lsr	r4, r4, #0x10
+	add	r0, r4, #0
+	bl	GetFirstEvolution
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	add	r1, r7, #0
+	bl	GetEggMovesSpecies
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	str	r0, [r7, #0x1c]
+	lsl	r0, r0, #0x1
+	add	r0, r0, #0x53
+	lsr	r0, r0, #0x2
+	lsl	r0, r0, #0x2
+	mov	r1, sp
+	sub	r1, r1, r0
+	mov	sp, r1
+	mov	r9, sp
 	add	r0, r6, #0
 	mov	r1, #0x59
 	mov	r2, #0x0
@@ -133078,117 +143948,121 @@ GetNumberOfRelearnableMoves:
 	add	r0, r4, #0
 	bl	GetFormSpeciesId
 	lsl	r0, r0, #0x10
-	lsr	r7, r0, #0x10
+	lsr	r5, r0, #0x10
 	add	r0, r6, #0
 	mov	r1, #0x38
 	mov	r2, #0x0
 	bl	GetMonData
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	mov	r9, r0
-	ldr	r0, .L2186
+	str	r0, [r7, #0x20]
+	ldr	r0, .L2205
 	cmp	r4, r0
-	bne	.L2158	@cond_branch
+	bne	.L2171	@cond_branch
 	mov	r0, #0x0
-	b	.L2185
-.L2187:
+	b	.L2204
+.L2206:
 	.align	2, 0
-.L2186:
+.L2205:
 	.word	0x4b7
-.L2158:
-	mov	r5, #0x0
-	lsl	r7, r7, #0x2
-	mov	sl, r7
-	mov	r4, sp
-.L2162:
-	add	r1, r5, #0
+.L2171:
+	mov	r4, #0x0
+	mov	r2, #0x14
+	add	r2, r2, r7
+	mov	sl, r2
+	lsl	r5, r5, #0x2
+	str	r5, [r7, #0x2c]
+	mov	r5, sl
+.L2175:
+	add	r1, r4, #0
 	add	r1, r1, #0xd
 	add	r0, r6, #0
 	mov	r2, #0x0
 	bl	GetMonData
-	strh	r0, [r4]
-	add	r4, r4, #0x2
-	add	r5, r5, #0x1
-	cmp	r5, #0x3
-	ble	.L2162	@cond_branch
-	mov	r5, #0x0
-	ldr	r3, .L2188
-	mov	r2, sl
-	add	r1, r2, r3
+	strh	r0, [r5]
+	add	r5, r5, #0x2
+	add	r4, r4, #0x1
+	cmp	r4, #0x3
+	ble	.L2175	@cond_branch
+	mov	r4, #0x0
+	ldr	r3, .L2207
+	ldr	r0, [r7, #0x2c]
+	add	r1, r0, r3
 	ldr	r0, [r1]
 	ldrh	r0, [r0]
-	ldr	r2, .L2188+0x4
+	ldr	r2, .L2207+0x4
 	cmp	r0, r2
-	beq	.L2165	@cond_branch
-	mov	ip, r1
-	mov	r0, r9
-	str	r0, [sp, #0x58]
-	add	r1, sp, #0x8
-	mov	r9, r1
-.L2168:
-	mov	r2, ip
+	beq	.L2178	@cond_branch
+	str	r1, [r7, #0x30]
+	ldr	r1, [r7, #0x20]
+	str	r1, [r7, #0x24]
+	mov	ip, sl
+.L2181:
+	ldr	r2, [r7, #0x30]
 	ldr	r0, [r2]
-	lsl	r1, r5, #0x2
+	lsl	r1, r4, #0x2
 	add	r2, r1, r0
 	ldrh	r0, [r2, #0x2]
-	add	r7, r5, #0x1
+	add	r4, r4, #0x1
+	mov	sl, r4
 	add	r6, r1, #0
-	ldr	r1, [sp, #0x58]
+	ldr	r1, [r7, #0x24]
 	cmp	r0, r1
-	bhi	.L2166	@cond_branch
+	bhi	.L2179	@cond_branch
 	mov	r3, #0x0
-	mov	r0, sp
-	ldrh	r0, [r0]
+	mov	r1, ip
+	ldrh	r0, [r1]
 	ldrh	r2, [r2]
 	cmp	r0, r2
-	beq	.L2171	@cond_branch
-	ldr	r5, .L2188
-	add	r5, r5, sl
-	mov	r2, sp
+	beq	.L2184	@cond_branch
+	ldr	r2, [r7, #0x2c]
+	ldr	r0, .L2207
+	add	r5, r2, r0
+	mov	r2, ip
 	add	r4, r6, #0
-.L2172:
+.L2185:
 	add	r2, r2, #0x2
 	add	r3, r3, #0x1
 	cmp	r3, #0x3
-	bgt	.L2171	@cond_branch
+	bgt	.L2184	@cond_branch
 	ldr	r0, [r5]
 	add	r0, r4, r0
 	ldrh	r1, [r2]
 	ldrh	r0, [r0]
 	cmp	r1, r0
-	bne	.L2172	@cond_branch
-.L2171:
+	bne	.L2185	@cond_branch
+.L2184:
 	cmp	r3, #0x4
-	bne	.L2166	@cond_branch
+	bne	.L2179	@cond_branch
 	mov	r3, #0x0
 	cmp	r3, r8
-	bge	.L2178	@cond_branch
-	mov	r2, ip
-	ldr	r0, [r2]
+	bge	.L2191	@cond_branch
+	ldr	r1, [r7, #0x30]
+	ldr	r0, [r1]
 	add	r0, r6, r0
 	mov	r2, r9
 	ldrh	r1, [r2]
-	add	r2, sp, #0x8
 	ldrh	r0, [r0]
 	cmp	r1, r0
-	beq	.L2178	@cond_branch
-	ldr	r5, .L2188
-	add	r5, r5, sl
+	beq	.L2191	@cond_branch
+	ldr	r0, [r7, #0x2c]
+	ldr	r1, .L2207
+	add	r5, r0, r1
 	add	r4, r6, #0
-.L2179:
+.L2192:
 	add	r2, r2, #0x2
 	add	r3, r3, #0x1
 	cmp	r3, r8
-	bge	.L2178	@cond_branch
+	bge	.L2191	@cond_branch
 	ldr	r0, [r5]
 	add	r0, r4, r0
 	ldrh	r1, [r2]
 	ldrh	r0, [r0]
 	cmp	r1, r0
-	bne	.L2179	@cond_branch
-.L2178:
+	bne	.L2192	@cond_branch
+.L2191:
 	cmp	r3, r8
-	bne	.L2166	@cond_branch
+	bne	.L2179	@cond_branch
 	mov	r0, r8
 	add	r0, r0, #0x1
 	lsl	r0, r0, #0x18
@@ -133196,27 +144070,54 @@ GetNumberOfRelearnableMoves:
 	mov	r8, r0
 	lsl	r1, r3, #0x1
 	add	r1, r1, r9
-	mov	r2, ip
+	ldr	r2, [r7, #0x30]
 	ldr	r0, [r2]
 	add	r0, r6, r0
 	ldrh	r0, [r0]
 	strh	r0, [r1]
-.L2166:
-	add	r5, r7, #0
-	cmp	r7, #0x27
-	bgt	.L2165	@cond_branch
-	mov	r1, ip
+.L2179:
+	mov	r4, sl
+	cmp	r4, #0x27
+	bgt	.L2178	@cond_branch
+	ldr	r1, [r7, #0x30]
 	ldr	r0, [r1]
-	lsl	r1, r7, #0x2
+	lsl	r1, r4, #0x2
 	add	r1, r1, r0
 	ldrh	r0, [r1]
-	ldr	r2, .L2188+0x4
+	ldr	r2, .L2207+0x4
 	cmp	r0, r2
-	bne	.L2168	@cond_branch
-.L2165:
+	bne	.L2181	@cond_branch
+.L2178:
+	bl	GetNumBadges
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x5
+	bls	.L2198	@cond_branch
+	ldr	r0, [r7, #0x1c]
+	cmp	r0, #0
+	beq	.L2198	@cond_branch
+	add	r2, r7, #0
+	add	r4, r0, #0
+.L2202:
 	mov	r0, r8
-.L2185:
-	add	sp, sp, #0x5c
+	add	r1, r0, #0x1
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
+	mov	r8, r1
+	lsl	r0, r0, #0x1
+	add	r0, r0, r9
+	ldrh	r1, [r2]
+	strh	r1, [r0]
+	add	r2, r2, #0x2
+	sub	r4, r4, #0x1
+	cmp	r4, #0
+	bne	.L2202	@cond_branch
+.L2198:
+	mov	r0, r8
+.L2204:
+	ldr	r1, [r7, #0x28]
+	mov	sp, r1
+	add	sp, sp, #0x34
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -133224,9 +144125,9 @@ GetNumberOfRelearnableMoves:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L2189:
+.L2208:
 	.align	2, 0
-.L2188:
+.L2207:
 	.word	gLevelUpLearnsets
 	.word	0xffff
 .Lfe118:
@@ -133241,27 +144142,27 @@ SpeciesToPokedexNum:
 	lsr	r4, r0, #0x10
 	bl	IsNationalPokedexEnabled
 	cmp	r0, #0
-	beq	.L2191	@cond_branch
+	beq	.L2210	@cond_branch
 	add	r0, r4, #0
 	bl	SpeciesToNationalPokedexNum
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	b	.L2194
-.L2191:
+	b	.L2213
+.L2210:
 	add	r0, r4, #0
 	bl	SpeciesToHoennPokedexNum
 	add	r4, r0, #0
 	cmp	r4, #0xd4
-	bls	.L2193	@cond_branch
-	ldr	r0, .L2195
-	b	.L2194
-.L2196:
+	bls	.L2212	@cond_branch
+	ldr	r0, .L2214
+	b	.L2213
+.L2215:
 	.align	2, 0
-.L2195:
+.L2214:
 	.word	0xffff
-.L2193:
+.L2212:
 	add	r0, r4, #0
-.L2194:
+.L2213:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
@@ -133279,12 +144180,12 @@ IsSpeciesInHoennDex:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0xd4
-	bhi	.L2198	@cond_branch
+	bhi	.L2217	@cond_branch
 	mov	r0, #0x1
-	b	.L2200
-.L2198:
+	b	.L2219
+.L2217:
 	mov	r0, #0x0
-.L2200:
+.L2219:
 	pop	{r1}
 	bx	r1
 .Lfe120:
@@ -133295,19 +144196,19 @@ IsSpeciesInHoennDex:
 	.thumb_func
 ClearBattleMonForms:
 	push	{lr}
-	ldr	r1, .L2207
+	ldr	r1, .L2226
 	mov	r2, #0x0
 	add	r0, r1, #0x3
-.L2205:
+.L2224:
 	strb	r2, [r0]
 	sub	r0, r0, #0x1
 	cmp	r0, r1
-	bge	.L2205	@cond_branch
+	bge	.L2224	@cond_branch
 	pop	{r0}
 	bx	r0
-.L2208:
+.L2227:
 	.align	2, 0
-.L2207:
+.L2226:
 	.word	gBattleMonForms
 .Lfe121:
 	.size	 ClearBattleMonForms,.Lfe121-ClearBattleMonForms
@@ -133317,239 +144218,239 @@ ClearBattleMonForms:
 	.thumb_func
 GetBattleBGM:
 	push	{lr}
-	ldr	r0, .L2247
+	ldr	r0, .L2266
 	ldr	r1, [r0]
 	mov	r0, #0x80
 	lsl	r0, r0, #0x5
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2210	@cond_branch
+	beq	.L2229	@cond_branch
 	mov	r0, #0xf0
 	lsl	r0, r0, #0x1
-	b	.L2244
-.L2248:
+	b	.L2263
+.L2267:
 	.align	2, 0
-.L2247:
+.L2266:
 	.word	gBattleTypeFlags
-.L2210:
+.L2229:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x7
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2212	@cond_branch
-	ldr	r0, .L2249
-	b	.L2244
-.L2250:
+	beq	.L2231	@cond_branch
+	ldr	r0, .L2268
+	b	.L2263
+.L2269:
 	.align	2, 0
-.L2249:
+.L2268:
 	.word	0x1df
-.L2212:
-	ldr	r0, .L2251
+.L2231:
+	ldr	r0, .L2270
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB18032
-	b	.L2241	@long jump
-.LCB18032:
+	beq	.LCB18284
+	b	.L2260	@long jump
+.LCB18284:
 	mov	r0, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB18036
-	b	.L2216	@long jump
-.LCB18036:
-	ldr	r0, .L2251+0x4
+	bne	.LCB18288
+	b	.L2235	@long jump
+.LCB18288:
+	ldr	r0, .L2270+0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2217	@cond_branch
-	ldr	r0, .L2251+0x8
+	beq	.L2236	@cond_branch
+	ldr	r0, .L2270+0x8
 	ldrh	r0, [r0]
 	bl	GetFrontierOpponentClass
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	b	.L2218
-.L2252:
+	b	.L2237
+.L2271:
 	.align	2, 0
-.L2251:
+.L2270:
 	.word	0x2000002
 	.word	0x3f0100
 	.word	gTrainerBattleOpponent_A
-.L2217:
+.L2236:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x13
 	and	r1, r1, r0
 	cmp	r1, #0
-	beq	.L2219	@cond_branch
+	beq	.L2238	@cond_branch
 	mov	r0, #0xa
-	b	.L2218
-.L2219:
-	ldr	r2, .L2253
-	ldr	r0, .L2253+0x4
+	b	.L2237
+.L2238:
+	ldr	r2, .L2272
+	ldr	r0, .L2272+0x4
 	ldrh	r1, [r0]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
 	lsl	r0, r0, #0x3
 	add	r0, r0, r2
 	ldrb	r0, [r0, #0x1]
-.L2218:
+.L2237:
 	sub	r0, r0, #0x3
 	cmp	r0, #0x3d
-	bls	.LCB18081
-	b	.L2241	@long jump
-.LCB18081:
+	bls	.LCB18333
+	b	.L2260	@long jump
+.LCB18333:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L2253+0x8
+	ldr	r1, .L2272+0x8
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L2254:
+.L2273:
 	.align	2, 0
-.L2253:
+.L2272:
 	.word	gTrainers
 	.word	gTrainerBattleOpponent_A
-	.word	.L2242
+	.word	.L2261
 	.align	2, 0
-	.align	2, 0
-.L2242:
-	.word	.L2227
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2227
-	.word	.L2241
-	.word	.L2227
-	.word	.L2241
-	.word	.L2223
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2233
-	.word	.L2228
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2229
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2227
-	.word	.L2230
-	.word	.L2241
-	.word	.L2241
-	.word	.L2223
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2241
-	.word	.L2240
-	.word	.L2240
-	.word	.L2240
-	.word	.L2240
-	.word	.L2240
-	.word	.L2240
-	.word	.L2240
-.L2223:
-	ldr	r0, .L2255
-	b	.L2244
-.L2256:
-	.align	2, 0
-.L2255:
-	.word	0x1e3
-.L2227:
-	ldr	r0, .L2257
-	b	.L2244
-.L2258:
-	.align	2, 0
-.L2257:
-	.word	0x1db
-.L2228:
-	ldr	r0, .L2259
-	b	.L2244
-.L2260:
-	.align	2, 0
-.L2259:
-	.word	0x1dd
-.L2229:
-	mov	r0, #0xef
-	lsl	r0, r0, #0x1
-	b	.L2244
-.L2230:
-	ldr	r0, .L2261
-	ldr	r0, [r0]
-	ldr	r1, .L2261+0x4
-	and	r0, r0, r1
-	cmp	r0, #0
-	beq	.L2231	@cond_branch
-.L2246:
-	ldr	r0, .L2261+0x8
-	b	.L2244
-.L2262:
 	.align	2, 0
 .L2261:
+	.word	.L2246
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2246
+	.word	.L2260
+	.word	.L2246
+	.word	.L2260
+	.word	.L2242
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2252
+	.word	.L2247
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2248
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2246
+	.word	.L2249
+	.word	.L2260
+	.word	.L2260
+	.word	.L2242
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2260
+	.word	.L2259
+	.word	.L2259
+	.word	.L2259
+	.word	.L2259
+	.word	.L2259
+	.word	.L2259
+	.word	.L2259
+.L2242:
+	ldr	r0, .L2274
+	b	.L2263
+.L2275:
+	.align	2, 0
+.L2274:
+	.word	0x1e3
+.L2246:
+	ldr	r0, .L2276
+	b	.L2263
+.L2277:
+	.align	2, 0
+.L2276:
+	.word	0x1db
+.L2247:
+	ldr	r0, .L2278
+	b	.L2263
+.L2279:
+	.align	2, 0
+.L2278:
+	.word	0x1dd
+.L2248:
+	mov	r0, #0xef
+	lsl	r0, r0, #0x1
+	b	.L2263
+.L2249:
+	ldr	r0, .L2280
+	ldr	r0, [r0]
+	ldr	r1, .L2280+0x4
+	and	r0, r0, r1
+	cmp	r0, #0
+	beq	.L2250	@cond_branch
+.L2265:
+	ldr	r0, .L2280+0x8
+	b	.L2263
+.L2281:
+	.align	2, 0
+.L2280:
 	.word	gBattleTypeFlags
 	.word	0x3f0100
 	.word	0x1e1
-.L2231:
-	ldr	r0, .L2263
+.L2250:
+	ldr	r0, .L2282
 	ldrh	r1, [r0]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
 	lsl	r0, r0, #0x3
-	ldr	r1, .L2263+0x4
+	ldr	r1, .L2282+0x4
 	add	r0, r0, r1
-	ldr	r1, .L2263+0x8
+	ldr	r1, .L2282+0x8
 	bl	StringCompare
 	cmp	r0, #0
-	beq	.L2241	@cond_branch
-	b	.L2246
-.L2264:
+	beq	.L2260	@cond_branch
+	b	.L2265
+.L2283:
 	.align	2, 0
-.L2263:
+.L2282:
 	.word	gTrainerBattleOpponent_A
 	.word	gTrainers+0x4
 	.word	gText_BattleWallyName
-.L2233:
+.L2252:
 	mov	r0, #0xf1
 	lsl	r0, r0, #0x1
-	b	.L2244
-.L2240:
-	ldr	r0, .L2265
-	b	.L2244
-.L2266:
+	b	.L2263
+.L2259:
+	ldr	r0, .L2284
+	b	.L2263
+.L2285:
 	.align	2, 0
-.L2265:
+.L2284:
 	.word	0x1d7
-.L2241:
+.L2260:
 	mov	r0, #0xee
 	lsl	r0, r0, #0x1
-	b	.L2244
-.L2216:
+	b	.L2263
+.L2235:
 	mov	r0, #0xed
 	lsl	r0, r0, #0x1
-.L2244:
+.L2263:
 	pop	{r1}
 	bx	r1
 .Lfe122:
@@ -133581,16 +144482,16 @@ PlayMapChosenOrBattleBGM:
 	bl	ResetMapMusic
 	bl	m4aMPlayAllStop
 	cmp	r4, #0
-	beq	.L2269	@cond_branch
+	beq	.L2288	@cond_branch
 	add	r0, r4, #0
 	bl	PlayNewMapMusic
-	b	.L2270
-.L2269:
+	b	.L2289
+.L2288:
 	bl	GetBattleBGM
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	bl	PlayNewMapMusic
-.L2270:
+.L2289:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
@@ -133607,12 +144508,12 @@ sub_806E694:
 	lsr	r4, r4, #0x10
 	bl	ResetMapMusic
 	bl	m4aMPlayAllStop
-	ldr	r0, .L2272
+	ldr	r0, .L2291
 	mov	r1, #0x0
 	bl	CreateTask
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L2272+0x4
+	ldr	r2, .L2291+0x4
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r1, r1, #0x3
@@ -133621,9 +144522,9 @@ sub_806E694:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2273:
+.L2292:
 	.align	2, 0
-.L2272:
+.L2291:
 	.word	sub_806E6CC
 	.word	gTasks
 .Lfe125:
@@ -133635,7 +144536,7 @@ sub_806E6CC:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r1, .L2277
+	ldr	r1, .L2296
 	lsl	r0, r4, #0x2
 	add	r0, r0, r4
 	lsl	r0, r0, #0x3
@@ -133643,20 +144544,20 @@ sub_806E6CC:
 	mov	r2, #0x8
 	ldrsh	r0, [r1, r2]
 	cmp	r0, #0
-	beq	.L2275	@cond_branch
+	beq	.L2294	@cond_branch
 	ldrh	r0, [r1, #0x8]
 	bl	PlayNewMapMusic
-	b	.L2276
-.L2278:
+	b	.L2295
+.L2297:
 	.align	2, 0
-.L2277:
+.L2296:
 	.word	gTasks
-.L2275:
+.L2294:
 	bl	GetBattleBGM
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	bl	PlayNewMapMusic
-.L2276:
+.L2295:
 	add	r0, r4, #0
 	bl	DestroyTask
 	pop	{r4}
@@ -133717,20 +144618,20 @@ GetMonSpritePalFromSpeciesAndPersonality:
 	add	r5, r2, #0
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
-	ldr	r0, .L2291
+	ldr	r0, .L2310
 	cmp	r4, r0
-	bls	.L2281	@cond_branch
-	ldr	r0, .L2291+0x4
+	bls	.L2300	@cond_branch
+	ldr	r0, .L2310+0x4
 	ldr	r0, [r0]
-	b	.L2289
-.L2292:
+	b	.L2308
+.L2311:
 	.align	2, 0
-.L2291:
+.L2310:
 	.word	0x4b7
 	.word	gMonPaletteTable
-.L2281:
+.L2300:
 	lsr	r1, r3, #0x10
-	ldr	r2, .L2293
+	ldr	r2, .L2312
 	and	r3, r3, r2
 	eor	r1, r1, r3
 	lsr	r0, r5, #0x10
@@ -133739,67 +144640,67 @@ GetMonSpritePalFromSpeciesAndPersonality:
 	and	r0, r0, r2
 	eor	r1, r1, r0
 	cmp	r1, #0x7
-	bhi	.L2282	@cond_branch
-	ldr	r0, .L2293+0x4
+	bhi	.L2301	@cond_branch
+	ldr	r0, .L2312+0x4
 	add	r0, r4, r0
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L2283	@cond_branch
+	beq	.L2302	@cond_branch
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	GetGenderFromSpeciesAndPersonality
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xfe
-	bne	.L2283	@cond_branch
-	ldr	r0, .L2293+0x8
-	b	.L2290
-.L2294:
+	bne	.L2302	@cond_branch
+	ldr	r0, .L2312+0x8
+	b	.L2309
+.L2313:
 	.align	2, 0
-.L2293:
+.L2312:
 	.word	0xffff
 	.word	SpeciesHasGenderDifference
 	.word	gMonShinyPaletteTableFemale
-.L2283:
-	ldr	r0, .L2295
-	b	.L2290
-.L2296:
+.L2302:
+	ldr	r0, .L2314
+	b	.L2309
+.L2315:
 	.align	2, 0
-.L2295:
+.L2314:
 	.word	gMonShinyPaletteTable
-.L2282:
-	ldr	r0, .L2297
+.L2301:
+	ldr	r0, .L2316
 	add	r0, r4, r0
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L2286	@cond_branch
+	beq	.L2305	@cond_branch
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	GetGenderFromSpeciesAndPersonality
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xfe
-	bne	.L2286	@cond_branch
-	ldr	r0, .L2297+0x4
-	b	.L2290
-.L2298:
+	bne	.L2305	@cond_branch
+	ldr	r0, .L2316+0x4
+	b	.L2309
+.L2317:
 	.align	2, 0
-.L2297:
+.L2316:
 	.word	SpeciesHasGenderDifference
 	.word	gMonPaletteTableFemale
-.L2286:
-	ldr	r0, .L2299
-.L2290:
+.L2305:
+	ldr	r0, .L2318
+.L2309:
 	lsl	r1, r4, #0x3
 	add	r1, r1, r0
 	ldr	r0, [r1]
-.L2289:
+.L2308:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.L2300:
+.L2319:
 	.align	2, 0
-.L2299:
+.L2318:
 	.word	gMonPaletteTable
 .Lfe128:
 	.size	 GetMonSpritePalFromSpeciesAndPersonality,.Lfe128-GetMonSpritePalFromSpeciesAndPersonality
@@ -133856,7 +144757,7 @@ GetMonSpritePalStructFromOtIdPersonality:
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	lsr	r2, r1, #0x10
-	ldr	r3, .L2314
+	ldr	r3, .L2333
 	and	r1, r1, r3
 	eor	r2, r2, r1
 	lsr	r0, r5, #0x10
@@ -133865,68 +144766,68 @@ GetMonSpritePalStructFromOtIdPersonality:
 	and	r0, r0, r3
 	eor	r2, r2, r0
 	cmp	r2, #0x7
-	bhi	.L2303	@cond_branch
-	ldr	r0, .L2314+0x4
+	bhi	.L2322	@cond_branch
+	ldr	r0, .L2333+0x4
 	add	r0, r4, r0
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L2304	@cond_branch
+	beq	.L2323	@cond_branch
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	GetGenderFromSpeciesAndPersonality
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xfe
-	bne	.L2304	@cond_branch
+	bne	.L2323	@cond_branch
 	lsl	r0, r4, #0x3
-	ldr	r1, .L2314+0x8
-	b	.L2311
-.L2315:
+	ldr	r1, .L2333+0x8
+	b	.L2330
+.L2334:
 	.align	2, 0
-.L2314:
+.L2333:
 	.word	0xffff
 	.word	SpeciesHasGenderDifference
 	.word	gMonShinyPaletteTableFemale
-.L2304:
+.L2323:
 	lsl	r0, r4, #0x3
-	ldr	r1, .L2316
-	b	.L2311
-.L2317:
+	ldr	r1, .L2335
+	b	.L2330
+.L2336:
 	.align	2, 0
-.L2316:
+.L2335:
 	.word	gMonShinyPaletteTable
-.L2303:
-	ldr	r0, .L2318
+.L2322:
+	ldr	r0, .L2337
 	add	r0, r4, r0
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L2307	@cond_branch
+	beq	.L2326	@cond_branch
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	GetGenderFromSpeciesAndPersonality
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xfe
-	bne	.L2307	@cond_branch
+	bne	.L2326	@cond_branch
 	lsl	r0, r4, #0x3
-	ldr	r1, .L2318+0x4
-	b	.L2311
-.L2319:
+	ldr	r1, .L2337+0x4
+	b	.L2330
+.L2338:
 	.align	2, 0
-.L2318:
+.L2337:
 	.word	SpeciesHasGenderDifference
 	.word	gMonPaletteTableFemale
-.L2307:
+.L2326:
 	lsl	r0, r4, #0x3
-	ldr	r1, .L2320
-.L2311:
+	ldr	r1, .L2339
+.L2330:
 	add	r0, r0, r1
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.L2321:
+.L2340:
 	.align	2, 0
-.L2320:
+.L2339:
 	.word	gMonPaletteTable
 .Lfe130:
 	.size	 GetMonSpritePalStructFromOtIdPersonality,.Lfe130-GetMonSpritePalStructFromOtIdPersonality
@@ -133946,7 +144847,7 @@ IsHMMove2:
 IsMonSpriteNotFlipped:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	ldr	r2, .L2324
+	ldr	r2, .L2343
 	lsl	r1, r0, #0x3
 	add	r1, r1, r0
 	lsl	r1, r1, #0x2
@@ -133954,9 +144855,9 @@ IsMonSpriteNotFlipped:
 	ldrb	r0, [r1, #0x1f]
 	lsr	r0, r0, #0x7
 	bx	lr
-.L2325:
+.L2344:
 	.align	2, 0
-.L2324:
+.L2343:
 	.word	gBaseStats
 .Lfe132:
 	.size	 IsMonSpriteNotFlipped,.Lfe132-IsMonSpriteNotFlipped
@@ -133968,10 +144869,11 @@ GetMonFlavorRelation:
 	push	{r4, lr}
 	lsl	r4, r1, #0x18
 	lsr	r4, r4, #0x18
+	mov	r1, #0x0
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L2327
+	ldr	r2, .L2346
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	add	r1, r1, r4
@@ -133981,9 +144883,9 @@ GetMonFlavorRelation:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L2328:
+.L2347:
 	.align	2, 0
-.L2327:
+.L2346:
 	.word	gPokeblockFlavorCompatibilityTable
 .Lfe133:
 	.size	 GetMonFlavorRelation,.Lfe133-GetMonFlavorRelation
@@ -133998,7 +144900,7 @@ GetFlavorRelationByPersonality:
 	bl	GetNatureFromPersonality
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L2330
+	ldr	r2, .L2349
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	add	r1, r1, r4
@@ -134008,9 +144910,9 @@ GetFlavorRelationByPersonality:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L2331:
+.L2350:
 	.align	2, 0
-.L2330:
+.L2349:
 	.word	gPokeblockFlavorCompatibilityTable
 .Lfe134:
 	.size	 GetFlavorRelationByPersonality,.Lfe134-GetFlavorRelationByPersonality
@@ -134046,7 +144948,7 @@ IsTradedMon:
 IsOtherTrainer:
 	push	{r4, r5, lr}
 	add	r5, r1, #0
-	ldr	r1, .L2343
+	ldr	r1, .L2362
 	ldr	r3, [r1]
 	ldrb	r2, [r3, #0xa]
 	ldrb	r1, [r3, #0xb]
@@ -134059,34 +144961,34 @@ IsOtherTrainer:
 	lsl	r1, r1, #0x18
 	orr	r2, r2, r1
 	cmp	r0, r2
-	bne	.L2334	@cond_branch
+	bne	.L2353	@cond_branch
 	mov	r4, #0x0
 	ldrb	r0, [r5]
 	cmp	r0, #0xff
-	beq	.L2336	@cond_branch
+	beq	.L2355	@cond_branch
 	add	r2, r5, #0
-.L2338:
+.L2357:
 	add	r1, r3, r4
 	ldrb	r0, [r2]
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bne	.L2342	@cond_branch
+	bne	.L2361	@cond_branch
 	add	r2, r2, #0x1
 	add	r4, r4, #0x1
 	ldrb	r0, [r2]
 	cmp	r0, #0xff
-	bne	.L2338	@cond_branch
-.L2336:
+	bne	.L2357	@cond_branch
+.L2355:
 	mov	r0, #0x0
-	b	.L2341
-.L2344:
+	b	.L2360
+.L2363:
 	.align	2, 0
-.L2343:
+.L2362:
 	.word	gSaveBlock2Ptr
-.L2342:
-.L2334:
+.L2361:
+.L2353:
 	mov	r0, #0x1
-.L2341:
+.L2360:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
@@ -134112,7 +145014,7 @@ BoxMonRestorePP:
 	add	sp, sp, #-0x4
 	add	r5, r0, #0
 	mov	r6, #0x0
-.L2350:
+.L2369:
 	add	r4, r6, #0
 	add	r4, r4, #0xd
 	add	r0, r5, #0
@@ -134120,7 +145022,7 @@ BoxMonRestorePP:
 	mov	r2, #0x0
 	bl	GetBoxMonData
 	cmp	r0, #0
-	beq	.L2349	@cond_branch
+	beq	.L2368	@cond_branch
 	add	r0, r5, #0
 	add	r1, r4, #0
 	mov	r2, #0x0
@@ -134146,10 +145048,10 @@ BoxMonRestorePP:
 	add	r0, r5, #0
 	mov	r2, sp
 	bl	SetBoxMonData
-.L2349:
+.L2368:
 	add	r6, r6, #0x1
 	cmp	r6, #0x3
-	ble	.L2350	@cond_branch
+	ble	.L2369	@cond_branch
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6}
 	pop	{r0}
@@ -134162,14 +145064,14 @@ BoxMonRestorePP:
 	.thumb_func
 SetMonPreventsSwitchingString:
 	push	{r4, r5, lr}
-	ldr	r2, .L2357
-	ldr	r5, .L2357+0x4
+	ldr	r2, .L2376
+	ldr	r5, .L2376+0x4
 	ldr	r1, [r5]
 	add	r0, r1, #0
 	add	r0, r0, #0xa4
 	ldrh	r0, [r0]
 	strh	r0, [r2]
-	ldr	r4, .L2357+0x8
+	ldr	r4, .L2376+0x8
 	mov	r0, #0xfd
 	strb	r0, [r4]
 	mov	r0, #0x4
@@ -134183,8 +145085,8 @@ SetMonPreventsSwitchingString:
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L2354	@cond_branch
-	ldr	r1, .L2357+0xc
+	bne	.L2373	@cond_branch
+	ldr	r1, .L2376+0xc
 	ldr	r0, [r5]
 	add	r0, r0, #0x49
 	ldrb	r0, [r0]
@@ -134192,33 +145094,33 @@ SetMonPreventsSwitchingString:
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	bl	GetPartyIdFromBattlePartyId
-	b	.L2356
-.L2358:
+	b	.L2375
+.L2377:
 	.align	2, 0
-.L2357:
+.L2376:
 	.word	gLastUsedAbility
 	.word	gBattleStruct
 	.word	gBattleTextBuff1
 	.word	gBattlerPartyIndexes
-.L2354:
-	ldr	r1, .L2359
+.L2373:
+	ldr	r1, .L2378
 	ldr	r0, [r5]
 	add	r0, r0, #0x49
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	ldrh	r0, [r0]
-.L2356:
+.L2375:
 	strb	r0, [r4, #0x3]
-	ldr	r4, .L2359+0x4
+	ldr	r4, .L2378+0x4
 	mov	r0, #0xfd
 	strb	r0, [r4]
 	mov	r0, #0x4
 	strb	r0, [r4, #0x1]
-	ldr	r1, .L2359+0x8
+	ldr	r1, .L2378+0x8
 	ldrb	r0, [r1]
 	strb	r0, [r4, #0x2]
-	ldr	r2, .L2359
+	ldr	r2, .L2378
 	ldrb	r0, [r1]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r2
@@ -134227,15 +145129,15 @@ SetMonPreventsSwitchingString:
 	strb	r0, [r4, #0x3]
 	mov	r0, #0xff
 	strb	r0, [r4, #0x4]
-	ldr	r0, .L2359+0xc
-	ldr	r1, .L2359+0x10
+	ldr	r0, .L2378+0xc
+	ldr	r1, .L2378+0x10
 	bl	BattleStringExpandPlaceholders
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L2360:
+.L2379:
 	.align	2, 0
-.L2359:
+.L2378:
 	.word	gBattlerPartyIndexes
 	.word	gBattleTextBuff2
 	.word	gBattlerInMenuId
@@ -134251,24 +145153,24 @@ GetWildMonTableIdInAlteringCave:
 	lsl	r0, r0, #0x10
 	lsr	r3, r0, #0x10
 	mov	r1, #0x0
-	ldr	r2, .L2369
-.L2365:
+	ldr	r2, .L2388
+.L2384:
 	ldrh	r0, [r2]
 	cmp	r0, r3
-	bne	.L2364	@cond_branch
+	bne	.L2383	@cond_branch
 	add	r0, r1, #0
-	b	.L2368
-.L2370:
+	b	.L2387
+.L2389:
 	.align	2, 0
-.L2369:
+.L2388:
 	.word	sAlteringCaveWildMonHeldItems
-.L2364:
+.L2383:
 	add	r2, r2, #0x4
 	add	r1, r1, #0x1
 	cmp	r1, #0x8
-	ble	.L2365	@cond_branch
+	ble	.L2384	@cond_branch
 	mov	r0, #0x0
-.L2368:
+.L2387:
 	pop	{r1}
 	bx	r1
 .Lfe140:
@@ -134284,69 +145186,69 @@ SetWildMonHeldItem:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	add	sp, sp, #-0x8
-	ldr	r0, .L2397
+	ldr	r0, .L2416
 	ldr	r1, [r0]
-	ldr	r0, .L2397+0x4
+	ldr	r0, .L2416+0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB19138
-	b	.L2371	@long jump
-.LCB19138:
+	beq	.LCB19391
+	b	.L2390	@long jump
+.LCB19391:
 	mov	r0, #0xb
 	and	r1, r1, r0
 	mov	r0, #0x1
 	cmp	r1, #0x1
-	bne	.L2373	@cond_branch
+	bne	.L2392	@cond_branch
 	mov	r0, #0x2
-.L2373:
+.L2392:
 	str	r0, [sp, #0x4]
-	ldr	r4, .L2397+0x8
+	ldr	r4, .L2416+0x8
 	add	r0, r4, #0
 	mov	r1, #0x6
 	mov	r2, #0x0
 	bl	GetMonData
 	cmp	r0, #0
-	bne	.L2375	@cond_branch
+	bne	.L2394	@cond_branch
 	add	r0, r4, #0
 	bl	GetMonAbility
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0xe
-	beq	.L2376	@cond_branch
+	beq	.L2395	@cond_branch
 	add	r0, r4, #0
 	bl	GetMonAbility
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0x69
-	bne	.L2375	@cond_branch
-.L2376:
+	bne	.L2394	@cond_branch
+.L2395:
 	mov	r0, #0x14
 	str	r0, [sp]
 	mov	r1, #0x50
 	mov	r9, r1
-	b	.L2377
-.L2398:
+	b	.L2396
+.L2417:
 	.align	2, 0
-.L2397:
+.L2416:
 	.word	gBattleTypeFlags
 	.word	0x302008
 	.word	gPlayerParty
-.L2375:
+.L2394:
 	mov	r2, #0x2d
 	str	r2, [sp]
 	mov	r0, #0x5f
 	mov	r9, r0
-.L2377:
+.L2396:
 	mov	r1, #0x0
 	mov	r8, r1
 	ldr	r2, [sp, #0x4]
 	cmp	r8, r2
-	bcc	.LCB19196
-	b	.L2371	@long jump
-.LCB19196:
+	bcc	.LCB19449
+	b	.L2390	@long jump
+.LCB19449:
 	mov	r0, #0x64
 	mov	sl, r0
-.L2381:
+.L2400:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -134357,7 +145259,7 @@ SetWildMonHeldItem:
 	mov	r2, sl
 	mov	r1, r8
 	mul	r1, r1, r2
-	ldr	r0, .L2399
+	ldr	r0, .L2418
 	add	r7, r1, r0
 	add	r0, r7, #0
 	mov	r1, #0xb
@@ -134376,60 +145278,60 @@ SetWildMonHeldItem:
 	bl	GetFormSpeciesId
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
-	ldr	r0, .L2399+0x4
+	ldr	r0, .L2418+0x4
 	ldrh	r1, [r0, #0x12]
 	mov	r0, #0xd2
 	lsl	r0, r0, #0x1
 	cmp	r1, r0
-	bne	.L2382	@cond_branch
+	bne	.L2401	@cond_branch
 	add	r0, r5, #0
 	bl	GetWildMonTableIdInAlteringCave
 	cmp	r0, #0
-	beq	.L2383	@cond_branch
+	beq	.L2402	@cond_branch
 	cmp	r6, r9
-	bcc	.L2380	@cond_branch
+	bcc	.L2399	@cond_branch
 	lsl	r2, r0, #0x2
-	ldr	r0, .L2399+0x8
+	ldr	r0, .L2418+0x8
 	add	r2, r2, r0
 	add	r0, r7, #0
-	b	.L2396
-.L2400:
+	b	.L2415
+.L2419:
 	.align	2, 0
-.L2399:
+.L2418:
 	.word	gEnemyParty
 	.word	gMapHeader
 	.word	sAlteringCaveWildMonHeldItems+0x2
-.L2383:
+.L2402:
 	ldr	r0, [sp]
 	cmp	r6, r0
-	bcc	.L2380	@cond_branch
+	bcc	.L2399	@cond_branch
 	cmp	r6, r9
-	bcs	.L2387	@cond_branch
+	bcs	.L2406	@cond_branch
 	lsl	r2, r4, #0x3
 	add	r2, r2, r4
 	lsl	r2, r2, #0x2
-	ldr	r0, .L2401
+	ldr	r0, .L2420
 	add	r2, r2, r0
 	add	r0, r7, #0
-	b	.L2396
-.L2402:
+	b	.L2415
+.L2421:
 	.align	2, 0
-.L2401:
+.L2420:
 	.word	gBaseStats+0xe
-.L2387:
+.L2406:
 	lsl	r2, r4, #0x3
 	add	r2, r2, r4
 	lsl	r2, r2, #0x2
-	ldr	r0, .L2403
+	ldr	r0, .L2422
 	add	r2, r2, r0
 	add	r0, r7, #0
-	b	.L2396
-.L2404:
+	b	.L2415
+.L2423:
 	.align	2, 0
-.L2403:
+.L2422:
 	.word	gBaseStats+0x10
-.L2382:
-	ldr	r1, .L2405
+.L2401:
+	ldr	r1, .L2424
 	mov	ip, r1
 	lsl	r0, r4, #0x3
 	add	r1, r0, r4
@@ -134440,55 +145342,55 @@ SetWildMonHeldItem:
 	add	r2, r0, #0
 	ldrh	r1, [r1, #0x10]
 	cmp	r3, r1
-	bne	.L2390	@cond_branch
+	bne	.L2409	@cond_branch
 	cmp	r3, #0
-	beq	.L2390	@cond_branch
+	beq	.L2409	@cond_branch
 	mov	r2, ip
 	add	r2, r2, #0xe
 	add	r2, r5, r2
 	add	r0, r7, #0
-	b	.L2396
-.L2406:
+	b	.L2415
+.L2425:
 	.align	2, 0
-.L2405:
+.L2424:
 	.word	gBaseStats
-.L2390:
+.L2409:
 	ldr	r0, [sp]
 	cmp	r6, r0
-	bcc	.L2380	@cond_branch
+	bcc	.L2399	@cond_branch
 	cmp	r6, r9
-	bcs	.L2393	@cond_branch
+	bcs	.L2412	@cond_branch
 	mov	r1, sl
 	mov	r0, r8
 	mul	r0, r0, r1
-	ldr	r1, .L2407
+	ldr	r1, .L2426
 	add	r0, r0, r1
 	add	r2, r2, r4
 	lsl	r2, r2, #0x2
-	ldr	r1, .L2407+0x4
+	ldr	r1, .L2426+0x4
 	add	r2, r2, r1
-.L2396:
+.L2415:
 	mov	r1, #0xc
 	bl	SetMonData
-	b	.L2380
-.L2408:
+	b	.L2399
+.L2427:
 	.align	2, 0
-.L2407:
+.L2426:
 	.word	gEnemyParty
 	.word	gBaseStats+0xe
-.L2393:
+.L2412:
 	mov	r1, sl
 	mov	r0, r8
 	mul	r0, r0, r1
-	ldr	r1, .L2409
+	ldr	r1, .L2428
 	add	r0, r0, r1
 	add	r2, r2, r4
 	lsl	r2, r2, #0x2
-	ldr	r1, .L2409+0x4
+	ldr	r1, .L2428+0x4
 	add	r2, r2, r1
 	mov	r1, #0xc
 	bl	SetMonData
-.L2380:
+.L2399:
 	mov	r0, r8
 	add	r0, r0, #0x1
 	lsl	r0, r0, #0x10
@@ -134496,10 +145398,10 @@ SetWildMonHeldItem:
 	mov	r8, r0
 	ldr	r2, [sp, #0x4]
 	cmp	r8, r2
-	bcs	.LCB19401
-	b	.L2381	@long jump
-.LCB19401:
-.L2371:
+	bcs	.LCB19654
+	b	.L2400	@long jump
+.LCB19654:
+.L2390:
 	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -134508,9 +145410,9 @@ SetWildMonHeldItem:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2410:
+.L2429:
 	.align	2, 0
-.L2409:
+.L2428:
 	.word	gEnemyParty
 	.word	gBaseStats+0x10
 .Lfe141:
@@ -134548,7 +145450,7 @@ IsShinyOtIdPersonality:
 	push	{r4, lr}
 	mov	r4, #0x0
 	lsr	r2, r0, #0x10
-	ldr	r3, .L2414
+	ldr	r3, .L2433
 	and	r0, r0, r3
 	eor	r2, r2, r0
 	lsr	r0, r1, #0x10
@@ -134556,16 +145458,16 @@ IsShinyOtIdPersonality:
 	and	r1, r1, r3
 	eor	r2, r2, r1
 	cmp	r2, #0x7
-	bhi	.L2413	@cond_branch
+	bhi	.L2432	@cond_branch
 	mov	r4, #0x1
-.L2413:
+.L2432:
 	add	r0, r4, #0
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L2415:
+.L2434:
 	.align	2, 0
-.L2414:
+.L2433:
 	.word	0xffff
 .Lfe143:
 	.size	 IsShinyOtIdPersonality,.Lfe143-IsShinyOtIdPersonality
@@ -134575,43 +145477,43 @@ IsShinyOtIdPersonality:
 	.thumb_func
 GetTrainerPartnerName:
 	push	{r4, lr}
-	ldr	r0, .L2422
+	ldr	r0, .L2441
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	lsl	r1, r1, #0xf
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2417	@cond_branch
-	ldr	r2, .L2422+0x4
+	beq	.L2436	@cond_branch
+	ldr	r2, .L2441+0x4
 	ldrh	r1, [r2]
-	ldr	r0, .L2422+0x8
+	ldr	r0, .L2441+0x8
 	cmp	r1, r0
-	bne	.L2418	@cond_branch
-	ldr	r0, .L2422+0xc
-	b	.L2421
-.L2423:
+	bne	.L2437	@cond_branch
+	ldr	r0, .L2441+0xc
+	b	.L2440
+.L2442:
 	.align	2, 0
-.L2422:
+.L2441:
 	.word	gBattleTypeFlags
 	.word	gPartnerTrainerId
 	.word	0xc03
 	.word	gTrainers+0x7da4
-.L2418:
-	ldr	r4, .L2424
+.L2437:
+	ldr	r4, .L2443
 	ldrh	r1, [r2]
 	add	r0, r4, #0
 	bl	GetFrontierTrainerName
 	add	r0, r4, #0
-	b	.L2421
-.L2425:
+	b	.L2440
+.L2444:
 	.align	2, 0
-.L2424:
+.L2443:
 	.word	gStringVar1
-.L2417:
+.L2436:
 	bl	GetMultiplayerId
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r4, .L2426
+	ldr	r4, .L2445
 	lsl	r1, r0, #0x3
 	sub	r1, r1, r0
 	lsl	r1, r1, #0x2
@@ -134626,13 +145528,13 @@ GetTrainerPartnerName:
 	lsl	r0, r0, #0x2
 	add	r4, r4, #0x8
 	add	r0, r0, r4
-.L2421:
+.L2440:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L2427:
+.L2446:
 	.align	2, 0
-.L2426:
+.L2445:
 	.word	gLinkPlayers
 .Lfe144:
 	.size	 GetTrainerPartnerName,.Lfe144-GetTrainerPartnerName
@@ -134643,7 +145545,7 @@ Task_AnimateAfterDelay:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r1, .L2430
+	ldr	r1, .L2449
 	lsl	r0, r4, #0x2
 	add	r0, r0, r4
 	lsl	r0, r0, #0x3
@@ -134653,7 +145555,7 @@ Task_AnimateAfterDelay:
 	strh	r0, [r2, #0xe]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L2429	@cond_branch
+	bne	.L2448	@cond_branch
 	ldrh	r0, [r2, #0x8]
 	ldrh	r1, [r2, #0xa]
 	lsl	r1, r1, #0x10
@@ -134662,13 +145564,13 @@ Task_AnimateAfterDelay:
 	bl	LaunchAnimationTaskForFrontSprite
 	add	r0, r4, #0
 	bl	DestroyTask
-.L2429:
+.L2448:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2431:
+.L2450:
 	.align	2, 0
-.L2430:
+.L2449:
 	.word	gTasks
 .Lfe145:
 	.size	 Task_AnimateAfterDelay,.Lfe145-Task_AnimateAfterDelay
@@ -134679,7 +145581,7 @@ Task_PokemonSummaryAnimateAfterDelay:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r1, .L2434
+	ldr	r1, .L2453
 	lsl	r0, r4, #0x2
 	add	r0, r0, r4
 	lsl	r0, r0, #0x3
@@ -134689,7 +145591,7 @@ Task_PokemonSummaryAnimateAfterDelay:
 	strh	r0, [r2, #0xe]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L2433	@cond_branch
+	bne	.L2452	@cond_branch
 	ldrh	r0, [r2, #0x8]
 	ldrh	r1, [r2, #0xa]
 	lsl	r1, r1, #0x10
@@ -134700,13 +145602,13 @@ Task_PokemonSummaryAnimateAfterDelay:
 	bl	SummaryScreen_SetUnknownTaskId
 	add	r0, r4, #0
 	bl	DestroyTask
-.L2433:
+.L2452:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2435:
+.L2454:
 	.align	2, 0
-.L2434:
+.L2453:
 	.word	gTasks
 .Lfe146:
 	.size	 Task_PokemonSummaryAnimateAfterDelay,.Lfe146-Task_PokemonSummaryAnimateAfterDelay
@@ -134723,35 +145625,35 @@ BattleAnimateFrontSprite:
 	lsr	r2, r2, #0x18
 	lsl	r3, r3, #0x18
 	lsr	r3, r3, #0x18
-	ldr	r0, .L2439
+	ldr	r0, .L2458
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2437	@cond_branch
-	ldr	r0, .L2439+0x4
+	beq	.L2456	@cond_branch
+	ldr	r0, .L2458+0x4
 	ldr	r0, [r0]
-	ldr	r1, .L2439+0x8
+	ldr	r1, .L2458+0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2437	@cond_branch
+	bne	.L2456	@cond_branch
 	mov	r0, #0x80
 	orr	r3, r3, r0
 	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	DoMonFrontSpriteAnimation
-	b	.L2438
-.L2440:
+	b	.L2457
+.L2459:
 	.align	2, 0
-.L2439:
+.L2458:
 	.word	gHitMarker
 	.word	gBattleTypeFlags
 	.word	0x2000002
-.L2437:
+.L2456:
 	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	DoMonFrontSpriteAnimation
-.L2438:
+.L2457:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
@@ -134773,37 +145675,37 @@ DoMonFrontSpriteAnimation:
 	mov	r0, #0x7f
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L2443	@cond_branch
+	beq	.L2462	@cond_branch
 	cmp	r0, #0x1
-	beq	.L2444	@cond_branch
+	beq	.L2463	@cond_branch
 	mov	r1, #0x0
-	b	.L2442
-.L2443:
+	b	.L2461
+.L2462:
 	mov	r1, #0xe7
-	b	.L2442
-.L2444:
+	b	.L2461
+.L2463:
 	mov	r1, #0x19
-.L2442:
+.L2461:
 	mov	r0, #0x80
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L2447	@cond_branch
+	beq	.L2466	@cond_branch
 	cmp	r2, #0
-	bne	.L2448	@cond_branch
+	bne	.L2467	@cond_branch
 	lsl	r1, r1, #0x18
 	asr	r1, r1, #0x18
 	add	r0, r4, #0
 	bl	PlayCry1
-.L2448:
-	ldr	r0, .L2455
-	b	.L2454
-.L2456:
+.L2467:
+	ldr	r0, .L2474
+	b	.L2473
+.L2475:
 	.align	2, 0
-.L2455:
+.L2474:
 	.word	SpriteCallbackDummy
-.L2447:
+.L2466:
 	cmp	r2, #0
-	bne	.L2450	@cond_branch
+	bne	.L2469	@cond_branch
 	lsl	r1, r1, #0x18
 	asr	r1, r1, #0x18
 	add	r0, r4, #0
@@ -134812,23 +145714,23 @@ DoMonFrontSpriteAnimation:
 	bl	HasTwoFramesAnimation
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L2450	@cond_branch
+	beq	.L2469	@cond_branch
 	add	r0, r5, #0
 	mov	r1, #0x1
 	bl	StartSpriteAnim
-.L2450:
-	ldr	r0, .L2457
+.L2469:
+	ldr	r0, .L2476
 	sub	r4, r4, #0x1
 	add	r6, r4, r0
 	ldrb	r0, [r6]
 	cmp	r0, #0
-	beq	.L2452	@cond_branch
-	ldr	r0, .L2457+0x4
+	beq	.L2471	@cond_branch
+	ldr	r0, .L2476+0x4
 	mov	r1, #0x0
 	bl	CreateTask
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L2457+0x8
+	ldr	r2, .L2476+0x8
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r1, r1, #0x3
@@ -134836,36 +145738,36 @@ DoMonFrontSpriteAnimation:
 	strh	r5, [r1, #0x8]
 	lsr	r0, r5, #0x10
 	strh	r0, [r1, #0xa]
-	ldr	r0, .L2457+0xc
+	ldr	r0, .L2476+0xc
 	add	r0, r4, r0
 	ldrb	r0, [r0]
 	strh	r0, [r1, #0xc]
 	ldrb	r0, [r6]
 	strh	r0, [r1, #0xe]
-	b	.L2453
-.L2458:
+	b	.L2472
+.L2477:
 	.align	2, 0
-.L2457:
+.L2476:
 	.word	sMonAnimationDelayTable
 	.word	Task_AnimateAfterDelay
 	.word	gTasks
 	.word	sMonFrontAnimIdsTable
-.L2452:
-	ldr	r0, .L2459
+.L2471:
+	ldr	r0, .L2478
 	add	r0, r4, r0
 	ldrb	r1, [r0]
 	add	r0, r5, #0
 	bl	LaunchAnimationTaskForFrontSprite
-.L2453:
-	ldr	r0, .L2459+0x4
-.L2454:
+.L2472:
+	ldr	r0, .L2478+0x4
+.L2473:
 	str	r0, [r5, #0x1c]
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2460:
+.L2479:
 	.align	2, 0
-.L2459:
+.L2478:
 	.word	sMonFrontAnimIdsTable
 	.word	SpriteCallbackDummy_2
 .Lfe148:
@@ -134881,28 +145783,28 @@ PokemonSummaryDoMonAnimation:
 	lsr	r4, r1, #0x10
 	lsl	r2, r2, #0x18
 	cmp	r2, #0
-	bne	.L2462	@cond_branch
+	bne	.L2481	@cond_branch
 	add	r0, r4, #0
 	bl	HasTwoFramesAnimation
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L2462	@cond_branch
+	beq	.L2481	@cond_branch
 	add	r0, r5, #0
 	mov	r1, #0x1
 	bl	StartSpriteAnim
-.L2462:
-	ldr	r0, .L2465
+.L2481:
+	ldr	r0, .L2484
 	sub	r4, r4, #0x1
 	add	r6, r4, r0
 	ldrb	r0, [r6]
 	cmp	r0, #0
-	beq	.L2463	@cond_branch
-	ldr	r0, .L2465+0x4
+	beq	.L2482	@cond_branch
+	ldr	r0, .L2484+0x4
 	mov	r1, #0x0
 	bl	CreateTask
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r1, .L2465+0x8
+	ldr	r1, .L2484+0x8
 	lsl	r2, r0, #0x2
 	add	r2, r2, r0
 	lsl	r2, r2, #0x3
@@ -134910,7 +145812,7 @@ PokemonSummaryDoMonAnimation:
 	strh	r5, [r2, #0x8]
 	lsr	r1, r5, #0x10
 	strh	r1, [r2, #0xa]
-	ldr	r1, .L2465+0xc
+	ldr	r1, .L2484+0xc
 	add	r1, r4, r1
 	ldrb	r1, [r1]
 	strh	r1, [r2, #0xc]
@@ -134919,27 +145821,27 @@ PokemonSummaryDoMonAnimation:
 	bl	SummaryScreen_SetUnknownTaskId
 	add	r0, r5, #0
 	bl	SetSpriteCB_MonAnimDummy
-	b	.L2464
-.L2466:
+	b	.L2483
+.L2485:
 	.align	2, 0
-.L2465:
+.L2484:
 	.word	sMonAnimationDelayTable
 	.word	Task_PokemonSummaryAnimateAfterDelay
 	.word	gTasks
 	.word	sMonFrontAnimIdsTable
-.L2463:
-	ldr	r0, .L2467
+.L2482:
+	ldr	r0, .L2486
 	add	r0, r4, r0
 	ldrb	r1, [r0]
 	add	r0, r5, #0
 	bl	StartMonSummaryAnimation
-.L2464:
+.L2483:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2468:
+.L2487:
 	.align	2, 0
-.L2467:
+.L2486:
 	.word	sMonFrontAnimIdsTable
 .Lfe149:
 	.size	 PokemonSummaryDoMonAnimation,.Lfe149-PokemonSummaryDoMonAnimation
@@ -134949,19 +145851,19 @@ PokemonSummaryDoMonAnimation:
 	.thumb_func
 StopPokemonAnimationDelayTask:
 	push	{lr}
-	ldr	r0, .L2471
+	ldr	r0, .L2490
 	bl	FindTaskIdByFunc
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xff
-	beq	.L2470	@cond_branch
+	beq	.L2489	@cond_branch
 	bl	DestroyTask
-.L2470:
+.L2489:
 	pop	{r0}
 	bx	r0
-.L2472:
+.L2491:
 	.align	2, 0
-.L2471:
+.L2490:
 	.word	Task_PokemonSummaryAnimateAfterDelay
 .Lfe150:
 	.size	 StopPokemonAnimationDelayTask,.Lfe150-StopPokemonAnimationDelayTask
@@ -134974,28 +145876,28 @@ BattleAnimateBackSprite:
 	add	r4, r0, #0
 	lsl	r1, r1, #0x10
 	lsr	r2, r1, #0x10
-	ldr	r0, .L2477
+	ldr	r0, .L2496
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2474	@cond_branch
-	ldr	r0, .L2477+0x4
+	beq	.L2493	@cond_branch
+	ldr	r0, .L2496+0x4
 	ldr	r0, [r0]
-	ldr	r1, .L2477+0x8
+	ldr	r1, .L2496+0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2474	@cond_branch
-	ldr	r0, .L2477+0xc
-	b	.L2476
-.L2478:
+	bne	.L2493	@cond_branch
+	ldr	r0, .L2496+0xc
+	b	.L2495
+.L2497:
 	.align	2, 0
-.L2477:
+.L2496:
 	.word	gHitMarker
 	.word	gBattleTypeFlags
 	.word	0x2000002
 	.word	SpriteCallbackDummy
-.L2474:
+.L2493:
 	add	r0, r2, #0
 	bl	GetSpeciesBackAnimSet
 	add	r1, r0, #0
@@ -135003,15 +145905,15 @@ BattleAnimateBackSprite:
 	lsr	r1, r1, #0x18
 	add	r0, r4, #0
 	bl	LaunchAnimationTaskForBackSprite
-	ldr	r0, .L2479
-.L2476:
+	ldr	r0, .L2498
+.L2495:
 	str	r0, [r4, #0x1c]
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2480:
+.L2499:
 	.align	2, 0
-.L2479:
+.L2498:
 	.word	SpriteCallbackDummy_2
 .Lfe151:
 	.size	 BattleAnimateBackSprite,.Lfe151-BattleAnimateBackSprite
@@ -135027,67 +145929,67 @@ sub_806EF08:
 	bl	GetMultiplayerId
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L2500
+	ldr	r2, .L2519
 	lsl	r1, r0, #0x3
 	sub	r1, r1, r0
 	lsl	r1, r1, #0x2
 	add	r1, r1, r2
 	ldrh	r0, [r1, #0x18]
 	cmp	r0, #0x1
-	beq	.L2488	@cond_branch
+	beq	.L2507	@cond_branch
 	cmp	r0, #0x1
-	bgt	.L2493	@cond_branch
+	bgt	.L2512	@cond_branch
 	cmp	r0, #0
-	beq	.L2484	@cond_branch
-	b	.L2482
-.L2501:
+	beq	.L2503	@cond_branch
+	b	.L2501
+.L2520:
 	.align	2, 0
-.L2500:
+.L2519:
 	.word	gLinkPlayers
-.L2493:
+.L2512:
 	cmp	r0, #0x2
-	beq	.L2484	@cond_branch
+	beq	.L2503	@cond_branch
 	cmp	r0, #0x3
-	beq	.L2488	@cond_branch
-	b	.L2482
-.L2484:
+	beq	.L2507	@cond_branch
+	b	.L2501
+.L2503:
 	mov	r5, #0x3
 	cmp	r4, #0
-	beq	.L2482	@cond_branch
+	beq	.L2501	@cond_branch
 	mov	r5, #0x1
-	b	.L2482
-.L2488:
+	b	.L2501
+.L2507:
 	neg	r0, r4
 	orr	r0, r0, r4
 	asr	r5, r0, #0x1f
 	mov	r0, #0x2
 	and	r5, r5, r0
-.L2482:
+.L2501:
 	mov	r2, #0x0
-	ldr	r4, .L2502
+	ldr	r4, .L2521
 	ldrh	r0, [r4, #0x18]
 	add	r1, r5, #0
 	cmp	r0, r1
-	beq	.L2495	@cond_branch
+	beq	.L2514	@cond_branch
 	add	r3, r1, #0
 	add	r1, r4, #0
-.L2496:
+.L2515:
 	add	r1, r1, #0x1c
 	add	r2, r2, #0x1
 	cmp	r2, #0x3
-	bgt	.L2495	@cond_branch
+	bgt	.L2514	@cond_branch
 	ldrh	r0, [r1, #0x18]
 	cmp	r0, r3
-	bne	.L2496	@cond_branch
-.L2495:
+	bne	.L2515	@cond_branch
+.L2514:
 	lsl	r0, r2, #0x18
 	lsr	r0, r0, #0x18
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.L2503:
+.L2522:
 	.align	2, 0
-.L2502:
+.L2521:
 	.word	gLinkPlayers
 .Lfe152:
 	.size	 sub_806EF08,.Lfe152-sub_806EF08
@@ -135102,56 +146004,56 @@ sub_806EF84:
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	mov	r4, #0x0
-	ldr	r2, .L2523
+	ldr	r2, .L2542
 	lsl	r0, r1, #0x3
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x2
 	add	r0, r0, r2
 	ldrh	r0, [r0, #0x18]
 	cmp	r0, #0x1
-	beq	.L2511	@cond_branch
+	beq	.L2530	@cond_branch
 	cmp	r0, #0x1
-	bgt	.L2516	@cond_branch
+	bgt	.L2535	@cond_branch
 	cmp	r0, #0
-	beq	.L2507	@cond_branch
-	b	.L2505
-.L2524:
+	beq	.L2526	@cond_branch
+	b	.L2524
+.L2543:
 	.align	2, 0
-.L2523:
+.L2542:
 	.word	gLinkPlayers
-.L2516:
+.L2535:
 	cmp	r0, #0x2
-	beq	.L2507	@cond_branch
+	beq	.L2526	@cond_branch
 	cmp	r0, #0x3
-	beq	.L2511	@cond_branch
-	b	.L2505
-.L2507:
+	beq	.L2530	@cond_branch
+	b	.L2524
+.L2526:
 	mov	r4, #0x3
 	cmp	r3, #0
-	beq	.L2505	@cond_branch
+	beq	.L2524	@cond_branch
 	mov	r4, #0x1
-	b	.L2505
-.L2511:
+	b	.L2524
+.L2530:
 	neg	r0, r3
 	orr	r0, r0, r3
 	asr	r4, r0, #0x1f
 	mov	r0, #0x2
 	and	r4, r4, r0
-.L2505:
+.L2524:
 	mov	r3, #0x0
 	ldrh	r0, [r2, #0x18]
 	add	r1, r4, #0
 	cmp	r0, r1
-	beq	.L2518	@cond_branch
-.L2519:
+	beq	.L2537	@cond_branch
+.L2538:
 	add	r2, r2, #0x1c
 	add	r3, r3, #0x1
 	cmp	r3, #0x3
-	bgt	.L2518	@cond_branch
+	bgt	.L2537	@cond_branch
 	ldrh	r0, [r2, #0x18]
 	cmp	r0, r1
-	bne	.L2519	@cond_branch
-.L2518:
+	bne	.L2538	@cond_branch
+.L2537:
 	lsl	r0, r3, #0x18
 	lsr	r0, r0, #0x18
 	pop	{r4}
@@ -135166,13 +146068,13 @@ sub_806EF84:
 FacilityClassToPicIndex:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	ldr	r1, .L2526
+	ldr	r1, .L2545
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	bx	lr
-.L2527:
+.L2546:
 	.align	2, 0
-.L2526:
+.L2545:
 	.word	gFacilityClassToPicIndex
 .Lfe154:
 	.size	 FacilityClassToPicIndex,.Lfe154-FacilityClassToPicIndex
@@ -135184,12 +146086,12 @@ PlayerGenderToFrontTrainerPicId:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L2529	@cond_branch
+	bne	.L2548	@cond_branch
 	mov	r0, #0x3c
-	b	.L2533
-.L2529:
+	b	.L2552
+.L2548:
 	mov	r0, #0x3f
-.L2533:
+.L2552:
 	bl	FacilityClassToPicIndex
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -135217,7 +146119,7 @@ HandleSetPokedexFlag:
 	bl	GetSetPokedexFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L2536	@cond_branch
+	bne	.L2555	@cond_branch
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	GetSetPokedexFlag
@@ -135226,32 +146128,32 @@ HandleSetPokedexFlag:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0xc9
-	bne	.L2537	@cond_branch
-	ldr	r0, .L2540
+	bne	.L2556	@cond_branch
+	ldr	r0, .L2559
 	ldr	r0, [r0]
 	str	r6, [r0, #0x1c]
-.L2537:
+.L2556:
 	add	r0, r4, #0
 	bl	NationalPokedexNumToSpecies
 	lsl	r0, r0, #0x10
-	ldr	r1, .L2540+0x4
+	ldr	r1, .L2559+0x4
 	cmp	r0, r1
-	bne	.L2536	@cond_branch
-	ldr	r0, .L2540
+	bne	.L2555	@cond_branch
+	ldr	r0, .L2559
 	ldr	r0, [r0]
 	str	r6, [r0, #0x20]
-.L2536:
+.L2555:
 	cmp	r5, #0x2
-	bne	.L2539	@cond_branch
+	bne	.L2558	@cond_branch
 	add	r0, r4, #0
 	bl	TryIncrementSpeciesSearchLevel
-.L2539:
+.L2558:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2541:
+.L2560:
 	.align	2, 0
-.L2540:
+.L2559:
 	.word	gSaveBlock2Ptr
 	.word	0x1470000
 .Lfe156:
@@ -135264,12 +146166,12 @@ GetTrainerClassNameFromId:
 	push	{lr}
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
-	ldr	r0, .L2544
+	ldr	r0, .L2563
 	cmp	r2, r0
-	bls	.L2543	@cond_branch
+	bls	.L2562	@cond_branch
 	mov	r2, #0x0
-.L2543:
-	ldr	r1, .L2544+0x4
+.L2562:
+	ldr	r1, .L2563+0x4
 	lsl	r0, r2, #0x2
 	add	r0, r0, r2
 	lsl	r0, r0, #0x3
@@ -135277,13 +146179,13 @@ GetTrainerClassNameFromId:
 	ldrb	r1, [r0, #0x1]
 	mov	r0, #0xd
 	mul	r0, r0, r1
-	ldr	r1, .L2544+0x8
+	ldr	r1, .L2563+0x8
 	add	r0, r0, r1
 	pop	{r1}
 	bx	r1
-.L2545:
+.L2564:
 	.align	2, 0
-.L2544:
+.L2563:
 	.word	0x356
 	.word	gTrainers
 	.word	gTrainerClassNames
@@ -135297,21 +146199,21 @@ GetTrainerNameFromId:
 	push	{lr}
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
-	ldr	r0, .L2548
+	ldr	r0, .L2567
 	cmp	r1, r0
-	bls	.L2547	@cond_branch
+	bls	.L2566	@cond_branch
 	mov	r1, #0x0
-.L2547:
+.L2566:
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
 	lsl	r0, r0, #0x3
-	ldr	r1, .L2548+0x4
+	ldr	r1, .L2567+0x4
 	add	r0, r0, r1
 	pop	{r1}
 	bx	r1
-.L2549:
+.L2568:
 	.align	2, 0
-.L2548:
+.L2567:
 	.word	0x356
 	.word	gTrainers+0x4
 .Lfe158:
@@ -135325,29 +146227,29 @@ HasTwoFramesAnimation:
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	mov	r1, #0x0
-	ldr	r0, .L2552
+	ldr	r0, .L2571
 	cmp	r2, r0
-	beq	.L2551	@cond_branch
+	beq	.L2570	@cond_branch
 	add	r0, r0, #0x23
 	cmp	r2, r0
-	beq	.L2551	@cond_branch
+	beq	.L2570	@cond_branch
 	sub	r0, r0, #0x3b
 	cmp	r2, r0
-	beq	.L2551	@cond_branch
+	beq	.L2570	@cond_branch
 	cmp	r2, #0xc9
-	beq	.L2551	@cond_branch
-	ldr	r1, .L2552+0x4
+	beq	.L2570	@cond_branch
+	ldr	r1, .L2571+0x4
 	eor	r1, r1, r2
 	neg	r0, r1
 	orr	r0, r0, r1
 	lsr	r1, r0, #0x1f
-.L2551:
+.L2570:
 	add	r0, r1, #0
 	pop	{r1}
 	bx	r1
-.L2553:
+.L2572:
 	.align	2, 0
-.L2552:
+.L2571:
 	.word	0x15f
 	.word	0x1a5
 .Lfe159:
@@ -135357,49 +146259,49 @@ HasTwoFramesAnimation:
 	.thumb_func
 ShouldSkipFriendshipChange:
 	push	{lr}
-	ldr	r2, .L2559
-	ldr	r1, .L2559+0x4
+	ldr	r2, .L2578
+	ldr	r1, .L2578+0x4
 	add	r0, r2, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2555	@cond_branch
-	ldr	r0, .L2559+0x8
+	beq	.L2574	@cond_branch
+	ldr	r0, .L2578+0x8
 	ldr	r0, [r0]
-	ldr	r1, .L2559+0xc
+	ldr	r1, .L2578+0xc
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2557	@cond_branch
-.L2555:
-	ldr	r1, .L2559+0x4
+	bne	.L2576	@cond_branch
+.L2574:
+	ldr	r1, .L2578+0x4
 	add	r0, r2, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2556	@cond_branch
+	bne	.L2575	@cond_branch
 	bl	InBattlePike
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L2557	@cond_branch
+	bne	.L2576	@cond_branch
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L2556	@cond_branch
-.L2557:
+	beq	.L2575	@cond_branch
+.L2576:
 	mov	r0, #0x1
-	b	.L2558
-.L2560:
+	b	.L2577
+.L2579:
 	.align	2, 0
-.L2559:
+.L2578:
 	.word	gMain
 	.word	0x439
 	.word	gBattleTypeFlags
 	.word	0x3f0100
-.L2556:
+.L2575:
 	mov	r0, #0x0
-.L2558:
+.L2577:
 	pop	{r1}
 	bx	r1
 .Lfe160:
@@ -135418,14 +146320,14 @@ sub_806F160:
 	lsl	r0, r0, #0x1c
 	mov	r4, #0x0
 	cmp	r0, #0
-	beq	.L2563	@cond_branch
-.L2565:
+	beq	.L2582	@cond_branch
+.L2584:
 	ldr	r0, [r6, #0xc]
 	lsl	r2, r4, #0x1
 	add	r1, r2, r4
 	lsl	r1, r1, #0x3
 	add	r0, r1, r0
-	ldr	r3, .L2572
+	ldr	r3, .L2591
 	add	r1, r1, r3
 	ldmia	r1!, {r3, r5, r7}
 	stmia	r0!, {r3, r5, r7}
@@ -135441,13 +146343,13 @@ sub_806F160:
 	add	r1, r4, #0x1
 	mov	sl, r1
 	cmp	r5, r3
-	bcs	.L2567	@cond_branch
+	bcs	.L2586	@cond_branch
 	mov	r7, ip
 	ldr	r1, [r6, #0x8]
 	lsl	r0, r4, #0x2
 	add	r0, r0, r1
 	ldr	r2, [r0]
-.L2569:
+.L2588:
 	mov	r0, r4
 	mul	r0, r0, r3
 	add	r0, r0, r5
@@ -135461,8 +146363,8 @@ sub_806F160:
 	lsr	r5, r0, #0x10
 	ldrb	r3, [r6, #0x1]
 	cmp	r5, r3
-	bcc	.L2569	@cond_branch
-.L2567:
+	bcc	.L2588	@cond_branch
+.L2586:
 	mov	r3, r8
 	add	r1, r3, r4
 	lsl	r1, r1, #0x3
@@ -135479,8 +146381,8 @@ sub_806F160:
 	lsl	r0, r0, #0x1c
 	lsr	r0, r0, #0x1c
 	cmp	r4, r0
-	blt	.L2565	@cond_branch
-.L2563:
+	blt	.L2584	@cond_branch
+.L2582:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -135488,9 +146390,9 @@ sub_806F160:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2573:
+.L2592:
 	.align	2, 0
-.L2572:
+.L2591:
 	.word	gUnknown_08329D98
 .Lfe161:
 	.size	 sub_806F160,.Lfe161-sub_806F160
@@ -135508,10 +146410,10 @@ sub_806F1FC:
 	lsl	r0, r0, #0x1c
 	mov	r3, #0x0
 	cmp	r0, #0
-	beq	.L2576	@cond_branch
-	ldr	r0, .L2585
+	beq	.L2595	@cond_branch
+	ldr	r0, .L2604
 	mov	sl, r0
-.L2578:
+.L2597:
 	ldr	r0, [r4, #0xc]
 	lsl	r2, r3, #0x1
 	add	r1, r2, r3
@@ -135531,13 +146433,13 @@ sub_806F1FC:
 	mov	r9, r1
 	ldrb	r6, [r4, #0x1]
 	cmp	r5, r6
-	bcs	.L2580	@cond_branch
+	bcs	.L2599	@cond_branch
 	add	r6, r7, #0
 	ldr	r1, [r4, #0x8]
 	lsl	r0, r3, #0x2
 	add	r0, r0, r1
 	ldr	r2, [r0]
-.L2582:
+.L2601:
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x1c
 	lsr	r0, r0, #0x1c
@@ -135554,8 +146456,8 @@ sub_806F1FC:
 	lsr	r5, r0, #0x10
 	ldrb	r0, [r4, #0x1]
 	cmp	r5, r0
-	bcc	.L2582	@cond_branch
-.L2580:
+	bcc	.L2601	@cond_branch
+.L2599:
 	mov	r5, ip
 	add	r1, r5, r3
 	lsl	r1, r1, #0x3
@@ -135567,7 +146469,7 @@ sub_806F1FC:
 	lsl	r0, r0, #0x3
 	add	r0, r7, r0
 	str	r0, [r1, #0xc]
-	ldr	r6, .L2585+0x4
+	ldr	r6, .L2604+0x4
 	str	r6, [r1, #0x8]
 	strh	r3, [r1, #0x2]
 	mov	r7, r9
@@ -135577,8 +146479,8 @@ sub_806F1FC:
 	lsl	r0, r0, #0x1c
 	lsr	r0, r0, #0x1c
 	cmp	r3, r0
-	blt	.L2578	@cond_branch
-.L2576:
+	blt	.L2597	@cond_branch
+.L2595:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -135586,9 +146488,9 @@ sub_806F1FC:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2586:
+.L2605:
 	.align	2, 0
-.L2585:
+.L2604:
 	.word	gUnknown_08329F28
 	.word	gUnknown_082FF70C
 .Lfe162:
@@ -135612,22 +146514,22 @@ sub_806F2AC:
 	bl	AllocZeroed
 	add	r4, r0, #0
 	cmp	r4, #0
-	bne	.L2588	@cond_branch
+	bne	.L2607	@cond_branch
 	mov	r0, #0x0
-	b	.L2624
-.L2588:
+	b	.L2643
+.L2607:
 	cmp	r5, #0
-	beq	.L2592	@cond_branch
+	beq	.L2611	@cond_branch
 	cmp	r5, #0x2
-	bne	.L2592	@cond_branch
+	bne	.L2611	@cond_branch
 	mov	r0, #0x77
 	strb	r0, [r4]
 	mov	r0, #0x4
 	strb	r0, [r4, #0x1]
 	mov	r0, #0x21
 	strb	r0, [r4, #0x3]
-	b	.L2589
-.L2592:
+	b	.L2608
+.L2611:
 	ldrb	r1, [r4]
 	mov	r2, #0x10
 	neg	r2, r2
@@ -135648,7 +146550,7 @@ sub_806F2AC:
 	orr	r2, r2, r0
 	and	r2, r2, r3
 	strb	r2, [r4, #0x3]
-.L2589:
+.L2608:
 	ldrb	r1, [r4, #0x3]
 	lsl	r1, r1, #0x1c
 	lsr	r1, r1, #0x1c
@@ -135666,26 +146568,26 @@ sub_806F2AC:
 	str	r1, [r4, #0x8]
 	ldr	r2, [r4, #0x4]
 	cmp	r2, #0
-	beq	.L2595	@cond_branch
+	beq	.L2614	@cond_branch
 	cmp	r1, #0
-	bne	.L2594	@cond_branch
-.L2595:
+	bne	.L2613	@cond_branch
+.L2614:
 	mov	r0, #0x1
 	orr	r7, r7, r0
 	lsl	r6, r6, #0x2
 	mov	r8, r6
-	b	.L2596
-.L2594:
+	b	.L2615
+.L2613:
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x1c
 	mov	r3, #0x0
 	lsl	r6, r6, #0x2
 	mov	r8, r6
 	cmp	r0, #0
-	beq	.L2596	@cond_branch
+	beq	.L2615	@cond_branch
 	add	r6, r1, #0
 	add	r5, r2, #0
-.L2600:
+.L2619:
 	lsl	r2, r3, #0x2
 	add	r2, r2, r6
 	ldrb	r0, [r4, #0x3]
@@ -135702,8 +146604,8 @@ sub_806F2AC:
 	lsl	r0, r0, #0x1c
 	lsr	r0, r0, #0x1c
 	cmp	r3, r0
-	blt	.L2600	@cond_branch
-.L2596:
+	blt	.L2619	@cond_branch
+.L2615:
 	ldrb	r1, [r4]
 	lsl	r1, r1, #0x1c
 	lsr	r1, r1, #0x1c
@@ -135723,16 +146625,16 @@ sub_806F2AC:
 	str	r1, [r4, #0x10]
 	ldr	r0, [r4, #0xc]
 	cmp	r0, #0
-	beq	.L2603	@cond_branch
+	beq	.L2622	@cond_branch
 	cmp	r1, #0
-	bne	.L2602	@cond_branch
-.L2603:
+	bne	.L2621	@cond_branch
+.L2622:
 	mov	r0, #0x2
 	orr	r7, r7, r0
 	lsl	r0, r7, #0x18
 	lsr	r7, r0, #0x18
-	b	.L2604
-.L2602:
+	b	.L2623
+.L2621:
 	mov	r3, #0x0
 	ldrb	r0, [r4, #0x1]
 	ldrb	r1, [r4]
@@ -135740,10 +146642,10 @@ sub_806F2AC:
 	lsr	r1, r1, #0x1c
 	mul	r0, r0, r1
 	cmp	r3, r0
-	bge	.L2606	@cond_branch
+	bge	.L2625	@cond_branch
 	mov	r2, #0x80
 	lsl	r2, r2, #0x4
-.L2608:
+.L2627:
 	ldr	r1, [r4, #0x10]
 	lsl	r0, r3, #0x3
 	add	r0, r0, r1
@@ -135757,87 +146659,87 @@ sub_806F2AC:
 	lsr	r0, r0, #0x1c
 	mul	r0, r0, r1
 	cmp	r3, r0
-	blt	.L2608	@cond_branch
-.L2606:
+	blt	.L2627	@cond_branch
+.L2625:
 	ldrb	r0, [r4, #0x3]
 	lsr	r0, r0, #0x4
 	cmp	r0, #0
-	blt	.L2614	@cond_branch
+	blt	.L2633	@cond_branch
 	cmp	r0, #0x1
-	ble	.L2614	@cond_branch
+	ble	.L2633	@cond_branch
 	cmp	r0, #0x2
-	bne	.L2614	@cond_branch
+	bne	.L2633	@cond_branch
 	add	r0, r4, #0
 	bl	sub_806F1FC
-	b	.L2604
-.L2614:
+	b	.L2623
+.L2633:
 	add	r0, r4, #0
 	bl	sub_806F160
-.L2604:
+.L2623:
 	mov	r0, #0x2
 	and	r0, r0, r7
 	cmp	r0, #0
-	beq	.L2616	@cond_branch
+	beq	.L2635	@cond_branch
 	ldr	r0, [r4, #0x10]
 	cmp	r0, #0
-	beq	.L2617	@cond_branch
+	beq	.L2636	@cond_branch
 	bl	Free
 	mov	r0, #0x0
 	str	r0, [r4, #0x10]
-.L2617:
+.L2636:
 	ldr	r0, [r4, #0xc]
 	cmp	r0, #0
-	beq	.L2616	@cond_branch
+	beq	.L2635	@cond_branch
 	bl	Free
 	mov	r0, #0x0
 	str	r0, [r4, #0xc]
-.L2616:
+.L2635:
 	mov	r0, #0x1
 	and	r0, r0, r7
 	cmp	r0, #0
-	beq	.L2619	@cond_branch
+	beq	.L2638	@cond_branch
 	ldr	r0, [r4, #0x8]
 	cmp	r0, #0
-	beq	.L2620	@cond_branch
+	beq	.L2639	@cond_branch
 	bl	Free
 	mov	r0, #0x0
 	str	r0, [r4, #0x8]
-.L2620:
+.L2639:
 	ldr	r0, [r4, #0x4]
 	cmp	r0, #0
-	beq	.L2619	@cond_branch
+	beq	.L2638	@cond_branch
 	bl	Free
 	mov	r0, #0x0
 	str	r0, [r4, #0x4]
-.L2619:
+.L2638:
 	cmp	r7, #0
-	beq	.L2622	@cond_branch
+	beq	.L2641	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x0
 	mov	r2, #0x14
 	bl	memset
 	add	r0, r4, #0
 	bl	Free
-	b	.L2623
-.L2622:
+	b	.L2642
+.L2641:
 	mov	r0, #0xa3
 	strb	r0, [r4, #0x2]
-	ldr	r0, .L2625
+	ldr	r0, .L2644
 	add	r0, r0, r8
 	str	r4, [r0]
-.L2623:
-	ldr	r0, .L2625
+.L2642:
+	ldr	r0, .L2644
 	add	r0, r0, r8
 	ldr	r0, [r0]
-.L2624:
+.L2643:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L2626:
+.L2645:
 	.align	2, 0
-.L2625:
+.L2644:
 	.word	gUnknown_020249B4
 .Lfe163:
 	.size	 sub_806F2AC,.Lfe163-sub_806F2AC
@@ -135851,60 +146753,60 @@ sub_806F47C:
 	lsr	r0, r0, #0x18
 	mov	r1, #0x1
 	and	r0, r0, r1
-	ldr	r1, .L2635
+	ldr	r1, .L2654
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldr	r4, [r0]
 	cmp	r4, #0
-	beq	.L2627	@cond_branch
+	beq	.L2646	@cond_branch
 	ldrb	r0, [r4, #0x2]
 	cmp	r0, #0xa3
-	beq	.L2629	@cond_branch
+	beq	.L2648	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x0
 	mov	r2, #0x14
 	bl	memset
-	b	.L2627
-.L2636:
+	b	.L2646
+.L2655:
 	.align	2, 0
-.L2635:
+.L2654:
 	.word	gUnknown_020249B4
-.L2629:
+.L2648:
 	ldr	r0, [r4, #0x10]
 	cmp	r0, #0
-	beq	.L2631	@cond_branch
+	beq	.L2650	@cond_branch
 	bl	Free
 	mov	r0, #0x0
 	str	r0, [r4, #0x10]
-.L2631:
+.L2650:
 	ldr	r0, [r4, #0xc]
 	cmp	r0, #0
-	beq	.L2632	@cond_branch
+	beq	.L2651	@cond_branch
 	bl	Free
 	mov	r0, #0x0
 	str	r0, [r4, #0xc]
-.L2632:
+.L2651:
 	ldr	r0, [r4, #0x8]
 	cmp	r0, #0
-	beq	.L2633	@cond_branch
+	beq	.L2652	@cond_branch
 	bl	Free
 	mov	r0, #0x0
 	str	r0, [r4, #0x8]
-.L2633:
+.L2652:
 	ldr	r0, [r4, #0x4]
 	cmp	r0, #0
-	beq	.L2634	@cond_branch
+	beq	.L2653	@cond_branch
 	bl	Free
 	mov	r0, #0x0
 	str	r0, [r4, #0x4]
-.L2634:
+.L2653:
 	add	r0, r4, #0
 	mov	r1, #0x0
 	mov	r2, #0x14
 	bl	memset
 	add	r0, r4, #0
 	bl	Free
-.L2627:
+.L2646:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
@@ -135920,7 +146822,7 @@ sub_806F4F8:
 	lsr	r0, r0, #0x18
 	lsl	r1, r1, #0x18
 	lsr	r3, r1, #0x18
-	ldr	r2, .L2642
+	ldr	r2, .L2661
 	mov	r1, #0x1
 	and	r0, r0, r1
 	lsl	r0, r0, #0x2
@@ -135928,26 +146830,26 @@ sub_806F4F8:
 	ldr	r1, [r0]
 	ldrb	r0, [r1, #0x2]
 	cmp	r0, #0xa3
-	beq	.L2638	@cond_branch
+	beq	.L2657	@cond_branch
 	mov	r0, #0x0
-	b	.L2641
-.L2643:
+	b	.L2660
+.L2662:
 	.align	2, 0
-.L2642:
+.L2661:
 	.word	gUnknown_020249B4
-.L2638:
+.L2657:
 	ldrb	r0, [r1]
 	lsl	r0, r0, #0x1c
 	lsr	r0, r0, #0x1c
 	cmp	r3, r0
-	blt	.L2640	@cond_branch
+	blt	.L2659	@cond_branch
 	mov	r3, #0x0
-.L2640:
+.L2659:
 	ldr	r0, [r1, #0x8]
 	lsl	r1, r3, #0x2
 	add	r1, r1, r0
 	ldr	r0, [r1]
-.L2641:
+.L2660:
 	pop	{r1}
 	bx	r1
 .Lfe165:
@@ -135989,28 +146891,28 @@ MonTryLearningNewMoveEvolution:
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	cmp	r5, #0
-	beq	.L2645	@cond_branch
-	ldr	r1, .L2655
+	beq	.L2664	@cond_branch
+	ldr	r1, .L2674
 	mov	r0, #0x0
 	strb	r0, [r1]
-.L2645:
-	ldr	r5, .L2655+0x4
+.L2664:
+	ldr	r5, .L2674+0x4
 	lsl	r2, r2, #0x2
 	add	r1, r2, r5
-	ldr	r3, .L2655
+	ldr	r3, .L2674
 	ldrb	r0, [r3]
 	ldr	r1, [r1]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldrh	r0, [r0]
-	ldr	r1, .L2655+0x8
+	ldr	r1, .L2674+0x8
 	mov	r9, r5
 	add	r7, r2, #0
 	cmp	r0, r1
-	beq	.L2647	@cond_branch
-	ldr	r4, .L2655+0xc
+	beq	.L2666	@cond_branch
+	ldr	r4, .L2674+0xc
 	mov	ip, r1
-.L2648:
+.L2667:
 	add	r0, r2, r5
 	ldrb	r1, [r3]
 	ldr	r0, [r0]
@@ -136018,12 +146920,12 @@ MonTryLearningNewMoveEvolution:
 	add	r1, r1, r0
 	ldrh	r2, [r1, #0x2]
 	cmp	r2, #0
-	beq	.L2651	@cond_branch
+	beq	.L2670	@cond_branch
 	mov	r5, r8
 	lsl	r0, r5, #0x9
 	cmp	r2, r0
-	bne	.L2650	@cond_branch
-.L2651:
+	bne	.L2669	@cond_branch
+.L2670:
 	ldrh	r0, [r1]
 	strh	r0, [r4]
 	ldrb	r0, [r3]
@@ -136034,15 +146936,15 @@ MonTryLearningNewMoveEvolution:
 	bl	GiveMoveToMon
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	b	.L2654
-.L2656:
+	b	.L2673
+.L2675:
 	.align	2, 0
-.L2655:
+.L2674:
 	.word	sLearningMoveTableID
 	.word	gLevelUpLearnsets
 	.word	0xffff
 	.word	gMoveToLearn
-.L2650:
+.L2669:
 	ldrb	r0, [r3]
 	add	r0, r0, #0x1
 	strb	r0, [r3]
@@ -136055,10 +146957,10 @@ MonTryLearningNewMoveEvolution:
 	add	r0, r0, r1
 	ldrh	r0, [r0]
 	cmp	r0, ip
-	bne	.L2648	@cond_branch
-.L2647:
+	bne	.L2667	@cond_branch
+.L2666:
 	mov	r0, #0x0
-.L2654:
+.L2673:
 	pop	{r3, r4}
 	mov	r8, r3
 	mov	r9, r4
@@ -136088,7 +146990,7 @@ CreateShinyMonWithNature:
 	lsl	r3, r3, #0x18
 	lsr	r3, r3, #0x18
 	mov	r8, r3
-	ldr	r0, .L2663
+	ldr	r0, .L2682
 	ldr	r1, [r0]
 	ldrb	r5, [r1, #0xa]
 	ldrb	r0, [r1, #0xb]
@@ -136101,11 +147003,11 @@ CreateShinyMonWithNature:
 	lsl	r0, r0, #0x18
 	orr	r5, r5, r0
 	lsr	r6, r5, #0x10
-	ldr	r7, .L2663+0x4
+	ldr	r7, .L2682+0x4
 	add	r0, r5, #0
 	and	r0, r0, r7
 	eor	r6, r6, r0
-.L2658:
+.L2677:
 	bl	Random
 	add	r4, r0, #0
 	bl	Random
@@ -136130,7 +147032,7 @@ CreateShinyMonWithNature:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r8, r0
-	bne	.L2658	@cond_branch
+	bne	.L2677	@cond_branch
 	mov	r0, #0x1
 	str	r0, [sp]
 	str	r4, [sp, #0x4]
@@ -136151,9 +147053,9 @@ CreateShinyMonWithNature:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2664:
+.L2683:
 	.align	2, 0
-.L2663:
+.L2682:
 	.word	gSaveBlock2Ptr
 	.word	0xffff
 .Lfe167:
@@ -136168,23 +147070,23 @@ GetFormSpeciesId:
 	lsr	r2, r0, #0x10
 	lsl	r1, r1, #0x18
 	lsr	r3, r1, #0x18
-	ldr	r1, .L2669
+	ldr	r1, .L2688
 	lsl	r0, r2, #0x2
 	add	r0, r0, r1
 	ldr	r1, [r0]
 	cmp	r1, #0
-	bne	.L2666	@cond_branch
+	bne	.L2685	@cond_branch
 	add	r0, r2, #0
-	b	.L2668
-.L2670:
+	b	.L2687
+.L2689:
 	.align	2, 0
-.L2669:
+.L2688:
 	.word	gFormSpeciesIdTables
-.L2666:
+.L2685:
 	lsl	r0, r3, #0x1
 	add	r0, r0, r1
 	ldrh	r0, [r0]
-.L2668:
+.L2687:
 	pop	{r1}
 	bx	r1
 .Lfe168:
@@ -136198,22 +147100,22 @@ GetFormIdFromFormSpeciesId:
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	mov	r2, #0x0
-	ldr	r1, .L2678
+	ldr	r1, .L2697
 	lsl	r0, r4, #0x2
 	add	r0, r0, r1
 	ldr	r1, [r0]
 	cmp	r1, #0
-	beq	.L2672	@cond_branch
+	beq	.L2691	@cond_branch
 	ldrh	r0, [r1]
-	ldr	r3, .L2678+0x4
+	ldr	r3, .L2697+0x4
 	cmp	r0, r3
-	beq	.L2672	@cond_branch
-.L2675:
+	beq	.L2691	@cond_branch
+.L2694:
 	lsl	r0, r2, #0x1
 	add	r0, r0, r1
 	ldrh	r0, [r0]
 	cmp	r4, r0
-	beq	.L2672	@cond_branch
+	beq	.L2691	@cond_branch
 	add	r0, r2, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r2, r0, #0x18
@@ -136221,15 +147123,15 @@ GetFormIdFromFormSpeciesId:
 	add	r0, r0, r1
 	ldrh	r0, [r0]
 	cmp	r0, r3
-	bne	.L2675	@cond_branch
-.L2672:
+	bne	.L2694	@cond_branch
+.L2691:
 	add	r0, r2, #0
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L2679:
+.L2698:
 	.align	2, 0
-.L2678:
+.L2697:
 	.word	gFormSpeciesIdTables
 	.word	0xffff
 .Lfe169:
@@ -136242,21 +147144,21 @@ GetBaseFormSpeciesId:
 	push	{lr}
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
-	ldr	r1, .L2683
+	ldr	r1, .L2702
 	lsl	r0, r2, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L2681	@cond_branch
+	bne	.L2700	@cond_branch
 	add	r0, r2, #0
-	b	.L2682
-.L2684:
+	b	.L2701
+.L2703:
 	.align	2, 0
-.L2683:
+.L2702:
 	.word	gFormSpeciesIdTables
-.L2681:
+.L2700:
 	ldrh	r0, [r0]
-.L2682:
+.L2701:
 	pop	{r1}
 	bx	r1
 .Lfe170:

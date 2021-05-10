@@ -111,8 +111,7 @@ MauvilleCity_Gym_EventScript_WattsonDefeated:: @ 820DF2B
 	
 MauvilleCity_Gym_EventScript_WattsonRematch:: @ 820DFDE
 	msgbox MauvilleCity_Gym_Text_WattsonPreRematch, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_WATTSON_1, MauvilleCity_Gym_Text_WattsonRematchDefeat
-	goto MauvilleCity_Gym_EventScript_GiveMegastone
+	goto MauvilleCity_Gym_EventScript_Start_Rematch_1
 	end
 	
 MauvilleCity_Gym_EventScript_Wattson_PostBattle::
@@ -120,6 +119,144 @@ MauvilleCity_Gym_EventScript_Wattson_PostBattle::
 	msgbox MauvilleCity_Gym_Text_WattsonPostBattle, MSGBOX_DEFAULT
 	release
 	end
+	
+//rematches
+MauvilleCity_Gym_EventScript_WattsonRematchEnd::
+	msgbox MauvilleCity_Gym_Text_WattsonPostBattle, MSGBOX_DEFAULT
+	setflag FLAG_UNUSED_0x924
+	release
+	end
+	
+//rematches
+MauvilleCity_Gym_EventScript_Start_Rematch_1::
+	checkitem ITEM_TM73_THUNDER_WAVE, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq MauvilleCity_Gym_EventScript_Start_Rematch_2
+	trainerbattle_no_intro TRAINER_WATTSON_1, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	msgbox MauvilleCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM73_THUNDER_WAVE
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_2::
+	goto_if_unset FLAG_RECEIVED_TM08 MauvilleCity_Gym_EventScript_Start_Rematch_Party_1
+	checkitem ITEM_TM34_SHOCK_WAVE, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq MauvilleCity_Gym_EventScript_Start_Rematch_3
+	trainerbattle_no_intro TRAINER_WATTSON_2, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	msgbox MauvilleCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM34_SHOCK_WAVE
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_3::
+	goto_if_unset FLAG_RECEIVED_TM42 MauvilleCity_Gym_EventScript_Start_Rematch_Party_2
+	checkitem ITEM_TM57_CHARGE_BEAM, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq MauvilleCity_Gym_EventScript_Start_Rematch_4
+	trainerbattle_no_intro TRAINER_WATTSON_3, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	msgbox MauvilleCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM57_CHARGE_BEAM
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_4::
+	goto_if_unset FLAG_RECEIVED_TM40 MauvilleCity_Gym_EventScript_Start_Rematch_Party_3
+	checkitem ITEM_TM72_VOLT_SWITCH, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq MauvilleCity_Gym_EventScript_Start_Rematch_5
+	trainerbattle_no_intro TRAINER_WATTSON_4, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	msgbox MauvilleCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM72_VOLT_SWITCH
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_5::
+	goto_if_unset FLAG_RECEIVED_TM04 MauvilleCity_Gym_EventScript_Start_Rematch_Party_4
+	goto_if_set FLAG_UNUSED_0x28C MauvilleCity_Gym_EventScript_Start_Rematch_6
+	trainerbattle_no_intro TRAINER_WATTSON_4, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	msgbox MauvilleCity_Gym_Text_GetMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_MANECTITE
+	setflag FLAG_UNUSED_0x28C
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_6::
+	goto_if_unset FLAG_RECEIVED_TM03 MauvilleCity_Gym_EventScript_Start_Rematch_Party_4
+	checkitem ITEM_TM93_WILD_CHARGE, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq MauvilleCity_Gym_EventScript_Start_Rematch_Final
+	trainerbattle_no_intro TRAINER_WATTSON_5, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	msgbox MauvilleCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM93_WILD_CHARGE
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_Final::
+	random 5
+	switch VAR_RESULT
+	case 0, MauvilleCity_Gym_EventScript_Start_Rematch_Party_1
+	case 1, MauvilleCity_Gym_EventScript_Start_Rematch_Party_2
+	case 2, MauvilleCity_Gym_EventScript_Start_Rematch_Party_3
+	case 3, MauvilleCity_Gym_EventScript_Start_Rematch_Party_4
+	case 4, MauvilleCity_Gym_EventScript_Start_Rematch_Party_5
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_Party_1::
+	trainerbattle_no_intro TRAINER_WATTSON_1, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	msgbox MauvilleCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_TIMID_MINT, 3
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_Party_2::
+	trainerbattle_no_intro TRAINER_WATTSON_2, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	msgbox MauvilleCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_HASTY_MINT, 3
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_Party_3::
+	trainerbattle_no_intro TRAINER_WATTSON_3, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	msgbox MauvilleCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_JOLLY_MINT, 3
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_Party_4::
+	trainerbattle_no_intro TRAINER_WATTSON_4, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	msgbox MauvilleCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_NAIVE_MINT, 3
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_EventScript_Start_Rematch_Party_5::
+	trainerbattle_no_intro TRAINER_WATTSON_5, MauvilleCity_Gym_Text_WattsonRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	msgbox MauvilleCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_MODEST_MINT, 3
+	goto MauvilleCity_Gym_EventScript_WattsonRematchEnd
+	end
+	
+MauvilleCity_Gym_Text_GetTM:
+	.string "Wattson: Please take this\n"
+	.string "Technical Machine.$"
+
+MauvilleCity_Gym_Text_GetMegaStone:
+	.string "Wattson: Please take this\n"
+	.string "Mega Stone, with you.\p"
+	.string "Make an Aggron hold it to\n"
+	.string "unleash its Hidden Potential.$"
+	
+MauvilleCity_Gym_Text_GetReward:
+	.string "Wattson: Please take this\n"
+	.string "Item as a Reward.$"
+
+//rematches end
 
 MauvilleCity_Gym_EventScript_GiveHM::
 	goto_if_unset FLAG_RECEIVED_TM39, MauvilleCity_Gym_EventScript_GiveHM01
@@ -130,16 +267,6 @@ MauvilleCity_Gym_EventScript_GiveHM::
 	goto_if_unset FLAG_RECEIVED_TM40, MauvilleCity_Gym_EventScript_GiveHM06
 	goto_if_unset FLAG_RECEIVED_TM04, MauvilleCity_Gym_EventScript_GiveHM07
 	goto MauvilleCity_Gym_EventScript_GiveHM08
-	end
-	
-MauvilleCity_Gym_EventScript_GiveMegastone::
-	goto_if_unset FLAG_RECEIVED_TM04 MauvilleCity_Gym_EventScript_RematchEnd
-	goto_if_set FLAG_UNUSED_0x28C MauvilleCity_Gym_EventScript_RematchEnd
-	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
-	giveitem ITEM_MANECTITE
-	setflag FLAG_UNUSED_0x28C
-	msgbox MauvilleCity_Gym_Text_WattsonPostRematch, MSGBOX_AUTOCLOSE
-	setflag FLAG_UNUSED_0x924
 	end
 	
 MauvilleCity_Gym_EventScript_RematchEnd::

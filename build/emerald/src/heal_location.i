@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -2948,7 +2949,7 @@ static const struct HealLocation sHealLocations[] =
     [39 - 1] = {((32 | (0 << 8)) >> 8), ((32 | (0 << 8)) & 0xFF), 50, 12},
     [40 - 1] = {((33 | (0 << 8)) >> 8), ((33 | (0 << 8)) & 0xFF), 57, 8},
     [41 - 1] = {((34 | (0 << 8)) >> 8), ((34 | (0 << 8)) & 0xFF), 8, 33},
-    [42 - 1] = {((35 | (0 << 8)) >> 8), ((35 | (0 << 8)) & 0xFF), 11, 15},
+    [42 - 1] = {((35 | (0 << 8)) >> 8), ((35 | (0 << 8)) & 0xFF), 20, 13},
     [43 - 1] = {((36 | (0 << 8)) >> 8), ((36 | (0 << 8)) & 0xFF), 38, 6},
     [44 - 1] = {((37 | (0 << 8)) >> 8), ((37 | (0 << 8)) & 0xFF), 22, 30},
     [45 - 1] = {((38 | (0 << 8)) >> 8), ((38 | (0 << 8)) & 0xFF), 11, 12},

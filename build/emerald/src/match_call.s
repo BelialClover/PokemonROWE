@@ -4579,7 +4579,7 @@ PopulateSpeciesFromTrainerParty:
 	cmp	r0, #0x3
 	beq	.L302	@cond_branch
 .L299:
-	lsl	r0, r1, #0x3
+	lsl	r0, r1, #0x4
 	b	.L305
 .L308:
 	.align	2, 0
@@ -4587,19 +4587,19 @@ PopulateSpeciesFromTrainerParty:
 	.word	sMatchCallTrainers
 	.word	gTrainers
 .L300:
-	lsl	r0, r1, #0x4
+	lsl	r0, r1, #0x5
 	b	.L305
 .L301:
-	lsl	r0, r1, #0x1
+	lsl	r0, r1, #0x2
 	b	.L306
 .L302:
-	lsl	r0, r1, #0x2
+	lsl	r0, r1, #0x3
 .L306:
 	add	r0, r0, r1
 	lsl	r0, r0, #0x2
 .L305:
 	add	r0, r0, r6
-	ldrh	r1, [r0, #0x4]
+	ldrh	r1, [r0, #0xc]
 	mov	r0, #0xb
 	mul	r1, r1, r0
 	ldr	r0, .L309

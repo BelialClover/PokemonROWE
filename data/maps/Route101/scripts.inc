@@ -216,6 +216,7 @@ Route101_EventScript_Boy:: @ 81EBE04
 
 Route101_EventScript_RouteSign:: @ 81EBE0D
 	msgbox Route101_Text_RouteSign, MSGBOX_SIGN
+	//call FillPokedex
 	end
 
 Route101_EventScript_BirchsBag:: @ 81EBE16

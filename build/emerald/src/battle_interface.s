@@ -3653,6 +3653,7 @@ PrintSafariMonInfo:
 	mov	r1, #0x5
 	mov	r8, r1
 	add	r0, r4, #0
+	mov	r1, #0x0
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	mov	r4, sp
@@ -3911,9 +3912,9 @@ SwapHpBarsWithHpText:
 	ldr	r0, .L264
 	ldrb	r0, [r0]
 	cmp	r9, r0
-	blt	.LCB2759
+	blt	.LCB2760
 	b	.L246	@long jump
-.LCB2759:
+.LCB2760:
 	ldr	r1, .L264+0x4
 	mov	sl, r1
 	ldr	r2, .L264+0x8
@@ -3932,9 +3933,9 @@ SwapHpBarsWithHpText:
 	ldr	r1, [r0]
 	ldr	r0, .L264+0x10
 	cmp	r1, r0
-	beq	.LCB2784
+	beq	.LCB2785
 	b	.L247	@long jump
-.LCB2784:
+.LCB2785:
 	mov	r2, r9
 	lsl	r0, r2, #0x18
 	lsr	r7, r0, #0x18
@@ -3943,9 +3944,9 @@ SwapHpBarsWithHpText:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.LCB2794
+	bne	.LCB2795
 	b	.L247	@long jump
-.LCB2794:
+.LCB2795:
 	bl	IsDoubleBattle
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
@@ -3954,9 +3955,9 @@ SwapHpBarsWithHpText:
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB2807
+	bne	.LCB2808
 	b	.L247	@long jump
-.LCB2807:
+.LCB2808:
 .L250:
 	ldr	r5, .L264+0x14
 	ldr	r0, [r5]
@@ -3993,17 +3994,17 @@ SwapHpBarsWithHpText:
 	bl	IsDoubleBattle
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB2856
+	bne	.LCB2857
 	b	.L247	@long jump
-.LCB2856:
+.LCB2857:
 	ldr	r0, .L264+0x18
 	ldr	r2, [r0]
 	mov	r0, #0x80
 	and	r2, r2, r0
 	cmp	r2, #0
-	beq	.LCB2862
+	beq	.LCB2863
 	b	.L247	@long jump
-.LCB2862:
+.LCB2863:
 	cmp	r4, #0x1
 	bne	.L254	@cond_branch
 	ldrb	r1, [r6]
@@ -4223,9 +4224,9 @@ SwapHpBarsWithHpText:
 	ldr	r0, .L272+0xc
 	ldrb	r0, [r0]
 	cmp	r9, r0
-	bge	.LCB3151
+	bge	.LCB3152
 	b	.L248	@long jump
-.LCB3151:
+.LCB3152:
 .L246:
 	add	sp, sp, #0x4
 	pop	{r3, r4, r5}
@@ -5257,16 +5258,16 @@ CreatePartyStatusSummarySprites:
 	add	r8, r8, r2
 	mov	r3, r8
 	cmp	r3, #0x5
-	bgt	.LCB4308
+	bgt	.LCB4309
 	b	.L357	@long jump
-.LCB4308:
+.LCB4309:
 	ldr	r0, [sp, #0x8]
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB4316
+	beq	.LCB4317
 	b	.L363	@long jump
-.LCB4316:
+.LCB4317:
 	ldr	r0, .L432+0x4
 	ldr	r1, [r0]
 	mov	r2, #0x40
@@ -5830,9 +5831,9 @@ Task_HidePartyStatusSummary:
 	cmp	r5, #0x5
 	ble	.L450	@cond_branch
 	cmp	r7, #0
-	bne	.LCB5048
+	bne	.LCB5049
 	b	.L452	@long jump
-.LCB5048:
+.LCB5049:
 	ldr	r0, .L474+0x4
 	ldr	r0, [r0]
 	ldrb	r1, [r0, #0x17]
@@ -6005,9 +6006,9 @@ Task_HidePartyStatusSummary:
 	orr	r0, r0, r1
 	strb	r0, [r2, #0x1]
 	cmp	r7, #0
-	bne	.LCB5265
+	bne	.LCB5266
 	b	.L465	@long jump
-.LCB5265:
+.LCB5266:
 	mov	r5, #0x0
 	mov	r6, ip
 	mov	sl, r5
@@ -7570,9 +7571,9 @@ UpdateHealthboxAttribute:
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB7215
+	beq	.LCB7216
 	b	.L680	@long jump
-.LCB7215:
+.LCB7216:
 	cmp	r7, #0x3
 	beq	.L682	@cond_branch
 	cmp	r7, #0

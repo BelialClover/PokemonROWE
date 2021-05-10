@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -5267,6 +5268,9 @@ struct TrainerMonNoItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
 };
@@ -5275,8 +5279,12 @@ struct TrainerMonItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
 };
 
@@ -5284,8 +5292,12 @@ struct TrainerMonNoItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -5293,9 +5305,14 @@ struct TrainerMonItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -6544,6 +6561,7 @@ void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichPart
 void CB2_ShowPartyMenuForItemUse(void);
 void ItemUseCB_Medicine(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task);
+void ItemUseCB_PowerCandy(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task);
 void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task);
 void ItemUseCB_PPRecovery(u8 taskId, TaskFunc task);

@@ -1129,4 +1129,21 @@ Common_EventScript_LegendaryFlewAway:: @ 8273776
 	.include "data/maps/ScorchedSlab_B1F/scripts.inc"
 	.include "data/maps/ScorchedSlab_B2F/scripts.inc"
 	.include "data/maps/ScorchedSlab_HeatransRoom/scripts.inc"
+	
+
+FillPokedex::
+	setvar VAR_0x8004, 1
+	special ScriptSetSeenPokedexInfo
+	special ScriptSetCaughtPokedexInfo
+	call loop
+	setflag FLAG_SYS_POKEDEX_GET
+	special EnableNationalPokedex
+	end
+loop:
+	addvar 0x8004 1
+	special ScriptSetSeenPokedexInfo
+	special ScriptSetCaughtPokedexInfo
+	compare VAR_0x8004, 386
+	goto_if_lt loop
+	return
     

@@ -86,3 +86,16 @@ void ShowPokedexRatingMessage(void)
 {
     ShowFieldMessage(GetPokedexRatingText(gSpecialVar_0x8004));
 }
+
+// Registers the Species stored in the Var 0x8004 as Seen in the Pokédex
+void ScriptSetSeenPokedexInfo(void)
+{
+    GetSetPokedexFlag(gSpecialVar_0x8004, FLAG_SET_SEEN);
+}
+
+// Registers the Species stored in the Var 0x8004 as Caught in the Pokédex.
+// Note: It won't work if the Species hasn't been registered as Seen first.
+void ScriptSetCaughtPokedexInfo(void)
+{
+    GetSetPokedexFlag(gSpecialVar_0x8004, FLAG_SET_CAUGHT);
+}

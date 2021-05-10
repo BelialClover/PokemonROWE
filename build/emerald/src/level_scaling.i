@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -5774,6 +5775,9 @@ struct TrainerMonNoItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
 };
@@ -5782,8 +5786,12 @@ struct TrainerMonItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
 };
 
@@ -5791,8 +5799,12 @@ struct TrainerMonNoItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -5800,9 +5812,14 @@ struct TrainerMonItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -6914,13 +6931,13 @@ extern const u32 gMonFrontPic_Meltan[];
 extern const u32 gMonFrontPic_Melmetal[];
 extern const u32 gMonFrontPic_Grookey[];
 extern const u32 gMonFrontPic_Thwackey[];
-
+extern const u32 gMonFrontPic_Rillaboom[];
 extern const u32 gMonFrontPic_Scorbunny[];
 extern const u32 gMonFrontPic_Raboot[];
 extern const u32 gMonFrontPic_Cinderace[];
 extern const u32 gMonFrontPic_Sobble[];
 extern const u32 gMonFrontPic_Drizzile[];
-
+extern const u32 gMonFrontPic_Inteleon[];
 extern const u32 gMonFrontPic_Skwovet[];
 extern const u32 gMonFrontPic_Greedent[];
 extern const u32 gMonFrontPic_Rookidee[];
@@ -8054,13 +8071,13 @@ extern const u32 gMonBackPic_Meltan[];
 extern const u32 gMonBackPic_Melmetal[];
 extern const u32 gMonBackPic_Grookey[];
 extern const u32 gMonBackPic_Thwackey[];
-
+extern const u32 gMonBackPic_Rillaboom[];
 extern const u32 gMonBackPic_Scorbunny[];
 extern const u32 gMonBackPic_Raboot[];
 extern const u32 gMonBackPic_Cinderace[];
 extern const u32 gMonBackPic_Sobble[];
 extern const u32 gMonBackPic_Drizzile[];
-
+extern const u32 gMonBackPic_Inteleon[];
 extern const u32 gMonBackPic_Skwovet[];
 extern const u32 gMonBackPic_Greedent[];
 extern const u32 gMonBackPic_Rookidee[];
@@ -9192,13 +9209,13 @@ extern const u32 gMonPalette_Meltan[];
 extern const u32 gMonPalette_Melmetal[];
 extern const u32 gMonPalette_Grookey[];
 extern const u32 gMonPalette_Thwackey[];
-
+extern const u32 gMonPalette_Rillaboom[];
 extern const u32 gMonPalette_Scorbunny[];
 extern const u32 gMonPalette_Raboot[];
 extern const u32 gMonPalette_Cinderace[];
 extern const u32 gMonPalette_Sobble[];
 extern const u32 gMonPalette_Drizzile[];
-
+extern const u32 gMonPalette_Inteleon[];
 extern const u32 gMonPalette_Skwovet[];
 extern const u32 gMonPalette_Greedent[];
 extern const u32 gMonPalette_Rookidee[];
@@ -10357,13 +10374,13 @@ extern const u32 gMonShinyPalette_Meltan[];
 extern const u32 gMonShinyPalette_Melmetal[];
 extern const u32 gMonShinyPalette_Grookey[];
 extern const u32 gMonShinyPalette_Thwackey[];
-
+extern const u32 gMonShinyPalette_Rillaboom[];
 extern const u32 gMonShinyPalette_Scorbunny[];
 extern const u32 gMonShinyPalette_Raboot[];
 extern const u32 gMonShinyPalette_Cinderace[];
 extern const u32 gMonShinyPalette_Sobble[];
 extern const u32 gMonShinyPalette_Drizzile[];
-
+extern const u32 gMonShinyPalette_Inteleon[];
 extern const u32 gMonShinyPalette_Skwovet[];
 extern const u32 gMonShinyPalette_Greedent[];
 extern const u32 gMonShinyPalette_Rookidee[];
@@ -11671,6 +11688,25 @@ extern const u8 gMonIcon_GrimerAlolan[];
 extern const u8 gMonIcon_MukAlolan[];
 extern const u8 gMonIcon_ExeggutorAlolan[];
 extern const u8 gMonIcon_MarowakAlolan[];
+extern const u8 gMonIcon_MeowthGalarian[];
+extern const u8 gMonIcon_PonytaGalarian[];
+extern const u8 gMonIcon_RapidashGalarian[];
+extern const u8 gMonIcon_SlowpokeGalarian[];
+extern const u8 gMonIcon_SlowbroGalarian[];
+extern const u8 gMonIcon_FarfetchdGalarian[];
+extern const u8 gMonIcon_WeezingGalarian[];
+extern const u8 gMonIcon_MrmimeGalarian[];
+extern const u8 gMonIcon_ArticunoGalarian[];
+extern const u8 gMonIcon_ZapdosGalarian[];
+extern const u8 gMonIcon_MoltresGalarian[];
+extern const u8 gMonIcon_SlowkingGalarian[];
+extern const u8 gMonIcon_CorsolaGalarian[];
+extern const u8 gMonIcon_ZigzagoonGalarian[];
+extern const u8 gMonIcon_LinooneGalarian[];
+extern const u8 gMonIcon_DarumakaGalarian[];
+extern const u8 gMonIcon_DarmanitanGalarian[];
+extern const u8 gMonIcon_YamaskGalarian[];
+extern const u8 gMonIcon_StunfiskGalarian[];
 extern const u8 gMonIcon_PikachuCosplay[];
 extern const u8 gMonIcon_PikachuRockStar[];
 extern const u8 gMonIcon_PikachuBelle[];
@@ -15533,6 +15569,15 @@ extern const u32 gPokenavMessageBox_Tilemap[];
 extern const u16 gPokenavMessageBox_Pal[];
 extern const u32 gPokenavOptions_Gfx[];
 extern const u16 gPokenavOptions_Pal[];
+
+
+extern const u32 gItemIcon_Mint[];
+extern const u32 gItemIconPalette_RedMint[];
+extern const u32 gItemIconPalette_BlueMint[];
+extern const u32 gItemIconPalette_PinkMint[];
+extern const u32 gItemIconPalette_GreenMint[];
+extern const u32 gItemIconPalette_LightBlueMint[];
+extern const u32 gItemIconPalette_YellowMint[];
 # 25 "src/level_scaling.c" 2
 # 1 "gflib/gpu_regs.h" 1
 # 9 "gflib/gpu_regs.h"
@@ -17744,6 +17789,7 @@ void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichPart
 void CB2_ShowPartyMenuForItemUse(void);
 void ItemUseCB_Medicine(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task);
+void ItemUseCB_PowerCandy(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task);
 void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task);
 void ItemUseCB_PPRecovery(u8 taskId, TaskFunc task);
@@ -21401,24 +21447,24 @@ bool32 GetLinkTrainerCardColor(u8 linkPlayerIndex);
 # 67 "src/level_scaling.c" 2
 
 
-u8 normalnumMonsBadge[] = {2,3,3,4,4,5,5,5,5,6};
-u8 normalnumMonsGym[] = {3,4,4,4,5,5,5,6,6,6};
-u8 normalminTrainerLevel[] = {6,10,15,20,25,30,35,40,45,55};
-u8 normalminGymLevel[] = {12,17,22,27,32,37,42,50,55,65};
-u8 normalnumMonsDouble[] = {1,2,2,2,2,2,3,3,3,3};
+u8 normalnumMonsBadge[] = {2,3,3,4,4,5,5,5,5,6,6};
+u8 normalnumMonsGym[] = {3,4,4,4,5,5,5,6,6,6,6};
+u8 normalminTrainerLevel[] = {6,10,15,20,25,30,35,40,45,55,60};
+u8 normalminGymLevel[] = {12,17,22,27,32,37,42,50,55,65,70};
+u8 normalnumMonsDouble[] = {1,2,2,2,2,2,3,3,3,3,3};
 
 
-u8 hardnumMonsBadge[] = {3,3,4,4,4,5,6,6,6,6};
-u8 hardnumMonsGym[] = {3,4,4,5,5,6,6,6,6,6};
-u8 hardminTrainerLevel[] = {7,12,18,24,30,36,42,48,55,65};
-u8 hardminGymLevel[] = {13,19,25,31,37,43,49,60,68,76};
-u8 hardnumMonsDouble[] = {2,2,2,2,2,2,3,3,3,3};
+u8 hardnumMonsBadge[] = {3,3,4,4,4,5,5,6,6,6,6};
+u8 hardnumMonsGym[] = {3,4,4,5,5,6,6,6,6,6,6};
+u8 hardminTrainerLevel[] = {7,12,18,24,30,36,42,48,55,65,70};
+u8 hardminGymLevel[] = {13,19,25,31,37,43,49,60,68,76,82};
+u8 hardnumMonsDouble[] = {2,2,2,2,2,2,3,3,3,3,3};
 
 u16 SplitEvolutions(u16 basespecies, u8 level);
 u16 CheckforLegendary(u16 species);
 
 
-u8 WildLevel[] = {3,10,15,20,25,30,35,40,45,55};
+u8 WildLevel[] = {4,10,15,20,25,30,35,40,45,55,60};
 
 u8 IsHardMode(){
  if (gSaveBlock2Ptr->optionsBattleStyle != 0)
@@ -21427,8 +21473,7 @@ u8 IsHardMode(){
   return 0;
 }
 
-u16 GetFirstEvolution(u16 species)
-{
+u16 GetFirstEvolution(u16 species){
     int i, j, k;
     bool8 found;
 
@@ -21462,7 +21507,8 @@ u16 GetFirstEvolution(u16 species)
 
 u8 GetNumBadges()
 {
-
+ if (FlagGet(0x1C0))
+  return 10;
  if (FlagGet((((0x500 + 864 - 1) + 1) + 0x4)))
   return 9;
  else if (FlagGet(0xAC))
@@ -21485,11 +21531,27 @@ u8 GetNumBadges()
  return 0;
 };
 
+u8 getLevelBoost(){
+ u8 badges = GetNumBadges();
+ if (FlagGet((((0x500 + 864 - 1) + 1) + 0x4)) && IsHardMode() == 1)
+  return badges*2;
+ else if(IsHardMode() == 1 || FlagGet((((0x500 + 864 - 1) + 1) + 0x4)))
+  return badges;
+ else
+  return 0;
+}
+
 u16 GetBaseSpecie(u16 basespecies){
- u16 id = ((gSaveBlock2Ptr->playerTrainerId[1] << 8) | gSaveBlock2Ptr->playerTrainerId[0]);
- u16 randomizedspecie = GetFirstEvolution(CheckforLegendary(((basespecies * id )% 887)));
- if(FlagGet((((0x500 + 864 - 1) + 1) + 0x2F)) == 0)
-  return randomizedspecie;
+ u16 id = gSaveBlock2Ptr->playerTrainerId[1];
+ u16 randomizedspecie = 1;
+ u16 firstStage = 1;
+ u16 notLegendary = 1;
+ if(FlagGet((((0x500 + 864 - 1) + 1) + 0x2F)) == 0){
+  randomizedspecie = 1+((basespecies*id)% 884);
+  notLegendary = CheckforLegendary(randomizedspecie);
+
+  return notLegendary;
+ }
  else
   return basespecies;
 }
@@ -21513,14 +21575,12 @@ u8 getTrainerLevel(u8 Level){
   return hardminTrainerLevel[badges] + levelboost;
  else if (Level == 5 || Level == 6)
   return hardminGymLevel[badges];
- else
-  return Level+GetNumBadges();
  }
  return Level;
 }
 
 u8 getWildLevel(u8 Ability){
- u8 levelboost = Random() % 5;
+ u8 levelboost = Random() % 5 + IsHardMode();
  if(Ability == 46 || Ability == 55 || Ability == 72 || Ability == 22)
   return WildLevel[GetNumBadges()] + 6;
  else if(Ability == 193 || Ability == 50 || Ability == 155)
@@ -21566,6 +21626,7 @@ u16 GetWildPokemon(u16 basespecies, u8 level, u16 heldItem){
  {
 
   case 1:
+  case 21:
   if(level >= FriendshipLevel)
    return GetWildPokemon(gEvolutionTable[split][0].targetSpecies, level, heldItem);
   break;
@@ -21626,6 +21687,7 @@ u16 GetTrainerPokemon(u16 basespecies, u8 level){
  {
 
   case 1:
+  case 21:
   if(level >= FriendshipLevel)
    return GetTrainerPokemon(gEvolutionTable[split][0].targetSpecies, level);
   break;
@@ -21741,18 +21803,17 @@ u16 SplitEvolutions(u16 basespecies, u8 level){
 }
 
 u16 CheckforLegendary(u16 species){
- u16 species2 = 1;
- u16 id = ((gSaveBlock2Ptr->playerTrainerId[1] << 8) | gSaveBlock2Ptr->playerTrainerId[0]);
- if((species >= 144 && species<= 146) || species == 150 || species == 151 ||
-    (species >= 243 && species<= 245) || (species >= 249 && species<= 251) ||
-    (species >= 377 && species<= 386) || (species >= 480 && species<= 494) ||
-    (species >= 638 && species<= 649) || (species >= 716 && species<= 721) ||
-    (species >= 785 && species<= 809) || (species >= 888 && species<= 898)){
-    species2 = ((species * id )% 887);
-    CheckforLegendary(species2);
-    }
- else
+ u16 LegendariesNum1[] = {144,150,243,249,377,480,638,716,785};
+ u16 LegendariesNum2[] = {147,152,246,252,387,495,650,722,810};
+ u8 i = 0;
+
+ for(i = 0; i < 9;i++){
+ if(species < LegendariesNum1[i])
   return species;
+ else if(species < LegendariesNum2[i])
+  return LegendariesNum2[i];
+ }
+ return species;
 }
 
 u16 GetHeldItem(u16 baseitem)
@@ -21820,4 +21881,15 @@ u16 GetHeldItem(u16 baseitem)
  }
 
  return baseitem;
+}
+
+u8 GetEvsfromPokemon(u8 evs)
+{
+ u8 NumBadges = GetNumBadges();
+ u8 NumFlags = 10;
+ u8 ScaledEvs = (evs/NumFlags)*NumBadges;
+ if(IsHardMode() == 1 && NumBadges != NumFlags)
+  ScaledEvs = (evs/NumFlags)*NumBadges+1;
+
+ return ScaledEvs;
 }

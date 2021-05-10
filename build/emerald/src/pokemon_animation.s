@@ -1010,6 +1010,7 @@ LaunchAnimationTaskForBackSprite:
 	mul	r0, r0, r1
 	ldr	r1, .L27+0xc
 	add	r0, r0, r1
+	mov	r1, #0x0
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18

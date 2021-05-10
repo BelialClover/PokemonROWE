@@ -10991,6 +10991,10 @@ gText_XNatureMetAtYZ:
 	.byte	0x1
 	.byte	0xf7
 	.byte	0x5
+	.byte	0xf7
+	.byte	0x6
+	.byte	0xf7
+	.byte	0x7
 	.byte	0x0
 	.byte	0xe2
 	.byte	0xd5
@@ -11025,7 +11029,7 @@ gText_XNatureMetAtYZ:
 	.byte	0x1
 	.byte	0xad
 	.byte	0xff
-	.size	 gText_XNatureMetAtYZ,42
+	.size	 gText_XNatureMetAtYZ,46
 	.globl	gText_XNatureHatchedAtYZ
 	.type	 gText_XNatureHatchedAtYZ,object
 gText_XNatureHatchedAtYZ:
@@ -11037,6 +11041,10 @@ gText_XNatureHatchedAtYZ:
 	.byte	0x1
 	.byte	0xf7
 	.byte	0x5
+	.byte	0xf7
+	.byte	0x6
+	.byte	0xf7
+	.byte	0x7
 	.byte	0x0
 	.byte	0xe2
 	.byte	0xd5
@@ -11075,7 +11083,7 @@ gText_XNatureHatchedAtYZ:
 	.byte	0x1
 	.byte	0xad
 	.byte	0xff
-	.size	 gText_XNatureHatchedAtYZ,46
+	.size	 gText_XNatureHatchedAtYZ,50
 	.globl	gText_XNatureObtainedInTrade
 	.type	 gText_XNatureObtainedInTrade,object
 gText_XNatureObtainedInTrade:
@@ -11087,6 +11095,10 @@ gText_XNatureObtainedInTrade:
 	.byte	0x1
 	.byte	0xf7
 	.byte	0x5
+	.byte	0xf7
+	.byte	0x6
+	.byte	0xf7
+	.byte	0x7
 	.byte	0x0
 	.byte	0xe2
 	.byte	0xd5
@@ -11117,7 +11129,7 @@ gText_XNatureObtainedInTrade:
 	.byte	0xd9
 	.byte	0xad
 	.byte	0xff
-	.size	 gText_XNatureObtainedInTrade,38
+	.size	 gText_XNatureObtainedInTrade,42
 	.globl	gText_XNatureFatefulEncounter
 	.type	 gText_XNatureFatefulEncounter,object
 gText_XNatureFatefulEncounter:
@@ -11129,6 +11141,10 @@ gText_XNatureFatefulEncounter:
 	.byte	0x1
 	.byte	0xf7
 	.byte	0x5
+	.byte	0xf7
+	.byte	0x6
+	.byte	0xf7
+	.byte	0x7
 	.byte	0x0
 	.byte	0xe2
 	.byte	0xd5
@@ -11183,7 +11199,7 @@ gText_XNatureFatefulEncounter:
 	.byte	0x1
 	.byte	0xad
 	.byte	0xff
-	.size	 gText_XNatureFatefulEncounter,62
+	.size	 gText_XNatureFatefulEncounter,66
 	.globl	gText_XNatureProbablyMetAt
 	.type	 gText_XNatureProbablyMetAt,object
 gText_XNatureProbablyMetAt:
@@ -11195,6 +11211,10 @@ gText_XNatureProbablyMetAt:
 	.byte	0x1
 	.byte	0xf7
 	.byte	0x5
+	.byte	0xf7
+	.byte	0x6
+	.byte	0xf7
+	.byte	0x7
 	.byte	0x0
 	.byte	0xe2
 	.byte	0xd5
@@ -11238,7 +11258,7 @@ gText_XNatureProbablyMetAt:
 	.byte	0x1
 	.byte	0xad
 	.byte	0xff
-	.size	 gText_XNatureProbablyMetAt,51
+	.size	 gText_XNatureProbablyMetAt,55
 	.globl	gText_XNature
 	.type	 gText_XNature,object
 gText_XNature:
@@ -11250,6 +11270,10 @@ gText_XNature:
 	.byte	0x1
 	.byte	0xf7
 	.byte	0x5
+	.byte	0xf7
+	.byte	0x6
+	.byte	0xf7
+	.byte	0x7
 	.byte	0x0
 	.byte	0xe2
 	.byte	0xd5
@@ -11258,7 +11282,7 @@ gText_XNature:
 	.byte	0xe6
 	.byte	0xd9
 	.byte	0xff
-	.size	 gText_XNature,16
+	.size	 gText_XNature,20
 	.globl	gText_XNatureMetSomewhereAt
 	.type	 gText_XNatureMetSomewhereAt,object
 gText_XNatureMetSomewhereAt:
@@ -11270,6 +11294,10 @@ gText_XNatureMetSomewhereAt:
 	.byte	0x1
 	.byte	0xf7
 	.byte	0x5
+	.byte	0xf7
+	.byte	0x6
+	.byte	0xf7
+	.byte	0x7
 	.byte	0x0
 	.byte	0xe2
 	.byte	0xd5
@@ -11306,7 +11334,7 @@ gText_XNatureMetSomewhereAt:
 	.byte	0x1
 	.byte	0xad
 	.byte	0xff
-	.size	 gText_XNatureMetSomewhereAt,44
+	.size	 gText_XNatureMetSomewhereAt,48
 	.globl	gText_XNatureHatchedSomewhereAt
 	.type	 gText_XNatureHatchedSomewhereAt,object
 gText_XNatureHatchedSomewhereAt:
@@ -11318,6 +11346,10 @@ gText_XNatureHatchedSomewhereAt:
 	.byte	0x1
 	.byte	0xf7
 	.byte	0x5
+	.byte	0xf7
+	.byte	0x6
+	.byte	0xf7
+	.byte	0x7
 	.byte	0x0
 	.byte	0xe2
 	.byte	0xd5
@@ -11358,7 +11390,7 @@ gText_XNatureHatchedSomewhereAt:
 	.byte	0x1
 	.byte	0xad
 	.byte	0xff
-	.size	 gText_XNatureHatchedSomewhereAt,48
+	.size	 gText_XNatureHatchedSomewhereAt,52
 	.globl	gText_OddEggFoundByCouple
 	.type	 gText_OddEggFoundByCouple,object
 gText_OddEggFoundByCouple:

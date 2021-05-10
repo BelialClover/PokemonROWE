@@ -9320,7 +9320,8 @@ sItemsByType:
 	.short	0x11
 	.space	434
 	.short	0x4
-	.space	8
+	.short	0x4
+	.space	6
 	.short	0x17
 	.space	100
 .text

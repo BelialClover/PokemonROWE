@@ -756,6 +756,12 @@ void ItemUseOutOfBattle_AbilityCapsule(u8 taskId)
     SetUpItemUseCallback(taskId);
 }
 
+void ItemUseOutOfBattle_PowerCandy(u8 taskId)
+{
+    gItemUseCB = ItemUseCB_PowerCandy;
+    SetUpItemUseCallback(taskId);
+}
+
 void ItemUseOutOfBattle_AbilityPatch(u8 taskId)
 {
     gItemUseCB = ItemUseCB_AbilityPatch;
@@ -1268,7 +1274,7 @@ u16 GetAshCount(void)
 
 void ItemUseOutOfBattle_Mints(u8 taskId)
 {
-    gItemUseCB = ItemUseCB_AbilityPatch;
+    gItemUseCB = ItemUseCB_Mints;
     SetUpItemUseCallback(taskId);
 }
 

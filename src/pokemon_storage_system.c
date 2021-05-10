@@ -6824,6 +6824,7 @@ static void SetCursorMonData(void *pokemon, u8 mode)
         if (sPSSData->cursorMonSpecies != SPECIES_NONE)
         {
             u32 otId = GetBoxMonData(boxMon, MON_DATA_OT_ID);
+			u16 formSpeciesId;
             sanityIsBagEgg = GetBoxMonData(boxMon, MON_DATA_SANITY_IS_BAD_EGG);
             if (sanityIsBagEgg)
                 sPSSData->cursorMonIsEgg = TRUE;
@@ -6831,12 +6832,13 @@ static void SetCursorMonData(void *pokemon, u8 mode)
                 sPSSData->cursorMonIsEgg = GetBoxMonData(boxMon, MON_DATA_IS_EGG);
 
             sPSSData->cursorMonFormId = GetMonData(boxMon, MON_DATA_FORM_ID);
+			formSpeciesId = GetFormSpeciesId(sPSSData->cursorMonSpecies, sPSSData->cursorMonFormId);
             GetBoxMonData(boxMon, MON_DATA_NICKNAME, sPSSData->cursorMonNick);
             StringGetEnd10(sPSSData->cursorMonNick);
             sPSSData->cursorMonLevel = GetLevelFromBoxMonExp(boxMon);
             sPSSData->cursorMonMarkings = GetBoxMonData(boxMon, MON_DATA_MARKINGS);
             sPSSData->cursorMonPersonality = GetBoxMonData(boxMon, MON_DATA_PERSONALITY);
-            sPSSData->cursorMonPalette = GetMonSpritePalFromSpeciesAndPersonality(sPSSData->cursorMonSpecies, otId, sPSSData->cursorMonPersonality);
+            sPSSData->cursorMonPalette = GetMonSpritePalFromSpeciesAndPersonality(formSpeciesId, otId, sPSSData->cursorMonPersonality);
             gender = GetGenderFromSpeciesAndPersonality(sPSSData->cursorMonSpecies, sPSSData->cursorMonPersonality);
             sPSSData->cursorMonItem = GetBoxMonData(boxMon, MON_DATA_HELD_ITEM);
         }
@@ -8343,11 +8345,12 @@ static void sub_80D07B0(u8 arg0, u8 arg1)
     u8 position = arg0 + (6 * arg1);
     u16 species = GetCurrentBoxMonData(position, MON_DATA_SPECIES2);
     u32 personality = GetCurrentBoxMonData(position, MON_DATA_PERSONALITY);
-    u8 formId = GetCurrentBoxMonData(position, MON_DATA_FORM_ID);
+    //u8 formId = GetCurrentBoxMonData(position, MON_DATA_FORM_ID);
+	u16 formId =GetFormIdFromFormSpeciesId(species);
 
     if (species != SPECIES_NONE)
     {
-        const u8 *iconGfx = GetMonIconPtr(species, personality, 1, formId);
+        const u8 *iconGfx = GetMonIconPtr(species, 0, 1, formId);
         u8 index = GetValidMonIconPalIndex(species, formId) + 8;
 
         BlitBitmapRectToWindow4BitTo8Bit(sPSSData->field_2200,

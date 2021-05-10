@@ -1321,6 +1321,28 @@ gRoute113_LandMonsNightInfo:
 	.byte	0x14
 	.space	3
 	.word	gRoute113_LandMonsNight
+	.globl	gRoute113_HiddenMons
+	.align	2, 0
+	.type	 gRoute113_HiddenMons,object
+gRoute113_HiddenMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0x2a7
+	.byte	0x5
+	.byte	0x5
+	.short	0x3c7
+	.byte	0x5
+	.byte	0x5
+	.short	0x176
+	.size	 gRoute113_HiddenMons,12
+	.globl	gRoute113_HiddenMonsInfo
+	.align	2, 0
+	.type	 gRoute113_HiddenMonsInfo,object
+	.size	 gRoute113_HiddenMonsInfo,8
+gRoute113_HiddenMonsInfo:
+	.byte	0x0
+	.space	3
+	.word	gRoute113_HiddenMons
 	.globl	gRoute114_LandMons
 	.align	2, 0
 	.type	 gRoute114_LandMons,object
@@ -7795,19 +7817,19 @@ gShoalCave_LowTideIceRoom_LandMons:
 	.short	0x169
 	.byte	0x20
 	.byte	0x20
-	.short	0x1cb
+	.short	0x368
 	.byte	0x1e
 	.byte	0x1e
 	.short	0x267
 	.byte	0x1c
 	.byte	0x1c
-	.short	0x368
+	.short	0x371
 	.byte	0x20
 	.byte	0x20
 	.short	0x267
 	.byte	0x1e
 	.byte	0x1e
-	.short	0x368
+	.short	0x371
 	.size	 gShoalCave_LowTideIceRoom_LandMons,48
 	.globl	gShoalCave_LowTideIceRoom_LandMonsInfo
 	.align	2, 0
@@ -9260,7 +9282,7 @@ gArtisanCave_1F_LandMons:
 	.byte	0x29
 	.byte	0x29
 	.short	0xeb
-	.byte	0x2a
+	.byte	0x29
 	.byte	0x2a
 	.short	0xeb
 	.byte	0x2b
@@ -9289,7 +9311,7 @@ gArtisanCave_1F_LandMons:
 	.short	0xeb
 	.byte	0x32
 	.byte	0x32
-	.short	0xeb
+	.short	0x328
 	.size	 gArtisanCave_1F_LandMons,48
 	.globl	gArtisanCave_1F_LandMonsInfo
 	.align	2, 0
@@ -9779,7 +9801,7 @@ gMeteorFalls_StevensCave_LandMons:
 	.short	0x93
 	.byte	0x28
 	.byte	0x28
-	.short	0x8e
+	.short	0x328
 	.size	 gMeteorFalls_StevensCave_LandMons,48
 	.globl	gMeteorFalls_StevensCave_LandMonsInfo
 	.align	2, 0
@@ -9922,7 +9944,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
-	.word	0x0
+	.word	gRoute113_HiddenMonsInfo
 	.byte	0x0
 	.byte	0x1d
 	.space	2

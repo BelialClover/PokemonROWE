@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -5301,6 +5302,7 @@ void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichPart
 void CB2_ShowPartyMenuForItemUse(void);
 void ItemUseCB_Medicine(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task);
+void ItemUseCB_PowerCandy(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task);
 void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task);
 void ItemUseCB_PPRecovery(u8 taskId, TaskFunc task);
@@ -9405,9 +9407,9 @@ u8 DoBattlerEndTurnEffects(void)
                     { gBattleTextBuff1[0] = 0xFD; gBattleTextBuff1[1] = 2; gBattleTextBuff1[2] = (gBattleStruct->wrappedMove[gActiveBattler] & 0xFF); gBattleTextBuff1[3] = (gBattleStruct->wrappedMove[gActiveBattler] & 0xFF00) >> 8; gBattleTextBuff1[4] = 0xFF; };
                     gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
                     if (GetBattlerHoldEffect(gBattleStruct->wrappedBy[gActiveBattler], 1) == 124)
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / (5 >= 3) ? 6 : 8;
+                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
                     else
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / (5 >= 3) ? 8 : 16;
+                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
 
                     if (gBattleMoveDamage == 0)
                         gBattleMoveDamage = 1;
@@ -14756,6 +14758,7 @@ void UndoFormChange(u32 monId, u32 side)
         {898 + 273, 898 + 280},
         {898 + 269, 898 + 276},
         {898 + 250, 746},
+  {898 + 301, 877},
     };
 
     currSpecies = GetMonData(&party[monId], 11, ((void *)0));
@@ -14802,10 +14805,12 @@ bool32 CanBattlerGetOrLoseItem(u8 battlerId, u16 itemId)
         return 0;
     else if (species == 383 && itemId == 471)
         return 0;
-
-    else if (ItemId_GetHoldEffect(itemId) == 130
-             && ((GetMegaEvolutionSpecies(species, itemId) != 0) || gBattleStruct->mega.evolvedPartyIds[GetBattlerSide(battlerId)] & gBitTable[gBattlerPartyIndexes[battlerId]]))
+ else if (ItemId_GetHoldEffect(itemId) == 130)
         return 0;
+
+
+
+
     else if (species == 487 && itemId == 369)
         return 0;
     else if (species == 649 && GetBattlerHoldEffect(battlerId, 0) == 118)

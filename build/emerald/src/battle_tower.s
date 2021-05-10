@@ -46053,9 +46053,9 @@ FillPartnerParty:
 	ldr	r7, .L1376
 	add	r5, r5, r7
 	mov	r1, r9
-	lsl	r4, r1, #0x3
+	lsl	r4, r1, #0x4
 	add	r4, r4, r0
-	ldrh	r6, [r4, #0x4]
+	ldrh	r6, [r4, #0xc]
 	ldrb	r2, [r4, #0x2]
 	mov	r8, r2
 	ldrh	r1, [r4]
@@ -46073,7 +46073,7 @@ FillPartnerParty:
 	str	r7, [sp, #0x8]
 	ldr	r0, [sp, #0x70]
 	str	r0, [sp, #0xc]
-	ldrb	r0, [r4, #0x6]
+	ldrb	r0, [r4, #0xe]
 	str	r0, [sp, #0x10]
 	add	r0, r5, #0
 	add	r1, r6, #0
@@ -46095,9 +46095,9 @@ FillPartnerParty:
 	ldr	r2, .L1378
 	add	r5, r5, r2
 	mov	r3, r9
-	lsl	r4, r3, #0x4
+	lsl	r4, r3, #0x5
 	add	r4, r4, r0
-	ldrh	r6, [r4, #0x4]
+	ldrh	r6, [r4, #0xc]
 	ldrb	r0, [r4, #0x2]
 	mov	r8, r0
 	ldrh	r1, [r4]
@@ -46114,7 +46114,7 @@ FillPartnerParty:
 	str	r7, [sp, #0x8]
 	ldr	r1, [sp, #0x70]
 	str	r1, [sp, #0xc]
-	ldrb	r0, [r4, #0x6]
+	ldrb	r0, [r4, #0xe]
 	str	r0, [sp, #0x10]
 	add	r0, r5, #0
 	add	r1, r6, #0
@@ -46124,12 +46124,12 @@ FillPartnerParty:
 	str	r2, [sp, #0x58]
 	mov	r0, #0x0
 	add	r6, r4, #0
-	add	r6, r6, #0x8
+	add	r6, r6, #0x18
 .L1321:
 	add	r1, r0, #0
 	add	r1, r1, #0xd
 	lsl	r2, r0, #0x1
-	add	r2, r2, #0x8
+	add	r2, r2, #0x18
 	add	r2, r4, r2
 	add	r0, r5, #0
 	bl	SetMonData
@@ -46168,11 +46168,11 @@ FillPartnerParty:
 	ldr	r4, .L1380
 	add	r5, r5, r4
 	mov	r7, r9
-	lsl	r4, r7, #0x1
+	lsl	r4, r7, #0x2
 	add	r4, r4, r9
 	lsl	r4, r4, #0x2
 	add	r4, r4, r0
-	ldrh	r6, [r4, #0x4]
+	ldrh	r6, [r4, #0xc]
 	ldrb	r0, [r4, #0x2]
 	mov	r8, r0
 	ldrh	r1, [r4]
@@ -46190,13 +46190,13 @@ FillPartnerParty:
 	str	r1, [sp, #0x8]
 	ldr	r2, [sp, #0x70]
 	str	r2, [sp, #0xc]
-	ldrb	r0, [r4, #0x6]
+	ldrb	r0, [r4, #0xe]
 	str	r0, [sp, #0x10]
 	add	r0, r5, #0
 	add	r1, r6, #0
 	mov	r2, r8
 	bl	CreateMon
-	add	r4, r4, #0x8
+	add	r4, r4, #0x12
 	add	r0, r5, #0
 	mov	r1, #0xc
 	add	r2, r4, #0
@@ -46217,11 +46217,11 @@ FillPartnerParty:
 	ldr	r4, .L1382
 	add	r5, r5, r4
 	mov	r7, r9
-	lsl	r4, r7, #0x2
+	lsl	r4, r7, #0x3
 	add	r4, r4, r9
 	lsl	r4, r4, #0x2
 	add	r4, r4, r0
-	ldrh	r6, [r4, #0x4]
+	ldrh	r6, [r4, #0xc]
 	ldrb	r0, [r4, #0x2]
 	mov	r8, r0
 	ldrh	r1, [r4]
@@ -46239,14 +46239,14 @@ FillPartnerParty:
 	str	r1, [sp, #0x8]
 	ldr	r2, [sp, #0x70]
 	str	r2, [sp, #0xc]
-	ldrb	r0, [r4, #0x6]
+	ldrb	r0, [r4, #0xe]
 	str	r0, [sp, #0x10]
 	add	r0, r5, #0
 	add	r1, r6, #0
 	mov	r2, r8
 	bl	CreateMon
 	add	r2, r4, #0
-	add	r2, r2, #0x8
+	add	r2, r2, #0x12
 	add	r0, r5, #0
 	mov	r1, #0xc
 	bl	SetMonData
@@ -46254,12 +46254,12 @@ FillPartnerParty:
 	str	r3, [sp, #0x58]
 	mov	r0, #0x0
 	add	r6, r4, #0
-	add	r6, r6, #0xa
+	add	r6, r6, #0x1c
 .L1328:
 	add	r1, r0, #0
 	add	r1, r1, #0xd
 	lsl	r2, r0, #0x1
-	add	r2, r2, #0xa
+	add	r2, r2, #0x1c
 	add	r2, r4, r2
 	add	r0, r5, #0
 	bl	SetMonData

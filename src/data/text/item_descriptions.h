@@ -4695,9 +4695,9 @@ static const u8 sOaksParcelDesc[] = _(
     "Mart's clerk.");
 
 static const u8 sPokeFluteDesc[] = _(
-    "A sweet-sounding\n"
-    "flute that awakens\n"
-    "Pokémon.");
+    "An item that powers\n"
+    "up a Pokemon\n"
+	"Individual Values.");
 
 static const u8 sSecretKeyDesc[] = _(
     "The key to the\n"

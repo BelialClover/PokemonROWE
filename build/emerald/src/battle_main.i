@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -5774,6 +5775,9 @@ struct TrainerMonNoItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
 };
@@ -5782,8 +5786,12 @@ struct TrainerMonItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
 };
 
@@ -5791,8 +5799,12 @@ struct TrainerMonNoItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -5800,9 +5812,14 @@ struct TrainerMonItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -6882,13 +6899,13 @@ extern const u32 gMonFrontPic_Meltan[];
 extern const u32 gMonFrontPic_Melmetal[];
 extern const u32 gMonFrontPic_Grookey[];
 extern const u32 gMonFrontPic_Thwackey[];
-
+extern const u32 gMonFrontPic_Rillaboom[];
 extern const u32 gMonFrontPic_Scorbunny[];
 extern const u32 gMonFrontPic_Raboot[];
 extern const u32 gMonFrontPic_Cinderace[];
 extern const u32 gMonFrontPic_Sobble[];
 extern const u32 gMonFrontPic_Drizzile[];
-
+extern const u32 gMonFrontPic_Inteleon[];
 extern const u32 gMonFrontPic_Skwovet[];
 extern const u32 gMonFrontPic_Greedent[];
 extern const u32 gMonFrontPic_Rookidee[];
@@ -8022,13 +8039,13 @@ extern const u32 gMonBackPic_Meltan[];
 extern const u32 gMonBackPic_Melmetal[];
 extern const u32 gMonBackPic_Grookey[];
 extern const u32 gMonBackPic_Thwackey[];
-
+extern const u32 gMonBackPic_Rillaboom[];
 extern const u32 gMonBackPic_Scorbunny[];
 extern const u32 gMonBackPic_Raboot[];
 extern const u32 gMonBackPic_Cinderace[];
 extern const u32 gMonBackPic_Sobble[];
 extern const u32 gMonBackPic_Drizzile[];
-
+extern const u32 gMonBackPic_Inteleon[];
 extern const u32 gMonBackPic_Skwovet[];
 extern const u32 gMonBackPic_Greedent[];
 extern const u32 gMonBackPic_Rookidee[];
@@ -9160,13 +9177,13 @@ extern const u32 gMonPalette_Meltan[];
 extern const u32 gMonPalette_Melmetal[];
 extern const u32 gMonPalette_Grookey[];
 extern const u32 gMonPalette_Thwackey[];
-
+extern const u32 gMonPalette_Rillaboom[];
 extern const u32 gMonPalette_Scorbunny[];
 extern const u32 gMonPalette_Raboot[];
 extern const u32 gMonPalette_Cinderace[];
 extern const u32 gMonPalette_Sobble[];
 extern const u32 gMonPalette_Drizzile[];
-
+extern const u32 gMonPalette_Inteleon[];
 extern const u32 gMonPalette_Skwovet[];
 extern const u32 gMonPalette_Greedent[];
 extern const u32 gMonPalette_Rookidee[];
@@ -10325,13 +10342,13 @@ extern const u32 gMonShinyPalette_Meltan[];
 extern const u32 gMonShinyPalette_Melmetal[];
 extern const u32 gMonShinyPalette_Grookey[];
 extern const u32 gMonShinyPalette_Thwackey[];
-
+extern const u32 gMonShinyPalette_Rillaboom[];
 extern const u32 gMonShinyPalette_Scorbunny[];
 extern const u32 gMonShinyPalette_Raboot[];
 extern const u32 gMonShinyPalette_Cinderace[];
 extern const u32 gMonShinyPalette_Sobble[];
 extern const u32 gMonShinyPalette_Drizzile[];
-
+extern const u32 gMonShinyPalette_Inteleon[];
 extern const u32 gMonShinyPalette_Skwovet[];
 extern const u32 gMonShinyPalette_Greedent[];
 extern const u32 gMonShinyPalette_Rookidee[];
@@ -11639,6 +11656,25 @@ extern const u8 gMonIcon_GrimerAlolan[];
 extern const u8 gMonIcon_MukAlolan[];
 extern const u8 gMonIcon_ExeggutorAlolan[];
 extern const u8 gMonIcon_MarowakAlolan[];
+extern const u8 gMonIcon_MeowthGalarian[];
+extern const u8 gMonIcon_PonytaGalarian[];
+extern const u8 gMonIcon_RapidashGalarian[];
+extern const u8 gMonIcon_SlowpokeGalarian[];
+extern const u8 gMonIcon_SlowbroGalarian[];
+extern const u8 gMonIcon_FarfetchdGalarian[];
+extern const u8 gMonIcon_WeezingGalarian[];
+extern const u8 gMonIcon_MrmimeGalarian[];
+extern const u8 gMonIcon_ArticunoGalarian[];
+extern const u8 gMonIcon_ZapdosGalarian[];
+extern const u8 gMonIcon_MoltresGalarian[];
+extern const u8 gMonIcon_SlowkingGalarian[];
+extern const u8 gMonIcon_CorsolaGalarian[];
+extern const u8 gMonIcon_ZigzagoonGalarian[];
+extern const u8 gMonIcon_LinooneGalarian[];
+extern const u8 gMonIcon_DarumakaGalarian[];
+extern const u8 gMonIcon_DarmanitanGalarian[];
+extern const u8 gMonIcon_YamaskGalarian[];
+extern const u8 gMonIcon_StunfiskGalarian[];
 extern const u8 gMonIcon_PikachuCosplay[];
 extern const u8 gMonIcon_PikachuRockStar[];
 extern const u8 gMonIcon_PikachuBelle[];
@@ -15501,6 +15537,15 @@ extern const u32 gPokenavMessageBox_Tilemap[];
 extern const u16 gPokenavMessageBox_Pal[];
 extern const u32 gPokenavOptions_Gfx[];
 extern const u16 gPokenavOptions_Pal[];
+
+
+extern const u32 gItemIcon_Mint[];
+extern const u32 gItemIconPalette_RedMint[];
+extern const u32 gItemIconPalette_BlueMint[];
+extern const u32 gItemIconPalette_PinkMint[];
+extern const u32 gItemIconPalette_GreenMint[];
+extern const u32 gItemIconPalette_LightBlueMint[];
+extern const u32 gItemIconPalette_YellowMint[];
 # 24 "src/battle_main.c" 2
 # 1 "gflib/gpu_regs.h" 1
 # 9 "gflib/gpu_regs.h"
@@ -17599,6 +17644,7 @@ extern struct SoundInfo gSoundInfo;
 
 u8 IsHardMode(void);
 u8 GetNumBadges(void);
+u8 getLevelBoost(void);
 u8 getTrainerLevel(u8 Level);
 u8 getWildLevel(u8 Ability);
 u8 getTrainerPokemonNum(void);
@@ -17609,6 +17655,7 @@ u16 GetTrainerPokemon(u16 basespecies, u8 level);
 u16 GetBaseSpecie(u16 basespecies);
 u16 GetHeldItem(u16 baseitem);
 u16 GetFirstEvolution(u16 species);
+u8 GetEvsfromPokemon(u8 evs);
 # 34 "src/battle_main.c" 2
 # 1 "include/palette.h" 1
 # 17 "include/palette.h"
@@ -17729,6 +17776,7 @@ void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichPart
 void CB2_ShowPartyMenuForItemUse(void);
 void ItemUseCB_Medicine(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task);
+void ItemUseCB_PowerCandy(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task);
 void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task);
 void ItemUseCB_PPRecovery(u8 taskId, TaskFunc task);
@@ -23902,9 +23950,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
  u8 TrainerMaxLevel = getTrainerLevel(2);
  u8 LeaderMinLevel = getTrainerLevel(5);
  u8 TrainerLevel[] = {5,5,5,5,5,5};
- u8 levelboost = GetNumBadges();
- if(IsHardMode == 0)
-  levelboost = 0;
+ u8 levelboost = getLevelBoost();
+ u8 PokemonEvs[] = {0,0,0,0,0,0};
+ u8 PokemonHapiness;
+ u16 PokemonHeldItem[] = {0, 0, 0, 0, 0, 0};
 
     if (trainerNum == 1024)
         return 0;
@@ -23972,7 +24021,17 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * 31 / 255;
                 CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, 1, personalityValue, 2, 0, partyData[i].formId);
-                break;
+
+    for (j = 0; j < 6; j++)
+                {
+     PokemonEvs[j] = GetEvsfromPokemon(partyData[i].evs[j]);
+                    SetMonData(&party[i], 26 + j, &PokemonEvs[j]);
+                }
+
+
+                CalculateMonStats(&party[i]);
+
+    break;
             }
             case (1 << 0):
             {
@@ -23993,13 +24052,34 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     else
     CreateMon(&party[i], partyData[i].species, (partyData[i].lvl + levelboost), fixedIV, 1, personalityValue, 2, 0, partyData[i].formId);
 
-                for (j = 0; j < 4; j++)
+    if(numBadges >= 7){
+    for (j = 0; j < 4; j++)
+                {
+     if(partyData[i].postgamemoves[j] != 0){
+                    SetMonData(&party[i], 13 + j, &partyData[i].postgamemoves[j]);
+                    SetMonData(&party[i], 17 + j, &gBattleMoves[partyData[i].postgamemoves[j]].pp);
+     }else if(partyData[i].moves[j] != 0){
+                    SetMonData(&party[i], 13 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], 17 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+     }
+                }}
+    else{
+    for (j = 0; j < 4; j++)
                 {
      if(partyData[i].moves[j] != 0){
                     SetMonData(&party[i], 13 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], 17 + j, &gBattleMoves[partyData[i].moves[j]].pp);
      }
                 }
+    }
+
+    for (j = 0; j < 6; j++)
+                {
+     PokemonEvs[j] = GetEvsfromPokemon(partyData[i].evs[j]);
+                    SetMonData(&party[i], 26 + j, &PokemonEvs[j]);
+                }
+                CalculateMonStats(&party[i]);
+
                 break;
             }
             case (1 << 1):
@@ -24014,9 +24094,22 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 fixedIV = partyData[i].iv * 31 / 255;
                 CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, 1, personalityValue, 2, 0, partyData[i].formId);
 
-                if(GetHeldItem(partyData[i].heldItem) != 153)
-                SetMonData(&party[i], 12, &partyData[i].heldItem);
+
+                if(numBadges >= 8 && partyData[i].postgameheldItem != 0)
+     SetMonData(&party[i], 12, &partyData[i].postgameheldItem);
+    else{
+     PokemonHeldItem[i] = GetHeldItem(partyData[i].heldItem);
+     SetMonData(&party[i], 12, &PokemonHeldItem[i]);
+    }
+    for (j = 0; j < 6; j++)
+                {
+     PokemonEvs[j] = GetEvsfromPokemon(partyData[i].evs[j]);
+                    SetMonData(&party[i], 26 + j, &PokemonEvs[j]);
+                }
+                CalculateMonStats(&party[i]);
+
                 break;
+
             }
             case (1 << 0) | (1 << 1):
             {
@@ -24052,16 +24145,52 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     else
      CreateMon(&party[i], partyData[i].species, (partyData[i].lvl + levelboost), fixedIV, 1, personalityValue, 2, 0, partyData[i].formId);
 
-    if(GetHeldItem(partyData[i].heldItem) != 153)
-                SetMonData(&party[i], 12, &partyData[i].heldItem);
-
-                for (j = 0; j < 4; j++)
+                if(numBadges >= 8 && partyData[i].postgameheldItem != 0)
+     SetMonData(&party[i], 12, &partyData[i].postgameheldItem);
+    else{
+     PokemonHeldItem[i] = GetHeldItem(partyData[i].heldItem);
+     SetMonData(&party[i], 12, &PokemonHeldItem[i]);
+    }
+    if(numBadges >= 7){
+    for (j = 0; j < 4; j++)
+                {
+     if(partyData[i].postgamemoves[j] != 0){
+                    SetMonData(&party[i], 13 + j, &partyData[i].postgamemoves[j]);
+                    SetMonData(&party[i], 17 + j, &gBattleMoves[partyData[i].postgamemoves[j]].pp);
+     }else if(partyData[i].moves[j] != 0){
+                    SetMonData(&party[i], 13 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], 17 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+     }
+                }}
+    else{
+    for (j = 0; j < 4; j++)
                 {
      if(partyData[i].moves[j] != 0){
                     SetMonData(&party[i], 13 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], 17 + j, &gBattleMoves[partyData[i].moves[j]].pp);
      }
                 }
+    }
+
+    for (j = 0; j < 6; j++)
+                {
+     PokemonEvs[j] = GetEvsfromPokemon(partyData[i].evs[j]);
+                    SetMonData(&party[i], 26 + j, &PokemonEvs[j]);
+                }
+
+    if(partyData[i].abilityNum < 3){
+     if(partyData[i].abilityNum < 2 || numBadges > 4)
+     SetMonData(&party[i], 46, &partyData[i].abilityNum);
+    }
+
+    if(numBadges < 6)
+     PokemonHapiness = (partyData[i].happiness*(numBadges+2))/8;
+    else
+     PokemonHapiness = partyData[i].happiness;
+
+    SetMonData(&party[i], 32, &PokemonHapiness);
+
+                CalculateMonStats(&party[i]);
                 break;
             }
             }
@@ -26451,7 +26580,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
 
     speed *= gStatStageRatios[gBattleMons[battlerId].statStages[3]][0];
     speed /= gStatStageRatios[gBattleMons[battlerId].statStages[3]][1];
-# 4388 "src/battle_main.c"
+# 4469 "src/battle_main.c"
     if (GetBattlerHoldEffect(battlerId, 0) == 24 || GetBattlerHoldEffect(battlerId, 0) == 99)
         speed /= 2;
     else if (holdEffect == 89)

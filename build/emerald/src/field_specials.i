@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -4267,6 +4268,9 @@ struct TrainerMonNoItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
 };
@@ -4275,8 +4279,12 @@ struct TrainerMonItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
 };
 
@@ -4284,8 +4292,12 @@ struct TrainerMonNoItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -4293,9 +4305,14 @@ struct TrainerMonItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -6523,6 +6540,7 @@ void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichPart
 void CB2_ShowPartyMenuForItemUse(void);
 void ItemUseCB_Medicine(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task);
+void ItemUseCB_PowerCandy(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task);
 void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task);
 void ItemUseCB_PPRecovery(u8 taskId, TaskFunc task);
@@ -11843,7 +11861,8 @@ void RemoveCameraObject(void)
 
 u8 GetPokeblockNameByMonNature(void)
 {
-    return CopyMonFavoritePokeblockName(GetNature(&gPlayerParty[GetLeadMonIndex()]), gStringVar1);
+
+ return CopyMonFavoritePokeblockName(GetNature(&gPlayerParty[GetLeadMonIndex()], 0), gStringVar1);
 }
 
 void GetSecretBaseNearbyMapName(void)
@@ -12807,7 +12826,7 @@ void BufferBattleTowerElevatorFloors(void)
     gSpecialVar_0x8005 = 4;
     gSpecialVar_0x8006 = 12;
 }
-# 2313 "src/field_specials.c"
+# 2314 "src/field_specials.c"
 void ShowScrollableMultichoice(void)
 {
     u8 taskId = CreateTask(Task_ShowScrollableMultichoice, 8);
@@ -13326,7 +13345,7 @@ static void ScrollableMultichoice_RemoveScrollArrows(u8 taskId)
 
 void ShowGlassWorkshopMenu(void)
 {
-# 2848 "src/field_specials.c"
+# 2849 "src/field_specials.c"
 }
 
 void SetBattleTowerLinkPlayerGfx(void)
@@ -13382,7 +13401,8 @@ void ShowNatureGirlMessage(void)
         gSpecialVar_0x8004 = 0;
     }
 
-    nature = GetNature(&gPlayerParty[gSpecialVar_0x8004]);
+
+ nature = GetNature(&gPlayerParty[gSpecialVar_0x8004], 0);
     ShowFieldMessage(sNatureGirlMessages[nature]);
 }
 
@@ -13677,7 +13697,7 @@ static const u8 *const sFrontierExchangeCorner_HoldItemsDescriptions[] =
     BattleFrontier_ExchangeServiceCorner_Text_ScopeLensDesc,
     gText_Exit
 };
-# 3099 "src/field_specials.c" 2
+# 3101 "src/field_specials.c" 2
 
     if (menu >= 3 && menu <= 6)
     {
@@ -13947,7 +13967,7 @@ void sub_813AF48(void)
         DestroyTask(taskId);
     }
 }
-# 3385 "src/field_specials.c"
+# 3387 "src/field_specials.c"
 void DoDeoxysRockInteraction(void)
 {
     CreateTask(Task_DeoxysRockInteraction, 8);
@@ -14611,7 +14631,7 @@ bool8 InPokemonCenter(void)
     }
     return 0;
 }
-# 4093 "src/field_specials.c"
+# 4095 "src/field_specials.c"
 void ResetFanClub(void)
 {
     gSaveBlock1Ptr->vars[0x4041 - 0x4000] = 0;
@@ -14941,7 +14961,7 @@ u8 CountRotomInParty (void)
     }
     return rotomCount;
 }
-# 4432 "src/field_specials.c"
+# 4434 "src/field_specials.c"
 u16 RotomFormToMove (u16 species)
 {
     u16 move;

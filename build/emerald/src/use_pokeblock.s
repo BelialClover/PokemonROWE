@@ -3859,6 +3859,7 @@ UpdateMonInfoText:
 	mul	r0, r0, r1
 	ldr	r1, .L498+0x10
 	add	r0, r0, r1
+	mov	r1, #0x0
 	bl	GetNature
 	add	r4, r0, #0
 	lsl	r4, r4, #0x18

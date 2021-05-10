@@ -3246,6 +3246,7 @@ PokeblockAction_UseInBattle:
 	lsr	r0, r0, #0x18
 	mov	r8, r0
 	ldr	r0, .L383
+	mov	r1, #0x0
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18

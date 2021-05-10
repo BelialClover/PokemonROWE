@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -3760,13 +3761,13 @@ extern const u32 gMonFrontPic_Meltan[];
 extern const u32 gMonFrontPic_Melmetal[];
 extern const u32 gMonFrontPic_Grookey[];
 extern const u32 gMonFrontPic_Thwackey[];
-
+extern const u32 gMonFrontPic_Rillaboom[];
 extern const u32 gMonFrontPic_Scorbunny[];
 extern const u32 gMonFrontPic_Raboot[];
 extern const u32 gMonFrontPic_Cinderace[];
 extern const u32 gMonFrontPic_Sobble[];
 extern const u32 gMonFrontPic_Drizzile[];
-
+extern const u32 gMonFrontPic_Inteleon[];
 extern const u32 gMonFrontPic_Skwovet[];
 extern const u32 gMonFrontPic_Greedent[];
 extern const u32 gMonFrontPic_Rookidee[];
@@ -4900,13 +4901,13 @@ extern const u32 gMonBackPic_Meltan[];
 extern const u32 gMonBackPic_Melmetal[];
 extern const u32 gMonBackPic_Grookey[];
 extern const u32 gMonBackPic_Thwackey[];
-
+extern const u32 gMonBackPic_Rillaboom[];
 extern const u32 gMonBackPic_Scorbunny[];
 extern const u32 gMonBackPic_Raboot[];
 extern const u32 gMonBackPic_Cinderace[];
 extern const u32 gMonBackPic_Sobble[];
 extern const u32 gMonBackPic_Drizzile[];
-
+extern const u32 gMonBackPic_Inteleon[];
 extern const u32 gMonBackPic_Skwovet[];
 extern const u32 gMonBackPic_Greedent[];
 extern const u32 gMonBackPic_Rookidee[];
@@ -6038,13 +6039,13 @@ extern const u32 gMonPalette_Meltan[];
 extern const u32 gMonPalette_Melmetal[];
 extern const u32 gMonPalette_Grookey[];
 extern const u32 gMonPalette_Thwackey[];
-
+extern const u32 gMonPalette_Rillaboom[];
 extern const u32 gMonPalette_Scorbunny[];
 extern const u32 gMonPalette_Raboot[];
 extern const u32 gMonPalette_Cinderace[];
 extern const u32 gMonPalette_Sobble[];
 extern const u32 gMonPalette_Drizzile[];
-
+extern const u32 gMonPalette_Inteleon[];
 extern const u32 gMonPalette_Skwovet[];
 extern const u32 gMonPalette_Greedent[];
 extern const u32 gMonPalette_Rookidee[];
@@ -7203,13 +7204,13 @@ extern const u32 gMonShinyPalette_Meltan[];
 extern const u32 gMonShinyPalette_Melmetal[];
 extern const u32 gMonShinyPalette_Grookey[];
 extern const u32 gMonShinyPalette_Thwackey[];
-
+extern const u32 gMonShinyPalette_Rillaboom[];
 extern const u32 gMonShinyPalette_Scorbunny[];
 extern const u32 gMonShinyPalette_Raboot[];
 extern const u32 gMonShinyPalette_Cinderace[];
 extern const u32 gMonShinyPalette_Sobble[];
 extern const u32 gMonShinyPalette_Drizzile[];
-
+extern const u32 gMonShinyPalette_Inteleon[];
 extern const u32 gMonShinyPalette_Skwovet[];
 extern const u32 gMonShinyPalette_Greedent[];
 extern const u32 gMonShinyPalette_Rookidee[];
@@ -8517,6 +8518,25 @@ extern const u8 gMonIcon_GrimerAlolan[];
 extern const u8 gMonIcon_MukAlolan[];
 extern const u8 gMonIcon_ExeggutorAlolan[];
 extern const u8 gMonIcon_MarowakAlolan[];
+extern const u8 gMonIcon_MeowthGalarian[];
+extern const u8 gMonIcon_PonytaGalarian[];
+extern const u8 gMonIcon_RapidashGalarian[];
+extern const u8 gMonIcon_SlowpokeGalarian[];
+extern const u8 gMonIcon_SlowbroGalarian[];
+extern const u8 gMonIcon_FarfetchdGalarian[];
+extern const u8 gMonIcon_WeezingGalarian[];
+extern const u8 gMonIcon_MrmimeGalarian[];
+extern const u8 gMonIcon_ArticunoGalarian[];
+extern const u8 gMonIcon_ZapdosGalarian[];
+extern const u8 gMonIcon_MoltresGalarian[];
+extern const u8 gMonIcon_SlowkingGalarian[];
+extern const u8 gMonIcon_CorsolaGalarian[];
+extern const u8 gMonIcon_ZigzagoonGalarian[];
+extern const u8 gMonIcon_LinooneGalarian[];
+extern const u8 gMonIcon_DarumakaGalarian[];
+extern const u8 gMonIcon_DarmanitanGalarian[];
+extern const u8 gMonIcon_YamaskGalarian[];
+extern const u8 gMonIcon_StunfiskGalarian[];
 extern const u8 gMonIcon_PikachuCosplay[];
 extern const u8 gMonIcon_PikachuRockStar[];
 extern const u8 gMonIcon_PikachuBelle[];
@@ -12379,6 +12399,15 @@ extern const u32 gPokenavMessageBox_Tilemap[];
 extern const u16 gPokenavMessageBox_Pal[];
 extern const u32 gPokenavOptions_Gfx[];
 extern const u16 gPokenavOptions_Pal[];
+
+
+extern const u32 gItemIcon_Mint[];
+extern const u32 gItemIconPalette_RedMint[];
+extern const u32 gItemIconPalette_BlueMint[];
+extern const u32 gItemIconPalette_PinkMint[];
+extern const u32 gItemIconPalette_GreenMint[];
+extern const u32 gItemIconPalette_LightBlueMint[];
+extern const u32 gItemIconPalette_YellowMint[];
 # 3 "src/pokemon_icon.c" 2
 # 1 "include/mail.h" 1
 # 18 "include/mail.h"
@@ -12514,6 +12543,9 @@ struct TrainerMonNoItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
 };
@@ -12522,8 +12554,12 @@ struct TrainerMonItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
 };
 
@@ -12531,8 +12567,12 @@ struct TrainerMonNoItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -12540,9 +12580,14 @@ struct TrainerMonItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -13608,25 +13653,25 @@ const u8 *const gMonIconTable[] =
     [898 + 66] = gMonIcon_MukAlolan,
     [898 + 67] = gMonIcon_ExeggutorAlolan,
     [898 + 68] = gMonIcon_MarowakAlolan,
-    [898 + 69] = gMonIcon_QuestionMark,
-    [898 + 70] = gMonIcon_QuestionMark,
-    [898 + 71] = gMonIcon_Rapidash,
-    [898 + 72] = gMonIcon_Slowpoke,
-    [898 + 73] = gMonIcon_Slowbro,
-    [898 + 74] = gMonIcon_Farfetchd,
-    [898 + 75] = gMonIcon_Weezing,
-    [898 + 76] = gMonIcon_Mrmime,
-    [898 + 77] = gMonIcon_Articuno,
-    [898 + 78] = gMonIcon_Zapdos,
-    [898 + 79] = gMonIcon_Moltres,
-    [898 + 80] = gMonIcon_Slowking,
-    [898 + 81] = gMonIcon_Corsola,
-    [898 + 82] = gMonIcon_Zigzagoon,
-    [898 + 83] = gMonIcon_Linoone,
-    [898 + 84] = gMonIcon_Darumaka,
-    [898 + 85] = gMonIcon_Darmanitan,
-    [898 + 86] = gMonIcon_Yamask,
-    [898 + 87] = gMonIcon_Stunfisk,
+    [898 + 69] = gMonIcon_MeowthGalarian,
+    [898 + 70] = gMonIcon_PonytaGalarian,
+    [898 + 71] = gMonIcon_RapidashGalarian,
+    [898 + 72] = gMonIcon_SlowpokeGalarian,
+    [898 + 73] = gMonIcon_SlowbroGalarian,
+    [898 + 74] = gMonIcon_FarfetchdGalarian,
+    [898 + 75] = gMonIcon_WeezingGalarian,
+    [898 + 76] = gMonIcon_MrmimeGalarian,
+    [898 + 77] = gMonIcon_ArticunoGalarian,
+    [898 + 78] = gMonIcon_ZapdosGalarian,
+    [898 + 79] = gMonIcon_MoltresGalarian,
+    [898 + 80] = gMonIcon_SlowkingGalarian,
+    [898 + 81] = gMonIcon_CorsolaGalarian,
+    [898 + 82] = gMonIcon_ZigzagoonGalarian,
+    [898 + 83] = gMonIcon_LinooneGalarian,
+    [898 + 84] = gMonIcon_DarumakaGalarian,
+    [898 + 85] = gMonIcon_DarmanitanGalarian,
+    [898 + 86] = gMonIcon_YamaskGalarian,
+    [898 + 87] = gMonIcon_StunfiskGalarian,
     [898 + 88] = gMonIcon_PikachuCosplay,
     [898 + 89] = gMonIcon_PikachuRockStar,
     [898 + 90] = gMonIcon_PikachuBelle,
@@ -13708,7 +13753,7 @@ const u8 *const gMonIconTable[] =
     [898 + 166] = gMonIcon_Arceus,
     [898 + 167] = gMonIcon_BasculinBlueStriped,
     [898 + 168] = gMonIcon_DarmanitanZenMode,
-    [898 + 169] = gMonIcon_QuestionMark,
+    [898 + 169] = gMonIcon_DarmanitanGalarian,
     [898 + 170] = gMonIcon_DeerlingSummer,
     [898 + 171] = gMonIcon_DeerlingAutumn,
     [898 + 172] = gMonIcon_DeerlingWinter,
@@ -14669,14 +14714,14 @@ const u8 gMonIconPaletteIndices[] =
     [809] = 2,
 
     [810] = 1,
-    [811] = 2,
+    [811] = 1,
     [812] = 1,
     [813] = 0,
     [814] = 0,
     [815] = 0,
-    [816] = 0,
-    [817] = 0,
-    [818] = 0,
+    [816] = 2,
+    [817] = 2,
+    [818] = 2,
     [819] = 2,
     [820] = 0,
     [821] = 0,
@@ -14685,18 +14730,18 @@ const u8 gMonIconPaletteIndices[] =
     [824] = 0,
     [825] = 0,
     [826] = 0,
-    [827] = 1,
-    [828] = 1,
+    [827] = 2,
+    [828] = 2,
     [829] = 1,
     [830] = 1,
     [831] = 1,
     [832] = 1,
     [833] = 0,
     [834] = 0,
-    [835] = 0,
-    [836] = 0,
+    [835] = 1,
+    [836] = 2,
     [837] = 1,
-    [838] = 1,
+    [838] = 0,
     [839] = 0,
     [840] = 1,
     [841] = 1,
@@ -14708,7 +14753,7 @@ const u8 gMonIconPaletteIndices[] =
     [847] = 0,
     [848] = 2,
     [849] = 2,
-    [850] = 1,
+    [850] = 0,
     [851] = 0,
     [852] = 0,
     [853] = 2,
@@ -14733,7 +14778,7 @@ const u8 gMonIconPaletteIndices[] =
     [872] = 2,
     [873] = 2,
     [874] = 1,
-    [875] = 0,
+    [875] = 2,
     [876] = 2,
     [877] = 1,
     [878] = 0,
@@ -14825,25 +14870,25 @@ const u8 gMonIconPaletteIndices[] =
     [898 + 66] = 0,
     [898 + 67] = 1,
     [898 + 68] = 1,
-    [898 + 69] = 0,
-    [898 + 70] = 0,
-    [898 + 71] = 0,
+    [898 + 69] = 2,
+    [898 + 70] = 2,
+    [898 + 71] = 2,
     [898 + 72] = 0,
     [898 + 73] = 0,
-    [898 + 74] = 0,
-    [898 + 75] = 0,
+    [898 + 74] = 1,
+    [898 + 75] = 1,
     [898 + 76] = 0,
     [898 + 77] = 0,
     [898 + 78] = 0,
     [898 + 79] = 0,
     [898 + 80] = 0,
-    [898 + 81] = 0,
-    [898 + 82] = 0,
-    [898 + 83] = 0,
+    [898 + 81] = 1,
+    [898 + 82] = 1,
+    [898 + 83] = 1,
     [898 + 84] = 0,
     [898 + 85] = 0,
-    [898 + 86] = 0,
-    [898 + 87] = 0,
+    [898 + 86] = 2,
+    [898 + 87] = 1,
     [898 + 88] = 2,
     [898 + 89] = 1,
     [898 + 90] = 0,

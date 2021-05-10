@@ -114,33 +114,21 @@ UpdateMirageRnd:
 	.type	 IsMirageIslandPresent,function
 	.thumb_func
 IsMirageIslandPresent:
-	push	{r4, lr}
-	bl	GetMirageRnd
-	mov	r4, #0x0
-.L20:
-	mov	r0, #0x64
-	mul	r0, r0, r4
-	ldr	r1, .L24
-	add	r0, r0, r1
-	mov	r1, #0xb
-	bl	GetMonData
-	mov	r1, #0xb4
-	lsl	r1, r1, #0x1
-	cmp	r0, r1
-	bne	.L19	@cond_branch
-	mov	r0, #0x1
-	b	.L23
-.L25:
-	.align	2, 0
-.L24:
-	.word	gPlayerParty
-.L19:
-	add	r4, r4, #0x1
-	cmp	r4, #0x5
-	ble	.L20	@cond_branch
+	push	{lr}
+	ldr	r0, .L20
+	bl	FlagGet
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	bne	.L17	@cond_branch
 	mov	r0, #0x0
-.L23:
-	pop	{r4}
+	b	.L19
+.L21:
+	.align	2, 0
+.L20:
+	.word	0x864
+.L17:
+	mov	r0, #0x1
+.L19:
 	pop	{r1}
 	bx	r1
 .Lfe5:
@@ -185,35 +173,35 @@ UpdateShoalTideFlag:
 	bl	IsMapTypeOutdoors
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L27	@cond_branch
+	beq	.L23	@cond_branch
 	bl	RtcCalcLocalTime
-	ldr	r1, .L30
-	ldr	r0, .L30+0x4
+	ldr	r1, .L26
+	ldr	r0, .L26+0x4
 	ldrb	r0, [r0, #0x2]
 	lsl	r0, r0, #24
 	asr	r0, r0, #24
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L28	@cond_branch
-	ldr	r0, .L30+0x8
+	beq	.L24	@cond_branch
+	ldr	r0, .L26+0x8
 	bl	FlagSet
-	b	.L27
-.L31:
+	b	.L23
+.L27:
 	.align	2, 0
-.L30:
+.L26:
 	.word	tide.18
 	.word	gLocalTime
 	.word	0x89a
-.L28:
-	ldr	r0, .L32
+.L24:
+	ldr	r0, .L28
 	bl	FlagClear
-.L27:
+.L23:
 	pop	{r0}
 	bx	r0
-.L33:
+.L29:
 	.align	2, 0
-.L32:
+.L28:
 	.word	0x89a
 .Lfe6:
 	.size	 UpdateShoalTideFlag,.Lfe6-UpdateShoalTideFlag
@@ -227,11 +215,11 @@ Task_WaitWeather:
 	bl	IsWeatherChangeComplete
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L35	@cond_branch
+	beq	.L31	@cond_branch
 	bl	EnableBothScriptContexts
 	add	r0, r4, #0
 	bl	DestroyTask
-.L35:
+.L31:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
@@ -243,14 +231,14 @@ Task_WaitWeather:
 	.thumb_func
 WaitWeather:
 	push	{lr}
-	ldr	r0, .L37
+	ldr	r0, .L33
 	mov	r1, #0x50
 	bl	CreateTask
 	pop	{r0}
 	bx	r0
-.L38:
+.L34:
 	.align	2, 0
-.L37:
+.L33:
 	.word	Task_WaitWeather
 .Lfe8:
 	.size	 WaitWeather,.Lfe8-WaitWeather
@@ -260,15 +248,15 @@ WaitWeather:
 	.thumb_func
 InitBirchState:
 	push	{lr}
-	ldr	r0, .L40
+	ldr	r0, .L36
 	bl	GetVarPointer
 	mov	r1, #0x0
 	strh	r1, [r0]
 	pop	{r0}
 	bx	r0
-.L41:
+.L37:
 	.align	2, 0
-.L40:
+.L36:
 	.word	0x4049
 .Lfe9:
 	.size	 InitBirchState,.Lfe9-InitBirchState
@@ -281,7 +269,7 @@ UpdateBirchState:
 	add	r4, r0, #0
 	lsl	r4, r4, #0x10
 	lsr	r4, r4, #0x10
-	ldr	r0, .L43
+	ldr	r0, .L39
 	bl	GetVarPointer
 	add	r5, r0, #0
 	ldrh	r0, [r5]
@@ -294,9 +282,9 @@ UpdateBirchState:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L44:
+.L40:
 	.align	2, 0
-.L43:
+.L39:
 	.word	0x4049
 .Lfe10:
 	.size	 UpdateBirchState,.Lfe10-UpdateBirchState

@@ -1334,11 +1334,23 @@ const struct Item gItems[] =
         .name = _("Rare Candy"),
 #endif
         .itemId = ITEM_RARE_CANDY,
-        .price = 4800,
+        .price = 9800,
         .description = sRareCandyDesc,
         .pocket = POCKET_POWER_UP,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_RareCandy,
+        .secondaryId = 0,
+    },
+	
+    [ITEM_POWER_CANDY] =
+    {
+        .name = _("Power Candy"),
+        .itemId = ITEM_POWER_CANDY,
+        .price = 9800,
+        .description = sPokeFluteDesc,
+        .pocket = POCKET_POWER_UP,
+        .type = 1,
+        .fieldUseFunc = ItemUseOutOfBattle_PowerCandy,
         .secondaryId = 0,
     },
 
@@ -1354,7 +1366,7 @@ const struct Item gItems[] =
         .description = sPPUpDesc,
         .pocket = POCKET_POWER_UP,
         .type = 1,
-        .fieldUseFunc = ItemUseOutOfBattle_PPUp,
+        .fieldUseFunc =  ItemUseOutOfBattle_PPUp,
         .secondaryId = 0,
     },
 
@@ -2058,7 +2070,7 @@ const struct Item gItems[] =
         .name = _("Nugget"),
 #endif
         .itemId = ITEM_NUGGET,
-        .price = 10000,
+        .price = 20000,
         .description = sNuggetDesc,
         .pocket = POCKET_ITEMS,
         .type = 4,
@@ -5312,13 +5324,9 @@ const struct Item gItems[] =
 
     [ITEM_TM01_FOCUS_PUNCH] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Puño Certero"),
-#else
-        .name = _("Focus Punch"),
-#endif
+        .name = _("TM01"),
         .itemId = ITEM_TM01_FOCUS_PUNCH,
-        .price = 3000,
+        .price = 50000,
         .description = sTM01Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5329,13 +5337,9 @@ const struct Item gItems[] =
 
     [ITEM_TM02_DRAGON_CLAW] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Garra Dragón"),
-#else
-        .name = _("Dragon Claw"),
-#endif
+        .name = _("TM02"),
         .itemId = ITEM_TM02_DRAGON_CLAW,
-        .price = 3000,
+        .price = 50000,
         .description = sTM02Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5346,13 +5350,9 @@ const struct Item gItems[] =
 
     [ITEM_TM03_WATER_PULSE] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Hidropulso"),
-#else
-        .name = _("Water Pulse"),
-#endif
+        .name = _("TM03"),
         .itemId = ITEM_TM03_WATER_PULSE,
-        .price = 3000,
+        .price = 50000,
         .description = sTM03Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5363,13 +5363,9 @@ const struct Item gItems[] =
 
     [ITEM_TM04_CALM_MIND] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Paz Mental"),
-#else
-        .name = _("Calm Mind"),
-#endif
+        .name = _("TM04"),
         .itemId = ITEM_TM04_CALM_MIND,
-        .price = 3000,
+        .price = 50000,
         .description = sTM04Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5380,13 +5376,9 @@ const struct Item gItems[] =
 
     [ITEM_TM05_ROAR] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Rugido"),
-#else
-        .name = _("Roar"),
-#endif
+        .name = _("TM05"),
         .itemId = ITEM_TM05_ROAR,
-        .price = 1000,
+        .price = 50000,
         .description = sTM05Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5397,13 +5389,9 @@ const struct Item gItems[] =
 
     [ITEM_TM06_TOXIC] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Tóxico"),
-#else
-        .name = _("Toxic"),
-#endif
+        .name = _("TM06"),
         .itemId = ITEM_TM06_TOXIC,
-        .price = 3000,
+        .price = 50000,
         .description = sTM06Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5414,13 +5402,9 @@ const struct Item gItems[] =
 
     [ITEM_TM07_HAIL] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Granizo"),
-#else
-        .name = _("Hail"),
-#endif
+        .name = _("TM07"),
         .itemId = ITEM_TM07_HAIL,
-        .price = 3000,
+        .price = 50000,
         .description = sTM07Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5431,13 +5415,9 @@ const struct Item gItems[] =
 
     [ITEM_TM08_BULK_UP] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Corpulencia"),
-#else
-        .name = _("Bulk Up"),
-#endif
+        .name = _("TM08"),
         .itemId = ITEM_TM08_BULK_UP,
-        .price = 3000,
+        .price = 50000,
         .description = sTM08Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5448,13 +5428,9 @@ const struct Item gItems[] =
 
     [ITEM_TM09_BULLET_SEED] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Semilladora"),
-#else
-        .name = _("Bullet Seed"),
-#endif
+        .name = _("TM09"),
         .itemId = ITEM_TM09_BULLET_SEED,
-        .price = 3000,
+        .price = 50000,
         .description = sTM09Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5465,13 +5441,9 @@ const struct Item gItems[] =
 
     [ITEM_TM10_HIDDEN_POWER] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Poder Oculto"),
-#else
-        .name = _("Hidden Power"),
-#endif
+        .name = _("TM10"),
         .itemId = ITEM_TM10_HIDDEN_POWER,
-        .price = 3000,
+        .price = 50000,
         .description = sTM10Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5482,13 +5454,9 @@ const struct Item gItems[] =
 
     [ITEM_TM11_SUNNY_DAY] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Día Soleado"),
-#else
-        .name = _("Sunny Day"),
-#endif
+        .name = _("TM11"),
         .itemId = ITEM_TM11_SUNNY_DAY,
-        .price = 2000,
+        .price = 50000,
         .description = sTM11Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5499,13 +5467,9 @@ const struct Item gItems[] =
 
     [ITEM_TM12_TAUNT] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Mofa"),
-#else
-        .name = _("Taunt"),
-#endif
+        .name = _("TM12"),
         .itemId = ITEM_TM12_TAUNT,
-        .price = 3000,
+        .price = 50000,
         .description = sTM12Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5516,13 +5480,9 @@ const struct Item gItems[] =
 
     [ITEM_TM13_ICE_BEAM] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Rayo Hielo"),
-#else
-        .name = _("Ice Beam"),
-#endif
+        .name = _("TM13"),
         .itemId = ITEM_TM13_ICE_BEAM,
-        .price = 3000,
+        .price = 50000,
         .description = sTM13Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5533,13 +5493,9 @@ const struct Item gItems[] =
 
     [ITEM_TM14_BLIZZARD] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Ventisca"),
-#else
-        .name = _("Blizzard"),
-#endif
+        .name = _("TM14"),
         .itemId = ITEM_TM14_BLIZZARD,
-        .price = 5500,
+        .price = 50000,
         .description = sTM14Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5550,13 +5506,9 @@ const struct Item gItems[] =
 
     [ITEM_TM15_HYPER_BEAM] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Hyperrayo"),
-#else
-        .name = _("Hyper Beam"),
-#endif
+        .name = _("TM15"),
         .itemId = ITEM_TM15_HYPER_BEAM,
-        .price = 7500,
+        .price = 50000,
         .description = sTM15Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5567,13 +5519,9 @@ const struct Item gItems[] =
 
     [ITEM_TM16_LIGHT_SCREEN] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Pantalla de Luz"),
-#else
-        .name = _("Light Screen"),
-#endif
+        .name = _("TM16"),
         .itemId = ITEM_TM16_LIGHT_SCREEN,
-        .price = 3000,
+        .price = 50000,
         .description = sTM16Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5584,13 +5532,9 @@ const struct Item gItems[] =
 
     [ITEM_TM17_PROTECT] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Protección"),
-#else
-        .name = _("Protect"),
-#endif
+        .name = _("TM17"),
         .itemId = ITEM_TM17_PROTECT,
-        .price = 3000,
+        .price = 50000,
         .description = sTM17Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5601,13 +5545,9 @@ const struct Item gItems[] =
 
     [ITEM_TM18_RAIN_DANCE] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Danza Lluvia"),
-#else
-        .name = _("Rain Dance"),
-#endif
+        .name = _("TM18"),
         .itemId = ITEM_TM18_RAIN_DANCE,
-        .price = 2000,
+        .price = 50000,
         .description = sTM18Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5618,13 +5558,9 @@ const struct Item gItems[] =
 
     [ITEM_TM19_GIGA_DRAIN] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Gigadrenado"),
-#else
-        .name = _("Giga Drain"),
-#endif
+        .name = _("TM19"),
         .itemId = ITEM_TM19_GIGA_DRAIN,
-        .price = 3000,
+        .price = 50000,
         .description = sTM19Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5635,13 +5571,9 @@ const struct Item gItems[] =
 
     [ITEM_TM20_SAFEGUARD] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Velo Sagrado"),
-#else
-        .name = _("Safeguard"),
-#endif
+        .name = _("TM20"),
         .itemId = ITEM_TM20_SAFEGUARD,
-        .price = 3000,
+        .price = 50000,
         .description = sTM20Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5652,13 +5584,9 @@ const struct Item gItems[] =
 
     [ITEM_TM21_FRUSTRATION] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Frustración"),
-#else
-        .name = _("Frustration"),
-#endif
+        .name = _("TM21"),
         .itemId = ITEM_TM21_FRUSTRATION,
-        .price = 1000,
+        .price = 50000,
         .description = sTM21Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5669,13 +5597,9 @@ const struct Item gItems[] =
 
     [ITEM_TM22_SOLARBEAM] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Rayo Solar"),
-#else
-        .name = _("Solar Beam"),
-#endif
+        .name = _("TM22"),
         .itemId = ITEM_TM22_SOLARBEAM,
-        .price = 3000,
+        .price = 50000,
         .description = sTM22Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5686,13 +5610,9 @@ const struct Item gItems[] =
 
     [ITEM_TM23_IRON_TAIL] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Cola Férrea"),
-#else
-        .name = _("Iron Tail"),
-#endif
+        .name = _("TM23"),
         .itemId = ITEM_TM23_IRON_TAIL,
-        .price = 3000,
+        .price = 50000,
         .description = sTM23Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5703,13 +5623,9 @@ const struct Item gItems[] =
 
     [ITEM_TM24_THUNDERBOLT] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Rayo"),
-#else
-        .name = _("Thunderbolt"),
-#endif
+        .name = _("TM24"),
         .itemId = ITEM_TM24_THUNDERBOLT,
-        .price = 3000,
+        .price = 50000,
         .description = sTM24Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5720,13 +5636,9 @@ const struct Item gItems[] =
 
     [ITEM_TM25_THUNDER] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Trueno"),
-#else
-        .name = _("Thunder"),
-#endif
+        .name = _("TM25"),
         .itemId = ITEM_TM25_THUNDER,
-        .price = 5500,
+        .price = 50000,
         .description = sTM25Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5737,13 +5649,9 @@ const struct Item gItems[] =
 
     [ITEM_TM26_EARTHQUAKE] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Terremoto"),
-#else
-        .name = _("Earthquake"),
-#endif
+        .name = _("TM26"),
         .itemId = ITEM_TM26_EARTHQUAKE,
-        .price = 3000,
+        .price = 50000,
         .description = sTM26Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5754,13 +5662,9 @@ const struct Item gItems[] =
 
     [ITEM_TM27_RETURN] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Retribución"),
-#else
-        .name = _("Return"),
-#endif
+        .name = _("TM27"),
         .itemId = ITEM_TM27_RETURN,
-        .price = 1000,
+        .price = 50000,
         .description = sTM27Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5771,13 +5675,9 @@ const struct Item gItems[] =
 
     [ITEM_TM28_DIG] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Excavar"),
-#else
-        .name = _("Dig"),
-#endif
+        .name = _("TM28"),
         .itemId = ITEM_TM28_DIG,
-        .price = 2000,
+        .price = 50000,
         .description = sTM28Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5788,13 +5688,9 @@ const struct Item gItems[] =
 
     [ITEM_TM29_PSYCHIC] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Psíquico"),
-#else
-        .name = _("Psychic"),
-#endif
+        .name = _("TM29"),
         .itemId = ITEM_TM29_PSYCHIC,
-        .price = 2000,
+        .price = 50000,
         .description = sTM29Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5805,13 +5701,9 @@ const struct Item gItems[] =
 
     [ITEM_TM30_SHADOW_BALL] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Bola Sombra"),
-#else
-        .name = _("Shadow Ball"),
-#endif
+        .name = _("TM30"),
         .itemId = ITEM_TM30_SHADOW_BALL,
-        .price = 3000,
+        .price = 50000,
         .description = sTM30Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5822,13 +5714,9 @@ const struct Item gItems[] =
 
     [ITEM_TM31_BRICK_BREAK] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Demolición"),
-#else
-        .name = _("Brick Break"),
-#endif
+        .name = _("TM31"),
         .itemId = ITEM_TM31_BRICK_BREAK,
-        .price = 3000,
+        .price = 50000,
         .description = sTM31Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5839,13 +5727,9 @@ const struct Item gItems[] =
 
     [ITEM_TM32_DOUBLE_TEAM] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Doble Equipo"),
-#else
-        .name = _("Double Team"),
-#endif
+        .name = _("TM32"),
         .itemId = ITEM_TM32_DOUBLE_TEAM,
-        .price = 2000,
+        .price = 50000,
         .description = sTM32Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5856,13 +5740,9 @@ const struct Item gItems[] =
 
     [ITEM_TM33_REFLECT] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Reflejo"),
-#else
-        .name = _("Reflect"),
-#endif
+        .name = _("TM33"),
         .itemId = ITEM_TM33_REFLECT,
-        .price = 2000,
+        .price = 50000,
         .description = sTM33Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5873,13 +5753,9 @@ const struct Item gItems[] =
 
     [ITEM_TM34_SHOCK_WAVE] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Onda Voltio"),
-#else
-        .name = _("Shock Wave"),
-#endif
+        .name = _("TM34"),
         .itemId = ITEM_TM34_SHOCK_WAVE,
-        .price = 3000,
+        .price = 50000,
         .description = sTM34Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5890,13 +5766,9 @@ const struct Item gItems[] =
 
     [ITEM_TM35_FLAMETHROWER] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Lanzallamas"),
-#else
-        .name = _("Flamethrower"),
-#endif
+        .name = _("TM35"),
         .itemId = ITEM_TM35_FLAMETHROWER,
-        .price = 3000,
+        .price = 50000,
         .description = sTM35Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5907,13 +5779,9 @@ const struct Item gItems[] =
 
     [ITEM_TM36_SLUDGE_BOMB] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Bomba Lodo"),
-#else
-        .name = _("Sludge Bomb"),
-#endif
+        .name = _("TM36"),
         .itemId = ITEM_TM36_SLUDGE_BOMB,
-        .price = 1000,
+        .price = 50000,
         .description = sTM36Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5924,13 +5792,9 @@ const struct Item gItems[] =
 
     [ITEM_TM37_SANDSTORM] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Tormenta Arena"),
-#else
-        .name = _("Sandstorm"),
-#endif
+        .name = _("TM37"),
         .itemId = ITEM_TM37_SANDSTORM,
-        .price = 2000,
+        .price = 50000,
         .description = sTM37Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5941,13 +5805,9 @@ const struct Item gItems[] =
 
     [ITEM_TM38_FIRE_BLAST] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Llamarada"),
-#else
-        .name = _("Fire Blast"),
-#endif
+        .name = _("TM38"),
         .itemId = ITEM_TM38_FIRE_BLAST,
-        .price = 5500,
+        .price = 50000,
         .description = sTM38Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5958,13 +5818,9 @@ const struct Item gItems[] =
 
     [ITEM_TM39_ROCK_TOMB] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Tumba Rocas"),
-#else
-        .name = _("Rock Tomb"),
-#endif
+        .name = _("TM39"),
         .itemId = ITEM_TM39_ROCK_TOMB,
-        .price = 3000,
+        .price = 50000,
         .description = sTM39Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5975,13 +5831,9 @@ const struct Item gItems[] =
 
     [ITEM_TM40_AERIAL_ACE] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Golpe Aéreo"),
-#else
-        .name = _("Aerial Ace"),
-#endif
+        .name = _("TM40"),
         .itemId = ITEM_TM40_AERIAL_ACE,
-        .price = 3000,
+        .price = 50000,
         .description = sTM40Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -5992,13 +5844,9 @@ const struct Item gItems[] =
 
     [ITEM_TM41_TORMENT] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Tormento"),
-#else
-        .name = _("Torment"),
-#endif
+        .name = _("TM41"),
         .itemId = ITEM_TM41_TORMENT,
-        .price = 3000,
+        .price = 50000,
         .description = sTM41Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6009,13 +5857,9 @@ const struct Item gItems[] =
 
     [ITEM_TM42_FACADE] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Imagen"),
-#else
-        .name = _("Facade"),
-#endif
+        .name = _("TM42"),
         .itemId = ITEM_TM42_FACADE,
-        .price = 3000,
+        .price = 50000,
         .description = sTM42Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6026,13 +5870,9 @@ const struct Item gItems[] =
 
     [ITEM_TM43_SECRET_POWER] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Daño Secreto"),
-#else
-        .name = _("Secret Power"),
-#endif
+        .name = _("TM43"),
         .itemId = ITEM_TM43_SECRET_POWER,
-        .price = 3000,
+        .price = 50000,
         .description = sTM43Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6043,13 +5883,9 @@ const struct Item gItems[] =
 
     [ITEM_TM44_REST] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Descanso"),
-#else
-        .name = _("Rest"),
-#endif
+        .name = _("TM44"),
         .itemId = ITEM_TM44_REST,
-        .price = 3000,
+        .price = 50000,
         .description = sTM44Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6060,13 +5896,9 @@ const struct Item gItems[] =
 
     [ITEM_TM45_ATTRACT] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Atracción"),
-#else
-        .name = _("Attract"),
-#endif
+        .name = _("TM45"),
         .itemId = ITEM_TM45_ATTRACT,
-        .price = 3000,
+        .price = 50000,
         .description = sTM45Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6077,13 +5909,9 @@ const struct Item gItems[] =
 
     [ITEM_TM46_THIEF] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Ladrón"),
-#else
-        .name = _("Thief"),
-#endif
+        .name = _("TM46"),
         .itemId = ITEM_TM46_THIEF,
-        .price = 3000,
+        .price = 50000,
         .description = sTM46Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6094,13 +5922,9 @@ const struct Item gItems[] =
 
     [ITEM_TM47_STEEL_WING] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Ala de Acero"),
-#else
-        .name = _("Steel Wing"),
-#endif
+        .name = _("TM47"),
         .itemId = ITEM_TM47_STEEL_WING,
-        .price = 3000,
+        .price = 50000,
         .description = sTM47Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6111,13 +5935,9 @@ const struct Item gItems[] =
 
     [ITEM_TM48_SKILL_SWAP] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Intercambio"),
-#else
-        .name = _("Skill Swap"),
-#endif
+        .name = _("TM48"),
         .itemId = ITEM_TM48_SKILL_SWAP,
-        .price = 3000,
+        .price = 50000,
         .description = sTM48Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6128,13 +5948,9 @@ const struct Item gItems[] =
 
     [ITEM_TM49_SNATCH] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Robo"),
-#else
-        .name = _("Snatch"),
-#endif
+        .name = _("TM49"),
         .itemId = ITEM_TM49_SNATCH,
-        .price = 3000,
+        .price = 50000,
         .description = sTM49Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6146,12 +5962,12 @@ const struct Item gItems[] =
     [ITEM_TM50_OVERHEAT] =
     {
 #if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Sofoco"),
+        .name = _("TM50"),
 #else
-        .name = _("Overheat"),
+        .name = _("TM50"),
 #endif
         .itemId = ITEM_TM50_OVERHEAT,
-        .price = 3000,
+        .price = 50000,
         .description = sTM50Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6162,7 +5978,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM51_LOW_SWEEP] =
     {
-        .name = _("Low Sweep"),
+        .name = _("TM51"),
         .itemId = ITEM_TM51_LOW_SWEEP,
         .price = 50000,
         .description = sTM50Desc,
@@ -6175,7 +5991,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM52_FOCUS_BLAST] =
     {
-        .name = _("Focus Blast"),
+        .name = _("TM52"),
         .itemId = ITEM_TM52_FOCUS_BLAST,
         .price = 50000,
         .description = sTM50Desc,
@@ -6188,7 +6004,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM53_ENERGY_BALL] =
     {
-        .name = _("Energy Ball"),
+        .name = _("TM53"),
         .itemId = ITEM_TM53_ENERGY_BALL,
         .price = 50000,
         .description = sTM50Desc,
@@ -6201,7 +6017,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM54_FALSE_SWIPE] =
     {
-        .name = _("False Swipe"),
+        .name = _("TM54"),
         .itemId = ITEM_TM54_FALSE_SWIPE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6214,7 +6030,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM55_SCALD] =
     {
-        .name = _("Scald"),
+        .name = _("TM55"),
         .itemId = ITEM_TM55_SCALD,
         .price = 50000,
         .description = sTM50Desc,
@@ -6227,7 +6043,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM56_FLING] =
     {
-        .name = _("Fling"),
+        .name = _("TM56"),
         .itemId = ITEM_TM56_FLING,
         .price = 50000,
         .description = sTM50Desc,
@@ -6240,7 +6056,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM57_CHARGE_BEAM] =
     {
-        .name = _("Charge Beam"),
+        .name = _("TM57"),
         .itemId = ITEM_TM57_CHARGE_BEAM,
         .price = 50000,
         .description = sTM50Desc,
@@ -6253,7 +6069,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM58_SKY_DROP] =
     {
-        .name = _("Sky Drop"),
+        .name = _("TM58"),
         .itemId = ITEM_TM58_SKY_DROP,
         .price = 50000,
         .description = sTM50Desc,
@@ -6266,7 +6082,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM59_BRUTAL_SWING] =
     {
-        .name = _("Brutal Swing"),
+        .name = _("TM59"),
         .itemId = ITEM_TM59_BRUTAL_SWING,
         .price = 50000,
         .description = sTM50Desc,
@@ -6279,7 +6095,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM60_QUASH] =
     {
-        .name = _("Quash"),
+        .name = _("TM60"),
         .itemId = ITEM_TM60_QUASH,
         .price = 50000,
         .description = sTM50Desc,
@@ -6292,7 +6108,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM61_WILL_O_WISP] =
     {
-        .name = _("Will-o-Wisp"),
+        .name = _("TM61"),
         .itemId = ITEM_TM61_WILL_O_WISP,
         .price = 50000,
         .description = sTM50Desc,
@@ -6305,7 +6121,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM62_ACROBATICS] =
     {
-        .name = _("Acrobatics"),
+        .name = _("TM62"),
         .itemId = ITEM_TM62_ACROBATICS,
         .price = 50000,
         .description = sTM50Desc,
@@ -6318,7 +6134,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM63_EMBARGO] =
     {
-        .name = _("Embargo"),
+        .name = _("TM63"),
         .itemId = ITEM_TM63_EMBARGO,
         .price = 50000,
         .description = sTM50Desc,
@@ -6332,12 +6148,12 @@ const struct Item gItems[] =
     [ITEM_TM64_EXPLOSION] =
     {
 #if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Explosión"),
+        .name = _("TM64"),
 #else
-        .name = _("Explosion"),
+        .name = _("TM64"),
 #endif
         .itemId = ITEM_TM64_EXPLOSION,
-        .price = 3000,
+        .price = 50000,
         .description = sTM64Desc,
         .pocket = POCKET_TM_HM,
         .type = 1,
@@ -6348,7 +6164,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM65_SHADOW_CLAW] =
     {
-        .name = _("Shadow Claw"),
+        .name = _("TM65"),
         .itemId = ITEM_TM65_SHADOW_CLAW,
         .price = 50000,
         .description = sTM50Desc,
@@ -6361,7 +6177,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM66_PAYBACK] =
     {
-        .name = _("Payback"),
+        .name = _("TM66"),
         .itemId = ITEM_TM66_PAYBACK,
         .price = 50000,
         .description = sTM50Desc,
@@ -6374,7 +6190,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM67_SMART_STRIKE] =
     {
-        .name = _("Smart Strike"),
+        .name = _("TM67"),
         .itemId = ITEM_TM67_SMART_STRIKE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6387,7 +6203,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM68_GIGA_IMPACT] =
     {
-        .name = _("Giga Impact"),
+        .name = _("TM68"),
         .itemId = ITEM_TM68_GIGA_IMPACT,
         .price = 50000,
         .description = sTM50Desc,
@@ -6400,7 +6216,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM69_ROCK_POLISH] =
     {
-        .name = _("Rock Polish"),
+        .name = _("TM69"),
         .itemId = ITEM_TM69_ROCK_POLISH,
         .price = 50000,
         .description = sTM50Desc,
@@ -6413,7 +6229,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM70_AURORA_VEIL] =
     {
-        .name = _("Aurora Veil"),
+        .name = _("TM70"),
         .itemId = ITEM_TM70_AURORA_VEIL,
         .price = 50000,
         .description = sTM50Desc,
@@ -6426,7 +6242,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM71_STONE_EDGE] =
     {
-        .name = _("Stone Edge"),
+        .name = _("TM71"),
         .itemId = ITEM_TM71_STONE_EDGE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6439,7 +6255,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM72_VOLT_SWITCH] =
     {
-        .name = _("Volt Switch"),
+        .name = _("TM72"),
         .itemId = ITEM_TM72_VOLT_SWITCH,
         .price = 50000,
         .description = sTM50Desc,
@@ -6452,7 +6268,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM73_THUNDER_WAVE] =
     {
-        .name = _("Thunder Wave"),
+        .name = _("TM73"),
         .itemId = ITEM_TM73_THUNDER_WAVE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6465,7 +6281,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM74_GYRO_BALL] =
     {
-        .name = _("Gyro Ball"),
+        .name = _("TM74"),
         .itemId = ITEM_TM74_GYRO_BALL,
         .price = 50000,
         .description = sTM50Desc,
@@ -6478,7 +6294,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM75_SWORDS_DANCE] =
     {
-        .name = _("swords Dance"),
+        .name = _("TM75"),
         .itemId = ITEM_TM75_SWORDS_DANCE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6491,7 +6307,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM76_FLY] =
     {
-        .name = _("Fly"),
+        .name = _("TM76"),
         .itemId = ITEM_TM76_FLY,
         .price = 50000,
         .description = sHM02Desc,
@@ -6504,7 +6320,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM77_PSYCH_UP] =
     {
-        .name = _("Psych Up"),
+        .name = _("TM77"),
         .itemId = ITEM_TM77_PSYCH_UP,
         .price = 50000,
         .description = sTM50Desc,
@@ -6517,7 +6333,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM78_BULLDOZE] =
     {
-        .name = _("Bulldoze"),
+        .name = _("TM78"),
         .itemId = ITEM_TM78_BULLDOZE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6530,7 +6346,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM79_FROST_BREATH] =
     {
-        .name = _("Frosth Breath"),
+        .name = _("TM79"),
         .itemId = ITEM_TM79_FROST_BREATH,
         .price = 50000,
         .description = sTM50Desc,
@@ -6543,7 +6359,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM80_ROCK_SLIDE] =
     {
-        .name = _("Rock Slide"),
+        .name = _("TM80"),
         .itemId = ITEM_TM80_ROCK_SLIDE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6556,7 +6372,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM81_X_SCISSOR] =
     {
-        .name = _("X-Scissors"),
+        .name = _("TM81"),
         .itemId = ITEM_TM81_X_SCISSOR,
         .price = 50000,
         .description = sTM50Desc,
@@ -6569,7 +6385,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM82_DRAGON_TAIL] =
     {
-        .name = _("Dragon Tail"),
+        .name = _("TM82"),
         .itemId = ITEM_TM82_DRAGON_TAIL,
         .price = 50000,
         .description = sTM50Desc,
@@ -6582,7 +6398,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM83_INFESTATION] =
     {
-        .name = _("Infestation"),
+        .name = _("TM83"),
         .itemId = ITEM_TM83_INFESTATION,
         .price = 50000,
         .description = sTM50Desc,
@@ -6595,7 +6411,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM84_POISON_JAB] =
     {
-        .name = _("Poison Jab"),
+        .name = _("TM84"),
         .itemId = ITEM_TM84_POISON_JAB,
         .price = 50000,
         .description = sTM50Desc,
@@ -6608,7 +6424,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM85_DREAM_EATER] =
     {
-        .name = _("Dream Eater"),
+        .name = _("TM85"),
         .itemId = ITEM_TM85_DREAM_EATER,
         .price = 50000,
         .description = sTM50Desc,
@@ -6621,7 +6437,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM86_GRASS_KNOT] =
     {
-        .name = _("Grass Knot"),
+        .name = _("TM86"),
         .itemId = ITEM_TM86_GRASS_KNOT,
         .price = 50000,
         .description = sTM50Desc,
@@ -6634,7 +6450,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM87_SWAGGER] =
     {
-        .name = _("Swagger"),
+        .name = _("TM87"),
         .itemId = ITEM_TM87_SWAGGER,
         .price = 50000,
         .description = sTM50Desc,
@@ -6647,7 +6463,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM88_SLEEP_TALK] =
     {
-        .name = _("Sleep Talk"),
+        .name = _("TM88"),
         .itemId = ITEM_TM88_SLEEP_TALK,
         .price = 50000,
         .description = sTM50Desc,
@@ -6660,7 +6476,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM89_U_TURN] =
     {
-        .name = _("U-Turn"),
+        .name = _("TM89"),
         .itemId = ITEM_TM89_U_TURN,
         .price = 50000,
         .description = sTM50Desc,
@@ -6673,7 +6489,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM90_SUBSTITUTE] =
     {
-        .name = _("Substitute"),
+        .name = _("TM90"),
         .itemId = ITEM_TM90_SUBSTITUTE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6686,7 +6502,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM91_FLASH_CANNON] =
     {
-        .name = _("Flash Cannon"),
+        .name = _("TM91"),
         .itemId = ITEM_TM91_FLASH_CANNON,
         .price = 50000,
         .description = sTM50Desc,
@@ -6699,7 +6515,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM92_TRICK_ROOM] =
     {
-        .name = _("Trick Room"),
+        .name = _("TM92"),
         .itemId = ITEM_TM92_TRICK_ROOM,
         .price = 50000,
         .description = sTM50Desc,
@@ -6712,7 +6528,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM93_WILD_CHARGE] =
     {
-        .name = _("Wild Charge"),
+        .name = _("TM93"),
         .itemId = ITEM_TM93_WILD_CHARGE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6725,13 +6541,9 @@ const struct Item gItems[] =
 	
     [ITEM_TM94_SURF] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Surf"),
-#else
-        .name = _("Surf"),
-#endif
+        .name = _("TM94"),
         .itemId = ITEM_TM94_SURF,
-        .price = 0,
+        .price = 50000,
         .description = sHM03Desc,
         .importance = 1,
         .pocket = POCKET_TM_HM,
@@ -6741,7 +6553,7 @@ const struct Item gItems[] =
 
     [ITEM_TM95_SNARL] =
     {
-        .name = _("Snarl"),
+        .name = _("TM95"),
         .itemId = ITEM_TM95_SNARL,
         .price = 50000,
         .description = sTM50Desc,
@@ -6754,7 +6566,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM96_NATURE_POWER] =
     {
-        .name = _("Nature Power"),
+        .name = _("TM96"),
         .itemId = ITEM_TM96_NATURE_POWER,
         .price = 50000,
         .description = sTM50Desc,
@@ -6767,7 +6579,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM97_DARK_PULSE] =
     {
-        .name = _("Dark Pulse"),
+        .name = _("TM97"),
         .itemId = ITEM_TM97_DARK_PULSE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6780,11 +6592,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM98_WATERFALL] =
     {
-#if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Cascada"),
-#else
-        .name = _("Waterfall"),
-#endif
+        .name = _("TM98"),
         .itemId = ITEM_TM98_WATERFALL,
         .price = 50000,
         .description = sHM07Desc,
@@ -6797,7 +6605,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM99_DAZZLING_GLEAM] =
     {
-        .name = _("Dazzling Gleam"),
+        .name = _("TM99"),
         .itemId = ITEM_TM99_DAZZLING_GLEAM,
         .price = 50000,
         .description = sTM50Desc,
@@ -6810,7 +6618,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM100_CONFIDE] =
     {
-        .name = _("Confide"),
+        .name = _("TM100"),
         .itemId = ITEM_TM100_CONFIDE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6823,7 +6631,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM101_SLUDGE_WAVE] =
     {
-        .name = _("Sludge Wave"),
+        .name = _("TM101"),
         .itemId = ITEM_TM101_SLUDGE_WAVE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6836,7 +6644,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM102_LIQUIDATION] =
     {
-        .name = _("Liquidation"),
+        .name = _("TM102"),
         .itemId = ITEM_TM102_LIQUIDATION,
         .price = 50000,
         .description = sTM50Desc,
@@ -6849,7 +6657,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM103_LEECH_LIFE] =
     {
-        .name = _("Leech Life"),
+        .name = _("TM103"),
         .itemId = ITEM_TM103_LEECH_LIFE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6862,7 +6670,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM104_PLAY_ROUGH] =
     {
-        .name = _("Play Rough"),
+        .name = _("TM104"),
         .itemId = ITEM_TM104_PLAY_ROUGH,
         .price = 50000,
         .description = sTM50Desc,
@@ -6875,7 +6683,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM105_PSYSHOCK] =
     {
-        .name = _("Psyshock"),
+        .name = _("TM105"),
         .itemId = ITEM_TM105_PSYSHOCK,
         .price = 50000,
         .description = sTM50Desc,
@@ -6888,7 +6696,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM106_AURA_SPHERE] =
     {
-        .name = _("Aura Sphere"),
+        .name = _("TM106"),
         .itemId = ITEM_TM106_AURA_SPHERE,
         .price = 50000,
         .description = sTM50Desc,
@@ -6901,7 +6709,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM107_POWER_GEM] =
     {
-        .name = _("Power Gem"),
+        .name = _("TM107"),
         .itemId = ITEM_TM107_POWER_GEM,
         .price = 50000,
         .description = sTM50Desc,
@@ -6914,7 +6722,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM108_EARTH_POWER] =
     {
-        .name = _("Earth Power"),
+        .name = _("TM108"),
         .itemId = ITEM_TM108_EARTH_POWER,
         .price = 50000,
         .description = sTM50Desc,
@@ -6927,7 +6735,7 @@ const struct Item gItems[] =
 
     [ITEM_TM109_GUNK_SHOT] =
     {
-        .name = _("Gunk Shot"),
+        .name = _("TM109"),
         .itemId = ITEM_TM109_GUNK_SHOT,
         .price = 50000,
         .description = sTM50Desc,
@@ -6940,7 +6748,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM110_STEALTH_ROCK] =
     {
-        .name = _("Stealth Rock"),
+        .name = _("TM110"),
         .itemId = ITEM_TM110_STEALTH_ROCK,
         .price = 50000,
         .description = sTM50Desc,
@@ -6953,7 +6761,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM111_HEAT_CRASH] =
     {
-        .name = _("Heat Crash"),
+        .name = _("TM111"),
         .itemId = ITEM_TM111_HEAT_CRASH,
         .price = 50000,
         .description = sTM50Desc,
@@ -6966,7 +6774,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM112_POLLEN_PUFF] =
     {
-        .name = _("Pollen Puff"),
+        .name = _("TM112"),
         .itemId = ITEM_TM112_POLLEN_PUFF,
         .price = 50000,
         .description = sTM50Desc,
@@ -6979,7 +6787,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM113_NASTY_PLOT] =
     {
-        .name = _("Nasty Plot"),
+        .name = _("TM113"),
         .itemId = ITEM_TM113_NASTY_PLOT,
         .price = 50000,
         .description = sTM50Desc,
@@ -6992,7 +6800,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM114_BRAVE_BIRD] =
     {
-        .name = _("Brave Bird"),
+        .name = _("TM114"),
         .itemId = ITEM_TM114_BRAVE_BIRD,
         .price = 50000,
         .description = sTM50Desc,
@@ -7005,7 +6813,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM115_BUG_BUZZ] =
     {
-        .name = _("Bug Buzz"),
+        .name = _("TM115"),
         .itemId = ITEM_TM115_BUG_BUZZ,
         .price = 50000,
         .description = sTM50Desc,
@@ -7018,7 +6826,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM116_DRAGON_DANCE] =
     {
-        .name = _("Dragon Dance"),
+        .name = _("TM116"),
         .itemId = ITEM_TM116_DRAGON_DANCE,
         .price = 50000,
         .description = sTM50Desc,
@@ -7031,7 +6839,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM117_BLAZE_KICK] =
     {
-        .name = _("Blaze Kick"),
+        .name = _("TM117"),
         .itemId = ITEM_TM117_BLAZE_KICK,
         .price = 50000,
         .description = sTM50Desc,
@@ -7044,7 +6852,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM118_TRI_ATTACK] =
     {
-        .name = _("Tri Attack"),
+        .name = _("TM118"),
         .itemId = ITEM_TM118_TRI_ATTACK,
         .price = 50000,
         .description = sTM50Desc,
@@ -7057,7 +6865,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM119_DRAIN_PUNCH] =
     {
-        .name = _("Drain Punch"),
+        .name = _("TM119"),
         .itemId = ITEM_TM119_DRAIN_PUNCH,
         .price = 50000,
         .description = sTM50Desc,
@@ -7070,7 +6878,7 @@ const struct Item gItems[] =
 	
     [ITEM_TM120_MYSTICAL_FIRE] =
     {
-        .name = _("Mystical Fire"),
+        .name = _("TM120"),
         .itemId = ITEM_TM120_MYSTICAL_FIRE,
         .price = 50000,
         .description = sTM50Desc,
@@ -7084,9 +6892,9 @@ const struct Item gItems[] =
     [ITEM_HM01_CUT] =
     {
 #if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Corte"),
+        .name = _("HM01"),
 #else
-        .name = _("Cut"),
+        .name = _("HM01"),
 #endif
         .itemId = ITEM_HM01_CUT,
         .price = 0,
@@ -7101,9 +6909,9 @@ const struct Item gItems[] =
     [ITEM_HM02_FLY] =
     {
 #if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Vuelo"),
+        .name = _("HM02"),
 #else
-        .name = _("Fly"),
+        .name = _("HM02"),
 #endif
         .itemId = ITEM_HM02_FLY,
         .price = 0,
@@ -7118,9 +6926,9 @@ const struct Item gItems[] =
     [ITEM_HM03_SURF] =
     {
 #if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Surf"),
+        .name = _("HM03"),
 #else
-        .name = _("Surf"),
+        .name = _("HM03"),
 #endif
         .itemId = ITEM_HM03_SURF,
         .price = 0,
@@ -7135,9 +6943,9 @@ const struct Item gItems[] =
     [ITEM_HM04_STRENGTH] =
     {
 #if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Fuerza"),
+        .name = _("HM04"),
 #else
-        .name = _("Strength"),
+        .name = _("HM04"),
 #endif
         .itemId = ITEM_HM04_STRENGTH,
         .price = 0,
@@ -7152,9 +6960,9 @@ const struct Item gItems[] =
     [ITEM_HM05_FLASH] =
     {
 #if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Destello"),
+        .name = _("HM05"),
 #else
-        .name = _("Flash"),
+        .name = _("HM05"),
 #endif
         .itemId = ITEM_HM05_FLASH,
         .price = 0,
@@ -7169,9 +6977,9 @@ const struct Item gItems[] =
     [ITEM_HM06_ROCK_SMASH] =
     {
 #if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Golpe Roca"),
+        .name = _("HM06"),
 #else
-        .name = _("Rock Smash"),
+        .name = _("HM06"),
 #endif
         .itemId = ITEM_HM06_ROCK_SMASH,
         .price = 0,
@@ -7186,9 +6994,9 @@ const struct Item gItems[] =
     [ITEM_HM07_WATERFALL] =
     {
 #if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Cascada"),
+        .name = _("HM07"),
 #else
-        .name = _("Waterfall"),
+        .name = _("HM07"),
 #endif
         .itemId = ITEM_HM07_WATERFALL,
         .price = 0,
@@ -7203,9 +7011,9 @@ const struct Item gItems[] =
     [ITEM_HM08_DIVE] =
     {
 #if GAME_LANGUAGE == LANGUAGE_SPANISH
-        .name = _("Buceo"),
+        .name = _("HM08"),
 #else
-        .name = _("Dive"),
+        .name = _("HM08"),
 #endif
         .itemId = ITEM_HM08_DIVE,
         .price = 0,
@@ -7234,7 +7042,7 @@ const struct Item gItems[] =
         .type = 4,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .secondaryId = 0,
-    },/*/
+    },
 
     [ITEM_POKE_FLUTE] =
     {
@@ -7251,7 +7059,7 @@ const struct Item gItems[] =
         .type = 4,
         .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
         .secondaryId = 0,
-    },
+    },/*/
 
     [ITEM_SECRET_KEY] =
     {
@@ -10822,7 +10630,7 @@ const struct Item gItems[] =
         .name = _("Strange Souvenir"),
 #endif
         .itemId = ITEM_STRANGE_SOUVENIR,
-        .price = 0,
+        .price = 3000,
         .description = sStrangeSouvenirDesc,
         .pocket = POCKET_POWER_UP,
         .type = 1,

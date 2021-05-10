@@ -66,24 +66,24 @@
 #include "cable_club.h"
 
 //Normalmode Scaling
-u8 normalnumMonsBadge[]    = {2,3,3,4,4,5,5,5,5,6};				//Trainers Number of Pokemon
-u8 normalnumMonsGym[]      = {3,4,4,4,5,5,5,6,6,6};				//Gym Leaders Number of Pokemon
-u8 normalminTrainerLevel[] = {6,10,15,20,25,30,35,40,45,55};	//Levels for Trainer Pokemon
-u8 normalminGymLevel[] 	   = {12,17,22,27,32,37,42,50,55,65};	//Levels for Gym Leaders
-u8 normalnumMonsDouble[]   = {1,2,2,2,2,2,3,3,3,3};				//Number of Pokemon in a Wild Battle
+u8 normalnumMonsBadge[]    = {2,3,3,4,4,5,5,5,5,6,6};				//Trainers Number of Pokemon
+u8 normalnumMonsGym[]      = {3,4,4,4,5,5,5,6,6,6,6};				//Gym Leaders Number of Pokemon
+u8 normalminTrainerLevel[] = {6,10,15,20,25,30,35,40,45,55,60};	//Levels for Trainer Pokemon
+u8 normalminGymLevel[] 	   = {12,17,22,27,32,37,42,50,55,65,70};	//Levels for Gym Leaders
+u8 normalnumMonsDouble[]   = {1,2,2,2,2,2,3,3,3,3,3};				//Number of Pokemon in a Wild Battle
 
 //Hardmode Scaling
-u8 hardnumMonsBadge[]      = {3,3,4,4,4,5,6,6,6,6};				//Trainers Number of Pokemon
-u8 hardnumMonsGym[]        = {3,4,4,5,5,6,6,6,6,6};				//Gym Leaders Number of Pokemon
-u8 hardminTrainerLevel[]   = {7,12,18,24,30,36,42,48,55,65};	//Levels for Trainer Pokemon
-u8 hardminGymLevel[] 	   = {13,19,25,31,37,43,49,60,68,76};	//Levels for Gym Leaders
-u8 hardnumMonsDouble[]     = {2,2,2,2,2,2,3,3,3,3};				//Number of Pokemon in a Wild Battle
+u8 hardnumMonsBadge[]      = {3,3,4,4,4,5,5,6,6,6,6};				//Trainers Number of Pokemon
+u8 hardnumMonsGym[]        = {3,4,4,5,5,6,6,6,6,6,6};				//Gym Leaders Number of Pokemon
+u8 hardminTrainerLevel[]   = {7,12,18,24,30,36,42,48,55,65,70};	//Levels for Trainer Pokemon
+u8 hardminGymLevel[] 	   = {13,19,25,31,37,43,49,60,68,76,82};	//Levels for Gym Leaders
+u8 hardnumMonsDouble[]     = {2,2,2,2,2,2,3,3,3,3,3};				//Number of Pokemon in a Wild Battle
 
 u16 SplitEvolutions(u16 basespecies, u8 level);
 u16 CheckforLegendary(u16 species);
 
 //Wild Pokemon Scaling
-u8 WildLevel[] = {3,10,15,20,25,30,35,40,45,55};
+u8 WildLevel[] = {4,10,15,20,25,30,35,40,45,55,60};
 
 u8 IsHardMode(){
 	if (gSaveBlock2Ptr->optionsBattleStyle != OPTIONS_BATTLE_STYLE_SHIFT)
@@ -92,8 +92,7 @@ u8 IsHardMode(){
 		return 0;
 }
 
-u16 GetFirstEvolution(u16 species)
-{
+u16 GetFirstEvolution(u16 species){
     int i, j, k;
     bool8 found;
 
@@ -127,7 +126,8 @@ u16 GetFirstEvolution(u16 species)
 
 u8 GetNumBadges()
 {
-	
+	if (FlagGet(FLAG_DEFEATED_RAYQUAZA))
+		return 10;
 	if (FlagGet(FLAG_SYS_GAME_CLEAR))
 		return 9;
 	else if (FlagGet(FLAG_RECEIVED_TM03))
@@ -150,11 +150,27 @@ u8 GetNumBadges()
 	return 0;
 };
 
+u8 getLevelBoost(){
+	u8 badges = GetNumBadges();
+	if (FlagGet(FLAG_SYS_GAME_CLEAR) && IsHardMode() == 1)
+		return badges*2;
+	else if(IsHardMode() == 1 || FlagGet(FLAG_SYS_GAME_CLEAR))
+		return badges;
+	else
+		return 0;
+}
+
 u16 GetBaseSpecie(u16 basespecies){
-	u16 id = ((gSaveBlock2Ptr->playerTrainerId[1] << 8) | gSaveBlock2Ptr->playerTrainerId[0]);
-	u16 randomizedspecie = GetFirstEvolution(CheckforLegendary(((basespecies * id )% 887)));
-	if(FlagGet(FLAG_SYS_DEXNAV_GET) == FALSE)
-		return randomizedspecie;
+	u16 id = gSaveBlock2Ptr->playerTrainerId[1];
+	u16 randomizedspecie = 1;
+	u16 firstStage = 1;
+	u16 notLegendary = 1;
+	if(FlagGet(FLAG_SYS_DEXNAV_GET) == FALSE){
+		randomizedspecie = 1+((basespecies*id)% 884);
+		notLegendary = CheckforLegendary(randomizedspecie);
+		//firstStage = GetFirstEvolution(notLegendary);
+		return notLegendary;
+	}
 	else
 		return basespecies;
 }
@@ -178,14 +194,12 @@ u8 getTrainerLevel(u8 Level){
 		return hardminTrainerLevel[badges] + levelboost;
 	else if (Level == 5 || Level == 6)//Gym Leader
 		return hardminGymLevel[badges];
-	else
-		return Level+GetNumBadges();
 	}
 	return Level;
 }
 
 u8 getWildLevel(u8 Ability){
-	u8 levelboost = Random() % 5;
+	u8 levelboost = Random() % 5 + IsHardMode();
 	if(Ability == ABILITY_PRESSURE || Ability == ABILITY_HUSTLE || Ability == ABILITY_VITAL_SPIRIT || Ability == ABILITY_INTIMIDATE)
 		return WildLevel[GetNumBadges()] + 6;
 	else if(Ability == ABILITY_WIMP_OUT || Ability == ABILITY_RUN_AWAY || Ability == ABILITY_RATTLED)
@@ -231,6 +245,7 @@ u16 GetWildPokemon(u16 basespecies, u8 level, u16 heldItem){
 	{
 		//Friendship Evolution Only
 		case EVO_FRIENDSHIP:
+		case EVO_ITEM_HOLD_DAY:
 		if(level >= FriendshipLevel)
 			return GetWildPokemon(gEvolutionTable[split][0].targetSpecies, level, heldItem);
 		break;
@@ -291,6 +306,7 @@ u16 GetTrainerPokemon(u16 basespecies, u8 level){
 	{
 		//Friendship Evolution Only
 		case EVO_FRIENDSHIP:
+		case EVO_ITEM_HOLD_DAY:
 		if(level >= FriendshipLevel)
 			return GetTrainerPokemon(gEvolutionTable[split][0].targetSpecies, level);
 		break;
@@ -406,18 +422,17 @@ u16 SplitEvolutions(u16 basespecies, u8 level){
 }
 
 u16 CheckforLegendary(u16 species){
-	u16 species2 = 1;
-	u16 id = ((gSaveBlock2Ptr->playerTrainerId[1] << 8) | gSaveBlock2Ptr->playerTrainerId[0]);
-	if((species >= 144 && species<= 146) || species == 150 || species == 151   ||  
-	   (species >= 243 && species<= 245) || (species >= 249 && species<= 251)  ||
-	   (species >= 377 && species<= 386) || (species >= 480 && species<= 494)  ||
-	   (species >= 638 && species<= 649) || (species >= 716 && species<= 721)  ||
-	   (species >= 785 && species<= 809) || (species >= 888 && species<= 898)){
-	   species2 = ((species * id )% 887);
-	   CheckforLegendary(species2);
-	   }
-	else
+	u16 LegendariesNum1[] = {144,150,243,249,377,480,638,716,785};
+	u16 LegendariesNum2[] = {147,152,246,252,387,495,650,722,810};
+	u8 i = 0;
+	
+	for(i = 0; i < 9;i++){
+	if(species < LegendariesNum1[i])
 		return species;
+	else if(species < LegendariesNum2[i])
+		return LegendariesNum2[i];
+	}
+	return species;
 }
 
 u16 GetHeldItem(u16 baseitem)
@@ -485,4 +500,15 @@ u16 GetHeldItem(u16 baseitem)
 	}
 	
 	return baseitem;
+}
+
+u8 GetEvsfromPokemon(u8 evs)
+{
+	u8  NumBadges = GetNumBadges();
+	u8  NumFlags = 10;
+	u8  ScaledEvs = (evs/NumFlags)*NumBadges; 
+	if(IsHardMode() == 1 && NumBadges != NumFlags)
+		ScaledEvs = (evs/NumFlags)*NumBadges+1; 
+	
+	return ScaledEvs;
 }

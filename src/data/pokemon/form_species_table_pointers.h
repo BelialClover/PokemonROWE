@@ -427,4 +427,10 @@ const u16 *const gFormSpeciesIdTables[NUM_SPECIES] =
     [SPECIES_NECROZMA_ULTRA] = sNecrozmaFormSpeciesIdTable,
     // Magearna
     [SPECIES_MAGEARNA_ORIGINAL_COLOR] = sMagearnaFormSpeciesIdTable,
+	//Galarian
+	[SPECIES_MEOWTH_GALARIAN] = sMeowthFormSpeciesIdTable,
+	[SPECIES_FARFETCHD] = sFarfetchdFormSpeciesIdTable,
+	[SPECIES_FARFETCHD_GALARIAN] = sFarfetchdFormSpeciesIdTable,
+	[SPECIES_PONYTA] = sPonytaFormSpeciesIdTable,
+	[SPECIES_PONYTA_GALARIAN] = sPonytaFormSpeciesIdTable,
 };

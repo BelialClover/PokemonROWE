@@ -1646,6 +1646,26 @@
         {
           "map": "MAP_ROUTE113",
           "base_label": "gRoute113",
+          "hidden_mons": {
+            "encounter_rate": 0,
+            "mons": [
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_HONEDGE"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_MEOWTH_GALARIAN"
+              },
+              {
+                "min_level": 5,
+                "max_level": 5,
+                "species": "SPECIES_BELDUM"
+              }
+            ]
+          },
           "land_mons": {
             "encounter_rate": 20,
             "mons": [
@@ -10160,7 +10180,7 @@
               {
                 "min_level": 32,
                 "max_level": 32,
-                "species": "SPECIES_SNOVER"
+                "species": "SPECIES_SNOM"
               },
               {
                 "min_level": 30,
@@ -10170,7 +10190,7 @@
               {
                 "min_level": 28,
                 "max_level": 28,
-                "species": "SPECIES_SNOM"
+                "species": "SPECIES_ARCTOZOLT"
               },
               {
                 "min_level": 32,
@@ -10180,7 +10200,7 @@
               {
                 "min_level": 30,
                 "max_level": 30,
-                "species": "SPECIES_SNOM"
+                "species": "SPECIES_ARCTOZOLT"
               }
             ]
           }
@@ -12153,7 +12173,7 @@
                 "species": "SPECIES_SMEARGLE"
               },
               {
-                "min_level": 42,
+                "min_level": 41,
                 "max_level": 42,
                 "species": "SPECIES_SMEARGLE"
               },
@@ -12200,7 +12220,7 @@
               {
                 "min_level": 50,
                 "max_level": 50,
-                "species": "SPECIES_SMEARGLE"
+                "species": "SPECIES_MELTAN"
               }
             ]
           }
@@ -12890,7 +12910,7 @@
               {
                 "min_level": 40,
                 "max_level": 40,
-                "species": "SPECIES_AERODACTYL"
+                "species": "SPECIES_MELTAN"
               }
             ]
           }

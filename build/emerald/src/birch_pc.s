@@ -317,6 +317,42 @@ ShowPokedexRatingMessage:
 	.word	gSpecialVar_0x8004
 .Lfe3:
 	.size	 ShowPokedexRatingMessage,.Lfe3-ShowPokedexRatingMessage
+	.align	2, 0
+	.globl	ScriptSetSeenPokedexInfo
+	.type	 ScriptSetSeenPokedexInfo,function
+	.thumb_func
+ScriptSetSeenPokedexInfo:
+	push	{lr}
+	ldr	r0, .L88
+	ldrh	r0, [r0]
+	mov	r1, #0x2
+	bl	GetSetPokedexFlag
+	pop	{r0}
+	bx	r0
+.L89:
+	.align	2, 0
+.L88:
+	.word	gSpecialVar_0x8004
+.Lfe4:
+	.size	 ScriptSetSeenPokedexInfo,.Lfe4-ScriptSetSeenPokedexInfo
+	.align	2, 0
+	.globl	ScriptSetCaughtPokedexInfo
+	.type	 ScriptSetCaughtPokedexInfo,function
+	.thumb_func
+ScriptSetCaughtPokedexInfo:
+	push	{lr}
+	ldr	r0, .L91
+	ldrh	r0, [r0]
+	mov	r1, #0x3
+	bl	GetSetPokedexFlag
+	pop	{r0}
+	bx	r0
+.L92:
+	.align	2, 0
+.L91:
+	.word	gSpecialVar_0x8004
+.Lfe5:
+	.size	 ScriptSetCaughtPokedexInfo,.Lfe5-ScriptSetCaughtPokedexInfo
 .text
 	.align	2, 0
 

@@ -85,7 +85,7 @@ SootopolisCity_Gym_1F_Movement_FallThroughIce: @ 8224F42
 SootopolisCity_Gym_1F_EventScript_Juan:: @ 8224F44
 	lock
 	faceplayer
-	call_if_set FLAG_BADGE08_GET, SootopolisCity_Gym_EventScript_Juan_PostBattle
+	call_if_set FLAG_BADGE08_GET, SootopolisCity_Gym_1F_EventScript_JuanRematch
 	trainerbattle_single TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanIntro, SootopolisCity_Gym_1F_Text_JuanDefeat, SootopolisCity_Gym_1F_EventScript_JuanDefeated, NO_MUSIC
 	release
 	end
@@ -99,7 +99,7 @@ SootopolisCity_Gym_1F_EventScript_JuanDefeated:: @ 8224F82
 	setflag FLAG_BADGE08_GET
 	setvar VAR_0x8008, 8
 	call Common_EventScript_SetGymTrainers
-	call SootopolisCity_Gym_EventScript_GiveHM
+	call SootopolisCity_Gym_1F_EventScript_GiveHM
 	closemessage
 	delay 30
 	playfanfare MUS_REGISTER_MATCH_CALL
@@ -113,16 +113,16 @@ SootopolisCity_Gym_1F_EventScript_JuanDefeated:: @ 8224F82
 	release
 	end
 
-SootopolisCity_Gym_EventScript_Juan_PostBattle::
+SootopolisCity_Gym_1F_EventScript_Juan_PostBattle::
 	goto_if_unset FLAG_UNUSED_0x929, SootopolisCity_Gym_1F_EventScript_JuanRematch
 	msgbox SootopolisCity_Gym_1F_Text_JuanPostBattle, MSGBOX_DEFAULT
 	release
 	end
 	
-SootopolisCity_Gym_1F_EventScript_JuanRematch:: @ 8225025
+//Rematch	
+SootopolisCity_Gym_1F_EventScript_JuanRematch:: @ 8204DB3
 	msgbox SootopolisCity_Gym_1F_Text_JuanPreRematch, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
-	goto SootopolisCity_Gym_1F_EventScript_GiveMegastone
+	goto SootopolisCity_Gym_1F_EventScript_Start_Rematch_1
 	end
 	
 SootopolisCity_Gym_1F_EventScript_JuanRematchEnd::
@@ -130,77 +130,197 @@ SootopolisCity_Gym_1F_EventScript_JuanRematchEnd::
 	setflag FLAG_UNUSED_0x929
 	end
 	
-SootopolisCity_Gym_1F_EventScript_GiveMegastone::
-	goto_if_unset FLAG_RECEIVED_TM04 SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
-	goto_if_set FLAG_UNUSED_0x293 SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
-	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
-	giveitem ITEM_GYARADOSITE
-	setflag FLAG_UNUSED_0x293
-	msgbox SootopolisCity_Gym_1F_Text_JuanPostRematch, MSGBOX_AUTOCLOSE
-	setflag FLAG_UNUSED_0x929
-	end
-
-SootopolisCity_Gym_EventScript_GiveHM::
-	goto_if_unset FLAG_RECEIVED_TM39, SootopolisCity_Gym_EventScript_GiveHM01
-	goto_if_unset FLAG_RECEIVED_TM08, SootopolisCity_Gym_EventScript_GiveHM02
-	goto_if_unset FLAG_RECEIVED_TM34, SootopolisCity_Gym_EventScript_GiveHM03
-	goto_if_unset FLAG_RECEIVED_TM50, SootopolisCity_Gym_EventScript_GiveHM04
-	goto_if_unset FLAG_RECEIVED_TM42, SootopolisCity_Gym_EventScript_GiveHM05
-	goto_if_unset FLAG_RECEIVED_TM40, SootopolisCity_Gym_EventScript_GiveHM06
-	goto_if_unset FLAG_RECEIVED_TM04, SootopolisCity_Gym_EventScript_GiveHM07
-	goto SootopolisCity_Gym_EventScript_GiveHM08
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_1::
+	checkitem ITEM_TM03_WATER_PULSE, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq SootopolisCity_Gym_1F_EventScript_Start_Rematch_2
+	trainerbattle_no_intro TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	msgbox SootopolisCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM03_WATER_PULSE
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
 	end
 	
-SootopolisCity_Gym_EventScript_GiveHM01::
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_2::
+	goto_if_unset FLAG_RECEIVED_TM08 SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_1
+	checkitem ITEM_TM55_SCALD, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq SootopolisCity_Gym_1F_EventScript_Start_Rematch_3
+	trainerbattle_no_intro TRAINER_JUAN_2, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	msgbox SootopolisCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM55_SCALD
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	end
+	
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_3::
+	goto_if_unset FLAG_RECEIVED_TM42 SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_2
+	checkitem ITEM_TM94_SURF, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq SootopolisCity_Gym_1F_EventScript_Start_Rematch_4
+	trainerbattle_no_intro TRAINER_JUAN_3, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	msgbox SootopolisCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM94_SURF
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	end
+	
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_4::
+	goto_if_unset FLAG_RECEIVED_TM40 SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_3
+	checkitem ITEM_TM98_WATERFALL, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq SootopolisCity_Gym_1F_EventScript_Start_Rematch_5
+	trainerbattle_no_intro TRAINER_JUAN_4, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	msgbox SootopolisCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM98_WATERFALL
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	end
+	
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_5::
+	goto_if_unset FLAG_RECEIVED_TM04 SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_4
+	goto_if_set FLAG_UNUSED_0x293 SootopolisCity_Gym_1F_EventScript_Start_Rematch_6
+	trainerbattle_no_intro TRAINER_JUAN_4, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	msgbox SootopolisCity_Gym_Text_GetMegaStone, MSGBOX_DEFAULT
+	giveitem ITEM_GYARADOSITE
+	setflag FLAG_UNUSED_0x293
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	end
+	
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_6::
+	goto_if_unset FLAG_RECEIVED_TM03 SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_4
+	checkitem ITEM_TM102_LIQUIDATION, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq SootopolisCity_Gym_1F_EventScript_Start_Rematch_Final
+	trainerbattle_no_intro TRAINER_JUAN_5, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	msgbox SootopolisCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM102_LIQUIDATION
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	end
+	
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_Final::
+	random 5
+	switch VAR_RESULT
+	case 0, SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_1
+	case 1, SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_2
+	case 2, SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_3
+	case 3, SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_4
+	case 4, SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_5
+	end
+	
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_1::
+	trainerbattle_no_intro TRAINER_JUAN_1, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	msgbox SootopolisCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_MODEST_MINT, 3
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	end
+	
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_2::
+	trainerbattle_no_intro TRAINER_JUAN_2, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	msgbox SootopolisCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_MILD_MINT, 3
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	end
+	
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_3::
+	trainerbattle_no_intro TRAINER_JUAN_3, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	msgbox SootopolisCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_RASH_MINT, 3
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	end
+	
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_4::
+	trainerbattle_no_intro TRAINER_JUAN_4, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	msgbox SootopolisCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_QUIET_MINT, 3
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	end
+	
+SootopolisCity_Gym_1F_EventScript_Start_Rematch_Party_5::
+	trainerbattle_no_intro TRAINER_JUAN_5, SootopolisCity_Gym_1F_Text_JuanRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	msgbox SootopolisCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_TIMID_MINT, 3
+	goto SootopolisCity_Gym_1F_EventScript_JuanRematchEnd
+	end
+	
+SootopolisCity_Gym_Text_GetTM:
+	.string "Juan: Please take this\n"
+	.string "Technical Machine.$"
+
+SootopolisCity_Gym_Text_GetMegaStone:
+	.string "Juan: Please take this\n"
+	.string "Mega Stone, with you.\p"
+	.string "Make an Gyarados hold it to\n"
+	.string "unleash its Hidden Potential.$"
+	
+SootopolisCity_Gym_Text_GetReward:
+	.string "Juan: Please take this\n"
+	.string "Item as a Reward.$"
+
+//rematches end
+
+SootopolisCity_Gym_1F_EventScript_GiveHM::
+	goto_if_unset FLAG_RECEIVED_TM39, SootopolisCity_Gym_1F_EventScript_GiveHM01
+	goto_if_unset FLAG_RECEIVED_TM08, SootopolisCity_Gym_1F_EventScript_GiveHM02
+	goto_if_unset FLAG_RECEIVED_TM34, SootopolisCity_Gym_1F_EventScript_GiveHM03
+	goto_if_unset FLAG_RECEIVED_TM50, SootopolisCity_Gym_1F_EventScript_GiveHM04
+	goto_if_unset FLAG_RECEIVED_TM42, SootopolisCity_Gym_1F_EventScript_GiveHM05
+	goto_if_unset FLAG_RECEIVED_TM40, SootopolisCity_Gym_1F_EventScript_GiveHM06
+	goto_if_unset FLAG_RECEIVED_TM04, SootopolisCity_Gym_1F_EventScript_GiveHM07
+	goto SootopolisCity_Gym_1F_EventScript_GiveHM08
+	end
+	
+SootopolisCity_Gym_1F_EventScript_GiveHM01::
 	giveitem ITEM_WAILMER_PAIL
 	msgbox Gym_Text_ExplainWailmerPail, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM39
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
 	
-SootopolisCity_Gym_EventScript_GiveHM02::
+SootopolisCity_Gym_1F_EventScript_GiveHM02::
 	giveitem ITEM_OLD_ROD
 	msgbox Gym_Text_ExplainOldRod, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM08
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
 	
-SootopolisCity_Gym_EventScript_GiveHM03::
+SootopolisCity_Gym_1F_EventScript_GiveHM03::
 	giveitem ITEM_MACH_BIKE
 	msgbox Gym_Text_ExplainMachBike, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM34
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
 	
-SootopolisCity_Gym_EventScript_GiveHM04::
+SootopolisCity_Gym_1F_EventScript_GiveHM04::
 	giveitem ITEM_ACRO_BIKE
 	msgbox Gym_Text_ExplainAcroBike, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM50
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
 	
-SootopolisCity_Gym_EventScript_GiveHM05::
+SootopolisCity_Gym_1F_EventScript_GiveHM05::
 	giveitem ITEM_GOOD_ROD
 	msgbox Gym_Text_ExplainGoodRod, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM42
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
 	
-SootopolisCity_Gym_EventScript_GiveHM06::
+SootopolisCity_Gym_1F_EventScript_GiveHM06::
 	giveitem ITEM_EXP_SHARE
 	msgbox Gym_Text_ExplainExpShare, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM40
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
 	
-SootopolisCity_Gym_EventScript_GiveHM07::
+SootopolisCity_Gym_1F_EventScript_GiveHM07::
 	giveitem ITEM_SUPER_ROD
 	msgbox Gym_Text_ExplainSuperRod, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM04
 	goto SootopolisCity_Gym_1F_EventScript_GiveWaterPulse
 	end
 	
-SootopolisCity_Gym_EventScript_GiveHM08::
+SootopolisCity_Gym_1F_EventScript_GiveHM08::
 	giveitem ITEM_SHINY_CHARM
 	msgbox Gym_Text_ExplainOldSeaMap, MSGBOX_DEFAULT
 	setflag FLAG_RECEIVED_TM03

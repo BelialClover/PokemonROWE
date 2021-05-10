@@ -487,7 +487,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         }
     }
 
-    if (CheckBagHasItem(ITEM_EON_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_SOUTHERN_ISLAND) == TRUE)
+    if (FlagGet(FLAG_SYS_FRONTIER_PASS) == TRUE)
     {
         if (gSpecialVar_0x8004 == 0)
         {
@@ -503,7 +503,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         }
     }
 
-    if (CheckBagHasItem(ITEM_MYSTIC_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_NAVEL_ROCK) == TRUE)
+    if (FlagGet(FLAG_SYS_FRONTIER_PASS) == TRUE && FLAG_DEFEATED_RAYQUAZA)
     {
         if (gSpecialVar_0x8004 == 0)
         {
@@ -519,7 +519,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         }
     }
 
-    if (CheckBagHasItem(ITEM_AURORA_TICKET, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_BIRTH_ISLAND) == TRUE)
+    if (FlagGet(FLAG_SYS_FRONTIER_PASS) == TRUE && FLAG_DEFEATED_RAYQUAZA)
     {
         if (gSpecialVar_0x8004 == 0)
         {
@@ -535,7 +535,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         }
     }
 
-    if (CheckBagHasItem(ITEM_OLD_SEA_MAP, 1) == TRUE && FlagGet(FLAG_ENABLE_SHIP_FARAWAY_ISLAND) == TRUE)
+    if (FlagGet(FLAG_SYS_FRONTIER_PASS) == TRUE && FLAG_DEFEATED_RAYQUAZA)
     {
         if (gSpecialVar_0x8004 == 0)
         {

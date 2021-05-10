@@ -141,7 +141,7 @@ void CopyItemName(u16 itemId, u8 *dst)
 static const u8 sText_s[] = _("s");
 void CopyItemNameHandlePlural(u16 itemId, u8 *dst, u32 quantity)
 {
-    if (ItemId_GetPocket(itemId) == POCKET_TM_HM)
+    if (ItemId_GetPocket(itemId) == POCKET_TM_HM && FALSE)
         GetTMWithName(dst, itemId, ItemId_GetName(itemId));
     else
     {

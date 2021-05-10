@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -5094,12 +5095,13 @@ void LaunchAnimationTaskForBackSprite(struct Sprite *sprite, u8 backAnimSet)
     gTasks[taskId].data[2] = (u32)(sprite);
 
     battlerId = sprite->data[0];
-    nature = GetNature(&gPlayerParty[gBattlerPartyIndexes[battlerId]]);
+
+ nature = GetNature(&gPlayerParty[gBattlerPartyIndexes[battlerId]], 0);
 
     animId = 3 * backAnimSet + sBackAnimNatureModTable[nature];
     gTasks[taskId].data[3] = sBackAnimationIds[animId];
 }
-# 952 "src/pokemon_animation.c"
+# 953 "src/pokemon_animation.c"
 void SetSpriteCB_MonAnimDummy(struct Sprite *sprite)
 {
     sprite->callback = MonAnimDummySpriteCallback;

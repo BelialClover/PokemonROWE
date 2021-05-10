@@ -699,7 +699,7 @@
 #define FLAG_UNUSED_0x291  0x291 // Abomasite*
 #define FLAG_UNUSED_0x292  0x292 // Heracronite*
 #define FLAG_UNUSED_0x293  0x293 // Gyaradosite*
-#define FLAG_UNUSED_0x294  0x294 // Unused Flag
+#define FLAG_UNUSED_0x294  0x294 // Slowbroite 2
 #define FLAG_UNUSED_0x295  0x295 // Unused Flag
 #define FLAG_UNUSED_0x296  0x296 // Unused Flag
 #define FLAG_UNUSED_0x297  0x297 // Unused Flag

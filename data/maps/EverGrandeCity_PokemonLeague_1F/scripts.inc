@@ -53,6 +53,8 @@ EverGrandeCity_PokemonLeague_Pokemart:
 	.2byte ITEM_MAX_LURE	
 	.2byte ITEM_HEART_SCALE
 	.2byte ITEM_ABILITY_CAPSULE
+	.2byte ITEM_POWER_CANDY
+	.2byte ITEM_RARE_CANDY
 	.2byte ITEM_NONE
 	release
 	end

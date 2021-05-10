@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -8566,7 +8567,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         }
     }
 
-    if (CheckBagHasItem(470, 1) == 1 && FlagGet((((0x500 + 864 - 1) + 1) + 0x53)) == 1)
+    if (FlagGet((((0x500 + 864 - 1) + 1) + 0x72)) == 1)
     {
         if (gSpecialVar_0x8004 == 0)
         {
@@ -8582,7 +8583,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         }
     }
 
-    if (CheckBagHasItem(709, 1) == 1 && FlagGet((((0x500 + 864 - 1) + 1) + 0x80)) == 1)
+    if (FlagGet((((0x500 + 864 - 1) + 1) + 0x72)) == 1 && 0x1C0)
     {
         if (gSpecialVar_0x8004 == 0)
         {
@@ -8598,7 +8599,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         }
     }
 
-    if (CheckBagHasItem(710, 1) == 1 && FlagGet((((0x500 + 864 - 1) + 1) + 0x75)) == 1)
+    if (FlagGet((((0x500 + 864 - 1) + 1) + 0x72)) == 1 && 0x1C0)
     {
         if (gSpecialVar_0x8004 == 0)
         {
@@ -8614,7 +8615,7 @@ static void CreateLilycoveSSTidalMultichoice(void)
         }
     }
 
-    if (CheckBagHasItem(715, 1) == 1 && FlagGet((((0x500 + 864 - 1) + 1) + 0x76)) == 1)
+    if (FlagGet((((0x500 + 864 - 1) + 1) + 0x72)) == 1 && 0x1C0)
     {
         if (gSpecialVar_0x8004 == 0)
         {

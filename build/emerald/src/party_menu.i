@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -5757,6 +5758,9 @@ struct TrainerMonNoItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
 };
@@ -5765,8 +5769,12 @@ struct TrainerMonItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
 };
 
@@ -5774,8 +5782,12 @@ struct TrainerMonNoItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -5783,9 +5795,14 @@ struct TrainerMonItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -7691,13 +7708,13 @@ extern const u32 gMonFrontPic_Meltan[];
 extern const u32 gMonFrontPic_Melmetal[];
 extern const u32 gMonFrontPic_Grookey[];
 extern const u32 gMonFrontPic_Thwackey[];
-
+extern const u32 gMonFrontPic_Rillaboom[];
 extern const u32 gMonFrontPic_Scorbunny[];
 extern const u32 gMonFrontPic_Raboot[];
 extern const u32 gMonFrontPic_Cinderace[];
 extern const u32 gMonFrontPic_Sobble[];
 extern const u32 gMonFrontPic_Drizzile[];
-
+extern const u32 gMonFrontPic_Inteleon[];
 extern const u32 gMonFrontPic_Skwovet[];
 extern const u32 gMonFrontPic_Greedent[];
 extern const u32 gMonFrontPic_Rookidee[];
@@ -8831,13 +8848,13 @@ extern const u32 gMonBackPic_Meltan[];
 extern const u32 gMonBackPic_Melmetal[];
 extern const u32 gMonBackPic_Grookey[];
 extern const u32 gMonBackPic_Thwackey[];
-
+extern const u32 gMonBackPic_Rillaboom[];
 extern const u32 gMonBackPic_Scorbunny[];
 extern const u32 gMonBackPic_Raboot[];
 extern const u32 gMonBackPic_Cinderace[];
 extern const u32 gMonBackPic_Sobble[];
 extern const u32 gMonBackPic_Drizzile[];
-
+extern const u32 gMonBackPic_Inteleon[];
 extern const u32 gMonBackPic_Skwovet[];
 extern const u32 gMonBackPic_Greedent[];
 extern const u32 gMonBackPic_Rookidee[];
@@ -9969,13 +9986,13 @@ extern const u32 gMonPalette_Meltan[];
 extern const u32 gMonPalette_Melmetal[];
 extern const u32 gMonPalette_Grookey[];
 extern const u32 gMonPalette_Thwackey[];
-
+extern const u32 gMonPalette_Rillaboom[];
 extern const u32 gMonPalette_Scorbunny[];
 extern const u32 gMonPalette_Raboot[];
 extern const u32 gMonPalette_Cinderace[];
 extern const u32 gMonPalette_Sobble[];
 extern const u32 gMonPalette_Drizzile[];
-
+extern const u32 gMonPalette_Inteleon[];
 extern const u32 gMonPalette_Skwovet[];
 extern const u32 gMonPalette_Greedent[];
 extern const u32 gMonPalette_Rookidee[];
@@ -11134,13 +11151,13 @@ extern const u32 gMonShinyPalette_Meltan[];
 extern const u32 gMonShinyPalette_Melmetal[];
 extern const u32 gMonShinyPalette_Grookey[];
 extern const u32 gMonShinyPalette_Thwackey[];
-
+extern const u32 gMonShinyPalette_Rillaboom[];
 extern const u32 gMonShinyPalette_Scorbunny[];
 extern const u32 gMonShinyPalette_Raboot[];
 extern const u32 gMonShinyPalette_Cinderace[];
 extern const u32 gMonShinyPalette_Sobble[];
 extern const u32 gMonShinyPalette_Drizzile[];
-
+extern const u32 gMonShinyPalette_Inteleon[];
 extern const u32 gMonShinyPalette_Skwovet[];
 extern const u32 gMonShinyPalette_Greedent[];
 extern const u32 gMonShinyPalette_Rookidee[];
@@ -12448,6 +12465,25 @@ extern const u8 gMonIcon_GrimerAlolan[];
 extern const u8 gMonIcon_MukAlolan[];
 extern const u8 gMonIcon_ExeggutorAlolan[];
 extern const u8 gMonIcon_MarowakAlolan[];
+extern const u8 gMonIcon_MeowthGalarian[];
+extern const u8 gMonIcon_PonytaGalarian[];
+extern const u8 gMonIcon_RapidashGalarian[];
+extern const u8 gMonIcon_SlowpokeGalarian[];
+extern const u8 gMonIcon_SlowbroGalarian[];
+extern const u8 gMonIcon_FarfetchdGalarian[];
+extern const u8 gMonIcon_WeezingGalarian[];
+extern const u8 gMonIcon_MrmimeGalarian[];
+extern const u8 gMonIcon_ArticunoGalarian[];
+extern const u8 gMonIcon_ZapdosGalarian[];
+extern const u8 gMonIcon_MoltresGalarian[];
+extern const u8 gMonIcon_SlowkingGalarian[];
+extern const u8 gMonIcon_CorsolaGalarian[];
+extern const u8 gMonIcon_ZigzagoonGalarian[];
+extern const u8 gMonIcon_LinooneGalarian[];
+extern const u8 gMonIcon_DarumakaGalarian[];
+extern const u8 gMonIcon_DarmanitanGalarian[];
+extern const u8 gMonIcon_YamaskGalarian[];
+extern const u8 gMonIcon_StunfiskGalarian[];
 extern const u8 gMonIcon_PikachuCosplay[];
 extern const u8 gMonIcon_PikachuRockStar[];
 extern const u8 gMonIcon_PikachuBelle[];
@@ -16310,6 +16346,15 @@ extern const u32 gPokenavMessageBox_Tilemap[];
 extern const u16 gPokenavMessageBox_Pal[];
 extern const u32 gPokenavOptions_Gfx[];
 extern const u16 gPokenavOptions_Pal[];
+
+
+extern const u32 gItemIcon_Mint[];
+extern const u32 gItemIconPalette_RedMint[];
+extern const u32 gItemIconPalette_BlueMint[];
+extern const u32 gItemIconPalette_PinkMint[];
+extern const u32 gItemIconPalette_GreenMint[];
+extern const u32 gItemIconPalette_LightBlueMint[];
+extern const u32 gItemIconPalette_YellowMint[];
 # 30 "src/party_menu.c" 2
 # 1 "include/international_string_util.h" 1
 
@@ -16829,6 +16874,7 @@ void ItemUseOutOfBattle_SSTicket(u8);
 void ItemUseOutOfBattle_WailmerPail(u8);
 void ItemUseOutOfBattle_Medicine(u8);
 void ItemUseOutOfBattle_AbilityCapsule(u8);
+void ItemUseOutOfBattle_PowerCandy(u8);
 void ItemUseOutOfBattle_AbilityPatch(u8);
 void ItemUseOutOfBattle_ReduceEV(u8);
 void ItemUseOutOfBattle_SacredAsh(u8);
@@ -18314,6 +18360,7 @@ void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichPart
 void CB2_ShowPartyMenuForItemUse(void);
 void ItemUseCB_Medicine(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task);
+void ItemUseCB_PowerCandy(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task);
 void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task);
 void ItemUseCB_PPRecovery(u8 taskId, TaskFunc task);
@@ -41878,7 +41925,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_SUMMARY);
 
 
-    if (FlagGet(0xAA) && CanMonLearnTMHM(&mons[slotId], 683 - 482))
+    if (FlagGet(0xAA) && CanMonLearnTMHM(&mons[slotId], 557 - 482))
     {
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_FLY + MENU_FIELD_MOVES);
     }
@@ -41887,13 +41934,19 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     {
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_DIG + MENU_FIELD_MOVES);
     }
-# 2673 "src/party_menu.c"
+
+    if (FlagGet(0xA7) && CanMonLearnTMHM(&mons[slotId], 580 - 482))
+    {
+        AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_FLASH + MENU_FIELD_MOVES);
+    }
+
+
     for (i = 0; i < 4; i++)
     {
         for (j = 0; sFieldMoves[j] != 14; j++)
         {
             move = GetMonData(&mons[slotId], i + 13);
-            if (move == 19 || move == 148)
+            if (move == 19 || move == 148 || move == 91)
             {
                 break;
             }
@@ -42086,7 +42139,7 @@ static void CursorCb_Switch(u8 taskId)
     gPartyMenu.slotId2 = gPartyMenu.slotId;
     gTasks[taskId].func = Task_HandleChooseMonInput;
 }
-# 2888 "src/party_menu.c"
+# 2887 "src/party_menu.c"
 static void SwitchSelectedMons(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
@@ -42322,7 +42375,7 @@ static void FinishTwoMonAction(u8 taskId)
     DisplayPartyMenuStdMessage(0);
     gTasks[taskId].func = Task_HandleChooseMonInput;
 }
-# 3137 "src/party_menu.c"
+# 3136 "src/party_menu.c"
 static void CursorCb_Cancel1(u8 taskId)
 {
     PlaySE(5);
@@ -42993,7 +43046,7 @@ static void CursorCb_FieldMove(u8 taskId)
         }
         else if (sFieldMoveCursorCallbacks[fieldMove].fieldMoveFunc() == 1)
         {
-            switch (fieldMove)
+   switch (fieldMove)
             {
             case FIELD_MOVE_MILK_DRINK:
             case FIELD_MOVE_SOFT_BOILED:
@@ -43744,7 +43797,7 @@ void ItemUseCB_Medicine(u8 taskId, TaskFunc task)
         }
     }
 }
-# 4566 "src/party_menu.c"
+# 4565 "src/party_menu.c"
 void Task_AbilityCapsule(u8 taskId)
 {
     static const u8 askText[] = _("Would you like to change {STR_VAR_1}'s\nability to {STR_VAR_2}?");
@@ -43923,7 +43976,207 @@ void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task)
     SetWordTaskArg(taskId, 4, (uintptr_t)(gTasks[taskId].func));
     gTasks[taskId].func = Task_AbilityPatch;
 }
-# 4852 "src/party_menu.c"
+# 4762 "src/party_menu.c"
+void Task_PowerCandy(u8 taskId)
+{
+    static const u8 askText[] = _("Do you want to power up your Pokemon?");
+    static const u8 doneText[] = _("Your Pokemon became stronger!{PAUSE_UNTIL_PRESS}");
+ u8 perfectIv = 31;
+    s16 *data = gTasks[taskId].data;
+ struct Pokemon *mon = &gPlayerParty[data[1]];
+ u8 NewHpIv = data[2]+1;
+ u8 NewAtkIv = data[3] +1;
+ u8 NewDefIv = data[4]+1;
+ u8 NewSpAtkIv = data[5]+1;
+ u8 NewSpDefIv = data[6]+1;
+ u8 NewSpdIv = data[7] +1;
+
+    switch (data[0])
+    {
+    case 0:
+
+        if (0)
+        {
+            gPartyMenuUseExitCallback = 0;
+            PlaySE(5);
+            DisplayPartyMenuMessage(gText_WontHaveEffect, 1);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = Task_ClosePartyMenuAfterText;
+            return;
+        }
+        gPartyMenuUseExitCallback = 1;
+        GetMonNickname(&gPlayerParty[data[1]], gStringVar1);
+
+        StringExpandPlaceholders(gStringVar4, askText);
+        PlaySE(5);
+        DisplayPartyMenuMessage(gStringVar4, 1);
+        ScheduleBgCopyTilemapToVram(2);
+        data[0]++;
+        break;
+    case 1:
+        if (!IsPartyMenuTextPrinterActive())
+        {
+            PartyMenuDisplayYesNoMenu();
+            data[0]++;
+        }
+        break;
+    case 2:
+        switch (Menu_ProcessInputNoWrapClearOnChoose())
+        {
+        case 0:
+            data[0]++;
+            break;
+        case 1:
+        case -1:
+            gPartyMenuUseExitCallback = 0;
+            PlaySE(5);
+            ScheduleBgCopyTilemapToVram(2);
+
+            ClearStdWindowAndFrameToTransparent(6, 0);
+            ClearWindowTilemap(6);
+            DisplayPartyMenuStdMessage(5);
+            gTasks[taskId].func = (void *)GetWordTaskArg(taskId, 8);
+            return;
+        }
+        break;
+    case 3:
+        PlaySE(1);
+        StringExpandPlaceholders(gStringVar4, doneText);
+        DisplayPartyMenuMessage(gStringVar4, 1);
+        ScheduleBgCopyTilemapToVram(2);
+        data[0]++;
+        break;
+    case 4:
+        if (!IsPartyMenuTextPrinterActive())
+            data[0]++;
+        break;
+    case 5:
+  if(NewHpIv <= perfectIv)
+        SetMonData(mon, 39, &NewHpIv);
+  if(NewAtkIv <= perfectIv)
+        SetMonData(mon, 40, &NewAtkIv);
+  if(NewDefIv <= perfectIv)
+        SetMonData(mon, 41, &NewDefIv);
+  if(NewSpAtkIv <= perfectIv)
+        SetMonData(mon, 43, &NewSpAtkIv);
+  if(NewSpDefIv <= perfectIv)
+        SetMonData(mon, 44, &NewSpDefIv);
+  if(NewSpdIv <= perfectIv)
+        SetMonData(mon, 42, &NewSpdIv);
+  UpdateMonDisplayInfoAfterRareCandy(data[1], mon);
+        RemoveBagItem(gSpecialVar_ItemId, 1);
+        gTasks[taskId].func = Task_ClosePartyMenu;
+        break;
+    }
+}
+
+void ItemUseCB_PowerCandy(u8 taskId, TaskFunc task)
+{
+    s16 *data = gTasks[taskId].data;
+
+    data[0] = 0;
+    data[1] = gPartyMenu.slotId;
+    data[2] = GetMonData(&gPlayerParty[data[1]], 39, ((void *)0));
+ data[3] = GetMonData(&gPlayerParty[data[1]], 40, ((void *)0));
+ data[4] = GetMonData(&gPlayerParty[data[1]], 41, ((void *)0));
+ data[5] = GetMonData(&gPlayerParty[data[1]], 43, ((void *)0));
+ data[6] = GetMonData(&gPlayerParty[data[1]], 44, ((void *)0));
+ data[7] = GetMonData(&gPlayerParty[data[1]], 42, ((void *)0));
+    SetWordTaskArg(taskId, 8, (uintptr_t)(gTasks[taskId].func));
+    gTasks[taskId].func = Task_PowerCandy;
+}
+# 4889 "src/party_menu.c"
+static const u8 sText_AskMint[] = _("Would you like to change {STR_VAR_1}'s\nnature to {STR_VAR_2}?");
+static const u8 sText_MintDone[] = _("{STR_VAR_1}'s nature became\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
+static void Task_Mints(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+
+    switch (data[0])
+    {
+    case 0:
+
+        if (data[2] == data[6])
+        {
+            gPartyMenuUseExitCallback = 0;
+            PlaySE(5);
+            DisplayPartyMenuMessage(gText_WontHaveEffect, 1);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+            return;
+        }
+
+        gPartyMenuUseExitCallback = 1;
+        GetMonNickname(&gPlayerParty[data[3]], gStringVar1);
+        StringCopy(gStringVar2, gNatureNamePointers[data[6]]);
+        StringExpandPlaceholders(gStringVar4, sText_AskMint);
+        PlaySE(5);
+        DisplayPartyMenuMessage(gStringVar4, 1);
+        ScheduleBgCopyTilemapToVram(2);
+        data[0]++;
+        break;
+    case 1:
+        if (!IsPartyMenuTextPrinterActive())
+        {
+            PartyMenuDisplayYesNoMenu();
+            data[0]++;
+        }
+        break;
+    case 2:
+        switch (Menu_ProcessInputNoWrapClearOnChoose())
+        {
+        case 0:
+            data[0]++;
+            break;
+        case 1:
+        case -1:
+            gPartyMenuUseExitCallback = 0;
+            PlaySE(5);
+            ScheduleBgCopyTilemapToVram(2);
+
+
+            ClearStdWindowAndFrameToTransparent(6, 0);
+            ClearWindowTilemap(6);
+            DisplayPartyMenuStdMessage(5);
+            gTasks[taskId].func = (TaskFunc)GetWordTaskArg(taskId, 4);
+            return;
+        }
+        break;
+    case 3:
+        PlaySE(1);
+        StringExpandPlaceholders(gStringVar4, sText_MintDone);
+        DisplayPartyMenuMessage(gStringVar4, 1);
+        ScheduleBgCopyTilemapToVram(2);
+        data[0]++;
+        break;
+    case 4:
+        if (!IsPartyMenuTextPrinterActive())
+            data[0]++;
+        break;
+    case 5:
+        SetMonData(&gPlayerParty[data[3]], 90, &data[6]);
+        CalculateMonStats(&gPlayerParty[data[3]]);
+
+        RemoveBagItem(gSpecialVar_ItemId, 1);
+        gTasks[taskId].func = Task_ClosePartyMenu;
+        break;
+    }
+}
+
+void ItemUseCB_Mints(u8 taskId, TaskFunc task)
+{
+    s16 *data = gTasks[taskId].data;
+
+    data[0] = 0;
+    data[3] = gPartyMenu.slotId;
+    data[1] = GetMonData(&gPlayerParty[data[3]], 11, ((void *)0));
+    data[2] = GetNature(&gPlayerParty[data[3]], 1);
+    data[6] = ItemId_GetSecondaryId(gSpecialVar_ItemId);
+    SetWordTaskArg(taskId, 4, (uintptr_t)(gTasks[taskId].func));
+    gTasks[taskId].func = Task_Mints;
+}
+
+
 static void Task_DisplayHPRestoredMessage(u8 taskId)
 {
     GetMonNickname(&gPlayerParty[gPartyMenu.slotId], gStringVar1);
@@ -44162,7 +44415,7 @@ u16 ItemIdToBattleMoveId(u16 item)
 
 bool8 IsMoveHm(u16 move)
 {
-# 5099 "src/party_menu.c"
+# 5227 "src/party_menu.c"
     return 0;
 }
 

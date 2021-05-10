@@ -54,10 +54,10 @@ FortreeCity_Gym_EventScript_Winona_PostBattle::
 	release
 	end
 	
-FortreeCity_Gym_EventScript_WinonaRematch:: @ 821668D
+//Rematch	
+FortreeCity_Gym_EventScript_WinonaRematch:: @ 8204DB3
 	msgbox FortreeCity_Gym_Text_WinonaPreRematch, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_WINONA_1, FortreeCity_Gym_Text_WinonaRematchDefeat
-	goto FortreeCity_Gym_EventScript_GiveMegastone
+	goto FortreeCity_Gym_EventScript_Start_Rematch_1
 	end
 	
 FortreeCity_Gym_EventScript_WinonaRematchEnd::
@@ -65,15 +65,135 @@ FortreeCity_Gym_EventScript_WinonaRematchEnd::
 	setflag FLAG_UNUSED_0x927
 	end
 	
-FortreeCity_Gym_EventScript_GiveMegastone::
-	goto_if_unset FLAG_RECEIVED_TM04 FortreeCity_Gym_EventScript_WinonaRematchEnd
-	goto_if_set FLAG_UNUSED_0x26F FortreeCity_Gym_EventScript_WinonaRematchEnd
-	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+FortreeCity_Gym_EventScript_Start_Rematch_1::
+	checkitem ITEM_TM40_AERIAL_ACE, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq FortreeCity_Gym_EventScript_Start_Rematch_2
+	trainerbattle_no_intro TRAINER_WINONA_1, FortreeCity_Gym_Text_WinonaRematchDefeat
+	msgbox FortreeCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM40_AERIAL_ACE
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
+	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_2::
+	goto_if_unset FLAG_RECEIVED_TM08 FortreeCity_Gym_EventScript_Start_Rematch_Party_1
+	checkitem ITEM_TM58_SKY_DROP, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq FortreeCity_Gym_EventScript_Start_Rematch_3
+	trainerbattle_no_intro TRAINER_WINONA_2, FortreeCity_Gym_Text_WinonaRematchDefeat
+	msgbox FortreeCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM58_SKY_DROP
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
+	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_3::
+	goto_if_unset FLAG_RECEIVED_TM42 FortreeCity_Gym_EventScript_Start_Rematch_Party_2
+	checkitem ITEM_TM62_ACROBATICS, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq FortreeCity_Gym_EventScript_Start_Rematch_4
+	trainerbattle_no_intro TRAINER_WINONA_3, FortreeCity_Gym_Text_WinonaRematchDefeat
+	msgbox FortreeCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM62_ACROBATICS
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
+	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_4::
+	goto_if_unset FLAG_RECEIVED_TM40 FortreeCity_Gym_EventScript_Start_Rematch_Party_3
+	checkitem ITEM_TM76_FLY, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq FortreeCity_Gym_EventScript_Start_Rematch_5
+	trainerbattle_no_intro TRAINER_WINONA_4, FortreeCity_Gym_Text_WinonaRematchDefeat
+	msgbox FortreeCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM76_FLY
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
+	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_5::
+	goto_if_unset FLAG_RECEIVED_TM04 FortreeCity_Gym_EventScript_Start_Rematch_Party_4
+	goto_if_set FLAG_UNUSED_0x26F FortreeCity_Gym_EventScript_Start_Rematch_6
+	trainerbattle_no_intro TRAINER_WINONA_4, FortreeCity_Gym_Text_WinonaRematchDefeat
+	msgbox FortreeCity_Gym_Text_GetMegaStone, MSGBOX_DEFAULT
 	giveitem ITEM_ALTARIANITE
 	setflag FLAG_UNUSED_0x26F
-	msgbox FortreeCity_Gym_Text_WinonaPostRematch, MSGBOX_AUTOCLOSE
-	setflag FLAG_UNUSED_0x927
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
 	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_6::
+	goto_if_unset FLAG_RECEIVED_TM03 FortreeCity_Gym_EventScript_Start_Rematch_Party_4
+	checkitem ITEM_TM114_BRAVE_BIRD, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq FortreeCity_Gym_EventScript_Start_Rematch_Final
+	trainerbattle_no_intro TRAINER_WINONA_5, FortreeCity_Gym_Text_WinonaRematchDefeat
+	msgbox FortreeCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM114_BRAVE_BIRD
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
+	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_Final::
+	random 5
+	switch VAR_RESULT
+	case 0, FortreeCity_Gym_EventScript_Start_Rematch_Party_1
+	case 1, FortreeCity_Gym_EventScript_Start_Rematch_Party_2
+	case 2, FortreeCity_Gym_EventScript_Start_Rematch_Party_3
+	case 3, FortreeCity_Gym_EventScript_Start_Rematch_Party_4
+	case 4, FortreeCity_Gym_EventScript_Start_Rematch_Party_5
+	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_Party_1::
+	trainerbattle_no_intro TRAINER_WINONA_1, FortreeCity_Gym_Text_WinonaRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, FortreeCity_Gym_EventScript_WinonaRematchEnd
+	msgbox FortreeCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_TIMID_MINT, 3
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
+	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_Party_2::
+	trainerbattle_no_intro TRAINER_WINONA_2, FortreeCity_Gym_Text_WinonaRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, FortreeCity_Gym_EventScript_WinonaRematchEnd
+	msgbox FortreeCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_HASTY_MINT, 3
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
+	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_Party_3::
+	trainerbattle_no_intro TRAINER_WINONA_3, FortreeCity_Gym_Text_WinonaRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, FortreeCity_Gym_EventScript_WinonaRematchEnd
+	msgbox FortreeCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_JOLLY_MINT, 3
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
+	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_Party_4::
+	trainerbattle_no_intro TRAINER_WINONA_4, FortreeCity_Gym_Text_WinonaRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, FortreeCity_Gym_EventScript_WinonaRematchEnd
+	msgbox FortreeCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_NAIVE_MINT, 3
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
+	end
+	
+FortreeCity_Gym_EventScript_Start_Rematch_Party_5::
+	trainerbattle_no_intro TRAINER_WINONA_5, FortreeCity_Gym_Text_WinonaRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, FortreeCity_Gym_EventScript_WinonaRematchEnd
+	msgbox FortreeCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_MODEST_MINT, 3
+	goto FortreeCity_Gym_EventScript_WinonaRematchEnd
+	end
+	
+FortreeCity_Gym_Text_GetTM:
+	.string "Winona: Please take this\n"
+	.string "Technical Machine.$"
+
+FortreeCity_Gym_Text_GetMegaStone:
+	.string "Winona: Please take this\n"
+	.string "Mega Stone, with you.\p"
+	.string "Make an Aggron hold it to\n"
+	.string "unleash its Hidden Potential.$"
+	
+FortreeCity_Gym_Text_GetReward:
+	.string "Winona: Please take this\n"
+	.string "Item as a Reward.$"
+
+//rematches end
 
 FortreeCity_Gym_EventScript_GiveHM::
 	goto_if_unset FLAG_RECEIVED_TM39, FortreeCity_Gym_EventScript_GiveHM01

@@ -2653,7 +2653,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, MENU_SUMMARY);
 
     // Let any Pokemon that learns Fly or Dig use it without knowing the move
-    if (FlagGet(FLAG_RECEIVED_TM40) && CanMonLearnTMHM(&mons[slotId], ITEM_HM02_FLY - ITEM_TM01_FOCUS_PUNCH))
+    if (FlagGet(FLAG_RECEIVED_TM40) && CanMonLearnTMHM(&mons[slotId], ITEM_TM76_FLY - ITEM_TM01_FOCUS_PUNCH))
     {
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_FLY + MENU_FIELD_MOVES);
     }
@@ -2663,11 +2663,10 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_DIG + MENU_FIELD_MOVES);
     }
 	
-	/*/Flash is not needed in all the game so there is no point
-    if (FlagGet(FLAG_BADGE02_GET) && CanMonLearnTMHM(&mons[slotId], ITEM_HM05_FLASH - ITEM_TM01_FOCUS_PUNCH))
+    if (FlagGet(FLAG_RECEIVED_TM34) && CanMonLearnTMHM(&mons[slotId], ITEM_TM99_DAZZLING_GLEAM - ITEM_TM01_FOCUS_PUNCH))
     {
         AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, FIELD_MOVE_FLASH + MENU_FIELD_MOVES);
-    }/*/
+    }
 
     // Add field moves to action list
     for (i = 0; i < MAX_MON_MOVES; i++)
@@ -2675,7 +2674,7 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
         for (j = 0; sFieldMoves[j] != FIELD_MOVE_TERMINATOR; j++)
         {
             move = GetMonData(&mons[slotId], i + MON_DATA_MOVE1);
-            if (move == MOVE_FLY || move == MOVE_FLASH)
+            if (move == MOVE_FLY || move == MOVE_FLASH || move == MOVE_DIG)
             {
                 break;
             }
@@ -3804,7 +3803,7 @@ static void CursorCb_FieldMove(u8 taskId)
         }
         else if (sFieldMoveCursorCallbacks[fieldMove].fieldMoveFunc() == TRUE)
         {
-            switch (fieldMove)
+			switch (fieldMove)
             {
             case FIELD_MOVE_MILK_DRINK:
             case FIELD_MOVE_SOFT_BOILED:
@@ -4749,31 +4748,36 @@ void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task)
 #undef tFormId
 #undef tOldFunc
 
-/*/ mints
-#define tState          data[0]
-#define tSpecies        data[1]
-#define tCurrNature     data[2]
-#define tMonId          data[3]
-#define tOldFunc        4
-#define tNewNature      data[6]
-#define oldPid      	data[6]
+//Max Candy
+#define tState   data[0]
+#define tMonId   data[1]
+#define tHpIv    data[2]
+#define tAtkIv   data[3]
+#define tDefIv   data[4]
+#define tSpAtkIv data[5]
+#define tSpDefIv data[6]
+#define tSpdIv   data[7]
+#define tOldFunc    8
 
-static const u8 sText_AskMint[] = _("Would you like to change {STR_VAR_1}'s\nnature to {STR_VAR_2}?");
-static const u8 sText_MintDone[] = _("{STR_VAR_1}'s nature became\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
-static void Task_Mints(u8 taskId)
+void Task_PowerCandy(u8 taskId)
 {
-     static const u8 askText[] = _("Would you like to change {STR_VAR_1}'s\nability for its Hidden Ability?");
-    static const u8 doneText[] = _("{STR_VAR_1}'s ability changed!{PAUSE_UNTIL_PRESS}");
+    static const u8 askText[] = _("Do you want to power up your Pokemon?");
+    static const u8 doneText[] = _("Your Pokemon became stronger!{PAUSE_UNTIL_PRESS}");
+	u8 perfectIv = 31;
     s16 *data = gTasks[taskId].data;
-	u8 tAbilityNumHidden = 2;
+	struct Pokemon *mon = &gPlayerParty[tMonId];
+	u8 NewHpIv    =  tHpIv+1;
+	u8 NewAtkIv   =  tAtkIv +1;
+	u8 NewDefIv   =  tDefIv+1;
+	u8 NewSpAtkIv =  tSpAtkIv+1;
+	u8 NewSpDefIv =  tSpDefIv+1;
+	u8 NewSpdIv   =  tSpdIv +1;
 
     switch (tState)
     {
     case 0:
         // Can't use.
-        if (gBaseStats[tSpecies].abilities[2] == 0
-            || tAbilityNum > 1
-            || !tSpecies)
+        if (FALSE)
         {
             gPartyMenuUseExitCallback = FALSE;
             PlaySE(SE_SELECT);
@@ -4784,7 +4788,7 @@ static void Task_Mints(u8 taskId)
         }
         gPartyMenuUseExitCallback = TRUE;
         GetMonNickname(&gPlayerParty[tMonId], gStringVar1);
-        StringCopy(gStringVar2, gAbilityNames[GetAbilityBySpecies(tSpecies, tAbilityNumHidden, tFormId)]);
+        //StringCopy(gStringVar2, gAbilityNames[GetAbilityBySpecies(tSpecies, tAbilityNum, tFormId)]);
         StringExpandPlaceholders(gStringVar4, askText);
         PlaySE(SE_SELECT);
         DisplayPartyMenuMessage(gStringVar4, 1);
@@ -4829,7 +4833,130 @@ static void Task_Mints(u8 taskId)
             tState++;
         break;
     case 5:
-        SetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, &tAbilityNumHidden);
+		if(NewHpIv <= perfectIv)
+        SetMonData(mon, MON_DATA_HP_IV, &NewHpIv);
+		if(NewAtkIv <= perfectIv)
+        SetMonData(mon, MON_DATA_ATK_IV, &NewAtkIv);
+		if(NewDefIv <= perfectIv)
+        SetMonData(mon, MON_DATA_DEF_IV, &NewDefIv);
+		if(NewSpAtkIv <= perfectIv)
+        SetMonData(mon, MON_DATA_SPATK_IV, &NewSpAtkIv);
+		if(NewSpDefIv <= perfectIv)
+        SetMonData(mon, MON_DATA_SPDEF_IV, &NewSpDefIv);
+		if(NewSpdIv <= perfectIv)
+        SetMonData(mon, MON_DATA_SPEED_IV, &NewSpdIv);
+		UpdateMonDisplayInfoAfterRareCandy(tMonId, mon);
+        RemoveBagItem(gSpecialVar_ItemId, 1);
+        gTasks[taskId].func = Task_ClosePartyMenu;
+        break;
+    }
+}
+
+void ItemUseCB_PowerCandy(u8 taskId, TaskFunc task)
+{
+    s16 *data = gTasks[taskId].data;
+
+    tState = 0;
+    tMonId = gPartyMenu.slotId;
+    tHpIv    = GetMonData(&gPlayerParty[tMonId], MON_DATA_HP_IV, NULL);
+	tAtkIv   = GetMonData(&gPlayerParty[tMonId], MON_DATA_ATK_IV, NULL);
+	tDefIv   = GetMonData(&gPlayerParty[tMonId], MON_DATA_DEF_IV, NULL);
+	tSpAtkIv = GetMonData(&gPlayerParty[tMonId], MON_DATA_SPATK_IV, NULL);
+	tSpDefIv = GetMonData(&gPlayerParty[tMonId], MON_DATA_SPDEF_IV, NULL);
+	tSpdIv   = GetMonData(&gPlayerParty[tMonId], MON_DATA_SPEED_IV, NULL);
+    SetWordTaskArg(taskId, tOldFunc, (uintptr_t)(gTasks[taskId].func));
+    gTasks[taskId].func = Task_PowerCandy;
+}
+
+#undef tState
+#undef tMonId
+#undef tHpIv
+#undef tAtkIv
+#undef tDefIv
+#undef tSpAtkIv
+#undef tSpDefIv
+#undef tSpdIv
+#undef tOldFunc
+
+// mints
+#define tState          data[0]
+#define tSpecies        data[1]
+#define tCurrNature     data[2]
+#define tMonId          data[3]
+#define tOldFunc        4
+#define tNewNature      data[6]
+
+static const u8 sText_AskMint[] = _("Would you like to change {STR_VAR_1}'s\nnature to {STR_VAR_2}?");
+static const u8 sText_MintDone[] = _("{STR_VAR_1}'s nature became\n{STR_VAR_2}!{PAUSE_UNTIL_PRESS}");
+static void Task_Mints(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+
+    switch (tState)
+    {
+    case 0:
+        // Can't use.
+        if (tCurrNature == tNewNature)
+        {
+            gPartyMenuUseExitCallback = FALSE;
+            PlaySE(SE_SELECT);
+            DisplayPartyMenuMessage(gText_WontHaveEffect, 1);
+            ScheduleBgCopyTilemapToVram(2);
+            gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+            return;
+        }
+
+        gPartyMenuUseExitCallback = TRUE;
+        GetMonNickname(&gPlayerParty[tMonId], gStringVar1);
+        StringCopy(gStringVar2, gNatureNamePointers[tNewNature]);
+        StringExpandPlaceholders(gStringVar4, sText_AskMint);
+        PlaySE(SE_SELECT);
+        DisplayPartyMenuMessage(gStringVar4, 1);
+        ScheduleBgCopyTilemapToVram(2);
+        tState++;
+        break;
+    case 1:
+        if (!IsPartyMenuTextPrinterActive())
+        {
+            PartyMenuDisplayYesNoMenu();
+            tState++;
+        }
+        break;
+    case 2:
+        switch (Menu_ProcessInputNoWrapClearOnChoose())
+        {
+        case 0:
+            tState++;
+            break;
+        case 1:
+        case MENU_B_PRESSED:
+            gPartyMenuUseExitCallback = FALSE;
+            PlaySE(SE_SELECT);
+            ScheduleBgCopyTilemapToVram(2);
+
+            // Don't exit party selections screen, return to choosing a mon.
+            ClearStdWindowAndFrameToTransparent(6, 0);
+            ClearWindowTilemap(6);
+            DisplayPartyMenuStdMessage(PARTY_MSG_USE_ON_WHICH_MON);
+            gTasks[taskId].func = (TaskFunc)GetWordTaskArg(taskId, tOldFunc);
+            return;
+        }
+        break;
+    case 3:
+        PlaySE(SE_USE_ITEM);
+        StringExpandPlaceholders(gStringVar4, sText_MintDone);
+        DisplayPartyMenuMessage(gStringVar4, 1);
+        ScheduleBgCopyTilemapToVram(2);
+        tState++;
+        break;
+    case 4:
+        if (!IsPartyMenuTextPrinterActive())
+            tState++;
+        break;
+    case 5:
+        SetMonData(&gPlayerParty[tMonId], MON_DATA_HIDDEN_NATURE, &tNewNature);
+        CalculateMonStats(&gPlayerParty[tMonId]);
+
         RemoveBagItem(gSpecialVar_ItemId, 1);
         gTasks[taskId].func = Task_ClosePartyMenu;
         break;
@@ -4843,11 +4970,12 @@ void ItemUseCB_Mints(u8 taskId, TaskFunc task)
     tState = 0;
     tMonId = gPartyMenu.slotId;
     tSpecies = GetMonData(&gPlayerParty[tMonId], MON_DATA_SPECIES, NULL);
-    tAbilityNum = GetMonData(&gPlayerParty[tMonId], MON_DATA_ABILITY_NUM, NULL) ^ 1;
-    tFormId = GetMonData(&gPlayerParty[tMonId], MON_DATA_FORM_ID, NULL);
+    tCurrNature = GetNature(&gPlayerParty[tMonId], TRUE);
+    tNewNature = ItemId_GetSecondaryId(gSpecialVar_ItemId);
     SetWordTaskArg(taskId, tOldFunc, (uintptr_t)(gTasks[taskId].func));
-    gTasks[taskId].func = Task_AbilityPatch;
-}/*/
+    gTasks[taskId].func = Task_Mints;
+}
+
 
 static void Task_DisplayHPRestoredMessage(u8 taskId)
 {

@@ -10,12 +10,14 @@
 #include "battle_setup.h"
 #include "battle_tower.h"
 #include "data.h"
+#include "daycare.h"
 #include "dexnav.h"
 #include "event_data.h"
 #include "evolution_scene.h"
 #include "field_specials.h"
 #include "field_weather.h"
 #include "item.h"
+#include "level_scaling.h"
 #include "link.h"
 #include "main.h"
 #include "overworld.h"
@@ -1809,29 +1811,47 @@ const struct SpindaSpot gSpindaSpotGraphics[] =
     {34, 26, INCBIN_U16("graphics/spinda_spots/spot_3.bin")}
 };
 
-u16 GetHpIV(void)
+void GetHpIV(void)
 {
-	return GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_HP_IV, NULL);
+    u8 HpIv = 0;
+    u8 AtkIv = 0;
+    u8 DefIv = 0;
+    HpIv = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP_IV);
+    AtkIv = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_ATK_IV);
+    DefIv = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_IV);
+    ConvertIntToDecimalStringN(gStringVar1, HpIv, STR_CONV_MODE_LEADING_ZEROS, 2);
+    ConvertIntToDecimalStringN(gStringVar2, AtkIv, STR_CONV_MODE_LEADING_ZEROS, 2);
+    ConvertIntToDecimalStringN(gStringVar3, DefIv, STR_CONV_MODE_LEADING_ZEROS, 2);
 }
-u16 GetAtkIV(void)
+
+void GetAtkIV(void)
 {
-	return GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_ATK_IV, NULL);
+    u8 SpAtkIv = 0;
+    u8 SpDefIv = 0;
+    u8 SpeIv = 0;
+    SpAtkIv = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPATK_IV);
+    SpDefIv = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_IV);
+    SpeIv = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPEED_IV);
+    ConvertIntToDecimalStringN(gStringVar1, SpAtkIv, STR_CONV_MODE_LEADING_ZEROS, 2);
+    ConvertIntToDecimalStringN(gStringVar2, SpDefIv, STR_CONV_MODE_LEADING_ZEROS, 2);
+    ConvertIntToDecimalStringN(gStringVar3, SpeIv, STR_CONV_MODE_LEADING_ZEROS, 2);
 }
+
 u16 GetDefIV(void)
 {
-	return GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_DEF_IV, NULL);
+	return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_IV, NULL);
 }
 u16 GetSpAtkIV(void)
 {
-	return GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_SPATK_IV, NULL);
+	return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPATK_IV, NULL);
 }
 u16 GetSpDefIV(void)
 {
-	return GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_SPDEF_IV, NULL);
+	return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_IV, NULL);
 }
 u16 GetSpeedIV(void)
 {
-	return GetMonData(&gPlayerParty[GetLeadMonIndex()], MON_DATA_SPEED_IV, NULL);
+	return GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPEED_IV, NULL);
 }
 
 #include "data/pokemon/item_effects.h"
@@ -3116,6 +3136,9 @@ void CreateBoxMon(struct BoxPokemon *boxMon, u16 species, u8 level, u8 fixedIV, 
         value = personality & 1;
         SetBoxMonData(boxMon, MON_DATA_ABILITY_NUM, &value);
     }
+	
+	value = HIDDEN_NATURE_NONE;
+    SetBoxMonData(boxMon, MON_DATA_HIDDEN_NATURE, &value);
 
     GiveBoxMonInitialMoveset(boxMon);
 }
@@ -3525,8 +3548,9 @@ static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId)
 
     ivVal = GetMonData(mon, MON_DATA_HP_IV + statId, NULL);
     evVal = GetMonData(mon, MON_DATA_HP_EV + statId, NULL);
-//    statValue = ((sDeoxysBaseStats[statId] * 2 + ivVal + evVal / 4) * mon->level) / 100 + 5;
-    nature = GetNature(mon);
+	//statValue = ((sDeoxysBaseStats[statId] * 2 + ivVal + evVal / 4) * mon->level) / 100 + 5;
+    //nature = GetNature(mon);
+	 nature = GetNature(mon, TRUE);
     statValue = ModifyStatByNature(nature, statValue, (u8)statId);
     return statValue;
 }
@@ -3635,7 +3659,7 @@ static u16 CalculateBoxMonChecksum(struct BoxPokemon *boxMon)
 {                                                               \
     u8 baseStat = gBaseStats[formSpeciesId].base;                     \
     s32 n = (((2 * baseStat + iv + ev / 4) * level) / 100) + 5; \
-    u8 nature = GetNature(mon);                                 \
+    u8 nature = GetNature(mon, TRUE);                                 \
     n = ModifyStatByNature(nature, n, statIndex);               \
     SetMonData(mon, field, &n);                                 \
 }
@@ -4581,6 +4605,9 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
                 | (substruct3->giftRibbon7 << 26);
         }
         break;
+	case MON_DATA_HIDDEN_NATURE:
+        retVal = substruct0->unused0_B;
+        break;
     default:
         break;
     }
@@ -4906,6 +4933,9 @@ void SetBoxMonData(struct BoxPokemon *boxMon, s32 field, const void *dataArg)
         substruct3->spDefenseIV = (ivs >> 25) & 0x1F;
         break;
     }
+	case MON_DATA_HIDDEN_NATURE:
+        SET8(substruct0->unused0_B);
+        break;
     default:
         break;
     }
@@ -5982,9 +6012,12 @@ u8 *UseStatIncreaseItem(u16 itemId)
     return gDisplayedStringBattle;
 }
 
-u8 GetNature(struct Pokemon *mon)
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden)
 {
-    return GetMonData(mon, MON_DATA_PERSONALITY, 0) % NUM_NATURES;
+	if (!checkHidden || GetMonData(mon, MON_DATA_HIDDEN_NATURE, 0) == HIDDEN_NATURE_NONE || GetMonData(mon, MON_DATA_HIDDEN_NATURE, 0) == NATURE_HARDY)
+        return GetNatureFromPersonality(GetMonData(mon, MON_DATA_PERSONALITY, 0));
+    else
+        return GetMonData(mon, MON_DATA_HIDDEN_NATURE, 0);
 }
 
 u8 GetNatureFromPersonality(u32 personality)
@@ -6977,7 +7010,10 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
 {
     u16 learnedMoves[4];
     u8 numMoves = 0;
+	u16 eggMoveBuffer[EGG_MOVES_ARRAY_COUNT];
     u16 species = GetMonData(mon, MON_DATA_SPECIES, 0);
+	u16 firsStage = GetFirstEvolution(species);
+	u8 numEggMoves = GetEggMovesSpecies(firsStage, eggMoveBuffer);
     u8 formId = GetMonData(mon, MON_DATA_FORM_ID, 0);
     u16 formSpeciesId = GetFormSpeciesId(species, formId);
     u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
@@ -7010,7 +7046,12 @@ u8 GetMoveRelearnerMoves(struct Pokemon *mon, u16 *moves)
             }
         }
     }
-
+	if(GetNumBadges() >= 6){
+	for (i = 0; i < numEggMoves; i++)
+    {
+        moves[numMoves++] = eggMoveBuffer[i];
+    }
+	}
     return numMoves;
 }
 
@@ -7028,10 +7069,13 @@ u8 GetLevelUpMovesBySpecies(u16 species, u16 *moves, u8 formId)
 
 u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
 {
+	u16 eggMoveBuffer[EGG_MOVES_ARRAY_COUNT];
     u16 learnedMoves[MAX_MON_MOVES];
-    u16 moves[MAX_LEVEL_UP_MOVES];
     u8 numMoves = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES2, 0);
+	u16 firsStage = GetFirstEvolution(species);
+	u8 numEggMoves = GetEggMovesSpecies(firsStage, eggMoveBuffer);
+    u16 moves[MAX_LEVEL_UP_MOVES+numEggMoves];
     u8 formId = GetMonData(mon, MON_DATA_FORM_ID, 0);
     u16 formSpeciesId = GetFormSpeciesId(species, formId);
     u8 level = GetMonData(mon, MON_DATA_LEVEL, 0);
@@ -7067,7 +7111,13 @@ u8 GetNumberOfRelearnableMoves(struct Pokemon *mon)
             }
         }
     }
-
+	
+	if(GetNumBadges() >= 6){
+    for (i = 0; i < numEggMoves; i++)
+    {
+        moves[numMoves++] = eggMoveBuffer[i];
+    }
+	}
     return numMoves;
 }
 
@@ -7280,7 +7330,7 @@ bool8 IsMonSpriteNotFlipped(u16 formSpeciesId)
 
 s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor)
 {
-    u8 nature = GetNature(mon);
+    u8 nature = GetNature(mon, FALSE);
     return gPokeblockFlavorCompatibilityTable[nature * FLAVOR_COUNT + flavor];
 }
 

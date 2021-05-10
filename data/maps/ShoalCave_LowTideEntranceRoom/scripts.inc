@@ -20,7 +20,7 @@ ShoalCave_LowTideEntranceRoom_EventScript_ShellBellExpert:: @ 8236DD9
 	lock
 	faceplayer
 	dotimebasedevents
-	call_if_unset FLAG_UNUSED_0x267, ShoalCave_LowTideEntranceRoom_EventScript_ShellBellExpert_MegaStone
+	call_if_unset FLAG_UNUSED_0x294, ShoalCave_LowTideEntranceRoom_EventScript_ShellBellExpert_MegaStone
 	call_if_set FLAG_SYS_SHOAL_ITEM, ShoalCave_LowTideEntranceRoom_EventScript_ResetShoalItems
 	checkitem ITEM_SHOAL_SALT, 4
 	compare VAR_RESULT, FALSE
@@ -65,12 +65,12 @@ ShoalCave_LowTideEntranceRoom_EventScript_ShellBellExpert_MegaStone::
 	msgbox ShoalCave_LowTideEntranceRoom_Text_MakeShellBellRightAway, MSGBOX_DEFAULT
 	removeitem ITEM_SHOAL_SALT, 4
 	removeitem ITEM_SHOAL_SHELL, 4
-	giveitem ITEM_SHELL_BELL
+	giveitem ITEM_SLOWBRONITE
 	compare VAR_RESULT, FALSE
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	msgbox ShoalCave_LowTideEntranceRoom_Text_ExplainMegaStone, MSGBOX_DEFAULT
 	setflag FLAG_TEMP_2
-	setflag FLAG_UNUSED_0x267
+	setflag FLAG_UNUSED_0x294
 	release
 	end
 

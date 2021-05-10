@@ -33294,16 +33294,30 @@ SetCursorMonData:
 	bl	GetMonData
 	ldr	r5, .L2827+0x4
 	ldr	r2, [r5]
-	ldr	r3, .L2827+0x8
-	add	r2, r2, r3
+	ldr	r4, .L2827+0x8
+	add	r2, r2, r4
 	lsl	r0, r0, #0x3
 	ldrb	r3, [r2]
 	mov	r1, #0x7
 	and	r1, r1, r3
 	orr	r1, r1, r0
 	strb	r1, [r2]
+	ldr	r1, [r5]
+	ldr	r3, .L2827+0xc
+	mov	r8, r3
+	add	r0, r1, r3
+	ldrh	r0, [r0]
+	lsl	r0, r0, #0x15
+	lsr	r0, r0, #0x15
+	add	r1, r1, r4
+	ldrb	r1, [r1]
+	lsr	r1, r1, #0x3
+	bl	GetFormSpeciesId
+	add	r6, r0, #0
+	lsl	r6, r6, #0x10
+	lsr	r6, r6, #0x10
 	ldr	r2, [r5]
-	ldr	r4, .L2827+0xc
+	add	r4, r4, #0x9
 	add	r2, r2, r4
 	add	r0, r7, #0
 	mov	r1, #0x2
@@ -33328,27 +33342,23 @@ SetCursorMonData:
 	mov	r1, #0x0
 	bl	GetBoxMonData
 	add	r2, r0, #0
-	ldr	r1, [r5]
-	mov	r6, #0xce
-	lsl	r6, r6, #0x4
-	add	r0, r1, r6
+	ldr	r0, [r5]
+	sub	r4, r4, #0xe
+	add	r0, r0, r4
 	str	r2, [r0]
-	sub	r4, r4, #0xa
-	add	r1, r1, r4
-	ldrh	r0, [r1]
-	lsl	r0, r0, #0x15
-	lsr	r0, r0, #0x15
+	add	r0, r6, #0
 	mov	r1, r9
 	bl	GetMonSpritePalFromSpeciesAndPersonality
 	ldr	r2, [r5]
 	ldr	r3, .L2827+0x18
 	add	r1, r2, r3
 	str	r0, [r1]
-	add	r4, r2, r4
-	ldrh	r0, [r4]
+	add	r8, r8, r2
+	mov	r1, r8
+	ldrh	r0, [r1]
 	lsl	r0, r0, #0x15
 	lsr	r0, r0, #0x15
-	add	r2, r2, r6
+	add	r2, r2, r4
 	ldr	r1, [r2]
 	bl	GetGenderFromSpeciesAndPersonality
 	lsl	r0, r0, #0x18
@@ -33369,7 +33379,7 @@ SetCursorMonData:
 	.word	0xced
 	.word	sPSSData
 	.word	0xce5
-	.word	0xcee
+	.word	0xce4
 	.word	0xcec
 	.word	0xceb
 	.word	0xcdc
@@ -33778,9 +33788,9 @@ InBoxInput_Normal:
 	and	r0, r0, r1
 	add	r3, r2, #0
 	cmp	r0, #0
-	beq	.LCB22825
+	beq	.LCB22839
 	b	.L2902	@long jump
-.LCB22825:
+.LCB22839:
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
@@ -33793,9 +33803,9 @@ InBoxInput_Normal:
 	lsr	r4, r0, #0x18
 	asr	r0, r0, #0x18
 	cmp	r0, #0x1d
-	bgt	.LCB22849
+	bgt	.LCB22863
 	b	.L2859	@long jump
-.LCB22849:
+.LCB22863:
 	mov	r2, #0x3
 	mov	r8, r2
 	sub	r0, r0, #0x1e
@@ -34433,9 +34443,9 @@ HandleInput_InParty:
 	add	r5, r6, #0
 	mov	ip, r1
 	cmp	r0, #0
-	beq	.LCB23791
+	beq	.LCB23805
 	b	.L3040	@long jump
-.LCB23791:
+.LCB23805:
 	mov	r0, #0x80
 	and	r0, r0, r3
 	cmp	r0, #0
@@ -34455,9 +34465,9 @@ HandleInput_InParty:
 	mov	r1, #0x0
 	ldrsb	r1, [r5, r1]
 	cmp	r0, r1
-	bne	.LCB23822
+	bne	.LCB23836
 	b	.L2997	@long jump
-.LCB23822:
+.LCB23836:
 	mov	r7, #0x1
 	b	.L3038
 .L3042:
@@ -37139,46 +37149,42 @@ sub_80D0778:
 	.thumb_func
 sub_80D07B0:
 	push	{r4, r5, r6, r7, lr}
-	mov	r7, r9
-	mov	r6, r8
-	push	{r6, r7}
+	mov	r7, r8
+	push	{r7}
 	add	sp, sp, #-0x1c
 	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	mov	r8, r0
+	lsr	r7, r0, #0x18
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	lsl	r0, r1, #0x1
 	add	r0, r0, r1
-	mov	r9, r0
+	mov	r8, r0
 	lsl	r4, r0, #0x1
-	add	r4, r4, r8
+	add	r4, r7, r4
 	lsl	r4, r4, #0x18
 	lsr	r4, r4, #0x18
 	add	r0, r4, #0
 	mov	r1, #0x41
 	bl	GetCurrentBoxMonData
 	lsl	r0, r0, #0x10
-	lsr	r5, r0, #0x10
+	lsr	r6, r0, #0x10
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	GetCurrentBoxMonData
-	add	r7, r0, #0
-	add	r0, r4, #0
-	mov	r1, #0x59
-	bl	GetCurrentBoxMonData
+	add	r0, r6, #0
+	bl	GetFormIdFromFormSpeciesId
 	lsl	r0, r0, #0x18
-	lsr	r6, r0, #0x18
-	cmp	r5, #0
+	lsr	r4, r0, #0x18
+	cmp	r6, #0
 	beq	.L3426	@cond_branch
-	add	r0, r5, #0
-	add	r1, r7, #0
+	add	r0, r6, #0
+	mov	r1, #0x0
 	mov	r2, #0x1
-	add	r3, r6, #0
+	add	r3, r4, #0
 	bl	GetMonIconPtr
-	add	r4, r0, #0
-	add	r0, r5, #0
-	add	r1, r6, #0
+	add	r5, r0, #0
+	add	r0, r6, #0
+	add	r1, r4, #0
 	bl	GetValidMonIconPalIndex
 	add	r0, r0, #0x8
 	lsl	r0, r0, #0x18
@@ -37192,27 +37198,25 @@ sub_80D07B0:
 	mov	r2, #0x20
 	str	r2, [sp]
 	str	r2, [sp, #0x4]
-	mov	r5, r8
-	lsl	r1, r5, #0x1
-	add	r1, r1, r8
+	lsl	r1, r7, #0x1
+	add	r1, r1, r7
 	lsl	r1, r1, #0x3
 	str	r1, [sp, #0x8]
-	mov	r5, r9
-	lsl	r1, r5, #0x3
+	mov	r4, r8
+	lsl	r1, r4, #0x3
 	str	r1, [sp, #0xc]
 	str	r2, [sp, #0x10]
 	str	r2, [sp, #0x14]
 	str	r0, [sp, #0x18]
 	add	r0, r3, #0
-	add	r1, r4, #0
+	add	r1, r5, #0
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	BlitBitmapRectToWindow4BitTo8Bit
 .L3426:
 	add	sp, sp, #0x1c
-	pop	{r3, r4}
+	pop	{r3}
 	mov	r8, r3
-	mov	r9, r4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
@@ -39366,13 +39370,13 @@ sub_80D1604:
 	lsl	r3, r3, #0x18
 	lsr	r3, r3, #0x18
 	cmp	r4, #0x2
-	bls	.LCB29629
+	bls	.LCB29641
 	b	.L3697	@long jump
-.LCB29629:
+.LCB29641:
 	cmp	r0, #0x7
-	bls	.LCB29632
+	bls	.LCB29644
 	b	.L3697	@long jump
-.LCB29632:
+.LCB29644:
 	lsl	r0, r0, #0x2
 	ldr	r1, .L3709
 	add	r0, r0, r1
@@ -42190,15 +42194,15 @@ sub_80D27F4:
 	ldr	r0, .L4092
 	ldrh	r0, [r0]
 	cmp	r5, r0
-	bcc	.LCB33000
+	bcc	.LCB33012
 	b	.L4078	@long jump
-.LCB33000:
+.LCB33012:
 	ldr	r4, .L4092+0x4
 	lsl	r2, r5, #0x1
 	cmp	r1, #0x5
-	bls	.LCB33005
+	bls	.LCB33017
 	b	.L4080	@long jump
-.LCB33005:
+.LCB33017:
 	lsl	r0, r1, #0x2
 	ldr	r1, .L4092+0x8
 	add	r0, r0, r1

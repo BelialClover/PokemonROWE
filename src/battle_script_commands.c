@@ -1260,8 +1260,9 @@ static bool32 NoTargetPresent(u32 move)
 
 static bool32 TryAegiFormChange(void)
 {
-    // Only Aegislash with Stance Change can transform, transformed mons cannot.
-    if (GetBattlerAbility(gBattlerAttacker) != ABILITY_STANCE_CHANGE
+   // Only Aegislash with Stance Change can transform, transformed mons cannot.
+    if ((GetBattlerAbility(gBattlerAttacker) != ABILITY_STANCE_CHANGE
+		&& GetBattlerAbility(gBattlerAttacker) != ABILITY_HUNGER_SWITCH)
         || gBattleMons[gBattlerAttacker].status2 & STATUS2_TRANSFORMED)
         return FALSE;
 
@@ -1278,6 +1279,18 @@ static bool32 TryAegiFormChange(void)
         if (gCurrentMove != MOVE_KINGS_SHIELD)
             return FALSE;
         gBattleMons[gBattlerAttacker].species = SPECIES_AEGISLASH;
+        break;
+	case SPECIES_MORPEKO_HANGRY:
+        if (gBattleMoves[gCurrentMove].type != TYPE_ELECTRIC 
+		|| gBattleMoves[gCurrentMove].power == 0)
+            return FALSE;
+        gBattleMons[gBattlerAttacker].species = SPECIES_MORPEKO;
+        break;
+	case SPECIES_MORPEKO:
+        if (gBattleMoves[gCurrentMove].type != TYPE_DARK
+		|| gBattleMoves[gCurrentMove].power == 0)
+            return FALSE;
+        gBattleMons[gBattlerAttacker].species = SPECIES_MORPEKO_HANGRY;
         break;
     }
 

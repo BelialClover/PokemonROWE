@@ -1826,9 +1826,10 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 	u8 TrainerMaxLevel = getTrainerLevel(2);
 	u8 LeaderMinLevel = getTrainerLevel(5);
 	u8 TrainerLevel[] = {5,5,5,5,5,5};
-	u8 levelboost = GetNumBadges();
-	if(IsHardMode == 0)
-		levelboost = 0;
+	u8 levelboost = getLevelBoost();
+	u8 PokemonEvs[] = {0,0,0,0,0,0};
+	u8 PokemonHapiness;
+	u16 PokemonHeldItem[] = {ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE};
 	
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -1896,7 +1897,17 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * 31 / 255;
                 CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
-                break;
+                
+				for (j = 0; j < NUM_STATS; j++)
+                {
+					PokemonEvs[j] = GetEvsfromPokemon(partyData[i].evs[j]);
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &PokemonEvs[j]);
+                }
+				
+				
+                CalculateMonStats(&party[i]);
+				
+				break;
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET:
             {
@@ -1917,13 +1928,34 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 				else //static pokes with static level
 				CreateMon(&party[i], partyData[i].species, (partyData[i].lvl + levelboost), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				
-                for (j = 0; j < MAX_MON_MOVES; j++)
+				if(numBadges >= 7){
+				for (j = 0; j < MAX_MON_MOVES; j++)
+                {
+					if(partyData[i].postgamemoves[j] != MOVE_NONE){
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].postgamemoves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].postgamemoves[j]].pp);
+					}else if(partyData[i].moves[j] != MOVE_NONE){
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+					}
+                }}
+				else{
+				for (j = 0; j < MAX_MON_MOVES; j++)
                 {
 					if(partyData[i].moves[j] != MOVE_NONE){
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
 					}
                 }
+				}
+				
+				for (j = 0; j < NUM_STATS; j++)
+                {
+					PokemonEvs[j] = GetEvsfromPokemon(partyData[i].evs[j]);
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &PokemonEvs[j]);
+                }
+                CalculateMonStats(&party[i]);
+				
                 break;
             }
             case F_TRAINER_PARTY_HELD_ITEM:
@@ -1938,9 +1970,22 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 fixedIV = partyData[i].iv * 31 / 255;
                 CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				
-                if(GetHeldItem(partyData[i].heldItem) != ITEM_SITRUS_BERRY)
-                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);	
+				
+                if(numBadges >= 8 && partyData[i].postgameheldItem != ITEM_NONE)
+					SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].postgameheldItem);	
+				else{
+					PokemonHeldItem[i] = GetHeldItem(partyData[i].heldItem);
+					SetMonData(&party[i], MON_DATA_HELD_ITEM, &PokemonHeldItem[i]);	
+				}
+				for (j = 0; j < NUM_STATS; j++)
+                {
+					PokemonEvs[j] = GetEvsfromPokemon(partyData[i].evs[j]);
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &PokemonEvs[j]);
+                }
+                CalculateMonStats(&party[i]);
+			
                 break;
+				
             }
             case F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM:
             {
@@ -1976,16 +2021,52 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 				else //Complete static trainers(planned to use for post game)
 					CreateMon(&party[i], partyData[i].species, (partyData[i].lvl + levelboost), fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
 				
-				if(GetHeldItem(partyData[i].heldItem) != ITEM_SITRUS_BERRY)
-                SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].heldItem);
-
-                for (j = 0; j < MAX_MON_MOVES; j++)
+                if(numBadges >= 8 && partyData[i].postgameheldItem != ITEM_NONE)
+					SetMonData(&party[i], MON_DATA_HELD_ITEM, &partyData[i].postgameheldItem);	
+				else{
+					PokemonHeldItem[i] = GetHeldItem(partyData[i].heldItem);
+					SetMonData(&party[i], MON_DATA_HELD_ITEM, &PokemonHeldItem[i]);	
+				}
+				if(numBadges >= 7){
+				for (j = 0; j < MAX_MON_MOVES; j++)
+                {
+					if(partyData[i].postgamemoves[j] != MOVE_NONE){
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].postgamemoves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].postgamemoves[j]].pp);
+					}else if(partyData[i].moves[j] != MOVE_NONE){
+                    SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
+                    SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
+					}
+                }}
+				else{
+				for (j = 0; j < MAX_MON_MOVES; j++)
                 {
 					if(partyData[i].moves[j] != MOVE_NONE){
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
 					}
                 }
+				}
+				
+				for (j = 0; j < NUM_STATS; j++)
+                {
+					PokemonEvs[j] = GetEvsfromPokemon(partyData[i].evs[j]);
+                    SetMonData(&party[i], MON_DATA_HP_EV + j, &PokemonEvs[j]);
+                }//asdf
+				
+				if(partyData[i].abilityNum < 3){
+					if(partyData[i].abilityNum < 2 || numBadges > 4)
+					SetMonData(&party[i], MON_DATA_ABILITY_NUM, &partyData[i].abilityNum);
+				}
+				
+				if(numBadges < 6)
+					PokemonHapiness = (partyData[i].happiness*(numBadges+2))/8;
+				else
+					PokemonHapiness = partyData[i].happiness;
+				
+				SetMonData(&party[i], MON_DATA_FRIENDSHIP, &PokemonHapiness);
+				
+                CalculateMonStats(&party[i]);
                 break;
             }
             }

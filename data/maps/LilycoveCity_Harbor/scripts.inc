@@ -15,31 +15,29 @@ LilycoveCity_Harbor_EventScript_FerryAttendant:: @ 821E00F
 	lock
 	faceplayer
 	goto_if_unset FLAG_SYS_GAME_CLEAR, LilycoveCity_Harbor_EventScript_FerryUnavailable
-	call LilycoveCity_Harbor_EventScript_GetEonTicketState
-	call LilycoveCity_Harbor_EventScript_GetAuroraTicketState
-	call LilycoveCity_Harbor_EventScript_GetOldSeaMapState
-	call LilycoveCity_Harbor_EventScript_GetMysticTicketState
-	call LilycoveCity_Harbor_EventScript_GetFirstTimeShowingTicket
-	call LilycoveCity_Harbor_EventScript_GetHasTicketsState
-	compare VAR_TEMP_C, 2
-	goto_if_eq LilycoveCity_Harbor_EventScript_OldSeaMapFirstTime
-	compare VAR_TEMP_B, 1
-	goto_if_eq LilycoveCity_Harbor_EventScript_EonTicketFirstTime
-	compare VAR_TEMP_B, 2
-	goto_if_eq LilycoveCity_Harbor_EventScript_AuroraTicketFirstTime
-	compare VAR_TEMP_B, 4
-	goto_if_eq LilycoveCity_Harbor_EventScript_OldSeaMapFirstTime
-	compare VAR_TEMP_B, 8 
-	goto_if_eq LilycoveCity_Harbor_EventScript_MysticTicketFirstTime
-	compare VAR_TEMP_B, 0
-	goto_if_ne LilycoveCity_Harbor_EventScript_MultipleEventTicketsFirstTime
+	//call LilycoveCity_Harbor_EventScript_GetEonTicketState
+	//call LilycoveCity_Harbor_EventScript_GetAuroraTicketState
+	//call LilycoveCity_Harbor_EventScript_GetOldSeaMapState
+	//call LilycoveCity_Harbor_EventScript_GetMysticTicketState
+	//call LilycoveCity_Harbor_EventScript_GetFirstTimeShowingTicket
+	//call LilycoveCity_Harbor_EventScript_GetHasTicketsState
+	//compare VAR_TEMP_C, 2
+	//goto_if_eq LilycoveCity_Harbor_EventScript_OldSeaMapFirstTime
+	//compare VAR_TEMP_B, 1
+	//goto_if_eq LilycoveCity_Harbor_EventScript_EonTicketFirstTime
+	//compare VAR_TEMP_B, 2
+	//goto_if_eq LilycoveCity_Harbor_EventScript_AuroraTicketFirstTime
+	//compare VAR_TEMP_B, 4
+	//goto_if_eq LilycoveCity_Harbor_EventScript_OldSeaMapFirstTime
+	//compare VAR_TEMP_B, 8 
+	//goto_if_eq LilycoveCity_Harbor_EventScript_MysticTicketFirstTime
+	//compare VAR_TEMP_B, 0
+	//goto_if_ne LilycoveCity_Harbor_EventScript_MultipleEventTicketsFirstTime
 	goto LilycoveCity_Harbor_EventScript_NoFirstTimeEventTickets
 	end
 
 @ First goto_if_eq is unnecessary; identical scripts
 LilycoveCity_Harbor_EventScript_NoFirstTimeEventTickets:: @ 821E080
-	compare VAR_TEMP_A, 0
-	goto_if_eq LilycoveCity_Harbor_EventScript_NoEventTickets
 	msgbox LilycoveCity_Harbor_Text_MayISeeYourTicket, MSGBOX_DEFAULT
 	message LilycoveCity_Harbor_Text_FlashTicketWhereTo
 	waitmessage

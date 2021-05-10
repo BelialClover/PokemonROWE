@@ -276,20 +276,7 @@
     }
   ],
   "coord_events": [
-    {
-      "type": "weather",
-      "x": 19,
-      "y": 11,
-      "elevation": 3,
-      "weather": "COORD_EVENT_WEATHER_VOLCANIC_ASH"
-    },
-    {
-      "type": "weather",
-      "x": 19,
-      "y": 14,
-      "elevation": 3,
-      "weather": "COORD_EVENT_WEATHER_VOLCANIC_ASH"
-    }
+
   ],
   "bg_events": [
     {

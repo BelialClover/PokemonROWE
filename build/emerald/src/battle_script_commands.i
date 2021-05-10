@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -7273,6 +7274,7 @@ void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichPart
 void CB2_ShowPartyMenuForItemUse(void);
 void ItemUseCB_Medicine(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task);
+void ItemUseCB_PowerCandy(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task);
 void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task);
 void ItemUseCB_PPRecovery(u8 taskId, TaskFunc task);
@@ -8288,6 +8290,9 @@ struct TrainerMonNoItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
 };
@@ -8296,8 +8301,12 @@ struct TrainerMonItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
 };
 
@@ -8305,8 +8314,12 @@ struct TrainerMonNoItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -8314,9 +8327,14 @@ struct TrainerMonItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -9586,7 +9604,8 @@ static bool32 NoTargetPresent(u32 move)
 static bool32 TryAegiFormChange(void)
 {
 
-    if (GetBattlerAbility(gBattlerAttacker) != 176
+    if ((GetBattlerAbility(gBattlerAttacker) != 176
+  && GetBattlerAbility(gBattlerAttacker) != 258)
         || gBattleMons[gBattlerAttacker].status2 & (1 << 21))
         return 0;
 
@@ -9603,6 +9622,18 @@ static bool32 TryAegiFormChange(void)
         if (gCurrentMove != 588)
             return 0;
         gBattleMons[gBattlerAttacker].species = 681;
+        break;
+ case 898 + 301:
+        if (gBattleMoves[gCurrentMove].type != 13
+  || gBattleMoves[gCurrentMove].power == 0)
+            return 0;
+        gBattleMons[gBattlerAttacker].species = 877;
+        break;
+ case 877:
+        if (gBattleMoves[gCurrentMove].type != 17
+  || gBattleMoves[gCurrentMove].power == 0)
+            return 0;
+        gBattleMons[gBattlerAttacker].species = 898 + 301;
         break;
     }
 
@@ -10729,7 +10760,7 @@ static void CheckSetUnburden(u8 battlerId)
         RecordAbilityBattle(battlerId, 84);
     }
 }
-# 2421 "src/battle_script_commands.c"
+# 2434 "src/battle_script_commands.c"
 void SetMoveEffect(bool32 primary, u32 certain)
 {
     s32 i, byTwo, affectsUser = 0;
@@ -12054,7 +12085,7 @@ static void Cmd_getexp(void)
 
             if (gSaveBlock2Ptr->expShare)
                 viaExpShare = gSaveBlock1Ptr->playerPartyCount;
-# 3765 "src/battle_script_commands.c"
+# 3778 "src/battle_script_commands.c"
                 *exp = calculatedExp;
     if(gSaveBlock2Ptr->optionsBattleStyle == 0){
                 gExpShareExp = calculatedExp / 2;
@@ -15454,7 +15485,7 @@ bool32 CanUseLastResort(u8 battlerId)
 
     return (knownMovesCount >= 2 && usedMovesCount >= knownMovesCount - 1);
 }
-# 7182 "src/battle_script_commands.c"
+# 7195 "src/battle_script_commands.c"
 static bool32 ClearDefogHazards(u8 battlerAtk, bool32 clear)
 {
     s32 i;
@@ -20399,7 +20430,7 @@ static void Cmd_handleballthrow(void)
 
                     if (gBattleMons[gBattlerTarget].level < 30)
                         ballMultiplier = 41 - gBattleMons[gBattlerTarget].level;
-# 12139 "src/battle_script_commands.c"
+# 12152 "src/battle_script_commands.c"
                 break;
             case 9:
                 if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[gBattlerTarget].species), FLAG_GET_CAUGHT))
@@ -20473,7 +20504,7 @@ static void Cmd_handleballthrow(void)
                         ballAddition = 20;
                     else
                         ballAddition = 30;
-# 12233 "src/battle_script_commands.c"
+# 12246 "src/battle_script_commands.c"
                 break;
             case 17:
                 if (gBaseStats[gBattleMons[gBattlerTarget].species].baseSpeed >= 100)

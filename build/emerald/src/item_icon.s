@@ -1244,8 +1244,8 @@ gItemIconTable:
 	.word	gItemIconPalette_WaterTMHM
 	.word	gItemIcon_AbilityCapsule
 	.word	gItemIconPalette_AbilityCapsule
-	.word	gItemIcon_PokeFlute
-	.word	gItemIconPalette_PokeFlute
+	.word	gItemIcon_RareCandy
+	.word	gItemIconPalette_RareCandy
 	.word	gItemIcon_SecretKey
 	.word	gItemIconPalette_SecretKey
 	.word	gItemIcon_BikeVoucher
@@ -1311,48 +1311,48 @@ gItemIconTable:
 	.word	gItemIconPalette_MaxLure
 	.word	gItemIcon_SafariPass
 	.word	gItemIconPalette_SafariPass
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
-	.word	gItemIcon_Lure
-	.word	gItemIconPalette_Lure
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_RedMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_BlueMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_RedMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_PinkMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_PinkMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_PinkMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_GreenMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_BlueMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_GreenMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_BlueMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_RedMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_LightBlueMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_LightBlueMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_GreenMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_RedMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_LightBlueMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_LightBlueMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_BlueMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_PinkMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_YellowMint
+	.word	gItemIcon_Mint
+	.word	gItemIconPalette_GreenMint
 	.word	gItemIcon_ReturnToFieldArrow
 	.word	gItemIconPalette_ReturnToFieldArrow
 	.size	 gItemIconTable,5976

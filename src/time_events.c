@@ -42,14 +42,19 @@ void UpdateMirageRnd(u16 days)
 
 bool8 IsMirageIslandPresent(void)
 {
-    u16 rnd = GetMirageRnd() >> 16;
-    int i;
+	if (FlagGet(FLAG_SYS_GAME_CLEAR))
+		return TRUE;
+	else
+		return FALSE;
+	
+    //u16 rnd = GetMirageRnd() >> 16;
+    //int i;
 
-    for (i = 0; i < PARTY_SIZE; i++)
+    /*/for (i = 0; i < PARTY_SIZE; i++)
         if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_WYNAUT)
-            return TRUE;
+            return TRUE;/*/
 
-    return FALSE;
+    //return FALSE;
 }
 
 void UpdateShoalTideFlag(void)

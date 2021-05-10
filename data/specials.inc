@@ -558,3 +558,6 @@ gSpecials:: @ 81DBA64
 
 	@UD Trade
 	def_special OpenUDTradeMenu
+	
+	def_special ScriptSetSeenPokedexInfo
+	def_special ScriptSetCaughtPokedexInfo

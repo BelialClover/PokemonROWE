@@ -188,15 +188,12 @@ Text_IVChecker_1:
 	.string "Your {STR_VAR_1}...$"
 
 Text_IVChecker_2:
-	.string "Its HP IV is {STR_VAR_1}.\p"
-	.string "Its Attack IV is {STR_VAR_2}.\p"
-	.string "Its Defense IV is {STR_VAR_3}.$"
+	.string "Your Pokemon Ivs are...\n"
+	.string "HP: {STR_VAR_1}, Atk: {STR_VAR_2}, Def: {STR_VAR_3}$"
 
 Text_IVChecker_3:
-	.string "Its Special Attack IV is {STR_VAR_1}.\p"
-	.string "Its Special Defense IV is {STR_VAR_2}.\p"
-	.string "Its Speed IV is {STR_VAR_3}.\n"
-	.string "You're welcome.$"
+	.string "SpAtk: {STR_VAR_1}, SpDef: {STR_VAR_2}, Speed: {STR_VAR_3}\n"
+	.string "Come back anytime!$"
 
 @Nevermind
 gText_PkmnCenterJack_ComeBackAnytime::

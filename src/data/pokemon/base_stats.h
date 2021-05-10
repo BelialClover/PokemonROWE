@@ -1535,6 +1535,7 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 90,
         .expYield = 154,
         .evYield_Speed     = 2,
+		.item1 = ITEM_NUGGET,
         .item2 = ITEM_NUGGET,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
@@ -7481,9 +7482,9 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_LINOONE] =
     {
-        .baseHP        = 78,
-        .baseAttack    = 70,
-        .baseDefense   = 61,
+        .baseHP        = 80,
+        .baseAttack    = 90,
+        .baseDefense   = 65,
         .baseSpeed     = 100,
         .baseSpAttack  = 50,
         .baseSpDefense = 61,
@@ -7566,7 +7567,7 @@ const struct BaseStats gBaseStats[] =
         .baseHP        = 60,
         .baseAttack    = 70,
         .baseDefense   = 50,
-        .baseSpeed     = 65,
+        .baseSpeed     = 75,
         .baseSpDefense = 50,
         #if P_UPDATED_STATS >= GEN_6
             .baseSpAttack  = 100,
@@ -7621,10 +7622,10 @@ const struct BaseStats gBaseStats[] =
     {
         .baseHP        = 60,
         .baseAttack    = 50,
-        .baseDefense   = 70,
-        .baseSpeed     = 65,
-        .baseSpAttack  = 50,
-        .baseSpDefense = 90,
+        .baseDefense   = 60,
+        .baseSpeed     = 75,
+        .baseSpAttack  = 70,
+        .baseSpDefense = 80,
         .type1 = TYPE_BUG,
         .type2 = TYPE_POISON,
         .catchRate = 45,
@@ -10794,6 +10795,8 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 3,
         .expYield = 270,
         .evYield_SpDefense = 3,
+        .item1 = ITEM_LATIASITE,
+        .item2 = ITEM_LATIASITE,
         .genderRatio = MON_FEMALE,
         .eggCycles = 120,
         .friendship = 90,
@@ -10818,6 +10821,8 @@ const struct BaseStats gBaseStats[] =
         .catchRate = 3,
         .expYield = 270,
         .evYield_SpAttack  = 3,
+        .item1 = ITEM_LATIOSITE,
+        .item2 = ITEM_LATIOSITE,
         .genderRatio = MON_MALE,
         .eggCycles = 120,
         .friendship = 90,
@@ -17520,7 +17525,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         #ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_SNOW_WARNING, ABILITY_SLUSH_RUSH},
+            .abilities = {ABILITY_SNOW_CLOAK, ABILITY_SLUSH_RUSH},
         #else
             .abilities = {ABILITY_NONE, ABILITY_NONE},
         #endif
@@ -21030,8 +21035,8 @@ const struct BaseStats gBaseStats[] =
         .baseHP        = 77,
         .baseAttack    = 70,
         .baseDefense   = 90,
-        .baseSpeed     = 43,
-        .baseSpAttack  = 145,
+        .baseSpeed     = 70,
+        .baseSpAttack  = 130,
         .baseSpDefense = 75,
         .type1 = TYPE_BUG,
         .type2 = TYPE_ELECTRIC,
@@ -21070,8 +21075,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_3,
         .eggGroup2 = EGG_GROUP_WATER_3,
         #ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_HYPER_CUTTER, ABILITY_IRON_FIST},
-            .abilityHidden = ABILITY_ANGER_POINT,
+            .abilities = {ABILITY_ANGER_POINT, ABILITY_IRON_FIST},
+            .abilityHidden = ABILITY_VITAL_SPIRIT,
         #else
             .abilities = {ABILITY_HYPER_CUTTER, ABILITY_NONE},
         #endif
@@ -21084,7 +21089,7 @@ const struct BaseStats gBaseStats[] =
         .baseHP        = 97,
         .baseAttack    = 132,
         .baseDefense   = 77,
-        .baseSpeed     = 43,
+        .baseSpeed     = 65,
         .baseSpAttack  = 62,
         .baseSpDefense = 67,
         .type1 = TYPE_FIGHTING,
@@ -21100,8 +21105,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_WATER_3,
         .eggGroup2 = EGG_GROUP_WATER_3,
         #ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_HYPER_CUTTER, ABILITY_IRON_FIST},
-            .abilityHidden = ABILITY_ANGER_POINT,
+            .abilities = {ABILITY_ANGER_POINT, ABILITY_IRON_FIST},
+            .abilityHidden = ABILITY_FUR_COAT,
         #else
             .abilities = {ABILITY_HYPER_CUTTER, ABILITY_NONE},
         #endif
@@ -23610,12 +23615,12 @@ const struct BaseStats gBaseStats[] =
 
     [SPECIES_THIEVUL] =
     {
-        .baseHP        = 70,
-        .baseAttack    = 58,
-        .baseDefense   = 58,
-        .baseSpeed     = 90,
-        .baseSpAttack  = 87,
-        .baseSpDefense = 92,
+        .baseHP        = 60,
+        .baseAttack    = 100,
+        .baseDefense   = 60,
+        .baseSpeed     = 110,
+        .baseSpAttack  = 70,
+        .baseSpDefense = 70,
         .type1 = TYPE_DARK,
         .type2 = TYPE_DARK,
         .catchRate = 127,
@@ -32550,7 +32555,8 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         #ifdef BATTLE_ENGINE
-            .abilities = {ABILITY_TOUGH_CLAWS, ABILITY_NONE},
+            .abilities = {ABILITY_TOUGH_CLAWS, ABILITY_SAND_RUSH},
+			.abilityHidden = ABILITY_VITAL_SPIRIT,
         #else
             .abilities = {ABILITY_NONE, ABILITY_NONE},
         #endif

@@ -104,6 +104,7 @@ static const u16 sDugtrioFormSpeciesIdTable[] = {
 static const u16 sMeowthFormSpeciesIdTable[] = {
     SPECIES_MEOWTH,
     SPECIES_MEOWTH_ALOLAN,
+	SPECIES_MEOWTH_GALARIAN,
     0xFFFF,
 };
 
@@ -824,5 +825,17 @@ static const u16 sNecrozmaFormSpeciesIdTable[] = {
 static const u16 sMagearnaFormSpeciesIdTable[] = {
     SPECIES_MAGEARNA,
     SPECIES_MAGEARNA_ORIGINAL_COLOR,
+    0xFFFF,
+};
+
+static const u16 sFarfetchdFormSpeciesIdTable[] = {
+    SPECIES_FARFETCHD,
+    SPECIES_FARFETCHD_GALARIAN,
+    0xFFFF,
+};
+
+static const u16 sPonytaFormSpeciesIdTable[] = {
+    SPECIES_PONYTA,
+    SPECIES_PONYTA_GALARIAN,
     0xFFFF,
 };

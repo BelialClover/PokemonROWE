@@ -14,6 +14,7 @@ PetalburgCity_Gym_OnLoad: @ 820489E
 	goto_if_eq PetalburgCity_Gym_EventScript_OpenUnlockedDoors
 	compare VAR_PETALBURG_GYM_STATE, 7
 	call_if_ge PetalburgCity_Gym_EventScript_UnlockAllDoors
+	call_if_set FLAG_SYS_GAME_CLEAR, PetalburgCity_Gym_EventScript_CheckNormanForRematch
 	end
 
 @ NOTE: Strength and OHKO rooms are misleading. Both are more accurately Critical-Hit
@@ -31,7 +32,7 @@ PetalburgCity_Gym_EventScript_OpenUnlockedDoors:: @ 82048B5
 
 PetalburgCity_Gym_EventScript_UnlockAllDoors:: @ 82048FF
 	setvar VAR_0x8005, 1
-	setflag FLAG_UNUSED_0x926
+	//setflag FLAG_UNUSED_0x926
 	call PetalburgCity_Gym_EventScript_OpenGymEntranceDoors
 	call PetalburgCity_Gym_EventScript_OpenSpeedRoomDoors
 	call PetalburgCity_Gym_EventScript_OpenAccuracyRoomDoors
@@ -59,6 +60,7 @@ PetalburgCity_Gym_EventScript_MoveNormanToEntrance:: @ 8204955
 	return
 
 PetalburgCity_Gym_EventScript_CheckNormanForRematch:: @ 820495D
+	//goto_if_unset FLAG_UNUSED_0x926, PetalburgCity_Gym_EventScript_NormanRematch
 	setorcopyvar VAR_TRAINER_BATTLE_OPPONENT_A, TRAINER_NORMAN_1
 	specialvar VAR_RESULT, IsTrainerReadyForRematch
 	compare VAR_RESULT, TRUE
@@ -394,15 +396,14 @@ PetalburgCity_Gym_EventScript_NormanBattle::
 	
 PetalburgCity_Gym_EventScript_NormanPostBattle:: @ 8204D80
 	goto_if_unset FLAG_UNUSED_0x926, PetalburgCity_Gym_EventScript_NormanRematch
-	//goto_if_set FLAG_SYS_GAME_CLEAR, PetalburgCity_Gym_EventScript_NoAmountOfTrainingIsEnough
 	msgbox PetalburgCity_Gym_Text_DadGoingToKeepTraining, MSGBOX_DEFAULT
 	release
 	end
 	
+//Rematch
 PetalburgCity_Gym_EventScript_NormanRematch:: @ 8204DB3
 	msgbox PetalburgCity_Gym_Text_NormanPreRematch, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanRematchDefeat
-	goto PetalburgCity_Gym_EventScript_GiveMegastone
+	goto PetalburgCity_Gym_EventScript_Start_Rematch_1
 	end
 	
 PetalburgCity_Gym_EventScript_NormanRematchEnd::
@@ -410,18 +411,139 @@ PetalburgCity_Gym_EventScript_NormanRematchEnd::
 	setflag FLAG_UNUSED_0x926
 	end
 	
-PetalburgCity_Gym_EventScript_GiveMegastone::
-	goto_if_unset FLAG_RECEIVED_TM04 PetalburgCity_Gym_EventScript_NormanRematchEnd
-	goto_if_set FLAG_UNUSED_0x27F PetalburgCity_Gym_EventScript_NormanRematchEnd
-	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+PetalburgCity_Gym_EventScript_Start_Rematch_1::
+	checkitem ITEM_TM54_FALSE_SWIPE, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq PetalburgCity_Gym_EventScript_Start_Rematch_2
+	trainerbattle_no_intro TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanRematchDefeat
+	msgbox PetalburgCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM54_FALSE_SWIPE
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
+	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_2::
+	goto_if_unset FLAG_RECEIVED_TM08 PetalburgCity_Gym_EventScript_Start_Rematch_Party_1
+	checkitem ITEM_TM100_CONFIDE, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq PetalburgCity_Gym_EventScript_Start_Rematch_3
+	trainerbattle_no_intro TRAINER_NORMAN_2, PetalburgCity_Gym_Text_NormanRematchDefeat
+	msgbox PetalburgCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM100_CONFIDE
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
+	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_3::
+	goto_if_unset FLAG_RECEIVED_TM42 PetalburgCity_Gym_EventScript_Start_Rematch_Party_2
+	checkitem ITEM_TM96_NATURE_POWER, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq PetalburgCity_Gym_EventScript_Start_Rematch_4
+	trainerbattle_no_intro TRAINER_NORMAN_3, PetalburgCity_Gym_Text_NormanRematchDefeat
+	msgbox PetalburgCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM96_NATURE_POWER
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
+	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_4::
+	goto_if_unset FLAG_RECEIVED_TM40 PetalburgCity_Gym_EventScript_Start_Rematch_Party_3
+	checkitem ITEM_TM42_FACADE, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq PetalburgCity_Gym_EventScript_Start_Rematch_5
+	trainerbattle_no_intro TRAINER_NORMAN_4, PetalburgCity_Gym_Text_NormanRematchDefeat
+	msgbox PetalburgCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM42_FACADE
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
+	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_5::
+	goto_if_unset FLAG_RECEIVED_TM04 PetalburgCity_Gym_EventScript_Start_Rematch_Party_4
+	goto_if_set FLAG_UNUSED_0x27F PetalburgCity_Gym_EventScript_Start_Rematch_6
+	trainerbattle_no_intro TRAINER_NORMAN_4, PetalburgCity_Gym_Text_NormanRematchDefeat
+	msgbox PetalburgCity_Gym_Text_GetMegaStone, MSGBOX_DEFAULT
 	giveitem ITEM_KANGASKHANITE
 	setflag FLAG_UNUSED_0x27F
-	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
-	setflag FLAG_UNUSED_0x926
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
 	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_6::
+	goto_if_unset FLAG_RECEIVED_TM03 PetalburgCity_Gym_EventScript_Start_Rematch_Party_4
+	checkitem ITEM_TM68_GIGA_IMPACT, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq PetalburgCity_Gym_EventScript_Start_Rematch_Final
+	trainerbattle_no_intro TRAINER_NORMAN_5, PetalburgCity_Gym_Text_NormanRematchDefeat
+	msgbox PetalburgCity_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM68_GIGA_IMPACT
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
+	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_Final::
+	random 5
+	switch VAR_RESULT
+	case 0, PetalburgCity_Gym_EventScript_Start_Rematch_Party_1
+	case 1, PetalburgCity_Gym_EventScript_Start_Rematch_Party_2
+	case 2, PetalburgCity_Gym_EventScript_Start_Rematch_Party_3
+	case 3, PetalburgCity_Gym_EventScript_Start_Rematch_Party_4
+	case 4, PetalburgCity_Gym_EventScript_Start_Rematch_Party_5
+	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_Party_1::
+	trainerbattle_no_intro TRAINER_NORMAN_1, PetalburgCity_Gym_Text_NormanRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, PetalburgCity_Gym_EventScript_NormanRematchEnd
+	msgbox PetalburgCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_CALM_MINT, 3
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
+	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_Party_2::
+	trainerbattle_no_intro TRAINER_NORMAN_2, PetalburgCity_Gym_Text_NormanRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, PetalburgCity_Gym_EventScript_NormanRematchEnd
+	msgbox PetalburgCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_GENTLE_MINT, 3
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
+	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_Party_3::
+	trainerbattle_no_intro TRAINER_NORMAN_3, PetalburgCity_Gym_Text_NormanRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, PetalburgCity_Gym_EventScript_NormanRematchEnd
+	msgbox PetalburgCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_CAREFUL_MINT, 3
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
+	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_Party_4::
+	trainerbattle_no_intro TRAINER_NORMAN_4, PetalburgCity_Gym_Text_NormanRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, PetalburgCity_Gym_EventScript_NormanRematchEnd
+	msgbox PetalburgCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_SASSY_MINT, 3
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
+	end
+	
+PetalburgCity_Gym_EventScript_Start_Rematch_Party_5::
+	trainerbattle_no_intro TRAINER_NORMAN_5, PetalburgCity_Gym_Text_NormanRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, PetalburgCity_Gym_EventScript_NormanRematchEnd
+	msgbox PetalburgCity_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_SERIOUS_MINT, 4
+	goto PetalburgCity_Gym_EventScript_NormanRematchEnd
+	end
+	
+PetalburgCity_Gym_Text_GetTM:
+	.string "Norman: Please take this\n"
+	.string "Technical Machine.$"
+
+PetalburgCity_Gym_Text_GetMegaStone:
+	.string "Norman: Please take this\n"
+	.string "Mega Stone, with you.\p"
+	.string "Make an Aggron hold it to\n"
+	.string "unleash its Hidden Potential.$"
+	
+PetalburgCity_Gym_Text_GetReward:
+	.string "Norman: Please take this\n"
+	.string "Item as a Reward.$"
+
+//rematches end
 	
 //HM Start
 PetalburgCity_Gym_EventScript_GiveHM::
+	setflag FLAG_UNUSED_0x926
 	goto_if_unset FLAG_RECEIVED_TM39, PetalburgCity_Gym_EventScript_GiveHM01
 	goto_if_unset FLAG_RECEIVED_TM08, PetalburgCity_Gym_EventScript_GiveHM02
 	goto_if_unset FLAG_RECEIVED_TM34, PetalburgCity_Gym_EventScript_GiveHM03
@@ -546,8 +668,7 @@ Gym_Text_Takethis2:
 //
 PetalburgCity_Gym_EventScript_GiveFacade:: @ 8204ED2
 	msgbox Gym_Text_Takethis2, MSGBOX_DEFAULT
-	giveitem ITEM_TM42
-	msgbox PetalburgCity_Gym_Text_ExplainFacade, MSGBOX_DEFAULT
+	giveitem ITEM_TM54_FALSE_SWIPE
 	setflag FLAG_BADGE05_GET
 	release
 	end

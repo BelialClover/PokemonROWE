@@ -2990,14 +2990,6 @@ CreateLilycoveSSTidalMultichoice:
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
 .L184:
-	mov	r0, #0xeb
-	lsl	r0, r0, #0x1
-	mov	r1, #0x1
-	bl	CheckBagHasItem
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	cmp	r0, #0x1
-	bne	.L186	@cond_branch
 	ldr	r0, .L213+0x8
 	bl	FlagGet
 	lsl	r0, r0, #0x18
@@ -3036,15 +3028,7 @@ CreateLilycoveSSTidalMultichoice:
 	add	r0, r4, #0
 	bl	FlagSet
 .L186:
-	ldr	r0, .L213+0xc
-	mov	r1, #0x1
-	bl	CheckBagHasItem
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	cmp	r0, #0x1
-	bne	.L189	@cond_branch
-	mov	r0, #0x8e
-	lsl	r0, r0, #0x4
+	ldr	r0, .L213+0x8
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -3065,7 +3049,7 @@ CreateLilycoveSSTidalMultichoice:
 	ldrh	r0, [r2]
 	cmp	r0, #0x1
 	bne	.L189	@cond_branch
-	ldr	r4, .L213+0x10
+	ldr	r4, .L213+0xc
 	add	r0, r4, #0
 	bl	FlagGet
 	lsl	r0, r0, #0x18
@@ -3081,14 +3065,7 @@ CreateLilycoveSSTidalMultichoice:
 	add	r0, r4, #0
 	bl	FlagSet
 .L189:
-	ldr	r0, .L213+0x14
-	mov	r1, #0x1
-	bl	CheckBagHasItem
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	cmp	r0, #0x1
-	bne	.L192	@cond_branch
-	ldr	r0, .L213+0x18
+	ldr	r0, .L213+0x8
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -3109,7 +3086,7 @@ CreateLilycoveSSTidalMultichoice:
 	ldrh	r0, [r2]
 	cmp	r0, #0x1
 	bne	.L192	@cond_branch
-	ldr	r4, .L213+0x1c
+	ldr	r4, .L213+0x10
 	add	r0, r4, #0
 	bl	FlagGet
 	lsl	r0, r0, #0x18
@@ -3125,14 +3102,7 @@ CreateLilycoveSSTidalMultichoice:
 	add	r0, r4, #0
 	bl	FlagSet
 .L192:
-	ldr	r0, .L213+0x20
-	mov	r1, #0x1
-	bl	CheckBagHasItem
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	cmp	r0, #0x1
-	bne	.L195	@cond_branch
-	ldr	r0, .L213+0x24
+	ldr	r0, .L213+0x8
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -3200,14 +3170,9 @@ CreateLilycoveSSTidalMultichoice:
 .L213:
 	.word	sLilycoveSSTidalSelections
 	.word	gSpecialVar_0x8004
-	.word	0x8b3
-	.word	0x2c5
+	.word	0x8d2
 	.word	0x1db
-	.word	0x2c6
-	.word	0x8d5
 	.word	0x1af
-	.word	0x2cb
-	.word	0x8d6
 .L199:
 	mov	r1, #0x0
 	mov	r4, #0x0

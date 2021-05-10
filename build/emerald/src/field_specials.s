@@ -3347,6 +3347,7 @@ GetPokeblockNameByMonNature:
 	mul	r0, r0, r1
 	ldr	r1, .L644
 	add	r0, r0, r1
+	mov	r1, #0x0
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -5568,9 +5569,9 @@ ShowFrontierManiacMessage:
 	lsl	r0, r0, #0x10
 	lsr	r6, r0, #0x10
 	cmp	r6, #0x9
-	bls	.LCB6486
+	bls	.LCB6487
 	b	.L944	@long jump
-.LCB6486:
+.LCB6487:
 	lsl	r0, r6, #0x2
 	ldr	r1, .L979+0x4
 	add	r1, r0, r1
@@ -5871,9 +5872,9 @@ ShowScrollableMultichoice:
 	strh	r0, [r3, #0x1e]
 	ldrh	r0, [r1]
 	cmp	r0, #0xc
-	bls	.LCB6906
+	bls	.LCB6907
 	b	.L1026	@long jump
-.LCB6906:
+.LCB6907:
 	lsl	r0, r0, #0x2
 	ldr	r1, .L1031+0xc
 	add	r0, r0, r1
@@ -6954,6 +6955,7 @@ ShowNatureGirlMessage:
 	mul	r0, r0, r1
 	ldr	r1, .L1114+0x4
 	add	r0, r0, r1
+	mov	r1, #0x0
 	bl	GetNature
 	lsl	r0, r0, #0x18
 	ldr	r1, .L1114+0x8
@@ -7578,9 +7580,9 @@ FillFrontierExchangeCornerWindowAndItemIcon:
 	add	r0, r0, r1
 	lsr	r0, r0, #0x10
 	cmp	r0, #0x3
-	bls	.LCB8539
+	bls	.LCB8541
 	b	.L1170	@long jump
-.LCB8539:
+.LCB8541:
 	mov	r0, #0xd8
 	str	r0, [sp]
 	mov	r0, #0x20
@@ -9531,9 +9533,9 @@ Task_LinkRetireStatusWithBattleTowerPartner:
 	mov	r1, #0x8
 	ldrsh	r0, [r0, r1]
 	cmp	r0, #0x9
-	bls	.LCB10558
+	bls	.LCB10560
 	b	.L1427	@long jump
-.LCB10558:
+.LCB10560:
 	lsl	r0, r0, #0x2
 	ldr	r1, .L1469+0x4
 	add	r0, r0, r1
@@ -9562,9 +9564,9 @@ Task_LinkRetireStatusWithBattleTowerPartner:
 	bl	FuncIsActiveTask
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB10585
+	beq	.LCB10587
 	b	.L1427	@long jump
-.LCB10585:
+.LCB10587:
 	b	.L1466
 .L1472:
 	.align	2, 0
@@ -9575,15 +9577,15 @@ Task_LinkRetireStatusWithBattleTowerPartner:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB10601
+	beq	.LCB10603
 	b	.L1427	@long jump
-.LCB10601:
+.LCB10603:
 	bl	GetMultiplayerId
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB10608
+	bne	.LCB10610
 	b	.L1466	@long jump
-.LCB10608:
+.LCB10610:
 	bl	bitmask_all_link_players_but_self
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -9600,15 +9602,15 @@ Task_LinkRetireStatusWithBattleTowerPartner:
 	mov	r1, #0x2
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.LCB10636
+	bne	.LCB10638
 	b	.L1427	@long jump
-.LCB10636:
+.LCB10638:
 	bl	GetMultiplayerId
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB10643
+	beq	.LCB10645
 	b	.L1466	@long jump
-.LCB10643:
+.LCB10645:
 	ldr	r5, .L1475
 	ldr	r0, .L1475+0x4
 	mov	r1, #0x80
@@ -9685,9 +9687,9 @@ Task_LinkRetireStatusWithBattleTowerPartner:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB10752
+	beq	.LCB10754
 	b	.L1427	@long jump
-.LCB10752:
+.LCB10754:
 	bl	GetMultiplayerId
 	lsl	r0, r0, #0x18
 	cmp	r0, #0

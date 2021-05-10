@@ -2147,10 +2147,10 @@ ItemUseOutOfBattle_AbilityCapsule:
 .Lfe42:
 	.size	 ItemUseOutOfBattle_AbilityCapsule,.Lfe42-ItemUseOutOfBattle_AbilityCapsule
 	.align	2, 0
-	.globl	ItemUseOutOfBattle_AbilityPatch
-	.type	 ItemUseOutOfBattle_AbilityPatch,function
+	.globl	ItemUseOutOfBattle_PowerCandy
+	.type	 ItemUseOutOfBattle_PowerCandy,function
 	.thumb_func
-ItemUseOutOfBattle_AbilityPatch:
+ItemUseOutOfBattle_PowerCandy:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -2164,14 +2164,14 @@ ItemUseOutOfBattle_AbilityPatch:
 	.align	2, 0
 .L303:
 	.word	gItemUseCB
-	.word	ItemUseCB_AbilityPatch
+	.word	ItemUseCB_PowerCandy
 .Lfe43:
-	.size	 ItemUseOutOfBattle_AbilityPatch,.Lfe43-ItemUseOutOfBattle_AbilityPatch
+	.size	 ItemUseOutOfBattle_PowerCandy,.Lfe43-ItemUseOutOfBattle_PowerCandy
 	.align	2, 0
-	.globl	ItemUseOutOfBattle_ReduceEV
-	.type	 ItemUseOutOfBattle_ReduceEV,function
+	.globl	ItemUseOutOfBattle_AbilityPatch
+	.type	 ItemUseOutOfBattle_AbilityPatch,function
 	.thumb_func
-ItemUseOutOfBattle_ReduceEV:
+ItemUseOutOfBattle_AbilityPatch:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -2185,14 +2185,14 @@ ItemUseOutOfBattle_ReduceEV:
 	.align	2, 0
 .L306:
 	.word	gItemUseCB
-	.word	ItemUseCB_ReduceEV
+	.word	ItemUseCB_AbilityPatch
 .Lfe44:
-	.size	 ItemUseOutOfBattle_ReduceEV,.Lfe44-ItemUseOutOfBattle_ReduceEV
+	.size	 ItemUseOutOfBattle_AbilityPatch,.Lfe44-ItemUseOutOfBattle_AbilityPatch
 	.align	2, 0
-	.globl	ItemUseOutOfBattle_SacredAsh
-	.type	 ItemUseOutOfBattle_SacredAsh,function
+	.globl	ItemUseOutOfBattle_ReduceEV
+	.type	 ItemUseOutOfBattle_ReduceEV,function
 	.thumb_func
-ItemUseOutOfBattle_SacredAsh:
+ItemUseOutOfBattle_ReduceEV:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -2206,14 +2206,14 @@ ItemUseOutOfBattle_SacredAsh:
 	.align	2, 0
 .L309:
 	.word	gItemUseCB
-	.word	ItemUseCB_SacredAsh
+	.word	ItemUseCB_ReduceEV
 .Lfe45:
-	.size	 ItemUseOutOfBattle_SacredAsh,.Lfe45-ItemUseOutOfBattle_SacredAsh
+	.size	 ItemUseOutOfBattle_ReduceEV,.Lfe45-ItemUseOutOfBattle_ReduceEV
 	.align	2, 0
-	.globl	ItemUseOutOfBattle_PPRecovery
-	.type	 ItemUseOutOfBattle_PPRecovery,function
+	.globl	ItemUseOutOfBattle_SacredAsh
+	.type	 ItemUseOutOfBattle_SacredAsh,function
 	.thumb_func
-ItemUseOutOfBattle_PPRecovery:
+ItemUseOutOfBattle_SacredAsh:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -2227,14 +2227,14 @@ ItemUseOutOfBattle_PPRecovery:
 	.align	2, 0
 .L312:
 	.word	gItemUseCB
-	.word	ItemUseCB_PPRecovery
+	.word	ItemUseCB_SacredAsh
 .Lfe46:
-	.size	 ItemUseOutOfBattle_PPRecovery,.Lfe46-ItemUseOutOfBattle_PPRecovery
+	.size	 ItemUseOutOfBattle_SacredAsh,.Lfe46-ItemUseOutOfBattle_SacredAsh
 	.align	2, 0
-	.globl	ItemUseOutOfBattle_PPUp
-	.type	 ItemUseOutOfBattle_PPUp,function
+	.globl	ItemUseOutOfBattle_PPRecovery
+	.type	 ItemUseOutOfBattle_PPRecovery,function
 	.thumb_func
-ItemUseOutOfBattle_PPUp:
+ItemUseOutOfBattle_PPRecovery:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -2248,14 +2248,14 @@ ItemUseOutOfBattle_PPUp:
 	.align	2, 0
 .L315:
 	.word	gItemUseCB
-	.word	ItemUseCB_PPUp
+	.word	ItemUseCB_PPRecovery
 .Lfe47:
-	.size	 ItemUseOutOfBattle_PPUp,.Lfe47-ItemUseOutOfBattle_PPUp
+	.size	 ItemUseOutOfBattle_PPRecovery,.Lfe47-ItemUseOutOfBattle_PPRecovery
 	.align	2, 0
-	.globl	ItemUseOutOfBattle_RareCandy
-	.type	 ItemUseOutOfBattle_RareCandy,function
+	.globl	ItemUseOutOfBattle_PPUp
+	.type	 ItemUseOutOfBattle_PPUp,function
 	.thumb_func
-ItemUseOutOfBattle_RareCandy:
+ItemUseOutOfBattle_PPUp:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -2269,9 +2269,30 @@ ItemUseOutOfBattle_RareCandy:
 	.align	2, 0
 .L318:
 	.word	gItemUseCB
-	.word	ItemUseCB_RareCandy
+	.word	ItemUseCB_PPUp
 .Lfe48:
-	.size	 ItemUseOutOfBattle_RareCandy,.Lfe48-ItemUseOutOfBattle_RareCandy
+	.size	 ItemUseOutOfBattle_PPUp,.Lfe48-ItemUseOutOfBattle_PPUp
+	.align	2, 0
+	.globl	ItemUseOutOfBattle_RareCandy
+	.type	 ItemUseOutOfBattle_RareCandy,function
+	.thumb_func
+ItemUseOutOfBattle_RareCandy:
+	push	{lr}
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	ldr	r2, .L321
+	ldr	r1, .L321+0x4
+	str	r1, [r2]
+	bl	SetUpItemUseCallback
+	pop	{r0}
+	bx	r0
+.L322:
+	.align	2, 0
+.L321:
+	.word	gItemUseCB
+	.word	ItemUseCB_RareCandy
+.Lfe49:
+	.size	 ItemUseOutOfBattle_RareCandy,.Lfe49-ItemUseOutOfBattle_RareCandy
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_TMHM
 	.type	 ItemUseOutOfBattle_TMHM,function
@@ -2280,41 +2301,41 @@ ItemUseOutOfBattle_TMHM:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r0, .L323
+	ldr	r0, .L326
 	ldrh	r1, [r0]
-	ldr	r0, .L323+0x4
+	ldr	r0, .L326+0x4
 	cmp	r1, r0
-	bls	.L321	@cond_branch
-	ldr	r2, .L323+0x8
-	ldr	r3, .L323+0xc
+	bls	.L324	@cond_branch
+	ldr	r2, .L326+0x8
+	ldr	r3, .L326+0xc
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-	b	.L322
-.L324:
+	b	.L325
+.L327:
 	.align	2, 0
-.L323:
+.L326:
 	.word	gSpecialVar_ItemId
 	.word	0x2a9
 	.word	gText_BootedUpHM
 	.word	BootUpSoundTMHM
-.L321:
-	ldr	r2, .L325
-	ldr	r3, .L325+0x4
+.L324:
+	ldr	r2, .L328
+	ldr	r3, .L328+0x4
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-.L322:
+.L325:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L326:
+.L329:
 	.align	2, 0
-.L325:
+.L328:
 	.word	gText_BootedUpTM
 	.word	BootUpSoundTMHM
-.Lfe49:
-	.size	 ItemUseOutOfBattle_TMHM,.Lfe49-ItemUseOutOfBattle_TMHM
+.Lfe50:
+	.size	 ItemUseOutOfBattle_TMHM,.Lfe50-ItemUseOutOfBattle_TMHM
 	.align	2, 0
 	.type	 BootUpSoundTMHM,function
 	.thumb_func
@@ -2325,23 +2346,23 @@ BootUpSoundTMHM:
 	lsr	r4, r4, #0x18
 	mov	r0, #0x2
 	bl	PlaySE
-	ldr	r1, .L328
+	ldr	r1, .L331
 	lsl	r0, r4, #0x2
 	add	r0, r0, r4
 	lsl	r0, r0, #0x3
 	add	r0, r0, r1
-	ldr	r1, .L328+0x4
+	ldr	r1, .L331+0x4
 	str	r1, [r0]
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L329:
+.L332:
 	.align	2, 0
-.L328:
+.L331:
 	.word	gTasks
 	.word	Task_ShowTMHMContainedMessage
-.Lfe50:
-	.size	 BootUpSoundTMHM,.Lfe50-BootUpSoundTMHM
+.Lfe51:
+	.size	 BootUpSoundTMHM,.Lfe51-BootUpSoundTMHM
 	.align	2, 0
 	.type	 Task_ShowTMHMContainedMessage,function
 	.thumb_func
@@ -2349,40 +2370,40 @@ Task_ShowTMHMContainedMessage:
 	push	{r4, r5, lr}
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
-	ldr	r0, .L332
+	ldr	r0, .L335
 	ldrh	r1, [r0, #0x2e]
 	mov	r0, #0x3
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L331	@cond_branch
-	ldr	r4, .L332+0x4
-	ldr	r0, .L332+0x8
+	beq	.L334	@cond_branch
+	ldr	r4, .L335+0x4
+	ldr	r0, .L335+0x8
 	ldrh	r0, [r0]
 	bl	ItemIdToBattleMoveId
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	lsl	r1, r0, #0x4
 	add	r1, r1, r0
-	ldr	r0, .L332+0xc
+	ldr	r0, .L335+0xc
 	add	r1, r1, r0
 	add	r0, r4, #0
 	bl	StringCopy
-	ldr	r4, .L332+0x10
-	ldr	r1, .L332+0x14
+	ldr	r4, .L335+0x10
+	ldr	r1, .L335+0x14
 	add	r0, r4, #0
 	bl	StringExpandPlaceholders
-	ldr	r3, .L332+0x18
+	ldr	r3, .L335+0x18
 	add	r0, r5, #0
 	mov	r1, #0x1
 	add	r2, r4, #0
 	bl	DisplayItemMessage
-.L331:
+.L334:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L333:
+.L336:
 	.align	2, 0
-.L332:
+.L335:
 	.word	gMain
 	.word	gStringVar1
 	.word	gSpecialVar_ItemId
@@ -2390,8 +2411,8 @@ Task_ShowTMHMContainedMessage:
 	.word	gStringVar4
 	.word	gText_TMHMContainedVar1
 	.word	UseTMHMYesNo
-.Lfe51:
-	.size	 Task_ShowTMHMContainedMessage,.Lfe51-Task_ShowTMHMContainedMessage
+.Lfe52:
+	.size	 Task_ShowTMHMContainedMessage,.Lfe52-Task_ShowTMHMContainedMessage
 	.align	2, 0
 	.type	 UseTMHMYesNo,function
 	.thumb_func
@@ -2399,17 +2420,17 @@ UseTMHMYesNo:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L335
+	ldr	r2, .L338
 	mov	r1, #0x6
 	bl	BagMenu_YesNo
 	pop	{r0}
 	bx	r0
-.L336:
+.L339:
 	.align	2, 0
-.L335:
+.L338:
 	.word	sUseTMHMYesNoFuncTable
-.Lfe52:
-	.size	 UseTMHMYesNo,.Lfe52-UseTMHMYesNo
+.Lfe53:
+	.size	 UseTMHMYesNo,.Lfe53-UseTMHMYesNo
 	.align	2, 0
 	.type	 UseTMHM,function
 	.thumb_func
@@ -2417,38 +2438,38 @@ UseTMHM:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L338
-	ldr	r1, .L338+0x4
+	ldr	r2, .L341
+	ldr	r1, .L341+0x4
 	str	r1, [r2]
 	bl	SetUpItemUseCallback
 	pop	{r0}
 	bx	r0
-.L339:
+.L342:
 	.align	2, 0
-.L338:
+.L341:
 	.word	gItemUseCB
 	.word	ItemUseCB_TMHM
-.Lfe53:
-	.size	 UseTMHM,.Lfe53-UseTMHM
+.Lfe54:
+	.size	 UseTMHM,.Lfe54-UseTMHM
 	.align	2, 0
 	.type	 RemoveUsedItem,function
 	.thumb_func
 RemoveUsedItem:
 	push	{r4, lr}
-	ldr	r4, .L343
+	ldr	r4, .L346
 	ldrh	r0, [r4]
 	mov	r1, #0x1
 	bl	RemoveBagItem
 	ldrh	r0, [r4]
-	ldr	r1, .L343+0x4
+	ldr	r1, .L346+0x4
 	bl	CopyItemName
-	ldr	r0, .L343+0x8
-	ldr	r1, .L343+0xc
+	ldr	r0, .L346+0x8
+	ldr	r1, .L346+0xc
 	bl	StringExpandPlaceholders
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L341	@cond_branch
+	bne	.L344	@cond_branch
 	ldrh	r0, [r4]
 	bl	ItemId_GetPocket
 	lsl	r0, r0, #0x18
@@ -2459,23 +2480,23 @@ RemoveUsedItem:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	SetInitialScrollAndCursorPositions
-	b	.L342
-.L344:
+	b	.L345
+.L347:
 	.align	2, 0
-.L343:
+.L346:
 	.word	gSpecialVar_ItemId
 	.word	gStringVar2
 	.word	gStringVar4
 	.word	gText_PlayerUsedVar2
-.L341:
+.L344:
 	bl	sub_81C5924
 	bl	sub_81C59BC
-.L342:
+.L345:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.Lfe54:
-	.size	 RemoveUsedItem,.Lfe54-RemoveUsedItem
+.Lfe55:
+	.size	 RemoveUsedItem,.Lfe55-RemoveUsedItem
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_Repel
 	.type	 ItemUseOutOfBattle_Repel,function
@@ -2485,57 +2506,57 @@ ItemUseOutOfBattle_Repel:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	add	r5, r4, #0
-	ldr	r0, .L350
+	ldr	r0, .L353
 	bl	VarGet
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L346	@cond_branch
-	ldr	r0, .L350+0x4
+	bne	.L349	@cond_branch
+	ldr	r0, .L353+0x4
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
 	add	r1, r1, r0
-	ldr	r0, .L350+0x8
+	ldr	r0, .L353+0x8
 	str	r0, [r1]
-	b	.L347
-.L351:
+	b	.L350
+.L354:
 	.align	2, 0
-.L350:
+.L353:
 	.word	0x4021
 	.word	gTasks
 	.word	Task_StartUseRepel
-.L346:
+.L349:
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L348	@cond_branch
-	ldr	r2, .L352
-	ldr	r3, .L352+0x4
+	bne	.L351	@cond_branch
+	ldr	r2, .L355
+	ldr	r3, .L355+0x4
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-	b	.L347
-.L353:
+	b	.L350
+.L356:
 	.align	2, 0
-.L352:
+.L355:
 	.word	gText_RepelEffectsLingered
 	.word	BagMenu_InitListsMenu
-.L348:
-	ldr	r1, .L354
-	ldr	r2, .L354+0x4
+.L351:
+	ldr	r1, .L357
+	ldr	r2, .L357+0x4
 	add	r0, r5, #0
 	bl	DisplayItemMessageInBattlePyramid
-.L347:
+.L350:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L355:
+.L358:
 	.align	2, 0
-.L354:
+.L357:
 	.word	gText_RepelEffectsLingered
 	.word	Task_CloseBattlePyramidBagMessage
-.Lfe55:
-	.size	 ItemUseOutOfBattle_Repel,.Lfe55-ItemUseOutOfBattle_Repel
+.Lfe56:
+	.size	 ItemUseOutOfBattle_Repel,.Lfe56-ItemUseOutOfBattle_Repel
 	.align	2, 0
 	.type	 Task_StartUseRepel,function
 	.thumb_func
@@ -2546,7 +2567,7 @@ Task_StartUseRepel:
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r4, r1, #0x3
-	ldr	r5, .L358
+	ldr	r5, .L361
 	add	r1, r4, r5
 	ldrh	r0, [r1, #0x10]
 	add	r0, r0, #0x1
@@ -2554,7 +2575,7 @@ Task_StartUseRepel:
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	cmp	r0, #0x7
-	ble	.L357	@cond_branch
+	ble	.L360	@cond_branch
 	mov	r0, #0x0
 	strh	r0, [r1, #0x10]
 	mov	r0, #0x2f
@@ -2562,19 +2583,19 @@ Task_StartUseRepel:
 	add	r0, r5, #0
 	sub	r0, r0, #0x8
 	add	r0, r4, r0
-	ldr	r1, .L358+0x4
+	ldr	r1, .L361+0x4
 	str	r1, [r0]
-.L357:
+.L360:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L359:
+.L362:
 	.align	2, 0
-.L358:
+.L361:
 	.word	gTasks+0x8
 	.word	Task_UseRepel
-.Lfe56:
-	.size	 Task_StartUseRepel,.Lfe56-Task_StartUseRepel
+.Lfe57:
+	.size	 Task_StartUseRepel,.Lfe57-Task_StartUseRepel
 	.align	2, 0
 	.type	 Task_UseRepel,function
 	.thumb_func
@@ -2586,9 +2607,9 @@ Task_UseRepel:
 	bl	IsSEPlaying
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L361	@cond_branch
-	ldr	r4, .L364
-	ldr	r0, .L364+0x4
+	bne	.L364	@cond_branch
+	ldr	r4, .L367
+	ldr	r0, .L367+0x4
 	ldrh	r0, [r0]
 	bl	ItemId_GetHoldEffectParam
 	add	r1, r0, #0
@@ -2600,36 +2621,36 @@ Task_UseRepel:
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L362	@cond_branch
-	ldr	r2, .L364+0x8
-	ldr	r3, .L364+0xc
+	bne	.L365	@cond_branch
+	ldr	r2, .L367+0x8
+	ldr	r3, .L367+0xc
 	add	r0, r5, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-	b	.L361
-.L365:
+	b	.L364
+.L368:
 	.align	2, 0
-.L364:
+.L367:
 	.word	0x4021
 	.word	gSpecialVar_ItemId
 	.word	gStringVar4
 	.word	BagMenu_InitListsMenu
-.L362:
-	ldr	r1, .L366
-	ldr	r2, .L366+0x4
+.L365:
+	ldr	r1, .L369
+	ldr	r2, .L369+0x4
 	add	r0, r6, #0
 	bl	DisplayItemMessageInBattlePyramid
-.L361:
+.L364:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L367:
+.L370:
 	.align	2, 0
-.L366:
+.L369:
 	.word	gStringVar4
 	.word	Task_CloseBattlePyramidBagMessage
-.Lfe57:
-	.size	 Task_UseRepel,.Lfe57-Task_UseRepel
+.Lfe58:
+	.size	 Task_UseRepel,.Lfe58-Task_UseRepel
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_Lure
 	.type	 ItemUseOutOfBattle_Lure,function
@@ -2639,57 +2660,57 @@ ItemUseOutOfBattle_Lure:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	add	r5, r4, #0
-	ldr	r0, .L373
+	ldr	r0, .L376
 	bl	VarGet
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L369	@cond_branch
-	ldr	r0, .L373+0x4
+	bne	.L372	@cond_branch
+	ldr	r0, .L376+0x4
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
 	add	r1, r1, r0
-	ldr	r0, .L373+0x8
+	ldr	r0, .L376+0x8
 	str	r0, [r1]
-	b	.L370
-.L374:
+	b	.L373
+.L377:
 	.align	2, 0
-.L373:
+.L376:
 	.word	0x404e
 	.word	gTasks
 	.word	Task_StartUseLure
-.L369:
+.L372:
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L371	@cond_branch
-	ldr	r2, .L375
-	ldr	r3, .L375+0x4
+	bne	.L374	@cond_branch
+	ldr	r2, .L378
+	ldr	r3, .L378+0x4
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-	b	.L370
-.L376:
+	b	.L373
+.L379:
 	.align	2, 0
-.L375:
+.L378:
 	.word	gText_LureEffectsLingered
 	.word	BagMenu_InitListsMenu
-.L371:
-	ldr	r1, .L377
-	ldr	r2, .L377+0x4
+.L374:
+	ldr	r1, .L380
+	ldr	r2, .L380+0x4
 	add	r0, r5, #0
 	bl	DisplayItemMessageInBattlePyramid
-.L370:
+.L373:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L378:
+.L381:
 	.align	2, 0
-.L377:
+.L380:
 	.word	gText_LureEffectsLingered
 	.word	Task_CloseBattlePyramidBagMessage
-.Lfe58:
-	.size	 ItemUseOutOfBattle_Lure,.Lfe58-ItemUseOutOfBattle_Lure
+.Lfe59:
+	.size	 ItemUseOutOfBattle_Lure,.Lfe59-ItemUseOutOfBattle_Lure
 	.align	2, 0
 	.type	 Task_StartUseLure,function
 	.thumb_func
@@ -2700,7 +2721,7 @@ Task_StartUseLure:
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r4, r1, #0x3
-	ldr	r5, .L381
+	ldr	r5, .L384
 	add	r1, r4, r5
 	ldrh	r0, [r1, #0x10]
 	add	r0, r0, #0x1
@@ -2708,7 +2729,7 @@ Task_StartUseLure:
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	cmp	r0, #0x7
-	ble	.L380	@cond_branch
+	ble	.L383	@cond_branch
 	mov	r0, #0x0
 	strh	r0, [r1, #0x10]
 	mov	r0, #0x2f
@@ -2716,19 +2737,19 @@ Task_StartUseLure:
 	add	r0, r5, #0
 	sub	r0, r0, #0x8
 	add	r0, r4, r0
-	ldr	r1, .L381+0x4
+	ldr	r1, .L384+0x4
 	str	r1, [r0]
-.L380:
+.L383:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L382:
+.L385:
 	.align	2, 0
-.L381:
+.L384:
 	.word	gTasks+0x8
 	.word	Task_UseLure
-.Lfe59:
-	.size	 Task_StartUseLure,.Lfe59-Task_StartUseLure
+.Lfe60:
+	.size	 Task_StartUseLure,.Lfe60-Task_StartUseLure
 	.align	2, 0
 	.type	 Task_UseLure,function
 	.thumb_func
@@ -2740,9 +2761,9 @@ Task_UseLure:
 	bl	IsSEPlaying
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L384	@cond_branch
-	ldr	r4, .L387
-	ldr	r0, .L387+0x4
+	bne	.L387	@cond_branch
+	ldr	r4, .L390
+	ldr	r0, .L390+0x4
 	ldrh	r0, [r0]
 	bl	ItemId_GetHoldEffectParam
 	add	r1, r0, #0
@@ -2754,36 +2775,36 @@ Task_UseLure:
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L385	@cond_branch
-	ldr	r2, .L387+0x8
-	ldr	r3, .L387+0xc
+	bne	.L388	@cond_branch
+	ldr	r2, .L390+0x8
+	ldr	r3, .L390+0xc
 	add	r0, r5, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-	b	.L384
-.L388:
+	b	.L387
+.L391:
 	.align	2, 0
-.L387:
+.L390:
 	.word	0x404e
 	.word	gSpecialVar_ItemId
 	.word	gStringVar4
 	.word	BagMenu_InitListsMenu
-.L385:
-	ldr	r1, .L389
-	ldr	r2, .L389+0x4
+.L388:
+	ldr	r1, .L392
+	ldr	r2, .L392+0x4
 	add	r0, r6, #0
 	bl	DisplayItemMessageInBattlePyramid
-.L384:
+.L387:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L390:
+.L393:
 	.align	2, 0
-.L389:
+.L392:
 	.word	gStringVar4
 	.word	Task_CloseBattlePyramidBagMessage
-.Lfe60:
-	.size	 Task_UseLure,.Lfe60-Task_UseLure
+.Lfe61:
+	.size	 Task_UseLure,.Lfe61-Task_UseLure
 	.align	2, 0
 	.type	 Task_UsedBlackWhiteFlute,function
 	.thumb_func
@@ -2792,7 +2813,7 @@ Task_UsedBlackWhiteFlute:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	add	r5, r4, #0
-	ldr	r0, .L395
+	ldr	r0, .L398
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
@@ -2803,41 +2824,41 @@ Task_UsedBlackWhiteFlute:
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	cmp	r0, #0x7
-	ble	.L392	@cond_branch
+	ble	.L395	@cond_branch
 	mov	r0, #0x75
 	bl	PlaySE
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L393	@cond_branch
-	ldr	r2, .L395+0x4
-	ldr	r3, .L395+0x8
+	bne	.L396	@cond_branch
+	ldr	r2, .L398+0x4
+	ldr	r3, .L398+0x8
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-	b	.L392
-.L396:
+	b	.L395
+.L399:
 	.align	2, 0
-.L395:
+.L398:
 	.word	gTasks
 	.word	gStringVar4
 	.word	BagMenu_InitListsMenu
-.L393:
-	ldr	r1, .L397
-	ldr	r2, .L397+0x4
+.L396:
+	ldr	r1, .L400
+	ldr	r2, .L400+0x4
 	add	r0, r5, #0
 	bl	DisplayItemMessageInBattlePyramid
-.L392:
+.L395:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L398:
+.L401:
 	.align	2, 0
-.L397:
+.L400:
 	.word	gStringVar4
 	.word	Task_CloseBattlePyramidBagMessage
-.Lfe61:
-	.size	 Task_UsedBlackWhiteFlute,.Lfe61-Task_UsedBlackWhiteFlute
+.Lfe62:
+	.size	 Task_UsedBlackWhiteFlute,.Lfe62-Task_UsedBlackWhiteFlute
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_BlackWhiteFlute
 	.type	 ItemUseOutOfBattle_BlackWhiteFlute,function
@@ -2846,62 +2867,62 @@ ItemUseOutOfBattle_BlackWhiteFlute:
 	push	{r4, r5, lr}
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
-	ldr	r4, .L402
+	ldr	r4, .L405
 	ldrh	r0, [r4]
-	ldr	r1, .L402+0x4
+	ldr	r1, .L405+0x4
 	bl	CopyItemName
 	ldrh	r0, [r4]
 	cmp	r0, #0x3a
-	bne	.L400	@cond_branch
-	ldr	r0, .L402+0x8
+	bne	.L403	@cond_branch
+	ldr	r0, .L405+0x8
 	bl	FlagSet
-	ldr	r0, .L402+0xc
+	ldr	r0, .L405+0xc
 	bl	FlagClear
-	ldr	r0, .L402+0x10
-	ldr	r1, .L402+0x14
+	ldr	r0, .L405+0x10
+	ldr	r1, .L405+0x14
 	bl	StringExpandPlaceholders
-	b	.L401
-.L403:
+	b	.L404
+.L406:
 	.align	2, 0
-.L402:
+.L405:
 	.word	gSpecialVar_ItemId
 	.word	gStringVar2
 	.word	0x8ad
 	.word	0x8ae
 	.word	gStringVar4
 	.word	gText_UsedVar2WildLured
-.L400:
-	ldr	r0, .L404
+.L403:
+	ldr	r0, .L407
 	bl	FlagSet
-	ldr	r0, .L404+0x4
+	ldr	r0, .L407+0x4
 	bl	FlagClear
-	ldr	r0, .L404+0x8
-	ldr	r1, .L404+0xc
+	ldr	r0, .L407+0x8
+	ldr	r1, .L407+0xc
 	bl	StringExpandPlaceholders
-.L401:
-	ldr	r1, .L404+0x10
+.L404:
+	ldr	r1, .L407+0x10
 	lsl	r0, r5, #0x2
 	add	r0, r0, r5
 	lsl	r0, r0, #0x3
 	add	r0, r0, r1
 	mov	r1, #0x0
 	strh	r1, [r0, #0x18]
-	ldr	r1, .L404+0x14
+	ldr	r1, .L407+0x14
 	str	r1, [r0]
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L405:
+.L408:
 	.align	2, 0
-.L404:
+.L407:
 	.word	0x8ae
 	.word	0x8ad
 	.word	gStringVar4
 	.word	gText_UsedVar2WildRepelled
 	.word	gTasks
 	.word	Task_UsedBlackWhiteFlute
-.Lfe62:
-	.size	 ItemUseOutOfBattle_BlackWhiteFlute,.Lfe62-ItemUseOutOfBattle_BlackWhiteFlute
+.Lfe63:
+	.size	 ItemUseOutOfBattle_BlackWhiteFlute,.Lfe63-ItemUseOutOfBattle_BlackWhiteFlute
 	.align	2, 0
 	.globl	Task_UseDigEscapeRopeOnField
 	.type	 Task_UseDigEscapeRopeOnField,function
@@ -2918,8 +2939,8 @@ Task_UseDigEscapeRopeOnField:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.Lfe63:
-	.size	 Task_UseDigEscapeRopeOnField,.Lfe63-Task_UseDigEscapeRopeOnField
+.Lfe64:
+	.size	 Task_UseDigEscapeRopeOnField,.Lfe64-Task_UseDigEscapeRopeOnField
 	.align	2, 0
 	.type	 ItemUseOnFieldCB_EscapeRope,function
 	.thumb_func
@@ -2930,53 +2951,53 @@ ItemUseOnFieldCB_EscapeRope:
 	lsr	r4, r4, #0x18
 	bl	Overworld_ResetStateAfterDigEscRope
 	bl	RemoveUsedItem
-	ldr	r1, .L408
+	ldr	r1, .L411
 	lsl	r0, r4, #0x2
 	add	r0, r0, r4
 	lsl	r0, r0, #0x3
 	add	r0, r0, r1
 	mov	r1, #0x0
 	strh	r1, [r0, #0x8]
-	ldr	r1, .L408+0x4
-	ldr	r2, .L408+0x8
+	ldr	r1, .L411+0x4
+	ldr	r2, .L411+0x8
 	add	r0, r4, #0
 	bl	DisplayItemMessageOnField
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L409:
+.L412:
 	.align	2, 0
-.L408:
+.L411:
 	.word	gTasks
 	.word	gStringVar4
 	.word	Task_UseDigEscapeRopeOnField
-.Lfe64:
-	.size	 ItemUseOnFieldCB_EscapeRope,.Lfe64-ItemUseOnFieldCB_EscapeRope
+.Lfe65:
+	.size	 ItemUseOnFieldCB_EscapeRope,.Lfe65-ItemUseOnFieldCB_EscapeRope
 	.align	2, 0
 	.globl	CanUseDigOrEscapeRopeOnCurMap
 	.type	 CanUseDigOrEscapeRopeOnCurMap,function
 	.thumb_func
 CanUseDigOrEscapeRopeOnCurMap:
 	push	{lr}
-	ldr	r0, .L414
+	ldr	r0, .L417
 	ldrb	r1, [r0, #0x1a]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L411	@cond_branch
+	bne	.L414	@cond_branch
 	mov	r0, #0x0
-	b	.L413
-.L415:
+	b	.L416
+.L418:
 	.align	2, 0
-.L414:
+.L417:
 	.word	gMapHeader
-.L411:
+.L414:
 	mov	r0, #0x1
-.L413:
+.L416:
 	pop	{r1}
 	bx	r1
-.Lfe65:
-	.size	 CanUseDigOrEscapeRopeOnCurMap,.Lfe65-CanUseDigOrEscapeRopeOnCurMap
+.Lfe66:
+	.size	 CanUseDigOrEscapeRopeOnCurMap,.Lfe66-CanUseDigOrEscapeRopeOnCurMap
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_EscapeRope
 	.type	 ItemUseOutOfBattle_EscapeRope,function
@@ -2989,20 +3010,20 @@ ItemUseOutOfBattle_EscapeRope:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L417	@cond_branch
-	ldr	r1, .L419
-	ldr	r0, .L419+0x4
+	bne	.L420	@cond_branch
+	ldr	r1, .L422
+	ldr	r0, .L422+0x4
 	str	r0, [r1]
 	add	r0, r4, #0
 	bl	SetUpItemUseOnFieldCallback
-	b	.L418
-.L420:
+	b	.L421
+.L423:
 	.align	2, 0
-.L419:
+.L422:
 	.word	sItemUseOnFieldCB
 	.word	ItemUseOnFieldCB_EscapeRope
-.L417:
-	ldr	r0, .L421
+.L420:
+	ldr	r0, .L424
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
@@ -3010,16 +3031,16 @@ ItemUseOutOfBattle_EscapeRope:
 	ldrb	r1, [r1, #0xe]
 	add	r0, r4, #0
 	bl	DisplayDadsAdviceCannotUseItemMessage
-.L418:
+.L421:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L422:
+.L425:
 	.align	2, 0
-.L421:
+.L424:
 	.word	gTasks
-.Lfe66:
-	.size	 ItemUseOutOfBattle_EscapeRope,.Lfe66-ItemUseOutOfBattle_EscapeRope
+.Lfe67:
+	.size	 ItemUseOutOfBattle_EscapeRope,.Lfe67-ItemUseOutOfBattle_EscapeRope
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_EvolutionStone
 	.type	 ItemUseOutOfBattle_EvolutionStone,function
@@ -3028,22 +3049,22 @@ ItemUseOutOfBattle_EvolutionStone:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L424
-	ldr	r1, .L424+0x4
+	ldr	r2, .L427
+	ldr	r1, .L427+0x4
 	str	r1, [r2]
 	bl	SetUpItemUseCallback
 	pop	{r0}
 	bx	r0
-.L425:
+.L428:
 	.align	2, 0
-.L424:
+.L427:
 	.word	gItemUseCB
 	.word	ItemUseCB_EvolutionStone
-.Lfe67:
-	.size	 ItemUseOutOfBattle_EvolutionStone,.Lfe67-ItemUseOutOfBattle_EvolutionStone
+.Lfe68:
+	.size	 ItemUseOutOfBattle_EvolutionStone,.Lfe68-ItemUseOutOfBattle_EvolutionStone
 	.section .rodata
-	.type	 sText_BallsCannotBeUsed.204,object
-sText_BallsCannotBeUsed.204:
+	.type	 sText_BallsCannotBeUsed.207,object
+sText_BallsCannotBeUsed.207:
 	.byte	0xca
 	.byte	0xe3
 	.byte	0xdf
@@ -3082,8 +3103,8 @@ sText_BallsCannotBeUsed.204:
 	.byte	0xab
 	.byte	0xfb
 	.byte	0xff
-	.type	 textCantThrowPokeBall.205,object
-textCantThrowPokeBall.205:
+	.type	 textCantThrowPokeBall.208,object
+textCantThrowPokeBall.208:
 	.byte	0xbd
 	.byte	0xd5
 	.byte	0xe2
@@ -3139,8 +3160,8 @@ textCantThrowPokeBall.205:
 	.byte	0xab
 	.byte	0xfb
 	.byte	0xff
-	.type	 textCantThrowPokeBall.206,object
-textCantThrowPokeBall.206:
+	.type	 textCantThrowPokeBall.209,object
+textCantThrowPokeBall.209:
 	.byte	0xbd
 	.byte	0xd5
 	.byte	0xe2
@@ -3176,141 +3197,141 @@ ItemUseInBattle_PokeBall:
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L427	@cond_branch
-	ldr	r2, .L445
-	b	.L443
-.L446:
+	beq	.L430	@cond_branch
+	ldr	r2, .L448
+	b	.L446
+.L449:
 	.align	2, 0
-.L445:
-	.word	sText_BallsCannotBeUsed.204
-.L427:
+.L448:
+	.word	sText_BallsCannotBeUsed.207
+.L430:
 	mov	r0, #0x1
 	bl	GetBattlerAtPosition
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	IsBattlerAlive
 	cmp	r0, #0
-	beq	.L429	@cond_branch
+	beq	.L432	@cond_branch
 	mov	r0, #0x3
 	bl	GetBattlerAtPosition
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	IsBattlerAlive
 	cmp	r0, #0
-	beq	.L429	@cond_branch
+	beq	.L432	@cond_branch
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L430	@cond_branch
-	ldr	r2, .L447
-	b	.L443
-.L448:
+	bne	.L433	@cond_branch
+	ldr	r2, .L450
+	b	.L446
+.L451:
 	.align	2, 0
-.L447:
-	.word	textCantThrowPokeBall.205
-.L430:
-	ldr	r1, .L449
-	b	.L444
 .L450:
+	.word	textCantThrowPokeBall.208
+.L433:
+	ldr	r1, .L452
+	b	.L447
+.L453:
 	.align	2, 0
-.L449:
-	.word	textCantThrowPokeBall.205
-.L429:
-	ldr	r4, .L451
+.L452:
+	.word	textCantThrowPokeBall.208
+.L432:
+	ldr	r4, .L454
 	mov	r0, #0x2
 	bl	GetBattlerAtPosition
 	ldrb	r1, [r4]
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r1, r0
-	bne	.L433	@cond_branch
+	bne	.L436	@cond_branch
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	IsBattlerAlive
 	cmp	r0, #0
-	beq	.L433	@cond_branch
+	beq	.L436	@cond_branch
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L434	@cond_branch
-	ldr	r2, .L451+0x4
-	b	.L443
-.L452:
+	bne	.L437	@cond_branch
+	ldr	r2, .L454+0x4
+	b	.L446
+.L455:
 	.align	2, 0
-.L451:
+.L454:
 	.word	gBattlerInMenuId
-	.word	textCantThrowPokeBall.206
-.L434:
-	ldr	r1, .L453
-.L444:
-	ldr	r2, .L453+0x4
+	.word	textCantThrowPokeBall.209
+.L437:
+	ldr	r1, .L456
+.L447:
+	ldr	r2, .L456+0x4
 	add	r0, r5, #0
 	bl	DisplayItemMessageInBattlePyramid
-	b	.L428
-.L454:
+	b	.L431
+.L457:
 	.align	2, 0
-.L453:
-	.word	textCantThrowPokeBall.206
+.L456:
+	.word	textCantThrowPokeBall.209
 	.word	Task_CloseBattlePyramidBagMessage
-.L433:
+.L436:
 	bl	IsPlayerPartyAndPokemonStorageFull
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L437	@cond_branch
-	ldr	r0, .L455
+	bne	.L440	@cond_branch
+	ldr	r0, .L458
 	ldrh	r0, [r0]
 	mov	r1, #0x1
 	bl	RemoveBagItem
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L438	@cond_branch
+	bne	.L441	@cond_branch
 	add	r0, r5, #0
 	bl	Task_FadeAndCloseBagMenu
-	b	.L428
-.L456:
+	b	.L431
+.L459:
 	.align	2, 0
-.L455:
+.L458:
 	.word	gSpecialVar_ItemId
-.L438:
+.L441:
 	add	r0, r5, #0
 	bl	CloseBattlePyramidBagAndSetCallback
-	b	.L428
-.L437:
+	b	.L431
+.L440:
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L441	@cond_branch
-	ldr	r2, .L457
-.L443:
-	ldr	r3, .L457+0x4
+	bne	.L444	@cond_branch
+	ldr	r2, .L460
+.L446:
+	ldr	r3, .L460+0x4
 	add	r0, r5, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-	b	.L428
-.L458:
+	b	.L431
+.L461:
 	.align	2, 0
-.L457:
+.L460:
 	.word	gText_BoxFull
 	.word	BagMenu_InitListsMenu
-.L441:
-	ldr	r1, .L459
-	ldr	r2, .L459+0x4
+.L444:
+	ldr	r1, .L462
+	ldr	r2, .L462+0x4
 	add	r0, r5, #0
 	bl	DisplayItemMessageInBattlePyramid
-.L428:
+.L431:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L460:
+.L463:
 	.align	2, 0
-.L459:
+.L462:
 	.word	gText_BoxFull
 	.word	Task_CloseBattlePyramidBagMessage
-.Lfe68:
-	.size	 ItemUseInBattle_PokeBall,.Lfe68-ItemUseInBattle_PokeBall
+.Lfe69:
+	.size	 ItemUseInBattle_PokeBall,.Lfe69-ItemUseInBattle_PokeBall
 	.align	2, 0
 	.type	 Task_CloseStatIncreaseMessage,function
 	.thumb_func
@@ -3319,32 +3340,32 @@ Task_CloseStatIncreaseMessage:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	add	r5, r4, #0
-	ldr	r0, .L465
+	ldr	r0, .L468
 	ldrh	r1, [r0, #0x2e]
 	mov	r0, #0x3
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L462	@cond_branch
+	beq	.L465	@cond_branch
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L463	@cond_branch
+	bne	.L466	@cond_branch
 	add	r0, r4, #0
 	bl	Task_FadeAndCloseBagMenu
-	b	.L462
-.L466:
+	b	.L465
+.L469:
 	.align	2, 0
-.L465:
+.L468:
 	.word	gMain
-.L463:
+.L466:
 	add	r0, r5, #0
 	bl	CloseBattlePyramidBagAndSetCallback
-.L462:
+.L465:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.Lfe69:
-	.size	 Task_CloseStatIncreaseMessage,.Lfe69-Task_CloseStatIncreaseMessage
+.Lfe70:
+	.size	 Task_CloseStatIncreaseMessage,.Lfe70-Task_CloseStatIncreaseMessage
 	.align	2, 0
 	.type	 Task_UseStatIncreaseItem,function
 	.thumb_func
@@ -3353,7 +3374,7 @@ Task_UseStatIncreaseItem:
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
 	add	r6, r5, #0
-	ldr	r0, .L471
+	ldr	r0, .L474
 	lsl	r1, r5, #0x2
 	add	r1, r1, r5
 	lsl	r1, r1, #0x3
@@ -3364,48 +3385,48 @@ Task_UseStatIncreaseItem:
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	cmp	r0, #0x7
-	ble	.L468	@cond_branch
+	ble	.L471	@cond_branch
 	mov	r0, #0x1
 	bl	PlaySE
-	ldr	r4, .L471+0x4
+	ldr	r4, .L474+0x4
 	ldrh	r0, [r4]
 	mov	r1, #0x1
 	bl	RemoveBagItem
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L469	@cond_branch
+	bne	.L472	@cond_branch
 	ldrh	r0, [r4]
 	bl	UseStatIncreaseItem
 	add	r2, r0, #0
-	ldr	r3, .L471+0x8
+	ldr	r3, .L474+0x8
 	add	r0, r5, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-	b	.L468
-.L472:
+	b	.L471
+.L475:
 	.align	2, 0
-.L471:
+.L474:
 	.word	gTasks
 	.word	gSpecialVar_ItemId
 	.word	Task_CloseStatIncreaseMessage
-.L469:
+.L472:
 	ldrh	r0, [r4]
 	bl	UseStatIncreaseItem
 	add	r1, r0, #0
-	ldr	r2, .L473
+	ldr	r2, .L476
 	add	r0, r6, #0
 	bl	DisplayItemMessageInBattlePyramid
-.L468:
+.L471:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L474:
+.L477:
 	.align	2, 0
-.L473:
+.L476:
 	.word	Task_CloseStatIncreaseMessage
-.Lfe70:
-	.size	 Task_UseStatIncreaseItem,.Lfe70-Task_UseStatIncreaseItem
+.Lfe71:
+	.size	 Task_UseStatIncreaseItem,.Lfe71-Task_UseStatIncreaseItem
 	.align	2, 0
 	.globl	ItemUseInBattle_StatIncrease
 	.type	 ItemUseInBattle_StatIncrease,function
@@ -3414,17 +3435,17 @@ ItemUseInBattle_StatIncrease:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r1, .L480
-	ldr	r0, .L480+0x4
+	ldr	r1, .L483
+	ldr	r0, .L483+0x4
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	ldrh	r2, [r0]
 	mov	r0, #0x64
 	mul	r0, r0, r2
-	ldr	r1, .L480+0x8
+	ldr	r1, .L483+0x8
 	add	r0, r0, r1
-	ldr	r1, .L480+0xc
+	ldr	r1, .L483+0xc
 	ldrh	r1, [r1]
 	lsl	r2, r2, #0x18
 	lsr	r2, r2, #0x18
@@ -3433,57 +3454,57 @@ ItemUseInBattle_StatIncrease:
 	lsl	r0, r0, #0x18
 	lsr	r2, r0, #0x18
 	cmp	r2, #0
-	beq	.L476	@cond_branch
+	beq	.L479	@cond_branch
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L477	@cond_branch
-	ldr	r2, .L480+0x10
-	ldr	r3, .L480+0x14
+	bne	.L480	@cond_branch
+	ldr	r2, .L483+0x10
+	ldr	r3, .L483+0x14
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-	b	.L479
-.L481:
+	b	.L482
+.L484:
 	.align	2, 0
-.L480:
+.L483:
 	.word	gBattlerPartyIndexes
 	.word	gBattlerInMenuId
 	.word	gPlayerParty
 	.word	gSpecialVar_ItemId
 	.word	gText_WontHaveEffect
 	.word	BagMenu_InitListsMenu
-.L477:
-	ldr	r1, .L482
-	ldr	r2, .L482+0x4
+.L480:
+	ldr	r1, .L485
+	ldr	r2, .L485+0x4
 	add	r0, r4, #0
 	bl	DisplayItemMessageInBattlePyramid
-	b	.L479
-.L483:
+	b	.L482
+.L486:
 	.align	2, 0
-.L482:
+.L485:
 	.word	gText_WontHaveEffect
 	.word	Task_CloseBattlePyramidBagMessage
-.L476:
-	ldr	r0, .L484
+.L479:
+	ldr	r0, .L487
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
 	add	r1, r1, r0
-	ldr	r0, .L484+0x4
+	ldr	r0, .L487+0x4
 	str	r0, [r1]
 	strh	r2, [r1, #0x18]
-.L479:
+.L482:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L485:
+.L488:
 	.align	2, 0
-.L484:
+.L487:
 	.word	gTasks
 	.word	Task_UseStatIncreaseItem
-.Lfe71:
-	.size	 ItemUseInBattle_StatIncrease,.Lfe71-ItemUseInBattle_StatIncrease
+.Lfe72:
+	.size	 ItemUseInBattle_StatIncrease,.Lfe72-ItemUseInBattle_StatIncrease
 	.align	2, 0
 	.type	 ItemUseInBattle_ShowPartyMenu,function
 	.thumb_func
@@ -3494,63 +3515,42 @@ ItemUseInBattle_ShowPartyMenu:
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L487	@cond_branch
-	ldr	r0, .L489
+	bne	.L490	@cond_branch
+	ldr	r0, .L492
 	ldr	r1, [r0]
-	ldr	r0, .L489+0x4
+	ldr	r0, .L492+0x4
 	str	r0, [r1]
 	add	r0, r4, #0
 	bl	Task_FadeAndCloseBagMenu
-	b	.L488
-.L490:
+	b	.L491
+.L493:
 	.align	2, 0
-.L489:
+.L492:
 	.word	gBagMenu
 	.word	ChooseMonForInBattleItem
-.L487:
-	ldr	r0, .L491
+.L490:
+	ldr	r0, .L494
 	ldr	r1, [r0]
-	ldr	r0, .L491+0x4
+	ldr	r0, .L494+0x4
 	str	r0, [r1]
 	add	r0, r4, #0
 	bl	CloseBattlePyramidBagAndSetCallback
-.L488:
-	pop	{r4}
-	pop	{r0}
-	bx	r0
-.L492:
-	.align	2, 0
 .L491:
-	.word	gPyramidBagResources
-	.word	ChooseMonForInBattleItem
-.Lfe72:
-	.size	 ItemUseInBattle_ShowPartyMenu,.Lfe72-ItemUseInBattle_ShowPartyMenu
-	.align	2, 0
-	.globl	ItemUseInBattle_Medicine
-	.type	 ItemUseInBattle_Medicine,function
-	.thumb_func
-ItemUseInBattle_Medicine:
-	push	{lr}
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	ldr	r2, .L494
-	ldr	r1, .L494+0x4
-	str	r1, [r2]
-	bl	ItemUseInBattle_ShowPartyMenu
+	pop	{r4}
 	pop	{r0}
 	bx	r0
 .L495:
 	.align	2, 0
 .L494:
-	.word	gItemUseCB
-	.word	ItemUseCB_Medicine
+	.word	gPyramidBagResources
+	.word	ChooseMonForInBattleItem
 .Lfe73:
-	.size	 ItemUseInBattle_Medicine,.Lfe73-ItemUseInBattle_Medicine
+	.size	 ItemUseInBattle_ShowPartyMenu,.Lfe73-ItemUseInBattle_ShowPartyMenu
 	.align	2, 0
-	.globl	ItemUseInBattle_SacredAsh
-	.type	 ItemUseInBattle_SacredAsh,function
+	.globl	ItemUseInBattle_Medicine
+	.type	 ItemUseInBattle_Medicine,function
 	.thumb_func
-ItemUseInBattle_SacredAsh:
+ItemUseInBattle_Medicine:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -3564,14 +3564,14 @@ ItemUseInBattle_SacredAsh:
 	.align	2, 0
 .L497:
 	.word	gItemUseCB
-	.word	ItemUseCB_SacredAsh
+	.word	ItemUseCB_Medicine
 .Lfe74:
-	.size	 ItemUseInBattle_SacredAsh,.Lfe74-ItemUseInBattle_SacredAsh
+	.size	 ItemUseInBattle_Medicine,.Lfe74-ItemUseInBattle_Medicine
 	.align	2, 0
-	.globl	ItemUseInBattle_PPRecovery
-	.type	 ItemUseInBattle_PPRecovery,function
+	.globl	ItemUseInBattle_SacredAsh
+	.type	 ItemUseInBattle_SacredAsh,function
 	.thumb_func
-ItemUseInBattle_PPRecovery:
+ItemUseInBattle_SacredAsh:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -3585,9 +3585,30 @@ ItemUseInBattle_PPRecovery:
 	.align	2, 0
 .L500:
 	.word	gItemUseCB
-	.word	ItemUseCB_PPRecovery
+	.word	ItemUseCB_SacredAsh
 .Lfe75:
-	.size	 ItemUseInBattle_PPRecovery,.Lfe75-ItemUseInBattle_PPRecovery
+	.size	 ItemUseInBattle_SacredAsh,.Lfe75-ItemUseInBattle_SacredAsh
+	.align	2, 0
+	.globl	ItemUseInBattle_PPRecovery
+	.type	 ItemUseInBattle_PPRecovery,function
+	.thumb_func
+ItemUseInBattle_PPRecovery:
+	push	{lr}
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	ldr	r2, .L503
+	ldr	r1, .L503+0x4
+	str	r1, [r2]
+	bl	ItemUseInBattle_ShowPartyMenu
+	pop	{r0}
+	bx	r0
+.L504:
+	.align	2, 0
+.L503:
+	.word	gItemUseCB
+	.word	ItemUseCB_PPRecovery
+.Lfe76:
+	.size	 ItemUseInBattle_PPRecovery,.Lfe76-ItemUseInBattle_PPRecovery
 	.align	2, 0
 	.globl	ItemUseInBattle_Escape
 	.type	 ItemUseInBattle_Escape,function
@@ -3596,42 +3617,42 @@ ItemUseInBattle_Escape:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r0, .L507
+	ldr	r0, .L510
 	ldr	r0, [r0]
 	mov	r1, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L503	@cond_branch
+	bne	.L506	@cond_branch
 	bl	RemoveUsedItem
 	bl	InBattlePyramid
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L504	@cond_branch
-	ldr	r2, .L507+0x4
-	ldr	r3, .L507+0x8
+	bne	.L507	@cond_branch
+	ldr	r2, .L510+0x4
+	ldr	r3, .L510+0x8
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-	b	.L506
-.L508:
+	b	.L509
+.L511:
 	.align	2, 0
-.L507:
+.L510:
 	.word	gBattleTypeFlags
 	.word	gStringVar4
 	.word	Task_FadeAndCloseBagMenu
-.L504:
-	ldr	r1, .L509
-	ldr	r2, .L509+0x4
+.L507:
+	ldr	r1, .L512
+	ldr	r2, .L512+0x4
 	add	r0, r4, #0
 	bl	DisplayItemMessageInBattlePyramid
-	b	.L506
-.L510:
+	b	.L509
+.L513:
 	.align	2, 0
-.L509:
+.L512:
 	.word	gStringVar4
 	.word	CloseBattlePyramidBagAndSetCallback
-.L503:
-	ldr	r0, .L511
+.L506:
+	ldr	r0, .L514
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
@@ -3639,16 +3660,16 @@ ItemUseInBattle_Escape:
 	ldrb	r1, [r1, #0xe]
 	add	r0, r4, #0
 	bl	DisplayDadsAdviceCannotUseItemMessage
-.L506:
+.L509:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L512:
+.L515:
 	.align	2, 0
-.L511:
+.L514:
 	.word	gTasks
-.Lfe76:
-	.size	 ItemUseInBattle_Escape,.Lfe76-ItemUseInBattle_Escape
+.Lfe77:
+	.size	 ItemUseInBattle_Escape,.Lfe77-ItemUseInBattle_Escape
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_EnigmaBerry
 	.type	 ItemUseOutOfBattle_EnigmaBerry,function
@@ -3657,52 +3678,52 @@ ItemUseOutOfBattle_EnigmaBerry:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r0, .L535
+	ldr	r0, .L538
 	ldrh	r0, [r0]
 	bl	GetItemEffectType
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	sub	r0, r0, #0x1
 	cmp	r0, #0x14
-	bls	.LCB4342
-	b	.L533	@long jump
-.LCB4342:
+	bls	.LCB4366
+	b	.L536	@long jump
+.LCB4366:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L535+0x4
+	ldr	r1, .L538+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L536:
+.L539:
 	.align	2, 0
-.L535:
+.L538:
 	.word	gSpecialVar_ItemId
-	.word	.L534
+	.word	.L537
 	.align	2, 0
 	.align	2, 0
-.L534:
-	.word	.L529
-	.word	.L527
-	.word	.L527
-	.word	.L527
-	.word	.L527
-	.word	.L527
-	.word	.L527
-	.word	.L533
-	.word	.L533
-	.word	.L528
-	.word	.L527
-	.word	.L527
-	.word	.L527
-	.word	.L527
-	.word	.L527
-	.word	.L527
-	.word	.L527
-	.word	.L533
-	.word	.L531
-	.word	.L531
+.L537:
 	.word	.L532
-.L527:
-	ldr	r0, .L537
+	.word	.L530
+	.word	.L530
+	.word	.L530
+	.word	.L530
+	.word	.L530
+	.word	.L530
+	.word	.L536
+	.word	.L536
+	.word	.L531
+	.word	.L530
+	.word	.L530
+	.word	.L530
+	.word	.L530
+	.word	.L530
+	.word	.L530
+	.word	.L530
+	.word	.L536
+	.word	.L534
+	.word	.L534
+	.word	.L535
+.L530:
+	ldr	r0, .L540
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
@@ -3711,13 +3732,13 @@ ItemUseOutOfBattle_EnigmaBerry:
 	strh	r0, [r1, #0x10]
 	add	r0, r4, #0
 	bl	ItemUseOutOfBattle_Medicine
-	b	.L514
-.L538:
+	b	.L517
+.L541:
 	.align	2, 0
-.L537:
+.L540:
 	.word	gTasks
-.L528:
-	ldr	r0, .L539
+.L531:
+	ldr	r0, .L542
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
@@ -3726,13 +3747,13 @@ ItemUseOutOfBattle_EnigmaBerry:
 	strh	r0, [r1, #0x10]
 	add	r0, r4, #0
 	bl	ItemUseOutOfBattle_SacredAsh
-	b	.L514
-.L540:
+	b	.L517
+.L543:
 	.align	2, 0
-.L539:
+.L542:
 	.word	gTasks
-.L529:
-	ldr	r0, .L541
+.L532:
+	ldr	r0, .L544
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
@@ -3741,13 +3762,13 @@ ItemUseOutOfBattle_EnigmaBerry:
 	strh	r0, [r1, #0x10]
 	add	r0, r4, #0
 	bl	ItemUseOutOfBattle_RareCandy
-	b	.L514
-.L542:
+	b	.L517
+.L545:
 	.align	2, 0
-.L541:
+.L544:
 	.word	gTasks
-.L531:
-	ldr	r0, .L543
+.L534:
+	ldr	r0, .L546
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
@@ -3756,13 +3777,13 @@ ItemUseOutOfBattle_EnigmaBerry:
 	strh	r0, [r1, #0x10]
 	add	r0, r4, #0
 	bl	ItemUseOutOfBattle_PPUp
-	b	.L514
-.L544:
+	b	.L517
+.L547:
 	.align	2, 0
-.L543:
+.L546:
 	.word	gTasks
-.L532:
-	ldr	r0, .L545
+.L535:
+	ldr	r0, .L548
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
@@ -3771,13 +3792,13 @@ ItemUseOutOfBattle_EnigmaBerry:
 	strh	r0, [r1, #0x10]
 	add	r0, r4, #0
 	bl	ItemUseOutOfBattle_PPRecovery
-	b	.L514
-.L546:
+	b	.L517
+.L549:
 	.align	2, 0
-.L545:
+.L548:
 	.word	gTasks
-.L533:
-	ldr	r0, .L547
+.L536:
+	ldr	r0, .L550
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
@@ -3786,16 +3807,16 @@ ItemUseOutOfBattle_EnigmaBerry:
 	strh	r0, [r1, #0x10]
 	add	r0, r4, #0
 	bl	ItemUseOutOfBattle_CannotUse
-.L514:
+.L517:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L548:
+.L551:
 	.align	2, 0
-.L547:
+.L550:
 	.word	gTasks
-.Lfe77:
-	.size	 ItemUseOutOfBattle_EnigmaBerry,.Lfe77-ItemUseOutOfBattle_EnigmaBerry
+.Lfe78:
+	.size	 ItemUseOutOfBattle_EnigmaBerry,.Lfe78-ItemUseOutOfBattle_EnigmaBerry
 	.align	2, 0
 	.globl	ItemUseInBattle_EnigmaBerry
 	.type	 ItemUseInBattle_EnigmaBerry,function
@@ -3804,69 +3825,69 @@ ItemUseInBattle_EnigmaBerry:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r0, .L564
+	ldr	r0, .L567
 	ldrh	r0, [r0]
 	bl	GetItemEffectType
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x15
-	bhi	.L562	@cond_branch
+	bhi	.L565	@cond_branch
 	lsl	r0, r0, #0x2
-	ldr	r1, .L564+0x4
+	ldr	r1, .L567+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L565:
+.L568:
 	.align	2, 0
-.L564:
+.L567:
 	.word	gSpecialVar_ItemId
+	.word	.L566
+	.align	2, 0
+	.align	2, 0
+.L566:
+	.word	.L554
+	.word	.L565
 	.word	.L563
-	.align	2, 0
-	.align	2, 0
-.L563:
-	.word	.L551
-	.word	.L562
-	.word	.L560
-	.word	.L560
-	.word	.L560
-	.word	.L560
-	.word	.L560
-	.word	.L560
-	.word	.L560
-	.word	.L560
-	.word	.L562
-	.word	.L560
-	.word	.L562
-	.word	.L562
-	.word	.L562
-	.word	.L562
-	.word	.L562
-	.word	.L562
-	.word	.L562
-	.word	.L562
-	.word	.L562
-	.word	.L561
-.L551:
+	.word	.L563
+	.word	.L563
+	.word	.L563
+	.word	.L563
+	.word	.L563
+	.word	.L563
+	.word	.L563
+	.word	.L565
+	.word	.L563
+	.word	.L565
+	.word	.L565
+	.word	.L565
+	.word	.L565
+	.word	.L565
+	.word	.L565
+	.word	.L565
+	.word	.L565
+	.word	.L565
+	.word	.L564
+.L554:
 	add	r0, r4, #0
 	bl	ItemUseInBattle_StatIncrease
-	b	.L550
-.L560:
+	b	.L553
+.L563:
 	add	r0, r4, #0
 	bl	ItemUseInBattle_Medicine
-	b	.L550
-.L561:
+	b	.L553
+.L564:
 	add	r0, r4, #0
 	bl	ItemUseInBattle_PPRecovery
-	b	.L550
-.L562:
+	b	.L553
+.L565:
 	add	r0, r4, #0
 	bl	ItemUseOutOfBattle_CannotUse
-.L550:
+.L553:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.Lfe78:
-	.size	 ItemUseInBattle_EnigmaBerry,.Lfe78-ItemUseInBattle_EnigmaBerry
+.Lfe79:
+	.size	 ItemUseInBattle_EnigmaBerry,.Lfe79-ItemUseInBattle_EnigmaBerry
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_CannotUse
 	.type	 ItemUseOutOfBattle_CannotUse,function
@@ -3875,7 +3896,7 @@ ItemUseOutOfBattle_CannotUse:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L567
+	ldr	r2, .L570
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r1, r1, #0x3
@@ -3884,12 +3905,12 @@ ItemUseOutOfBattle_CannotUse:
 	bl	DisplayDadsAdviceCannotUseItemMessage
 	pop	{r0}
 	bx	r0
-.L568:
+.L571:
 	.align	2, 0
-.L567:
+.L570:
 	.word	gTasks
-.Lfe79:
-	.size	 ItemUseOutOfBattle_CannotUse,.Lfe79-ItemUseOutOfBattle_CannotUse
+.Lfe80:
+	.size	 ItemUseOutOfBattle_CannotUse,.Lfe80-ItemUseOutOfBattle_CannotUse
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_ExpShare
 	.type	 ItemUseOutOfBattle_ExpShare,function
@@ -3899,48 +3920,16 @@ ItemUseOutOfBattle_ExpShare:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	add	r5, r4, #0
-	ldr	r0, .L577
+	ldr	r0, .L580
 	ldr	r0, [r0]
 	ldrb	r1, [r0, #0x15]
 	mov	r0, #0x20
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L570	@cond_branch
+	bne	.L573	@cond_branch
 	mov	r0, #0x5b
 	bl	PlaySE
-	ldr	r0, .L577+0x4
-	lsl	r1, r4, #0x2
-	add	r1, r1, r4
-	lsl	r1, r1, #0x3
-	add	r1, r1, r0
-	mov	r2, #0xc
-	ldrsh	r0, [r1, r2]
-	cmp	r0, #0
-	bne	.L571	@cond_branch
-	ldr	r1, .L577+0x8
-	b	.L576
-.L578:
-	.align	2, 0
-.L577:
-	.word	gSaveBlock2Ptr
-	.word	gTasks
-	.word	gOtherText_ExpShareOn
-.L571:
-	ldr	r2, .L579
-	ldr	r3, .L579+0x4
-	add	r0, r4, #0
-	mov	r1, #0x1
-	bl	DisplayItemMessage
-	b	.L573
-.L580:
-	.align	2, 0
-.L579:
-	.word	gOtherText_ExpShareOn
-	.word	BagMenu_InitListsMenu
-.L570:
-	mov	r0, #0x3
-	bl	PlaySE
-	ldr	r0, .L581
+	ldr	r0, .L580+0x4
 	lsl	r1, r4, #0x2
 	add	r1, r1, r4
 	lsl	r1, r1, #0x3
@@ -3949,26 +3938,58 @@ ItemUseOutOfBattle_ExpShare:
 	ldrsh	r0, [r1, r2]
 	cmp	r0, #0
 	bne	.L574	@cond_branch
-	ldr	r1, .L581+0x4
-.L576:
-	ldr	r2, .L581+0x8
+	ldr	r1, .L580+0x8
+	b	.L579
+.L581:
+	.align	2, 0
+.L580:
+	.word	gSaveBlock2Ptr
+	.word	gTasks
+	.word	gOtherText_ExpShareOn
+.L574:
+	ldr	r2, .L582
+	ldr	r3, .L582+0x4
+	add	r0, r4, #0
+	mov	r1, #0x1
+	bl	DisplayItemMessage
+	b	.L576
+.L583:
+	.align	2, 0
+.L582:
+	.word	gOtherText_ExpShareOn
+	.word	BagMenu_InitListsMenu
+.L573:
+	mov	r0, #0x3
+	bl	PlaySE
+	ldr	r0, .L584
+	lsl	r1, r4, #0x2
+	add	r1, r1, r4
+	lsl	r1, r1, #0x3
+	add	r1, r1, r0
+	mov	r2, #0xc
+	ldrsh	r0, [r1, r2]
+	cmp	r0, #0
+	bne	.L577	@cond_branch
+	ldr	r1, .L584+0x4
+.L579:
+	ldr	r2, .L584+0x8
 	add	r0, r4, #0
 	bl	DisplayItemMessageOnField
-	b	.L573
-.L582:
+	b	.L576
+.L585:
 	.align	2, 0
-.L581:
+.L584:
 	.word	gTasks
 	.word	gOtherText_ExpShareOff
 	.word	Task_CloseCantUseKeyItemMessage
-.L574:
-	ldr	r2, .L583
-	ldr	r3, .L583+0x4
+.L577:
+	ldr	r2, .L586
+	ldr	r3, .L586+0x4
 	add	r0, r5, #0
 	mov	r1, #0x1
 	bl	DisplayItemMessage
-.L573:
-	ldr	r0, .L583+0x8
+.L576:
+	ldr	r0, .L586+0x8
 	ldr	r3, [r0]
 	ldrb	r2, [r3, #0x15]
 	lsr	r1, r2, #0x5
@@ -3984,14 +4005,14 @@ ItemUseOutOfBattle_ExpShare:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L584:
+.L587:
 	.align	2, 0
-.L583:
+.L586:
 	.word	gOtherText_ExpShareOff
 	.word	BagMenu_InitListsMenu
 	.word	gSaveBlock2Ptr
-.Lfe80:
-	.size	 ItemUseOutOfBattle_ExpShare,.Lfe80-ItemUseOutOfBattle_ExpShare
+.Lfe81:
+	.size	 ItemUseOutOfBattle_ExpShare,.Lfe81-ItemUseOutOfBattle_ExpShare
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_EonFlute
 	.type	 ItemUseOutOfBattle_EonFlute,function
@@ -4003,38 +4024,38 @@ ItemUseOutOfBattle_EonFlute:
 	lsl	r0, r4, #0x2
 	add	r0, r0, r4
 	lsl	r0, r0, #0x3
-	ldr	r1, .L588
+	ldr	r1, .L591
 	add	r5, r0, r1
-	ldr	r0, .L588+0x4
+	ldr	r0, .L591+0x4
 	ldrb	r0, [r0, #0x17]
 	bl	Overworld_MapTypeAllowsTeleportAndFly
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L586	@cond_branch
-	ldr	r1, .L588+0x8
-	ldr	r0, .L588+0xc
+	bne	.L589	@cond_branch
+	ldr	r1, .L591+0x8
+	ldr	r0, .L591+0xc
 	str	r0, [r1]
 	add	r0, r4, #0
 	bl	SetUpItemUseOnFieldCallback
-	b	.L587
-.L589:
+	b	.L590
+.L592:
 	.align	2, 0
-.L588:
+.L591:
 	.word	gTasks+0x8
 	.word	gMapHeader
 	.word	sItemUseOnFieldCB
 	.word	ItemUseOnFieldCB_EonFlute
-.L586:
+.L589:
 	ldrb	r1, [r5, #0x6]
 	add	r0, r4, #0
 	bl	DisplayDadsAdviceCannotUseItemMessage
-.L587:
+.L590:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.Lfe81:
-	.size	 ItemUseOutOfBattle_EonFlute,.Lfe81-ItemUseOutOfBattle_EonFlute
+.Lfe82:
+	.size	 ItemUseOutOfBattle_EonFlute,.Lfe82-ItemUseOutOfBattle_EonFlute
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_SootSack
 	.type	 ItemUseOutOfBattle_SootSack,function
@@ -4043,7 +4064,7 @@ ItemUseOutOfBattle_SootSack:
 	push	{r4, r5, lr}
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
-	ldr	r4, .L593
+	ldr	r4, .L596
 	bl	GetAshCount
 	add	r1, r0, #0
 	lsl	r1, r1, #0x10
@@ -4052,11 +4073,11 @@ ItemUseOutOfBattle_SootSack:
 	mov	r2, #0x0
 	mov	r3, #0x4
 	bl	ConvertIntToDecimalStringN
-	ldr	r4, .L593+0x4
-	ldr	r1, .L593+0x8
+	ldr	r4, .L596+0x4
+	ldr	r1, .L596+0x8
 	add	r0, r4, #0
 	bl	StringExpandPlaceholders
-	ldr	r1, .L593+0xc
+	ldr	r1, .L596+0xc
 	lsl	r0, r5, #0x2
 	add	r0, r0, r5
 	lsl	r0, r0, #0x3
@@ -4064,53 +4085,53 @@ ItemUseOutOfBattle_SootSack:
 	mov	r1, #0xe
 	ldrsh	r0, [r0, r1]
 	cmp	r0, #0
-	bne	.L591	@cond_branch
-	ldr	r3, .L593+0x10
+	bne	.L594	@cond_branch
+	ldr	r3, .L596+0x10
 	add	r0, r5, #0
 	mov	r1, #0x1
 	add	r2, r4, #0
 	bl	DisplayItemMessage
-	b	.L592
-.L594:
+	b	.L595
+.L597:
 	.align	2, 0
-.L593:
+.L596:
 	.word	gStringVar1
 	.word	gStringVar4
 	.word	gText_AshQty
 	.word	gTasks
 	.word	BagMenu_InitListsMenu
-.L591:
-	ldr	r2, .L595
+.L594:
+	ldr	r2, .L598
 	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	DisplayItemMessageOnField
-.L592:
+.L595:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L596:
+.L599:
 	.align	2, 0
-.L595:
+.L598:
 	.word	Task_CloseCantUseKeyItemMessage
-.Lfe82:
-	.size	 ItemUseOutOfBattle_SootSack,.Lfe82-ItemUseOutOfBattle_SootSack
+.Lfe83:
+	.size	 ItemUseOutOfBattle_SootSack,.Lfe83-ItemUseOutOfBattle_SootSack
 	.align	2, 0
 	.globl	GetAshCount
 	.type	 GetAshCount,function
 	.thumb_func
 GetAshCount:
 	push	{lr}
-	ldr	r0, .L598
+	ldr	r0, .L601
 	bl	GetVarPointer
 	ldrh	r0, [r0]
 	pop	{r1}
 	bx	r1
-.L599:
+.L602:
 	.align	2, 0
-.L598:
+.L601:
 	.word	0x4048
-.Lfe83:
-	.size	 GetAshCount,.Lfe83-GetAshCount
+.Lfe84:
+	.size	 GetAshCount,.Lfe84-GetAshCount
 	.align	2, 0
 	.globl	ItemUseOutOfBattle_Mints
 	.type	 ItemUseOutOfBattle_Mints,function
@@ -4119,19 +4140,19 @@ ItemUseOutOfBattle_Mints:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L601
-	ldr	r1, .L601+0x4
+	ldr	r2, .L604
+	ldr	r1, .L604+0x4
 	str	r1, [r2]
 	bl	SetUpItemUseCallback
 	pop	{r0}
 	bx	r0
-.L602:
+.L605:
 	.align	2, 0
-.L601:
+.L604:
 	.word	gItemUseCB
-	.word	ItemUseCB_AbilityPatch
-.Lfe84:
-	.size	 ItemUseOutOfBattle_Mints,.Lfe84-ItemUseOutOfBattle_Mints
+	.word	ItemUseCB_Mints
+.Lfe85:
+	.size	 ItemUseOutOfBattle_Mints,.Lfe85-ItemUseOutOfBattle_Mints
 .text
 	.align	2, 0
 

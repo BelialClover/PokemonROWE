@@ -212,8 +212,8 @@ sHealLocations:
 	.space	2
 	.byte	0x0
 	.byte	0x23
-	.short	0xb
-	.short	0xf
+	.short	0x14
+	.short	0xd
 	.space	2
 	.byte	0x0
 	.byte	0x24

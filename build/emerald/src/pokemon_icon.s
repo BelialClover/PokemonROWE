@@ -973,25 +973,25 @@ gMonIconTable:
 	.word	gMonIcon_MukAlolan
 	.word	gMonIcon_ExeggutorAlolan
 	.word	gMonIcon_MarowakAlolan
-	.word	gMonIcon_QuestionMark
-	.word	gMonIcon_QuestionMark
-	.word	gMonIcon_Rapidash
-	.word	gMonIcon_Slowpoke
-	.word	gMonIcon_Slowbro
-	.word	gMonIcon_Farfetchd
-	.word	gMonIcon_Weezing
-	.word	gMonIcon_Mrmime
-	.word	gMonIcon_Articuno
-	.word	gMonIcon_Zapdos
-	.word	gMonIcon_Moltres
-	.word	gMonIcon_Slowking
-	.word	gMonIcon_Corsola
-	.word	gMonIcon_Zigzagoon
-	.word	gMonIcon_Linoone
-	.word	gMonIcon_Darumaka
-	.word	gMonIcon_Darmanitan
-	.word	gMonIcon_Yamask
-	.word	gMonIcon_Stunfisk
+	.word	gMonIcon_MeowthGalarian
+	.word	gMonIcon_PonytaGalarian
+	.word	gMonIcon_RapidashGalarian
+	.word	gMonIcon_SlowpokeGalarian
+	.word	gMonIcon_SlowbroGalarian
+	.word	gMonIcon_FarfetchdGalarian
+	.word	gMonIcon_WeezingGalarian
+	.word	gMonIcon_MrmimeGalarian
+	.word	gMonIcon_ArticunoGalarian
+	.word	gMonIcon_ZapdosGalarian
+	.word	gMonIcon_MoltresGalarian
+	.word	gMonIcon_SlowkingGalarian
+	.word	gMonIcon_CorsolaGalarian
+	.word	gMonIcon_ZigzagoonGalarian
+	.word	gMonIcon_LinooneGalarian
+	.word	gMonIcon_DarumakaGalarian
+	.word	gMonIcon_DarmanitanGalarian
+	.word	gMonIcon_YamaskGalarian
+	.word	gMonIcon_StunfiskGalarian
 	.word	gMonIcon_PikachuCosplay
 	.word	gMonIcon_PikachuRockStar
 	.word	gMonIcon_PikachuBelle
@@ -1073,7 +1073,7 @@ gMonIconTable:
 	.word	gMonIcon_Arceus
 	.word	gMonIcon_BasculinBlueStriped
 	.word	gMonIcon_DarmanitanZenMode
-	.word	gMonIcon_QuestionMark
+	.word	gMonIcon_DarmanitanGalarian
 	.word	gMonIcon_DeerlingSummer
 	.word	gMonIcon_DeerlingAutumn
 	.word	gMonIcon_DeerlingWinter
@@ -2036,48 +2036,12 @@ gMonIconPaletteIndices:
 	.byte	0x2
 	.byte	0x2
 	.byte	0x1
-	.byte	0x2
-	.byte	0x1
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x2
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x1
-	.byte	0x1
-	.byte	0x1
-	.byte	0x1
-	.byte	0x1
-	.byte	0x1
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x1
-	.byte	0x1
-	.byte	0x0
-	.byte	0x1
-	.byte	0x1
-	.byte	0x1
 	.byte	0x1
 	.byte	0x1
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
 	.byte	0x2
-	.byte	0x2
-	.byte	0x1
-	.byte	0x0
-	.byte	0x0
 	.byte	0x2
 	.byte	0x2
 	.byte	0x2
@@ -2086,6 +2050,42 @@ gMonIconPaletteIndices:
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x2
+	.byte	0x2
+	.byte	0x1
+	.byte	0x1
+	.byte	0x1
+	.byte	0x1
+	.byte	0x0
+	.byte	0x0
+	.byte	0x1
+	.byte	0x2
+	.byte	0x1
+	.byte	0x0
+	.byte	0x0
+	.byte	0x1
+	.byte	0x1
+	.byte	0x1
+	.byte	0x1
+	.byte	0x1
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x2
+	.byte	0x2
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x2
+	.byte	0x2
+	.byte	0x2
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
 	.byte	0x2
 	.byte	0x1
 	.byte	0x1
@@ -2100,7 +2100,7 @@ gMonIconPaletteIndices:
 	.byte	0x2
 	.byte	0x2
 	.byte	0x1
-	.byte	0x0
+	.byte	0x2
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0
@@ -2192,25 +2192,25 @@ gMonIconPaletteIndices:
 	.byte	0x0
 	.byte	0x1
 	.byte	0x1
+	.byte	0x2
+	.byte	0x2
+	.byte	0x2
+	.byte	0x0
+	.byte	0x0
+	.byte	0x1
+	.byte	0x1
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
 	.byte	0x0
+	.byte	0x1
+	.byte	0x1
+	.byte	0x1
 	.byte	0x0
 	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
-	.byte	0x0
+	.byte	0x2
+	.byte	0x1
 	.byte	0x2
 	.byte	0x1
 	.byte	0x0

@@ -161,3 +161,42 @@ SouthernIsland_Interior_Movement_LatiApproach: @ 8242BDA
 	walk_down
 	walk_down
 	step_end
+	
+SouthernIsland_Interior_EventScript_Latias::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_LATIAS, 2
+	delay 40
+	waitmoncry
+	setwildbattle SPECIES_LATIAS, 70, ITEM_NONE
+	setflag FLAG_SYS_CTRL_OBJ_DELETE
+	special StartRegiBattle
+	waitstate
+	clearflag FLAG_SYS_CTRL_OBJ_DELETE
+	specialvar VAR_RESULT, GetBattleOutcome
+	compare VAR_RESULT, B_OUTCOME_CAUGHT
+	goto_if_eq SouthernIsland_Interior_EventScript_CaughtLatias
+	compare VAR_RESULT, B_OUTCOME_WON
+	goto_if_eq SouthernIsland_Interior_EventScript_DefeatedLatias
+	compare VAR_RESULT, B_OUTCOME_RAN
+	goto_if_eq SouthernIsland_Interior_EventScript_RanFromLatias
+	compare VAR_RESULT, B_OUTCOME_PLAYER_TELEPORTED
+	goto_if_eq SouthernIsland_Interior_EventScript_RanFromLatias
+	setflag FLAG_UNUSED_0x273
+	release
+	end
+
+SouthernIsland_Interior_EventScript_CaughtLatias::
+	setflag FLAG_UNUSED_0x273
+	goto Common_EventScript_RemoveStaticPokemon
+	end
+
+SouthernIsland_Interior_EventScript_DefeatedLatias::
+	goto Common_EventScript_RemoveStaticPokemon
+	end
+
+SouthernIsland_Interior_EventScript_RanFromLatias::
+	setvar VAR_0x8004, SPECIES_LATIAS
+	goto Common_EventScript_LegendaryFlewAway
+	end

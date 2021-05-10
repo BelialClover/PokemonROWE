@@ -2335,9 +2335,9 @@ u8 DoBattlerEndTurnEffects(void)
                     PREPARE_MOVE_BUFFER(gBattleTextBuff1, gBattleStruct->wrappedMove[gActiveBattler]);
                     gBattlescriptCurrInstr = BattleScript_WrapTurnDmg;
                     if (GetBattlerHoldEffect(gBattleStruct->wrappedBy[gActiveBattler], TRUE) == HOLD_EFFECT_BINDING_BAND)
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / (B_BINDING_DAMAGE >= GEN_6) ? 6 : 8;
+                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
                     else
-                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / (B_BINDING_DAMAGE >= GEN_6) ? 8 : 16;
+                        gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
 
                     if (gBattleMoveDamage == 0)
                         gBattleMoveDamage = 1;
@@ -7686,6 +7686,7 @@ void UndoFormChange(u32 monId, u32 side)
         {SPECIES_MINIOR_METEOR_VIOLET, SPECIES_MINIOR_CORE_VIOLET},
         {SPECIES_MINIOR_METEOR_YELLOW, SPECIES_MINIOR_CORE_YELLOW},
         {SPECIES_WISHIWASHI_SCHOOL, SPECIES_WISHIWASHI},
+		{SPECIES_MORPEKO_HANGRY, SPECIES_MORPEKO},
     };
 
     currSpecies = GetMonData(&party[monId], MON_DATA_SPECIES, NULL);
@@ -7732,10 +7733,12 @@ bool32 CanBattlerGetOrLoseItem(u8 battlerId, u16 itemId)
         return FALSE;
     else if (species == SPECIES_GROUDON && itemId == ITEM_RED_ORB)
         return FALSE;
-    // Mega stone cannot be lost if pokemon can mega evolve with it or is already mega evolved.
+	else if (ItemId_GetHoldEffect(itemId) == HOLD_EFFECT_MEGA_STONE)
+        return FALSE;
+    /*/ Mega stone cannot be lost if pokemon can mega evolve with it or is already mega evolved.
     else if (ItemId_GetHoldEffect(itemId) == HOLD_EFFECT_MEGA_STONE
              && ((GetMegaEvolutionSpecies(species, itemId) != SPECIES_NONE) || gBattleStruct->mega.evolvedPartyIds[GetBattlerSide(battlerId)] & gBitTable[gBattlerPartyIndexes[battlerId]]))
-        return FALSE;
+        return FALSE;/*/
     else if (species == SPECIES_GIRATINA && itemId == ITEM_GRISEOUS_ORB)
         return FALSE;
     else if (species == SPECIES_GENESECT && GetBattlerHoldEffect(battlerId, FALSE) == HOLD_EFFECT_DRIVE)

@@ -2172,7 +2172,7 @@ GetSumOfEnemyPartyLevel:
 	cmp	r3, r4
 	bcs	.L171	@cond_branch
 .L176:
-	lsl	r0, r2, #0x3
+	lsl	r0, r2, #0x4
 	add	r0, r0, r1
 	ldrb	r0, [r0, #0x2]
 	add	r0, r3, r0
@@ -2193,7 +2193,7 @@ GetSumOfEnemyPartyLevel:
 	cmp	r3, r4
 	bcs	.L171	@cond_branch
 .L182:
-	lsl	r0, r2, #0x4
+	lsl	r0, r2, #0x5
 	add	r0, r0, r1
 	ldrb	r0, [r0, #0x2]
 	add	r0, r3, r0
@@ -2214,7 +2214,7 @@ GetSumOfEnemyPartyLevel:
 	cmp	r3, r4
 	bcs	.L171	@cond_branch
 .L188:
-	lsl	r0, r2, #0x1
+	lsl	r0, r2, #0x2
 	add	r0, r0, r2
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
@@ -2237,7 +2237,7 @@ GetSumOfEnemyPartyLevel:
 	cmp	r3, r4
 	bcs	.L171	@cond_branch
 .L194:
-	lsl	r0, r2, #0x2
+	lsl	r0, r2, #0x3
 	add	r0, r0, r2
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1

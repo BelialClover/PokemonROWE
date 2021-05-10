@@ -202,11 +202,7 @@ OldaleTown_Movement_Unknown2: @ 81E9013
 OldaleTown_EventScript_FootprintsMan:: @ 81E901F
 	lock
 	faceplayer
-	goto_if_set FLAG_ADVENTURE_STARTED, OldaleTown_EventScript_NotBlockingPath
 	msgbox OldaleTown_Text_DiscoveredFootprints, MSGBOX_DEFAULT
-	closemessage
-	applymovement LOCALID_FOOTPRINTS_MAN, Common_Movement_FaceOriginalDirection
-	waitmovement 0
 	release
 	end
 
@@ -388,15 +384,10 @@ OldaleTown_Text_WaitDontComeInHere: @ 81E9313
 
 OldaleTown_Text_DiscoveredFootprints: @ 81E939A
 	.string "I just discovered the footprints of\n"
-	.string "a rare Pokémon!\p"
-	.string "Wait until I finish sketching\n"
-	.string "them, okay?$"
+	.string "a rare Pokémon!$"
 
 OldaleTown_Text_FinishedSketchingFootprints: @ 81E93F8
-	.string "I finished sketching the footprints of\n"
-	.string "a rare Pokémon.\p"
-	.string "But it turns out they were only my\n"
-	.string "own footprints…$"
+	.string "Thats a nice Color$"
 
 OldaleTown_Text_MayLetsGoBack: @ 81E9462
 	.string "May: {PLAYER}{KUN}!\n"

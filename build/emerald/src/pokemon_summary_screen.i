@@ -2303,7 +2303,8 @@ bool8 PokemonUseItemEffects(struct Pokemon *mon, u16 item, u8 partyIndex, u8 mov
 bool8 HealStatusConditions(struct Pokemon *mon, u32 battlePartyId, u32 healMask, u8 battlerId);
 u8 GetItemEffectParamOffset(u16 itemId, u8 effectByte, u8 effectBit);
 u8 *UseStatIncreaseItem(u16 itemId);
-u8 GetNature(struct Pokemon *mon);
+
+u8 GetNature(struct Pokemon *mon, bool32 checkHidden);
 u8 GetNatureFromPersonality(u32 personality);
 u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u16 tradePartnerSpecies, u8 *targetFormId);
 u16 HoennPokedexNumToSpecies(u16 hoennNum);
@@ -5297,6 +5298,9 @@ struct TrainerMonNoItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
 };
@@ -5305,8 +5309,12 @@ struct TrainerMonItemDefaultMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
 };
 
@@ -5314,8 +5322,12 @@ struct TrainerMonNoItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -5323,9 +5335,14 @@ struct TrainerMonItemCustomMoves
 {
     u16 iv;
     u8 lvl;
+ u8 evs[6];
+ u8 abilityNum;
+ u16 happiness;
     u16 species;
     u8 formId;
+    u16 postgameheldItem;
     u16 heldItem;
+ u16 postgamemoves[4];
     u16 moves[4];
 };
 
@@ -6426,13 +6443,13 @@ extern const u32 gMonFrontPic_Meltan[];
 extern const u32 gMonFrontPic_Melmetal[];
 extern const u32 gMonFrontPic_Grookey[];
 extern const u32 gMonFrontPic_Thwackey[];
-
+extern const u32 gMonFrontPic_Rillaboom[];
 extern const u32 gMonFrontPic_Scorbunny[];
 extern const u32 gMonFrontPic_Raboot[];
 extern const u32 gMonFrontPic_Cinderace[];
 extern const u32 gMonFrontPic_Sobble[];
 extern const u32 gMonFrontPic_Drizzile[];
-
+extern const u32 gMonFrontPic_Inteleon[];
 extern const u32 gMonFrontPic_Skwovet[];
 extern const u32 gMonFrontPic_Greedent[];
 extern const u32 gMonFrontPic_Rookidee[];
@@ -7566,13 +7583,13 @@ extern const u32 gMonBackPic_Meltan[];
 extern const u32 gMonBackPic_Melmetal[];
 extern const u32 gMonBackPic_Grookey[];
 extern const u32 gMonBackPic_Thwackey[];
-
+extern const u32 gMonBackPic_Rillaboom[];
 extern const u32 gMonBackPic_Scorbunny[];
 extern const u32 gMonBackPic_Raboot[];
 extern const u32 gMonBackPic_Cinderace[];
 extern const u32 gMonBackPic_Sobble[];
 extern const u32 gMonBackPic_Drizzile[];
-
+extern const u32 gMonBackPic_Inteleon[];
 extern const u32 gMonBackPic_Skwovet[];
 extern const u32 gMonBackPic_Greedent[];
 extern const u32 gMonBackPic_Rookidee[];
@@ -8704,13 +8721,13 @@ extern const u32 gMonPalette_Meltan[];
 extern const u32 gMonPalette_Melmetal[];
 extern const u32 gMonPalette_Grookey[];
 extern const u32 gMonPalette_Thwackey[];
-
+extern const u32 gMonPalette_Rillaboom[];
 extern const u32 gMonPalette_Scorbunny[];
 extern const u32 gMonPalette_Raboot[];
 extern const u32 gMonPalette_Cinderace[];
 extern const u32 gMonPalette_Sobble[];
 extern const u32 gMonPalette_Drizzile[];
-
+extern const u32 gMonPalette_Inteleon[];
 extern const u32 gMonPalette_Skwovet[];
 extern const u32 gMonPalette_Greedent[];
 extern const u32 gMonPalette_Rookidee[];
@@ -9869,13 +9886,13 @@ extern const u32 gMonShinyPalette_Meltan[];
 extern const u32 gMonShinyPalette_Melmetal[];
 extern const u32 gMonShinyPalette_Grookey[];
 extern const u32 gMonShinyPalette_Thwackey[];
-
+extern const u32 gMonShinyPalette_Rillaboom[];
 extern const u32 gMonShinyPalette_Scorbunny[];
 extern const u32 gMonShinyPalette_Raboot[];
 extern const u32 gMonShinyPalette_Cinderace[];
 extern const u32 gMonShinyPalette_Sobble[];
 extern const u32 gMonShinyPalette_Drizzile[];
-
+extern const u32 gMonShinyPalette_Inteleon[];
 extern const u32 gMonShinyPalette_Skwovet[];
 extern const u32 gMonShinyPalette_Greedent[];
 extern const u32 gMonShinyPalette_Rookidee[];
@@ -11183,6 +11200,25 @@ extern const u8 gMonIcon_GrimerAlolan[];
 extern const u8 gMonIcon_MukAlolan[];
 extern const u8 gMonIcon_ExeggutorAlolan[];
 extern const u8 gMonIcon_MarowakAlolan[];
+extern const u8 gMonIcon_MeowthGalarian[];
+extern const u8 gMonIcon_PonytaGalarian[];
+extern const u8 gMonIcon_RapidashGalarian[];
+extern const u8 gMonIcon_SlowpokeGalarian[];
+extern const u8 gMonIcon_SlowbroGalarian[];
+extern const u8 gMonIcon_FarfetchdGalarian[];
+extern const u8 gMonIcon_WeezingGalarian[];
+extern const u8 gMonIcon_MrmimeGalarian[];
+extern const u8 gMonIcon_ArticunoGalarian[];
+extern const u8 gMonIcon_ZapdosGalarian[];
+extern const u8 gMonIcon_MoltresGalarian[];
+extern const u8 gMonIcon_SlowkingGalarian[];
+extern const u8 gMonIcon_CorsolaGalarian[];
+extern const u8 gMonIcon_ZigzagoonGalarian[];
+extern const u8 gMonIcon_LinooneGalarian[];
+extern const u8 gMonIcon_DarumakaGalarian[];
+extern const u8 gMonIcon_DarmanitanGalarian[];
+extern const u8 gMonIcon_YamaskGalarian[];
+extern const u8 gMonIcon_StunfiskGalarian[];
 extern const u8 gMonIcon_PikachuCosplay[];
 extern const u8 gMonIcon_PikachuRockStar[];
 extern const u8 gMonIcon_PikachuBelle[];
@@ -15045,6 +15081,15 @@ extern const u32 gPokenavMessageBox_Tilemap[];
 extern const u16 gPokenavMessageBox_Pal[];
 extern const u32 gPokenavOptions_Gfx[];
 extern const u16 gPokenavOptions_Pal[];
+
+
+extern const u32 gItemIcon_Mint[];
+extern const u32 gItemIconPalette_RedMint[];
+extern const u32 gItemIconPalette_BlueMint[];
+extern const u32 gItemIconPalette_PinkMint[];
+extern const u32 gItemIconPalette_GreenMint[];
+extern const u32 gItemIconPalette_LightBlueMint[];
+extern const u32 gItemIconPalette_YellowMint[];
 # 19 "src/pokemon_summary_screen.c" 2
 # 1 "include/international_string_util.h" 1
 
@@ -16450,6 +16495,7 @@ void DrawHeldItemIconsForTrade(u8 *partyCounts, u8 *partySpriteIds, u8 whichPart
 void CB2_ShowPartyMenuForItemUse(void);
 void ItemUseCB_Medicine(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityCapsule(u8 taskId, TaskFunc task);
+void ItemUseCB_PowerCandy(u8 taskId, TaskFunc task);
 void ItemUseCB_AbilityPatch(u8 taskId, TaskFunc task);
 void ItemUseCB_ReduceEV(u8 taskId, TaskFunc task);
 void ItemUseCB_PPRecovery(u8 taskId, TaskFunc task);
@@ -20123,6 +20169,7 @@ static __attribute__((section("ewram_data"))) struct PokemonSummaryScreenData
         u8 ppBonuses;
         u8 sanity;
         u8 OTName[17];
+  u8 unused0_B;
         u32 OTID;
     } summary;
     u16 bgTilemapBuffers[PSS_PAGE_COUNT][2][0x400];
@@ -20272,6 +20319,7 @@ static void DestroyMoveSelectorSprites(u8 firstArrayId);
 static void SetMainMoveSelectorColor(u8 whichColor);
 static void KeepMoveSelectorVisible(u8 firstSpriteId);
 static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n);
+static void BufferIvOrEvStats(u8 mode);
 
 
 # 1 "src/data/text/move_descriptions.h" 1
@@ -23985,7 +24033,7 @@ const u8 *const gMoveDescriptionPointers[755 - 1] =
     [753 - 1] = sASTRAL_BARRAGEDescription,
     [754 - 1] = sEERIE_SPELLDescription,
 };
-# 307 "src/pokemon_summary_screen.c" 2
+# 309 "src/pokemon_summary_screen.c" 2
 # 1 "src/data/text/nature_names.h" 1
 # 28 "src/data/text/nature_names.h"
 static const u8 sHardyNatureName[] = _("Hardy");
@@ -24043,7 +24091,7 @@ const u8 *const gNatureNamePointers[25] =
     [23] = sCarefulNatureName,
     [24] = sQuirkyNatureName,
 };
-# 308 "src/pokemon_summary_screen.c" 2
+# 310 "src/pokemon_summary_screen.c" 2
 
 static const struct BgTemplate sBgTemplates[] =
 {
@@ -24297,7 +24345,7 @@ static const struct WindowTemplate sSummaryTemplate[] =
     },
     [20] = { 0xFF, 0, 0, 0, 0, 0, 0, }
 };
-# 602 "src/pokemon_summary_screen.c"
+# 604 "src/pokemon_summary_screen.c"
 static const struct WindowTemplate sPageInfoTemplate[] =
 {
     [0] = {
@@ -24453,11 +24501,13 @@ static void (*const sTextPrinterTasks[])(u8 taskId) =
 };
 
 static const u8 sMemoNatureTextColor[] = _("{COLOR LIGHT_RED}{SHADOW GREEN}");
+static const u8 sMemounused0_BTextColor[] = _(" ({COLOR BLUE}{SHADOW DARK_GREY}");
+static const u8 sText_EndParentheses[] = _("{COLOR WHITE}{SHADOW DARK_GREY})");
 static const u8 sMemoMiscTextColor[] = _("{COLOR WHITE}{SHADOW DARK_GREY}");
-static const u8 sStatsLeftColumnLayout[] = _("{DYNAMIC 0}/{DYNAMIC 1}\n{DYNAMIC 2}\n{DYNAMIC 3}");
+static const u8 sStatsLeftColumnLayout[] = _("{DYNAMIC 0x00}/{DYNAMIC 0x01}\n{DYNAMIC 0x02}\n{DYNAMIC 0x03}");
 static const u8 sStatsLeftColumnLayoutIVEV[] = _("{DYNAMIC 0}\n{DYNAMIC 1}\n{DYNAMIC 2}");
-static const u8 sStatsRightColumnLayout[] = _("{DYNAMIC 0}\n{DYNAMIC 1}\n{DYNAMIC 2}");
-static const u8 sMovesPPLayout[] = _("{PP}{DYNAMIC 0}/{DYNAMIC 1}");
+static const u8 sStatsRightColumnLayout[] = _("{DYNAMIC 0x00}\n{DYNAMIC 0x01}\n{DYNAMIC 0x02}");
+static const u8 sMovesPPLayout[] = _("{PP}{DYNAMIC 0x00}/{DYNAMIC 0x01}");
 
 
 
@@ -25228,7 +25278,9 @@ static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
     case 2:
         if (sMonSummaryScreen->monList.mons == gPlayerParty || sMonSummaryScreen->mode == PSS_MODE_BOX || sMonSummaryScreen->unk40EF == 1)
         {
-            sum->nature = GetNature(mon);
+
+   sum->nature = GetNature(mon, 0);
+            sum->unused0_B = GetMonData(mon, 90);
             sum->currentHP = GetMonData(mon, 57);
             sum->maxHP = GetMonData(mon, 58);
             sum->atk = GetMonData(mon, 59);
@@ -25239,7 +25291,9 @@ static bool8 ExtractMonDataToSummaryStruct(struct Pokemon *mon)
         }
         else
         {
-            sum->nature = GetNature(mon);
+
+   sum->nature = GetNature(mon, 0);
+            sum->unused0_B = GetMonData(mon, 90);
             sum->currentHP = GetMonData(mon, 57);
             sum->maxHP = GetMonData(mon, 58);
             sum->atk = GetMonData(mon, 84);
@@ -25369,6 +25423,27 @@ static void Task_HandleInput(u8 taskId)
             PlaySE(5);
             BeginCloseSummaryScreen(taskId);
         }
+  else if (gMain.newKeys & 0x0100)
+  {
+   if (sMonSummaryScreen->currPageIndex == PSS_PAGE_SKILLS)
+   {
+    BufferIvOrEvStats(0);
+   }
+  }
+  else if (gMain.newKeys & 0x0200)
+  {
+   if (sMonSummaryScreen->currPageIndex == PSS_PAGE_SKILLS)
+   {
+    BufferIvOrEvStats(1);
+   }
+  }
+  else if (gMain.newKeys & 0x0008)
+  {
+   if (sMonSummaryScreen->currPageIndex == PSS_PAGE_SKILLS)
+   {
+    BufferIvOrEvStats(2);
+   }
+  }
     }
 }
 
@@ -26911,6 +26986,13 @@ static void BufferMonTrainerMemo(void)
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, sMemoMiscTextColor);
     BufferNatureString();
 
+    if (sum->unused0_B != 0 && sum->unused0_B != 0)
+    {
+        DynamicPlaceholderTextUtil_SetPlaceholderPtr(5, sMemounused0_BTextColor);
+        DynamicPlaceholderTextUtil_SetPlaceholderPtr(6, gNatureNamePointers[sum->unused0_B]);
+        DynamicPlaceholderTextUtil_SetPlaceholderPtr(7, sText_EndParentheses);
+    }
+
     if (InBattleFactory() == 1 || InSlateportBattleTent() == 1 || IsInGamePartnerMon() == 1)
     {
         DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, gText_XNature);
@@ -27176,38 +27258,124 @@ static void PrintRibbonCount(void)
     PrintTextOnWindow(AddWindowFromTemplateList(sPageSkillsTemplate, 1), text, x, 1, 0, 0);
 }
 
+static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n)
+{
+    static const u8 sTextNatureDown[] = _("{COLOR}{08}");
+    static const u8 sTextNatureUp[] = _("{COLOR}{05}");
+    static const u8 sTextNatureNeutral[] = _("{COLOR}{01}");
+    u8 *txtPtr;
+
+    if (natureMod == 0)
+        txtPtr = StringCopy(dst, sTextNatureNeutral);
+    else if (natureMod > 0)
+        txtPtr = StringCopy(dst, sTextNatureUp);
+    else
+        txtPtr = StringCopy(dst, sTextNatureDown);
+
+    ConvertIntToDecimalStringN(txtPtr, stat, STR_CONV_MODE_RIGHT_ALIGN, n);
+    DynamicPlaceholderTextUtil_SetPlaceholderPtr(strId, dst);
+}
+
+static void BufferIvOrEvStats(u8 mode)
+{
+    u16 hp, hp2, atk, def, spA, spD, spe;
+    u8 *currHPString = Alloc(20);
+    const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
+
+    switch (mode)
+    {
+    case 0:
+
+
+
+
+
+
+
+  hp = GetMonData(&sMonSummaryScreen->currentMon, 26);
+        atk = GetMonData(&sMonSummaryScreen->currentMon, 27);
+        def = GetMonData(&sMonSummaryScreen->currentMon, 28);
+
+        spA = GetMonData(&sMonSummaryScreen->currentMon, 30);
+        spD = GetMonData(&sMonSummaryScreen->currentMon, 31);
+        spe = GetMonData(&sMonSummaryScreen->currentMon, 29);
+        break;
+    case 1:
+        hp = GetMonData(&sMonSummaryScreen->currentMon, 26);
+        atk = GetMonData(&sMonSummaryScreen->currentMon, 27);
+        def = GetMonData(&sMonSummaryScreen->currentMon, 28);
+
+        spA = GetMonData(&sMonSummaryScreen->currentMon, 30);
+        spD = GetMonData(&sMonSummaryScreen->currentMon, 31);
+        spe = GetMonData(&sMonSummaryScreen->currentMon, 29);
+        break;
+    case 2:
+    default:
+        hp = sMonSummaryScreen->summary.currentHP;
+        hp2 = sMonSummaryScreen->summary.maxHP;
+        atk = sMonSummaryScreen->summary.atk;
+        def = sMonSummaryScreen->summary.def;
+
+        spA = sMonSummaryScreen->summary.spatk;
+        spD = sMonSummaryScreen->summary.spdef;
+        spe = sMonSummaryScreen->summary.speed;
+        break;
+    }
+
+    FillWindowPixelBuffer(sMonSummaryScreen->windowIds[2], 0);
+    FillWindowPixelBuffer(sMonSummaryScreen->windowIds[3], 0);
+
+    switch (mode)
+    {
+    case 0:
+    case 1:
+        BufferStat(gStringVar1, 0, hp, 0, 7);
+        BufferStat(gStringVar2, 0, atk, 1, 7);
+        BufferStat(gStringVar3, 0, def, 2, 7);
+        DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayoutIVEV);
+        PrintLeftColumnStats();
+
+        BufferStat(gStringVar1, 0, spA, 0, 3);
+        BufferStat(gStringVar2, 0, spD, 1, 3);
+        BufferStat(gStringVar3, 0, spe, 2, 3);
+        DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
+        PrintRightColumnStats();
+        break;
+    case 2:
+    default:
+        BufferStat(currHPString, 0, hp, 0, 3);
+        BufferStat(gStringVar1, 0, hp2, 1, 3);
+        BufferStat(gStringVar2, natureMod[1 - 1], atk, 2, 7);
+        BufferStat(gStringVar3, natureMod[2 - 1], def, 3, 7);
+        DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayout);
+        PrintLeftColumnStats();
+
+        BufferStat(gStringVar1, natureMod[4 - 1], spA, 0, 3);
+        BufferStat(gStringVar2, natureMod[5 - 1], spD, 1, 3);
+        BufferStat(gStringVar3, natureMod[3 - 1], spe, 2, 3);
+        DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
+        PrintRightColumnStats();
+        break;
+    }
+
+    Free(currHPString);
+}
+
 static void BufferLeftColumnStats(void)
 {
- u8 *currentHPString = Alloc(20);
- u8 *maxHPString = Alloc(20);
- u8 *attackString = Alloc(20);
- u8 *defenseString = Alloc(20);
+    u8 *currentHPString = Alloc(20);
+    u8 *maxHPString = Alloc(20);
+    u8 *attackString = Alloc(20);
+    u8 *defenseString = Alloc(20);
+    const s8 *natureMod = gNatureStatTable[
+      (sMonSummaryScreen->summary.unused0_B == 0 || sMonSummaryScreen->summary.unused0_B == 0) ? sMonSummaryScreen->summary.nature : sMonSummaryScreen->summary.unused0_B];
 
- u8 hpIV = GetMonData(&sMonSummaryScreen->currentMon, 39);
- u8 atkIV = GetMonData(&sMonSummaryScreen->currentMon, 40);
- u8 defIV = GetMonData(&sMonSummaryScreen->currentMon, 41);
-
- u8 hpEV = GetMonData(&sMonSummaryScreen->currentMon, 26);
- u8 atkEV = GetMonData(&sMonSummaryScreen->currentMon, 27);
- u8 defEV = GetMonData(&sMonSummaryScreen->currentMon, 28);
-
- const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
-
- DynamicPlaceholderTextUtil_Reset();
-
- if (gMain.heldKeys & 0x0200) {
-  BufferStat(currentHPString, 0, hpEV, 0, 7);
-  BufferStat(attackString, 0, atkEV, 1, 7);
-  BufferStat(defenseString, 0, defEV, 2, 7);
-  DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayoutIVEV);
- }
- else {
-  BufferStat(currentHPString, 0, sMonSummaryScreen->summary.currentHP, 0, 3);
-  BufferStat(maxHPString, 0, sMonSummaryScreen->summary.maxHP, 1, 3);
-  BufferStat(attackString, natureMod[1 - 1], sMonSummaryScreen->summary.atk, 2, 7);
-  BufferStat(defenseString, natureMod[2 - 1], sMonSummaryScreen->summary.def, 3, 7);
-  DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayout);
- }
+    DynamicPlaceholderTextUtil_Reset();
+    BufferStat(currentHPString, 0, sMonSummaryScreen->summary.currentHP, 0, 3);
+    BufferStat(maxHPString, 0, sMonSummaryScreen->summary.maxHP, 1, 3);
+    BufferStat(attackString, natureMod[1 - 1], sMonSummaryScreen->summary.atk, 2, 7);
+    BufferStat(defenseString, natureMod[2 - 1], sMonSummaryScreen->summary.def, 3, 7);
+    DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsLeftColumnLayout);
 
     Free(currentHPString);
     Free(maxHPString);
@@ -27222,30 +27390,14 @@ static void PrintLeftColumnStats(void)
 
 static void BufferRightColumnStats(void)
 {
- u8 spAIV = GetMonData(&sMonSummaryScreen->currentMon, 43);
- u8 spDIV = GetMonData(&sMonSummaryScreen->currentMon, 44);
- u8 speIV = GetMonData(&sMonSummaryScreen->currentMon, 42);
-
- u8 spAEV = GetMonData(&sMonSummaryScreen->currentMon, 30);
- u8 spDEV = GetMonData(&sMonSummaryScreen->currentMon, 31);
- u8 speEV = GetMonData(&sMonSummaryScreen->currentMon, 29);
-
-    const s8 *natureMod = gNatureStatTable[sMonSummaryScreen->summary.nature];
+    const s8 *natureMod = gNatureStatTable[
+      (sMonSummaryScreen->summary.unused0_B == 0 || sMonSummaryScreen->summary.unused0_B == 0) ? sMonSummaryScreen->summary.nature : sMonSummaryScreen->summary.unused0_B];
 
     DynamicPlaceholderTextUtil_Reset();
-
- if (gMain.heldKeys & 0x0200) {
-  BufferStat(gStringVar1, 0, spAEV, 0, 3);
-  BufferStat(gStringVar2, 0, spDEV, 1, 3);
-  BufferStat(gStringVar3, 0, speEV, 2, 3);
- }
- else {
-  BufferStat(gStringVar1, natureMod[4 - 1], sMonSummaryScreen->summary.spatk, 0, 3);
-  BufferStat(gStringVar2, natureMod[5 - 1], sMonSummaryScreen->summary.spdef, 1, 3);
-  BufferStat(gStringVar3, natureMod[3 - 1], sMonSummaryScreen->summary.speed, 2, 3);
- }
-
- DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
+    BufferStat(gStringVar1, natureMod[4 - 1], sMonSummaryScreen->summary.spatk, 0, 3);
+    BufferStat(gStringVar2, natureMod[5 - 1], sMonSummaryScreen->summary.spdef, 1, 3);
+    BufferStat(gStringVar3, natureMod[3 - 1], sMonSummaryScreen->summary.speed, 2, 3);
+    DynamicPlaceholderTextUtil_ExpandPlaceholders(gStringVar4, sStatsRightColumnLayout);
 }
 
 static void PrintRightColumnStats(void)
@@ -27747,13 +27899,14 @@ static u8 LoadMonGfxAndSprite(struct Pokemon *mon, s16 *state)
         (*state)++;
         return 0xFF;
     case 1:
-        pal = GetMonSpritePalStructFromOtIdPersonality(formSpeciesId, summary->OTID, summary->pid);
+        pal = GetMonSpritePalStructFromOtIdPersonality(formSpeciesId, summary->OTID, 0);
         LoadCompressedSpritePalette(pal);
         SetMultiuseSpriteTemplateToPokemon(pal->tag, 1, summary->formId);
         (*state)++;
         return 0xFF;
     }
 }
+
 
 static void PlayMonCry(void)
 {
@@ -27772,21 +27925,21 @@ static u8 CreateMonSprite(struct Pokemon *unused)
 {
     struct PokeSummary *summary = &sMonSummaryScreen->summary;
     u8 spriteId = CreateSprite(&gMultiuseSpriteTemplate, 40, 64, 5);
-    u16 formSpeciesId = GetFormSpeciesId(summary->species2, summary->formId);
 
     FreeSpriteOamMatrix(&gSprites[spriteId]);
-    gSprites[spriteId].data[0] = formSpeciesId;
+    gSprites[spriteId].data[0] = summary->species2;
     gSprites[spriteId].data[2] = 0;
     gSprites[spriteId].callback = SpriteCB_Pokemon;
     gSprites[spriteId].oam.priority = 0;
 
-    if (!IsMonSpriteNotFlipped(formSpeciesId))
+    if (!IsMonSpriteNotFlipped(summary->species2))
         gSprites[spriteId].hFlip = 1;
     else
         gSprites[spriteId].hFlip = 0;
 
     return spriteId;
 }
+
 
 static void SpriteCB_Pokemon(struct Sprite *sprite)
 {
@@ -27976,22 +28129,4 @@ static void KeepMoveSelectorVisible(u8 firstSpriteId)
         gSprites[spriteIds[i]].data[1] = 0;
         gSprites[spriteIds[i]].invisible = 0;
     }
-}
-
-static void BufferStat(u8 *dst, s8 natureMod, u32 stat, u32 strId, u32 n)
-{
-    static const u8 sTextNatureDown[] = _("{COLOR}{08}");
-    static const u8 sTextNatureUp[] = _("{COLOR}{05}");
-    static const u8 sTextNatureNeutral[] = _("{COLOR}{01}");
-    u8 *txtPtr;
-
-    if (natureMod == 0)
-        txtPtr = StringCopy(dst, sTextNatureNeutral);
-    else if (natureMod > 0)
-        txtPtr = StringCopy(dst, sTextNatureUp);
-    else
-        txtPtr = StringCopy(dst, sTextNatureDown);
-
-    ConvertIntToDecimalStringN(txtPtr, stat, STR_CONV_MODE_RIGHT_ALIGN, n);
-    DynamicPlaceholderTextUtil_SetPlaceholderPtr(strId, dst);
 }

@@ -70,12 +70,23 @@ Start_EventScript_SetUpclock::
 Start_EventScript_Starter_Chose::
 	lock
 	faceplayer
-	call_if_unset FLAG_SET_WALL_CLOCK, Start_EventScript_SetUpclock
+	call_if_unset FLAG_SET_WALL_CLOCK, Start_EventScript_WallClock
 	call_if_set FLAG_SYS_POKEMON_GET, Start_Flagset
 	msgbox Start_Text_Starter_Chose, MSGBOX_SIGN
 	setflag FLAG_RESCUED_BIRCH
 	removeobject LOCALID_ZIGZAGOON
 	goto Start_Chose_Starter
+	end
+	
+Start_EventScript_WallClock::
+	msgbox Text_Set_Up_Clock, MSGBOX_DEFAULT
+	call PlayersHouse_2F_EventScript_SetWallClock
+	delay 30
+	setvar VAR_LITTLEROOT_INTRO_STATE, 6
+	setflag FLAG_SET_WALL_CLOCK
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_1
+	setflag FLAG_HIDE_LITTLEROOT_TOWN_PLAYERS_HOUSE_VIGOROTH_2
+	goto Start_EventScript_Starter_Chose
 	end
 	
 Start_Chose_Starter::
@@ -175,23 +186,46 @@ Start_Flagset::
 	clearflag FLAG_HIDE_MT_CHIMNEY_LAVA_COOKIE_LADY
 	clearflag FLAG_HIDE_WEATHER_INSTITUTE_2F_WORKERS
 	//Flag End
-	goto Start_Chose_Randomized_Mode
+	goto_if_set FLAG_TEMP_1, Start_Flag_Randomized_Mode
+	goto Start_Chose_City
 	end	
 	
+Start_Flag_Randomized_Mode::
+	clearflag FLAG_SYS_DEXNAV_GET
+	goto Start_Chose_City
+	end
+	
+Start_NPC_Change_Mode::
+	lock
+	faceplayer
+	msgbox Text_Mode_Changer, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq Start_NPC_Normal_Mode
+	goto Start_Chose_Randomized_Mode
+	end
+	
 Start_Chose_Randomized_Mode::
+	clearflag FLAG_TEMP_1
+	clearflag FLAG_UNUSED_0x1DA
 	msgbox Text_Randomize, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_Inverse_Mode
-	clearflag FLAG_SYS_DEXNAV_GET
+	setflag FLAG_TEMP_1
+	//clearflag FLAG_SYS_DEXNAV_GET
 	goto Start_Chose_Inverse_Mode
 	end
 
 Start_Chose_Inverse_Mode::
 	msgbox Text_Inverse, MSGBOX_YESNO
 	compare VAR_RESULT, NO
-	goto_if_eq Start_Chose_City
+	goto_if_eq Start_NPC_Normal_Mode
 	setflag FLAG_UNUSED_0x1DA
-	goto Start_Chose_City
+	goto Start_NPC_Normal_Mode
+	end
+	
+Start_NPC_Normal_Mode::
+	msgbox Text_Normal_Mode, MSGBOX_SIGN
+	release
 	end
 
 Start_Chose_City::
@@ -225,9 +259,6 @@ Script_PokeballGet::
 	setflag FLAG_SYS_POKENAV_GET
 	special SetUnlockedPokedexFlags
 	message Text_Start_Lapras
-	playfanfare MUS_OBTAIN_ITEM
-	waitfanfare
-	message Text_Start_Wailmer
 	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
 	message Text_Start_Pokedex
@@ -435,14 +466,16 @@ Text_Start_Pacifidlog_Town::
 //Starters
 
 Start_Text_Starter_Chose:
-	.string "Oh, Welcome to Pokemon ROWE 1.0.8.1\p"
-	.string "Before starting i would like to\n"
-	.string "ask you some questions.\p"
-	.string "What Pokemon would you like\n"
-	.string "as your starter Pokemon.$"
+	.string "Oh, Welcome to Pokemon ROWE 1.1.1\p"
+	.string "I would like to tell you that MyBoy\n"
+	.string "and VBA are not supported, make sure\p"
+	.string "you are using a different emulator.\p"
+	.string "Now, lets start with some questions.$"
+
 
 Start_Text_Starter_Text:
-	.string "Please chose a Starter.$"
+	.string "What Pokemon would you like\n"
+	.string "as your starter Pokemon?.$"
 
 Start_Text_City_Chose:
 	.string "What city would you like\n"
@@ -455,10 +488,8 @@ Text_Start_Pokedex::
 	.string "{PLAYER} obtained the Pokedex.$"
 	
 Text_Start_Lapras::
-	.string "{PLAYER} registered Lapras Surf.$"
-	
-Text_Start_Wailmer::
-	.string "{PLAYER} registered Wailmer Dive.$"
+	.string "{PLAYER} can now use Surf and Dive\n"
+	.string "thanks to the Pokeride.$"
 
 //Starter Scripts
 
@@ -624,6 +655,7 @@ Script_Give_Starter7::
 	playfanfare MUS_OBTAIN_ITEM
 	msgbox Text_Received_Starter7, MSGBOX_DEFAULT
 	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
 	waitfanfare
 	release
 	end
@@ -689,6 +721,10 @@ Text_SetClock:
 	.string "Please set up the clock\n"
 	.string "before starting.$"
 	
+Text_Mode_Changer:
+	.string "Im the mode changer, do you\n"
+	.string "want to change the game modes?.$"	
+	
 Text_Randomize:
 	.string "Do you want to enable\n"
 	.string "the Randomized Mode?.$"
@@ -696,3 +732,11 @@ Text_Randomize:
 Text_Inverse:
 	.string "Do you want to enable\n"
 	.string "the Inverse Mode?.$"
+	
+Text_Normal_Mode:
+	.string "If you made any mistake\n"
+	.string "or want to change anything\p"
+	.string "talk to me again.$"
+	
+Text_Set_Up_Clock:
+	.string "Please set up the clock.$"

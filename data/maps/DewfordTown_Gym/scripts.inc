@@ -187,8 +187,7 @@ DewfordTown_Gym_EventScript_Brawly_PostBattle::
 	
 DewfordTown_Gym_EventScript_BrawlyRematch:: @ 81FC89C
 	msgbox DewfordTown_Gym_Text_BrawlyPreRematch, MSGBOX_DEFAULT
-	trainerbattle_no_intro TRAINER_BRAWLY_1, DewfordTown_Gym_Text_BrawlyRematchDefeat
-	goto DewfordTown_Gym_EventScript_GiveMegastone
+	goto DewfordTown_Gym_EventScript_Start_Rematch_1
 	end
 	
 DewfordTown_Gym_EventScript_BrawlyRematchEnd::
@@ -196,14 +195,118 @@ DewfordTown_Gym_EventScript_BrawlyRematchEnd::
 	setflag FLAG_UNUSED_0x923 
 	end
 	
-DewfordTown_Gym_EventScript_GiveMegastone::
-	goto_if_unset FLAG_RECEIVED_TM04 DewfordTown_Gym_EventScript_BrawlyRematchEnd
-	goto_if_set FLAG_UNUSED_0x292 DewfordTown_Gym_EventScript_BrawlyRematchEnd
-	msgbox MauvilleCity_Gym_Text_ReceivedMegaStone, MSGBOX_DEFAULT
+DewfordTown_Gym_EventScript_Start_Rematch_1::
+	checkitem ITEM_TM08_BULK_UP, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq DewfordTown_Gym_EventScript_Start_Rematch_2
+	trainerbattle_no_intro TRAINER_BRAWLY_1, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	msgbox DewfordTown_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM08_BULK_UP
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_2::
+	goto_if_unset FLAG_RECEIVED_TM08 DewfordTown_Gym_EventScript_Start_Rematch_Party_1
+	checkitem ITEM_TM51_LOW_SWEEP, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq DewfordTown_Gym_EventScript_Start_Rematch_3
+	trainerbattle_no_intro TRAINER_BRAWLY_2, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	msgbox DewfordTown_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM51_LOW_SWEEP
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_3::
+	goto_if_unset FLAG_RECEIVED_TM42 DewfordTown_Gym_EventScript_Start_Rematch_Party_2
+	checkitem ITEM_TM87_SWAGGER, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq DewfordTown_Gym_EventScript_Start_Rematch_4
+	trainerbattle_no_intro TRAINER_BRAWLY_3, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	msgbox DewfordTown_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM87_SWAGGER
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_4::
+	goto_if_unset FLAG_RECEIVED_TM40 DewfordTown_Gym_EventScript_Start_Rematch_Party_3
+	checkitem ITEM_TM52_FOCUS_BLAST, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq DewfordTown_Gym_EventScript_Start_Rematch_5
+	trainerbattle_no_intro TRAINER_BRAWLY_4, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	msgbox DewfordTown_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM52_FOCUS_BLAST
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_5::
+	goto_if_unset FLAG_RECEIVED_TM04 DewfordTown_Gym_EventScript_Start_Rematch_Party_4
+	goto_if_set FLAG_UNUSED_0x292 DewfordTown_Gym_EventScript_Start_Rematch_6
+	trainerbattle_no_intro TRAINER_BRAWLY_4, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	msgbox DewfordTown_Gym_Text_GetMegaStone, MSGBOX_DEFAULT
 	giveitem ITEM_HERACRONITE
 	setflag FLAG_UNUSED_0x292
-	msgbox DewfordTown_Gym_Text_BrawlyPostRematch, MSGBOX_AUTOCLOSE
-	setflag FLAG_UNUSED_0x923 
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_6::
+	goto_if_unset FLAG_RECEIVED_TM03 DewfordTown_Gym_EventScript_Start_Rematch_Party_4
+	checkitem ITEM_TM106_AURA_SPHERE, 1
+	compare VAR_RESULT, TRUE
+	goto_if_eq DewfordTown_Gym_EventScript_Start_Rematch_Final
+	trainerbattle_no_intro TRAINER_BRAWLY_5, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	msgbox DewfordTown_Gym_Text_GetTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM106_AURA_SPHERE
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_Final::
+	random 5
+	switch VAR_RESULT
+	case 0, DewfordTown_Gym_EventScript_Start_Rematch_Party_1
+	case 1, DewfordTown_Gym_EventScript_Start_Rematch_Party_2
+	case 2, DewfordTown_Gym_EventScript_Start_Rematch_Party_3
+	case 3, DewfordTown_Gym_EventScript_Start_Rematch_Party_4
+	case 4, DewfordTown_Gym_EventScript_Start_Rematch_Party_5
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_Party_1::
+	trainerbattle_no_intro TRAINER_BRAWLY_1, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	msgbox DewfordTown_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_LONELY_MINT, 3
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_Party_2::
+	trainerbattle_no_intro TRAINER_BRAWLY_2, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	msgbox DewfordTown_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_ADAMANT_MINT, 3
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_Party_3::
+	trainerbattle_no_intro TRAINER_BRAWLY_3, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	msgbox DewfordTown_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_NAUGHTY_MINT, 3
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_Party_4::
+	trainerbattle_no_intro TRAINER_BRAWLY_4, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	msgbox DewfordTown_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_BRAVE_MINT, 3
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	end
+	
+DewfordTown_Gym_EventScript_Start_Rematch_Party_5::
+	trainerbattle_no_intro TRAINER_BRAWLY_5, DewfordTown_Gym_Text_BrawlyRematchDefeat
+	goto_if_unset FLAG_RECEIVED_TM04, DewfordTown_Gym_EventScript_BrawlyRematchEnd
+	msgbox DewfordTown_Gym_Text_GetReward, MSGBOX_DEFAULT
+	giveitem ITEM_JOLLY_MINT, 3
+	goto DewfordTown_Gym_EventScript_BrawlyRematchEnd
 	end
 
 DewfordTown_Gym_EventScript_GiveHM::
@@ -276,12 +379,12 @@ DewfordTown_Gym_EventScript_GiveHM08::
 
 DewfordTown_Gym_EventScript_GiveBulkUp:: @ 81FC855
 	msgbox Gym_Text_Takethis2, MSGBOX_DEFAULT
-	giveitem ITEM_TM08
+	giveitem ITEM_TM08_BULK_UP
 	msgbox DewfordTown_Gym_Text_ExplainBulkUp, MSGBOX_DEFAULT
 	return
 	
 DewfordTown_Gym_EventScript_GiveBulkUp2: @ 81FC878
-	giveitem ITEM_TM08
+	giveitem ITEM_TM08_BULK_UP
 	compare VAR_RESULT, 0
 	goto_if_eq Common_EventScript_ShowBagIsFull
 	msgbox DewfordTown_Gym_Text_ExplainBulkUp, MSGBOX_DEFAULT
@@ -558,3 +661,17 @@ DewfordTown_Gym_Text_BrawlyRematchNeedTwoMons: @ 81FD3DE
 	.string "that can battle.\p"
 	.string "I'm sorry, but I'd like you to come back\n"
 	.string "with at least two POKéMON.$"
+	
+DewfordTown_Gym_Text_GetTM:
+	.string "Brawly: Please take this\n"
+	.string "Technical Machine.$"
+
+DewfordTown_Gym_Text_GetMegaStone:
+	.string "Brawly: Please take this\n"
+	.string "Mega Stone, with you.\p"
+	.string "Make a Heracross hold it to\n"
+	.string "unleash its Hidden Potential.$"
+	
+DewfordTown_Gym_Text_GetReward:
+	.string "Brawly: Please take this\n"
+	.string "Item as a Reward.$"
