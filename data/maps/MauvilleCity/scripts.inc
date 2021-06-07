@@ -1,4 +1,5 @@
 .set LOCALID_WALLY, 6
+.set LOCALID_WALLY, 6
 .set LOCALID_WALLYS_UNCLE, 7
 .set LOCALID_SCOTT, 11
 
@@ -630,7 +631,7 @@ MauvilleCity_Text_NurseHurtMonBackToHealth: @ 81E0301
 
 MauvilleCity_Text_AllSortsOfPeopleComeThrough: @ 81E037C
 	.string "I got this strange paper saying\n"
-	.string "...You are on version 1.1.1...\p"
+	.string "...You are on version 1.2.1...\p"
 	.string "I have no idea what it means.$"
 
 MauvilleCity_Text_RydelVeryGenerous: @ 81E03FB

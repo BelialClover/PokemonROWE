@@ -2655,9 +2655,9 @@ BagMenu_ItemPrintCallback:
 	.word	gSaveBlock1Ptr
 	.word	0x496
 	.word	sSelectButtonGfx
-	.word	0x3164
+	.word	0x361c
 	.word	sLButtonGfx
-	.word	0x3166
+	.word	0x361e
 	.word	sRButtonGfx
 .Lfe23:
 	.size	 BagMenu_ItemPrintCallback,.Lfe23-BagMenu_ItemPrintCallback
@@ -5349,8 +5349,8 @@ OpenContextMenu:
 	.word	gSaveBlock1Ptr
 	.word	0x496
 	.word	gSpecialVar_ItemId
-	.word	0x3164
-	.word	0x3166
+	.word	0x361c
+	.word	0x361e
 	.word	gBagMenu
 	.word	0x825
 .L505:
@@ -10449,7 +10449,7 @@ ResetRegisteredItem:
 .L1129:
 	.word	gSaveBlock1Ptr
 	.word	0x496
-	.word	0x3164
+	.word	0x361c
 .L1125:
 	ldr	r0, .L1131
 	add	r1, r2, r0
@@ -10465,7 +10465,7 @@ ResetRegisteredItem:
 .L1132:
 	.align	2, 0
 .L1131:
-	.word	0x3166
+	.word	0x361e
 .Lfe138:
 	.size	 ResetRegisteredItem,.Lfe138-ResetRegisteredItem
 	.align	2, 0
@@ -10673,7 +10673,7 @@ ItemMenu_RegisterL:
 	.align	2, 0
 .L1149:
 	.word	gSaveBlock1Ptr
-	.word	0x3164
+	.word	0x361c
 	.word	gSpecialVar_ItemId
 .L1147:
 	strh	r2, [r1]
@@ -10717,7 +10717,7 @@ ItemMenu_RegisterR:
 	.align	2, 0
 .L1156:
 	.word	gSaveBlock1Ptr
-	.word	0x3166
+	.word	0x361e
 	.word	gSpecialVar_ItemId
 .L1154:
 	strh	r2, [r1]
@@ -10843,7 +10843,7 @@ UseRegisteredKeyItemOnField:
 	.align	2, 0
 .L1191:
 	.word	gSaveBlock1Ptr
-	.word	0x3164
+	.word	0x361c
 .L1169:
 	ldr	r0, .L1193
 	bl	VarGet
@@ -10898,7 +10898,7 @@ UseRegisteredKeyItemOnField:
 	.align	2, 0
 .L1195:
 	.word	gSaveBlock1Ptr
-	.word	0x3166
+	.word	0x361e
 	.word	gSpecialVar_ItemId
 	.word	gTasks
 .L1175:
@@ -10934,7 +10934,7 @@ UseRegisteredKeyItemOnField:
 	.align	2, 0
 .L1199:
 	.word	gSaveBlock1Ptr
-	.word	0x3164
+	.word	0x361c
 .L1180:
 	ldr	r0, .L1201
 	ldr	r0, [r0]
@@ -10956,7 +10956,7 @@ UseRegisteredKeyItemOnField:
 	.align	2, 0
 .L1201:
 	.word	gSaveBlock1Ptr
-	.word	0x3166
+	.word	0x361e
 	.word	EventScript_SelectWithoutRegisteredItem
 .Lfe145:
 	.size	 UseRegisteredKeyItemOnField,.Lfe145-UseRegisteredKeyItemOnField

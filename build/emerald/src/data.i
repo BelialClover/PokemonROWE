@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -67364,10 +67364,10 @@ static const struct TrainerMonItemCustomMoves sParty_Norman2[] = {
     .evs = {6, 252, 0, 0, 0, 252},
     .abilityNum = 2,
     .happiness = 255,
- .species = 506,
-    .postgameheldItem = 304,
+ .species = 263,
+    .postgameheldItem = 153,
     .heldItem = 0,
-    .postgamemoves = {216, 422, 583, 242},
+    .postgamemoves = {187, 245, 583, 242},
     .moves = {216, 0, 0, 0}
     },
     {
@@ -67376,34 +67376,34 @@ static const struct TrainerMonItemCustomMoves sParty_Norman2[] = {
     .evs = {3, 252, 0, 0, 0, 252},
     .abilityNum = 0,
     .happiness = 255,
- .species = 190,
+ .species = 128,
     .postgameheldItem = 351,
     .heldItem = 0,
-    .postgamemoves = {252, 282, 216, 332},
+    .postgamemoves = {457, 89, 38, 370},
     .moves = {252, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
     .evs = {6, 252, 0, 0, 0, 252},
-    .abilityNum = 2,
+    .abilityNum = 0,
     .happiness = 255,
- .species = 396,
-    .postgameheldItem = 212,
+ .species = 276,
+    .postgameheldItem = 284,
     .heldItem = 0,
-    .postgamemoves = {370, 413, 38, 355},
+    .postgamemoves = {182, 413, 38, 355},
     .moves = {216, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
     .evs = {6, 0, 0, 252, 0, 252},
-    .abilityNum = 3,
+    .abilityNum = 0,
     .happiness = 255,
- .species = 780,
+ .species = 137,
     .postgameheldItem = 282,
     .heldItem = 0,
-    .postgamemoves = {406, 304, 126, 85},
+    .postgamemoves = {63, 161, 53, 85},
     .moves = {216, 0, 0, 0}
     },
     {
@@ -67437,12 +67437,12 @@ static const struct TrainerMonItemCustomMoves sParty_Norman3[] = {
     .iv = 200,
     .lvl = 5,
     .evs = {6, 252, 0, 0, 0, 252},
-    .abilityNum = 2,
+    .abilityNum = 0,
     .happiness = 255,
- .species = 506,
-    .postgameheldItem = 304,
+ .species = 216,
+    .postgameheldItem = 284,
     .heldItem = 0,
-    .postgamemoves = {216, 422, 583, 242},
+    .postgamemoves = {216, 370, 583, 242},
     .moves = {216, 0, 0, 0}
     },
     {
@@ -67451,11 +67451,11 @@ static const struct TrainerMonItemCustomMoves sParty_Norman3[] = {
     .evs = {3, 252, 0, 0, 0, 252},
     .abilityNum = 0,
     .happiness = 255,
- .species = 190,
+ .species = 241,
     .postgameheldItem = 351,
     .heldItem = 0,
-    .postgamemoves = {252, 282, 216, 332},
-    .moves = {252, 0, 0, 0}
+    .postgamemoves = {89, 282, 216, 208},
+    .moves = {208, 0, 0, 0}
     },
     {
     .iv = 200,
@@ -67463,10 +67463,10 @@ static const struct TrainerMonItemCustomMoves sParty_Norman3[] = {
     .evs = {6, 252, 0, 0, 0, 252},
     .abilityNum = 2,
     .happiness = 255,
- .species = 396,
+ .species = 627,
     .postgameheldItem = 212,
     .heldItem = 0,
-    .postgamemoves = {370, 413, 38, 355},
+    .postgamemoves = {370, 413, 38, 157},
     .moves = {216, 0, 0, 0}
     },
     {
@@ -67475,10 +67475,10 @@ static const struct TrainerMonItemCustomMoves sParty_Norman3[] = {
     .evs = {6, 0, 0, 252, 0, 252},
     .abilityNum = 3,
     .happiness = 255,
- .species = 780,
+ .species = 293,
     .postgameheldItem = 282,
     .heldItem = 0,
-    .postgamemoves = {406, 304, 126, 85},
+    .postgamemoves = {586, 399, 126, 85},
     .moves = {216, 0, 0, 0}
     },
     {
@@ -67511,13 +67511,13 @@ static const struct TrainerMonItemCustomMoves sParty_Norman4[] = {
     {
     .iv = 200,
     .lvl = 5,
-    .evs = {6, 252, 0, 0, 0, 252},
+    .evs = {252, 0, 252, 0, 6, 0},
     .abilityNum = 2,
     .happiness = 255,
- .species = 506,
-    .postgameheldItem = 304,
+ .species = 440,
+    .postgameheldItem = 229,
     .heldItem = 0,
-    .postgamemoves = {216, 422, 583, 242},
+    .postgamemoves = {273, 92, 69, 182},
     .moves = {216, 0, 0, 0}
     },
     {
@@ -67526,34 +67526,34 @@ static const struct TrainerMonItemCustomMoves sParty_Norman4[] = {
     .evs = {3, 252, 0, 0, 0, 252},
     .abilityNum = 0,
     .happiness = 255,
- .species = 190,
-    .postgameheldItem = 351,
+ .species = 572,
+    .postgameheldItem = 219,
     .heldItem = 0,
-    .postgamemoves = {252, 282, 216, 332},
+    .postgamemoves = {541, 282, 350, 331},
     .moves = {252, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
     .evs = {6, 252, 0, 0, 0, 252},
-    .abilityNum = 2,
+    .abilityNum = 3,
     .happiness = 255,
- .species = 396,
-    .postgameheldItem = 212,
+ .species = 775,
+    .postgameheldItem = 153,
     .heldItem = 0,
-    .postgamemoves = {370, 413, 38, 355},
+    .postgamemoves = {216, 452, 409, 157},
     .moves = {216, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
-    .evs = {6, 0, 0, 252, 0, 252},
+    .evs = {6, 252, 0, 0, 0, 252},
     .abilityNum = 3,
     .happiness = 255,
- .species = 780,
+ .species = 585,
     .postgameheldItem = 282,
     .heldItem = 0,
-    .postgamemoves = {406, 304, 126, 85},
+    .postgamemoves = {216, 630, 136, 532},
     .moves = {216, 0, 0, 0}
     },
     {
@@ -67589,10 +67589,10 @@ static const struct TrainerMonItemCustomMoves sParty_Norman5[] = {
     .evs = {6, 252, 0, 0, 0, 252},
     .abilityNum = 2,
     .happiness = 255,
- .species = 506,
-    .postgameheldItem = 304,
+ .species = 143,
+    .postgameheldItem = 229,
     .heldItem = 0,
-    .postgamemoves = {216, 422, 583, 242},
+    .postgamemoves = {216, 89, 303, 409},
     .moves = {216, 0, 0, 0}
     },
     {
@@ -67601,10 +67601,10 @@ static const struct TrainerMonItemCustomMoves sParty_Norman5[] = {
     .evs = {3, 252, 0, 0, 0, 252},
     .abilityNum = 0,
     .happiness = 255,
- .species = 190,
+ .species = 432,
     .postgameheldItem = 351,
     .heldItem = 0,
-    .postgamemoves = {252, 282, 216, 332},
+    .postgamemoves = {252, 282, 216, 583},
     .moves = {252, 0, 0, 0}
     },
     {
@@ -67613,22 +67613,22 @@ static const struct TrainerMonItemCustomMoves sParty_Norman5[] = {
     .evs = {6, 252, 0, 0, 0, 252},
     .abilityNum = 2,
     .happiness = 255,
- .species = 396,
-    .postgameheldItem = 212,
+ .species = 626,
+    .postgameheldItem = 282,
     .heldItem = 0,
-    .postgamemoves = {370, 413, 38, 355},
+    .postgamemoves = {457, 89, 38, 157},
     .moves = {216, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
-    .evs = {6, 0, 0, 252, 0, 252},
-    .abilityNum = 3,
+    .evs = {6, 252, 0, 0, 0, 252},
+    .abilityNum = 2,
     .happiness = 255,
- .species = 780,
-    .postgameheldItem = 282,
+ .species = 660,
+    .postgameheldItem = 351,
     .heldItem = 0,
-    .postgamemoves = {406, 304, 126, 85},
+    .postgamemoves = {216, 89, 7, 14},
     .moves = {216, 0, 0, 0}
     },
     {
@@ -67661,32 +67661,34 @@ static const struct TrainerMonItemCustomMoves sParty_Winona2[] = {
     {
     .iv = 200,
     .lvl = 5,
- .evs = {6, 252, 0, 0, 0, 252},
- .species = 84,
+ .evs = {6, 0, 0, 252, 0, 252},
+ .species = 16,
     .postgameheldItem = 0,
-    .heldItem = 351,
+    .heldItem = 345,
  .happiness = 255,
-    .postgamemoves = {216, 413, 136, 355},
+    .postgamemoves = {542, 304, 257, 355},
+    .moves = {332, 0, 0, 0}
+    },
+    {
+    .iv = 200,
+    .lvl = 5,
+ .evs = {6, 0, 252, 0, 0, 252},
+ .abilityNum = 2,
+ .species = 207,
+    .postgameheldItem = 283,
+    .heldItem = 153,
+    .postgamemoves = {89, 182, 355, 92},
     .moves = {332, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
  .evs = {6, 252, 0, 0, 0, 252},
- .species = 198,
-    .postgameheldItem = 340,
-    .heldItem = 153,
-    .postgamemoves = {413, 389, 355, 211},
-    .moves = {332, 0, 0, 0}
-    },
-    {
-    .iv = 200,
-    .lvl = 5,
- .evs = {6, 0, 252, 252, 0, 0},
- .species = 561,
-    .postgameheldItem = 229,
+ .species = 276,
+    .postgameheldItem = 284,
     .heldItem = 0,
-    .postgamemoves = {94, 403, 247, 257},
+ .happiness = 255,
+    .postgamemoves = {413, 216, 179, 369},
     .moves = {332, 0, 0, 0}
     },
     {
@@ -67705,12 +67707,12 @@ static const struct TrainerMonItemCustomMoves sParty_Winona2[] = {
     .iv = 200,
     .lvl = 5,
  .evs = {6, 0, 252, 0, 0, 252},
-    .abilityNum = 3,
+    .abilityNum = 1,
     .happiness = 255,
- .species = 227,
-    .postgameheldItem = 293,
+ .species = 175,
+    .postgameheldItem = 219,
     .heldItem = 0,
-    .postgamemoves = {413, 355, 704, 442},
+    .postgamemoves = {396, 403, 585, 53},
     .moves = {332, 0, 0, 0}
     },
     {
@@ -67731,32 +67733,34 @@ static const struct TrainerMonItemCustomMoves sParty_Winona3[] = {
     {
     .iv = 200,
     .lvl = 5,
- .evs = {6, 252, 0, 0, 0, 252},
- .species = 84,
+ .evs = {6, 0, 0, 252, 0, 252},
+ .species = 441,
     .postgameheldItem = 0,
-    .heldItem = 351,
+    .heldItem = 346,
  .happiness = 255,
-    .postgamemoves = {216, 413, 136, 355},
+    .postgamemoves = {448, 257, 355, 586},
     .moves = {332, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
  .evs = {6, 252, 0, 0, 0, 252},
- .species = 198,
-    .postgameheldItem = 340,
+ .happiness = 255,
+ .species = 627,
+    .postgameheldItem = 354,
     .heldItem = 153,
-    .postgamemoves = {413, 389, 355, 211},
+    .postgamemoves = {413, 157, 355, 370},
     .moves = {332, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
  .evs = {6, 0, 252, 252, 0, 0},
- .species = 561,
-    .postgameheldItem = 229,
+ .abilityNum = 2,
+ .species = 661,
+    .postgameheldItem = 282,
     .heldItem = 0,
-    .postgamemoves = {94, 403, 247, 257},
+    .postgamemoves = {413, 394, 355, 369},
     .moves = {332, 0, 0, 0}
     },
     {
@@ -67774,13 +67778,13 @@ static const struct TrainerMonItemCustomMoves sParty_Winona3[] = {
     {
     .iv = 200,
     .lvl = 5,
- .evs = {6, 0, 252, 0, 0, 252},
-    .abilityNum = 3,
+ .evs = {6, 0, 0, 252, 0, 252},
+    .abilityNum = 1,
     .happiness = 255,
- .species = 227,
-    .postgameheldItem = 293,
+ .species = 666,
+    .postgameheldItem = 268,
     .heldItem = 0,
-    .postgamemoves = {413, 355, 704, 442},
+    .postgamemoves = {542, 355, 405, 483},
     .moves = {332, 0, 0, 0}
     },
     {
@@ -67802,31 +67806,32 @@ static const struct TrainerMonItemCustomMoves sParty_Winona4[] = {
     .iv = 200,
     .lvl = 5,
  .evs = {6, 252, 0, 0, 0, 252},
- .species = 84,
-    .postgameheldItem = 0,
+ .abilityNum = 2,
+ .species = 396,
+    .postgameheldItem = 266,
     .heldItem = 351,
  .happiness = 255,
-    .postgamemoves = {216, 413, 136, 355},
+    .postgamemoves = {216, 413, 370, 38},
     .moves = {332, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
- .evs = {6, 252, 0, 0, 0, 252},
- .species = 198,
-    .postgameheldItem = 340,
-    .heldItem = 153,
-    .postgamemoves = {413, 389, 355, 211},
-    .moves = {332, 0, 0, 0}
-    },
-    {
-    .iv = 200,
-    .lvl = 5,
- .evs = {6, 0, 252, 252, 0, 0},
- .species = 561,
+ .evs = {252, 0, 6, 0, 252, 0},
+ .species = 226,
     .postgameheldItem = 229,
+    .heldItem = 153,
+    .postgamemoves = {503, 355, 182, 58},
+    .moves = {332, 0, 0, 0}
+    },
+    {
+    .iv = 200,
+    .lvl = 5,
+ .evs = {6, 0, 0, 252, 0, 252},
+ .species = 12,
+    .postgameheldItem = 268,
     .heldItem = 0,
-    .postgamemoves = {94, 403, 247, 257},
+    .postgamemoves = {79, 542, 405, 412},
     .moves = {332, 0, 0, 0}
     },
     {
@@ -67844,13 +67849,13 @@ static const struct TrainerMonItemCustomMoves sParty_Winona4[] = {
     {
     .iv = 200,
     .lvl = 5,
- .evs = {6, 0, 252, 0, 0, 252},
-    .abilityNum = 3,
+ .evs = {6, 0, 0, 252, 0, 252},
+    .abilityNum = 2,
     .happiness = 255,
- .species = 227,
-    .postgameheldItem = 293,
+ .species = 357,
+    .postgameheldItem = 153,
     .heldItem = 0,
-    .postgamemoves = {413, 355, 704, 442},
+    .postgamemoves = {406, 355, 403, 202},
     .moves = {332, 0, 0, 0}
     },
     {
@@ -67871,32 +67876,32 @@ static const struct TrainerMonItemCustomMoves sParty_Winona5[] = {
     {
     .iv = 200,
     .lvl = 5,
- .evs = {6, 252, 0, 0, 0, 252},
- .species = 84,
-    .postgameheldItem = 0,
+ .evs = {252, 0, 252, 0, 6, 0},
+ .species = 823,
+    .postgameheldItem = 293,
     .heldItem = 351,
  .happiness = 255,
-    .postgamemoves = {216, 413, 136, 355},
+    .postgamemoves = {355, 413, 182, 92},
     .moves = {332, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
  .evs = {6, 252, 0, 0, 0, 252},
- .species = 198,
-    .postgameheldItem = 340,
+ .species = 142,
+    .postgameheldItem = 282,
     .heldItem = 153,
-    .postgamemoves = {413, 389, 355, 211},
+    .postgamemoves = {413, 157, 355, 89},
     .moves = {332, 0, 0, 0}
     },
     {
     .iv = 200,
     .lvl = 5,
- .evs = {6, 0, 252, 252, 0, 0},
- .species = 561,
-    .postgameheldItem = 229,
+ .evs = {6, 0, 0, 252, 0, 252},
+ .species = 715,
+    .postgameheldItem = 212,
     .heldItem = 0,
-    .postgamemoves = {94, 403, 247, 257},
+    .postgamemoves = {434, 403, 366, 586},
     .moves = {332, 0, 0, 0}
     },
     {
@@ -67914,13 +67919,13 @@ static const struct TrainerMonItemCustomMoves sParty_Winona5[] = {
     {
     .iv = 200,
     .lvl = 5,
- .evs = {6, 0, 252, 0, 0, 252},
-    .abilityNum = 3,
-    .happiness = 255,
- .species = 227,
-    .postgameheldItem = 293,
-    .heldItem = 0,
-    .postgamemoves = {413, 355, 704, 442},
+ .evs = {6, 252, 0, 0, 0, 252},
+ .abilityNum = 2,
+ .species = 396,
+    .postgameheldItem = 266,
+    .heldItem = 351,
+ .happiness = 255,
+    .postgamemoves = {216, 413, 370, 38},
     .moves = {332, 0, 0, 0}
     },
     {
@@ -68018,7 +68023,7 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza3[] = {
  .evs = {6, 0, 0, 252, 0, 252},
     .happiness = 255,
     .abilityNum = 3,
- .species = 574,
+ .species = 876,
     .postgameheldItem = 229,
     .heldItem = 0,
     .postgamemoves = {473, 247, 412, 605},
@@ -68030,7 +68035,7 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza3[] = {
  .evs = {6, 0, 0, 252, 0, 252},
     .happiness = 255,
     .abilityNum = 3,
- .species = 577,
+ .species = 898 + 300,
     .postgameheldItem = 307,
     .heldItem = 0,
     .postgamemoves = {473, 641, 411, 412},
@@ -68093,7 +68098,7 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza4[] = {
     .evs = {6, 0, 0, 252, 0, 252},
     .abilityNum = 0,
     .happiness = 255,
- .species = 605,
+ .species = 898 + 230,
     .postgameheldItem = 307,
     .heldItem = 0,
     .postgamemoves = {247, 85, 473, 641},
@@ -68105,7 +68110,7 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza4[] = {
     .evs = {6, 0, 0, 252, 0, 252},
     .abilityNum = 2,
     .happiness = 255,
- .species = 517,
+ .species = 678,
     .postgameheldItem = 0,
     .heldItem = 0,
     .postgamemoves = {605, 412, 94, 247},
@@ -68168,10 +68173,10 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza5[] = {
  .evs = {6, 0, 0, 252, 0, 252},
     .abilityNum = 3,
     .happiness = 255,
- .species = 574,
+ .species = 344,
     .postgameheldItem = 229,
     .heldItem = 0,
-    .postgamemoves = {473, 247, 412, 605},
+    .postgamemoves = {473, 247, 85, 414},
     .moves = {347, 0, 0, 0}
     },
     {
@@ -68180,10 +68185,10 @@ static const struct TrainerMonItemCustomMoves sParty_TateAndLiza5[] = {
  .evs = {6, 0, 0, 252, 0, 252},
     .abilityNum = 3,
     .happiness = 255,
- .species = 577,
+ .species = 437,
     .postgameheldItem = 307,
     .heldItem = 0,
-    .postgamemoves = {473, 641, 411, 412},
+    .postgamemoves = {473, 641, 430, 85},
     .moves = {347, 0, 0, 0}
     },
     {

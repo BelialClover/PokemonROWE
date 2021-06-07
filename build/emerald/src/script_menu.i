@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -3060,8 +3060,8 @@ void Fldeff_FlyLand(void);
 void FreeResourcesAndDestroySprite(struct Sprite *sprite, u8 spriteId);
 u8 CreateMonSprite_PicBox(u16 species, s16 x, s16 y, u8 subpriority);
 void StartEscapeRopeFieldEffect(void);
-void FieldEffectFreeGraphicsResources(struct Sprite *sprite);
 
+void FieldEffectFreeGraphicsResources(struct Sprite *sprite);
 void FieldEff_CaveDust(void);
 # 5 "src/script_menu.c" 2
 # 1 "include/field_specials.h" 1
@@ -6942,6 +6942,7 @@ extern const u8 gText_JackRateNickname[];
 extern const u8 gText_JackRememberMove[];
 extern const u8 gText_JackForgetMove[];
 extern const u8 gText_JackTeachMove[];
+extern const u8 gText_JackWonderTrade[];
 
 
 extern const u8 gText_MicrowaveOven[];
@@ -7854,6 +7855,7 @@ static const struct MenuAction MultichoiceList_PokeCenterJack[] =
     {gText_JackRememberMove},
     {gText_JackForgetMove},
     {gText_JackTeachMove},
+ {gText_JackWonderTrade},
     {gText_Exit},
 };
 

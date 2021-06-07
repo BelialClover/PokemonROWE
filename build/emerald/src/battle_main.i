@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -5898,7 +5898,7 @@ extern const u8 gSpeciesNames[][10 + 1];
 extern const u8 gMoveNames[755][16 + 1];
 # 18 "src/battle_main.c" 2
 # 1 "include/dexnav.h" 1
-# 121 "include/dexnav.h"
+# 123 "include/dexnav.h"
 void EndDexNavSearch(u8 taskId);
 void Task_OpenDexNavFromStartMenu(u8 taskId);
 bool8 TryStartDexnavSearch(void);
@@ -17645,6 +17645,7 @@ extern struct SoundInfo gSoundInfo;
 u8 IsHardMode(void);
 u8 GetNumBadges(void);
 u8 getLevelBoost(void);
+u8 GetPlayerUsableMons(void);
 u8 getTrainerLevel(u8 Level);
 u8 getWildLevel(u8 Ability);
 u8 getTrainerPokemonNum(void);
@@ -17656,6 +17657,7 @@ u16 GetBaseSpecie(u16 basespecies);
 u16 GetHeldItem(u16 baseitem);
 u16 GetFirstEvolution(u16 species);
 u8 GetEvsfromPokemon(u8 evs);
+bool8 IsMoveUsable(u8 movepower);
 # 34 "src/battle_main.c" 2
 # 1 "include/palette.h" 1
 # 17 "include/palette.h"
@@ -21225,6 +21227,7 @@ extern const u8 gText_JackRateNickname[];
 extern const u8 gText_JackRememberMove[];
 extern const u8 gText_JackForgetMove[];
 extern const u8 gText_JackTeachMove[];
+extern const u8 gText_JackWonderTrade[];
 
 
 extern const u8 gText_MicrowaveOven[];
@@ -23954,6 +23957,14 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
  u8 PokemonEvs[] = {0,0,0,0,0,0};
  u8 PokemonHapiness;
  u16 PokemonHeldItem[] = {0, 0, 0, 0, 0, 0};
+ u8 isDoubleBattle = gTrainers[trainerNum].doubleBattle;
+ u8 PartySize = GetPlayerUsableMons();
+
+ if(PartySize >= 2 && gTrainers[trainerNum].partySize >= 2 && FlagGet(0x2A2))
+  isDoubleBattle = 1;
+
+ if(IsHardMode() == 1 && PartySize > LeaderMonsCount+1)
+  LeaderMonsCount = PartySize-1;
 
     if (trainerNum == 1024)
         return 0;
@@ -23998,7 +24009,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
         for (i = 0; i < monsCount; i++)
         {
 
-            if (gTrainers[trainerNum].doubleBattle == 1)
+            if (isDoubleBattle == 1)
                 personalityValue = 0x80;
             else if (gTrainers[trainerNum].encounterMusic_gender & 0x80)
                 personalityValue = 0x78;
@@ -24066,7 +24077,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     else{
     for (j = 0; j < 4; j++)
                 {
-     if(partyData[i].moves[j] != 0){
+     if(partyData[i].moves[j] != 0 && IsMoveUsable(gBattleMoves[partyData[i].moves[j]].power)){
                     SetMonData(&party[i], 13 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], 17 + j, &gBattleMoves[partyData[i].moves[j]].pp);
      }
@@ -24165,7 +24176,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
     else{
     for (j = 0; j < 4; j++)
                 {
-     if(partyData[i].moves[j] != 0){
+     if(partyData[i].moves[j] != 0 && IsMoveUsable(gBattleMoves[partyData[i].moves[j]].power)){
                     SetMonData(&party[i], 13 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], 17 + j, &gBattleMoves[partyData[i].moves[j]].pp);
      }
@@ -24196,7 +24207,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
             }
         }
 
-        gBattleTypeFlags |= gTrainers[trainerNum].doubleBattle;
+
+  gBattleTypeFlags |= isDoubleBattle;
     }
 
     return gTrainers[trainerNum].partySize;
@@ -26580,7 +26592,7 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
 
     speed *= gStatStageRatios[gBattleMons[battlerId].statStages[3]][0];
     speed /= gStatStageRatios[gBattleMons[battlerId].statStages[3]][1];
-# 4469 "src/battle_main.c"
+# 4478 "src/battle_main.c"
     if (GetBattlerHoldEffect(battlerId, 0) == 24 || GetBattlerHoldEffect(battlerId, 0) == 99)
         speed /= 2;
     else if (holdEffect == 89)
@@ -26589,6 +26601,8 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         speed = (speed * 150) / 100;
     else if (holdEffect == 93 && gBattleMons[battlerId].species == 132 && !(gBattleMons[battlerId].status2 & (1 << 21)))
         speed *= 2;
+ if (holdEffect == 93 && gBattleMons[battlerId].species == 132 && (gBattleMons[battlerId].status2 & (1 << 21)))
+  speed = (speed * 150) / 100;
 
 
     if (gSideStatuses[(GetBattlerPosition(battlerId) & 1)] & (1 << 10))

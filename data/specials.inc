@@ -545,6 +545,7 @@ gSpecials:: @ 81DBA64
 	def_special GetSpeedIV
 	def_special CutWildEncounter
 	def_special TryStoreCutItem
+	def_special CreateInGameWonderTradePokemon
 	
 	@Rotom Form Change
 	def_special CountRotomInParty

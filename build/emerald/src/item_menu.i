@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -19791,6 +19791,7 @@ extern const u8 gText_JackRateNickname[];
 extern const u8 gText_JackRememberMove[];
 extern const u8 gText_JackForgetMove[];
 extern const u8 gText_JackTeachMove[];
+extern const u8 gText_JackWonderTrade[];
 
 
 extern const u8 gText_MicrowaveOven[];
@@ -19923,7 +19924,7 @@ bool8 InBattlePike(void);
 # 1 "include/constants/rgb.h" 1
 # 54 "src/item_menu.c" 2
 # 1 "include/dexnav.h" 1
-# 121 "include/dexnav.h"
+# 123 "include/dexnav.h"
 void EndDexNavSearch(u8 taskId);
 void Task_OpenDexNavFromStartMenu(u8 taskId);
 bool8 TryStartDexnavSearch(void);

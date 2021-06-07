@@ -447,10 +447,10 @@ NewGameInitData:
 	.word	EventScript_ResetAllMapFlags
 	.word	0xeb4
 	.word	0x496
+	.word	0x361c
 	.word	0x3164
-	.word	0x3168
 	.word	0x4b7
-	.word	0x361f
+	.word	0x361b
 .Lfe12:
 	.size	 NewGameInitData,.Lfe12-NewGameInitData
 	.align	2, 0

@@ -114,13 +114,13 @@ SootopolisCity_Gym_1F_EventScript_JuanDefeated:: @ 8224F82
 	end
 
 SootopolisCity_Gym_1F_EventScript_Juan_PostBattle::
-	goto_if_unset FLAG_UNUSED_0x929, SootopolisCity_Gym_1F_EventScript_JuanRematch
 	msgbox SootopolisCity_Gym_1F_Text_JuanPostBattle, MSGBOX_DEFAULT
 	release
 	end
 	
 //Rematch	
 SootopolisCity_Gym_1F_EventScript_JuanRematch:: @ 8204DB3
+	goto_if_set FLAG_UNUSED_0x929, SootopolisCity_Gym_1F_EventScript_Juan_PostBattle
 	msgbox SootopolisCity_Gym_1F_Text_JuanPreRematch, MSGBOX_DEFAULT
 	goto SootopolisCity_Gym_1F_EventScript_Start_Rematch_1
 	end

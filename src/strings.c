@@ -3883,6 +3883,7 @@ const u8 gText_JackRateNickname[] = _("Rate a nickname");
 const u8 gText_JackRememberMove[] = _("Remember a move");
 const u8 gText_JackForgetMove[] = _("Forget a move");
 const u8 gText_JackTeachMove[] = _("Rate my Pokemon Ivs");
+const u8 gText_JackWonderTrade[] = _("Try Wonder Trading");
 
 // Rotom form options
 const u8 gText_MicrowaveOven[] = _("Microwave Oven");

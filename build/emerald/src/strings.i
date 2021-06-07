@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -6006,6 +6006,7 @@ extern const u8 gText_JackRateNickname[];
 extern const u8 gText_JackRememberMove[];
 extern const u8 gText_JackForgetMove[];
 extern const u8 gText_JackTeachMove[];
+extern const u8 gText_JackWonderTrade[];
 
 
 extern const u8 gText_MicrowaveOven[];
@@ -7904,6 +7905,7 @@ const u8 gText_JackRateNickname[] = _("Rate a nickname");
 const u8 gText_JackRememberMove[] = _("Remember a move");
 const u8 gText_JackForgetMove[] = _("Forget a move");
 const u8 gText_JackTeachMove[] = _("Rate my Pokemon Ivs");
+const u8 gText_JackWonderTrade[] = _("Try Wonder Trading");
 
 
 const u8 gText_MicrowaveOven[] = _("Microwave Oven");

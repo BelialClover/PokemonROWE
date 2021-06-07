@@ -207,6 +207,7 @@ Start_NPC_Change_Mode::
 Start_Chose_Randomized_Mode::
 	clearflag FLAG_TEMP_1
 	clearflag FLAG_UNUSED_0x1DA
+	clearflag FLAG_UNUSED_0x2A2 
 	msgbox Text_Randomize, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_Inverse_Mode
@@ -218,8 +219,16 @@ Start_Chose_Randomized_Mode::
 Start_Chose_Inverse_Mode::
 	msgbox Text_Inverse, MSGBOX_YESNO
 	compare VAR_RESULT, NO
-	goto_if_eq Start_NPC_Normal_Mode
+	goto_if_eq Start_Chose_Double_Mode
 	setflag FLAG_UNUSED_0x1DA
+	goto Start_Chose_Double_Mode
+	end
+	
+Start_Chose_Double_Mode::
+	msgbox Text_Double, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq Start_NPC_Normal_Mode
+	setflag FLAG_UNUSED_0x2A2 
 	goto Start_NPC_Normal_Mode
 	end
 	
@@ -466,12 +475,11 @@ Text_Start_Pacifidlog_Town::
 //Starters
 
 Start_Text_Starter_Chose:
-	.string "Oh, Welcome to Pokemon ROWE 1.1.1\p"
+	.string "Oh, Welcome to Pokemon ROWE 1.2.1\p"
 	.string "I would like to tell you that MyBoy\n"
 	.string "and VBA are not supported, make sure\p"
 	.string "you are using a different emulator.\p"
 	.string "Now, lets start with some questions.$"
-
 
 Start_Text_Starter_Text:
 	.string "What Pokemon would you like\n"
@@ -727,11 +735,15 @@ Text_Mode_Changer:
 	
 Text_Randomize:
 	.string "Do you want to enable\n"
-	.string "the Randomized Mode?.$"
+	.string "the Randomized Mode?$"
 	
 Text_Inverse:
 	.string "Do you want to enable\n"
-	.string "the Inverse Mode?.$"
+	.string "the Inverse Mode?$"
+	
+Text_Double:
+	.string "Do you want to enable\n"
+	.string "the Double Battle Mode?$"
 	
 Text_Normal_Mode:
 	.string "If you made any mistake\n"

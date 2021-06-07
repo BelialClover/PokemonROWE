@@ -296,8 +296,7 @@ TryFieldPoisonWhiteOut:
 	.thumb_func
 DoPoisonFieldEffect:
 	push	{r4, r5, r6, r7, lr}
-	add	sp, sp, #-0x4
-	ldr	r4, .L74
+	ldr	r4, .L75
 	mov	r7, #0x0
 	mov	r6, #0x0
 	mov	r5, #0x5
@@ -311,57 +310,34 @@ DoPoisonFieldEffect:
 	mov	r1, #0x37
 	bl	GetMonData
 	bl	GetAilmentFromStatus
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	cmp	r0, #0x1
-	bne	.L65	@cond_branch
-	add	r0, r4, #0
-	mov	r1, #0x39
-	bl	GetMonData
-	str	r0, [sp]
-	cmp	r0, #0
-	beq	.L67	@cond_branch
-	sub	r0, r0, #0x1
-	str	r0, [sp]
-	cmp	r0, #0
-	bne	.L66	@cond_branch
-.L67:
-	add	r6, r6, #0x1
-.L66:
-	add	r0, r4, #0
-	mov	r1, #0x39
-	mov	r2, sp
-	bl	SetMonData
-	add	r7, r7, #0x1
 .L65:
 	add	r4, r4, #0x64
 	sub	r5, r5, #0x1
 	cmp	r5, #0
 	bge	.L64	@cond_branch
 	cmp	r6, #0
-	bne	.L70	@cond_branch
+	bne	.L71	@cond_branch
 	cmp	r7, #0
-	beq	.L69	@cond_branch
-.L70:
-	bl	FldEffPoison_Start
-.L69:
-	cmp	r6, #0
-	beq	.L71	@cond_branch
-	mov	r0, #0x2
-	b	.L73
-.L75:
-	.align	2, 0
-.L74:
-	.word	gPlayerParty
+	beq	.L70	@cond_branch
 .L71:
-	cmp	r7, #0
-	bne	.L72	@cond_branch
-	mov	r0, #0x0
-	b	.L73
+	bl	FldEffPoison_Start
+.L70:
+	cmp	r6, #0
+	beq	.L72	@cond_branch
+	mov	r0, #0x2
+	b	.L74
+.L76:
+	.align	2, 0
+.L75:
+	.word	gPlayerParty
 .L72:
-	mov	r0, #0x1
+	cmp	r7, #0
+	bne	.L73	@cond_branch
+	mov	r0, #0x0
+	b	.L74
 .L73:
-	add	sp, sp, #0x4
+	mov	r0, #0x1
+.L74:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1

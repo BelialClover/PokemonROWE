@@ -198,5 +198,12 @@ Text_IVChecker_3:
 @Nevermind
 gText_PkmnCenterJack_ComeBackAnytime::
     .string "Come back anytime!$"
+	
+Common_PkmnCenterJack_Text_WonderTrade1:
+	.string "Do you want to try\n"
+	.string "Wonder Trading?$"
+	
+Common_PkmnCenterJack_Text_WonderTrade2:
+	.string "Take care of your new Pokemon.$"
 
 #endif

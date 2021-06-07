@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -3399,7 +3399,7 @@ void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
 const u8 *GetDayOfWeekString(u8 dayOfWeek);
 # 10 "src/overworld.c" 2
 # 1 "include/dexnav.h" 1
-# 121 "include/dexnav.h"
+# 123 "include/dexnav.h"
 void EndDexNavSearch(u8 taskId);
 void Task_OpenDexNavFromStartMenu(u8 taskId);
 bool8 TryStartDexnavSearch(void);
@@ -4618,8 +4618,8 @@ void Fldeff_FlyLand(void);
 void FreeResourcesAndDestroySprite(struct Sprite *sprite, u8 spriteId);
 u8 CreateMonSprite_PicBox(u16 species, s16 x, s16 y, u8 subpriority);
 void StartEscapeRopeFieldEffect(void);
-void FieldEffectFreeGraphicsResources(struct Sprite *sprite);
 
+void FieldEffectFreeGraphicsResources(struct Sprite *sprite);
 void FieldEff_CaveDust(void);
 # 17 "src/overworld.c" 2
 # 1 "include/field_message_box.h" 1

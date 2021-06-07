@@ -12,25 +12,24 @@ EventScript_StartDexNavBattle::
 EventScript_NotFoundNearby::
     msgbox sText_NotFoundNearby, MSGBOX_SIGN
     end
+	
 sText_NotFoundNearby:
     .string "It couldn't be found nearby.\n"
     .string "Try looking in a different area!$"
-
-
+	
 EventScript_MovedTooFast::
     msgbox sText_TryMovingSlower, MSGBOX_SIGN
     end
+	
 sText_TryMovingSlower:
     .string "The Pokémon got away! Try moving\n"
     .string "more slowly by holding the A button.$"
-
 
 EventScript_PokemonGotAway::
     msgbox sText_PokemonGotAway, MSGBOX_SIGN
     end
 sText_PokemonGotAway:
     .string "The Pokémon got away!$"
-
 
 EventScript_LostSignal::
     msgbox sText_LostSignal, MSGBOX_SIGN
@@ -39,9 +38,9 @@ sText_LostSignal:
     .string "There is no reaction.\n"
     .string "The signal was lost!$"
 
-
 EventScript_TooDark::
     msgbox sText_TooDark, MSGBOX_SIGN
     end
+	
 sText_TooDark:
     .string "It's too dark to search\nfor a Pokémon!$"

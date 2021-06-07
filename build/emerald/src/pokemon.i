@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -5388,7 +5388,7 @@ u8 GetEggMovesSpecies(u16 species, u16 *eggMoves);
 bool8 SpeciesCanLearnEggMove(u16 species, u16 move);
 # 14 "src/pokemon.c" 2
 # 1 "include/dexnav.h" 1
-# 121 "include/dexnav.h"
+# 123 "include/dexnav.h"
 void EndDexNavSearch(u8 taskId);
 void Task_OpenDexNavFromStartMenu(u8 taskId);
 bool8 TryStartDexnavSearch(void);
@@ -5817,6 +5817,7 @@ enum ItemObtainFlags
 u8 IsHardMode(void);
 u8 GetNumBadges(void);
 u8 getLevelBoost(void);
+u8 GetPlayerUsableMons(void);
 u8 getTrainerLevel(u8 Level);
 u8 getWildLevel(u8 Ability);
 u8 getTrainerPokemonNum(void);
@@ -5828,6 +5829,7 @@ u16 GetBaseSpecie(u16 basespecies);
 u16 GetHeldItem(u16 baseitem);
 u16 GetFirstEvolution(u16 species);
 u8 GetEvsfromPokemon(u8 evs);
+bool8 IsMoveUsable(u8 movepower);
 # 21 "src/pokemon.c" 2
 # 1 "include/link.h" 1
 # 106 "include/link.h"
@@ -10471,6 +10473,7 @@ extern const u8 gText_JackRateNickname[];
 extern const u8 gText_JackRememberMove[];
 extern const u8 gText_JackForgetMove[];
 extern const u8 gText_JackTeachMove[];
+extern const u8 gText_JackWonderTrade[];
 
 
 extern const u8 gText_MicrowaveOven[];
@@ -66149,7 +66152,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = 7,
         .abilities = {65, 0},
 
-            .abilityHidden = 102,
+            .abilityHidden = 205,
 
         .bodyColor = 3,
         .noFlip = 0,
@@ -66226,7 +66229,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = 5,
         .eggGroup2 = 5,
         .abilities = {66, 0},
-        .abilityHidden = 18,
+        .abilityHidden = 91,
         .bodyColor = 2,
         .noFlip = 0,
     },
@@ -70329,8 +70332,8 @@ const struct BaseStats gBaseStats[] =
         .expYield = 140,
         .evYield_HP = 1,
         .evYield_Speed = 1,
-        .item1 = 146,
-        .item2 = 149,
+        .item1 = 124,
+        .item2 = 124,
         .genderRatio = ((254) < (((75 * 255) / 100)) ? (254) : (((75 * 255) / 100))),
         .eggCycles = 15,
         .friendship = 70,
@@ -100185,6 +100188,7 @@ static const struct LevelUpMove sChikoritaLevelUpLearnset[] = {
     {.move = 75, .level = 6},
     {.move = 77, .level = 10},
     {.move = 235, .level = 13},
+ {.move = 73, .level = 15},
     {.move = 115, .level = 16},
     {.move = 345, .level = 20},
     {.move = 363, .level = 23},
@@ -100206,12 +100210,15 @@ static const struct LevelUpMove sBayleefLevelUpLearnset[] = {
     {.move = 75, .level = 6},
     {.move = 77, .level = 10},
     {.move = 235, .level = 14},
+ {.move = 73, .level = 15},
     {.move = 115, .level = 16},
     {.move = 345, .level = 22},
+ {.move = 631, .level = 24},
     {.move = 363, .level = 26},
+ {.move = 23, .level = 30},
     {.move = 230, .level = 32},
     {.move = 113, .level = 36},
-    {.move = 34, .level = 38},
+    {.move = 202, .level = 38},
     {.move = 219, .level = 46},
     {.move = 312, .level = 50},
     {.move = 76, .level = 54},
@@ -100221,7 +100228,12 @@ static const struct LevelUpMove sBayleefLevelUpLearnset[] = {
 static const struct LevelUpMove sMeganiumLevelUpLearnset[] = {
     {.move = 80, .level = 0},
     {.move = 414, .level = 1},
+ {.move = 326, .level = 1},
+ {.move = 161, .level = 1},
     {.move = 80, .level = 1},
+ {.move = 605, .level = 1},
+ {.move = 246, .level = 1},
+ {.move = 273, .level = 1},
     {.move = 572, .level = 1},
     {.move = 188, .level = 1},
     {.move = 33, .level = 1},
@@ -100232,14 +100244,19 @@ static const struct LevelUpMove sMeganiumLevelUpLearnset[] = {
     {.move = 75, .level = 6},
     {.move = 77, .level = 10},
     {.move = 235, .level = 14},
+ {.move = 73, .level = 15},
     {.move = 115, .level = 16},
     {.move = 345, .level = 22},
+ {.move = 72, .level = 22},
     {.move = 363, .level = 26},
+ {.move = 23, .level = 28},
+ {.move = 631, .level = 30},
     {.move = 80, .level = 32},
     {.move = 230, .level = 34},
     {.move = 246, .level = 38},
     {.move = 113, .level = 40},
-    {.move = 34, .level = 43},
+    {.move = 202, .level = 42},
+ {.move = 585, .level = 46},
  {.move = 267, .level = 50},
     {.move = 219, .level = 53},
  {.move = 406, .level = 55},
@@ -100293,6 +100310,7 @@ static const struct LevelUpMove sQuilavaLevelUpLearnset[] = {
 static const struct LevelUpMove sTyphlosionLevelUpLearnset[] = {
     {.move = 284, .level = 1},
     {.move = 414, .level = 1},
+ {.move = 246, .level = 1},
     {.move = 326, .level = 1},
     {.move = 38, .level = 1},
     {.move = 360, .level = 1},
@@ -105870,7 +105888,7 @@ static const struct LevelUpMove sLatiosLevelUpLearnset[] = {
     {.move = 94, .level = 57},
     {.move = 406, .level = 60},
     {.move = 471, .level = 63},
-    {.move = 262, .level = 64},
+    {.move = 262, .level = 75},
     0xFFFF
 };
 
@@ -105968,7 +105986,7 @@ static const struct LevelUpMove sDeoxysLevelUpLearnset[] = {
     {.move = 43, .level = 1},
     {.move = 35, .level = 1},
     {.move = 101, .level = 7},
-    {.move = 100, .level = 15},
+
     {.move = 282, .level = 22},
     {.move = 228, .level = 29},
     {.move = 94, .level = 36},
@@ -120893,6 +120911,7 @@ static const u16 sGolemFormSpeciesIdTable[] = {
 
 static const u16 sSlowbroFormSpeciesIdTable[] = {
     80,
+ 898 + 73,
     898 + 8,
     0xFFFF,
 };
@@ -121301,6 +121320,8 @@ static const u16 sBasculinFormSpeciesIdTable[] = {
 static const u16 sDarmanitanFormSpeciesIdTable[] = {
     555,
     898 + 168,
+
+
     0xFFFF,
 };
 
@@ -121581,15 +121602,99 @@ static const u16 sMagearnaFormSpeciesIdTable[] = {
     0xFFFF,
 };
 
+static const u16 sPonytaFormSpeciesIdTable[] = {
+    77,
+    898 + 70,
+    0xFFFF,
+};
+
+static const u16 sRapidashFormSpeciesIdTable[] = {
+    78,
+    898 + 71,
+    0xFFFF,
+};
+
+static const u16 sSlowpokeFormSpeciesIdTable[] = {
+    79,
+    898 + 72,
+    0xFFFF,
+};
+
 static const u16 sFarfetchdFormSpeciesIdTable[] = {
     83,
     898 + 74,
     0xFFFF,
 };
 
-static const u16 sPonytaFormSpeciesIdTable[] = {
-    77,
-    898 + 70,
+static const u16 sWeezingFormSpeciesIdTable[] = {
+    110,
+    898 + 75,
+    0xFFFF,
+};
+
+static const u16 sMrMimeFormSpeciesIdTable[] = {
+    122,
+    898 + 76,
+    0xFFFF,
+};
+
+static const u16 sArticunoFormSpeciesIdTable[] = {
+    144,
+    898 + 77,
+    0xFFFF,
+};
+
+static const u16 sMoltresFormSpeciesIdTable[] = {
+    146,
+    898 + 79,
+    0xFFFF,
+};
+
+static const u16 sZapdosFormSpeciesIdTable[] = {
+    145,
+    898 + 78,
+    0xFFFF,
+};
+
+static const u16 sSlowkingFormSpeciesIdTable[] = {
+    199,
+    898 + 80,
+    0xFFFF,
+};
+
+static const u16 sCorsolaFormSpeciesIdTable[] = {
+    222,
+    898 + 81,
+    0xFFFF,
+};
+
+static const u16 sZigzagoonFormSpeciesIdTable[] = {
+    263,
+    898 + 82,
+    0xFFFF,
+};
+
+static const u16 sLinooneFormSpeciesIdTable[] = {
+    264,
+    898 + 83,
+    0xFFFF,
+};
+
+static const u16 sDarumakaFormSpeciesIdTable[] = {
+    554,
+    898 + 84,
+    0xFFFF,
+};
+
+static const u16 sYamaskFormSpeciesIdTable[] = {
+    562,
+    898 + 86,
+    0xFFFF,
+};
+
+static const u16 sStunfiskFormSpeciesIdTable[] = {
+    618,
+    898 + 87,
     0xFFFF,
 };
 # 1897 "src/pokemon.c" 2
@@ -122025,10 +122130,41 @@ const u16 *const gFormSpeciesIdTables[898 + 308 + 1] =
     [898 + 285] = sMagearnaFormSpeciesIdTable,
 
  [898 + 69] = sMeowthFormSpeciesIdTable,
- [83] = sFarfetchdFormSpeciesIdTable,
- [898 + 74] = sFarfetchdFormSpeciesIdTable,
  [77] = sPonytaFormSpeciesIdTable,
  [898 + 70] = sPonytaFormSpeciesIdTable,
+ [78] = sRapidashFormSpeciesIdTable,
+ [898 + 71] = sPonytaFormSpeciesIdTable,
+ [79] = sSlowpokeFormSpeciesIdTable,
+ [898 + 72] = sSlowpokeFormSpeciesIdTable,
+ [898 + 73] = sSlowbroFormSpeciesIdTable,
+ [83] = sFarfetchdFormSpeciesIdTable,
+ [898 + 74] = sFarfetchdFormSpeciesIdTable,
+ [110] = sWeezingFormSpeciesIdTable,
+ [898 + 75] = sWeezingFormSpeciesIdTable,
+ [122] = sMrMimeFormSpeciesIdTable,
+ [898 + 76] = sMrMimeFormSpeciesIdTable,
+ [144] = sArticunoFormSpeciesIdTable,
+ [898 + 77] = sArticunoFormSpeciesIdTable,
+ [145] = sZapdosFormSpeciesIdTable,
+ [898 + 78] = sZapdosFormSpeciesIdTable,
+ [146] = sMoltresFormSpeciesIdTable,
+ [898 + 79] = sMoltresFormSpeciesIdTable,
+ [199] = sSlowkingFormSpeciesIdTable,
+ [898 + 80] = sSlowkingFormSpeciesIdTable,
+ [222] = sCorsolaFormSpeciesIdTable,
+ [898 + 81] = sCorsolaFormSpeciesIdTable,
+ [263] = sZigzagoonFormSpeciesIdTable,
+ [898 + 82] = sZigzagoonFormSpeciesIdTable,
+ [264] = sLinooneFormSpeciesIdTable,
+ [898 + 83] = sLinooneFormSpeciesIdTable,
+ [554] = sDarumakaFormSpeciesIdTable,
+ [898 + 84] = sDarumakaFormSpeciesIdTable,
+
+
+ [562] = sYamaskFormSpeciesIdTable,
+ [898 + 86] = sYamaskFormSpeciesIdTable,
+ [618] = sStunfiskFormSpeciesIdTable,
+ [898 + 87] = sStunfiskFormSpeciesIdTable,
 };
 # 1898 "src/pokemon.c" 2
 
@@ -126786,7 +126922,7 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies, u8 defeatedFormId)
     }
 
     stat = ItemId_GetSecondaryId(heldItem);
-    bonus = ItemId_GetHoldEffectParam(heldItem);
+    bonus = ItemId_GetHoldEffectParam(heldItem)*5;
 
     for (i = 0; i < 6; i++)
     {
@@ -126804,48 +126940,51 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies, u8 defeatedFormId)
         else
             multiplier = 1;
 
+  if(holdEffect == 99 && i != stat)
+   multiplier = 0;
+
         switch (i)
         {
         case 0:
             if (holdEffect == 99 && stat == 0)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_HP + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_HP * multiplier;
             break;
         case 1:
             if (holdEffect == 99 && stat == 1)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_Attack + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_Attack * multiplier;
             break;
         case 2:
             if (holdEffect == 99 && stat == 2)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_Defense + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_Defense * multiplier;
             break;
         case 3:
             if (holdEffect == 99 && stat == 3)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_Speed + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_Speed * multiplier;
             break;
         case 4:
             if (holdEffect == 99 && stat == 4)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_SpAttack + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_SpAttack * multiplier;
             break;
         case 5:
             if (holdEffect == 99 && stat == 5)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_SpDefense + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_SpDefense * multiplier;
             break;
         }
 
         if (holdEffect == 24)
-            evIncrease *= 2;
+            evIncrease *= 10;
 
         if (totalEVs + (s16)evIncrease > 510)
             evIncrease = ((s16)evIncrease + 510) - (totalEVs + evIncrease);
@@ -127392,7 +127531,7 @@ const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u
 
 bool32 IsHMMove2(u16 move)
 {
-# 7323 "src/pokemon.c"
+# 7326 "src/pokemon.c"
     return 0;
 }
 
@@ -127590,7 +127729,7 @@ const u8 *GetTrainerPartnerName(void)
         return gLinkPlayers[GetBattlerMultiplayerId(gLinkPlayers[id].id ^ 2)].name;
     }
 }
-# 7532 "src/pokemon.c"
+# 7535 "src/pokemon.c"
 static void Task_AnimateAfterDelay(u8 taskId)
 {
     if (--gTasks[taskId].data[3] == 0)

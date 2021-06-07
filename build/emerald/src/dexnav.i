@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -3423,7 +3423,7 @@ void LoadSpecialPokePic_DontHandleDeoxys(const struct CompressedSpriteSheet *src
 u32 GetDecompressedDataSize(const u32 *ptr);
 # 8 "src/dexnav.c" 2
 # 1 "include/dexnav.h" 1
-# 121 "include/dexnav.h"
+# 123 "include/dexnav.h"
 void EndDexNavSearch(u8 taskId);
 void Task_OpenDexNavFromStartMenu(u8 taskId);
 bool8 TryStartDexnavSearch(void);
@@ -4562,8 +4562,8 @@ void Fldeff_FlyLand(void);
 void FreeResourcesAndDestroySprite(struct Sprite *sprite, u8 spriteId);
 u8 CreateMonSprite_PicBox(u16 species, s16 x, s16 y, u8 subpriority);
 void StartEscapeRopeFieldEffect(void);
-void FieldEffectFreeGraphicsResources(struct Sprite *sprite);
 
+void FieldEffectFreeGraphicsResources(struct Sprite *sprite);
 void FieldEff_CaveDust(void);
 # 13 "src/dexnav.c" 2
 # 1 "include/field_effect_helpers.h" 1
@@ -4734,6 +4734,222 @@ void sub_80B05B4(void);
 void WriteFlashScanlineEffectBuffer(u8 flashLevel);
 bool8 IsPlayerStandingStill(void);
 # 17 "src/dexnav.c" 2
+# 1 "include/field_weather.h" 1
+
+
+
+
+# 1 "include/constants/field_weather.h" 1
+# 6 "include/field_weather.h" 2
+
+struct Weather
+{
+    union
+    {
+        struct
+        {
+            struct Sprite *rainSprites[24];
+            struct Sprite *snowflakeSprites[101];
+            struct Sprite *cloudSprites[3];
+        } s1;
+        struct
+        {
+            u8 filler0[0xA0];
+            struct Sprite *fogHSprites[20];
+            struct Sprite *ashSprites[20];
+            struct Sprite *fogDSprites[20];
+            struct Sprite *sandstormSprites1[20];
+            struct Sprite *sandstormSprites2[5];
+        } s2;
+    } sprites;
+    u8 gammaShifts[19][32];
+    u8 altGammaShifts[19][32];
+    s8 gammaIndex;
+    s8 gammaTargetIndex;
+    u8 gammaStepDelay;
+    u8 gammaStepFrameCounter;
+    u16 fadeDestColor;
+              u8 palProcessingState;
+              u8 fadeScreenCounter;
+              bool8 readyForInit;
+              u8 taskId;
+              u8 unknown_6CA;
+    u8 unknown_6CB;
+    u16 initStep;
+    u16 finishStep;
+    u8 currWeather;
+    u8 nextWeather;
+    u8 weatherGfxLoaded;
+    bool8 weatherChangeComplete;
+    u8 weatherPicSpritePalIndex;
+    u8 altGammaSpritePalIndex;
+    u16 rainSpriteVisibleCounter;
+    u8 curRainSpriteIndex;
+    u8 targetRainSpriteCount;
+    u8 rainSpriteCount;
+    u8 rainSpriteVisibleDelay;
+    u8 isDownpour;
+    u8 rainStrength;
+              u8 cloudSpritesCreated;
+    u8 filler_6DF[1];
+    u16 snowflakeVisibleCounter;
+    u16 unknown_6E2;
+    u8 snowflakeSpriteCount;
+    u8 targetSnowflakeSpriteCount;
+    u16 unknown_6E6;
+    u16 thunderCounter;
+    u8 unknown_6EA;
+    u8 unknown_6EB;
+    u8 unknown_6EC;
+    u8 thunderTriggered;
+    u16 fogHScrollPosX;
+    u16 fogHScrollCounter;
+    u16 fogHScrollOffset;
+    u8 lightenedFogSpritePals[6];
+    u8 lightenedFogSpritePalsCount;
+    u8 fogHSpritesCreated;
+    u16 ashBaseSpritesX;
+    u16 unknown_6FE;
+    u8 ashSpritesCreated;
+    u8 filler_701[3];
+    u32 sandstormXOffset;
+    u32 sandstormYOffset;
+    u8 filler_70C[2];
+    u16 sandstormBaseSpritesX;
+    u16 sandstormPosY;
+    u16 sandstormWaveIndex;
+    u16 sandstormWaveCounter;
+    u8 sandstormSpritesCreated;
+    u8 sandstormSwirlSpritesCreated;
+    u16 fogDBaseSpritesX;
+    u16 fogDPosY;
+    u16 fogDScrollXCounter;
+    u16 fogDScrollYCounter;
+    u16 fogDXOffset;
+    u16 fogDYOffset;
+    u8 fogDSpritesCreated;
+    u8 filler_725[1];
+    u16 bubblesDelayCounter;
+    u16 bubblesDelayIndex;
+    u16 bubblesCoordsIndex;
+    u16 bubblesSpriteCount;
+    u8 bubblesSpritesCreated;
+    u8 filler_72F;
+    u16 currBlendEVA;
+    u16 currBlendEVB;
+    u16 targetBlendEVA;
+    u16 targetBlendEVB;
+    u8 blendUpdateCounter;
+    u8 blendFrameCounter;
+    u8 blendDelay;
+    u8 filler_73B[0x3C-0x3B];
+    s16 unknown_73C;
+    s16 unknown_73E;
+    s16 unknown_740;
+    s16 unknown_742;
+    u8 filler_744[0xD-4];
+    s8 loadDroughtPalsIndex;
+    u8 loadDroughtPalsOffset;
+};
+
+
+extern struct Weather gWeather;
+extern struct Weather *const gWeatherPtr;
+extern const u16 gUnknown_083970E8[];
+
+
+extern const u8 gWeatherFogHorizontalTiles[];
+
+void StartWeather(void);
+void SetNextWeather(u8 weather);
+void SetCurrentAndNextWeather(u8 weather);
+void SetCurrentAndNextWeatherNoDelay(u8 weather);
+void sub_80ABC48(s8 gammaIndex);
+void sub_80ABC7C(u8 gammaIndex, u8 gammaTargetIndex, u8 gammaStepDelay);
+void FadeScreen(u8 mode, s8 delay);
+bool8 IsWeatherNotFadingIn(void);
+void UpdateSpritePaletteWithWeather(u8 spritePaletteIndex);
+void ApplyWeatherGammaShiftToPal(u8 paletteIndex);
+u8 sub_80ABF20(void);
+void LoadCustomWeatherSpritePalette(const u16 *palette);
+void ResetDroughtWeatherPaletteLoading(void);
+bool8 LoadDroughtWeatherPalettes(void);
+void sub_80ABFE0(s8 gammaIndex);
+void sub_80ABFF0(void);
+void sub_80AC01C(void);
+void Weather_SetBlendCoeffs(u8 eva, u8 evb);
+void Weather_SetTargetBlendCoeffs(u8 eva, u8 evb, int delay);
+bool8 Weather_UpdateBlend(void);
+void sub_80AC274(u8 a);
+u8 GetCurrentWeather(void);
+void SetRainStrengthFromSoundEffect(u16 soundEffect);
+void PlayRainStoppingSoundEffect(void);
+u8 IsWeatherChangeComplete(void);
+void SetWeatherScreenFadeOut(void);
+void sub_80AC3E4(void);
+void PreservePaletteInWeather(u8 preservedPalIndex);
+void ResetPreservedPalettesInWeather(void);
+
+
+void Clouds_InitVars(void);
+void Clouds_Main(void);
+void Clouds_InitAll(void);
+bool8 Clouds_Finish(void);
+void Sunny_InitVars(void);
+void Sunny_Main(void);
+void Sunny_InitAll(void);
+bool8 Sunny_Finish(void);
+void Rain_InitVars(void);
+void Rain_Main(void);
+void Rain_InitAll(void);
+bool8 Rain_Finish(void);
+void Snow_InitVars(void);
+void Snow_Main(void);
+void Snow_InitAll(void);
+bool8 Snow_Finish(void);
+void Thunderstorm_InitVars(void);
+void Thunderstorm_Main(void);
+void Thunderstorm_InitAll(void);
+bool8 Thunderstorm_Finish(void);
+void FogHorizontal_InitVars(void);
+void FogHorizontal_Main(void);
+void FogHorizontal_InitAll(void);
+bool8 FogHorizontal_Finish(void);
+void Ash_InitVars(void);
+void Ash_Main(void);
+void Ash_InitAll(void);
+bool8 Ash_Finish(void);
+void Sandstorm_InitVars(void);
+void Sandstorm_Main(void);
+void Sandstorm_InitAll(void);
+bool8 Sandstorm_Finish(void);
+void FogDiagonal_InitVars(void);
+void FogDiagonal_Main(void);
+void FogDiagonal_InitAll(void);
+bool8 FogDiagonal_Finish(void);
+void Shade_InitVars(void);
+void Shade_Main(void);
+void Shade_InitAll(void);
+bool8 Shade_Finish(void);
+void Drought_InitVars(void);
+void Drought_Main(void);
+void Drought_InitAll(void);
+bool8 Drought_Finish(void);
+void Downpour_InitVars(void);
+void Downpour_InitAll(void);
+void Bubbles_InitVars(void);
+void Bubbles_Main(void);
+void Bubbles_InitAll(void);
+bool8 Bubbles_Finish(void);
+
+u8 GetSav1Weather(void);
+void SetSav1Weather(u32 weather);
+void SetSav1WeatherFromCurrMapHeader(void);
+void SetWeather(u32 weather);
+void DoCurrentWeather(void);
+void UpdateWeatherPerDay(u16 increment);
+void ResumePausedWeather(void);
+# 18 "src/dexnav.c" 2
 # 1 "include/fieldmap.h" 1
 # 12 "include/fieldmap.h"
 # 1 "include/main.h" 1
@@ -4849,7 +5065,7 @@ void MapGridSetMetatileImpassabilityAt(int x, int y, bool32 impassable);
 
 
 void FieldInitRegionMap(MainCallback callback);
-# 18 "src/dexnav.c" 2
+# 19 "src/dexnav.c" 2
 # 1 "gflib/gpu_regs.h" 1
 # 9 "gflib/gpu_regs.h"
 void InitGpuRegManager(void);
@@ -4861,7 +5077,7 @@ void SetGpuRegBits(u8 regOffset, u16 mask);
 void ClearGpuRegBits(u8 regOffset, u16 mask);
 void EnableInterrupts(u16 mask);
 void DisableInterrupts(u16 mask);
-# 19 "src/dexnav.c" 2
+# 20 "src/dexnav.c" 2
 # 1 "include/graphics.h" 1
 
 
@@ -14391,7 +14607,7 @@ extern const u32 gItemIconPalette_PinkMint[];
 extern const u32 gItemIconPalette_GreenMint[];
 extern const u32 gItemIconPalette_LightBlueMint[];
 extern const u32 gItemIconPalette_YellowMint[];
-# 20 "src/dexnav.c" 2
+# 21 "src/dexnav.c" 2
 # 1 "include/item.h" 1
 
 
@@ -14484,7 +14700,7 @@ enum ItemObtainFlags
     FLAG_GET_OBTAINED,
     FLAG_SET_OBTAINED,
 };
-# 21 "src/dexnav.c" 2
+# 22 "src/dexnav.c" 2
 # 1 "include/international_string_util.h" 1
 
 
@@ -14989,7 +15205,7 @@ void sub_81DB554(u8 *, u8);
 void sub_81DB5AC(u8 *);
 int sub_81DB604(u8 *);
 void sub_81DB620(int windowId, int columnStart, int rowStart, int numFillTiles, int numRows);
-# 22 "src/dexnav.c" 2
+# 23 "src/dexnav.c" 2
 # 1 "include/m4a.h" 1
 
 
@@ -15426,14 +15642,14 @@ extern struct MusicPlayerInfo gMPlayInfo_SE1;
 extern struct MusicPlayerInfo gMPlayInfo_SE2;
 extern struct MusicPlayerInfo gMPlayInfo_SE3;
 extern struct SoundInfo gSoundInfo;
-# 23 "src/dexnav.c" 2
+# 24 "src/dexnav.c" 2
 # 1 "include/map_name_popup.h" 1
 # 9 "include/map_name_popup.h"
 void HideMapNamePopUpWindow(void);
 void ShowMapNamePopup(void);
-# 24 "src/dexnav.c" 2
-# 1 "include/main.h" 1
 # 25 "src/dexnav.c" 2
+# 1 "include/main.h" 1
+# 26 "src/dexnav.c" 2
 # 1 "gflib/malloc.h" 1
 # 15 "gflib/malloc.h"
 extern u8 gHeap[];
@@ -15442,9 +15658,9 @@ void *Alloc(u32 size);
 void *AllocZeroed(u32 size);
 void Free(void *pointer);
 void InitHeap(void *pointer, u32 size);
-# 26 "src/dexnav.c" 2
-# 1 "include/menu.h" 1
 # 27 "src/dexnav.c" 2
+# 1 "include/menu.h" 1
+# 28 "src/dexnav.c" 2
 # 1 "include/menu_helpers.h" 1
 # 12 "include/menu_helpers.h"
 struct YesNoFuncTable
@@ -15478,7 +15694,7 @@ void sub_8122344(u8 *spriteIds, u8 count);
 void sub_81223B0(u8 *spriteIds, u8 count);
 void sub_81223FC(u8 *spriteIds, u8 count, bool8 invisible);
 void sub_8122448(u8 *spriteIds, u8 count, s16 x, u16 y);
-# 28 "src/dexnav.c" 2
+# 29 "src/dexnav.c" 2
 # 1 "include/metatile_behavior.h" 1
 
 
@@ -15627,7 +15843,7 @@ bool8 MetatileBehavior_IsQuestionnaire(u8);
 bool8 MetatileBehavior_IsLongGrass_Duplicate(u8);
 bool8 MetatileBehavior_IsLongGrassSouthEdge(u8);
 bool8 MetatileBehavior_IsTrainerHillTimer(u8);
-# 29 "src/dexnav.c" 2
+# 30 "src/dexnav.c" 2
 # 1 "include/overworld.h" 1
 # 29 "include/overworld.h"
 struct InitialPlayerAvatarState
@@ -15762,7 +15978,7 @@ bool32 sub_80875C8(void);
 bool32 sub_8087634(void);
 bool32 sub_808766C(void);
 void ClearLinkPlayerObjectEvents(void);
-# 30 "src/dexnav.c" 2
+# 31 "src/dexnav.c" 2
 # 1 "include/palette.h" 1
 # 17 "include/palette.h"
 enum
@@ -15827,7 +16043,7 @@ void TintPalette_GrayScale2(u16 *palette, u16 count);
 void TintPalette_SepiaTone(u16 *palette, u16 count);
 void TintPalette_CustomTone(u16 *palette, u16 count, u16 rTone, u16 gTone, u16 bTone);
 void TintPalette_CustomToneWithCopy(const u16 *src, u16 *dest, u16 count, u16 rTone, u16 gTone, u16 bTone, bool8 excludeZeroes);
-# 31 "src/dexnav.c" 2
+# 32 "src/dexnav.c" 2
 # 1 "include/party_menu.h" 1
 # 9 "include/party_menu.h"
 struct PartyMenu
@@ -15927,7 +16143,7 @@ void MoveDeleterChooseMoveToForget(void);
 
 bool8 CanLearnTutorMove(u16, u8);
 void ItemUseCB_Mints(u8 taskId, TaskFunc task);
-# 32 "src/dexnav.c" 2
+# 33 "src/dexnav.c" 2
 # 1 "include/pokedex.h" 1
 
 
@@ -15973,9 +16189,9 @@ bool16 HasAllHoennMons(void);
 void ResetPokedexScrollPositions(void);
 bool16 HasAllMons(void);
 void CB2_OpenPokedex(void);
-# 33 "src/dexnav.c" 2
-# 1 "include/pokemon.h" 1
 # 34 "src/dexnav.c" 2
+# 1 "include/pokemon.h" 1
+# 35 "src/dexnav.c" 2
 # 1 "include/pokemon_icon.h" 1
 
 
@@ -16005,7 +16221,7 @@ void SpriteCB_MonIcon(struct Sprite *sprite);
 void SetPartyHPBarSprite(struct Sprite *sprite, u8 animNum);
 u8 GetMonIconPaletteIndexFromSpecies(u16 species);
 void SafeFreeMonIconPalette(u16 species);
-# 35 "src/dexnav.c" 2
+# 36 "src/dexnav.c" 2
 # 1 "include/pokemon_summary_screen.h" 1
 
 
@@ -16044,7 +16260,7 @@ enum PokemonSummaryScreenPage
     PSS_PAGE_CONTEST_MOVES,
     PSS_PAGE_COUNT,
 };
-# 36 "src/dexnav.c" 2
+# 37 "src/dexnav.c" 2
 # 1 "include/random.h" 1
 
 
@@ -16059,7 +16275,7 @@ u16 RandRange(u16 min, u16 max);
 # 21 "include/random.h"
 void SeedRng(u16 seed);
 void SeedRng2(u16 seed);
-# 37 "src/dexnav.c" 2
+# 38 "src/dexnav.c" 2
 # 1 "include/region_map.h" 1
 # 9 "include/region_map.h"
 enum
@@ -16173,7 +16389,7 @@ void RegionMap_GetSectionCoordsFromCurrFieldPos(u16 *mapSectionId, u16 *cursorPo
 u8 GetMapsecType(u16 mapSecId);
 
 extern const struct RegionMapLocation gRegionMapEntries[];
-# 38 "src/dexnav.c" 2
+# 39 "src/dexnav.c" 2
 # 1 "include/scanline_effect.h" 1
 # 17 "include/scanline_effect.h"
 struct ScanlineEffectParams
@@ -16206,7 +16422,7 @@ void ScanlineEffect_Clear(void);
 void ScanlineEffect_SetParams(struct ScanlineEffectParams);
 void ScanlineEffect_InitHBlankDmaTransfer(void);
 u8 ScanlineEffect_InitWave(u8 startLine, u8 endLine, u8 frequency, u8 amplitude, u8 delayInterval, u8 regOffset, bool8 a7);
-# 39 "src/dexnav.c" 2
+# 40 "src/dexnav.c" 2
 # 1 "include/script.h" 1
 
 
@@ -16273,7 +16489,7 @@ void InitRamScript_NoObjectEvent(u8 *script, u16 scriptSize);
 
 
 void SetMovingNpcId(u16 npcId);
-# 40 "src/dexnav.c" 2
+# 41 "src/dexnav.c" 2
 # 1 "include/script_pokemon_util.h" 1
 
 
@@ -16286,7 +16502,7 @@ void ScriptSetMonMoveSlot(u8, u16, u8);
 void ReducePlayerPartyToSelectedMons(void);
 void HealPlayerParty(void);
 u8 ScriptGiveCustomMon(u16 species, u8 level, u16 item, u8 ball, u8 nature, u8 abilityNum, u8 *evs, u8 *ivs, u16 *moves, bool8 isShiny);
-# 41 "src/dexnav.c" 2
+# 42 "src/dexnav.c" 2
 # 1 "include/sound.h" 1
 
 
@@ -16336,7 +16552,7 @@ void SE12PanpotControl(s8 pan);
 bool8 IsSEPlaying(void);
 bool8 IsBGMPlaying(void);
 bool8 IsSpecialSEPlaying(void);
-# 42 "src/dexnav.c" 2
+# 43 "src/dexnav.c" 2
 
 # 1 "include/start_menu.h" 1
 
@@ -16353,7 +16569,7 @@ void CB2_SetUpSaveAfterLinkBattle(void);
 void SaveForBattleTowerLink(void);
 void HideStartMenu(void);
 void AppendToList(u8* list, u8* pos, u8 newEntry);
-# 44 "src/dexnav.c" 2
+# 45 "src/dexnav.c" 2
 # 1 "gflib/string_util.h" 1
 
 
@@ -16401,7 +16617,7 @@ void ConvertInternationalString(u8 *s, u8 language);
 void StripExtCtrlCodes(u8 *str);
 
 char *ConvertToAscii(const u8 *str);
-# 45 "src/dexnav.c" 2
+# 46 "src/dexnav.c" 2
 # 1 "include/strings.h" 1
 
 
@@ -19529,6 +19745,7 @@ extern const u8 gText_JackRateNickname[];
 extern const u8 gText_JackRememberMove[];
 extern const u8 gText_JackForgetMove[];
 extern const u8 gText_JackTeachMove[];
+extern const u8 gText_JackWonderTrade[];
 
 
 extern const u8 gText_MicrowaveOven[];
@@ -19539,9 +19756,9 @@ extern const u8 gText_Lawnmower[];
 extern const u8 gText_Recall[];
 
 extern const u8 gText_AshQty[];
-# 46 "src/dexnav.c" 2
-# 1 "include/task.h" 1
 # 47 "src/dexnav.c" 2
+# 1 "include/task.h" 1
+# 48 "src/dexnav.c" 2
 
 # 1 "include/text_window.h" 1
 
@@ -19572,7 +19789,7 @@ void sub_8098C6C(u8 bg, u16 destOffset, u8 palOffset);
 
 
 void LoadDexNavWindowGfx(u8 windowId, u16 destOffset, u8 palOffset);
-# 49 "src/dexnav.c" 2
+# 50 "src/dexnav.c" 2
 # 1 "include/wild_encounter.h" 1
 # 10 "include/wild_encounter.h"
 struct WildPokemon
@@ -19622,33 +19839,33 @@ u8 ChooseWildMonIndex_Land(void);
 u8 ChooseWildMonIndex_WaterRock(void);
 u8 ChooseHiddenMonIndex(void);
 u16 GetFirstStage(u16 species);
-# 50 "src/dexnav.c" 2
+# 51 "src/dexnav.c" 2
 
 # 1 "include/constants/map_types.h" 1
-# 52 "src/dexnav.c" 2
-# 1 "include/constants/species.h" 1
 # 53 "src/dexnav.c" 2
+# 1 "include/constants/species.h" 1
+# 54 "src/dexnav.c" 2
 # 1 "include/constants/maps.h" 1
 
 
 
 # 1 "include/constants/map_groups.h" 1
 # 5 "include/constants/maps.h" 2
-# 54 "src/dexnav.c" 2
-# 1 "include/constants/field_effects.h" 1
 # 55 "src/dexnav.c" 2
-# 1 "include/constants/items.h" 1
+# 1 "include/constants/field_effects.h" 1
 # 56 "src/dexnav.c" 2
-# 1 "include/constants/songs.h" 1
+# 1 "include/constants/items.h" 1
 # 57 "src/dexnav.c" 2
-# 1 "include/constants/abilities.h" 1
+# 1 "include/constants/songs.h" 1
 # 58 "src/dexnav.c" 2
-# 1 "include/constants/rgb.h" 1
+# 1 "include/constants/abilities.h" 1
 # 59 "src/dexnav.c" 2
-# 1 "include/constants/region_map_sections.h" 1
+# 1 "include/constants/rgb.h" 1
 # 60 "src/dexnav.c" 2
-# 1 "include/gba/m4a_internal.h" 1
+# 1 "include/constants/region_map_sections.h" 1
 # 61 "src/dexnav.c" 2
+# 1 "include/gba/m4a_internal.h" 1
+# 62 "src/dexnav.c" 2
 # 1 "include/day_night.h" 1
 
 
@@ -19674,7 +19891,7 @@ void CheckClockForImmediateTimeEvents(void);
 void ProcessImmediateTimeEvents(void);
 void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
 const u8 *GetDayOfWeekString(u8 dayOfWeek);
-# 62 "src/dexnav.c" 2
+# 63 "src/dexnav.c" 2
 
 # 1 "include/printf.h" 1
 # 35 "include/printf.h"
@@ -19697,7 +19914,7 @@ int vsnprintf_(char* buffer, size_t count, const char* format, va_list va);
 int vprintf_(const char* format, va_list va);
 # 109 "include/printf.h"
 int fctprintf(void (*out)(char character, void* arg), void* arg, const char* format, ...);
-# 64 "src/dexnav.c" 2
+# 65 "src/dexnav.c" 2
 # 1 "include/mgba.h" 1
 # 26 "include/mgba.h"
 # 1 "include/gba/types.h" 1
@@ -19706,7 +19923,7 @@ int fctprintf(void (*out)(char character, void* arg), void* arg, const char* for
 void mgba_printf(int level, const char* string, ...);
 bool8 mgba_open(void);
 void mgba_close(void);
-# 65 "src/dexnav.c" 2
+# 66 "src/dexnav.c" 2
 
 
 
@@ -20034,7 +20251,7 @@ static const struct SpriteTemplate sPotentialStarTemplate =
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy,
 };
-# 404 "src/dexnav.c"
+# 405 "src/dexnav.c"
 static const struct SpriteTemplate sSearchIconSpriteTemplate =
 {
     .tileTag = 0x4005,
@@ -20148,7 +20365,7 @@ static void AddSearchWindowText(u16 species, u8 proximity, u8 searchLevel, bool8
     StringExpandPlaceholders(gStringVar4, sText_MonLevel);
     AddTextPrinterParameterized3(sDexNavSearchDataPtr->windowId, 0, ((28 + 4) + (GetFontAttribute(sDexNavSearchDataPtr->windowId, FONTATTR_MAX_LETTER_WIDTH) * (10))), 0, sSearchFontColor, 0xFF, gStringVar4);
 
-    if (proximity <= 1)
+    if (proximity <= 4)
     {
         PlaySE(110);
 
@@ -20274,9 +20491,9 @@ static bool8 DexNavPickTile(u8 environment, u8 areaX, u8 areaY, bool8 smallScan)
 
             nextIter = 0;
             if (TestPlayerAvatarFlags(((1 << 1) | (1 << 2))))
-                tileBuffer = 1 + 3;
+                tileBuffer = 4 + 3;
             else if (TestPlayerAvatarFlags((1 << 7)))
-                tileBuffer = 1 + 1;
+                tileBuffer = 4 + 1;
 
             if (GetPlayerDistance(topX, topY) <= tileBuffer)
             {
@@ -20543,7 +20760,7 @@ static void DexNavDrawPotentialStars(u8 potential, u8* dst)
             gSprites[spriteId].invisible = 1;
     }
 }
-# 921 "src/dexnav.c"
+# 922 "src/dexnav.c"
 static void DexNavUpdateDirectionArrow(void)
 {
     u16 tileX = sDexNavSearchDataPtr->tileX;
@@ -20702,7 +20919,7 @@ static void Task_DexNavSearch(u8 taskId)
         return;
     }
 
-    if (sDexNavSearchDataPtr->proximity <= 1 && !gPlayerAvatar.creeping && task->data[1] > 60)
+    if (sDexNavSearchDataPtr->proximity <= 2 && !gPlayerAvatar.creeping && task->data[1] > 60)
     {
         if (sDexNavSearchDataPtr->hiddenSearch && !task->data[4])
             EndDexNavSearch(taskId);
@@ -20711,7 +20928,7 @@ static void Task_DexNavSearch(u8 taskId)
         return;
     }
 
-    if (sDexNavSearchDataPtr->proximity <= 1 && TestPlayerAvatarFlags((1 << 7) | ((1 << 1) | (1 << 2))))
+    if (sDexNavSearchDataPtr->proximity <= 4 && TestPlayerAvatarFlags((1 << 7) | ((1 << 1) | (1 << 2))))
     {
 
         EndDexNavSearchSetupScript(EventScript_MovedTooFast, taskId);
@@ -20725,7 +20942,7 @@ static void Task_DexNavSearch(u8 taskId)
         return;
     }
 
-    if (gTasks[taskId].data[1] > 60 * 60)
+    if (gTasks[taskId].data[1] > 15 * 60)
     {
         if (sDexNavSearchDataPtr->hiddenSearch && !task->data[4])
             EndDexNavSearch(taskId);
@@ -20748,7 +20965,7 @@ static void Task_DexNavSearch(u8 taskId)
     }
 
     if (sDexNavSearchDataPtr->hiddenSearch && !task->data[4] &&
-        (({(gMain.newKeys) & (0x0100);}) || (sDexNavSearchDataPtr->proximity < 1)))
+        (({(gMain.newKeys) & (0x0100);}) || (sDexNavSearchDataPtr->proximity < 2)))
     {
         PlaySE(112);
         ClearStdWindowAndFrameToTransparent(sDexNavSearchDataPtr->windowId, 0);
@@ -20760,7 +20977,7 @@ static void Task_DexNavSearch(u8 taskId)
         task->func = Task_RevealHiddenMon;
         return;
     }
-# 1154 "src/dexnav.c"
+# 1155 "src/dexnav.c"
     DexNavProximityUpdate();
     if (task->data[0] != sDexNavSearchDataPtr->proximity)
     {
@@ -20773,7 +20990,7 @@ static void Task_DexNavSearch(u8 taskId)
 
     task->data[1]++;
 }
-# 1175 "src/dexnav.c"
+# 1176 "src/dexnav.c"
 static void DexNavUpdateSearchWindow(u8 proximity, u8 searchLevel)
 {
     bool8 hideName = 0;
@@ -20796,7 +21013,7 @@ static void DexNavUpdateSearchWindow(u8 proximity, u8 searchLevel)
     if (sDexNavSearchDataPtr->starSpriteIds[2] != 64)
         gSprites[sDexNavSearchDataPtr->starSpriteIds[2]].invisible = 1;
 
-    if (proximity <= 1)
+    if (proximity <= 4)
     {
         if (0 && searchLevel > 2 && sDexNavSearchDataPtr->heldItem)
         {
@@ -22245,7 +22462,7 @@ bool8 TryFindHiddenPokemon(void)
         {
         case 0:
 
-            if (Random() % 100 < 30)
+            if (Random() % 100 < 15)
             {
                 index = ChooseHiddenMonIndex();
                 if (index == 0xFF)
@@ -22268,7 +22485,7 @@ bool8 TryFindHiddenPokemon(void)
         case 1:
             if (TestPlayerAvatarFlags((1 << 3)))
             {
-                if (Random() % 100 < 30)
+                if (Random() % 100 < 15)
                 {
                     index = ChooseHiddenMonIndex();
                     if (index == 0xFF)

@@ -4379,7 +4379,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup2 = EGG_GROUP_GRASS,
         .abilities = {ABILITY_OVERGROW, ABILITY_NONE},
         #ifdef BATTLE_ENGINE
-            .abilityHidden = ABILITY_LEAF_GUARD,
+            .abilityHidden = ABILITY_TRIAGE,
         #endif
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
@@ -4456,7 +4456,7 @@ const struct BaseStats gBaseStats[] =
         .eggGroup1 = EGG_GROUP_FIELD,
         .eggGroup2 = EGG_GROUP_FIELD,
         .abilities = {ABILITY_BLAZE, ABILITY_NONE},
-        .abilityHidden = ABILITY_FLASH_FIRE,
+        .abilityHidden = ABILITY_ADAPTABILITY,
         .bodyColor = BODY_COLOR_YELLOW,
         .noFlip = FALSE,
     },
@@ -8559,8 +8559,8 @@ const struct BaseStats gBaseStats[] =
         .expYield = 140,
         .evYield_HP        = 1,
         .evYield_Speed     = 1,
-        .item1 = ITEM_PECHA_BERRY,
-        .item2 = ITEM_LEPPA_BERRY,
+        .item1 = ITEM_NUGGET,
+        .item2 = ITEM_NUGGET,
         .genderRatio = PERCENT_FEMALE(75),
         .eggCycles = 15,
         .friendship = 70,

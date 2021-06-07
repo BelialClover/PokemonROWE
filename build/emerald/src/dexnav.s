@@ -1600,7 +1600,7 @@ AddSearchWindowText:
 	mov	r3, #0x0
 	bl	AddTextPrinterParameterized3
 	mov	r2, sl
-	cmp	r2, #0x1
+	cmp	r2, #0x4
 	bhi	.L16	@cond_branch
 	mov	r0, #0x6e
 	bl	PlaySE
@@ -1725,7 +1725,7 @@ AddSearchWindowText:
 	.word	sDexNavSearchDataPtr
 	.word	gAbilityNames
 	.word	gSaveBlock1Ptr
-	.word	0x361f
+	.word	0x361b
 	.word	sText_DexNavChainLong
 .L20:
 	ldr	r0, .L26
@@ -2110,7 +2110,7 @@ DexNavPickTile:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L60	@cond_branch
-	mov	r0, #0x4
+	mov	r0, #0x7
 	str	r0, [sp, #0x14]
 	b	.L61
 .L94:
@@ -2123,7 +2123,7 @@ DexNavPickTile:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L61	@cond_branch
-	mov	r1, #0x2
+	mov	r1, #0x5
 	str	r1, [sp, #0x14]
 .L61:
 	asr	r4, r5, #0x10
@@ -2728,7 +2728,7 @@ Task_SetUpDexNavSearch:
 .L150:
 	.word	sDexNavSearchDataPtr
 	.word	gSaveBlock1Ptr
-	.word	0x3168
+	.word	0x3164
 .L148:
 	bl	DexNavDrawIcons
 	ldr	r0, [r6]
@@ -3270,7 +3270,7 @@ EndDexNavSearchSetupScript:
 	.align	2, 0
 .L206:
 	.word	gSaveBlock1Ptr
-	.word	0x361f
+	.word	0x361b
 .Lfe20:
 	.size	 EndDexNavSearchSetupScript,.Lfe20-EndDexNavSearchSetupScript
 	.align	2, 0
@@ -3495,8 +3495,8 @@ Task_DexNavSearch:
 	.word	sDexNavSearchDataPtr
 	.word	EventScript_LostSignal
 .L226:
-	cmp	r1, #0x1
-	bhi	.L232	@cond_branch
+	cmp	r1, #0x2
+	bhi	.L229	@cond_branch
 	ldr	r0, .L246
 	ldrb	r1, [r0, #0x5]
 	mov	r0, #0x80
@@ -3529,7 +3529,7 @@ Task_DexNavSearch:
 .L229:
 	ldr	r0, [r3]
 	ldrb	r0, [r0, #0x10]
-	cmp	r0, #0x1
+	cmp	r0, #0x4
 	bhi	.L232	@cond_branch
 	mov	r0, #0x86
 	bl	TestPlayerAvatarFlags
@@ -3556,7 +3556,7 @@ Task_DexNavSearch:
 	mov	r3, #0xa
 	ldrsh	r1, [r0, r3]
 	mov	r0, #0xe1
-	lsl	r0, r0, #0x4
+	lsl	r0, r0, #0x2
 	cmp	r1, r0
 	ble	.L234	@cond_branch
 	ldr	r0, .L250+0x4
@@ -3593,8 +3593,8 @@ Task_DexNavSearch:
 .L234:
 	ldr	r7, .L254
 	ldr	r4, [r7]
-	ldrb	r0, [r4, #0x10]
-	cmp	r0, #0
+	ldrb	r2, [r4, #0x10]
+	cmp	r2, #0
 	bne	.L237	@cond_branch
 	ldrh	r0, [r4]
 	ldrb	r1, [r4, #0xd]
@@ -3631,8 +3631,8 @@ Task_DexNavSearch:
 	and	r0, r0, r1
 	cmp	r0, #0
 	beq	.L238	@cond_branch
-	mov	r2, #0x10
-	ldrsh	r0, [r6, r2]
+	mov	r3, #0x10
+	ldrsh	r0, [r6, r3]
 	cmp	r0, #0
 	bne	.L238	@cond_branch
 	ldr	r0, .L256
@@ -3641,7 +3641,10 @@ Task_DexNavSearch:
 	lsl	r0, r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L238	@cond_branch
+	bne	.L239	@cond_branch
+	cmp	r2, #0x1
+	bhi	.L238	@cond_branch
+.L239:
 	mov	r0, #0x70
 	bl	PlaySE
 	ldr	r0, [r7]
@@ -3675,8 +3678,8 @@ Task_DexNavSearch:
 	.word	Task_RevealHiddenMon
 .L238:
 	bl	DexNavProximityUpdate
-	mov	r3, #0x8
-	ldrsh	r0, [r6, r3]
+	mov	r1, #0x8
+	ldrsh	r0, [r6, r1]
 	ldr	r4, .L258
 	ldr	r1, [r4]
 	ldrb	r2, [r1, #0x10]
@@ -3814,7 +3817,7 @@ DexNavUpdateSearchWindow:
 	orr	r1, r1, r2
 	strb	r1, [r0]
 .L265:
-	cmp	r6, #0x1
+	cmp	r6, #0x4
 	bhi	.L266	@cond_branch
 	cmp	r7, #0x4
 	bls	.L266	@cond_branch
@@ -4188,7 +4191,7 @@ DexNavTryGenerateMonLevel:
 	.align	2, 0
 .L317:
 	.word	gSaveBlock1Ptr
-	.word	0x361f
+	.word	0x361b
 .L312:
 	bl	Random
 	lsl	r0, r0, #0x10
@@ -6594,7 +6597,7 @@ PrintCurrentSpeciesInfo:
 .L768:
 	.word	gStringVar4
 	.word	gSaveBlock1Ptr
-	.word	0x3168
+	.word	0x3164
 	.word	sFontColor_Black
 	.word	sText_DexNav_NoInfo
 .L753:
@@ -6883,9 +6886,9 @@ DexNav_DoGfxSetup:
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0xc
-	bls	.LCB6903
+	bls	.LCB6905
 	b	.L815	@long jump
-.LCB6903:
+.LCB6905:
 	lsl	r0, r0, #0x2
 	ldr	r1, .L819+0x4
 	add	r0, r0, r1
@@ -6950,9 +6953,9 @@ DexNav_DoGfxSetup:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB6978
+	beq	.LCB6980
 	b	.L798	@long jump
-.LCB6978:
+.LCB6980:
 	b	.L818
 .L808:
 	bl	DexNav_InitWindows
@@ -7212,9 +7215,9 @@ Task_DexNavMain:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	cmp	r4, #0
-	beq	.LCB7313
+	beq	.LCB7315
 	b	.L854	@long jump
-.LCB7313:
+.LCB7315:
 	ldr	r0, .L909+0x4
 	ldrh	r1, [r0, #0x2e]
 	mov	r6, #0x2
@@ -7447,7 +7450,7 @@ Task_DexNavMain:
 	.word	0x40f7
 	.word	sDexNavUiDataPtr
 	.word	gSaveBlock1Ptr
-	.word	0x3166
+	.word	0x361e
 .L893:
 	mov	r0, #0x1
 	and	r0, r0, r1
@@ -7556,9 +7559,9 @@ TryFindHiddenPokemon:
 	strh	r0, [r4]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	beq	.LCB7785
+	beq	.LCB7787
 	b	.L928	@long jump
-.LCB7785:
+.LCB7787:
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -7573,9 +7576,9 @@ TryFindHiddenPokemon:
 	mov	r1, #0x0
 	mov	r8, r1
 	cmp	r4, #0
-	bne	.LCB7803
+	bne	.LCB7805
 	b	.L928	@long jump
-.LCB7803:
+.LCB7805:
 	ldrb	r0, [r4]
 	cmp	r0, #0
 	beq	.L931	@cond_branch
@@ -7594,15 +7597,15 @@ TryFindHiddenPokemon:
 	bl	__umodsi3
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	cmp	r0, #0x1d
+	cmp	r0, #0xe
 	bhi	.L932	@cond_branch
 	bl	ChooseHiddenMonIndex
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xff
-	bne	.LCB7839
+	bne	.LCB7841
 	b	.L928	@long jump
-.LCB7839:
+.LCB7841:
 	ldr	r1, [r4, #0x4]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
@@ -7638,9 +7641,9 @@ TryFindHiddenPokemon:
 	bl	TestPlayerAvatarFlags
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB7888
+	bne	.LCB7890
 	b	.L928	@long jump
-.LCB7888:
+.LCB7890:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -7648,15 +7651,15 @@ TryFindHiddenPokemon:
 	bl	__umodsi3
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	cmp	r0, #0x1d
+	cmp	r0, #0xe
 	bhi	.L939	@cond_branch
 	bl	ChooseHiddenMonIndex
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xff
-	bne	.LCB7908
+	bne	.LCB7910
 	b	.L928	@long jump
-.LCB7908:
+.LCB7910:
 	ldr	r1, [r4, #0x4]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
@@ -8045,7 +8048,7 @@ DexNavTryMakeShinyMon:
 .L998:
 	.word	sDexNavSearchDataPtr
 	.word	gSaveBlock1Ptr
-	.word	0x361f
+	.word	0x361b
 	.word	0x404e
 .L979:
 	mov	r5, #0x5
@@ -8157,7 +8160,7 @@ TryIncrementSpeciesSearchLevel:
 .L1004:
 	.word	gMapHeader
 	.word	gSaveBlock1Ptr
-	.word	0x3168
+	.word	0x3164
 .Lfe74:
 	.size	 TryIncrementSpeciesSearchLevel,.Lfe74-TryIncrementSpeciesSearchLevel
 	.align	2, 0
@@ -8191,7 +8194,7 @@ ResetDexNavSearch:
 	.align	2, 0
 .L1008:
 	.word	gSaveBlock1Ptr
-	.word	0x361f
+	.word	0x361b
 	.word	0x40f8
 	.word	0x882
 	.word	Task_DexNavSearch

@@ -83,7 +83,7 @@ BirthIsland_Exterior_EventScript_Deoxys:: @ 8267FC1
 	waitmoncry
 	setvar VAR_LAST_TALKED, LOCALID_DEOXYS
 	setvar VAR_0x8004, SPECIES_DEOXYS
-	setvar VAR_0x8005, 35 @ level
+	setvar VAR_0x8005, 70 @ level
 	setvar VAR_0x8006, ITEM_NONE
 	special CreateObedientEnemyMon
 	setflag FLAG_SYS_CTRL_OBJ_DELETE

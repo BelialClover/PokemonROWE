@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -5930,7 +5930,7 @@ u8 GetEggMovesSpecies(u16 species, u16 *eggMoves);
 bool8 SpeciesCanLearnEggMove(u16 species, u16 move);
 # 19 "src/level_scaling.c" 2
 # 1 "include/dexnav.h" 1
-# 121 "include/dexnav.h"
+# 123 "include/dexnav.h"
 void EndDexNavSearch(u8 taskId);
 void Task_OpenDexNavFromStartMenu(u8 taskId);
 bool8 TryStartDexnavSearch(void);
@@ -21238,6 +21238,7 @@ extern const u8 gText_JackRateNickname[];
 extern const u8 gText_JackRememberMove[];
 extern const u8 gText_JackForgetMove[];
 extern const u8 gText_JackTeachMove[];
+extern const u8 gText_JackWonderTrade[];
 
 
 extern const u8 gText_MicrowaveOven[];
@@ -21465,6 +21466,7 @@ u16 CheckforLegendary(u16 species);
 
 
 u8 WildLevel[] = {4,10,15,20,25,30,35,40,45,55,60};
+u8 MovePowerLimit[] = {60,60,70,70,80,90,100,250,250,250,250};
 
 u8 IsHardMode(){
  if (gSaveBlock2Ptr->optionsBattleStyle != 0)
@@ -21892,4 +21894,38 @@ u8 GetEvsfromPokemon(u8 evs)
   ScaledEvs = (evs/NumFlags)*NumBadges+1;
 
  return ScaledEvs;
+}
+
+static bool32 IsMonValidSpecies(struct Pokemon *pokemon)
+{
+    u16 species = GetMonData(pokemon, 65);
+    if (species == 0 || species == 898 + 308 + 1)
+    {
+        return 0;
+    }
+    return 1;
+}
+
+u8 GetPlayerUsableMons(void)
+{
+    int i;
+ u8 PartySize = 0;
+    struct Pokemon *pokemon = gPlayerParty;
+
+    for (i = 0; i < 6; i++, pokemon++)
+    {
+        if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, 57) != 0)
+        {
+            PartySize++;
+        }
+    }
+    return PartySize;
+}
+
+bool8 IsMoveUsable(u8 movepower)
+{
+ if(movepower <= MovePowerLimit[GetNumBadges()])
+  return 1;
+ else
+  return 0;
 }

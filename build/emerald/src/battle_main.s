@@ -15228,59 +15228,61 @@ CreateNPCTrainerParty:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0x7c
+	add	sp, sp, #-0x8c
 	str	r0, [sp, #0x34]
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	str	r1, [sp, #0x38]
 	lsl	r2, r2, #0x18
 	lsr	r2, r2, #0x18
-	mov	r8, r2
+	str	r2, [sp, #0x3c]
 	mov	r0, #0x0
-	str	r0, [sp, #0x3c]
+	str	r0, [sp, #0x40]
 	bl	GetNumBadges
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	str	r0, [sp, #0x48]
+	str	r0, [sp, #0x4c]
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	ldr	r1, [sp, #0x48]
+	ldr	r1, [sp, #0x4c]
 	add	r1, r1, #0x3
 	bl	__modsi3
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	mov	r9, r0
+	mov	sl, r0
 	bl	getTrainerPokemonNum
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	mov	sl, r0
+	str	r0, [sp, #0x50]
 	bl	getDoubleTrainerPokemonNum
 	lsl	r0, r0, #0x18
-	lsr	r7, r0, #0x18
+	lsr	r0, r0, #0x18
+	mov	r9, r0
 	bl	getLeaderPokemonNum
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	str	r0, [sp, #0x4c]
+	str	r0, [sp, #0x54]
 	mov	r0, #0x0
 	bl	getTrainerLevel
 	lsl	r0, r0, #0x18
-	lsr	r6, r0, #0x18
+	lsr	r0, r0, #0x18
+	mov	r8, r0
 	mov	r0, #0x2
 	bl	getTrainerLevel
 	mov	r0, #0x5
 	bl	getTrainerLevel
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	str	r0, [sp, #0x50]
-	ldr	r1, .L813
+	str	r0, [sp, #0x58]
+	ldr	r1, .L818
 	add	r0, sp, #0x14
 	mov	r2, #0x6
 	bl	memcpy
 	bl	getLevelBoost
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	str	r0, [sp, #0x54]
+	str	r0, [sp, #0x5c]
 	add	r5, sp, #0x1c
 	add	r0, r5, #0
 	mov	r1, #0x0
@@ -15291,86 +15293,128 @@ CreateNPCTrainerParty:
 	mov	r1, #0x0
 	mov	r2, #0xc
 	bl	memset
+	ldr	r1, .L818+0x4
+	ldr	r2, [sp, #0x38]
+	lsl	r0, r2, #0x2
+	add	r0, r0, r2
+	lsl	r0, r0, #0x3
+	add	r6, r0, r1
+	ldrb	r3, [r6, #0x18]
+	str	r3, [sp, #0x60]
+	bl	GetPlayerUsableMons
+	lsl	r0, r0, #0x18
+	lsr	r7, r0, #0x18
+	cmp	r7, #0x1
+	bls	.L657	@cond_branch
+	add	r0, r6, #0
+	add	r0, r0, #0x20
+	ldrb	r0, [r0]
+	cmp	r0, #0x1
+	bls	.L657	@cond_branch
+	ldr	r0, .L818+0x8
+	bl	FlagGet
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L657	@cond_branch
+	mov	r6, #0x1
+	str	r6, [sp, #0x60]
+.L657:
+	bl	IsHardMode
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x1
+	bne	.L658	@cond_branch
+	ldr	r0, [sp, #0x54]
+	add	r0, r0, #0x1
+	cmp	r7, r0
+	ble	.L658	@cond_branch
+	sub	r0, r7, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	str	r0, [sp, #0x54]
+.L658:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x3
 	ldr	r1, [sp, #0x38]
 	cmp	r1, r0
-	bne	.L657	@cond_branch
+	bne	.L659	@cond_branch
 	mov	r0, #0x0
-	bl	.L807	@ far jump
-.L814:
+	bl	.L809	@ far jump
+.L819:
 	.align	2, 0
-.L813:
+.L818:
 	.word	.LC215
-.L657:
-	ldr	r4, .L815
+	.word	gTrainers
+	.word	0x2a2
+.L659:
+	ldr	r4, .L820
 	ldr	r0, [r4]
-	ldr	r1, .L815+0x4
+	ldr	r1, .L820+0x4
 	and	r0, r0, r1
 	ldr	r2, [sp, #0x38]
 	lsl	r2, r2, #0x2
-	str	r2, [sp, #0x60]
+	str	r2, [sp, #0x6c]
 	cmp	r0, #0x8
-	beq	.LCB4911
-	bl	.L658	@far jump
-.LCB4911:
-	mov	r3, r8
+	beq	.LCB4959
+	bl	.L660	@far jump
+.LCB4959:
+	ldr	r3, [sp, #0x3c]
 	cmp	r3, #0x1
-	bne	.L659	@cond_branch
+	bne	.L661	@cond_branch
 	bl	ZeroEnemyPartyMons
-.L659:
+.L661:
 	ldr	r0, [r4]
 	mov	r1, #0x80
 	lsl	r1, r1, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L660	@cond_branch
-	ldr	r0, .L815+0x8
-	ldr	r4, [sp, #0x60]
+	beq	.L662	@cond_branch
+	ldr	r0, .L820+0x8
+	ldr	r6, [sp, #0x6c]
 	ldr	r2, [sp, #0x38]
-	add	r1, r4, r2
+	add	r1, r6, r2
 	lsl	r1, r1, #0x3
 	add	r1, r1, r0
 	add	r2, r1, #0
 	add	r2, r2, #0x20
 	ldrb	r1, [r2]
-	str	r7, [sp, #0x44]
-	add	r4, r0, #0
-	add	r3, r7, #0
-	cmp	r1, r3
-	bhi	.L662	@cond_branch
-	add	r2, r1, #0
-	str	r2, [sp, #0x44]
-.L662:
-	mov	r0, #0x0
-	mov	r8, r0
-	ldr	r1, [sp, #0x44]
-	cmp	r8, r1
-	bgt	.L668	@cond_branch
 	mov	r3, r9
-	add	r2, r6, r3
-.L666:
+	str	r3, [sp, #0x48]
+	add	r4, r0, #0
+	cmp	r1, r3
+	bhi	.L664	@cond_branch
+	add	r2, r1, #0
+	str	r2, [sp, #0x48]
+.L664:
+	mov	r6, #0x0
+	mov	r9, r6
+	ldr	r0, [sp, #0x48]
+	cmp	r9, r0
+	bgt	.L670	@cond_branch
+	mov	r2, r8
+	add	r2, r2, sl
+.L668:
 	mov	r1, sp
-	add	r1, r1, r8
+	add	r1, r1, r9
 	add	r1, r1, #0x14
-	mov	r6, r8
-	add	r0, r2, r6
+	mov	r3, r9
+	add	r0, r2, r3
 	strb	r0, [r1]
-	mov	r0, #0x1
-	add	r8, r8, r0
-	ldr	r1, [sp, #0x44]
-	cmp	r8, r1
-	ble	.L666	@cond_branch
-	b	.L668
-.L816:
+	mov	r6, #0x1
+	add	r9, r9, r6
+	ldr	r0, [sp, #0x48]
+	cmp	r9, r0
+	ble	.L668	@cond_branch
+	b	.L670
+.L821:
 	.align	2, 0
-.L815:
+.L820:
 	.word	gBattleTypeFlags
 	.word	0x43f0908
 	.word	gTrainers
-.L660:
-	ldr	r1, .L817
-	ldr	r2, [sp, #0x60]
+.L662:
+	ldr	r1, .L822
+	ldr	r2, [sp, #0x6c]
 	ldr	r3, [sp, #0x38]
 	add	r0, r2, r3
 	lsl	r0, r0, #0x3
@@ -15378,176 +15422,172 @@ CreateNPCTrainerParty:
 	ldrb	r2, [r0, #0x1]
 	add	r4, r1, #0
 	cmp	r2, #0x32
-	beq	.L669	@cond_branch
+	beq	.L671	@cond_branch
 	cmp	r2, #0x1f
-	beq	.L669	@cond_branch
+	beq	.L671	@cond_branch
 	cmp	r2, #0x26
-	beq	.L669	@cond_branch
+	beq	.L671	@cond_branch
 	cmp	r2, #0x20
-	beq	.L669	@cond_branch
+	beq	.L671	@cond_branch
 	add	r1, r0, #0
 	add	r1, r1, #0x20
 	ldrb	r0, [r1]
-	mov	r2, sl
-	str	r2, [sp, #0x44]
-	cmp	r0, r2
-	bhi	.L671	@cond_branch
+	ldr	r6, [sp, #0x50]
+	str	r6, [sp, #0x48]
+	cmp	r0, r6
+	bhi	.L673	@cond_branch
 	add	r1, r0, #0
-	str	r1, [sp, #0x44]
-.L671:
-	mov	r3, #0x0
-	mov	r8, r3
-	ldr	r0, [sp, #0x44]
-	cmp	r8, r0
-	bgt	.L668	@cond_branch
-	mov	r1, r9
-	add	r2, r6, r1
-.L675:
+	str	r1, [sp, #0x48]
+.L673:
+	mov	r0, #0x0
+	mov	r9, r0
+	ldr	r1, [sp, #0x48]
+	cmp	r9, r1
+	bgt	.L670	@cond_branch
+	mov	r2, r8
+	add	r2, r2, sl
+.L677:
 	mov	r1, sp
-	add	r1, r1, r8
+	add	r1, r1, r9
 	add	r1, r1, #0x14
-	mov	r3, r8
+	mov	r3, r9
 	add	r0, r2, r3
 	strb	r0, [r1]
 	mov	r6, #0x1
-	add	r8, r8, r6
-	ldr	r0, [sp, #0x44]
-	cmp	r8, r0
-	ble	.L675	@cond_branch
-	b	.L668
-.L818:
+	add	r9, r9, r6
+	ldr	r0, [sp, #0x48]
+	cmp	r9, r0
+	ble	.L677	@cond_branch
+	b	.L670
+.L823:
 	.align	2, 0
-.L817:
+.L822:
 	.word	gTrainers
-.L669:
-	ldr	r1, [sp, #0x4c]
-	str	r1, [sp, #0x44]
+.L671:
+	ldr	r1, [sp, #0x54]
+	str	r1, [sp, #0x48]
 	mov	r2, #0x0
-	mov	r8, r2
-	cmp	r8, r1
-	bgt	.L668	@cond_branch
-.L681:
+	mov	r9, r2
+	cmp	r9, r1
+	bgt	.L670	@cond_branch
+.L683:
 	mov	r1, sp
-	add	r1, r1, r8
+	add	r1, r1, r9
 	add	r1, r1, #0x14
-	ldr	r0, [sp, #0x50]
-	add	r0, r0, r8
+	ldr	r0, [sp, #0x58]
+	add	r0, r0, r9
 	strb	r0, [r1]
 	mov	r3, #0x1
-	add	r8, r8, r3
-	ldr	r6, [sp, #0x44]
-	cmp	r8, r6
-	ble	.L681	@cond_branch
-.L668:
+	add	r9, r9, r3
+	ldr	r6, [sp, #0x48]
+	cmp	r9, r6
+	ble	.L683	@cond_branch
+.L670:
 	mov	r0, #0x0
-	mov	r8, r0
-	ldr	r1, [sp, #0x44]
-	cmp	r8, r1
-	blt	.LCB5074
-	bl	.L684	@far jump
-.LCB5074:
-.L686:
+	mov	r9, r0
+	bl	.L810	@ far jump
+.L688:
 	ldr	r2, [sp, #0x60]
-	ldr	r3, [sp, #0x38]
-	add	r0, r2, r3
+	cmp	r2, #0x1
+	bne	.L689	@cond_branch
+	mov	r3, #0x80
+	b	.L811
+.L689:
+	ldr	r6, [sp, #0x6c]
+	ldr	r1, [sp, #0x38]
+	add	r0, r6, r1
 	lsl	r0, r0, #0x3
-	add	r1, r0, r4
-	ldrb	r0, [r1, #0x18]
-	cmp	r0, #0x1
-	bne	.L687	@cond_branch
-	mov	r6, #0x80
-	str	r6, [sp, #0x40]
-	b	.L688
-.L687:
-	ldrb	r1, [r1, #0x2]
+	add	r0, r0, r4
+	ldrb	r1, [r0, #0x2]
 	mov	r0, #0x80
 	and	r0, r0, r1
-	mov	r1, #0x88
-	str	r1, [sp, #0x40]
+	mov	r2, #0x88
+	str	r2, [sp, #0x44]
 	cmp	r0, #0
-	beq	.L688	@cond_branch
-	mov	r2, #0x78
-	str	r2, [sp, #0x40]
-.L688:
+	beq	.L690	@cond_branch
+	mov	r3, #0x78
+.L811:
+	str	r3, [sp, #0x44]
+.L690:
 	mov	r5, #0x0
-	ldr	r2, [sp, #0x60]
-	ldr	r3, [sp, #0x38]
-	add	r0, r2, r3
+	ldr	r2, [sp, #0x6c]
+	ldr	r6, [sp, #0x38]
+	add	r0, r2, r6
 	lsl	r0, r0, #0x3
 	add	r1, r4, #0x4
 	add	r0, r0, r1
 	ldrb	r0, [r0]
-	mov	r6, r8
-	add	r6, r6, #0x1
-	str	r6, [sp, #0x64]
+	mov	r3, r9
+	add	r3, r3, #0x1
+	str	r3, [sp, #0x70]
 	cmp	r0, #0xff
-	beq	.L692	@cond_branch
+	beq	.L694	@cond_branch
 	add	r3, r1, #0
-.L694:
-	ldr	r0, [sp, #0x38]
-	add	r1, r2, r0
+.L696:
+	ldr	r6, [sp, #0x38]
+	add	r1, r2, r6
 	lsl	r1, r1, #0x3
 	add	r0, r5, r1
 	add	r0, r0, r3
 	ldrb	r0, [r0]
-	ldr	r6, [sp, #0x3c]
+	ldr	r6, [sp, #0x40]
 	add	r6, r6, r0
-	str	r6, [sp, #0x3c]
+	str	r6, [sp, #0x40]
 	add	r5, r5, #0x1
 	add	r1, r5, r1
 	add	r1, r1, r3
 	ldrb	r0, [r1]
 	cmp	r0, #0xff
-	bne	.L694	@cond_branch
-.L692:
-	ldr	r1, [sp, #0x60]
+	bne	.L696	@cond_branch
+.L694:
+	ldr	r1, [sp, #0x6c]
 	ldr	r2, [sp, #0x38]
 	add	r0, r1, r2
 	lsl	r1, r0, #0x3
 	add	r0, r1, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0x1
-	beq	.L708	@cond_branch
+	beq	.L710	@cond_branch
 	cmp	r0, #0x1
-	bgt	.L805	@cond_branch
+	bgt	.L807	@cond_branch
 	cmp	r0, #0
-	beq	.L697	@cond_branch
-	bl	.L685	@ far jump
-.L805:
+	beq	.L699	@cond_branch
+	bl	.L687	@ far jump
+.L807:
 	cmp	r0, #0x2
-	bne	.LCB5174
-	b	.L739	@long jump
-.LCB5174:
+	bne	.LCB5219
+	b	.L741	@long jump
+.LCB5219:
 	cmp	r0, #0x3
-	bne	.LCB5176
-	b	.L752	@long jump
-.LCB5176:
-	bl	.L685	@ far jump
-.L697:
+	bne	.LCB5221
+	b	.L754	@long jump
+.LCB5221:
+	bl	.L687	@ far jump
+.L699:
 	add	r0, r4, #0
 	add	r0, r0, #0x24
 	add	r0, r1, r0
 	ldr	r4, [r0]
 	mov	r5, #0x0
-	mov	r3, r8
+	mov	r3, r9
 	lsl	r2, r3, #0x4
 	add	r0, r2, r4
 	ldrh	r1, [r0, #0xc]
 	mov	r0, #0xb
 	mul	r0, r0, r1
-	ldr	r6, .L819
+	ldr	r6, .L824
 	add	r0, r0, r6
 	ldrb	r0, [r0]
 	mov	r1, sp
-	add	r1, r1, r8
+	add	r1, r1, r9
 	add	r1, r1, #0x14
-	mov	r9, r1
+	mov	r8, r1
 	mov	sl, r2
 	cmp	r0, #0xff
-	beq	.L699	@cond_branch
+	beq	.L701	@cond_branch
 	add	r3, r6, #0
 	mov	r7, #0xb
-.L701:
+.L703:
 	add	r0, r2, r4
 	ldrh	r0, [r0, #0xc]
 	mov	r1, r0
@@ -15555,21 +15595,21 @@ CreateNPCTrainerParty:
 	add	r0, r5, r1
 	add	r0, r0, r3
 	ldrb	r0, [r0]
-	ldr	r6, [sp, #0x3c]
+	ldr	r6, [sp, #0x40]
 	add	r6, r6, r0
-	str	r6, [sp, #0x3c]
+	str	r6, [sp, #0x40]
 	add	r5, r5, #0x1
 	add	r1, r5, r1
 	add	r1, r1, r3
 	ldrb	r0, [r1]
 	cmp	r0, #0xff
-	bne	.L701	@cond_branch
-.L699:
-	ldr	r1, [sp, #0x3c]
+	bne	.L703	@cond_branch
+.L701:
+	ldr	r1, [sp, #0x40]
 	lsl	r0, r1, #0x8
-	ldr	r2, [sp, #0x40]
+	ldr	r2, [sp, #0x44]
 	add	r2, r2, r0
-	str	r2, [sp, #0x40]
+	str	r2, [sp, #0x44]
 	add	r4, r4, sl
 	ldrh	r1, [r4]
 	lsl	r0, r1, #0x5
@@ -15579,22 +15619,22 @@ CreateNPCTrainerParty:
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
 	ldrh	r0, [r4, #0xc]
-	mov	r3, r9
+	mov	r3, r8
 	ldrb	r1, [r3]
 	bl	GetTrainerPokemon
 	add	r1, r0, #0
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	mov	r6, #0x64
-	mov	r0, r8
+	mov	r0, r9
 	mul	r0, r0, r6
 	ldr	r2, [sp, #0x34]
 	add	r0, r2, r0
-	mov	r3, r9
+	mov	r3, r8
 	ldrb	r2, [r3]
 	mov	r6, #0x1
 	str	r6, [sp]
-	ldr	r3, [sp, #0x40]
+	ldr	r3, [sp, #0x44]
 	str	r3, [sp, #0x4]
 	mov	r6, #0x2
 	str	r6, [sp, #0x8]
@@ -15607,9 +15647,9 @@ CreateNPCTrainerParty:
 	mov	r5, #0x0
 	add	r4, r4, #0x3
 	mov	r0, #0x64
-	mov	r6, r8
+	mov	r6, r9
 	mul	r6, r6, r0
-.L706:
+.L708:
 	add	r0, r4, r5
 	ldrb	r0, [r0]
 	bl	GetEvsfromPokemon
@@ -15624,59 +15664,60 @@ CreateNPCTrainerParty:
 	bl	SetMonData
 	add	r5, r5, #0x1
 	cmp	r5, #0x5
-	ble	.L706	@cond_branch
-	b	.L808
-.L820:
+	ble	.L708	@cond_branch
+	b	.L812
+.L825:
 	.align	2, 0
-.L819:
+.L824:
 	.word	gSpeciesNames
-.L708:
+.L710:
 	add	r0, r4, #0
 	add	r0, r0, #0x24
 	add	r0, r1, r0
 	ldr	r0, [r0]
-	mov	sl, r0
+	str	r0, [sp, #0x64]
 	mov	r5, #0x0
-	mov	r0, r8
-	lsl	r2, r0, #0x5
-	mov	r1, sl
-	add	r0, r2, r1
+	mov	r3, r9
+	lsl	r2, r3, #0x5
+	add	r0, r2, r0
 	ldrh	r1, [r0, #0xc]
 	mov	r0, #0xb
 	mul	r0, r0, r1
-	ldr	r3, .L821
-	add	r0, r0, r3
+	ldr	r6, .L826
+	add	r0, r0, r6
 	ldrb	r0, [r0]
-	str	r2, [sp, #0x70]
+	str	r2, [sp, #0x7c]
 	cmp	r0, #0xff
-	beq	.L710	@cond_branch
+	beq	.L712	@cond_branch
+	add	r3, r6, #0
 	mov	r4, #0xb
-.L712:
-	mov	r6, sl
-	add	r0, r2, r6
+.L714:
+	ldr	r1, [sp, #0x64]
+	add	r0, r2, r1
 	ldrh	r0, [r0, #0xc]
 	mov	r1, r0
 	mul	r1, r1, r4
 	add	r0, r5, r1
 	add	r0, r0, r3
 	ldrb	r0, [r0]
-	ldr	r6, [sp, #0x3c]
+	ldr	r6, [sp, #0x40]
 	add	r6, r6, r0
-	str	r6, [sp, #0x3c]
+	str	r6, [sp, #0x40]
 	add	r5, r5, #0x1
 	add	r1, r5, r1
 	add	r1, r1, r3
 	ldrb	r0, [r1]
 	cmp	r0, #0xff
-	bne	.L712	@cond_branch
-.L710:
-	ldr	r1, [sp, #0x3c]
+	bne	.L714	@cond_branch
+.L712:
+	ldr	r1, [sp, #0x40]
 	lsl	r0, r1, #0x8
-	ldr	r2, [sp, #0x40]
+	ldr	r2, [sp, #0x44]
 	add	r2, r2, r0
-	str	r2, [sp, #0x40]
-	ldr	r6, [sp, #0x70]
-	add	r6, r6, sl
+	str	r2, [sp, #0x44]
+	ldr	r3, [sp, #0x7c]
+	ldr	r0, [sp, #0x64]
+	add	r6, r3, r0
 	ldrh	r1, [r6]
 	lsl	r0, r1, #0x5
 	sub	r0, r0, r1
@@ -15684,13 +15725,13 @@ CreateNPCTrainerParty:
 	bl	__divsi3
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
-	mov	r3, sl
-	ldrb	r5, [r3, #0x2]
+	ldr	r1, [sp, #0x64]
+	ldrb	r5, [r1, #0x2]
 	cmp	r5, #0x1
-	bne	.L714	@cond_branch
+	bne	.L716	@cond_branch
 	ldrh	r0, [r6, #0xc]
 	mov	r4, sp
-	add	r4, r4, r8
+	add	r4, r4, r9
 	add	r4, r4, #0x14
 	ldrb	r1, [r4]
 	bl	GetTrainerPokemon
@@ -15698,31 +15739,31 @@ CreateNPCTrainerParty:
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	mov	r2, #0x64
-	mov	r0, r8
+	mov	r0, r9
 	mul	r0, r0, r2
 	ldr	r3, [sp, #0x34]
 	add	r0, r3, r0
 	ldrb	r2, [r4]
 	str	r5, [sp]
-	ldr	r4, [sp, #0x40]
-	str	r4, [sp, #0x4]
+	ldr	r3, [sp, #0x44]
+	str	r3, [sp, #0x4]
 	mov	r3, #0x2
 	str	r3, [sp, #0x8]
-	mov	r4, #0x0
-	str	r4, [sp, #0xc]
+	mov	r3, #0x0
+	str	r3, [sp, #0xc]
 	ldrb	r3, [r6, #0xe]
 	str	r3, [sp, #0x10]
-	b	.L809
-.L822:
+	b	.L813
+.L827:
 	.align	2, 0
-.L821:
+.L826:
 	.word	gSpeciesNames
-.L714:
+.L716:
 	cmp	r5, #0x3
-	bne	.L716	@cond_branch
+	bne	.L718	@cond_branch
 	ldrh	r0, [r6, #0xc]
 	mov	r1, sp
-	add	r1, r1, r8
+	add	r1, r1, r9
 	add	r1, r1, #0x14
 	ldrb	r1, [r1]
 	bl	GetTrainerPokemon
@@ -15730,166 +15771,179 @@ CreateNPCTrainerParty:
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	mov	r2, #0x64
-	mov	r0, r8
+	mov	r0, r9
 	mul	r0, r0, r2
 	ldr	r3, [sp, #0x34]
 	add	r0, r3, r0
-	ldr	r2, [sp, #0x50]
+	ldr	r2, [sp, #0x58]
 	sub	r2, r2, #0x2
 	lsl	r2, r2, #0x18
-	mov	r4, #0x1
-	str	r4, [sp]
-	ldr	r3, [sp, #0x40]
+	mov	r3, #0x1
+	str	r3, [sp]
+	ldr	r3, [sp, #0x44]
 	str	r3, [sp, #0x4]
-	mov	r4, #0x2
-	str	r4, [sp, #0x8]
+	mov	r3, #0x2
+	str	r3, [sp, #0x8]
 	mov	r3, #0x0
 	str	r3, [sp, #0xc]
 	ldrb	r3, [r6, #0xe]
 	str	r3, [sp, #0x10]
 	lsr	r2, r2, #0x18
-.L809:
+.L813:
 	add	r3, r7, #0
 	bl	CreateMon
-	b	.L715
-.L716:
-	mov	r4, #0x64
-	mov	r0, r8
-	mul	r0, r0, r4
-	ldr	r1, [sp, #0x34]
-	add	r0, r1, r0
+	b	.L717
+.L718:
+	mov	r1, #0x64
+	mov	r0, r9
+	mul	r0, r0, r1
+	ldr	r2, [sp, #0x34]
+	add	r0, r2, r0
 	ldrh	r1, [r6, #0xc]
 	ldrb	r2, [r6, #0x2]
-	ldr	r3, [sp, #0x54]
+	ldr	r3, [sp, #0x5c]
 	add	r2, r3, r2
 	lsl	r2, r2, #0x18
 	lsr	r2, r2, #0x18
-	mov	r4, #0x1
-	str	r4, [sp]
-	ldr	r3, [sp, #0x40]
+	mov	r3, #0x1
+	str	r3, [sp]
+	ldr	r3, [sp, #0x44]
 	str	r3, [sp, #0x4]
-	mov	r4, #0x2
-	str	r4, [sp, #0x8]
+	mov	r3, #0x2
+	str	r3, [sp, #0x8]
 	mov	r3, #0x0
 	str	r3, [sp, #0xc]
 	ldrb	r3, [r6, #0xe]
 	str	r3, [sp, #0x10]
 	add	r3, r7, #0
 	bl	CreateMon
-.L715:
-	ldr	r4, [sp, #0x48]
-	cmp	r4, #0x6
-	bls	.L718	@cond_branch
+.L717:
+	ldr	r6, [sp, #0x4c]
+	cmp	r6, #0x6
+	bls	.L720	@cond_branch
 	mov	r5, #0x0
-	ldr	r6, [sp, #0x70]
-	add	r6, r6, sl
-	str	r6, [sp, #0x58]
+	ldr	r0, [sp, #0x7c]
+	ldr	r1, [sp, #0x64]
+	add	r0, r0, r1
+	mov	sl, r0
 	mov	r0, #0x64
-	mov	r1, r8
-	mul	r1, r1, r0
+	mov	r2, r9
+	mul	r2, r2, r0
+	add	r0, r2, #0
+	ldr	r3, [sp, #0x34]
+	add	r6, r3, r0
+	mov	r0, #0x11
+	str	r0, [sp, #0x80]
 	add	r0, r1, #0
-	ldr	r2, [sp, #0x34]
-	add	r6, r2, r0
-	mov	r3, #0x11
-	str	r3, [sp, #0x74]
-	mov	r0, sl
 	add	r0, r0, #0x18
-	ldr	r4, [sp, #0x70]
-	add	r4, r4, r0
-	mov	r9, r4
-	mov	r0, #0xd
-	str	r0, [sp, #0x78]
-	mov	r0, sl
+	ldr	r1, [sp, #0x7c]
+	add	r1, r1, r0
+	mov	r8, r1
+	mov	r2, #0xd
+	str	r2, [sp, #0x84]
+	ldr	r0, [sp, #0x64]
 	add	r0, r0, #0x10
-	ldr	r1, [sp, #0x70]
-	add	r7, r1, r0
-.L722:
+	ldr	r3, [sp, #0x7c]
+	add	r7, r3, r0
+.L724:
 	lsl	r1, r5, #0x1
-	ldr	r0, [sp, #0x58]
+	mov	r0, sl
 	add	r0, r0, #0x10
 	add	r4, r0, r1
 	ldrh	r0, [r4]
 	cmp	r0, #0
-	beq	.L723	@cond_branch
+	beq	.L725	@cond_branch
 	add	r0, r6, #0
-	ldr	r1, [sp, #0x78]
+	ldr	r1, [sp, #0x84]
 	add	r2, r7, #0
 	bl	SetMonData
 	ldrh	r0, [r4]
 	lsl	r2, r0, #0x2
 	add	r2, r2, r0
 	lsl	r2, r2, #0x2
-	ldr	r3, .L823
-	add	r2, r2, r3
+	ldr	r0, .L828
+	add	r2, r2, r0
 	add	r0, r6, #0
-	ldr	r1, [sp, #0x74]
+	ldr	r1, [sp, #0x80]
 	bl	SetMonData
-	b	.L721
-.L824:
+	b	.L723
+.L829:
 	.align	2, 0
-.L823:
+.L828:
 	.word	gBattleMoves+0x5
-.L723:
-	ldr	r0, [sp, #0x58]
+.L725:
+	mov	r0, sl
 	add	r0, r0, #0x18
 	add	r4, r0, r1
 	ldrh	r0, [r4]
 	cmp	r0, #0
-	beq	.L721	@cond_branch
+	beq	.L723	@cond_branch
 	add	r0, r6, #0
-	ldr	r1, [sp, #0x78]
-	mov	r2, r9
+	ldr	r1, [sp, #0x84]
+	mov	r2, r8
 	bl	SetMonData
 	ldrh	r0, [r4]
 	lsl	r2, r0, #0x2
 	add	r2, r2, r0
 	lsl	r2, r2, #0x2
-	ldr	r4, .L825
-	add	r2, r2, r4
+	ldr	r1, .L830
+	add	r2, r2, r1
 	add	r0, r6, #0
-	ldr	r1, [sp, #0x74]
+	ldr	r1, [sp, #0x80]
 	bl	SetMonData
-.L721:
-	ldr	r0, [sp, #0x74]
-	add	r0, r0, #0x1
-	str	r0, [sp, #0x74]
-	mov	r1, #0x2
-	add	r9, r9, r1
-	ldr	r2, [sp, #0x78]
+.L723:
+	ldr	r2, [sp, #0x80]
 	add	r2, r2, #0x1
-	str	r2, [sp, #0x78]
+	str	r2, [sp, #0x80]
+	mov	r3, #0x2
+	add	r8, r8, r3
+	ldr	r0, [sp, #0x84]
+	add	r0, r0, #0x1
+	str	r0, [sp, #0x84]
 	add	r7, r7, #0x2
 	add	r5, r5, #0x1
 	cmp	r5, #0x3
-	ble	.L722	@cond_branch
-	b	.L727
-.L826:
+	ble	.L724	@cond_branch
+	b	.L729
+.L831:
 	.align	2, 0
-.L825:
+.L830:
 	.word	gBattleMoves+0x5
-.L718:
+.L720:
 	mov	r5, #0x0
-	ldr	r3, [sp, #0x70]
-	add	r3, r3, sl
-	mov	r9, r3
-	mov	r0, #0x64
-	mov	r4, r8
-	mul	r4, r4, r0
-	add	r0, r4, #0
-	ldr	r6, [sp, #0x34]
-	add	r7, r6, r0
-	mov	r0, sl
+	ldr	r1, [sp, #0x7c]
+	ldr	r2, [sp, #0x64]
+	add	r1, r1, r2
+	mov	r8, r1
+	add	r0, r2, #0
 	add	r0, r0, #0x18
-	ldr	r1, [sp, #0x70]
-	add	r6, r1, r0
-.L731:
+	ldr	r3, [sp, #0x7c]
+	add	r6, r3, r0
+	mov	r1, #0x64
+	mov	r0, r9
+	mul	r0, r0, r1
+	ldr	r2, [sp, #0x34]
+	add	r7, r2, r0
+.L733:
 	lsl	r0, r5, #0x1
-	mov	r1, r9
+	mov	r1, r8
 	add	r1, r1, #0x18
 	add	r4, r1, r0
 	ldrh	r0, [r4]
 	cmp	r0, #0
-	beq	.L730	@cond_branch
+	beq	.L732	@cond_branch
+	ldr	r3, .L832
+	add	r1, r0, #0
+	lsl	r0, r1, #0x2
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r0, r0, r3
+	ldrb	r0, [r0, #0x2]
+	str	r3, [sp, #0x88]
+	bl	IsMoveUsable
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L732	@cond_branch
 	add	r1, r5, #0
 	add	r1, r1, #0xd
 	add	r0, r7, #0
@@ -15901,24 +15955,26 @@ CreateNPCTrainerParty:
 	lsl	r2, r0, #0x2
 	add	r2, r2, r0
 	lsl	r2, r2, #0x2
-	ldr	r0, .L827
+	ldr	r3, [sp, #0x88]
+	add	r0, r3, #0x5
 	add	r2, r2, r0
 	add	r0, r7, #0
 	bl	SetMonData
-.L730:
+.L732:
 	add	r6, r6, #0x2
 	add	r5, r5, #0x1
 	cmp	r5, #0x3
-	ble	.L731	@cond_branch
-.L727:
+	ble	.L733	@cond_branch
+.L729:
 	mov	r5, #0x0
-	ldr	r0, [sp, #0x70]
-	add	r0, r0, sl
+	ldr	r3, [sp, #0x7c]
+	ldr	r6, [sp, #0x64]
+	add	r0, r3, r6
 	add	r6, r0, #0x3
 	mov	r0, #0x64
-	mov	r4, r8
+	mov	r4, r9
 	mul	r4, r4, r0
-.L737:
+.L739:
 	add	r0, r6, r5
 	ldrb	r0, [r0]
 	bl	GetEvsfromPokemon
@@ -15933,41 +15989,41 @@ CreateNPCTrainerParty:
 	bl	SetMonData
 	add	r5, r5, #0x1
 	cmp	r5, #0x5
-	ble	.L737	@cond_branch
-	b	.L808
-.L828:
+	ble	.L739	@cond_branch
+	b	.L812
+.L833:
 	.align	2, 0
-.L827:
-	.word	gBattleMoves+0x5
-.L739:
+.L832:
+	.word	gBattleMoves
+.L741:
 	add	r0, r4, #0
 	add	r0, r0, #0x24
 	add	r0, r1, r0
 	ldr	r0, [r0]
 	mov	sl, r0
 	mov	r5, #0x0
-	mov	r0, r8
-	lsl	r2, r0, #0x2
-	add	r0, r2, r0
+	mov	r3, r9
+	lsl	r2, r3, #0x2
+	add	r0, r2, r3
 	lsl	r0, r0, #0x2
 	add	r0, r0, sl
 	ldrh	r1, [r0, #0xc]
 	mov	r0, #0xb
 	mul	r0, r0, r1
-	ldr	r1, .L829
-	add	r0, r0, r1
+	ldr	r6, .L834
+	add	r0, r0, r6
 	ldrb	r0, [r0]
-	mov	r3, sp
-	add	r3, r3, r8
-	add	r3, r3, #0x14
-	mov	r9, r3
-	str	r2, [sp, #0x68]
+	mov	r1, sp
+	add	r1, r1, r9
+	add	r1, r1, #0x14
+	mov	r8, r1
+	str	r2, [sp, #0x74]
 	cmp	r0, #0xff
-	beq	.L741	@cond_branch
-	add	r3, r1, #0
+	beq	.L743	@cond_branch
+	add	r3, r6, #0
 	mov	r4, #0xb
-.L743:
-	mov	r6, r8
+.L745:
+	mov	r6, r9
 	add	r0, r2, r6
 	lsl	r0, r0, #0x2
 	add	r0, r0, sl
@@ -15977,23 +16033,23 @@ CreateNPCTrainerParty:
 	add	r0, r5, r1
 	add	r0, r0, r3
 	ldrb	r0, [r0]
-	ldr	r6, [sp, #0x3c]
+	ldr	r6, [sp, #0x40]
 	add	r6, r6, r0
-	str	r6, [sp, #0x3c]
+	str	r6, [sp, #0x40]
 	add	r5, r5, #0x1
 	add	r1, r5, r1
 	add	r1, r1, r3
 	ldrb	r0, [r1]
 	cmp	r0, #0xff
-	bne	.L743	@cond_branch
-.L741:
-	ldr	r1, [sp, #0x3c]
+	bne	.L745	@cond_branch
+.L743:
+	ldr	r1, [sp, #0x40]
 	lsl	r0, r1, #0x8
-	ldr	r2, [sp, #0x40]
+	ldr	r2, [sp, #0x44]
 	add	r2, r2, r0
-	str	r2, [sp, #0x40]
-	ldr	r0, [sp, #0x68]
-	add	r0, r0, r8
+	str	r2, [sp, #0x44]
+	ldr	r0, [sp, #0x74]
+	add	r0, r0, r9
 	lsl	r0, r0, #0x2
 	mov	r3, sl
 	add	r4, r0, r3
@@ -16005,22 +16061,22 @@ CreateNPCTrainerParty:
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
 	ldrh	r0, [r4, #0xc]
-	mov	r6, r9
+	mov	r6, r8
 	ldrb	r1, [r6]
 	bl	GetTrainerPokemon
 	add	r1, r0, #0
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	mov	r2, #0x64
-	mov	r0, r8
+	mov	r0, r9
 	mul	r0, r0, r2
 	ldr	r3, [sp, #0x34]
 	add	r6, r3, r0
-	mov	r0, r9
+	mov	r0, r8
 	ldrb	r2, [r0]
 	mov	r3, #0x1
 	str	r3, [sp]
-	ldr	r0, [sp, #0x40]
+	ldr	r0, [sp, #0x44]
 	str	r0, [sp, #0x4]
 	mov	r3, #0x2
 	str	r3, [sp, #0x8]
@@ -16031,52 +16087,52 @@ CreateNPCTrainerParty:
 	add	r0, r6, #0
 	add	r3, r7, #0
 	bl	CreateMon
-	ldr	r1, [sp, #0x48]
+	ldr	r1, [sp, #0x4c]
 	cmp	r1, #0x7
-	bls	.L745	@cond_branch
+	bls	.L747	@cond_branch
 	ldrh	r0, [r4, #0x10]
 	cmp	r0, #0
-	beq	.L745	@cond_branch
+	beq	.L747	@cond_branch
 	add	r2, r4, #0
 	add	r2, r2, #0x10
 	add	r0, r6, #0
 	mov	r1, #0xc
 	bl	SetMonData
-	b	.L746
-.L830:
+	b	.L748
+.L835:
 	.align	2, 0
-.L829:
+.L834:
 	.word	gSpeciesNames
-.L745:
-	ldr	r0, [sp, #0x68]
-	add	r0, r0, r8
+.L747:
+	ldr	r0, [sp, #0x74]
+	add	r0, r0, r9
 	lsl	r0, r0, #0x2
 	add	r0, r0, sl
 	ldrh	r0, [r0, #0x12]
 	bl	GetHeldItem
-	mov	r3, r8
+	mov	r3, r9
 	lsl	r2, r3, #0x1
 	add	r2, r2, sp
 	add	r2, r2, #0x24
 	strh	r0, [r2]
-	mov	r4, #0x64
-	mov	r0, r8
-	mul	r0, r0, r4
-	ldr	r6, [sp, #0x34]
-	add	r0, r6, r0
+	mov	r6, #0x64
+	mov	r0, r9
+	mul	r0, r0, r6
+	ldr	r1, [sp, #0x34]
+	add	r0, r1, r0
 	mov	r1, #0xc
 	bl	SetMonData
-.L746:
+.L748:
 	mov	r5, #0x0
-	ldr	r0, [sp, #0x68]
-	add	r0, r0, r8
+	ldr	r0, [sp, #0x74]
+	add	r0, r0, r9
 	lsl	r0, r0, #0x2
 	add	r0, r0, sl
 	add	r6, r0, #0x3
-	mov	r0, #0x64
-	mov	r4, r8
-	mul	r4, r4, r0
-.L750:
+	mov	r2, #0x64
+	mov	r4, r9
+	mul	r4, r4, r2
+.L752:
 	add	r0, r6, r5
 	ldrb	r0, [r0]
 	bl	GetEvsfromPokemon
@@ -16091,71 +16147,71 @@ CreateNPCTrainerParty:
 	bl	SetMonData
 	add	r5, r5, #0x1
 	cmp	r5, #0x5
-	ble	.L750	@cond_branch
-.L808:
-	mov	r4, #0x64
-	mov	r0, r8
-	mul	r0, r0, r4
-	ldr	r6, [sp, #0x34]
-	add	r0, r6, r0
+	ble	.L752	@cond_branch
+.L812:
+	mov	r6, #0x64
+	mov	r0, r9
+	mul	r0, r0, r6
+	ldr	r1, [sp, #0x34]
+	add	r0, r1, r0
 	bl	CalculateMonStats
-	b	.L685
-.L752:
+	b	.L687
+.L754:
 	add	r0, r4, #0
 	add	r0, r0, #0x24
 	add	r0, r1, r0
 	ldr	r0, [r0]
-	mov	r9, r0
+	mov	r8, r0
 	mov	r5, #0x0
-	mov	r0, r8
-	lsl	r2, r0, #0x3
-	add	r0, r2, r0
+	mov	r3, r9
+	lsl	r2, r3, #0x3
+	add	r0, r2, r3
 	lsl	r0, r0, #0x2
-	add	r0, r0, r9
+	add	r0, r0, r8
 	ldrh	r1, [r0, #0xc]
 	mov	r0, #0xb
 	mul	r0, r0, r1
-	ldr	r1, .L831
-	add	r0, r0, r1
+	ldr	r6, .L836
+	add	r0, r0, r6
 	ldrb	r0, [r0]
-	str	r2, [sp, #0x6c]
-	mov	r3, sp
-	add	r3, r3, #0x30
-	str	r3, [sp, #0x5c]
+	str	r2, [sp, #0x78]
+	mov	r1, sp
+	add	r1, r1, #0x30
+	str	r1, [sp, #0x68]
 	cmp	r0, #0xff
-	beq	.L754	@cond_branch
-	add	r3, r1, #0
+	beq	.L756	@cond_branch
+	add	r3, r6, #0
 	mov	r4, #0xb
-.L756:
-	mov	r6, r8
+.L758:
+	mov	r6, r9
 	add	r0, r2, r6
 	lsl	r0, r0, #0x2
-	add	r0, r0, r9
+	add	r0, r0, r8
 	ldrh	r0, [r0, #0xc]
 	mov	r1, r0
 	mul	r1, r1, r4
 	add	r0, r5, r1
 	add	r0, r0, r3
 	ldrb	r0, [r0]
-	ldr	r6, [sp, #0x3c]
+	ldr	r6, [sp, #0x40]
 	add	r6, r6, r0
-	str	r6, [sp, #0x3c]
+	str	r6, [sp, #0x40]
 	add	r5, r5, #0x1
 	add	r1, r5, r1
 	add	r1, r1, r3
 	ldrb	r0, [r1]
 	cmp	r0, #0xff
-	bne	.L756	@cond_branch
-.L754:
-	ldr	r1, [sp, #0x3c]
+	bne	.L758	@cond_branch
+.L756:
+	ldr	r1, [sp, #0x40]
 	lsl	r0, r1, #0x8
-	ldr	r2, [sp, #0x40]
+	ldr	r2, [sp, #0x44]
 	add	r2, r2, r0
-	str	r2, [sp, #0x40]
-	ldr	r0, [sp, #0x6c]
-	add	r0, r0, r8
+	str	r2, [sp, #0x44]
+	ldr	r0, [sp, #0x78]
+	add	r0, r0, r9
 	lsl	r0, r0, #0x2
-	mov	r3, r9
+	mov	r3, r8
 	add	r6, r0, r3
 	ldrh	r1, [r6]
 	lsl	r0, r1, #0x5
@@ -16164,13 +16220,13 @@ CreateNPCTrainerParty:
 	bl	__divsi3
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
-	mov	r4, r9
-	ldrb	r5, [r4, #0x2]
+	mov	r0, r8
+	ldrb	r5, [r0, #0x2]
 	cmp	r5, #0x1
-	bne	.L758	@cond_branch
+	bne	.L760	@cond_branch
 	ldrh	r0, [r6, #0xc]
 	mov	r4, sp
-	add	r4, r4, r8
+	add	r4, r4, r9
 	add	r4, r4, #0x14
 	ldrb	r1, [r4]
 	bl	GetTrainerPokemon
@@ -16178,29 +16234,23 @@ CreateNPCTrainerParty:
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	mov	r2, #0x64
-	mov	r0, r8
+	mov	r0, r9
 	mul	r0, r0, r2
 	ldr	r3, [sp, #0x34]
 	add	r0, r3, r0
 	ldrb	r2, [r4]
 	str	r5, [sp]
-	ldr	r4, [sp, #0x40]
-	str	r4, [sp, #0x4]
-	mov	r3, #0x2
-	str	r3, [sp, #0x8]
-	mov	r4, #0x0
-	str	r4, [sp, #0xc]
-	b	.L810
-.L832:
+	b	.L814
+.L837:
 	.align	2, 0
-.L831:
+.L836:
 	.word	gSpeciesNames
-.L758:
+.L760:
 	cmp	r5, #0x2
-	bne	.L760	@cond_branch
+	bne	.L762	@cond_branch
 	ldrh	r0, [r6, #0xc]
 	mov	r4, sp
-	add	r4, r4, r8
+	add	r4, r4, r9
 	add	r4, r4, #0x14
 	ldrb	r1, [r4]
 	bl	GetTrainerPokemon
@@ -16208,25 +16258,23 @@ CreateNPCTrainerParty:
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	mov	r2, #0x64
-	mov	r0, r8
+	mov	r0, r9
 	mul	r0, r0, r2
 	ldr	r3, [sp, #0x34]
 	add	r0, r3, r0
 	ldrb	r2, [r4]
-	mov	r4, #0x1
-	str	r4, [sp]
-	ldr	r3, [sp, #0x40]
+	mov	r3, #0x1
+	str	r3, [sp]
+	ldr	r3, [sp, #0x44]
 	str	r3, [sp, #0x4]
 	str	r5, [sp, #0x8]
-	mov	r4, #0x0
-	str	r4, [sp, #0xc]
-	b	.L810
-.L760:
+	b	.L815
+.L762:
 	cmp	r5, #0x3
-	bne	.L762	@cond_branch
+	bne	.L764	@cond_branch
 	ldrh	r0, [r6, #0xc]
 	mov	r1, sp
-	add	r1, r1, r8
+	add	r1, r1, r9
 	add	r1, r1, #0x14
 	ldrb	r1, [r1]
 	bl	GetTrainerPokemon
@@ -16234,61 +16282,61 @@ CreateNPCTrainerParty:
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	mov	r2, #0x64
-	mov	r0, r8
+	mov	r0, r9
 	mul	r0, r0, r2
 	ldr	r3, [sp, #0x34]
 	add	r0, r3, r0
-	ldr	r2, [sp, #0x50]
+	ldr	r2, [sp, #0x58]
 	sub	r2, r2, #0x2
 	lsl	r2, r2, #0x18
-	mov	r4, #0x1
-	str	r4, [sp]
-	ldr	r3, [sp, #0x40]
+	mov	r3, #0x1
+	str	r3, [sp]
+	ldr	r3, [sp, #0x44]
 	str	r3, [sp, #0x4]
-	mov	r4, #0x2
-	str	r4, [sp, #0x8]
+	mov	r3, #0x2
+	str	r3, [sp, #0x8]
 	mov	r3, #0x0
 	str	r3, [sp, #0xc]
 	ldrb	r3, [r6, #0xe]
 	str	r3, [sp, #0x10]
 	lsr	r2, r2, #0x18
-	b	.L811
-.L762:
-	cmp	r5, #0x5
-	bne	.L764	@cond_branch
-	ldr	r0, [sp, #0x4c]
-	sub	r0, r0, #0x1
-	cmp	r8, r0
-	bne	.L771	@cond_branch
-	mov	r0, r9
-	add	r0, r0, #0xb4
-	ldrh	r0, [r0, #0xc]
-	b	.L812
+	b	.L816
 .L764:
-	cmp	r5, #0x6
-	bne	.L768	@cond_branch
-	ldr	r0, [sp, #0x4c]
+	cmp	r5, #0x5
+	bne	.L766	@cond_branch
+	ldr	r0, [sp, #0x54]
 	sub	r0, r0, #0x1
-	cmp	r8, r0
-	bne	.L769	@cond_branch
-	mov	r0, r9
+	cmp	r9, r0
+	bne	.L773	@cond_branch
+	mov	r0, r8
 	add	r0, r0, #0xb4
 	ldrh	r0, [r0, #0xc]
-	b	.L812
-.L769:
-	ldr	r0, [sp, #0x4c]
-	sub	r0, r0, #0x2
-	cmp	r8, r0
+	b	.L817
+.L766:
+	cmp	r5, #0x6
+	bne	.L770	@cond_branch
+	ldr	r0, [sp, #0x54]
+	sub	r0, r0, #0x1
+	cmp	r9, r0
 	bne	.L771	@cond_branch
-	mov	r0, r9
+	mov	r0, r8
+	add	r0, r0, #0xb4
+	ldrh	r0, [r0, #0xc]
+	b	.L817
+.L771:
+	ldr	r0, [sp, #0x54]
+	sub	r0, r0, #0x2
+	cmp	r9, r0
+	bne	.L773	@cond_branch
+	mov	r0, r8
 	add	r0, r0, #0x90
 	ldrh	r0, [r0, #0xc]
-	b	.L812
-.L771:
+	b	.L817
+.L773:
 	ldrh	r0, [r6, #0xc]
-.L812:
+.L817:
 	mov	r4, sp
-	add	r4, r4, r8
+	add	r4, r4, r9
 	add	r4, r4, #0x14
 	ldrb	r1, [r4]
 	bl	GetTrainerPokemon
@@ -16296,109 +16344,110 @@ CreateNPCTrainerParty:
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	mov	r2, #0x64
-	mov	r0, r8
+	mov	r0, r9
 	mul	r0, r0, r2
 	ldr	r3, [sp, #0x34]
 	add	r0, r3, r0
 	ldrb	r2, [r4]
-	mov	r4, #0x1
-	str	r4, [sp]
-	ldr	r3, [sp, #0x40]
+	mov	r3, #0x1
+	str	r3, [sp]
+.L814:
+	ldr	r3, [sp, #0x44]
 	str	r3, [sp, #0x4]
-	mov	r4, #0x2
-	str	r4, [sp, #0x8]
+	mov	r3, #0x2
+	str	r3, [sp, #0x8]
+.L815:
 	mov	r3, #0x0
 	str	r3, [sp, #0xc]
-.L810:
 	ldrb	r3, [r6, #0xe]
 	str	r3, [sp, #0x10]
-.L811:
+.L816:
 	add	r3, r7, #0
 	bl	CreateMon
-	b	.L759
-.L768:
-	mov	r4, #0x64
-	mov	r0, r8
-	mul	r0, r0, r4
-	ldr	r1, [sp, #0x34]
-	add	r0, r1, r0
+	b	.L761
+.L770:
+	mov	r1, #0x64
+	mov	r0, r9
+	mul	r0, r0, r1
+	ldr	r2, [sp, #0x34]
+	add	r0, r2, r0
 	ldrh	r1, [r6, #0xc]
 	ldrb	r2, [r6, #0x2]
-	ldr	r3, [sp, #0x54]
+	ldr	r3, [sp, #0x5c]
 	add	r2, r3, r2
 	lsl	r2, r2, #0x18
 	lsr	r2, r2, #0x18
-	mov	r4, #0x1
-	str	r4, [sp]
-	ldr	r3, [sp, #0x40]
+	mov	r3, #0x1
+	str	r3, [sp]
+	ldr	r3, [sp, #0x44]
 	str	r3, [sp, #0x4]
-	mov	r4, #0x2
-	str	r4, [sp, #0x8]
+	mov	r3, #0x2
+	str	r3, [sp, #0x8]
 	mov	r3, #0x0
 	str	r3, [sp, #0xc]
 	ldrb	r3, [r6, #0xe]
 	str	r3, [sp, #0x10]
 	add	r3, r7, #0
 	bl	CreateMon
-.L759:
-	ldr	r4, [sp, #0x48]
-	cmp	r4, #0x7
-	bls	.L774	@cond_branch
-	ldr	r0, [sp, #0x6c]
-	add	r0, r0, r8
+.L761:
+	ldr	r6, [sp, #0x4c]
+	cmp	r6, #0x7
+	bls	.L776	@cond_branch
+	ldr	r0, [sp, #0x78]
+	add	r0, r0, r9
 	lsl	r0, r0, #0x2
-	mov	r6, r9
-	add	r2, r0, r6
+	mov	r1, r8
+	add	r2, r0, r1
 	ldrh	r0, [r2, #0x10]
 	cmp	r0, #0
-	beq	.L774	@cond_branch
-	mov	r1, #0x64
-	mov	r0, r8
-	mul	r0, r0, r1
-	ldr	r3, [sp, #0x34]
-	add	r0, r3, r0
+	beq	.L776	@cond_branch
+	mov	r3, #0x64
+	mov	r0, r9
+	mul	r0, r0, r3
+	ldr	r6, [sp, #0x34]
+	add	r0, r6, r0
 	add	r2, r2, #0x10
 	mov	r1, #0xc
 	bl	SetMonData
-	b	.L775
-.L774:
-	ldr	r0, [sp, #0x6c]
-	add	r0, r0, r8
-	lsl	r0, r0, #0x2
+	b	.L777
+.L776:
+	ldr	r0, [sp, #0x78]
 	add	r0, r0, r9
+	lsl	r0, r0, #0x2
+	add	r0, r0, r8
 	ldrh	r0, [r0, #0x12]
 	bl	GetHeldItem
-	mov	r4, r8
-	lsl	r2, r4, #0x1
+	mov	r1, r9
+	lsl	r2, r1, #0x1
 	add	r2, r2, sp
 	add	r2, r2, #0x24
 	strh	r0, [r2]
-	mov	r6, #0x64
-	mov	r0, r8
-	mul	r0, r0, r6
-	ldr	r1, [sp, #0x34]
-	add	r0, r1, r0
+	mov	r3, #0x64
+	mov	r0, r9
+	mul	r0, r0, r3
+	ldr	r6, [sp, #0x34]
+	add	r0, r6, r0
 	mov	r1, #0xc
 	bl	SetMonData
-.L775:
-	ldr	r2, [sp, #0x48]
-	cmp	r2, #0x6
-	bls	.L776	@cond_branch
+.L777:
+	ldr	r0, [sp, #0x4c]
+	cmp	r0, #0x6
+	bls	.L778	@cond_branch
 	mov	r5, #0x0
 	mov	r0, #0x64
-	mov	r3, r8
-	mul	r3, r3, r0
-	add	r0, r3, #0
-	ldr	r4, [sp, #0x34]
-	add	r6, r4, r0
-	mov	r0, #0x11
-	mov	sl, r0
+	mov	r1, r9
+	mul	r1, r1, r0
+	add	r0, r1, #0
+	ldr	r2, [sp, #0x34]
+	add	r6, r2, r0
+	mov	r3, #0x11
+	mov	sl, r3
 	mov	r7, #0xd
-.L780:
-	ldr	r0, [sp, #0x6c]
-	add	r0, r0, r8
+.L782:
+	ldr	r0, [sp, #0x78]
+	add	r0, r0, r9
 	lsl	r0, r0, #0x2
-	mov	r2, r9
+	mov	r2, r8
 	add	r1, r0, r2
 	lsl	r2, r5, #0x1
 	add	r0, r1, #0
@@ -16406,7 +16455,7 @@ CreateNPCTrainerParty:
 	add	r4, r0, r2
 	ldrh	r0, [r4]
 	cmp	r0, #0
-	beq	.L781	@cond_branch
+	beq	.L783	@cond_branch
 	add	r2, r2, #0x14
 	add	r2, r1, r2
 	add	r0, r6, #0
@@ -16416,23 +16465,23 @@ CreateNPCTrainerParty:
 	lsl	r2, r0, #0x2
 	add	r2, r2, r0
 	lsl	r2, r2, #0x2
-	ldr	r0, .L833
+	ldr	r0, .L838
 	add	r2, r2, r0
 	add	r0, r6, #0
 	mov	r1, sl
 	bl	SetMonData
-	b	.L779
-.L834:
+	b	.L781
+.L839:
 	.align	2, 0
-.L833:
+.L838:
 	.word	gBattleMoves+0x5
-.L781:
+.L783:
 	add	r0, r1, #0
 	add	r0, r0, #0x1c
 	add	r4, r0, r2
 	ldrh	r0, [r4]
 	cmp	r0, #0
-	beq	.L779	@cond_branch
+	beq	.L781	@cond_branch
 	add	r2, r2, #0x1c
 	add	r2, r1, r2
 	add	r0, r6, #0
@@ -16442,47 +16491,59 @@ CreateNPCTrainerParty:
 	lsl	r2, r0, #0x2
 	add	r2, r2, r0
 	lsl	r2, r2, #0x2
-	ldr	r0, .L835
+	ldr	r0, .L840
 	add	r2, r2, r0
 	add	r0, r6, #0
 	mov	r1, sl
 	bl	SetMonData
-.L779:
+.L781:
 	mov	r3, #0x1
 	add	sl, sl, r3
 	add	r7, r7, #0x1
 	add	r5, r5, #0x1
 	cmp	r5, #0x3
-	ble	.L780	@cond_branch
-	b	.L785
-.L836:
+	ble	.L782	@cond_branch
+	b	.L787
+.L841:
 	.align	2, 0
-.L835:
+.L840:
 	.word	gBattleMoves+0x5
-.L776:
+.L778:
 	mov	r5, #0x0
-	ldr	r0, [sp, #0x6c]
-	add	r0, r0, r8
+	ldr	r0, [sp, #0x78]
+	add	r0, r0, r9
 	lsl	r0, r0, #0x2
-	add	r4, r0, #0
-	add	r4, r4, r9
-	mov	sl, r4
-	mov	r1, r9
+	add	r6, r0, #0
+	add	r6, r6, r8
+	mov	sl, r6
+	mov	r1, r8
 	add	r1, r1, #0x1c
 	add	r6, r0, r1
 	mov	r1, #0x64
-	mov	r0, r8
+	mov	r0, r9
 	mul	r0, r0, r1
 	ldr	r2, [sp, #0x34]
 	add	r7, r2, r0
-.L789:
+.L791:
 	lsl	r0, r5, #0x1
 	mov	r1, sl
 	add	r1, r1, #0x1c
 	add	r4, r1, r0
 	ldrh	r0, [r4]
 	cmp	r0, #0
-	beq	.L788	@cond_branch
+	beq	.L790	@cond_branch
+	ldr	r3, .L842
+	add	r1, r0, #0
+	lsl	r0, r1, #0x2
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r0, r0, r3
+	ldrb	r0, [r0, #0x2]
+	str	r3, [sp, #0x88]
+	bl	IsMoveUsable
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L790	@cond_branch
 	add	r1, r5, #0
 	add	r1, r1, #0xd
 	add	r0, r7, #0
@@ -16494,26 +16555,27 @@ CreateNPCTrainerParty:
 	lsl	r2, r0, #0x2
 	add	r2, r2, r0
 	lsl	r2, r2, #0x2
-	ldr	r0, .L837
+	ldr	r3, [sp, #0x88]
+	add	r0, r3, #0x5
 	add	r2, r2, r0
 	add	r0, r7, #0
 	bl	SetMonData
-.L788:
+.L790:
 	add	r6, r6, #0x2
 	add	r5, r5, #0x1
 	cmp	r5, #0x3
-	ble	.L789	@cond_branch
-.L785:
+	ble	.L791	@cond_branch
+.L787:
 	mov	r5, #0x0
-	ldr	r0, [sp, #0x6c]
-	add	r0, r0, r8
-	lsl	r0, r0, #0x2
+	ldr	r0, [sp, #0x78]
 	add	r0, r0, r9
+	lsl	r0, r0, #0x2
+	add	r0, r0, r8
 	add	r6, r0, #0x3
 	mov	r3, #0x64
-	mov	r4, r8
+	mov	r4, r9
 	mul	r4, r4, r3
-.L795:
+.L797:
 	add	r0, r6, r5
 	ldrb	r0, [r0]
 	bl	GetEvsfromPokemon
@@ -16528,101 +16590,95 @@ CreateNPCTrainerParty:
 	bl	SetMonData
 	add	r5, r5, #0x1
 	cmp	r5, #0x5
-	ble	.L795	@cond_branch
-	ldr	r0, [sp, #0x6c]
-	add	r0, r0, r8
+	ble	.L797	@cond_branch
+	ldr	r0, [sp, #0x78]
+	add	r0, r0, r9
 	lsl	r0, r0, #0x2
-	mov	r4, r9
-	add	r2, r0, r4
+	mov	r6, r8
+	add	r2, r0, r6
 	ldrb	r0, [r2, #0x9]
 	cmp	r0, #0x2
-	bhi	.L797	@cond_branch
+	bhi	.L799	@cond_branch
 	cmp	r0, #0x1
+	bls	.L801	@cond_branch
+	ldr	r0, [sp, #0x4c]
+	cmp	r0, #0x4
 	bls	.L799	@cond_branch
-	ldr	r6, [sp, #0x48]
-	cmp	r6, #0x4
-	bls	.L797	@cond_branch
-.L799:
+.L801:
 	mov	r1, #0x64
-	mov	r0, r8
+	mov	r0, r9
 	mul	r0, r0, r1
 	ldr	r3, [sp, #0x34]
 	add	r0, r3, r0
 	add	r2, r2, #0x9
 	mov	r1, #0x2e
 	bl	SetMonData
-.L797:
-	ldr	r4, [sp, #0x48]
-	cmp	r4, #0x5
-	bhi	.L800	@cond_branch
-	ldr	r0, [sp, #0x6c]
-	add	r0, r0, r8
-	lsl	r0, r0, #0x2
+.L799:
+	ldr	r6, [sp, #0x4c]
+	cmp	r6, #0x5
+	bhi	.L802	@cond_branch
+	ldr	r0, [sp, #0x78]
 	add	r0, r0, r9
+	lsl	r0, r0, #0x2
+	add	r0, r0, r8
 	ldrh	r1, [r0, #0xa]
-	add	r0, r4, #0
+	add	r0, r6, #0
 	add	r0, r0, #0x2
 	mul	r0, r0, r1
 	asr	r0, r0, #0x3
-	ldr	r6, [sp, #0x5c]
-	strb	r0, [r6]
-	b	.L802
-.L838:
-	.align	2, 0
-.L837:
-	.word	gBattleMoves+0x5
-.L800:
-	ldr	r0, [sp, #0x6c]
-	add	r0, r0, r8
-	lsl	r0, r0, #0x2
-	add	r0, r0, r9
-	ldrb	r0, [r0, #0xa]
-	ldr	r1, [sp, #0x5c]
+	ldr	r1, [sp, #0x68]
 	strb	r0, [r1]
+	b	.L804
+.L843:
+	.align	2, 0
+.L842:
+	.word	gBattleMoves
 .L802:
-	mov	r2, #0x64
-	mov	r4, r8
-	mul	r4, r4, r2
-	ldr	r3, [sp, #0x34]
-	add	r4, r3, r4
+	ldr	r0, [sp, #0x78]
+	add	r0, r0, r9
+	lsl	r0, r0, #0x2
+	add	r0, r0, r8
+	ldrb	r0, [r0, #0xa]
+	ldr	r2, [sp, #0x68]
+	strb	r0, [r2]
+.L804:
+	mov	r3, #0x64
+	mov	r4, r9
+	mul	r4, r4, r3
+	ldr	r6, [sp, #0x34]
+	add	r4, r6, r4
 	add	r0, r4, #0
 	mov	r1, #0x20
-	ldr	r2, [sp, #0x5c]
+	ldr	r2, [sp, #0x68]
 	bl	SetMonData
 	add	r0, r4, #0
 	bl	CalculateMonStats
-.L685:
-	ldr	r4, [sp, #0x64]
-	mov	r8, r4
-	ldr	r4, .L839
-	ldr	r6, [sp, #0x44]
-	cmp	r8, r6
-	bge	.LCB6584
-	bl	.L686	@far jump
-.LCB6584:
-.L684:
-	ldr	r2, .L839+0x4
-	ldr	r1, .L839
-	ldr	r3, [sp, #0x60]
-	ldr	r4, [sp, #0x38]
-	add	r0, r3, r4
-	lsl	r0, r0, #0x3
-	add	r0, r0, r1
-	ldrb	r1, [r0, #0x18]
-	ldr	r0, [r2]
-	orr	r0, r0, r1
-	str	r0, [r2]
-.L658:
-	ldr	r0, .L839
-	ldr	r6, [sp, #0x60]
-	ldr	r2, [sp, #0x38]
-	add	r1, r6, r2
+.L687:
+	ldr	r0, [sp, #0x70]
+	mov	r9, r0
+	ldr	r4, .L844
+.L810:
+	ldr	r1, [sp, #0x48]
+	cmp	r9, r1
+	bge	.LCB6661
+	bl	.L688	@far jump
+.LCB6661:
+	ldr	r1, .L844+0x4
+	ldr	r0, [r1]
+	ldr	r2, [sp, #0x60]
+	orr	r0, r0, r2
+	str	r0, [r1]
+.L660:
+	ldr	r0, .L844
+	ldr	r3, [sp, #0x6c]
+	ldr	r6, [sp, #0x38]
+	add	r1, r3, r6
 	lsl	r1, r1, #0x3
 	add	r1, r1, r0
 	add	r1, r1, #0x20
 	ldrb	r0, [r1]
-.L807:
-	add	sp, sp, #0x7c
+.L809:
+	add	sp, sp, #0x8c
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -16630,9 +16686,9 @@ CreateNPCTrainerParty:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L840:
+.L845:
 	.align	2, 0
-.L839:
+.L844:
 	.word	gTrainers
 	.word	gBattleTypeFlags
 .Lfe18:
@@ -16643,59 +16699,59 @@ CreateNPCTrainerParty:
 	.thumb_func
 VBlankCB_Battle:
 	push	{lr}
-	ldr	r0, .L843
+	ldr	r0, .L848
 	ldr	r0, [r0]
-	ldr	r1, .L843+0x4
+	ldr	r1, .L848+0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L842	@cond_branch
+	bne	.L847	@cond_branch
 	bl	Random
-.L842:
-	ldr	r0, .L843+0x8
+.L847:
+	ldr	r0, .L848+0x8
 	ldrh	r1, [r0]
 	mov	r0, #0x10
 	bl	SetGpuReg
-	ldr	r0, .L843+0xc
+	ldr	r0, .L848+0xc
 	ldrh	r1, [r0]
 	mov	r0, #0x12
 	bl	SetGpuReg
-	ldr	r0, .L843+0x10
+	ldr	r0, .L848+0x10
 	ldrh	r1, [r0]
 	mov	r0, #0x14
 	bl	SetGpuReg
-	ldr	r0, .L843+0x14
+	ldr	r0, .L848+0x14
 	ldrh	r1, [r0]
 	mov	r0, #0x16
 	bl	SetGpuReg
-	ldr	r0, .L843+0x18
+	ldr	r0, .L848+0x18
 	ldrh	r1, [r0]
 	mov	r0, #0x18
 	bl	SetGpuReg
-	ldr	r0, .L843+0x1c
+	ldr	r0, .L848+0x1c
 	ldrh	r1, [r0]
 	mov	r0, #0x1a
 	bl	SetGpuReg
-	ldr	r0, .L843+0x20
+	ldr	r0, .L848+0x20
 	ldrh	r1, [r0]
 	mov	r0, #0x1c
 	bl	SetGpuReg
-	ldr	r0, .L843+0x24
+	ldr	r0, .L848+0x24
 	ldrh	r1, [r0]
 	mov	r0, #0x1e
 	bl	SetGpuReg
-	ldr	r0, .L843+0x28
+	ldr	r0, .L848+0x28
 	ldrh	r1, [r0]
 	mov	r0, #0x40
 	bl	SetGpuReg
-	ldr	r0, .L843+0x2c
+	ldr	r0, .L848+0x2c
 	ldrh	r1, [r0]
 	mov	r0, #0x44
 	bl	SetGpuReg
-	ldr	r0, .L843+0x30
+	ldr	r0, .L848+0x30
 	ldrh	r1, [r0]
 	mov	r0, #0x42
 	bl	SetGpuReg
-	ldr	r0, .L843+0x34
+	ldr	r0, .L848+0x34
 	ldrh	r1, [r0]
 	mov	r0, #0x46
 	bl	SetGpuReg
@@ -16705,9 +16761,9 @@ VBlankCB_Battle:
 	bl	ScanlineEffect_InitHBlankDmaTransfer
 	pop	{r0}
 	bx	r0
-.L844:
+.L849:
 	.align	2, 0
-.L843:
+.L848:
 	.word	gBattleTypeFlags
 	.word	0x13f0102
 	.word	gBattle_BG0_X
@@ -16741,7 +16797,7 @@ sub_8038B04:
 	mov	r1, #0x2e
 	ldrsh	r0, [r5, r1]
 	cmp	r0, #0
-	beq	.L847	@cond_branch
+	beq	.L852	@cond_branch
 	mov	r1, #0x32
 	ldrsh	r0, [r5, r1]
 	mov	r1, #0xff
@@ -16751,8 +16807,8 @@ sub_8038B04:
 	ldrh	r1, [r5, #0x30]
 	add	r0, r0, r1
 	strh	r0, [r5, #0x20]
-	b	.L848
-.L847:
+	b	.L853
+.L852:
 	mov	r1, #0x32
 	ldrsh	r0, [r5, r1]
 	mov	r1, #0xff
@@ -16762,7 +16818,7 @@ sub_8038B04:
 	ldrh	r1, [r5, #0x30]
 	sub	r1, r1, r0
 	strh	r1, [r5, #0x20]
-.L848:
+.L853:
 	mov	r1, #0xc0
 	lsl	r1, r1, #0x1
 	add	r0, r1, #0
@@ -16775,8 +16831,8 @@ sub_8038B04:
 	mov	r0, #0x20
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L849	@cond_branch
-	ldr	r4, .L850
+	beq	.L854	@cond_branch
+	ldr	r4, .L855
 	add	r0, r4, #0
 	bl	FreeSpriteTilesByTag
 	add	r0, r4, #0
@@ -16785,13 +16841,13 @@ sub_8038B04:
 	bl	FreeSpriteOamMatrix
 	add	r0, r5, #0
 	bl	DestroySprite
-.L849:
+.L854:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L851:
+.L856:
 	.align	2, 0
-.L850:
+.L855:
 	.word	0x2710
 .Lfe21:
 	.size	 sub_8038B04,.Lfe21-sub_8038B04
@@ -16804,16 +16860,16 @@ sub_8038B74:
 	add	r4, r0, #0
 	mov	r1, #0x1
 	bl	StartSpriteAffineAnim
-	ldr	r0, .L853
+	ldr	r0, .L858
 	str	r0, [r4, #0x1c]
 	mov	r0, #0x68
 	bl	PlaySE
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L854:
+.L859:
 	.align	2, 0
-.L853:
+.L858:
 	.word	sub_8038B04
 .Lfe22:
 	.size	 sub_8038B74,.Lfe22-sub_8038B74
@@ -16834,66 +16890,66 @@ sub_8038B94:
 	str	r0, [sp, #0x4]
 	mov	r1, #0x0
 	str	r1, [sp, #0x8]
-	ldr	r0, .L890
+	ldr	r0, .L895
 	add	r0, r0, #0x25
 	ldrb	r2, [r0]
-	ldr	r0, .L890+0x4
+	ldr	r0, .L895+0x4
 	ldr	r0, [r0]
 	mov	r1, #0x40
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L856	@cond_branch
-	ldr	r1, .L890+0x8
+	beq	.L861	@cond_branch
+	ldr	r1, .L895+0x8
 	lsl	r0, r2, #0x3
 	sub	r0, r0, r2
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldrh	r0, [r0, #0x18]
 	cmp	r0, #0x1
-	beq	.L861	@cond_branch
+	beq	.L866	@cond_branch
 	cmp	r0, #0x1
-	bgt	.L864	@cond_branch
+	bgt	.L869	@cond_branch
 	cmp	r0, #0
-	beq	.L856	@cond_branch
-	b	.L865
-.L891:
+	beq	.L861	@cond_branch
+	b	.L870
+.L896:
 	.align	2, 0
-.L890:
+.L895:
 	.word	gBattleScripting
 	.word	gBattleTypeFlags
 	.word	gLinkPlayers
-.L864:
+.L869:
 	cmp	r0, #0x2
-	beq	.L856	@cond_branch
+	beq	.L861	@cond_branch
 	cmp	r0, #0x3
-	bne	.L865	@cond_branch
-.L861:
-	ldr	r0, .L892
+	bne	.L870	@cond_branch
+.L866:
+	ldr	r0, .L897
 	str	r0, [sp, #0x4]
-	ldr	r1, .L892+0x4
+	ldr	r1, .L897+0x4
 	str	r1, [sp, #0x8]
-	b	.L865
-.L893:
+	b	.L870
+.L898:
 	.align	2, 0
-.L892:
+.L897:
 	.word	gEnemyParty
 	.word	gPlayerParty
-.L856:
-	ldr	r2, .L894
+.L861:
+	ldr	r2, .L899
 	str	r2, [sp, #0x4]
-	ldr	r3, .L894+0x4
+	ldr	r3, .L899+0x4
 	str	r3, [sp, #0x8]
-.L865:
+.L870:
 	mov	r7, #0x0
 	mov	r0, #0x0
 	mov	r8, r0
 	ldr	r1, [sp]
 	lsl	r1, r1, #0x2
 	str	r1, [sp, #0xc]
-	ldr	r2, .L894+0x8
+	ldr	r2, .L899+0x8
 	mov	sl, r2
 	mov	r9, r0
-.L869:
+.L874:
 	mov	r0, #0x64
 	mov	r4, r8
 	mul	r4, r4, r0
@@ -16914,51 +16970,51 @@ sub_8038B94:
 	bl	GetMonData
 	add	r1, r0, #0
 	cmp	r5, #0
-	beq	.L868	@cond_branch
+	beq	.L873	@cond_branch
 	cmp	r5, sl
-	beq	.L871	@cond_branch
+	beq	.L876	@cond_branch
 	cmp	r6, #0
-	beq	.L871	@cond_branch
+	beq	.L876	@cond_branch
 	cmp	r1, #0
-	bne	.L871	@cond_branch
+	bne	.L876	@cond_branch
 	mov	r0, #0x1
 	mov	r2, r9
 	lsl	r0, r0, r2
 	orr	r7, r7, r0
-.L871:
+.L876:
 	cmp	r5, #0
-	beq	.L868	@cond_branch
+	beq	.L873	@cond_branch
 	cmp	r6, #0
-	beq	.L873	@cond_branch
+	beq	.L878	@cond_branch
 	cmp	r5, sl
-	beq	.L874	@cond_branch
+	beq	.L879	@cond_branch
 	cmp	r1, #0
-	beq	.L873	@cond_branch
-.L874:
+	beq	.L878	@cond_branch
+.L879:
 	mov	r0, #0x2
 	mov	r3, r9
 	lsl	r0, r0, r3
 	orr	r7, r7, r0
-.L873:
+.L878:
 	cmp	r5, #0
-	beq	.L868	@cond_branch
+	beq	.L873	@cond_branch
 	cmp	r5, sl
-	beq	.L868	@cond_branch
+	beq	.L873	@cond_branch
 	cmp	r6, #0
-	bne	.L868	@cond_branch
+	bne	.L873	@cond_branch
 	mov	r0, #0x3
 	mov	r1, r9
 	lsl	r0, r0, r1
 	orr	r7, r7, r0
-.L868:
+.L873:
 	mov	r2, #0x2
 	add	r9, r9, r2
 	mov	r3, #0x1
 	add	r8, r8, r3
 	mov	r0, r8
 	cmp	r0, #0x5
-	ble	.L869	@cond_branch
-	ldr	r1, .L894+0xc
+	ble	.L874	@cond_branch
+	ldr	r1, .L899+0xc
 	ldr	r2, [sp, #0xc]
 	ldr	r3, [sp]
 	add	r0, r2, r3
@@ -16968,10 +17024,10 @@ sub_8038B94:
 	mov	r7, #0x0
 	mov	r0, #0x0
 	mov	r8, r0
-	ldr	r1, .L894+0x8
+	ldr	r1, .L899+0x8
 	mov	sl, r1
 	mov	r9, r0
-.L881:
+.L886:
 	mov	r0, #0x64
 	mov	r4, r8
 	mul	r4, r4, r0
@@ -16992,51 +17048,51 @@ sub_8038B94:
 	bl	GetMonData
 	add	r1, r0, #0
 	cmp	r5, #0
-	beq	.L880	@cond_branch
+	beq	.L885	@cond_branch
 	cmp	r5, sl
-	beq	.L883	@cond_branch
+	beq	.L888	@cond_branch
 	cmp	r6, #0
-	beq	.L883	@cond_branch
+	beq	.L888	@cond_branch
 	cmp	r1, #0
-	bne	.L883	@cond_branch
+	bne	.L888	@cond_branch
 	mov	r0, #0x1
 	mov	r3, r9
 	lsl	r0, r0, r3
 	orr	r7, r7, r0
-.L883:
+.L888:
 	cmp	r5, #0
-	beq	.L880	@cond_branch
+	beq	.L885	@cond_branch
 	cmp	r6, #0
-	beq	.L885	@cond_branch
+	beq	.L890	@cond_branch
 	cmp	r5, sl
-	beq	.L886	@cond_branch
+	beq	.L891	@cond_branch
 	cmp	r1, #0
-	beq	.L885	@cond_branch
-.L886:
+	beq	.L890	@cond_branch
+.L891:
 	mov	r0, #0x2
 	mov	r1, r9
 	lsl	r0, r0, r1
 	orr	r7, r7, r0
-.L885:
+.L890:
 	cmp	r5, #0
-	beq	.L880	@cond_branch
+	beq	.L885	@cond_branch
 	cmp	r5, sl
-	beq	.L880	@cond_branch
+	beq	.L885	@cond_branch
 	cmp	r6, #0
-	bne	.L880	@cond_branch
+	bne	.L885	@cond_branch
 	mov	r0, #0x3
 	mov	r2, r9
 	lsl	r0, r0, r2
 	orr	r7, r7, r0
-.L880:
+.L885:
 	mov	r3, #0x2
 	add	r9, r9, r3
 	mov	r0, #0x1
 	add	r8, r8, r0
 	mov	r1, r8
 	cmp	r1, #0x5
-	ble	.L881	@cond_branch
-	ldr	r1, .L894+0xc
+	ble	.L886	@cond_branch
+	ldr	r1, .L899+0xc
 	ldr	r2, [sp, #0xc]
 	ldr	r3, [sp]
 	add	r0, r2, r3
@@ -17051,9 +17107,9 @@ sub_8038B94:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L895:
+.L900:
 	.align	2, 0
-.L894:
+.L899:
 	.word	gPlayerParty
 	.word	gEnemyParty
 	.word	0x4b7
@@ -17071,34 +17127,34 @@ sub_8038D64:
 	bl	SetHBlankCallback
 	mov	r0, #0x0
 	bl	SetVBlankCallback
-	ldr	r0, .L908
+	ldr	r0, .L913
 	ldr	r1, [r0]
 	mov	r2, #0x21
 	neg	r2, r2
 	and	r1, r1, r2
 	str	r1, [r0]
-	ldr	r0, .L908+0x4
+	ldr	r0, .L913+0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L897	@cond_branch
-	ldr	r0, .L908+0x8
+	beq	.L902	@cond_branch
+	ldr	r0, .L913+0x8
 	ldr	r0, [r0, #0x8]
 	bl	SetMainCallback2
 	bl	FreeBattleResources
 	bl	FreeBattleSpritesData
 	bl	FreeMonSpritesGfx
-	b	.L898
-.L909:
+	b	.L903
+.L914:
 	.align	2, 0
-.L908:
+.L913:
 	.word	gBattleTypeFlags
 	.word	0x3f0100
 	.word	gMain
-.L897:
+.L902:
 	str	r0, [sp]
 	mov	r1, #0xc0
 	lsl	r1, r1, #0x13
-	ldr	r2, .L910
+	ldr	r2, .L915
 	mov	r0, sp
 	bl	CpuSet
 	mov	r0, #0x4c
@@ -17107,7 +17163,7 @@ sub_8038D64:
 	mov	r0, #0x40
 	mov	r1, #0xf0
 	bl	SetGpuReg
-	ldr	r4, .L910+0x4
+	ldr	r4, .L915+0x4
 	mov	r0, #0x44
 	add	r1, r4, #0
 	bl	SetGpuReg
@@ -17117,61 +17173,61 @@ sub_8038D64:
 	mov	r0, #0x4a
 	mov	r1, #0x0
 	bl	SetGpuReg
-	ldr	r1, .L910+0x8
+	ldr	r1, .L915+0x8
 	mov	r0, #0xf0
 	strh	r0, [r1]
-	ldr	r0, .L910+0xc
+	ldr	r0, .L915+0xc
 	strh	r4, [r0]
 	bl	ScanlineEffect_Clear
-	ldr	r0, .L910+0x10
+	ldr	r0, .L915+0x10
 	mov	r3, #0xf0
 	mov	r1, #0xf0
 	lsl	r1, r1, #0x3
 	add	r2, r0, r1
 	mov	r1, #0x4f
-.L901:
+.L906:
 	strh	r3, [r0]
 	strh	r3, [r2]
 	add	r2, r2, #0x2
 	add	r0, r0, #0x2
 	sub	r1, r1, #0x1
 	cmp	r1, #0
-	bge	.L901	@cond_branch
+	bge	.L906	@cond_branch
 	mov	r1, #0x50
-	ldr	r0, .L910+0x10
-	ldr	r3, .L910+0x14
+	ldr	r0, .L915+0x10
+	ldr	r3, .L915+0x14
 	mov	r4, #0x82
 	lsl	r4, r4, #0x4
 	add	r2, r0, r4
 	add	r0, r0, #0xa0
-.L905:
+.L910:
 	strh	r3, [r0]
 	strh	r3, [r2]
 	add	r2, r2, #0x2
 	add	r0, r0, #0x2
 	add	r1, r1, #0x1
 	cmp	r1, #0x9f
-	ble	.L905	@cond_branch
+	ble	.L910	@cond_branch
 	bl	ResetPaletteFade
-	ldr	r0, .L910+0x18
+	ldr	r0, .L915+0x18
 	mov	r4, #0x0
 	strh	r4, [r0]
-	ldr	r0, .L910+0x1c
+	ldr	r0, .L915+0x1c
 	strh	r4, [r0]
-	ldr	r0, .L910+0x20
+	ldr	r0, .L915+0x20
 	strh	r4, [r0]
-	ldr	r0, .L910+0x24
+	ldr	r0, .L915+0x24
 	strh	r4, [r0]
-	ldr	r0, .L910+0x28
+	ldr	r0, .L915+0x28
 	strh	r4, [r0]
-	ldr	r0, .L910+0x2c
+	ldr	r0, .L915+0x2c
 	strh	r4, [r0]
-	ldr	r0, .L910+0x30
+	ldr	r0, .L915+0x30
 	strh	r4, [r0]
-	ldr	r0, .L910+0x34
+	ldr	r0, .L915+0x34
 	strh	r4, [r0]
 	bl	InitBattleBgsVideo
-	ldr	r0, .L910+0x38
+	ldr	r0, .L915+0x38
 	mov	r1, #0x0
 	mov	r2, #0x40
 	bl	LoadCompressedPalette
@@ -17183,17 +17239,17 @@ sub_8038D64:
 	mov	r1, #0x37
 	bl	SetGpuReg
 	bl	FreeAllSpritePalettes
-	ldr	r1, .L910+0x3c
+	ldr	r1, .L915+0x3c
 	mov	r0, #0x4
 	strb	r0, [r1]
-	ldr	r0, .L910+0x40
+	ldr	r0, .L915+0x40
 	bl	SetVBlankCallback
-	ldr	r0, .L910+0x44
+	ldr	r0, .L915+0x44
 	mov	r1, #0x0
 	bl	CreateTask
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L910+0x48
+	ldr	r2, .L915+0x48
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r1, r1, #0x3
@@ -17206,18 +17262,18 @@ sub_8038D64:
 	mov	r2, #0x1
 	strh	r2, [r1, #0x12]
 	bl	sub_8038B94
-	ldr	r0, .L910+0x4c
+	ldr	r0, .L915+0x4c
 	bl	SetMainCallback2
-	ldr	r0, .L910+0x50
+	ldr	r0, .L915+0x50
 	strb	r4, [r0]
-.L898:
+.L903:
 	add	sp, sp, #0x4
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L911:
+.L916:
 	.align	2, 0
-.L910:
+.L915:
 	.word	0x5006000
 	.word	0x5051
 	.word	gBattle_WIN0H
@@ -17262,61 +17318,61 @@ sub_8038F14:
 sub_8038F34:
 	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x8
-	ldr	r0, .L961
+	ldr	r0, .L966
 	ldrb	r1, [r0]
 	add	r4, r0, #0
 	cmp	r1, #0x9
-	bls	.LCB7344
-	b	.L914	@long jump
-.LCB7344:
+	bls	.LCB7413
+	b	.L919	@long jump
+.LCB7413:
 	lsl	r0, r1, #0x2
-	ldr	r1, .L961+0x4
+	ldr	r1, .L966+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L962:
+.L967:
+	.align	2, 0
+.L966:
+	.word	gBattleCommunication
+	.word	.L961
+	.align	2, 0
 	.align	2, 0
 .L961:
-	.word	gBattleCommunication
-	.word	.L956
-	.align	2, 0
-	.align	2, 0
-.L956:
-	.word	.L915
-	.word	.L916
-	.word	.L918
-	.word	.L936
-	.word	.L942
-	.word	.L944
-	.word	.L946
-	.word	.L948
+	.word	.L920
+	.word	.L921
+	.word	.L923
+	.word	.L941
+	.word	.L947
+	.word	.L949
 	.word	.L951
 	.word	.L953
-.L915:
+	.word	.L956
+	.word	.L958
+.L920:
 	mov	r0, #0x0
 	bl	ShowBg
 	mov	r0, #0x1
 	bl	ShowBg
 	mov	r0, #0x2
 	bl	ShowBg
-	ldr	r1, .L963
+	ldr	r1, .L968
 	mov	r0, #0xff
 	strb	r0, [r1, #0x1]
-	b	.L958
-.L964:
+	b	.L963
+.L969:
 	.align	2, 0
-.L963:
+.L968:
 	.word	gBattleCommunication
-.L916:
+.L921:
 	ldrb	r0, [r4, #0x1]
 	sub	r0, r0, #0x1
 	strb	r0, [r4, #0x1]
 	lsl	r0, r0, #0x18
 	lsr	r1, r0, #0x18
 	cmp	r1, #0
-	beq	.LCB7394
-	b	.L914	@long jump
-.LCB7394:
+	beq	.LCB7463
+	b	.L919	@long jump
+.LCB7463:
 	mov	r0, #0x1
 	neg	r0, r0
 	str	r1, [sp]
@@ -17324,19 +17380,19 @@ sub_8038F34:
 	mov	r2, #0x0
 	mov	r3, #0x10
 	bl	BeginNormalPaletteFade
-	b	.L959
-.L918:
-	ldr	r0, .L965
+	b	.L964
+.L923:
+	ldr	r0, .L970
 	ldrb	r1, [r0, #0x7]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB7414
-	b	.L914	@long jump
-.LCB7414:
+	beq	.LCB7483
+	b	.L919	@long jump
+.LCB7483:
 	bl	sub_8185FAC
-	ldr	r2, .L965+0x4
-	ldr	r1, .L965+0x8
+	ldr	r2, .L970+0x4
+	ldr	r1, .L970+0x8
 	add	r2, r2, r1
 	mov	r1, #0x1
 	and	r1, r1, r0
@@ -17347,58 +17403,58 @@ sub_8038F34:
 	and	r0, r0, r3
 	orr	r0, r0, r1
 	strb	r0, [r2]
-	ldr	r0, .L965+0xc
+	ldr	r0, .L970+0xc
 	ldr	r0, [r0]
 	mov	r1, #0x40
 	and	r0, r0, r1
 	mov	r3, #0x2
 	cmp	r0, #0
-	beq	.L920	@cond_branch
+	beq	.L925	@cond_branch
 	mov	r3, #0x4
-.L920:
+.L925:
 	mov	r4, #0x0
-	ldr	r6, .L965+0x10
+	ldr	r6, .L970+0x10
 	cmp	r4, r3
-	bge	.L923	@cond_branch
-	ldr	r1, .L965+0x14
+	bge	.L928	@cond_branch
+	ldr	r1, .L970+0x14
 	ldrb	r0, [r1]
 	cmp	r0, #0x3
-	bne	.L923	@cond_branch
+	bne	.L928	@cond_branch
 	mov	r5, #0xff
 	add	r2, r1, #0
-.L924:
+.L929:
 	add	r2, r2, #0x1c
 	add	r4, r4, #0x1
 	cmp	r4, r3
-	bge	.L923	@cond_branch
+	bge	.L928	@cond_branch
 	ldrh	r1, [r2]
 	add	r0, r5, #0
 	and	r0, r0, r1
 	cmp	r0, #0x3
-	beq	.L924	@cond_branch
-.L923:
+	beq	.L929	@cond_branch
+.L928:
 	ldr	r0, [r6]
-	ldr	r1, .L965+0x18
+	ldr	r1, .L970+0x18
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L928	@cond_branch
+	bne	.L933	@cond_branch
 	cmp	r4, r3
-	bne	.L928	@cond_branch
-	ldr	r0, .L965+0x1c
+	bne	.L933	@cond_branch
+	ldr	r0, .L970+0x1c
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L929	@cond_branch
+	beq	.L934	@cond_branch
 	bl	FreeAllWindowBuffers
-	ldr	r0, .L965+0x20
+	ldr	r0, .L970+0x20
 	bl	SetMainCallback2
-	b	.L914
-.L966:
+	b	.L919
+.L971:
 	.align	2, 0
-.L965:
+.L970:
 	.word	gPaletteFade
 	.word	gMain
 	.word	0x439
@@ -17408,65 +17464,65 @@ sub_8038F34:
 	.word	0xc31
 	.word	0x8d2
 	.word	sub_80392A8
-.L929:
-	ldr	r2, .L967
-	ldr	r1, .L967+0x4
+.L934:
+	ldr	r2, .L972
+	ldr	r1, .L972+0x4
 	add	r0, r2, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L931	@cond_branch
+	bne	.L936	@cond_branch
 	ldr	r0, [r2, #0x8]
-	b	.L960
-.L968:
+	b	.L965
+.L973:
 	.align	2, 0
-.L967:
+.L972:
 	.word	gMain
 	.word	0x439
-.L931:
-	ldr	r0, .L969
+.L936:
+	ldr	r0, .L974
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L952	@cond_branch
-	ldr	r0, .L969+0x4
+	bne	.L957	@cond_branch
+	ldr	r0, .L974+0x4
 	mov	r1, #0x5
 	bl	CreateTask
-	b	.L952
-.L970:
+	b	.L957
+.L975:
 	.align	2, 0
-.L969:
+.L974:
 	.word	gReceivedRemoteLinkPlayers
 	.word	sub_80B3AF8
-.L928:
-	ldr	r0, .L971
+.L933:
+	ldr	r0, .L976
 	ldr	r0, [r0, #0x8]
-.L960:
+.L965:
 	bl	SetMainCallback2
 	bl	FreeBattleResources
 	bl	FreeBattleSpritesData
 	bl	FreeMonSpritesGfx
-	b	.L914
-.L972:
+	b	.L919
+.L977:
 	.align	2, 0
-.L971:
+.L976:
 	.word	gMain
-.L936:
+.L941:
 	mov	r0, #0x0
 	str	r0, [sp, #0x4]
 	mov	r1, #0xc0
 	lsl	r1, r1, #0x13
-	ldr	r2, .L973
+	ldr	r2, .L978
 	add	r0, sp, #0x4
 	bl	CpuSet
 	mov	r4, #0x0
-.L940:
+.L945:
 	lsl	r0, r4, #0x18
 	lsr	r0, r0, #0x18
 	bl	LoadChosenBattleElement
 	add	r4, r4, #0x1
 	cmp	r4, #0x1
-	ble	.L940	@cond_branch
+	ble	.L945	@cond_branch
 	mov	r0, #0x1
 	neg	r0, r0
 	mov	r1, #0x0
@@ -17474,103 +17530,103 @@ sub_8038F34:
 	mov	r2, #0x10
 	mov	r3, #0x0
 	bl	BeginNormalPaletteFade
-	b	.L952
-.L974:
+	b	.L957
+.L979:
 	.align	2, 0
-.L973:
+.L978:
 	.word	0x5006000
-.L942:
-	ldr	r0, .L975
+.L947:
+	ldr	r0, .L980
 	ldrb	r1, [r0, #0x7]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L914	@cond_branch
-.L959:
+	bne	.L919	@cond_branch
+.L964:
 	ldrb	r0, [r4]
 	add	r0, r0, #0x1
 	strb	r0, [r4]
-	b	.L914
-.L976:
+	b	.L919
+.L981:
 	.align	2, 0
-.L975:
+.L980:
 	.word	gPaletteFade
-.L944:
-	ldr	r0, .L977
+.L949:
+	ldr	r0, .L982
 	bl	FuncIsActiveTask
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L914	@cond_branch
-	b	.L952
-.L978:
+	bne	.L919	@cond_branch
+	b	.L957
+.L983:
 	.align	2, 0
-.L977:
+.L982:
 	.word	sub_80B3AF8
-.L946:
+.L951:
 	bl	IsLinkTaskFinished
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L914	@cond_branch
+	bne	.L919	@cond_branch
 	bl	SetLinkStandbyCallback
-	ldr	r0, .L979
+	ldr	r0, .L984
 	mov	r1, #0x0
 	bl	BattlePutTextOnWindow
-	b	.L952
-.L980:
+	b	.L957
+.L985:
 	.align	2, 0
-.L979:
+.L984:
 	.word	gText_LinkStandby3
-.L948:
+.L953:
 	mov	r0, #0x0
 	bl	IsTextPrinterActive
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L914	@cond_branch
+	bne	.L919	@cond_branch
 	bl	IsLinkTaskFinished
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L914	@cond_branch
-	b	.L952
-.L951:
-	ldr	r0, .L981
+	bne	.L919	@cond_branch
+	b	.L957
+.L956:
+	ldr	r0, .L986
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L952	@cond_branch
+	bne	.L957	@cond_branch
 	bl	SetCloseLinkCallback
-.L952:
-	ldr	r1, .L981+0x4
-.L958:
+.L957:
+	ldr	r1, .L986+0x4
+.L963:
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
 	strb	r0, [r1]
-	b	.L914
-.L982:
+	b	.L919
+.L987:
 	.align	2, 0
-.L981:
+.L986:
 	.word	gWirelessCommType
 	.word	gBattleCommunication
-.L953:
-	ldr	r2, .L983
-	ldr	r1, .L983+0x4
+.L958:
+	ldr	r2, .L988
+	ldr	r1, .L988+0x4
 	add	r0, r2, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x4
 	and	r0, r0, r1
 	add	r3, r2, #0
 	cmp	r0, #0
-	beq	.L955	@cond_branch
-	ldr	r0, .L983+0x8
+	beq	.L960	@cond_branch
+	ldr	r0, .L988+0x8
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L955	@cond_branch
-	ldr	r0, .L983+0xc
+	bne	.L960	@cond_branch
+	ldr	r0, .L988+0xc
 	ldrb	r0, [r0]
 	cmp	r0, #0x1
-	beq	.L914	@cond_branch
-.L955:
-	ldr	r0, .L983+0x4
+	beq	.L919	@cond_branch
+.L960:
+	ldr	r0, .L988+0x4
 	add	r2, r3, r0
 	ldrb	r1, [r2]
 	mov	r0, #0x5
@@ -17582,14 +17638,14 @@ sub_8038F34:
 	bl	FreeBattleResources
 	bl	FreeBattleSpritesData
 	bl	FreeMonSpritesGfx
-.L914:
+.L919:
 	add	sp, sp, #0x8
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L984:
+.L989:
 	.align	2, 0
-.L983:
+.L988:
 	.word	gMain
 	.word	0x439
 	.word	gWirelessCommType
@@ -17608,111 +17664,111 @@ sub_80391E0:
 	lsr	r1, r1, #0x18
 	mov	r0, #0x0
 	cmp	r1, #0x6
-	bhi	.L986	@cond_branch
+	bhi	.L991	@cond_branch
 	lsl	r0, r1, #0x2
-	ldr	r1, .L996
+	ldr	r1, .L1001
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L997:
+.L1002:
 	.align	2, 0
-.L996:
-	.word	.L994
+.L1001:
+	.word	.L999
 	.align	2, 0
 	.align	2, 0
-.L994:
-	.word	.L987
-	.word	.L988
-	.word	.L989
-	.word	.L990
-	.word	.L991
+.L999:
 	.word	.L992
 	.word	.L993
-.L987:
-	ldr	r0, .L998
+	.word	.L994
+	.word	.L995
+	.word	.L996
+	.word	.L997
+	.word	.L998
+.L992:
+	ldr	r0, .L1003
 	lsl	r1, r2, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1]
 	lsl	r0, r0, #0x1e
 	lsr	r0, r0, #0x1e
-	b	.L986
-.L999:
+	b	.L991
+.L1004:
 	.align	2, 0
-.L998:
+.L1003:
 	.word	gBattleBgTemplates
-.L988:
-	ldr	r0, .L1000
+.L993:
+	ldr	r0, .L1005
 	lsl	r1, r2, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1]
 	lsl	r0, r0, #0x1c
 	lsr	r0, r0, #0x1e
-	b	.L986
-.L1001:
+	b	.L991
+.L1006:
 	.align	2, 0
-.L1000:
+.L1005:
 	.word	gBattleBgTemplates
-.L989:
-	ldr	r0, .L1002
+.L994:
+	ldr	r0, .L1007
 	lsl	r1, r2, #0x2
 	add	r1, r1, r0
 	ldrh	r0, [r1]
 	lsl	r0, r0, #0x17
 	lsr	r0, r0, #0x1b
-	b	.L986
-.L1003:
+	b	.L991
+.L1008:
 	.align	2, 0
-.L1002:
+.L1007:
 	.word	gBattleBgTemplates
-.L990:
-	ldr	r0, .L1004
+.L995:
+	ldr	r0, .L1009
 	lsl	r1, r2, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0x1]
 	lsl	r0, r0, #0x1d
 	lsr	r0, r0, #0x1e
-	b	.L986
-.L1005:
+	b	.L991
+.L1010:
 	.align	2, 0
-.L1004:
+.L1009:
 	.word	gBattleBgTemplates
-.L991:
-	ldr	r0, .L1006
+.L996:
+	ldr	r0, .L1011
 	lsl	r1, r2, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0x1]
 	lsl	r0, r0, #0x1c
 	lsr	r0, r0, #0x1f
-	b	.L986
-.L1007:
+	b	.L991
+.L1012:
 	.align	2, 0
-.L1006:
+.L1011:
 	.word	gBattleBgTemplates
-.L992:
-	ldr	r0, .L1008
+.L997:
+	ldr	r0, .L1013
 	lsl	r1, r2, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0x1]
 	lsl	r0, r0, #0x1a
 	lsr	r0, r0, #0x1e
-	b	.L986
-.L1009:
+	b	.L991
+.L1014:
 	.align	2, 0
-.L1008:
+.L1013:
 	.word	gBattleBgTemplates
-.L993:
-	ldr	r0, .L1010
+.L998:
+	ldr	r0, .L1015
 	lsl	r1, r2, #0x2
 	add	r1, r1, r0
 	ldr	r0, [r1]
 	lsl	r0, r0, #0x8
 	lsr	r0, r0, #0x16
-.L986:
+.L991:
 	pop	{r1}
 	bx	r1
-.L1011:
+.L1016:
 	.align	2, 0
-.L1010:
+.L1015:
 	.word	gBattleBgTemplates
 .Lfe27:
 	.size	 sub_80391E0,.Lfe27-sub_80391E0
@@ -17730,25 +17786,25 @@ sub_80392A8:
 	str	r4, [sp, #0x4]
 	mov	r1, #0xc0
 	lsl	r1, r1, #0x13
-	ldr	r2, .L1018
+	ldr	r2, .L1023
 	add	r0, sp, #0x4
 	bl	CpuSet
 	bl	ResetPaletteFade
-	ldr	r0, .L1018+0x4
+	ldr	r0, .L1023+0x4
 	strh	r4, [r0]
-	ldr	r0, .L1018+0x8
+	ldr	r0, .L1023+0x8
 	strh	r4, [r0]
-	ldr	r0, .L1018+0xc
+	ldr	r0, .L1023+0xc
 	strh	r4, [r0]
-	ldr	r0, .L1018+0x10
+	ldr	r0, .L1023+0x10
 	strh	r4, [r0]
-	ldr	r0, .L1018+0x14
+	ldr	r0, .L1023+0x14
 	strh	r4, [r0]
-	ldr	r0, .L1018+0x18
+	ldr	r0, .L1023+0x18
 	strh	r4, [r0]
-	ldr	r0, .L1018+0x1c
+	ldr	r0, .L1023+0x1c
 	strh	r4, [r0]
-	ldr	r0, .L1018+0x20
+	ldr	r0, .L1023+0x20
 	strh	r4, [r0]
 	bl	InitBattleBgsVideo
 	mov	r1, #0x82
@@ -17756,22 +17812,22 @@ sub_80392A8:
 	mov	r0, #0x0
 	bl	SetGpuReg
 	bl	LoadBattleMenuWindowGfx
-.L1016:
+.L1021:
 	lsl	r0, r4, #0x18
 	lsr	r0, r0, #0x18
 	bl	LoadChosenBattleElement
 	add	r4, r4, #0x1
 	cmp	r4, #0x1
-	ble	.L1016	@cond_branch
+	ble	.L1021	@cond_branch
 	bl	ResetSpriteData
 	bl	ResetTasks
 	bl	FreeAllSpritePalettes
-	ldr	r1, .L1018+0x24
+	ldr	r1, .L1023+0x24
 	mov	r0, #0x4
 	strb	r0, [r1]
-	ldr	r0, .L1018+0x28
+	ldr	r0, .L1023+0x28
 	bl	SetVBlankCallback
-	ldr	r0, .L1018+0x2c
+	ldr	r0, .L1023+0x2c
 	bl	SetMainCallback2
 	mov	r0, #0x1
 	neg	r0, r0
@@ -17781,15 +17837,15 @@ sub_80392A8:
 	mov	r2, #0x10
 	mov	r3, #0x0
 	bl	BeginNormalPaletteFade
-	ldr	r0, .L1018+0x30
+	ldr	r0, .L1023+0x30
 	strb	r4, [r0]
 	add	sp, sp, #0x8
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L1019:
+.L1024:
 	.align	2, 0
-.L1018:
+.L1023:
 	.word	0x5006000
 	.word	gBattle_BG0_X
 	.word	gBattle_BG0_Y
@@ -17826,205 +17882,205 @@ sub_803937C:
 sub_803939C:
 	push	{r4, r5, lr}
 	add	sp, sp, #-0x4
-	ldr	r0, .L1072
+	ldr	r0, .L1077
 	ldrb	r1, [r0]
 	add	r4, r0, #0
 	cmp	r1, #0xc
-	bls	.LCB8081
-	b	.L1022	@long jump
-.LCB8081:
+	bls	.LCB8150
+	b	.L1027	@long jump
+.LCB8150:
 	lsl	r0, r1, #0x2
-	ldr	r1, .L1072+0x4
+	ldr	r1, .L1077+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1073:
+.L1078:
 	.align	2, 0
-.L1072:
+.L1077:
 	.word	gBattleCommunication
-	.word	.L1066
+	.word	.L1071
 	.align	2, 0
 	.align	2, 0
-.L1066:
-	.word	.L1023
-	.word	.L1024
-	.word	.L1026
+.L1071:
 	.word	.L1028
-	.word	.L1030
-	.word	.L1032
-	.word	.L1044
-	.word	.L1061
-	.word	.L1047
-	.word	.L1050
-	.word	.L1054
-	.word	.L1057
-	.word	.L1061
-.L1023:
+	.word	.L1029
+	.word	.L1031
+	.word	.L1033
+	.word	.L1035
+	.word	.L1037
+	.word	.L1049
+	.word	.L1066
+	.word	.L1052
+	.word	.L1055
+	.word	.L1059
+	.word	.L1062
+	.word	.L1066
+.L1028:
 	mov	r0, #0x0
 	bl	ShowBg
 	mov	r0, #0x1
 	bl	ShowBg
 	mov	r0, #0x2
 	bl	ShowBg
-	ldr	r1, .L1074
+	ldr	r1, .L1079
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
-	b	.L1068
-.L1075:
+	b	.L1073
+.L1080:
 	.align	2, 0
-.L1074:
+.L1079:
 	.word	gBattleCommunication
-.L1024:
-	ldr	r0, .L1076
-	ldr	r1, .L1076+0x4
+.L1029:
+	ldr	r0, .L1081
+	ldr	r1, .L1081+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1025	@cond_branch
-	ldr	r0, .L1076+0x8
+	beq	.L1030	@cond_branch
+	ldr	r0, .L1081+0x8
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L1025	@cond_branch
-	ldr	r0, .L1076+0xc
+	bne	.L1030	@cond_branch
+	ldr	r0, .L1081+0xc
 	mov	r1, #0x5
 	bl	CreateTask
-.L1025:
-	ldr	r1, .L1076+0x10
+.L1030:
+	ldr	r1, .L1081+0x10
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
-	b	.L1068
-.L1077:
+	b	.L1073
+.L1082:
 	.align	2, 0
-.L1076:
+.L1081:
 	.word	gMain
 	.word	0x439
 	.word	gReceivedRemoteLinkPlayers
 	.word	sub_80B3AF8
 	.word	gBattleCommunication
-.L1026:
-	ldr	r0, .L1078
+.L1031:
+	ldr	r0, .L1083
 	bl	FuncIsActiveTask
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB8165
-	b	.L1022	@long jump
-.LCB8165:
-	ldr	r1, .L1078+0x4
+	beq	.LCB8234
+	b	.L1027	@long jump
+.LCB8234:
+	ldr	r1, .L1083+0x4
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
-	b	.L1068
-.L1079:
+	b	.L1073
+.L1084:
 	.align	2, 0
-.L1078:
+.L1083:
 	.word	sub_80B3AF8
 	.word	gBattleCommunication
-.L1028:
-	ldr	r0, .L1080
+.L1033:
+	ldr	r0, .L1085
 	ldrb	r1, [r0, #0x7]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB8186
-	b	.L1022	@long jump
-.LCB8186:
-	ldr	r0, .L1080+0x4
+	beq	.LCB8255
+	b	.L1027	@long jump
+.LCB8255:
+	ldr	r0, .L1085+0x4
 	mov	r1, #0x0
 	bl	BattlePutTextOnWindow
-	ldr	r1, .L1080+0x8
+	ldr	r1, .L1085+0x8
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
-	b	.L1068
-.L1081:
+	b	.L1073
+.L1086:
 	.align	2, 0
-.L1080:
+.L1085:
 	.word	gPaletteFade
 	.word	gText_RecordBattleToPass
 	.word	gBattleCommunication
-.L1030:
+.L1035:
 	mov	r0, #0x0
 	bl	IsTextPrinterActive
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0
-	beq	.LCB8212
-	b	.L1022	@long jump
-.LCB8212:
+	beq	.LCB8281
+	b	.L1027	@long jump
+.LCB8281:
 	str	r0, [sp]
 	mov	r0, #0x18
 	mov	r1, #0x8
 	mov	r2, #0x1d
 	mov	r3, #0xd
 	bl	HandleBattleWindow
-	ldr	r0, .L1082
+	ldr	r0, .L1087
 	mov	r1, #0xc
 	bl	BattlePutTextOnWindow
-	ldr	r4, .L1082+0x4
+	ldr	r4, .L1087+0x4
 	mov	r0, #0x1
 	strb	r0, [r4, #0x1]
 	bl	BattleCreateYesNoCursorAt
-	b	.L1059
-.L1083:
+	b	.L1064
+.L1088:
 	.align	2, 0
-.L1082:
+.L1087:
 	.word	gText_BattleYesNoChoice
 	.word	gBattleCommunication
-.L1032:
-	ldr	r0, .L1084
+.L1037:
+	ldr	r0, .L1089
 	ldrh	r1, [r0, #0x2e]
 	mov	r0, #0x40
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1033	@cond_branch
+	beq	.L1038	@cond_branch
 	ldrb	r0, [r4, #0x1]
 	cmp	r0, #0
-	bne	.LCB8256
-	b	.L1022	@long jump
-.LCB8256:
+	bne	.LCB8325
+	b	.L1027	@long jump
+.LCB8325:
 	mov	r0, #0x5
 	bl	PlaySE
 	ldrb	r0, [r4, #0x1]
 	bl	BattleDestroyYesNoCursorAt
 	mov	r0, #0x0
-	b	.L1069
-.L1085:
+	b	.L1074
+.L1090:
 	.align	2, 0
-.L1084:
+.L1089:
 	.word	gMain
-.L1033:
+.L1038:
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1036	@cond_branch
+	beq	.L1041	@cond_branch
 	ldrb	r0, [r4, #0x1]
 	cmp	r0, #0
-	beq	.LCB8289
-	b	.L1022	@long jump
-.LCB8289:
+	beq	.LCB8358
+	b	.L1027	@long jump
+.LCB8358:
 	mov	r0, #0x5
 	bl	PlaySE
 	ldrb	r0, [r4, #0x1]
 	bl	BattleDestroyYesNoCursorAt
 	mov	r0, #0x1
-.L1069:
+.L1074:
 	strb	r0, [r4, #0x1]
 	bl	BattleCreateYesNoCursorAt
-	b	.L1022
-.L1036:
+	b	.L1027
+.L1041:
 	mov	r5, #0x1
 	add	r0, r5, #0
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1039	@cond_branch
+	beq	.L1044	@cond_branch
 	mov	r0, #0x5
 	bl	PlaySE
-	ldr	r4, .L1086
+	ldr	r4, .L1091
 	ldrb	r0, [r4, #0x1]
 	cmp	r0, #0
-	beq	.LCB8322
-	b	.L1059	@long jump
-.LCB8322:
+	beq	.LCB8391
+	b	.L1064	@long jump
+.LCB8391:
 	str	r5, [sp]
 	mov	r0, #0x18
 	mov	r1, #0x8
@@ -18035,228 +18091,228 @@ sub_803939C:
 	strb	r0, [r4, #0x1]
 	mov	r0, #0xa
 	strb	r0, [r4]
-	b	.L1022
-.L1087:
+	b	.L1027
+.L1092:
 	.align	2, 0
-.L1086:
+.L1091:
 	.word	gBattleCommunication
-.L1039:
+.L1044:
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB8353
-	b	.L1022	@long jump
-.LCB8353:
+	bne	.LCB8422
+	b	.L1027	@long jump
+.LCB8422:
 	mov	r0, #0x5
 	bl	PlaySE
-	ldr	r1, .L1088
+	ldr	r1, .L1093
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
-	b	.L1068
-.L1089:
+	b	.L1073
+.L1094:
 	.align	2, 0
-.L1088:
+.L1093:
 	.word	gBattleCommunication
-.L1044:
+.L1049:
 	bl	IsLinkTaskFinished
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB8374
-	b	.L1022	@long jump
-.LCB8374:
+	beq	.LCB8443
+	b	.L1027	@long jump
+.LCB8443:
 	str	r0, [sp]
 	mov	r0, #0x18
 	mov	r1, #0x8
 	mov	r2, #0x1d
 	mov	r3, #0xd
 	bl	HandleBattleWindow
-	ldr	r0, .L1090
-	ldr	r1, .L1090+0x4
+	ldr	r0, .L1095
+	ldr	r1, .L1095+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1046	@cond_branch
+	beq	.L1051	@cond_branch
 	bl	SetLinkStandbyCallback
-	ldr	r0, .L1090+0x8
+	ldr	r0, .L1095+0x8
 	mov	r1, #0x0
 	bl	BattlePutTextOnWindow
-.L1046:
-	ldr	r1, .L1090+0xc
+.L1051:
+	ldr	r1, .L1095+0xc
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
-	b	.L1068
-.L1091:
+	b	.L1073
+.L1096:
 	.align	2, 0
-.L1090:
+.L1095:
 	.word	gMain
 	.word	0x439
 	.word	gText_LinkStandby3
 	.word	gBattleCommunication
-.L1047:
+.L1052:
 	ldrb	r0, [r4, #0x1]
 	sub	r0, r0, #0x1
 	strb	r0, [r4, #0x1]
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB8425
-	b	.L1022	@long jump
-.LCB8425:
-	ldr	r0, .L1092
-	ldr	r1, .L1092+0x4
+	beq	.LCB8494
+	b	.L1027	@long jump
+.LCB8494:
+	ldr	r0, .L1097
+	ldr	r1, .L1097+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1049	@cond_branch
-	ldr	r0, .L1092+0x8
+	beq	.L1054	@cond_branch
+	ldr	r0, .L1097+0x8
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L1049	@cond_branch
+	bne	.L1054	@cond_branch
 	bl	SetCloseLinkCallback
-.L1049:
-	ldr	r1, .L1092+0xc
+.L1054:
+	ldr	r1, .L1097+0xc
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
-	b	.L1068
-.L1093:
+	b	.L1073
+.L1098:
 	.align	2, 0
-.L1092:
+.L1097:
 	.word	gMain
 	.word	0x439
 	.word	gWirelessCommType
 	.word	gBattleCommunication
-.L1050:
-	ldr	r2, .L1094
-	ldr	r1, .L1094+0x4
+.L1055:
+	ldr	r2, .L1099
+	ldr	r1, .L1099+0x4
 	add	r0, r2, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x4
 	and	r0, r0, r1
 	add	r3, r2, #0
 	cmp	r0, #0
-	beq	.L1052	@cond_branch
-	ldr	r0, .L1094+0x8
+	beq	.L1057	@cond_branch
+	ldr	r0, .L1099+0x8
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L1052	@cond_branch
-	ldr	r0, .L1094+0xc
+	bne	.L1057	@cond_branch
+	ldr	r0, .L1099+0xc
 	ldrb	r0, [r0]
 	cmp	r0, #0x1
-	bne	.LCB8485
-	b	.L1022	@long jump
-.LCB8485:
-.L1052:
-	ldr	r0, .L1094+0x4
+	bne	.LCB8554
+	b	.L1027	@long jump
+.LCB8554:
+.L1057:
+	ldr	r0, .L1099+0x4
 	add	r2, r3, r0
 	ldrb	r1, [r2]
 	mov	r0, #0x5
 	neg	r0, r0
 	and	r0, r0, r1
 	strb	r0, [r2]
-	ldr	r0, .L1094+0x10
+	ldr	r0, .L1099+0x10
 	ldrb	r1, [r0, #0x7]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB8505
-	b	.L1022	@long jump
-.LCB8505:
+	beq	.LCB8574
+	b	.L1027	@long jump
+.LCB8574:
 	ldr	r0, [r3, #0x8]
 	bl	SetMainCallback2
 	bl	FreeBattleResources
 	bl	FreeBattleSpritesData
 	bl	FreeMonSpritesGfx
-	b	.L1022
-.L1095:
+	b	.L1027
+.L1100:
 	.align	2, 0
-.L1094:
+.L1099:
 	.word	gMain
 	.word	0x439
 	.word	gWirelessCommType
 	.word	gReceivedRemoteLinkPlayers
 	.word	gPaletteFade
-.L1054:
+.L1059:
 	ldrb	r0, [r4, #0x1]
 	cmp	r0, #0x1
-	bne	.L1055	@cond_branch
+	bne	.L1060	@cond_branch
 	mov	r0, #0x37
 	bl	PlaySE
-	ldr	r0, .L1096
-.L1070:
+	ldr	r0, .L1101
+.L1075:
 	bl	BattleStringExpandPlaceholdersToDisplayedString
-	ldr	r0, .L1096+0x4
+	ldr	r0, .L1101+0x4
 	mov	r1, #0x0
 	bl	BattlePutTextOnWindow
 	mov	r0, #0x80
 	strb	r0, [r4, #0x1]
-	b	.L1059
-.L1097:
+	b	.L1064
+.L1102:
 	.align	2, 0
-.L1096:
+.L1101:
 	.word	gText_BattleRecordedOnPass
 	.word	gDisplayedStringBattle
-.L1055:
-	ldr	r0, .L1098
-	b	.L1070
-.L1099:
+.L1060:
+	ldr	r0, .L1103
+	b	.L1075
+.L1104:
 	.align	2, 0
-.L1098:
+.L1103:
 	.word	BattleFrontier_BattleTowerBattleRoom_Text_RecordCouldntBeSaved
-.L1057:
+.L1062:
 	bl	IsLinkTaskFinished
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L1022	@cond_branch
+	bne	.L1027	@cond_branch
 	mov	r0, #0x0
 	bl	IsTextPrinterActive
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L1022	@cond_branch
-	ldr	r4, .L1100
+	bne	.L1027	@cond_branch
+	ldr	r4, .L1105
 	ldrb	r0, [r4, #0x1]
 	sub	r0, r0, #0x1
 	strb	r0, [r4, #0x1]
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1022	@cond_branch
-	ldr	r0, .L1100+0x4
-	ldr	r1, .L1100+0x8
+	bne	.L1027	@cond_branch
+	ldr	r0, .L1105+0x4
+	ldr	r1, .L1105+0x8
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1059	@cond_branch
+	beq	.L1064	@cond_branch
 	bl	SetLinkStandbyCallback
-	ldr	r0, .L1100+0xc
+	ldr	r0, .L1105+0xc
 	mov	r1, #0x0
 	bl	BattlePutTextOnWindow
-.L1059:
+.L1064:
 	ldrb	r0, [r4]
 	add	r0, r0, #0x1
 	strb	r0, [r4]
-	b	.L1022
-.L1101:
+	b	.L1027
+.L1106:
 	.align	2, 0
-.L1100:
+.L1105:
 	.word	gBattleCommunication
 	.word	gMain
 	.word	0x439
 	.word	gText_LinkStandby3
-.L1061:
+.L1066:
 	mov	r0, #0x0
 	bl	IsTextPrinterActive
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, #0
-	bne	.L1022	@cond_branch
-	ldr	r0, .L1102
-	ldr	r1, .L1102+0x4
+	bne	.L1027	@cond_branch
+	ldr	r0, .L1107
+	ldr	r1, .L1107+0x4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x4
@@ -18264,44 +18320,44 @@ sub_803939C:
 	lsl	r0, r0, #0x18
 	lsr	r1, r0, #0x18
 	cmp	r1, #0
-	beq	.L1063	@cond_branch
+	beq	.L1068	@cond_branch
 	bl	IsLinkTaskFinished
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L1022	@cond_branch
+	bne	.L1027	@cond_branch
 	mov	r0, #0x1
 	neg	r0, r0
 	str	r4, [sp]
-	b	.L1071
-.L1103:
+	b	.L1076
+.L1108:
 	.align	2, 0
-.L1102:
+.L1107:
 	.word	gMain
 	.word	0x439
-.L1063:
+.L1068:
 	mov	r0, #0x1
 	neg	r0, r0
 	str	r1, [sp]
-.L1071:
+.L1076:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x10
 	bl	BeginNormalPaletteFade
-	ldr	r1, .L1104
+	ldr	r1, .L1109
 	mov	r0, #0x20
 	strb	r0, [r1, #0x1]
 	mov	r0, #0x8
-.L1068:
+.L1073:
 	strb	r0, [r1]
-.L1022:
+.L1027:
 	add	sp, sp, #0x4
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L1105:
+.L1110:
 	.align	2, 0
-.L1104:
+.L1109:
 	.word	gBattleCommunication
 .Lfe30:
 	.size	 sub_803939C,.Lfe30-sub_803939C
@@ -18321,34 +18377,34 @@ TryCorrectShedinjaLanguage:
 	mov	r1, #0x92
 	lsl	r1, r1, #0x1
 	cmp	r0, r1
-	bne	.L1107	@cond_branch
+	bne	.L1112	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x3
 	bl	GetMonData
 	ldrb	r1, [r5]
 	cmp	r0, r1
-	beq	.L1107	@cond_branch
+	beq	.L1112	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x2
 	mov	r2, sp
 	bl	GetMonData
-	ldr	r1, .L1109
+	ldr	r1, .L1114
 	mov	r0, sp
 	bl	StringCompareWithoutExtCtrlCodes
 	cmp	r0, #0
-	bne	.L1107	@cond_branch
+	bne	.L1112	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x3
 	add	r2, r5, #0
 	bl	SetMonData
-.L1107:
+.L1112:
 	add	sp, sp, #0x10
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L1110:
+.L1115:
 	.align	2, 0
-.L1109:
+.L1114:
 	.word	sText_ShedinjaJpnName
 .Lfe31:
 	.size	 TryCorrectShedinjaLanguage,.Lfe31-TryCorrectShedinjaLanguage
@@ -18357,7 +18413,7 @@ TryCorrectShedinjaLanguage:
 	.type	 sub_80397C4,function
 	.thumb_func
 sub_80397C4:
-	ldr	r2, .L1112
+	ldr	r2, .L1117
 	lsl	r0, r0, #0x2
 	add	r0, r0, r2
 	ldr	r0, [r0]
@@ -18366,9 +18422,9 @@ sub_80397C4:
 	ldrb	r0, [r1, #0x3]
 	lsl	r0, r0, #0x3
 	bx	lr
-.L1113:
+.L1118:
 	.align	2, 0
-.L1112:
+.L1117:
 	.word	gBattleWindowTemplates
 .Lfe32:
 	.size	 sub_80397C4,.Lfe32-sub_80397C4
@@ -18380,49 +18436,49 @@ SpriteCb_WildMon:
 	push	{r4, lr}
 	add	sp, sp, #-0x4
 	add	r4, r0, #0
-	ldr	r0, .L1119
+	ldr	r0, .L1124
 	ldr	r0, [r0]
 	ldrb	r1, [r0, #0x17]
 	mov	r0, #0xc
 	and	r0, r0, r1
 	cmp	r0, #0x4
-	bne	.L1115	@cond_branch
+	bne	.L1120	@cond_branch
 	mov	r0, #0x0
 	strh	r0, [r4, #0x24]
 	ldrh	r0, [r4, #0x2e]
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	sub_8076918
-	ldr	r1, .L1119+0x4
+	ldr	r1, .L1124+0x4
 	mov	r2, #0x2e
 	ldrsh	r0, [r4, r2]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	bl	SetHealthboxSpriteVisible
-	ldr	r0, .L1119+0x8
+	ldr	r0, .L1124+0x8
 	str	r0, [r4, #0x1c]
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	StartSpriteAnimIfDifferent
-	b	.L1116
-.L1120:
+	b	.L1121
+.L1125:
 	.align	2, 0
-.L1119:
+.L1124:
 	.word	gSaveBlock2Ptr
 	.word	gHealthboxSpriteIds
 	.word	SpriteCb_WildMonAnimate
-.L1115:
-	ldr	r0, .L1121
+.L1120:
+	ldr	r0, .L1126
 	str	r0, [r4, #0x1c]
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	StartSpriteAnimIfDifferent
-	ldr	r0, .L1121+0x4
+	ldr	r0, .L1126+0x4
 	ldr	r0, [r0]
 	mov	r1, #0xb
 	and	r0, r0, r1
 	cmp	r0, #0x1
-	bne	.L1117	@cond_branch
+	bne	.L1122	@cond_branch
 	mov	r0, #0x2e
 	ldrsh	r1, [r4, r0]
 	mov	r3, #0x80
@@ -18436,39 +18492,39 @@ SpriteCb_WildMon:
 	asr	r1, r1, #0x10
 	lsl	r3, r3, r1
 	orr	r0, r0, r3
-	ldr	r1, .L1121+0x8
+	ldr	r1, .L1126+0x8
 	str	r1, [sp]
 	mov	r1, #0x0
 	mov	r2, #0xa
 	mov	r3, #0xa
 	bl	BeginNormalPaletteFade
-	b	.L1116
-.L1122:
+	b	.L1121
+.L1127:
 	.align	2, 0
-.L1121:
+.L1126:
 	.word	SpriteCb_MoveWildMonToRight
 	.word	gBattleTypeFlags
 	.word	0x2108
-.L1117:
+.L1122:
 	mov	r2, #0x2e
 	ldrsh	r1, [r4, r2]
 	mov	r0, #0x80
 	lsl	r0, r0, #0x9
 	lsl	r0, r0, r1
-	ldr	r1, .L1123
+	ldr	r1, .L1128
 	str	r1, [sp]
 	mov	r1, #0x0
 	mov	r2, #0xa
 	mov	r3, #0xa
 	bl	BeginNormalPaletteFade
-.L1116:
+.L1121:
 	add	sp, sp, #0x4
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L1124:
+.L1129:
 	.align	2, 0
-.L1123:
+.L1128:
 	.word	0x2108
 .Lfe33:
 	.size	 SpriteCb_WildMon,.Lfe33-SpriteCb_WildMon
@@ -18478,26 +18534,26 @@ SpriteCb_WildMon:
 SpriteCb_MoveWildMonToRight:
 	push	{lr}
 	add	r2, r0, #0
-	ldr	r0, .L1128
+	ldr	r0, .L1133
 	ldrh	r1, [r0]
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1126	@cond_branch
+	bne	.L1131	@cond_branch
 	ldrh	r0, [r2, #0x24]
 	add	r0, r0, #0x2
 	strh	r0, [r2, #0x24]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L1126	@cond_branch
-	ldr	r0, .L1128+0x4
+	bne	.L1131	@cond_branch
+	ldr	r0, .L1133+0x4
 	str	r0, [r2, #0x1c]
-.L1126:
+.L1131:
 	pop	{r0}
 	bx	r0
-.L1129:
+.L1134:
 	.align	2, 0
-.L1128:
+.L1133:
 	.word	gIntroSlideFlags
 	.word	SpriteCb_WildMonShowHealthbox
 .Lfe34:
@@ -18514,28 +18570,28 @@ SpriteCb_WildMonShowHealthbox:
 	mov	r0, #0x10
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1131	@cond_branch
+	beq	.L1136	@cond_branch
 	ldrh	r0, [r4, #0x2e]
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	sub_8076918
-	ldr	r1, .L1134
+	ldr	r1, .L1139
 	mov	r2, #0x2e
 	ldrsh	r0, [r4, r2]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	bl	SetHealthboxSpriteVisible
-	ldr	r0, .L1134+0x4
+	ldr	r0, .L1139+0x4
 	str	r0, [r4, #0x1c]
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	StartSpriteAnimIfDifferent
-	ldr	r0, .L1134+0x8
+	ldr	r0, .L1139+0x8
 	ldr	r0, [r0]
 	mov	r1, #0xb
 	and	r0, r0, r1
 	cmp	r0, #0x1
-	bne	.L1132	@cond_branch
+	bne	.L1137	@cond_branch
 	mov	r0, #0x2e
 	ldrsh	r1, [r4, r0]
 	mov	r3, #0x80
@@ -18549,40 +18605,40 @@ SpriteCb_WildMonShowHealthbox:
 	asr	r1, r1, #0x10
 	lsl	r3, r3, r1
 	orr	r0, r0, r3
-	ldr	r1, .L1134+0xc
+	ldr	r1, .L1139+0xc
 	str	r1, [sp]
 	mov	r1, #0x0
 	mov	r2, #0xa
 	mov	r3, #0x0
 	bl	BeginNormalPaletteFade
-	b	.L1131
-.L1135:
+	b	.L1136
+.L1140:
 	.align	2, 0
-.L1134:
+.L1139:
 	.word	gHealthboxSpriteIds
 	.word	SpriteCb_WildMonAnimate
 	.word	gBattleTypeFlags
 	.word	0x2108
-.L1132:
+.L1137:
 	mov	r2, #0x2e
 	ldrsh	r1, [r4, r2]
 	mov	r0, #0x80
 	lsl	r0, r0, #0x9
 	lsl	r0, r0, r1
-	ldr	r1, .L1136
+	ldr	r1, .L1141
 	str	r1, [sp]
 	mov	r1, #0x0
 	mov	r2, #0xa
 	mov	r3, #0x0
 	bl	BeginNormalPaletteFade
-.L1131:
+.L1136:
 	add	sp, sp, #0x4
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L1137:
+.L1142:
 	.align	2, 0
-.L1136:
+.L1141:
 	.word	0x2108
 .Lfe35:
 	.size	 SpriteCb_WildMonShowHealthbox,.Lfe35-SpriteCb_WildMonShowHealthbox
@@ -18592,23 +18648,23 @@ SpriteCb_WildMonShowHealthbox:
 SpriteCb_WildMonAnimate:
 	push	{lr}
 	add	r2, r0, #0
-	ldr	r0, .L1140
+	ldr	r0, .L1145
 	ldrb	r1, [r0, #0x7]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1139	@cond_branch
+	bne	.L1144	@cond_branch
 	ldrh	r1, [r2, #0x32]
 	add	r0, r2, #0
 	mov	r2, #0x0
 	mov	r3, #0x1
 	bl	BattleAnimateFrontSprite
-.L1139:
+.L1144:
 	pop	{r0}
 	bx	r0
-.L1141:
+.L1146:
 	.align	2, 0
-.L1140:
+.L1145:
 	.word	gPaletteFade
 .Lfe36:
 	.size	 SpriteCb_WildMonAnimate,.Lfe36-SpriteCb_WildMonAnimate
@@ -18631,7 +18687,7 @@ sub_80398D0:
 	strh	r0, [r3, #0x36]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L1144	@cond_branch
+	bne	.L1149	@cond_branch
 	mov	r0, #0x8
 	strh	r0, [r3, #0x36]
 	mov	r0, #0x3e
@@ -18655,21 +18711,21 @@ sub_80398D0:
 	strh	r0, [r3, #0x34]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L1144	@cond_branch
+	bne	.L1149	@cond_branch
 	ldrb	r0, [r1]
 	add	r1, r4, #0
 	and	r1, r1, r0
 	mov	r0, ip
 	strb	r1, [r0]
-	ldr	r0, .L1146
+	ldr	r0, .L1151
 	str	r0, [r3, #0x1c]
-.L1144:
+.L1149:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L1147:
+.L1152:
 	.align	2, 0
-.L1146:
+.L1151:
 	.word	SpriteCallbackDummy_2
 .Lfe38:
 	.size	 sub_80398D0,.Lfe38-sub_80398D0
@@ -18683,111 +18739,111 @@ SpriteCB_FaintOpponentMon:
 	ldrh	r0, [r6, #0x2e]
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
-	ldr	r1, .L1159
+	ldr	r1, .L1164
 	lsl	r0, r5, #0x1
 	add	r0, r0, r1
 	ldrh	r1, [r0]
 	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L1159+0x4
+	ldr	r1, .L1164+0x4
 	add	r0, r0, r1
 	mov	r1, #0x0
 	bl	GetMonData
 	add	r7, r0, #0
-	ldr	r0, .L1159+0x8
+	ldr	r0, .L1164+0x8
 	ldr	r0, [r0]
 	ldr	r1, [r0]
 	lsl	r0, r5, #0x2
 	add	r1, r0, r1
 	ldrh	r0, [r1, #0x2]
 	cmp	r0, #0
-	beq	.L1149	@cond_branch
+	beq	.L1154	@cond_branch
 	add	r4, r0, #0
-	b	.L1150
-.L1160:
+	b	.L1155
+.L1165:
 	.align	2, 0
-.L1159:
+.L1164:
 	.word	gBattlerPartyIndexes
 	.word	gEnemyParty
 	.word	gBattleSpritesDataPtr
-.L1149:
+.L1154:
 	ldrh	r4, [r6, #0x32]
-.L1150:
-	ldr	r1, .L1161
+.L1155:
+	ldr	r1, .L1166
 	lsl	r0, r5, #0x1
 	add	r0, r0, r1
 	ldrh	r1, [r0]
 	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L1161+0x4
+	ldr	r1, .L1166+0x4
 	add	r0, r0, r1
 	mov	r1, #0x0
 	bl	GetMonData
 	cmp	r4, #0xc9
-	bne	.L1151	@cond_branch
+	bne	.L1156	@cond_branch
 	add	r0, r7, #0
 	bl	GetUnownSpeciesId
 	lsl	r0, r0, #0x10
-	ldr	r1, .L1161+0x8
+	ldr	r1, .L1166+0x8
 	lsr	r0, r0, #0xe
-	b	.L1157
-.L1162:
+	b	.L1162
+.L1167:
 	.align	2, 0
-.L1161:
+.L1166:
 	.word	gBattlerPartyIndexes
 	.word	gEnemyParty
 	.word	gMonFrontPicCoords
-.L1151:
-	ldr	r0, .L1163
+.L1156:
+	ldr	r0, .L1168
 	cmp	r4, r0
-	bne	.L1153	@cond_branch
-	ldr	r0, .L1163+0x4
-	ldr	r1, .L1163+0x8
+	bne	.L1158	@cond_branch
+	ldr	r0, .L1168+0x4
+	ldr	r1, .L1168+0x8
 	add	r1, r5, r1
 	ldrb	r1, [r1]
 	lsl	r1, r1, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0x1]
-	b	.L1152
-.L1164:
+	b	.L1157
+.L1169:
 	.align	2, 0
-.L1163:
+.L1168:
 	.word	0x15f
 	.word	gCastformFrontSpriteCoords
 	.word	gBattleMonForms
-.L1153:
-	ldr	r0, .L1165
+.L1158:
+	ldr	r0, .L1170
 	cmp	r4, r0
-	bls	.L1155	@cond_branch
-	ldr	r0, .L1165+0x4
-	b	.L1158
-.L1166:
+	bls	.L1160	@cond_branch
+	ldr	r0, .L1170+0x4
+	b	.L1163
+.L1171:
 	.align	2, 0
-.L1165:
+.L1170:
 	.word	0x4b7
 	.word	gMonFrontPicCoords
-.L1155:
-	ldr	r1, .L1167
+.L1160:
+	ldr	r1, .L1172
 	lsl	r0, r4, #0x2
-.L1157:
+.L1162:
 	add	r0, r0, r1
-.L1158:
+.L1163:
 	ldrb	r0, [r0, #0x1]
-.L1152:
+.L1157:
 	lsr	r1, r0, #0x3
 	mov	r0, #0x8
 	sub	r0, r0, r1
 	strh	r0, [r6, #0x34]
 	mov	r0, #0x1
 	strh	r0, [r6, #0x36]
-	ldr	r0, .L1167+0x4
+	ldr	r0, .L1172+0x4
 	str	r0, [r6, #0x1c]
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1168:
+.L1173:
 	.align	2, 0
-.L1167:
+.L1172:
 	.word	gMonFrontPicCoords
 	.word	SpriteCB_AnimFaintOpponent
 .Lfe39:
@@ -18803,7 +18859,7 @@ SpriteCB_AnimFaintOpponent:
 	strh	r0, [r4, #0x36]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L1170	@cond_branch
+	bne	.L1175	@cond_branch
 	mov	r0, #0x2
 	strh	r0, [r4, #0x36]
 	ldrh	r0, [r4, #0x26]
@@ -18814,24 +18870,24 @@ SpriteCB_AnimFaintOpponent:
 	strh	r0, [r4, #0x34]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bge	.L1171	@cond_branch
+	bge	.L1176	@cond_branch
 	add	r0, r4, #0
 	bl	FreeSpriteOamMatrix
 	add	r0, r4, #0
 	bl	DestroySprite
-	b	.L1170
-.L1171:
+	b	.L1175
+.L1176:
 	ldrh	r0, [r4, #0x2e]
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	GetBattlerPosition
-	ldr	r1, .L1178
+	ldr	r1, .L1183
 	ldr	r1, [r1]
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x16
 	add	r1, r1, #0x4
 	add	r1, r1, r0
-	ldr	r2, .L1178+0x4
+	ldr	r2, .L1183+0x4
 	mov	r3, #0x2e
 	ldrsh	r0, [r4, r3]
 	add	r0, r0, r2
@@ -18845,26 +18901,26 @@ SpriteCB_AnimFaintOpponent:
 	add	r1, r1, r0
 	mov	r2, #0x0
 	mov	r0, #0xff
-.L1176:
+.L1181:
 	strb	r2, [r1]
 	add	r1, r1, #0x1
 	sub	r0, r0, #0x1
 	cmp	r0, #0
-	bge	.L1176	@cond_branch
-	ldr	r0, .L1178+0x4
+	bge	.L1181	@cond_branch
+	ldr	r0, .L1183+0x4
 	mov	r3, #0x2e
 	ldrsh	r1, [r4, r3]
 	add	r1, r1, r0
 	ldrb	r1, [r1]
 	add	r0, r4, #0
 	bl	StartSpriteAnim
-.L1170:
+.L1175:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L1179:
+.L1184:
 	.align	2, 0
-.L1178:
+.L1183:
 	.word	gMonSpritesGfxPtr
 	.word	gBattleMonForms
 .Lfe40:
@@ -18882,12 +18938,12 @@ SpriteCb_ShowAsMoveTarget:
 	lsl	r1, r1, #0x1d
 	lsr	r1, r1, #0x1f
 	strh	r1, [r0, #0x36]
-	ldr	r1, .L1181
+	ldr	r1, .L1186
 	str	r1, [r0, #0x1c]
 	bx	lr
-.L1182:
+.L1187:
 	.align	2, 0
-.L1181:
+.L1186:
 	.word	SpriteCb_BlinkVisible
 .Lfe41:
 	.size	 SpriteCb_ShowAsMoveTarget,.Lfe41-SpriteCb_ShowAsMoveTarget
@@ -18902,7 +18958,7 @@ SpriteCb_BlinkVisible:
 	strh	r0, [r3, #0x34]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L1184	@cond_branch
+	bne	.L1189	@cond_branch
 	mov	r0, #0x3e
 	add	r0, r0, r3
 	mov	ip, r0
@@ -18920,7 +18976,7 @@ SpriteCb_BlinkVisible:
 	strb	r0, [r1]
 	mov	r0, #0x8
 	strh	r0, [r3, #0x34]
-.L1184:
+.L1189:
 	pop	{r0}
 	bx	r0
 .Lfe42:
@@ -18947,12 +19003,12 @@ SpriteCb_HideAsMoveTarget:
 	strb	r1, [r2]
 	mov	r1, #0x0
 	strh	r1, [r0, #0x36]
-	ldr	r1, .L1186
+	ldr	r1, .L1191
 	str	r1, [r0, #0x1c]
 	bx	lr
-.L1187:
+.L1192:
 	.align	2, 0
-.L1186:
+.L1191:
 	.word	SpriteCallbackDummy_2
 .Lfe43:
 	.size	 SpriteCb_HideAsMoveTarget,.Lfe43-SpriteCb_HideAsMoveTarget
@@ -18968,41 +19024,41 @@ SpriteCb_OpponentMonFromBall:
 	mov	r0, #0x20
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1189	@cond_branch
-	ldr	r0, .L1193
+	beq	.L1194	@cond_branch
+	ldr	r0, .L1198
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1191	@cond_branch
-	ldr	r0, .L1193+0x4
+	beq	.L1196	@cond_branch
+	ldr	r0, .L1198+0x4
 	ldr	r0, [r0]
-	ldr	r1, .L1193+0x8
+	ldr	r1, .L1198+0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1190	@cond_branch
-.L1191:
+	beq	.L1195	@cond_branch
+.L1196:
 	ldrh	r0, [r4, #0x32]
 	bl	HasTwoFramesAnimation
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L1190	@cond_branch
+	beq	.L1195	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	StartSpriteAnim
-.L1190:
+.L1195:
 	ldrh	r1, [r4, #0x32]
 	add	r0, r4, #0
 	mov	r2, #0x1
 	mov	r3, #0x1
 	bl	BattleAnimateFrontSprite
-.L1189:
+.L1194:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L1194:
+.L1199:
 	.align	2, 0
-.L1193:
+.L1198:
 	.word	gHitMarker
 	.word	gBattleTypeFlags
 	.word	0x2000002
@@ -19013,12 +19069,12 @@ SpriteCb_OpponentMonFromBall:
 	.type	 sub_8039BB4,function
 	.thumb_func
 sub_8039BB4:
-	ldr	r1, .L1196
+	ldr	r1, .L1201
 	str	r1, [r0, #0x1c]
 	bx	lr
-.L1197:
+.L1202:
 	.align	2, 0
-.L1196:
+.L1201:
 	.word	oac_poke_ally_
 .Lfe45:
 	.size	 sub_8039BB4,.Lfe45-sub_8039BB4
@@ -19028,28 +19084,28 @@ sub_8039BB4:
 oac_poke_ally_:
 	push	{lr}
 	add	r2, r0, #0
-	ldr	r0, .L1201
+	ldr	r0, .L1206
 	ldrh	r1, [r0]
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1199	@cond_branch
+	bne	.L1204	@cond_branch
 	ldrh	r0, [r2, #0x24]
 	sub	r0, r0, #0x2
 	strh	r0, [r2, #0x24]
 	lsl	r0, r0, #0x10
 	asr	r1, r0, #0x10
 	cmp	r1, #0
-	bne	.L1199	@cond_branch
-	ldr	r0, .L1201+0x4
+	bne	.L1204	@cond_branch
+	ldr	r0, .L1206+0x4
 	str	r0, [r2, #0x1c]
 	strh	r1, [r2, #0x30]
-.L1199:
+.L1204:
 	pop	{r0}
 	bx	r0
-.L1202:
+.L1207:
 	.align	2, 0
-.L1201:
+.L1206:
 	.word	gIntroSlideFlags
 	.word	SpriteCallbackDummy_3
 .Lfe46:
@@ -19059,12 +19115,12 @@ oac_poke_ally_:
 	.type	 sub_80105DC,function
 	.thumb_func
 sub_80105DC:
-	ldr	r1, .L1204
+	ldr	r1, .L1209
 	str	r1, [r0, #0x1c]
 	bx	lr
-.L1205:
+.L1210:
 	.align	2, 0
-.L1204:
+.L1209:
 	.word	SpriteCallbackDummy_3
 .Lfe47:
 	.size	 sub_80105DC,.Lfe47-sub_80105DC
@@ -19082,12 +19138,12 @@ SpriteCallbackDummy_3:
 sub_8039C00:
 	push	{lr}
 	add	r2, r0, #0
-	ldr	r0, .L1209
+	ldr	r0, .L1214
 	ldrh	r1, [r0]
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1208	@cond_branch
+	bne	.L1213	@cond_branch
 	ldrh	r0, [r2, #0x30]
 	ldrh	r1, [r2, #0x24]
 	add	r0, r0, r1
@@ -19096,12 +19152,12 @@ sub_8039C00:
 	ldrh	r1, [r2, #0x26]
 	add	r0, r0, r1
 	strh	r0, [r2, #0x26]
-.L1208:
+.L1213:
 	pop	{r0}
 	bx	r0
-.L1210:
+.L1215:
 	.align	2, 0
-.L1209:
+.L1214:
 	.word	gIntroSlideFlags
 .Lfe49:
 	.size	 sub_8039C00,.Lfe49-sub_8039C00
@@ -19127,8 +19183,8 @@ DoBounceEffect:
 	lsr	r3, r3, #0x18
 	mov	sl, r3
 	cmp	r1, #0
-	beq	.L1216	@cond_branch
-	ldr	r0, .L1223
+	beq	.L1221	@cond_branch
+	ldr	r0, .L1228
 	ldr	r0, [r0]
 	ldr	r1, [r0, #0x4]
 	lsl	r2, r6, #0x1
@@ -19137,13 +19193,13 @@ DoBounceEffect:
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
-	b	.L1221
-.L1224:
+	b	.L1226
+.L1229:
 	.align	2, 0
-.L1223:
+.L1228:
 	.word	gBattleSpritesDataPtr
-.L1216:
-	ldr	r0, .L1225
+.L1221:
+	ldr	r0, .L1230
 	ldr	r0, [r0]
 	ldr	r1, [r0, #0x4]
 	lsl	r2, r6, #0x1
@@ -19152,22 +19208,22 @@ DoBounceEffect:
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x4
-.L1221:
+.L1226:
 	and	r0, r0, r1
 	add	r5, r2, #0
 	cmp	r0, #0
-	bne	.L1211	@cond_branch
-	ldr	r0, .L1225+0x4
+	bne	.L1216	@cond_branch
+	ldr	r0, .L1230+0x4
 	bl	CreateInvisibleSpriteWithCallback
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	mov	r0, r8
 	cmp	r0, #0x1
-	bne	.L1219	@cond_branch
-	ldr	r0, .L1225+0x8
+	bne	.L1224	@cond_branch
+	ldr	r0, .L1230+0x8
 	add	r0, r6, r0
 	ldrb	r7, [r0]
-	ldr	r2, .L1225
+	ldr	r2, .L1230
 	ldr	r0, [r2]
 	ldr	r0, [r0, #0x4]
 	add	r1, r5, r6
@@ -19181,25 +19237,25 @@ DoBounceEffect:
 	mov	r2, #0x2
 	orr	r0, r0, r2
 	strb	r0, [r1]
-	ldr	r2, .L1225+0xc
+	ldr	r2, .L1230+0xc
 	lsl	r3, r4, #0x4
 	add	r0, r3, r4
 	lsl	r0, r0, #0x2
 	add	r0, r0, r2
 	mov	r1, #0x80
-	b	.L1222
-.L1226:
+	b	.L1227
+.L1231:
 	.align	2, 0
-.L1225:
+.L1230:
 	.word	gBattleSpritesDataPtr
 	.word	SpriteCB_BounceEffect
 	.word	gHealthboxSpriteIds
 	.word	gSprites
-.L1219:
-	ldr	r0, .L1227
+.L1224:
+	ldr	r0, .L1232
 	add	r0, r6, r0
 	ldrb	r7, [r0]
-	ldr	r2, .L1227+0x4
+	ldr	r2, .L1232+0x4
 	ldr	r0, [r2]
 	ldr	r0, [r0, #0x4]
 	add	r1, r5, r6
@@ -19213,13 +19269,13 @@ DoBounceEffect:
 	mov	r2, #0x4
 	orr	r0, r0, r2
 	strb	r0, [r1]
-	ldr	r2, .L1227+0x8
+	ldr	r2, .L1232+0x8
 	lsl	r3, r4, #0x4
 	add	r0, r3, r4
 	lsl	r0, r0, #0x2
 	add	r0, r0, r2
 	mov	r1, #0xc0
-.L1222:
+.L1227:
 	strh	r1, [r0, #0x34]
 	add	r5, r2, #0
 	add	r1, r3, r4
@@ -19244,7 +19300,7 @@ DoBounceEffect:
 	add	r0, r0, r5
 	strh	r2, [r0, #0x24]
 	strh	r2, [r0, #0x26]
-.L1211:
+.L1216:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -19252,9 +19308,9 @@ DoBounceEffect:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1228:
+.L1233:
 	.align	2, 0
-.L1227:
+.L1232:
 	.word	gBattlerSpriteIds
 	.word	gBattleSpritesDataPtr
 	.word	gSprites
@@ -19271,8 +19327,8 @@ EndBounceEffect:
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	cmp	r1, #0x1
-	bne	.L1230	@cond_branch
-	ldr	r6, .L1235
+	bne	.L1235	@cond_branch
+	ldr	r6, .L1240
 	ldr	r0, [r6]
 	ldr	r1, [r0, #0x4]
 	lsl	r0, r2, #0x1
@@ -19283,8 +19339,8 @@ EndBounceEffect:
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1229	@cond_branch
-	ldr	r2, .L1235+0x4
+	beq	.L1234	@cond_branch
+	ldr	r2, .L1240+0x4
 	ldrb	r1, [r3, #0x2]
 	lsl	r0, r1, #0x4
 	add	r0, r0, r1
@@ -19300,14 +19356,14 @@ EndBounceEffect:
 	ldrb	r2, [r1]
 	mov	r0, #0x3
 	neg	r0, r0
-	b	.L1234
-.L1236:
+	b	.L1239
+.L1241:
 	.align	2, 0
-.L1235:
+.L1240:
 	.word	gBattleSpritesDataPtr
 	.word	gSprites
-.L1230:
-	ldr	r6, .L1237
+.L1235:
+	ldr	r6, .L1242
 	ldr	r0, [r6]
 	ldr	r1, [r0, #0x4]
 	lsl	r0, r2, #0x1
@@ -19318,8 +19374,8 @@ EndBounceEffect:
 	mov	r0, #0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1229	@cond_branch
-	ldr	r2, .L1237+0x4
+	beq	.L1234	@cond_branch
+	ldr	r2, .L1242+0x4
 	ldrb	r1, [r3, #0x3]
 	lsl	r0, r1, #0x4
 	add	r0, r0, r1
@@ -19335,10 +19391,10 @@ EndBounceEffect:
 	ldrb	r2, [r1]
 	mov	r0, #0x5
 	neg	r0, r0
-.L1234:
+.L1239:
 	and	r0, r0, r2
 	strb	r0, [r1]
-	ldr	r0, .L1237+0x4
+	ldr	r0, .L1242+0x4
 	lsl	r1, r4, #0x4
 	add	r1, r1, r4
 	lsl	r1, r1, #0x2
@@ -19346,13 +19402,13 @@ EndBounceEffect:
 	mov	r0, #0x0
 	strh	r0, [r1, #0x24]
 	strh	r0, [r1, #0x26]
-.L1229:
+.L1234:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L1238:
+.L1243:
 	.align	2, 0
-.L1237:
+.L1242:
 	.word	gBattleSpritesDataPtr
 	.word	gSprites
 .Lfe51:
@@ -19376,7 +19432,7 @@ SpriteCB_BounceEffect:
 	mov	r2, #0x38
 	ldrsh	r1, [r4, r2]
 	add	r6, r0, r1
-	ldr	r7, .L1241
+	ldr	r7, .L1246
 	lsl	r0, r5, #0x4
 	add	r0, r0, r5
 	lsl	r0, r0, #0x2
@@ -19396,21 +19452,21 @@ SpriteCB_BounceEffect:
 	mov	r2, #0x3c
 	ldrsh	r0, [r4, r2]
 	cmp	r0, #0x1
-	bne	.L1240	@cond_branch
+	bne	.L1245	@cond_branch
 	cmp	r1, #0xff
-	beq	.L1240	@cond_branch
+	beq	.L1245	@cond_branch
 	lsl	r0, r1, #0x4
 	add	r0, r0, r1
 	lsl	r0, r0, #0x2
 	add	r0, r0, r7
 	strh	r6, [r0, #0x26]
-.L1240:
+.L1245:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1242:
+.L1247:
 	.align	2, 0
-.L1241:
+.L1246:
 	.word	gSprites
 .Lfe52:
 	.size	 SpriteCB_BounceEffect,.Lfe52-SpriteCB_BounceEffect
@@ -19426,11 +19482,11 @@ SpriteCb_PlayerMonFromBall:
 	mov	r0, #0x20
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1244	@cond_branch
+	beq	.L1249	@cond_branch
 	ldrh	r1, [r2, #0x32]
 	add	r0, r2, #0
 	bl	BattleAnimateBackSprite
-.L1244:
+.L1249:
 	pop	{r0}
 	bx	r0
 .Lfe53:
@@ -19449,16 +19505,16 @@ sub_8039E60:
 	mov	r0, #0x10
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1246	@cond_branch
-	ldr	r0, .L1247
+	beq	.L1251	@cond_branch
+	ldr	r0, .L1252
 	str	r0, [r4, #0x1c]
-.L1246:
+.L1251:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L1248:
+.L1253:
 	.align	2, 0
-.L1247:
+.L1252:
 	.word	SpriteCallbackDummy_3
 .Lfe54:
 	.size	 sub_8039E60,.Lfe54-sub_8039E60
@@ -19471,14 +19527,14 @@ SpriteCB_TrainerThrowObject:
 	add	r4, r0, #0
 	mov	r1, #0x1
 	bl	StartSpriteAnim
-	ldr	r0, .L1250
+	ldr	r0, .L1255
 	str	r0, [r4, #0x1c]
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L1251:
+.L1256:
 	.align	2, 0
-.L1250:
+.L1255:
 	.word	sub_8039E60
 .Lfe55:
 	.size	 SpriteCB_TrainerThrowObject,.Lfe55-SpriteCB_TrainerThrowObject
@@ -19494,8 +19550,8 @@ sub_8039E9C:
 	mov	r0, #0x3f
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1253	@cond_branch
-	ldr	r1, .L1254
+	bne	.L1258	@cond_branch
+	ldr	r1, .L1259
 	add	r0, r2, #0
 	add	r0, r0, #0x2b
 	ldrb	r0, [r0]
@@ -19504,12 +19560,12 @@ sub_8039E9C:
 	add	r0, r2, #0
 	add	r0, r0, #0x28
 	strb	r1, [r0]
-.L1253:
+.L1258:
 	pop	{r0}
 	bx	r0
-.L1255:
+.L1260:
 	.align	2, 0
-.L1254:
+.L1259:
 	.word	gUnknown_0831ACE0
 .Lfe56:
 	.size	 sub_8039E9C,.Lfe56-sub_8039E9C
@@ -19528,22 +19584,22 @@ nullsub_20:
 BeginBattleIntro:
 	push	{lr}
 	bl	BattleStartClearSetData
-	ldr	r0, .L1258
+	ldr	r0, .L1263
 	mov	r1, #0x0
 	strb	r1, [r0, #0x1]
-	ldr	r0, .L1258+0x4
+	ldr	r0, .L1263+0x4
 	ldr	r0, [r0]
-	ldr	r2, .L1258+0x8
+	ldr	r2, .L1263+0x8
 	add	r0, r0, r2
 	strb	r1, [r0]
-	ldr	r1, .L1258+0xc
-	ldr	r0, .L1258+0x10
+	ldr	r1, .L1263+0xc
+	ldr	r0, .L1263+0x10
 	str	r0, [r1]
 	pop	{r0}
 	bx	r0
-.L1259:
+.L1264:
 	.align	2, 0
-.L1258:
+.L1263:
 	.word	gBattleCommunication
 	.word	gBattleStruct
 	.word	0x2b5
@@ -19556,19 +19612,19 @@ BeginBattleIntro:
 	.thumb_func
 BattleMainCB1:
 	push	{r4, r5, lr}
-	ldr	r0, .L1266
+	ldr	r0, .L1271
 	ldr	r0, [r0]
 	bl	_call_via_r0
-	ldr	r1, .L1266+0x4
+	ldr	r1, .L1271+0x4
 	mov	r0, #0x0
 	strb	r0, [r1]
-	ldr	r0, .L1266+0x8
+	ldr	r0, .L1271+0x8
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L1262	@cond_branch
-	ldr	r5, .L1266+0xc
+	beq	.L1267	@cond_branch
+	ldr	r5, .L1271+0xc
 	add	r4, r1, #0
-.L1264:
+.L1269:
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r5
@@ -19577,19 +19633,19 @@ BattleMainCB1:
 	ldrb	r0, [r4]
 	add	r0, r0, #0x1
 	strb	r0, [r4]
-	ldr	r1, .L1266+0x8
+	ldr	r1, .L1271+0x8
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bcc	.L1264	@cond_branch
-.L1262:
+	bcc	.L1269	@cond_branch
+.L1267:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L1267:
+.L1272:
 	.align	2, 0
-.L1266:
+.L1271:
 	.word	gBattleMainFunc
 	.word	gActiveBattler
 	.word	gBattlersCount
@@ -19608,74 +19664,74 @@ BattleStartClearSetData:
 	mov	r0, #0x0
 	bl	TurnValuesCleanUp
 	bl	SpecialStatusesClear
-	ldr	r0, .L1284
+	ldr	r0, .L1289
 	mov	r1, #0x0
 	mov	r2, #0xa0
 	bl	memset
-	ldr	r0, .L1284+0x4
+	ldr	r0, .L1289+0x4
 	mov	r1, #0x0
 	mov	r2, #0xc
 	bl	memset
-	ldr	r0, .L1284+0x8
+	ldr	r0, .L1289+0x8
 	mov	r1, #0x0
 	mov	r2, #0x8
 	bl	memset
-	ldr	r0, .L1284+0xc
+	ldr	r0, .L1289+0xc
 	mov	r1, #0x0
 	mov	r2, #0x28
 	bl	memset
-	ldr	r0, .L1284+0x10
+	ldr	r0, .L1289+0x10
 	mov	r1, #0x0
 	mov	r2, #0x1c
 	bl	memset
-	ldr	r0, .L1284+0x14
+	ldr	r0, .L1289+0x14
 	mov	r1, #0x0
 	mov	r2, #0x50
 	bl	memset
 	mov	r5, #0x0
 	mov	r4, #0x0
 	mov	r6, #0x0
-.L1272:
-	ldr	r0, .L1284+0x18
+.L1277:
+	ldr	r0, .L1289+0x18
 	lsl	r3, r5, #0x2
 	add	r0, r3, r0
 	str	r4, [r0]
-	ldr	r0, .L1284
+	ldr	r0, .L1289
 	add	r0, r6, r0
 	mov	r7, #0x2
 	strb	r7, [r0, #0x19]
-	ldr	r0, .L1284+0x1c
+	ldr	r0, .L1289+0x1c
 	lsl	r2, r5, #0x1
 	add	r0, r2, r0
 	strh	r4, [r0]
-	ldr	r0, .L1284+0x20
+	ldr	r0, .L1289+0x20
 	add	r0, r2, r0
 	strh	r4, [r0]
-	ldr	r0, .L1284+0x24
+	ldr	r0, .L1289+0x24
 	add	r0, r2, r0
 	strh	r4, [r0]
-	ldr	r0, .L1284+0x28
+	ldr	r0, .L1289+0x28
 	add	r0, r2, r0
 	strh	r4, [r0]
-	ldr	r0, .L1284+0x2c
+	ldr	r0, .L1289+0x2c
 	add	r0, r5, r0
 	mov	r1, #0xff
 	strb	r1, [r0]
-	ldr	r0, .L1284+0x30
+	ldr	r0, .L1289+0x30
 	add	r0, r2, r0
 	strh	r4, [r0]
-	ldr	r0, .L1284+0x34
+	ldr	r0, .L1289+0x34
 	add	r0, r2, r0
 	strh	r4, [r0]
-	ldr	r0, .L1284+0x38
+	ldr	r0, .L1289+0x38
 	ldr	r0, [r0]
 	ldr	r0, [r0, #0x4]
 	add	r0, r0, r3
 	str	r4, [r0]
-	ldr	r0, .L1284+0x3c
+	ldr	r0, .L1289+0x3c
 	add	r3, r3, r0
 	str	r4, [r3]
-	ldr	r0, .L1284+0x40
+	ldr	r0, .L1289+0x40
 	ldr	r3, [r0]
 	add	r0, r3, #0
 	add	r0, r0, #0x92
@@ -19719,43 +19775,43 @@ BattleStartClearSetData:
 	add	r6, r6, #0x28
 	add	r5, r5, #0x1
 	cmp	r5, #0x3
-	ble	.L1272	@cond_branch
-	ldr	r0, .L1284+0x44
+	ble	.L1277	@cond_branch
+	ldr	r0, .L1289+0x44
 	mov	r1, #0x0
 	strh	r1, [r0]
-	ldr	r0, .L1284+0x48
+	ldr	r0, .L1289+0x48
 	mov	r2, #0x0
 	str	r2, [r0]
-	ldr	r0, .L1284+0x4c
+	ldr	r0, .L1289+0x4c
 	strb	r1, [r0]
-	ldr	r0, .L1284+0x50
+	ldr	r0, .L1289+0x50
 	strb	r1, [r0]
-	ldr	r0, .L1284+0x54
+	ldr	r0, .L1289+0x54
 	strh	r2, [r0]
-	ldr	r4, .L1284+0x58
+	ldr	r4, .L1289+0x58
 	str	r2, [r4]
-	ldr	r0, .L1284+0x5c
+	ldr	r0, .L1289+0x5c
 	ldr	r1, [r0]
 	mov	r0, #0x80
 	lsl	r0, r0, #0x11
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1274	@cond_branch
+	bne	.L1279	@cond_branch
 	and	r1, r1, r7
 	cmp	r1, #0
-	bne	.L1276	@cond_branch
-	ldr	r0, .L1284+0x60
+	bne	.L1281	@cond_branch
+	ldr	r0, .L1289+0x60
 	ldr	r0, [r0]
 	ldrb	r1, [r0, #0x15]
 	mov	r0, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1276	@cond_branch
+	beq	.L1281	@cond_branch
 	mov	r0, #0x80
-	b	.L1283
-.L1285:
+	b	.L1288
+.L1290:
 	.align	2, 0
-.L1284:
+.L1289:
 	.word	gDisableStructs
 	.word	gFieldTimers
 	.word	gSideStatuses
@@ -19781,23 +19837,23 @@ BattleStartClearSetData:
 	.word	gHitMarker
 	.word	gBattleTypeFlags
 	.word	gSaveBlock2Ptr
-.L1274:
-	ldr	r0, .L1286
+.L1279:
+	ldr	r0, .L1291
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L1276	@cond_branch
+	bne	.L1281	@cond_branch
 	bl	GetBattleSceneInRecordedBattle
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L1276	@cond_branch
+	beq	.L1281	@cond_branch
 	ldr	r0, [r4]
 	mov	r1, #0x80
 	orr	r0, r0, r1
-.L1283:
+.L1288:
 	str	r0, [r4]
-.L1276:
-	ldr	r2, .L1286+0x4
-	ldr	r0, .L1286+0x8
+.L1281:
+	ldr	r2, .L1291+0x4
+	ldr	r0, .L1291+0x8
 	ldr	r0, [r0]
 	ldrb	r0, [r0, #0x15]
 	lsl	r0, r0, #0x1d
@@ -19809,16 +19865,16 @@ BattleStartClearSetData:
 	add	r0, r2, #0
 	add	r0, r0, #0x27
 	strb	r1, [r0]
-	ldr	r0, .L1286+0xc
+	ldr	r0, .L1291+0xc
 	strb	r1, [r0]
-	ldr	r0, .L1286+0x10
+	ldr	r0, .L1291+0x10
 	strb	r1, [r0]
-	ldr	r0, .L1286+0x14
+	ldr	r0, .L1291+0x14
 	str	r1, [r0]
-	ldr	r0, .L1286+0x18
+	ldr	r0, .L1291+0x18
 	mov	r3, #0x0
 	strh	r1, [r0]
-	ldr	r1, .L1286+0x1c
+	ldr	r1, .L1291+0x1c
 	ldr	r0, [r1]
 	ldr	r0, [r0, #0x8]
 	add	r0, r0, #0x20
@@ -19827,25 +19883,25 @@ BattleStartClearSetData:
 	ldr	r0, [r0, #0xc]
 	add	r0, r0, #0x20
 	strb	r3, [r0]
-	ldr	r6, .L1286+0x20
-	ldr	r4, .L1286+0x24
-	ldr	r7, .L1286+0x28
-	ldr	r0, .L1286+0x2c
+	ldr	r6, .L1291+0x20
+	ldr	r4, .L1291+0x24
+	ldr	r7, .L1291+0x28
+	ldr	r0, .L1291+0x2c
 	mov	ip, r0
-	ldr	r1, .L1286+0x30
+	ldr	r1, .L1291+0x30
 	mov	r8, r1
-	ldr	r0, .L1286+0x34
+	ldr	r0, .L1291+0x34
 	mov	r9, r0
-	ldr	r1, .L1286+0x38
+	ldr	r1, .L1291+0x38
 	mov	sl, r1
-	ldr	r1, .L1286+0x3c
+	ldr	r1, .L1291+0x3c
 	mov	r3, #0x0
 	add	r0, r1, #0x7
-.L1281:
+.L1286:
 	strb	r3, [r0]
 	sub	r0, r0, #0x1
 	cmp	r0, r1
-	bge	.L1281	@cond_branch
+	bge	.L1286	@cond_branch
 	mov	r5, #0x0
 	strh	r5, [r4]
 	mov	r0, #0x0
@@ -19882,7 +19938,7 @@ BattleStartClearSetData:
 	add	r0, r4, #0
 	bl	GetFormSpeciesId
 	ldr	r4, [r6]
-	ldr	r2, .L1286+0x40
+	ldr	r2, .L1291+0x40
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	lsl	r1, r0, #0x3
@@ -19892,7 +19948,7 @@ BattleStartClearSetData:
 	ldrb	r1, [r1, #0x8]
 	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L1286+0x44
+	ldr	r1, .L1291+0x44
 	bl	__divsi3
 	add	r4, r4, #0x7b
 	strb	r0, [r4]
@@ -19913,11 +19969,11 @@ BattleStartClearSetData:
 	add	r0, r0, #0x8b
 	strb	r5, [r0]
 	bl	Random
-	ldr	r1, .L1286+0x48
+	ldr	r1, .L1291+0x48
 	strh	r0, [r1]
 	mov	r0, sl
 	bl	IsMonShiny
-	ldr	r2, .L1286+0x4c
+	ldr	r2, .L1291+0x4c
 	and	r4, r4, r0
 	lsl	r4, r4, #0x6
 	ldrb	r1, [r2, #0x5]
@@ -19947,9 +20003,9 @@ BattleStartClearSetData:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1287:
+.L1292:
 	.align	2, 0
-.L1286:
+.L1291:
 	.word	0x2000002
 	.word	gBattleScripting
 	.word	gSaveBlock2Ptr
@@ -19983,8 +20039,8 @@ SwitchInClearSetData:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	add	sp, sp, #-0x28
-	ldr	r2, .L1326
-	ldr	r4, .L1326+0x4
+	ldr	r2, .L1331
+	ldr	r4, .L1331+0x4
 	ldrb	r1, [r4]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
@@ -20001,8 +20057,8 @@ SwitchInClearSetData:
 	str	r0, [r1]
 	ldrb	r0, [r4]
 	bl	ClearIllusionMon
-	ldr	r2, .L1326+0x8
-	ldr	r3, .L1326+0xc
+	ldr	r2, .L1331+0x8
+	ldr	r3, .L1331+0xc
 	ldrh	r1, [r3]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
@@ -20010,19 +20066,19 @@ SwitchInClearSetData:
 	add	r0, r0, r2
 	ldrh	r0, [r0]
 	cmp	r0, #0x7f
-	beq	.L1325	@cond_branch
+	beq	.L1330	@cond_branch
 	mov	r5, #0x0
 	mov	ip, r3
-	ldr	r3, .L1326+0x10
+	ldr	r3, .L1331+0x10
 	mov	r9, r3
-	ldr	r4, .L1326+0x14
+	ldr	r4, .L1331+0x14
 	mov	sl, r4
-	ldr	r6, .L1326+0x4
+	ldr	r6, .L1331+0x4
 	mov	r4, #0x5c
 	mov	r2, r9
 	add	r2, r2, #0x18
 	mov	r1, #0x6
-.L1293:
+.L1298:
 	ldrb	r0, [r6]
 	mul	r0, r0, r4
 	add	r0, r5, r0
@@ -20030,17 +20086,17 @@ SwitchInClearSetData:
 	strb	r1, [r0]
 	add	r5, r5, #0x1
 	cmp	r5, #0x7
-	ble	.L1293	@cond_branch
+	ble	.L1298	@cond_branch
 	mov	r5, #0x0
 	mov	r7, sl
 	ldrb	r7, [r7]
 	cmp	r5, r7
-	bge	.L1289	@cond_branch
-	ldr	r0, .L1326+0x18
+	bge	.L1294	@cond_branch
+	ldr	r0, .L1331+0x18
 	mov	r8, r0
 	mov	r6, #0x0
-	ldr	r4, .L1326
-.L1298:
+	ldr	r4, .L1331
+.L1303:
 	mov	r0, #0x5c
 	mul	r0, r0, r5
 	mov	r1, r8
@@ -20050,82 +20106,82 @@ SwitchInClearSetData:
 	lsl	r0, r0, #0x13
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1299	@cond_branch
+	beq	.L1304	@cond_branch
 	ldrb	r0, [r4, #0x17]
-	ldr	r3, .L1326+0x4
+	ldr	r3, .L1331+0x4
 	ldrb	r3, [r3]
 	cmp	r0, r3
-	bne	.L1299	@cond_branch
-	ldr	r0, .L1326+0x1c
+	bne	.L1304	@cond_branch
+	ldr	r0, .L1331+0x1c
 	and	r1, r1, r0
 	str	r1, [r2]
-.L1299:
-	ldr	r7, .L1326+0x20
+.L1304:
+	ldr	r7, .L1331+0x20
 	add	r2, r6, r7
 	ldr	r1, [r2]
 	mov	r0, #0x18
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1297	@cond_branch
+	beq	.L1302	@cond_branch
 	ldrb	r0, [r4, #0x18]
-	ldr	r3, .L1326+0x4
+	ldr	r3, .L1331+0x4
 	ldrb	r3, [r3]
 	cmp	r0, r3
-	bne	.L1297	@cond_branch
+	bne	.L1302	@cond_branch
 	mov	r0, #0x19
 	neg	r0, r0
 	and	r1, r1, r0
 	str	r1, [r2]
 	mov	r0, #0x0
 	strb	r0, [r4, #0x18]
-.L1297:
+.L1302:
 	add	r6, r6, #0x4
 	add	r4, r4, #0x28
 	add	r5, r5, #0x1
 	mov	r7, sl
 	ldrb	r7, [r7]
 	cmp	r5, r7
-	blt	.L1298	@cond_branch
-.L1289:
+	blt	.L1303	@cond_branch
+.L1294:
 	mov	r1, ip
 	ldrh	r0, [r1]
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r1, r1, #0x2
-	ldr	r2, .L1326+0x8
+	ldr	r2, .L1331+0x8
 	add	r1, r1, r2
 	ldrh	r0, [r1]
 	cmp	r0, #0x7f
-	bne	.L1302	@cond_branch
-.L1325:
-	ldr	r1, .L1326+0x10
-	ldr	r3, .L1326+0x4
+	bne	.L1307	@cond_branch
+.L1330:
+	ldr	r1, .L1331+0x10
+	ldr	r3, .L1331+0x4
 	ldrb	r2, [r3]
 	mov	r0, #0x5c
 	mul	r2, r2, r0
 	add	r1, r1, #0x54
 	add	r2, r2, r1
 	ldr	r0, [r2]
-	ldr	r1, .L1326+0x24
+	ldr	r1, .L1331+0x24
 	and	r0, r0, r1
 	str	r0, [r2]
-	ldr	r0, .L1326+0x20
+	ldr	r0, .L1331+0x20
 	ldrb	r1, [r3]
 	lsl	r1, r1, #0x2
 	add	r1, r1, r0
 	ldr	r0, [r1]
-	ldr	r2, .L1326+0x28
+	ldr	r2, .L1331+0x28
 	and	r0, r0, r2
 	str	r0, [r1]
 	mov	r5, #0x0
-	ldr	r0, .L1326+0x14
+	ldr	r0, .L1331+0x14
 	mov	sl, r0
 	ldrb	r3, [r0]
 	cmp	r5, r3
-	bge	.L1304	@cond_branch
-	ldr	r7, .L1326+0x4
+	bge	.L1309	@cond_branch
+	ldr	r7, .L1331+0x4
 	mov	r6, #0x0
-.L1306:
+.L1311:
 	ldrb	r0, [r7]
 	bl	GetBattlerSide
 	add	r4, r0, #0
@@ -20135,44 +20191,44 @@ SwitchInClearSetData:
 	lsl	r4, r4, #0x18
 	lsl	r0, r0, #0x18
 	cmp	r4, r0
-	beq	.L1305	@cond_branch
-	ldr	r1, .L1326+0x20
+	beq	.L1310	@cond_branch
+	ldr	r1, .L1331+0x20
 	lsl	r0, r5, #0x2
 	add	r2, r0, r1
 	ldr	r1, [r2]
 	mov	r0, #0x18
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1305	@cond_branch
-	ldr	r0, .L1326
+	beq	.L1310	@cond_branch
+	ldr	r0, .L1331
 	add	r0, r6, r0
 	ldrb	r0, [r0, #0x18]
 	ldrb	r4, [r7]
 	cmp	r0, r4
-	bne	.L1305	@cond_branch
+	bne	.L1310	@cond_branch
 	mov	r0, #0x19
 	neg	r0, r0
 	and	r1, r1, r0
 	mov	r0, #0x10
 	orr	r1, r1, r0
 	str	r1, [r2]
-.L1305:
+.L1310:
 	add	r6, r6, #0x28
 	add	r5, r5, #0x1
-	ldr	r0, .L1326+0x14
+	ldr	r0, .L1331+0x14
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	blt	.L1306	@cond_branch
-.L1304:
-	ldr	r0, .L1326+0x20
-	ldr	r5, .L1326+0x4
+	blt	.L1311	@cond_branch
+.L1309:
+	ldr	r0, .L1331+0x20
+	ldr	r5, .L1331+0x4
 	ldrb	r4, [r5]
 	lsl	r1, r4, #0x2
 	add	r1, r1, r0
 	ldr	r0, [r1]
 	cmp	r0, #0
-	bge	.L1310	@cond_branch
-	ldr	r3, .L1326+0x10
+	bge	.L1315	@cond_branch
+	ldr	r3, .L1331+0x10
 	mov	r2, #0x5c
 	mov	r0, r4
 	mul	r0, r0, r2
@@ -20180,15 +20236,15 @@ SwitchInClearSetData:
 	ldrh	r5, [r0, #0x2]
 	ldrh	r1, [r0, #0x4]
 	strh	r1, [r0, #0x2]
-	ldr	r7, .L1326+0x4
+	ldr	r7, .L1331+0x4
 	ldrb	r0, [r7]
 	mul	r0, r0, r2
 	add	r0, r0, r3
 	strh	r5, [r0, #0x4]
-	b	.L1310
-.L1327:
+	b	.L1315
+.L1332:
 	.align	2, 0
-.L1326:
+.L1331:
 	.word	gDisableStructs
 	.word	gActiveBattler
 	.word	gBattleMoves
@@ -20200,8 +20256,8 @@ SwitchInClearSetData:
 	.word	gStatuses3
 	.word	0x15100007
 	.word	0x43f
-.L1302:
-	ldr	r0, .L1328
+.L1307:
+	ldr	r0, .L1333
 	ldrb	r1, [r0]
 	mov	r0, #0x5c
 	mul	r0, r0, r1
@@ -20210,28 +20266,28 @@ SwitchInClearSetData:
 	add	r0, r0, r1
 	mov	r1, #0x0
 	str	r1, [r0]
-	ldr	r2, .L1328
+	ldr	r2, .L1333
 	ldrb	r0, [r2]
 	lsl	r0, r0, #0x2
-	ldr	r3, .L1328+0x4
+	ldr	r3, .L1333+0x4
 	add	r0, r0, r3
 	str	r1, [r0]
-.L1310:
+.L1315:
 	mov	r5, #0x0
-	ldr	r4, .L1328+0x8
+	ldr	r4, .L1333+0x8
 	mov	r9, r4
-	ldr	r7, .L1328+0xc
+	ldr	r7, .L1333+0xc
 	mov	ip, r7
 	mov	r0, sl
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	bge	.L1312	@cond_branch
-	ldr	r1, .L1328+0x10
+	bge	.L1317	@cond_branch
+	ldr	r1, .L1333+0x10
 	mov	r8, r1
-	ldr	r7, .L1328+0x14
-	ldr	r4, .L1328
-	ldr	r6, .L1328+0x18
-.L1314:
+	ldr	r7, .L1333+0x14
+	ldr	r4, .L1333
+	ldr	r6, .L1333+0x18
+.L1319:
 	mov	r0, #0x5c
 	mul	r0, r0, r5
 	mov	r2, r8
@@ -20245,39 +20301,39 @@ SwitchInClearSetData:
 	add	r0, r1, #0
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L1315	@cond_branch
+	beq	.L1320	@cond_branch
 	bic	r1, r1, r2
 	str	r1, [r3]
-.L1315:
+.L1320:
 	ldr	r1, [r3]
 	mov	r0, #0x80
 	lsl	r0, r0, #0x6
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1313	@cond_branch
+	beq	.L1318	@cond_branch
 	ldr	r0, [r6]
 	add	r0, r5, r0
 	ldrb	r0, [r0, #0x13]
 	ldrb	r2, [r4]
 	cmp	r0, r2
-	bne	.L1313	@cond_branch
-	ldr	r0, .L1328+0x1c
+	bne	.L1318	@cond_branch
+	ldr	r0, .L1333+0x1c
 	and	r1, r1, r0
 	str	r1, [r3]
-.L1313:
+.L1318:
 	add	r5, r5, #0x1
 	mov	r3, sl
 	ldrb	r3, [r3]
 	cmp	r5, r3
-	blt	.L1314	@cond_branch
-.L1312:
-	ldr	r6, .L1328
+	blt	.L1319	@cond_branch
+.L1317:
+	ldr	r6, .L1333
 	ldrb	r0, [r6]
 	add	r0, r0, ip
 	mov	r7, #0x0
 	strb	r7, [r0]
 	ldrb	r0, [r6]
-	ldr	r4, .L1328+0x20
+	ldr	r4, .L1333+0x20
 	add	r0, r0, r4
 	strb	r7, [r0]
 	ldrb	r1, [r6]
@@ -20289,8 +20345,8 @@ SwitchInClearSetData:
 	mov	r1, #0x0
 	mov	r2, #0x28
 	bl	memset
-	ldr	r2, .L1328+0x24
-	ldr	r0, .L1328+0x28
+	ldr	r2, .L1333+0x24
+	ldr	r0, .L1333+0x28
 	ldrh	r1, [r0]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
@@ -20298,7 +20354,7 @@ SwitchInClearSetData:
 	add	r0, r0, r2
 	ldrh	r0, [r0]
 	cmp	r0, #0x7f
-	bne	.L1318	@cond_branch
+	bne	.L1323	@cond_branch
 	ldrb	r1, [r6]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
@@ -20352,8 +20408,8 @@ SwitchInClearSetData:
 	mov	r1, sp
 	ldrb	r1, [r1, #0x17]
 	strb	r1, [r0, #0x17]
-.L1318:
-	ldr	r0, .L1328+0x2c
+.L1323:
+	ldr	r0, .L1333+0x2c
 	mov	r5, #0x0
 	strh	r7, [r0]
 	ldrb	r1, [r6]
@@ -20378,37 +20434,37 @@ SwitchInClearSetData:
 	and	r0, r0, r3
 	orr	r0, r0, r2
 	strb	r0, [r1, #0x1a]
-	ldr	r1, .L1328+0x30
+	ldr	r1, .L1333+0x30
 	ldrb	r0, [r6]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	strh	r7, [r0]
-	ldr	r1, .L1328+0x34
+	ldr	r1, .L1333+0x34
 	ldrb	r0, [r6]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	strh	r7, [r0]
-	ldr	r1, .L1328+0x38
+	ldr	r1, .L1333+0x38
 	ldrb	r0, [r6]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	strh	r7, [r0]
-	ldr	r1, .L1328+0x3c
+	ldr	r1, .L1333+0x3c
 	ldrb	r0, [r6]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	strh	r7, [r0]
-	ldr	r1, .L1328+0x40
+	ldr	r1, .L1333+0x40
 	ldrb	r0, [r6]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	strh	r7, [r0]
-	ldr	r1, .L1328+0x44
+	ldr	r1, .L1333+0x44
 	ldrb	r0, [r6]
 	add	r0, r0, r1
 	mov	r1, #0xff
 	strb	r1, [r0]
-	ldr	r4, .L1328+0x18
+	ldr	r4, .L1333+0x18
 	ldr	r2, [r4]
 	ldrb	r1, [r6]
 	lsl	r1, r1, #0x1
@@ -20416,7 +20472,7 @@ SwitchInClearSetData:
 	add	r0, r0, #0x92
 	add	r0, r0, r1
 	strh	r7, [r0]
-	ldr	r0, .L1328+0x48
+	ldr	r0, .L1333+0x48
 	add	r2, r2, r0
 	ldrb	r1, [r6]
 	add	r2, r2, r1
@@ -20449,7 +20505,7 @@ SwitchInClearSetData:
 	mov	r3, #0xb0
 	lsl	r3, r3, #0x2
 	add	r2, r2, r3
-	ldr	r3, .L1328+0x14
+	ldr	r3, .L1333+0x14
 	ldrb	r0, [r6]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r3
@@ -20467,18 +20523,18 @@ SwitchInClearSetData:
 	bic	r0, r0, r2
 	strb	r0, [r1]
 	mov	r5, #0x0
-	ldr	r0, .L1328+0x4c
+	ldr	r0, .L1333+0x4c
 	mov	r9, r4
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	bge	.L1320	@cond_branch
-	ldr	r6, .L1328
+	bge	.L1325	@cond_branch
+	ldr	r6, .L1333
 	mov	r8, r9
 	mov	r7, #0x0
-.L1322:
+.L1327:
 	ldrb	r4, [r6]
 	cmp	r5, r4
-	beq	.L1323	@cond_branch
+	beq	.L1328	@cond_branch
 	lsl	r0, r5, #0x18
 	lsr	r0, r0, #0x18
 	bl	GetBattlerSide
@@ -20488,14 +20544,14 @@ SwitchInClearSetData:
 	lsl	r4, r4, #0x18
 	lsl	r0, r0, #0x18
 	cmp	r4, r0
-	beq	.L1323	@cond_branch
+	beq	.L1328	@cond_branch
 	mov	r1, r8
 	ldr	r0, [r1]
 	lsl	r1, r5, #0x1
 	add	r0, r0, #0x92
 	add	r0, r0, r1
 	strh	r7, [r0]
-.L1323:
+.L1328:
 	mov	r3, r8
 	ldr	r2, [r3]
 	ldrb	r1, [r6]
@@ -20506,14 +20562,14 @@ SwitchInClearSetData:
 	add	r2, r2, r1
 	strh	r7, [r2]
 	add	r5, r5, #0x1
-	ldr	r0, .L1328+0x4c
+	ldr	r0, .L1333+0x4c
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	blt	.L1322	@cond_branch
-.L1320:
+	blt	.L1327	@cond_branch
+.L1325:
 	mov	r4, r9
 	ldr	r3, [r4]
-	ldr	r5, .L1328
+	ldr	r5, .L1333
 	ldrb	r0, [r5]
 	lsl	r0, r0, #0x1
 	add	r1, r3, #0
@@ -20521,14 +20577,14 @@ SwitchInClearSetData:
 	add	r1, r1, r0
 	mov	r2, #0x0
 	strh	r2, [r1]
-	ldr	r0, .L1328+0x50
+	ldr	r0, .L1333+0x50
 	ldr	r0, [r0]
 	ldr	r1, [r0, #0x4]
 	ldrb	r0, [r5]
 	lsl	r0, r0, #0x2
 	add	r1, r1, r0
 	str	r2, [r1]
-	ldr	r0, .L1328+0x28
+	ldr	r0, .L1333+0x28
 	strh	r2, [r0]
 	add	r3, r3, #0xd6
 	mov	r0, #0xff
@@ -20545,9 +20601,9 @@ SwitchInClearSetData:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1329:
+.L1334:
 	.align	2, 0
-.L1328:
+.L1333:
 	.word	gActiveBattler
 	.word	gStatuses3
 	.word	gDisableStructs
@@ -20582,22 +20638,22 @@ FaintClearSetData:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	mov	r5, #0x0
-	ldr	r7, .L1352
-	ldr	r4, .L1352+0x4
-	ldr	r0, .L1352+0x8
+	ldr	r7, .L1357
+	ldr	r4, .L1357+0x4
+	ldr	r0, .L1357+0x8
 	mov	r9, r0
-	ldr	r1, .L1352+0xc
+	ldr	r1, .L1357+0xc
 	mov	r8, r1
-	ldr	r2, .L1352+0x10
+	ldr	r2, .L1357+0x10
 	mov	sl, r2
-	ldr	r0, .L1352+0x14
+	ldr	r0, .L1357+0x14
 	mov	ip, r0
 	add	r6, r4, #0
 	mov	r3, #0x5c
 	add	r2, r7, #0
 	add	r2, r2, #0x18
 	mov	r1, #0x6
-.L1334:
+.L1339:
 	ldrb	r0, [r6]
 	mul	r0, r0, r3
 	add	r0, r5, r0
@@ -20605,7 +20661,7 @@ FaintClearSetData:
 	strb	r1, [r0]
 	add	r5, r5, #0x1
 	cmp	r5, #0x7
-	ble	.L1334	@cond_branch
+	ble	.L1339	@cond_branch
 	ldrb	r1, [r4]
 	mov	r0, #0x5c
 	mul	r0, r0, r1
@@ -20622,29 +20678,29 @@ FaintClearSetData:
 	mov	r1, r8
 	ldrb	r1, [r1]
 	cmp	r5, r1
-	bge	.L1337	@cond_branch
-	ldr	r0, .L1352+0x18
+	bge	.L1342	@cond_branch
+	ldr	r0, .L1357+0x18
 	mov	r9, r0
 	add	r3, r2, #0
 	mov	r6, #0x0
-	ldr	r7, .L1352+0x1c
-.L1339:
+	ldr	r7, .L1357+0x1c
+.L1344:
 	ldr	r1, [r3]
 	mov	r0, #0x80
 	lsl	r0, r0, #0x13
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1340	@cond_branch
-	ldr	r2, .L1352+0x20
+	beq	.L1345	@cond_branch
+	ldr	r2, .L1357+0x20
 	add	r0, r6, r2
 	ldrb	r0, [r0, #0x17]
 	ldrb	r2, [r4]
 	cmp	r0, r2
-	bne	.L1340	@cond_branch
-	ldr	r0, .L1352+0x24
+	bne	.L1345	@cond_branch
+	ldr	r0, .L1357+0x24
 	and	r1, r1, r0
 	str	r1, [r3]
-.L1340:
+.L1345:
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r7
@@ -20654,36 +20710,36 @@ FaintClearSetData:
 	add	r0, r1, #0
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L1341	@cond_branch
+	beq	.L1346	@cond_branch
 	bic	r1, r1, r2
 	str	r1, [r3]
-.L1341:
+.L1346:
 	ldr	r1, [r3]
 	mov	r0, #0x80
 	lsl	r0, r0, #0x6
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1338	@cond_branch
+	beq	.L1343	@cond_branch
 	mov	r2, r9
 	ldr	r0, [r2]
 	add	r0, r5, r0
 	ldrb	r0, [r0, #0x13]
 	ldrb	r2, [r4]
 	cmp	r0, r2
-	bne	.L1338	@cond_branch
-	ldr	r0, .L1352+0x28
+	bne	.L1343	@cond_branch
+	ldr	r0, .L1357+0x28
 	and	r1, r1, r0
 	str	r1, [r3]
-.L1338:
+.L1343:
 	add	r3, r3, #0x5c
 	add	r6, r6, #0x28
 	add	r5, r5, #0x1
 	mov	r0, r8
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	blt	.L1339	@cond_branch
-.L1337:
-	ldr	r7, .L1352+0x4
+	blt	.L1344	@cond_branch
+.L1342:
+	ldr	r7, .L1357+0x4
 	ldrb	r0, [r7]
 	add	r0, r0, sl
 	mov	r1, #0x0
@@ -20695,12 +20751,12 @@ FaintClearSetData:
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
 	lsl	r0, r0, #0x3
-	ldr	r2, .L1352+0x20
+	ldr	r2, .L1357+0x20
 	add	r0, r0, r2
 	mov	r1, #0x0
 	mov	r2, #0x28
 	bl	memset
-	ldr	r3, .L1352+0x2c
+	ldr	r3, .L1357+0x2c
 	ldrb	r1, [r7]
 	lsl	r1, r1, #0x4
 	add	r1, r1, r3
@@ -20892,42 +20948,42 @@ FaintClearSetData:
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
 	lsl	r0, r0, #0x3
-	ldr	r1, .L1352+0x20
+	ldr	r1, .L1357+0x20
 	add	r0, r0, r1
 	mov	r1, #0x2
 	strb	r1, [r0, #0x19]
-	ldr	r1, .L1352+0x30
+	ldr	r1, .L1357+0x30
 	ldrb	r0, [r7]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	mov	r3, #0x0
 	strh	r3, [r0]
-	ldr	r1, .L1352+0x34
+	ldr	r1, .L1357+0x34
 	ldrb	r0, [r7]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	strh	r3, [r0]
-	ldr	r1, .L1352+0x38
+	ldr	r1, .L1357+0x38
 	ldrb	r0, [r7]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	strh	r3, [r0]
-	ldr	r1, .L1352+0x3c
+	ldr	r1, .L1357+0x3c
 	ldrb	r0, [r7]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	strh	r3, [r0]
-	ldr	r1, .L1352+0x40
+	ldr	r1, .L1357+0x40
 	ldrb	r0, [r7]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	strh	r3, [r0]
-	ldr	r1, .L1352+0x44
+	ldr	r1, .L1357+0x44
 	ldrb	r0, [r7]
 	add	r0, r0, r1
 	mov	r1, #0xff
 	strb	r1, [r0]
-	ldr	r4, .L1352+0x18
+	ldr	r4, .L1357+0x18
 	ldr	r2, [r4]
 	ldrb	r1, [r7]
 	lsl	r1, r1, #0x1
@@ -20935,7 +20991,7 @@ FaintClearSetData:
 	add	r0, r0, #0xc4
 	add	r0, r0, r1
 	strh	r3, [r0]
-	ldr	r0, .L1352+0x48
+	ldr	r0, .L1357+0x48
 	add	r2, r2, r0
 	ldrb	r1, [r7]
 	add	r2, r2, r1
@@ -20972,7 +21028,7 @@ FaintClearSetData:
 	add	r0, r0, r1
 	strh	r3, [r0]
 	add	r2, r2, #0x8b
-	ldr	r1, .L1352+0x1c
+	ldr	r1, .L1357+0x1c
 	ldrb	r0, [r7]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
@@ -20981,17 +21037,17 @@ FaintClearSetData:
 	bic	r0, r0, r1
 	strb	r0, [r2]
 	mov	r5, #0x0
-	ldr	r0, .L1352+0xc
+	ldr	r0, .L1357+0xc
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	bge	.L1345	@cond_branch
+	bge	.L1350	@cond_branch
 	add	r6, r7, #0
 	mov	r8, r4
 	mov	r7, #0x0
-.L1347:
+.L1352:
 	ldrb	r2, [r6]
 	cmp	r5, r2
-	beq	.L1348	@cond_branch
+	beq	.L1353	@cond_branch
 	lsl	r0, r5, #0x18
 	lsr	r0, r0, #0x18
 	bl	GetBattlerSide
@@ -21001,14 +21057,14 @@ FaintClearSetData:
 	lsl	r4, r4, #0x18
 	lsl	r0, r0, #0x18
 	cmp	r4, r0
-	beq	.L1348	@cond_branch
+	beq	.L1353	@cond_branch
 	mov	r1, r8
 	ldr	r0, [r1]
 	lsl	r1, r5, #0x1
 	add	r0, r0, #0x92
 	add	r0, r0, r1
 	strh	r7, [r0]
-.L1348:
+.L1353:
 	mov	r0, r8
 	ldr	r2, [r0]
 	ldrb	r1, [r6]
@@ -21019,21 +21075,21 @@ FaintClearSetData:
 	add	r2, r2, r1
 	strh	r7, [r2]
 	add	r5, r5, #0x1
-	ldr	r0, .L1352+0xc
+	ldr	r0, .L1357+0xc
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	blt	.L1347	@cond_branch
-.L1345:
-	ldr	r0, .L1352+0x4c
+	blt	.L1352	@cond_branch
+.L1350:
+	ldr	r0, .L1357+0x4c
 	ldr	r0, [r0]
 	ldr	r1, [r0, #0x4]
-	ldr	r7, .L1352+0x4
+	ldr	r7, .L1357+0x4
 	ldrb	r0, [r7]
 	lsl	r0, r0, #0x2
 	add	r1, r1, r0
 	mov	r0, #0x0
 	str	r0, [r1]
-	ldr	r5, .L1352
+	ldr	r5, .L1357
 	ldrb	r0, [r7]
 	mov	r4, #0x5c
 	mov	r1, r0
@@ -21049,7 +21105,7 @@ FaintClearSetData:
 	mov	r2, r1
 	mul	r2, r2, r4
 	add	r2, r2, r5
-	ldr	r6, .L1352+0x50
+	ldr	r6, .L1357+0x50
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	lsl	r1, r0, #0x3
@@ -21063,10 +21119,10 @@ FaintClearSetData:
 	mov	r1, r0
 	mul	r1, r1, r4
 	add	r1, r1, r5
-	b	.L1351
-.L1353:
+	b	.L1356
+.L1358:
 	.align	2, 0
-.L1352:
+.L1357:
 	.word	gBattleMons
 	.word	gActiveBattler
 	.word	gStatuses3
@@ -21088,7 +21144,7 @@ FaintClearSetData:
 	.word	0x33f
 	.word	gBattleResources
 	.word	gBaseStats
-.L1351:
+.L1356:
 	ldrh	r0, [r1]
 	lsl	r0, r0, #0x15
 	lsr	r0, r0, #0x15
@@ -21118,7 +21174,7 @@ FaintClearSetData:
 	bl	ClearBattlerMoveHistory
 	ldrb	r0, [r7]
 	bl	ClearBattlerAbilityHistory
-	ldr	r5, .L1354
+	ldr	r5, .L1359
 	ldrb	r0, [r7]
 	lsl	r1, r0, #0x1
 	add	r1, r1, r5
@@ -21132,13 +21188,13 @@ FaintClearSetData:
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1350	@cond_branch
+	bne	.L1355	@cond_branch
 	ldrb	r0, [r7]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r5
 	ldrh	r0, [r0]
 	bl	UndoMegaEvolution
-.L1350:
+.L1355:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -21146,9 +21202,9 @@ FaintClearSetData:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1355:
+.L1360:
 	.align	2, 0
-.L1354:
+.L1359:
 	.word	gBattlerPartyIndexes
 .Lfe62:
 	.size	 FaintClearSetData,.Lfe62-FaintClearSetData
@@ -21162,54 +21218,54 @@ DoBattleIntro:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	add	sp, sp, #-0x30
-	ldr	r0, .L1495
+	ldr	r0, .L1500
 	ldr	r0, [r0]
-	ldr	r1, .L1495+0x4
+	ldr	r1, .L1500+0x4
 	add	r1, r1, r0
 	mov	r8, r1
 	ldrb	r0, [r1]
 	cmp	r0, #0x14
-	bls	.LCB12086
-	bl	.L1356	@far jump
-.LCB12086:
+	bls	.LCB12155
+	bl	.L1361	@far jump
+.LCB12155:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1495+0x8
+	ldr	r1, .L1500+0x8
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1496:
+.L1501:
 	.align	2, 0
-.L1495:
+.L1500:
 	.word	gBattleStruct
 	.word	0x2b5
-	.word	.L1481
+	.word	.L1486
 	.align	2, 0
 	.align	2, 0
-.L1481:
-	.word	.L1358
-	.word	.L1359
+.L1486:
 	.word	.L1363
-	.word	.L1365
-	.word	.L1367
-	.word	.L1407
-	.word	.L1425
-	.word	.L1427
-	.word	.L1429
-	.word	.L1435
-	.word	.L1438
+	.word	.L1364
+	.word	.L1368
+	.word	.L1370
+	.word	.L1372
+	.word	.L1412
+	.word	.L1430
+	.word	.L1432
+	.word	.L1434
 	.word	.L1440
 	.word	.L1443
-	.word	.L1444
-	.word	.L1451
-	.word	.L1453
-	.word	.L1455
+	.word	.L1445
+	.word	.L1448
+	.word	.L1449
+	.word	.L1456
+	.word	.L1458
 	.word	.L1460
-	.word	.L1466
-	.word	.L1469
-	.word	.L1473
-.L1358:
-	ldr	r4, .L1497
-	ldr	r0, .L1497+0x4
+	.word	.L1465
+	.word	.L1471
+	.word	.L1474
+	.word	.L1478
+.L1363:
+	ldr	r4, .L1502
+	ldr	r0, .L1502+0x4
 	ldrb	r0, [r0, #0x1]
 	strb	r0, [r4]
 	mov	r0, #0x0
@@ -21217,108 +21273,108 @@ DoBattleIntro:
 	mov	r2, #0x0
 	bl	BtlController_EmitGetMonData
 	ldrb	r0, [r4]
-	b	.L1483
-.L1498:
+	b	.L1488
+.L1503:
 	.align	2, 0
-.L1497:
+.L1502:
 	.word	gActiveBattler
 	.word	gBattleCommunication
-.L1359:
-	ldr	r0, .L1499
+.L1364:
+	ldr	r0, .L1504
 	ldr	r2, [r0]
 	cmp	r2, #0
-	beq	.LCB12130
-	b	.L1356	@long jump
-.LCB12130:
-	ldr	r0, .L1499+0x4
+	beq	.LCB12199
+	b	.L1361	@long jump
+.LCB12199:
+	ldr	r0, .L1504+0x4
 	ldrb	r1, [r0, #0x1]
 	add	r1, r1, #0x1
 	strb	r1, [r0, #0x1]
-	ldr	r0, .L1499+0x8
+	ldr	r0, .L1504+0x8
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	ldrb	r0, [r0]
 	cmp	r1, r0
-	bne	.LCB12146
-	b	.L1470	@long jump
-.LCB12146:
+	bne	.LCB12215
+	b	.L1475	@long jump
+.LCB12215:
 	mov	r0, r8
 	strb	r2, [r0]
-	b	.L1356
-.L1500:
+	b	.L1361
+.L1505:
 	.align	2, 0
-.L1499:
+.L1504:
 	.word	gBattleControllerExecFlags
 	.word	gBattleCommunication
 	.word	gBattlersCount
-.L1363:
-	ldr	r0, .L1501
+.L1368:
+	ldr	r0, .L1506
 	ldr	r5, [r0]
 	cmp	r5, #0
-	beq	.LCB12163
-	b	.L1356	@long jump
-.LCB12163:
+	beq	.LCB12232
+	b	.L1361	@long jump
+.LCB12232:
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
-	ldr	r4, .L1501+0x4
+	ldr	r4, .L1506+0x4
 	strb	r0, [r4]
-	ldr	r0, .L1501+0x8
+	ldr	r0, .L1506+0x8
 	ldrb	r1, [r0]
 	mov	r0, #0x0
 	bl	BtlController_EmitIntroSlide
 	ldrb	r0, [r4]
 	bl	MarkBattlerForControllerExec
-	ldr	r0, .L1501+0xc
+	ldr	r0, .L1506+0xc
 	strb	r5, [r0]
 	strb	r5, [r0, #0x1]
-	b	.L1470
-.L1502:
+	b	.L1475
+.L1507:
 	.align	2, 0
-.L1501:
+.L1506:
 	.word	gBattleControllerExecFlags
 	.word	gActiveBattler
 	.word	gBattleTerrain
 	.word	gBattleCommunication
-.L1365:
-	ldr	r0, .L1503
+.L1370:
+	ldr	r0, .L1508
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.LCB12196
-	b	.L1356	@long jump
-.LCB12196:
-	b	.L1484
-.L1504:
+	beq	.LCB12265
+	b	.L1361	@long jump
+.LCB12265:
+	b	.L1489
+.L1509:
 	.align	2, 0
-.L1503:
+.L1508:
 	.word	gBattleControllerExecFlags
-.L1367:
-	ldr	r1, .L1505
+.L1372:
+	ldr	r1, .L1510
 	mov	r0, #0x0
 	strb	r0, [r1]
-	ldr	r0, .L1505+0x4
+	ldr	r0, .L1510+0x4
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.LCB12215
-	b	.L1369	@long jump
-.LCB12215:
+	bne	.LCB12284
+	b	.L1374	@long jump
+.LCB12284:
 	mov	r0, #0x5c
 	mov	r9, r0
-	ldr	r2, .L1505+0x8
+	ldr	r2, .L1510+0x8
 	mov	sl, r2
 	add	r7, r1, #0
-.L1371:
-	ldr	r1, .L1505+0xc
+.L1376:
+	ldr	r1, .L1510+0xc
 	ldr	r0, [r1]
 	mov	r1, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1372	@cond_branch
-	ldr	r4, .L1505
+	beq	.L1377	@cond_branch
+	ldr	r4, .L1510
 	ldrb	r0, [r4]
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1372	@cond_branch
+	bne	.L1377	@cond_branch
 	ldrb	r0, [r4]
 	mov	r2, r9
 	mul	r2, r2, r0
@@ -21327,24 +21383,24 @@ DoBattleIntro:
 	mov	r1, #0x0
 	mov	r2, #0x5c
 	bl	memset
-	b	.L1373
-.L1506:
+	b	.L1378
+.L1511:
 	.align	2, 0
-.L1505:
+.L1510:
 	.word	gActiveBattler
 	.word	gBattlersCount
 	.word	gBattleMons
 	.word	gBattleTypeFlags
-.L1372:
+.L1377:
 	ldrb	r1, [r7]
 	mov	r0, r9
 	mul	r0, r0, r1
 	add	r0, r0, sl
-	ldr	r2, .L1507
+	ldr	r2, .L1512
 	ldr	r2, [r2]
 	lsl	r1, r1, #0x9
 	add	r1, r1, r2
-	ldr	r2, .L1507+0x4
+	ldr	r2, .L1512+0x4
 	add	r1, r1, r2
 	mov	r2, #0x5c
 	bl	memcpy
@@ -21364,7 +21420,7 @@ DoBattleIntro:
 	mov	r2, r9
 	mul	r2, r2, r1
 	add	r2, r2, sl
-	ldr	r3, .L1507+0x8
+	ldr	r3, .L1512+0x8
 	lsl	r1, r0, #0x3
 	add	r1, r1, r0
 	lsl	r1, r1, #0x2
@@ -21408,7 +21464,7 @@ DoBattleIntro:
 	strh	r0, [r1, #0x20]
 	ldrb	r0, [r7]
 	bl	GetBattlerSide
-	ldr	r1, .L1507+0xc
+	ldr	r1, .L1512+0xc
 	ldr	r1, [r1]
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x17
@@ -21425,16 +21481,16 @@ DoBattleIntro:
 	mov	r1, r9
 	mul	r1, r1, r0
 	add	r0, r1, #0
-	ldr	r2, .L1507+0x10
+	ldr	r2, .L1512+0x10
 	add	r0, r0, r2
 	mov	r1, #0x0
 	str	r1, [r0]
 	mov	r6, #0x0
-	ldr	r4, .L1507+0x14
+	ldr	r4, .L1512+0x14
 	mov	r3, #0x5c
-	ldr	r2, .L1507+0x18
+	ldr	r2, .L1512+0x18
 	mov	r1, #0x6
-.L1377:
+.L1382:
 	ldrb	r0, [r4]
 	mul	r0, r0, r3
 	add	r0, r6, r0
@@ -21442,56 +21498,56 @@ DoBattleIntro:
 	strb	r1, [r0]
 	add	r6, r6, #0x1
 	cmp	r6, #0x7
-	ble	.L1377	@cond_branch
+	ble	.L1382	@cond_branch
 	mov	r6, #0x0
-.L1382:
+.L1387:
 	mov	r0, #0x64
 	mov	r1, r6
 	mul	r1, r1, r0
-	ldr	r0, .L1507+0x1c
+	ldr	r0, .L1512+0x1c
 	add	r4, r1, r0
 	add	r0, r4, #0
 	mov	r1, #0x41
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L1381	@cond_branch
+	beq	.L1386	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x41
 	bl	GetMonData
-	ldr	r1, .L1507+0x20
+	ldr	r1, .L1512+0x20
 	cmp	r0, r1
-	beq	.L1381	@cond_branch
+	beq	.L1386	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x38
 	bl	GetMonData
-	ldr	r5, .L1507+0x24
+	ldr	r5, .L1512+0x24
 	ldrb	r2, [r5]
 	cmp	r0, r2
-	bls	.L1381	@cond_branch
+	bls	.L1386	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x38
 	bl	GetMonData
 	strb	r0, [r5]
-.L1381:
+.L1386:
 	add	r6, r6, #0x1
 	cmp	r6, #0x5
-	ble	.L1382	@cond_branch
-.L1373:
-	ldr	r4, .L1507+0x14
+	ble	.L1387	@cond_branch
+.L1378:
+	ldr	r4, .L1512+0x14
 	ldrb	r0, [r4]
 	bl	GetBattlerPosition
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L1388	@cond_branch
+	beq	.L1393	@cond_branch
 	cmp	r0, #0x1
-	bgt	.L1400	@cond_branch
+	bgt	.L1405	@cond_branch
 	cmp	r0, #0
-	beq	.L1396	@cond_branch
-	b	.L1386
-.L1508:
+	beq	.L1401	@cond_branch
+	b	.L1391
+.L1513:
 	.align	2, 0
-.L1507:
+.L1512:
 	.word	gBattleResources
 	.word	0x824
 	.word	gBaseStats
@@ -21502,172 +21558,172 @@ DoBattleIntro:
 	.word	gPlayerParty
 	.word	0x4b7
 	.word	gMaxPartyLevel
-.L1400:
+.L1405:
 	cmp	r0, #0x2
-	beq	.L1391	@cond_branch
+	beq	.L1396	@cond_branch
 	cmp	r0, #0x3
-	beq	.L1393	@cond_branch
-	b	.L1386
-.L1388:
-	ldr	r1, .L1509
+	beq	.L1398	@cond_branch
+	b	.L1391
+.L1393:
+	ldr	r1, .L1514
 	ldr	r0, [r1]
 	mov	r1, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1396	@cond_branch
-	b	.L1394
-.L1510:
+	bne	.L1401	@cond_branch
+	b	.L1399
+.L1515:
 	.align	2, 0
-.L1509:
+.L1514:
 	.word	gBattleTypeFlags
-.L1391:
-	ldr	r2, .L1511
+.L1396:
+	ldr	r2, .L1516
 	ldr	r0, [r2]
-	ldr	r1, .L1511+0x4
+	ldr	r1, .L1516+0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1386	@cond_branch
-	b	.L1396
-.L1512:
+	beq	.L1391	@cond_branch
+	b	.L1401
+.L1517:
 	.align	2, 0
-.L1511:
+.L1516:
 	.word	gBattleTypeFlags
 	.word	0x400040
-.L1393:
-	ldr	r0, .L1513
+.L1398:
+	ldr	r0, .L1518
 	ldr	r1, [r0]
 	mov	r0, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1394	@cond_branch
-	ldr	r0, .L1513+0x4
+	beq	.L1399	@cond_branch
+	ldr	r0, .L1518+0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1386	@cond_branch
+	beq	.L1391	@cond_branch
 	mov	r0, #0x80
 	lsl	r0, r0, #0xf
 	and	r1, r1, r0
 	cmp	r1, #0
-	beq	.L1396	@cond_branch
-	ldr	r0, .L1513+0x8
+	beq	.L1401	@cond_branch
+	ldr	r0, .L1518+0x8
 	ldrh	r1, [r0]
-	ldr	r0, .L1513+0xc
+	ldr	r0, .L1518+0xc
 	cmp	r1, r0
-	beq	.L1386	@cond_branch
-.L1396:
+	beq	.L1391	@cond_branch
+.L1401:
 	mov	r0, #0x0
 	bl	BtlController_EmitDrawTrainerPic
 	ldrb	r0, [r4]
 	bl	MarkBattlerForControllerExec
-	b	.L1386
-.L1514:
+	b	.L1391
+.L1519:
 	.align	2, 0
-.L1513:
+.L1518:
 	.word	gBattleTypeFlags
 	.word	0x8040
 	.word	gTrainerBattleOpponent_B
 	.word	0xffff
-.L1394:
+.L1399:
 	mov	r0, #0x0
 	bl	BtlController_EmitLoadMonSprite
 	ldrb	r0, [r4]
 	bl	MarkBattlerForControllerExec
-	ldr	r1, .L1515
+	ldr	r1, .L1520
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r1
 	ldrh	r1, [r0]
 	mov	r0, #0x64
 	mul	r0, r0, r1
-	ldr	r1, .L1515+0x4
+	ldr	r1, .L1520+0x4
 	add	r0, r0, r1
 	mov	r1, #0xb
 	mov	r2, #0x0
 	bl	GetMonData
-	ldr	r1, .L1515+0x8
+	ldr	r1, .L1520+0x8
 	strh	r0, [r1, #0x20]
-.L1386:
-	ldr	r1, .L1515+0xc
+.L1391:
+	ldr	r1, .L1520+0xc
 	ldr	r0, [r1]
 	mov	r1, #0x80
 	lsl	r1, r1, #0xb
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1370	@cond_branch
+	beq	.L1375	@cond_branch
 	bl	BattleArena_InitPoints
-.L1370:
+.L1375:
 	ldrb	r0, [r7]
 	add	r0, r0, #0x1
 	strb	r0, [r7]
-	ldr	r1, .L1515+0x10
+	ldr	r1, .L1520+0x10
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bcs	.LCB12616
-	b	.L1371	@long jump
-.LCB12616:
-.L1369:
-	ldr	r0, .L1515+0xc
+	bcs	.LCB12685
+	b	.L1376	@long jump
+.LCB12685:
+.L1374:
+	ldr	r0, .L1520+0xc
 	ldr	r0, [r0]
 	mov	r1, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB12624
-	b	.L1484	@long jump
-.LCB12624:
+	beq	.LCB12693
+	b	.L1489	@long jump
+.LCB12693:
 	mov	r0, #0x7
-	b	.L1485
-.L1516:
+	b	.L1490
+.L1521:
 	.align	2, 0
-.L1515:
+.L1520:
 	.word	gBattlerPartyIndexes
 	.word	gEnemyParty
 	.word	gBattleResults
 	.word	gBattleTypeFlags
 	.word	gBattlersCount
-.L1407:
-	ldr	r0, .L1517
+.L1412:
+	ldr	r0, .L1522
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.LCB12644
-	b	.L1356	@long jump
-.LCB12644:
+	beq	.LCB12713
+	b	.L1361	@long jump
+.LCB12713:
 	mov	r6, #0x0
 	add	r2, sp, #0x4
 	mov	r9, r2
 	mov	r7, r9
 	mov	r5, sp
-.L1412:
+.L1417:
 	mov	r0, #0x64
 	mov	r1, r6
 	mul	r1, r1, r0
-	ldr	r0, .L1517+0x4
+	ldr	r0, .L1522+0x4
 	add	r4, r1, r0
 	add	r0, r4, #0
 	mov	r1, #0x41
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L1414	@cond_branch
+	beq	.L1419	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x41
 	bl	GetMonData
-	ldr	r1, .L1517+0x8
+	ldr	r1, .L1522+0x8
 	cmp	r0, r1
-	bne	.L1413	@cond_branch
-.L1414:
-	ldr	r0, .L1517+0xc
+	bne	.L1418	@cond_branch
+.L1419:
+	ldr	r0, .L1522+0xc
 	strh	r0, [r5]
 	mov	r0, #0x0
-	b	.L1486
-.L1518:
+	b	.L1491
+.L1523:
 	.align	2, 0
-.L1517:
+.L1522:
 	.word	gBattleControllerExecFlags
 	.word	gEnemyParty
 	.word	0x4b7
 	.word	0xffff
-.L1413:
+.L1418:
 	add	r0, r4, #0
 	mov	r1, #0x39
 	bl	GetMonData
@@ -21675,16 +21731,16 @@ DoBattleIntro:
 	add	r0, r4, #0
 	mov	r1, #0x37
 	bl	GetMonData
-.L1486:
+.L1491:
 	str	r0, [r7]
 	add	r7, r7, #0x8
 	add	r5, r5, #0x8
 	add	r6, r6, #0x1
 	cmp	r6, #0x5
-	ble	.L1412	@cond_branch
+	ble	.L1417	@cond_branch
 	mov	r0, #0x1
 	bl	GetBattlerAtPosition
-	ldr	r4, .L1519
+	ldr	r4, .L1524
 	strb	r0, [r4]
 	mov	r0, #0x0
 	mov	r1, sp
@@ -21695,36 +21751,36 @@ DoBattleIntro:
 	mov	r6, #0x0
 	mov	r7, r9
 	mov	r5, sp
-.L1420:
+.L1425:
 	mov	r0, #0x64
 	mov	r1, r6
 	mul	r1, r1, r0
-	ldr	r0, .L1519+0x4
+	ldr	r0, .L1524+0x4
 	add	r4, r1, r0
 	add	r0, r4, #0
 	mov	r1, #0x41
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L1422	@cond_branch
+	beq	.L1427	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x41
 	bl	GetMonData
-	ldr	r1, .L1519+0x8
+	ldr	r1, .L1524+0x8
 	cmp	r0, r1
-	bne	.L1421	@cond_branch
-.L1422:
-	ldr	r0, .L1519+0xc
+	bne	.L1426	@cond_branch
+.L1427:
+	ldr	r0, .L1524+0xc
 	strh	r0, [r5]
 	mov	r0, #0x0
-	b	.L1487
-.L1520:
+	b	.L1492
+.L1525:
 	.align	2, 0
-.L1519:
+.L1524:
 	.word	gActiveBattler
 	.word	gPlayerParty
 	.word	0x4b7
 	.word	0xffff
-.L1421:
+.L1426:
 	add	r0, r4, #0
 	mov	r1, #0x39
 	bl	GetMonData
@@ -21732,16 +21788,16 @@ DoBattleIntro:
 	add	r0, r4, #0
 	mov	r1, #0x37
 	bl	GetMonData
-.L1487:
+.L1492:
 	str	r0, [r7]
 	add	r7, r7, #0x8
 	add	r5, r5, #0x8
 	add	r6, r6, #0x1
 	cmp	r6, #0x5
-	ble	.L1420	@cond_branch
+	ble	.L1425	@cond_branch
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
-	ldr	r4, .L1521
+	ldr	r4, .L1526
 	strb	r0, [r4]
 	mov	r0, #0x0
 	mov	r1, sp
@@ -21749,33 +21805,33 @@ DoBattleIntro:
 	bl	BtlController_EmitDrawPartyStatusSummary
 	ldrb	r0, [r4]
 	bl	MarkBattlerForControllerExec
-	b	.L1470
-.L1522:
+	b	.L1475
+.L1527:
 	.align	2, 0
-.L1521:
+.L1526:
 	.word	gActiveBattler
-.L1425:
-	ldr	r0, .L1523
+.L1430:
+	ldr	r0, .L1528
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.LCB12821
-	b	.L1356	@long jump
-.LCB12821:
-	b	.L1484
-.L1524:
+	beq	.LCB12890
+	b	.L1361	@long jump
+.LCB12890:
+	b	.L1489
+.L1529:
 	.align	2, 0
-.L1523:
+.L1528:
 	.word	gBattleControllerExecFlags
-.L1427:
+.L1432:
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	IsBattlerMarkedForControllerExec
 	cmp	r0, #0
-	beq	.LCB12840
-	b	.L1356	@long jump
-.LCB12840:
+	beq	.LCB12909
+	b	.L1361	@long jump
+.LCB12909:
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
 	add	r1, r0, #0
@@ -21783,36 +21839,36 @@ DoBattleIntro:
 	lsr	r1, r1, #0x18
 	mov	r0, #0x0
 	bl	PrepareStringBattle
-	b	.L1470
-.L1429:
+	b	.L1475
+.L1434:
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	IsBattlerMarkedForControllerExec
 	cmp	r0, #0
-	beq	.LCB12862
-	b	.L1356	@long jump
-.LCB12862:
-	ldr	r0, .L1525
+	beq	.LCB12931
+	b	.L1361	@long jump
+.LCB12931:
+	ldr	r0, .L1530
 	ldr	r0, [r0]
 	mov	r1, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB12869
-	b	.L1484	@long jump
-.LCB12869:
+	beq	.LCB12938
+	b	.L1489	@long jump
+.LCB12938:
 	mov	r0, #0xf
-.L1485:
+.L1490:
 	mov	r1, r8
 	strb	r0, [r1]
-	b	.L1356
-.L1526:
+	b	.L1361
+.L1531:
 	.align	2, 0
-.L1525:
+.L1530:
 	.word	gBattleTypeFlags
-.L1435:
-	ldr	r0, .L1527
+.L1440:
+	ldr	r0, .L1532
 	ldr	r0, [r0]
 	mov	r1, #0x82
 	lsl	r1, r1, #0x18
@@ -21820,7 +21876,7 @@ DoBattleIntro:
 	mov	r1, #0x80
 	lsl	r1, r1, #0x12
 	cmp	r0, r1
-	bne	.L1436	@cond_branch
+	bne	.L1441	@cond_branch
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
 	add	r1, r0, #0
@@ -21828,12 +21884,12 @@ DoBattleIntro:
 	lsr	r1, r1, #0x18
 	mov	r0, #0x1
 	bl	PrepareStringBattle
-	b	.L1484
-.L1528:
+	b	.L1489
+.L1533:
 	.align	2, 0
-.L1527:
+.L1532:
 	.word	gBattleTypeFlags
-.L1436:
+.L1441:
 	mov	r0, #0x1
 	bl	GetBattlerAtPosition
 	add	r1, r0, #0
@@ -21841,22 +21897,22 @@ DoBattleIntro:
 	lsr	r1, r1, #0x18
 	mov	r0, #0x1
 	bl	PrepareStringBattle
-	b	.L1484
-.L1438:
-	ldr	r0, .L1529
+	b	.L1489
+.L1443:
+	ldr	r0, .L1534
 	ldr	r0, [r0]
-.L1491:
+.L1496:
 	cmp	r0, #0
-	beq	.LCB12927
-	b	.L1356	@long jump
-.LCB12927:
-	b	.L1470
-.L1530:
+	beq	.LCB12996
+	b	.L1361	@long jump
+.LCB12996:
+	b	.L1475
+.L1535:
 	.align	2, 0
-.L1529:
+.L1534:
 	.word	gBattleControllerExecFlags
-.L1440:
-	ldr	r0, .L1531
+.L1445:
+	ldr	r0, .L1536
 	ldr	r0, [r0]
 	mov	r1, #0x82
 	lsl	r1, r1, #0x18
@@ -21864,140 +21920,140 @@ DoBattleIntro:
 	mov	r1, #0x80
 	lsl	r1, r1, #0x12
 	cmp	r0, r1
-	bne	.LCB12945
-	b	.L1467	@long jump
-.LCB12945:
+	bne	.LCB13014
+	b	.L1472	@long jump
+.LCB13014:
 	mov	r0, #0x1
-	b	.L1489
-.L1532:
+	b	.L1494
+.L1537:
 	.align	2, 0
-.L1531:
+.L1536:
 	.word	gBattleTypeFlags
-.L1443:
+.L1448:
 	mov	r1, r8
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
 	strb	r0, [r1]
-.L1444:
-	ldr	r0, .L1533
+.L1449:
+	ldr	r0, .L1538
 	ldr	r2, [r0]
-	ldr	r0, .L1533+0x4
+	ldr	r0, .L1538+0x4
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L1445	@cond_branch
+	beq	.L1450	@cond_branch
 	mov	r0, #0x80
 	lsl	r0, r0, #0xf
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L1446	@cond_branch
-	ldr	r0, .L1533+0x8
+	beq	.L1451	@cond_branch
+	ldr	r0, .L1538+0x8
 	ldrh	r1, [r0]
-	ldr	r0, .L1533+0xc
+	ldr	r0, .L1538+0xc
 	cmp	r1, r0
-	beq	.L1445	@cond_branch
-.L1446:
+	beq	.L1450	@cond_branch
+.L1451:
 	mov	r0, #0x82
 	lsl	r0, r0, #0x18
 	and	r2, r2, r0
 	mov	r0, #0x80
 	lsl	r0, r0, #0x12
 	cmp	r2, r0
-	bne	.L1447	@cond_branch
+	bne	.L1452	@cond_branch
 	mov	r0, #0x2
-	b	.L1490
-.L1534:
+	b	.L1495
+.L1539:
 	.align	2, 0
-.L1533:
+.L1538:
 	.word	gBattleTypeFlags
 	.word	0x8040
 	.word	gTrainerBattleOpponent_B
 	.word	0xffff
-.L1447:
+.L1452:
 	mov	r0, #0x3
-.L1490:
+.L1495:
 	bl	GetBattlerAtPosition
-	ldr	r1, .L1535
+	ldr	r1, .L1540
 	strb	r0, [r1]
 	mov	r0, #0x0
 	bl	BtlController_EmitIntroTrainerBallThrow
-	ldr	r0, .L1535
+	ldr	r0, .L1540
 	ldrb	r0, [r0]
 	bl	MarkBattlerForControllerExec
-.L1445:
-	ldr	r0, .L1535+0x4
+.L1450:
+	ldr	r0, .L1540+0x4
 	ldr	r0, [r0]
-	ldr	r1, .L1535+0x8
+	ldr	r1, .L1540+0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB13026
-	b	.L1470	@long jump
-.LCB13026:
+	beq	.LCB13095
+	b	.L1475	@long jump
+.LCB13095:
 	mov	r0, #0xf
 	mov	r2, r8
 	strb	r0, [r2]
-	b	.L1356
-.L1536:
+	b	.L1361
+.L1541:
 	.align	2, 0
-.L1535:
+.L1540:
 	.word	gActiveBattler
 	.word	gBattleTypeFlags
 	.word	-0x7cfffffe
-.L1451:
-	ldr	r0, .L1537
+.L1456:
+	ldr	r0, .L1542
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.LCB13044
-	b	.L1356	@long jump
-.LCB13044:
-	b	.L1484
-.L1538:
+	beq	.LCB13113
+	b	.L1361	@long jump
+.LCB13113:
+	b	.L1489
+.L1543:
 	.align	2, 0
-.L1537:
+.L1542:
 	.word	gBattleControllerExecFlags
-.L1453:
+.L1458:
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	IsBattlerMarkedForControllerExec
-	b	.L1491
-.L1455:
-	ldr	r0, .L1539
+	b	.L1496
+.L1460:
+	ldr	r0, .L1544
 	ldr	r1, [r0]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB13070
-	b	.L1484	@long jump
-.LCB13070:
+	beq	.LCB13139
+	b	.L1489	@long jump
+.LCB13139:
 	mov	r0, #0x82
 	lsl	r0, r0, #0x18
 	and	r1, r1, r0
 	mov	r0, #0x80
 	lsl	r0, r0, #0x12
 	cmp	r1, r0
-	bne	.L1457	@cond_branch
+	bne	.L1462	@cond_branch
 	mov	r0, #0x1
-	b	.L1492
-.L1540:
+	b	.L1497
+.L1545:
 	.align	2, 0
-.L1539:
+.L1544:
 	.word	gBattleTypeFlags
-.L1457:
+.L1462:
 	mov	r0, #0x0
-.L1492:
+.L1497:
 	bl	GetBattlerAtPosition
-	ldr	r1, .L1541
+	ldr	r1, .L1546
 	strb	r0, [r1]
-	ldr	r0, .L1541+0x4
+	ldr	r0, .L1546+0x4
 	ldr	r0, [r0]
-	ldr	r1, .L1541+0x8
+	ldr	r1, .L1546+0x8
 	and	r0, r0, r1
-	ldr	r4, .L1541
+	ldr	r4, .L1546
 	cmp	r0, #0x8
-	bne	.L1459	@cond_branch
-	ldr	r2, .L1541+0xc
-	ldr	r3, .L1541+0x10
+	bne	.L1464	@cond_branch
+	ldr	r2, .L1546+0xc
+	ldr	r3, .L1546+0x10
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	eor	r0, r0, r1
@@ -22009,69 +22065,69 @@ DoBattleIntro:
 	add	r2, r2, #0x1c
 	add	r0, r0, r2
 	ldr	r1, [r0]
-	ldr	r0, .L1541+0x14
+	ldr	r0, .L1546+0x14
 	cmp	r1, r0
-	bne	.LCB13122
-	b	.L1356	@long jump
-.LCB13122:
-.L1459:
+	bne	.LCB13191
+	b	.L1361	@long jump
+.LCB13191:
+.L1464:
 	ldrb	r1, [r4]
 	mov	r0, #0x1
 	bl	PrepareStringBattle
-	b	.L1484
-.L1542:
+	b	.L1489
+.L1547:
 	.align	2, 0
-.L1541:
+.L1546:
 	.word	gActiveBattler
 	.word	gBattleTypeFlags
 	.word	-0x7cfffff6
 	.word	gSprites
 	.word	gHealthboxSpriteIds
 	.word	SpriteCallbackDummy
-.L1460:
-	ldr	r0, .L1543
+.L1465:
+	ldr	r0, .L1548
 	ldr	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1462	@cond_branch
-	ldr	r0, .L1543+0x4
+	beq	.L1467	@cond_branch
+	ldr	r0, .L1548+0x4
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.LCB13154
-	b	.L1356	@long jump
-.LCB13154:
-.L1462:
+	beq	.LCB13223
+	b	.L1361	@long jump
+.LCB13223:
+.L1467:
 	mov	r0, #0x82
 	lsl	r0, r0, #0x18
 	and	r1, r1, r0
 	mov	r0, #0x80
 	lsl	r0, r0, #0x12
 	cmp	r1, r0
-	bne	.L1463	@cond_branch
+	bne	.L1468	@cond_branch
 	mov	r0, #0x1
-	b	.L1493
-.L1544:
+	b	.L1498
+.L1549:
 	.align	2, 0
-.L1543:
+.L1548:
 	.word	gBattleTypeFlags
 	.word	gBattleControllerExecFlags
-.L1463:
+.L1468:
 	mov	r0, #0x0
-.L1493:
+.L1498:
 	bl	GetBattlerAtPosition
-	ldr	r1, .L1545
+	ldr	r1, .L1550
 	strb	r0, [r1]
-	ldr	r0, .L1545
+	ldr	r0, .L1550
 	ldrb	r0, [r0]
 	bl	IsBattlerMarkedForControllerExec
-	b	.L1491
-.L1546:
+	b	.L1496
+.L1551:
 	.align	2, 0
-.L1545:
+.L1550:
 	.word	gActiveBattler
-.L1466:
-	ldr	r0, .L1547
+.L1471:
+	ldr	r0, .L1552
 	ldr	r0, [r0]
 	mov	r1, #0x82
 	lsl	r1, r1, #0x18
@@ -22079,106 +22135,106 @@ DoBattleIntro:
 	mov	r1, #0x80
 	lsl	r1, r1, #0x12
 	cmp	r0, r1
-	bne	.L1467	@cond_branch
+	bne	.L1472	@cond_branch
 	mov	r0, #0x1
-	b	.L1489
-.L1548:
+	b	.L1494
+.L1553:
 	.align	2, 0
-.L1547:
+.L1552:
 	.word	gBattleTypeFlags
-.L1467:
+.L1472:
 	mov	r0, #0x0
-.L1489:
+.L1494:
 	bl	GetBattlerAtPosition
-	ldr	r1, .L1549
+	ldr	r1, .L1554
 	strb	r0, [r1]
 	mov	r0, #0x0
 	bl	BtlController_EmitIntroTrainerBallThrow
-	ldr	r0, .L1549
+	ldr	r0, .L1554
 	ldrb	r0, [r0]
-.L1483:
+.L1488:
 	bl	MarkBattlerForControllerExec
-.L1484:
+.L1489:
 	mov	r2, r8
 	ldrb	r0, [r2]
 	add	r0, r0, #0x1
 	strb	r0, [r2]
-	b	.L1356
-.L1550:
+	b	.L1361
+.L1555:
 	.align	2, 0
-.L1549:
+.L1554:
 	.word	gActiveBattler
-.L1469:
-	ldr	r0, .L1551
+.L1474:
+	ldr	r0, .L1556
 	ldr	r1, [r0]
-	ldr	r0, .L1551+0x4
+	ldr	r0, .L1556+0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1470	@cond_branch
+	beq	.L1475	@cond_branch
 	mov	r0, #0x82
 	lsl	r0, r0, #0x18
 	and	r1, r1, r0
 	mov	r0, #0x80
 	lsl	r0, r0, #0x12
 	cmp	r1, r0
-	bne	.L1471	@cond_branch
+	bne	.L1476	@cond_branch
 	mov	r0, #0x3
-	b	.L1494
-.L1552:
+	b	.L1499
+.L1557:
 	.align	2, 0
-.L1551:
+.L1556:
 	.word	gBattleTypeFlags
 	.word	0x400040
-.L1471:
+.L1476:
 	mov	r0, #0x2
-.L1494:
+.L1499:
 	bl	GetBattlerAtPosition
-	ldr	r1, .L1553
+	ldr	r1, .L1558
 	strb	r0, [r1]
 	mov	r0, #0x0
 	bl	BtlController_EmitIntroTrainerBallThrow
-	ldr	r0, .L1553
+	ldr	r0, .L1558
 	ldrb	r0, [r0]
 	bl	MarkBattlerForControllerExec
-.L1470:
+.L1475:
 	mov	r1, r8
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
 	strb	r0, [r1]
-	b	.L1356
-.L1554:
+	b	.L1361
+.L1559:
 	.align	2, 0
-.L1553:
+.L1558:
 	.word	gActiveBattler
-.L1473:
-	ldr	r0, .L1555
+.L1478:
+	ldr	r0, .L1560
 	ldr	r1, [r0]
 	cmp	r1, #0
-	bne	.L1356	@cond_branch
-	ldr	r2, .L1555+0x4
+	bne	.L1361	@cond_branch
+	ldr	r2, .L1560+0x4
 	strb	r1, [r2]
-	ldr	r0, .L1555+0x8
+	ldr	r0, .L1560+0x8
 	ldrb	r0, [r0]
 	cmp	r1, r0
-	bcs	.L1476	@cond_branch
+	bcs	.L1481	@cond_branch
 	add	r4, r2, #0
-	ldr	r6, .L1555+0xc
+	ldr	r6, .L1560+0xc
 	mov	r5, #0x5c
 	add	r7, r6, #0
 	add	r7, r7, #0x4c
-.L1478:
+.L1483:
 	ldrb	r0, [r4]
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L1477	@cond_branch
-	ldr	r0, .L1555+0x10
+	bne	.L1482	@cond_branch
+	ldr	r0, .L1560+0x10
 	ldr	r0, [r0]
-	ldr	r1, .L1555+0x14
+	ldr	r1, .L1560+0x14
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1477	@cond_branch
+	bne	.L1482	@cond_branch
 	ldrb	r0, [r4]
 	mul	r0, r0, r5
 	add	r0, r0, r6
@@ -22194,18 +22250,18 @@ DoBattleIntro:
 	ldr	r2, [r1]
 	mov	r1, #0x2
 	bl	HandleSetPokedexFlag
-.L1477:
+.L1482:
 	ldrb	r0, [r4]
 	add	r0, r0, #0x1
 	strb	r0, [r4]
-	ldr	r1, .L1555+0x8
+	ldr	r1, .L1560+0x8
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bcc	.L1478	@cond_branch
-.L1476:
-	ldr	r2, .L1555+0x18
+	bcc	.L1483	@cond_branch
+.L1481:
+	ldr	r2, .L1560+0x18
 	ldr	r0, [r2]
 	add	r0, r0, #0x4c
 	mov	r1, #0x0
@@ -22218,10 +22274,10 @@ DoBattleIntro:
 	lsl	r2, r2, #0x1
 	add	r0, r0, r2
 	strb	r1, [r0]
-	ldr	r1, .L1555+0x1c
-	ldr	r0, .L1555+0x20
+	ldr	r1, .L1560+0x1c
+	ldr	r0, .L1560+0x20
 	str	r0, [r1]
-.L1356:
+.L1361:
 	add	sp, sp, #0x30
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -22230,9 +22286,9 @@ DoBattleIntro:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1556:
+.L1561:
 	.align	2, 0
-.L1555:
+.L1560:
 	.word	gBattleControllerExecFlags
 	.word	gActiveBattler
 	.word	gBattlersCount
@@ -22253,53 +22309,53 @@ TryDoEventsBeforeFirstTurn:
 	mov	r6, r8
 	push	{r6, r7}
 	add	sp, sp, #-0x4
-	ldr	r0, .L1606
+	ldr	r0, .L1611
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.LCB13421
-	b	.L1557	@long jump
-.LCB13421:
-	ldr	r0, .L1606+0x4
+	beq	.LCB13490
+	b	.L1562	@long jump
+.LCB13490:
+	ldr	r0, .L1611+0x4
 	ldr	r0, [r0]
 	add	r0, r0, #0x4c
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L1559	@cond_branch
+	bne	.L1564	@cond_branch
 	mov	r5, #0x0
-	ldr	r1, .L1606+0x8
+	ldr	r1, .L1611+0x8
 	mov	r9, r1
 	ldrb	r0, [r1]
 	cmp	r5, r0
-	bge	.L1561	@cond_branch
-	ldr	r2, .L1606+0xc
-.L1563:
+	bge	.L1566	@cond_branch
+	ldr	r2, .L1611+0xc
+.L1568:
 	add	r0, r5, r2
 	strb	r5, [r0]
 	add	r5, r5, #0x1
 	ldrb	r3, [r1]
 	cmp	r5, r3
-	blt	.L1563	@cond_branch
-.L1561:
+	blt	.L1568	@cond_branch
+.L1566:
 	mov	r5, #0x0
-	b	.L1605
-.L1607:
+	b	.L1610
+.L1612:
 	.align	2, 0
-.L1606:
+.L1611:
 	.word	gBattleControllerExecFlags
 	.word	gBattleStruct
 	.word	gBattlersCount
 	.word	gBattlerByTurnOrder
-.L1568:
+.L1573:
 	add	r4, r5, #0x1
 	mov	r8, r4
 	ldrb	r1, [r1]
 	cmp	r8, r1
-	bge	.L1567	@cond_branch
-	ldr	r6, .L1608
-	ldr	r0, .L1608+0x4
+	bge	.L1572	@cond_branch
+	ldr	r6, .L1613
+	ldr	r0, .L1613+0x4
 	mov	r9, r0
 	lsl	r7, r5, #0x18
-.L1572:
+.L1577:
 	add	r0, r5, r6
 	ldrb	r0, [r0]
 	add	r1, r4, r6
@@ -22308,34 +22364,34 @@ TryDoEventsBeforeFirstTurn:
 	bl	GetWhoStrikesFirst
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L1571	@cond_branch
+	beq	.L1576	@cond_branch
 	lsl	r1, r4, #0x18
 	lsr	r1, r1, #0x18
 	lsr	r0, r7, #0x18
 	bl	SwapTurnOrder
-.L1571:
+.L1576:
 	add	r4, r4, #0x1
-	ldr	r0, .L1608+0x4
+	ldr	r0, .L1613+0x4
 	ldrb	r0, [r0]
 	cmp	r4, r0
-	blt	.L1572	@cond_branch
-.L1567:
+	blt	.L1577	@cond_branch
+.L1572:
 	mov	r5, r8
-.L1605:
+.L1610:
 	mov	r1, r9
 	ldrb	r0, [r1]
 	sub	r0, r0, #0x1
 	cmp	r5, r0
-	blt	.L1568	@cond_branch
-.L1559:
-	ldr	r5, .L1608+0x8
+	blt	.L1573	@cond_branch
+.L1564:
+	ldr	r5, .L1613+0x8
 	ldr	r0, [r5]
 	mov	r4, #0xcf
 	lsl	r4, r4, #0x1
 	add	r0, r0, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L1576	@cond_branch
+	bne	.L1581	@cond_branch
 	str	r0, [sp]
 	mov	r0, #0x0
 	mov	r1, #0x0
@@ -22344,31 +22400,31 @@ TryDoEventsBeforeFirstTurn:
 	bl	AbilityBattleEffects
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L1576	@cond_branch
+	beq	.L1581	@cond_branch
 	ldr	r0, [r5]
 	add	r0, r0, r4
 	mov	r1, #0x1
 	strb	r1, [r0]
-	b	.L1557
-.L1609:
+	b	.L1562
+.L1614:
 	.align	2, 0
-.L1608:
+.L1613:
 	.word	gBattlerByTurnOrder
 	.word	gBattlersCount
 	.word	gBattleStruct
-.L1576:
-	ldr	r2, .L1610
+.L1581:
+	ldr	r2, .L1615
 	ldr	r0, [r2]
 	add	r0, r0, #0x4c
-	ldr	r1, .L1610+0x4
+	ldr	r1, .L1615+0x4
 	ldrb	r0, [r0]
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bcs	.L1578	@cond_branch
-	ldr	r5, .L1610+0x8
-	ldr	r6, .L1610+0xc
+	bcs	.L1583	@cond_branch
+	ldr	r5, .L1615+0x8
+	ldr	r6, .L1615+0xc
 	add	r4, r2, #0
-.L1579:
+.L1584:
 	ldr	r2, [r4]
 	add	r2, r2, #0x4c
 	ldrb	r0, [r2]
@@ -22387,17 +22443,17 @@ TryDoEventsBeforeFirstTurn:
 	bl	AbilityBattleEffects
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB13603
-	b	.L1557	@long jump
-.LCB13603:
+	beq	.LCB13672
+	b	.L1562	@long jump
+.LCB13672:
 	ldr	r0, [r4]
 	add	r0, r0, #0x4c
-	ldr	r1, .L1610+0x4
+	ldr	r1, .L1615+0x4
 	ldrb	r0, [r0]
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bcc	.L1579	@cond_branch
-.L1578:
+	bcc	.L1584	@cond_branch
+.L1583:
 	mov	r0, #0x0
 	str	r0, [sp]
 	mov	r0, #0xa
@@ -22408,9 +22464,9 @@ TryDoEventsBeforeFirstTurn:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB13631
-	b	.L1557	@long jump
-.LCB13631:
+	beq	.LCB13700
+	b	.L1562	@long jump
+.LCB13700:
 	str	r0, [sp]
 	mov	r0, #0xc
 	mov	r1, #0x0
@@ -22419,20 +22475,20 @@ TryDoEventsBeforeFirstTurn:
 	bl	AbilityBattleEffects
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB13642
-	b	.L1557	@long jump
-.LCB13642:
-	ldr	r2, .L1610
+	beq	.LCB13711
+	b	.L1562	@long jump
+.LCB13711:
+	ldr	r2, .L1615
 	ldr	r0, [r2]
 	add	r0, r0, #0xd5
-	ldr	r1, .L1610+0x4
+	ldr	r1, .L1615+0x4
 	ldrb	r0, [r0]
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bcs	.L1585	@cond_branch
-	ldr	r5, .L1610+0xc
+	bcs	.L1590	@cond_branch
+	ldr	r5, .L1615+0xc
 	add	r4, r2, #0
-.L1586:
+.L1591:
 	ldr	r2, [r4]
 	add	r2, r2, #0xd5
 	ldrb	r0, [r2]
@@ -22447,24 +22503,24 @@ TryDoEventsBeforeFirstTurn:
 	bl	ItemBattleEffects
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1557	@cond_branch
+	bne	.L1562	@cond_branch
 	ldr	r0, [r4]
 	add	r0, r0, #0xd5
-	ldr	r1, .L1610+0x4
+	ldr	r1, .L1615+0x4
 	ldrb	r0, [r0]
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bcc	.L1586	@cond_branch
-.L1585:
+	bcc	.L1591	@cond_branch
+.L1590:
 	mov	r5, #0x0
-	ldr	r1, .L1610
+	ldr	r1, .L1615
 	mov	r8, r1
 	mov	r7, #0x6
-	ldr	r6, .L1610+0x10
-	ldr	r2, .L1610+0x14
+	ldr	r6, .L1615+0x10
+	ldr	r2, .L1615+0x14
 	mov	r4, #0xff
 	mov	r3, #0x0
-.L1592:
+.L1597:
 	mov	r1, r8
 	ldr	r0, [r1]
 	add	r0, r5, r0
@@ -22478,45 +22534,45 @@ TryDoEventsBeforeFirstTurn:
 	add	r2, r2, #0x2
 	add	r5, r5, #0x1
 	cmp	r5, #0x3
-	ble	.L1592	@cond_branch
+	ble	.L1597	@cond_branch
 	mov	r0, #0x0
 	bl	TurnValuesCleanUp
 	bl	SpecialStatusesClear
-	ldr	r0, .L1610
+	ldr	r0, .L1615
 	ldr	r0, [r0]
 	add	r0, r0, #0x8a
-	ldr	r1, .L1610+0x18
+	ldr	r1, .L1615+0x18
 	ldrb	r1, [r1]
 	strb	r1, [r0]
-	ldr	r0, .L1610+0x1c
+	ldr	r0, .L1615+0x1c
 	mov	r1, #0x0
 	bl	BattlePutTextOnWindow
-	ldr	r1, .L1610+0x20
-	ldr	r0, .L1610+0x24
+	ldr	r1, .L1615+0x20
+	ldr	r0, .L1615+0x24
 	str	r0, [r1]
 	bl	ResetSentPokesToOpponentValue
-	ldr	r1, .L1610+0x28
+	ldr	r1, .L1615+0x28
 	mov	r2, #0x0
 	add	r0, r1, #0x7
-.L1597:
+.L1602:
 	strb	r2, [r0]
 	sub	r0, r0, #0x1
 	cmp	r0, r1
-	bge	.L1597	@cond_branch
+	bge	.L1602	@cond_branch
 	mov	r5, #0x0
-	ldr	r3, .L1610+0x4
-	ldr	r2, .L1610
-	ldr	r6, .L1610+0x2c
-	ldr	r7, .L1610+0x30
+	ldr	r3, .L1615+0x4
+	ldr	r2, .L1615
+	ldr	r6, .L1615+0x2c
+	ldr	r7, .L1615+0x30
 	ldrb	r0, [r3]
 	cmp	r5, r0
-	bge	.L1600	@cond_branch
-	ldr	r0, .L1610+0x34
+	bge	.L1605	@cond_branch
+	ldr	r0, .L1615+0x34
 	mov	r4, #0x9
 	neg	r4, r4
 	add	r1, r0, #0
 	add	r1, r1, #0x54
-.L1602:
+.L1607:
 	ldr	r0, [r1]
 	and	r0, r0, r4
 	str	r0, [r1]
@@ -22524,8 +22580,8 @@ TryDoEventsBeforeFirstTurn:
 	add	r5, r5, #0x1
 	ldrb	r0, [r3]
 	cmp	r5, r0
-	blt	.L1602	@cond_branch
-.L1600:
+	blt	.L1607	@cond_branch
+.L1605:
 	ldr	r0, [r2]
 	mov	r1, #0x0
 	strb	r1, [r0]
@@ -22549,19 +22605,19 @@ TryDoEventsBeforeFirstTurn:
 	strb	r1, [r0, #0x2]
 	strh	r1, [r7]
 	bl	Random
-	ldr	r1, .L1610+0x38
+	ldr	r1, .L1615+0x38
 	strh	r0, [r1]
-	ldr	r0, .L1610+0x3c
+	ldr	r0, .L1615+0x3c
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	lsl	r1, r1, #0xb
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1557	@cond_branch
+	beq	.L1562	@cond_branch
 	bl	StopCryAndClearCrySongs
-	ldr	r0, .L1610+0x40
+	ldr	r0, .L1615+0x40
 	bl	BattleScriptExecute
-.L1557:
+.L1562:
 	add	sp, sp, #0x4
 	pop	{r3, r4}
 	mov	r8, r3
@@ -22569,9 +22625,9 @@ TryDoEventsBeforeFirstTurn:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1611:
+.L1616:
 	.align	2, 0
-.L1610:
+.L1615:
 	.word	gBattleStruct
 	.word	gBattlersCount
 	.word	gBattlerAttacker
@@ -22596,30 +22652,30 @@ TryDoEventsBeforeFirstTurn:
 	.thumb_func
 HandleEndTurn_ContinueBattle:
 	push	{r4, r5, r6, lr}
-	ldr	r0, .L1625
+	ldr	r0, .L1630
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L1613	@cond_branch
-	ldr	r1, .L1625+0x4
-	ldr	r0, .L1625+0x8
+	bne	.L1618	@cond_branch
+	ldr	r1, .L1630+0x4
+	ldr	r0, .L1630+0x8
 	str	r0, [r1]
-	ldr	r3, .L1625+0xc
-	ldr	r1, .L1625+0x10
+	ldr	r3, .L1630+0xc
+	ldr	r1, .L1630+0x10
 	mov	r2, #0x0
 	add	r0, r1, #0x7
-.L1617:
+.L1622:
 	strb	r2, [r0]
 	sub	r0, r0, #0x1
 	cmp	r0, r1
-	bge	.L1617	@cond_branch
+	bge	.L1622	@cond_branch
 	mov	r4, #0x0
 	ldrb	r3, [r3]
 	cmp	r4, r3
-	bge	.L1620	@cond_branch
-	ldr	r5, .L1625+0x14
+	bge	.L1625	@cond_branch
+	ldr	r5, .L1630+0x14
 	add	r6, r5, #0
 	add	r6, r6, #0x50
-.L1622:
+.L1627:
 	mov	r0, #0x5c
 	mov	r2, r4
 	mul	r2, r2, r0
@@ -22635,23 +22691,23 @@ HandleEndTurn_ContinueBattle:
 	mov	r1, #0x7
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1621	@cond_branch
+	beq	.L1626	@cond_branch
 	mov	r0, #0x80
 	lsl	r0, r0, #0x5
 	and	r3, r3, r0
 	cmp	r3, #0
-	beq	.L1621	@cond_branch
+	beq	.L1626	@cond_branch
 	lsl	r0, r4, #0x18
 	lsr	r0, r0, #0x18
 	bl	CancelMultiTurnMoves
-.L1621:
+.L1626:
 	add	r4, r4, #0x1
-	ldr	r0, .L1625+0xc
+	ldr	r0, .L1630+0xc
 	ldrb	r0, [r0]
 	cmp	r4, r0
-	blt	.L1622	@cond_branch
-.L1620:
-	ldr	r2, .L1625+0x18
+	blt	.L1627	@cond_branch
+.L1625:
+	ldr	r2, .L1630+0x18
 	ldr	r0, [r2]
 	mov	r1, #0x0
 	strb	r1, [r0]
@@ -22668,15 +22724,15 @@ HandleEndTurn_ContinueBattle:
 	strb	r1, [r0]
 	ldr	r0, [r2]
 	strb	r1, [r0, #0x2]
-	ldr	r0, .L1625+0x1c
+	ldr	r0, .L1630+0x1c
 	strh	r1, [r0]
-.L1613:
+.L1618:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L1626:
+.L1631:
 	.align	2, 0
-.L1625:
+.L1630:
 	.word	gBattleControllerExecFlags
 	.word	gBattleMainFunc
 	.word	BattleTurnPassed
@@ -22698,31 +22754,31 @@ BattleTurnPassed:
 	push	{r6, r7}
 	mov	r0, #0x1
 	bl	TurnValuesCleanUp
-	ldr	r0, .L1655
+	ldr	r0, .L1660
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L1628	@cond_branch
+	bne	.L1633	@cond_branch
 	bl	DoFieldEndTurnEffects
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB14008
-	b	.L1627	@long jump
-.LCB14008:
+	beq	.LCB14077
+	b	.L1632	@long jump
+.LCB14077:
 	bl	DoBattlerEndTurnEffects
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB14014
-	b	.L1627	@long jump
-.LCB14014:
-.L1628:
+	beq	.LCB14083
+	b	.L1632	@long jump
+.LCB14083:
+.L1633:
 	bl	HandleFaintedMonActions
 	lsl	r0, r0, #0x18
 	lsr	r1, r0, #0x18
 	cmp	r1, #0
-	beq	.LCB14021
-	b	.L1627	@long jump
-.LCB14021:
-	ldr	r0, .L1655+0x4
+	beq	.LCB14090
+	b	.L1632	@long jump
+.LCB14090:
+	ldr	r0, .L1660+0x4
 	ldr	r0, [r0]
 	add	r0, r0, #0x4d
 	strb	r1, [r0]
@@ -22730,52 +22786,52 @@ BattleTurnPassed:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	cmp	r4, #0
-	beq	.LCB14031
-	b	.L1627	@long jump
-.LCB14031:
+	beq	.LCB14100
+	b	.L1632	@long jump
+.LCB14100:
 	mov	r0, #0x0
 	bl	TurnValuesCleanUp
-	ldr	r2, .L1655+0x8
+	ldr	r2, .L1660+0x8
 	ldr	r0, [r2]
-	ldr	r1, .L1655+0xc
+	ldr	r1, .L1660+0xc
 	and	r0, r0, r1
-	ldr	r1, .L1655+0x10
+	ldr	r1, .L1660+0x10
 	and	r0, r0, r1
-	ldr	r1, .L1655+0x14
+	ldr	r1, .L1660+0x14
 	and	r0, r0, r1
-	ldr	r1, .L1655+0x18
+	ldr	r1, .L1660+0x18
 	and	r0, r0, r1
 	str	r0, [r2]
-	ldr	r0, .L1655+0x1c
+	ldr	r0, .L1660+0x1c
 	strb	r4, [r0, #0x18]
 	strb	r4, [r0, #0x19]
 	strb	r4, [r0, #0x14]
-	ldr	r0, .L1655+0x20
+	ldr	r0, .L1660+0x20
 	str	r4, [r0]
-	ldr	r0, .L1655+0x24
+	ldr	r0, .L1660+0x24
 	strh	r4, [r0]
-	ldr	r1, .L1655+0x28
+	ldr	r1, .L1660+0x28
 	mov	r2, #0x0
 	add	r0, r1, #0x4
-.L1636:
+.L1641:
 	strb	r2, [r0]
 	sub	r0, r0, #0x1
 	cmp	r0, r1
-	bge	.L1636	@cond_branch
-	ldr	r0, .L1655
+	bge	.L1641	@cond_branch
+	ldr	r0, .L1660
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L1638	@cond_branch
-	ldr	r1, .L1655+0x2c
+	beq	.L1643	@cond_branch
+	ldr	r1, .L1660+0x2c
 	mov	r0, #0xc
 	strb	r0, [r1]
-	ldr	r1, .L1655+0x30
-	ldr	r0, .L1655+0x34
+	ldr	r1, .L1660+0x30
+	ldr	r0, .L1660+0x34
 	str	r0, [r1]
-	b	.L1627
-.L1656:
+	b	.L1632
+.L1661:
 	.align	2, 0
-.L1655:
+.L1660:
 	.word	gBattleOutcome
 	.word	gBattleStruct
 	.word	gHitMarker
@@ -22790,13 +22846,13 @@ BattleTurnPassed:
 	.word	gCurrentActionFuncId
 	.word	gBattleMainFunc
 	.word	RunTurnActionsFunctions
-.L1638:
-	ldr	r1, .L1657
+.L1643:
+	ldr	r1, .L1662
 	ldrb	r0, [r1, #0x13]
-	ldr	r2, .L1657+0x4
+	ldr	r2, .L1662+0x4
 	mov	r8, r2
 	cmp	r0, #0xfe
-	bhi	.L1639	@cond_branch
+	bhi	.L1644	@cond_branch
 	add	r0, r0, #0x1
 	strb	r0, [r1, #0x13]
 	ldr	r1, [r2]
@@ -22804,21 +22860,21 @@ BattleTurnPassed:
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
 	strb	r0, [r1]
-.L1639:
+.L1644:
 	mov	r2, #0x0
-	ldr	r4, .L1657+0x8
-	ldr	r0, .L1657+0xc
+	ldr	r4, .L1662+0x8
+	ldr	r0, .L1662+0xc
 	mov	ip, r0
-	ldr	r1, .L1657+0x10
+	ldr	r1, .L1662+0x10
 	mov	r9, r1
 	ldrb	r0, [r4]
 	cmp	r2, r0
-	bge	.L1641	@cond_branch
-	ldr	r7, .L1657+0x14
+	bge	.L1646	@cond_branch
+	ldr	r7, .L1662+0x14
 	mov	r6, #0xff
 	mov	r5, #0x0
-	ldr	r3, .L1657+0x18
-.L1643:
+	ldr	r3, .L1662+0x18
+.L1648:
 	add	r1, r2, r7
 	ldrb	r0, [r1]
 	orr	r0, r0, r6
@@ -22828,19 +22884,19 @@ BattleTurnPassed:
 	add	r2, r2, #0x1
 	ldrb	r1, [r4]
 	cmp	r2, r1
-	blt	.L1643	@cond_branch
-.L1641:
+	blt	.L1648	@cond_branch
+.L1646:
 	mov	r2, #0x0
-	ldr	r3, .L1657+0x4
+	ldr	r3, .L1662+0x4
 	mov	r1, #0x6
-.L1648:
+.L1653:
 	ldr	r0, [r3]
 	add	r0, r2, r0
 	add	r0, r0, #0x5c
 	strb	r1, [r0]
 	add	r2, r2, #0x1
 	cmp	r2, #0x3
-	ble	.L1648	@cond_branch
+	ble	.L1653	@cond_branch
 	mov	r2, r8
 	ldr	r0, [r2]
 	add	r0, r0, #0x8a
@@ -22850,25 +22906,25 @@ BattleTurnPassed:
 	mov	r0, r9
 	mov	r1, #0x0
 	bl	BattlePutTextOnWindow
-	ldr	r1, .L1657+0x1c
-	ldr	r0, .L1657+0x20
+	ldr	r1, .L1662+0x1c
+	ldr	r0, .L1662+0x20
 	str	r0, [r1]
 	bl	Random
-	ldr	r1, .L1657+0x24
+	ldr	r1, .L1662+0x24
 	strh	r0, [r1]
-	ldr	r0, .L1657+0x28
+	ldr	r0, .L1662+0x28
 	ldr	r1, [r0]
 	mov	r0, #0x80
 	lsl	r0, r0, #0xa
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1650	@cond_branch
-	ldr	r0, .L1657+0x2c
+	beq	.L1655	@cond_branch
+	ldr	r0, .L1662+0x2c
 	bl	BattleScriptExecute
-	b	.L1627
-.L1658:
+	b	.L1632
+.L1663:
 	.align	2, 0
-.L1657:
+.L1662:
 	.word	gBattleResults
 	.word	gBattleStruct
 	.word	gBattlersCount
@@ -22881,48 +22937,48 @@ BattleTurnPassed:
 	.word	gRandomTurnNumber
 	.word	gBattleTypeFlags
 	.word	BattleScript_PalacePrintFlavorText
-.L1650:
+.L1655:
 	mov	r0, #0x80
 	lsl	r0, r0, #0xb
 	and	r1, r1, r0
 	cmp	r1, #0
-	beq	.L1652	@cond_branch
+	beq	.L1657	@cond_branch
 	mov	r1, r8
 	ldr	r0, [r1]
 	add	r0, r0, #0xd6
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L1652	@cond_branch
-	ldr	r0, .L1659
+	bne	.L1657	@cond_branch
+	ldr	r0, .L1664
 	bl	BattleScriptExecute
-	b	.L1627
-.L1660:
+	b	.L1632
+.L1665:
 	.align	2, 0
-.L1659:
+.L1664:
 	.word	BattleScript_ArenaTurnBeginning
-.L1652:
+.L1657:
 	mov	r0, #0x1
 	bl	GetBattlerAtPosition
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r1, .L1661
+	ldr	r1, .L1666
 	ldrh	r1, [r1]
 	mov	r2, #0x1
 	bl	ShouldDoTrainerSlide
 	cmp	r0, #0
-	beq	.L1627	@cond_branch
-	ldr	r0, .L1661+0x4
+	beq	.L1632	@cond_branch
+	ldr	r0, .L1666+0x4
 	bl	BattleScriptExecute
-.L1627:
+.L1632:
 	pop	{r3, r4}
 	mov	r8, r3
 	mov	r9, r4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1662:
+.L1667:
 	.align	2, 0
-.L1661:
+.L1666:
 	.word	gTrainerBattleOpponent_A
 	.word	BattleScript_TrainerSlideMsgEnd2
 .Lfe66:
@@ -22933,92 +22989,92 @@ BattleTurnPassed:
 	.thumb_func
 IsRunningFromBattleImpossible:
 	push	{r4, r5, r6, r7, lr}
-	ldr	r1, .L1676
-	ldr	r0, .L1676+0x4
+	ldr	r1, .L1681
+	ldr	r0, .L1681+0x4
 	ldrb	r2, [r0]
 	mov	r0, #0x5c
 	mul	r0, r0, r2
 	add	r1, r0, r1
 	ldrh	r0, [r1, #0x30]
 	cmp	r0, #0xcd
-	bne	.L1664	@cond_branch
-	ldr	r1, .L1676+0x8
+	bne	.L1669	@cond_branch
+	ldr	r1, .L1681+0x8
 	lsl	r0, r2, #0x3
 	sub	r0, r0, r2
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldrb	r6, [r0, #0x7]
-	b	.L1665
-.L1677:
+	b	.L1670
+.L1682:
 	.align	2, 0
-.L1676:
+.L1681:
 	.word	gBattleMons
 	.word	gActiveBattler
 	.word	gEnigmaBerries
-.L1664:
+.L1669:
 	ldrh	r0, [r1, #0x30]
 	bl	ItemId_GetHoldEffect
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
-.L1665:
-	ldr	r0, .L1678
-	ldr	r2, .L1678+0x4
+.L1670:
+	ldr	r0, .L1683
+	ldr	r2, .L1683+0x4
 	ldrb	r1, [r2]
 	strb	r1, [r0]
-	ldr	r5, .L1678+0x8
+	ldr	r5, .L1683+0x8
 	ldr	r4, [r5]
 	mov	r0, #0x10
 	and	r4, r4, r0
 	cmp	r4, #0
-	beq	.L1666	@cond_branch
-	ldr	r1, .L1678+0xc
+	beq	.L1671	@cond_branch
+	ldr	r1, .L1683+0xc
 	mov	r0, #0x1
 	strb	r0, [r1, #0x5]
-	b	.L1673
-.L1679:
+	b	.L1678
+.L1684:
 	.align	2, 0
-.L1678:
+.L1683:
 	.word	gPotentialItemEffectBattler
 	.word	gActiveBattler
 	.word	gBattleTypeFlags
 	.word	gBattleCommunication
-.L1666:
+.L1671:
 	ldrb	r0, [r2]
 	bl	GetBattlerPosition
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x2
-	bne	.L1667	@cond_branch
+	bne	.L1672	@cond_branch
 	ldr	r0, [r5]
 	mov	r1, #0xb
 	and	r0, r0, r1
 	cmp	r0, #0x1
-	bne	.L1667	@cond_branch
+	bne	.L1672	@cond_branch
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	IsBattlerAlive
 	cmp	r0, #0
-	beq	.L1667	@cond_branch
-	ldr	r0, .L1680
+	beq	.L1672	@cond_branch
+	ldr	r0, .L1685
 	strb	r4, [r0, #0x5]
-	b	.L1674
-.L1681:
+	b	.L1679
+.L1686:
 	.align	2, 0
-.L1680:
+.L1685:
 	.word	gBattleCommunication
-.L1667:
+.L1672:
 	cmp	r6, #0x25
-	beq	.L1675	@cond_branch
-	ldr	r0, .L1682
+	beq	.L1680	@cond_branch
+	ldr	r0, .L1687
 	ldr	r0, [r0]
 	mov	r7, #0x2
 	and	r0, r0, r7
 	cmp	r0, #0
-	bne	.L1675	@cond_branch
-	ldr	r6, .L1682+0x4
-	ldr	r4, .L1682+0x8
+	bne	.L1680	@cond_branch
+	ldr	r6, .L1687+0x4
+	ldr	r4, .L1687+0x8
 	ldrb	r1, [r4]
 	mov	r5, #0x5c
 	mov	r0, r1
@@ -23026,55 +23082,55 @@ IsRunningFromBattleImpossible:
 	add	r0, r0, r6
 	ldrh	r0, [r0, #0x20]
 	cmp	r0, #0x32
-	beq	.L1675	@cond_branch
+	beq	.L1680	@cond_branch
 	add	r0, r1, #0
 	bl	IsAbilityPreventingEscape
 	add	r1, r0, #0
 	cmp	r1, #0
-	beq	.L1671	@cond_branch
-	ldr	r0, .L1682+0xc
+	beq	.L1676	@cond_branch
+	ldr	r0, .L1687+0xc
 	sub	r1, r1, #0x1
 	strb	r1, [r0, #0x17]
-	ldr	r2, .L1682+0x10
+	ldr	r2, .L1687+0x10
 	mov	r0, r1
 	mul	r0, r0, r5
 	add	r0, r0, r6
 	ldrh	r0, [r0, #0x20]
 	strh	r0, [r2]
-	ldr	r0, .L1682+0x14
+	ldr	r0, .L1687+0x14
 	strb	r7, [r0, #0x5]
 	mov	r0, #0x2
-	b	.L1673
-.L1683:
+	b	.L1678
+.L1688:
 	.align	2, 0
-.L1682:
+.L1687:
 	.word	gBattleTypeFlags
 	.word	gBattleMons
 	.word	gActiveBattler
 	.word	gBattleScripting
 	.word	gLastUsedAbility
 	.word	gBattleCommunication
-.L1671:
+.L1676:
 	ldrb	r0, [r4]
 	bl	CanBattlerEscape
 	add	r1, r0, #0
 	cmp	r1, #0
-	beq	.L1672	@cond_branch
-.L1675:
+	beq	.L1677	@cond_branch
+.L1680:
 	mov	r0, #0x0
-	b	.L1673
-.L1672:
-	ldr	r0, .L1684
+	b	.L1678
+.L1677:
+	ldr	r0, .L1689
 	strb	r1, [r0, #0x5]
-.L1674:
+.L1679:
 	mov	r0, #0x1
-.L1673:
+.L1678:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L1685:
+.L1690:
 	.align	2, 0
-.L1684:
+.L1689:
 	.word	gBattleCommunication
 .Lfe67:
 	.size	 IsRunningFromBattleImpossible,.Lfe67-IsRunningFromBattleImpossible
@@ -23089,15 +23145,15 @@ SwitchPartyOrder:
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
 	mov	r3, #0x0
-	ldr	r0, .L1704
+	ldr	r0, .L1709
 	mov	r8, r0
-	ldr	r1, .L1704+0x4
+	ldr	r1, .L1709+0x4
 	mov	ip, r1
-	ldr	r7, .L1704+0x8
+	ldr	r7, .L1709+0x8
 	lsl	r0, r5, #0x1
 	add	r4, r0, r5
 	add	r6, r0, #0
-.L1690:
+.L1695:
 	mov	r0, ip
 	add	r2, r3, r0
 	ldr	r1, [r7]
@@ -23108,7 +23164,7 @@ SwitchPartyOrder:
 	strb	r0, [r2]
 	add	r3, r3, #0x1
 	cmp	r3, #0x2
-	ble	.L1690	@cond_branch
+	ble	.L1695	@cond_branch
 	mov	r1, r8
 	add	r0, r6, r1
 	ldrb	r0, [r0]
@@ -23116,7 +23172,7 @@ SwitchPartyOrder:
 	add	r4, r0, #0
 	lsl	r4, r4, #0x18
 	lsr	r4, r4, #0x18
-	ldr	r7, .L1704+0x8
+	ldr	r7, .L1709+0x8
 	ldr	r0, [r7]
 	add	r0, r5, r0
 	add	r0, r0, #0x5c
@@ -23127,22 +23183,22 @@ SwitchPartyOrder:
 	lsr	r1, r1, #0x18
 	add	r0, r4, #0
 	bl	SwitchPartyMonSlots
-	ldr	r0, .L1704+0xc
+	ldr	r0, .L1709+0xc
 	ldr	r0, [r0]
 	mov	r1, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1692	@cond_branch
+	beq	.L1697	@cond_branch
 	mov	r3, #0x0
 	add	r4, r7, #0
 	add	r6, r6, r5
 	mov	r0, #0x2
 	add	r1, r5, #0
 	eor	r1, r1, r0
-	ldr	r7, .L1704+0x4
+	ldr	r7, .L1709+0x4
 	lsl	r0, r1, #0x1
 	add	r5, r0, r1
-.L1696:
+.L1701:
 	ldr	r0, [r4]
 	add	r1, r6, r3
 	add	r1, r1, r0
@@ -23158,20 +23214,20 @@ SwitchPartyOrder:
 	strb	r1, [r0]
 	add	r3, r3, #0x1
 	cmp	r3, #0x2
-	ble	.L1696	@cond_branch
-	b	.L1698
-.L1705:
+	ble	.L1701	@cond_branch
+	b	.L1703
+.L1710:
 	.align	2, 0
-.L1704:
+.L1709:
 	.word	gBattlerPartyIndexes
 	.word	gBattlePartyCurrentOrder
 	.word	gBattleStruct
 	.word	gBattleTypeFlags
-.L1692:
+.L1697:
 	mov	r3, #0x0
 	add	r2, r6, r5
-	ldr	r4, .L1706
-.L1702:
+	ldr	r4, .L1711
+.L1707:
 	ldr	r0, [r7]
 	add	r1, r2, r3
 	add	r1, r1, r0
@@ -23181,16 +23237,16 @@ SwitchPartyOrder:
 	strb	r0, [r1]
 	add	r3, r3, #0x1
 	cmp	r3, #0x2
-	ble	.L1702	@cond_branch
-.L1698:
+	ble	.L1707	@cond_branch
+.L1703:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1707:
+.L1712:
 	.align	2, 0
-.L1706:
+.L1711:
 	.word	gBattlePartyCurrentOrder
 .Lfe68:
 	.size	 SwitchPartyOrder,.Lfe68-SwitchPartyOrder
@@ -23204,88 +23260,88 @@ HandleTurnActionSelectionState:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	add	sp, sp, #-0x38
-	ldr	r0, .L1870
+	ldr	r0, .L1875
 	mov	r1, #0x0
 	strb	r1, [r0, #0x4]
-	ldr	r0, .L1870+0x4
+	ldr	r0, .L1875+0x4
 	strb	r1, [r0]
-	ldr	r0, .L1870+0x8
+	ldr	r0, .L1875+0x8
 	add	r5, r0, #0
 	ldrb	r0, [r5]
 	cmp	r1, r0
-	bcc	.LCB14640
-	bl	.L1710	@far jump
-.LCB14640:
-.L1712:
-	ldr	r4, .L1870+0x4
+	bcc	.LCB14709
+	bl	.L1715	@far jump
+.LCB14709:
+.L1717:
+	ldr	r4, .L1875+0x4
 	ldrb	r0, [r4]
 	bl	GetBattlerPosition
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
-	ldr	r1, .L1870
+	ldr	r1, .L1875
 	ldrb	r0, [r4]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0x8
-	bls	.LCB14657
-	bl	.L1711	@far jump
-.LCB14657:
+	bls	.LCB14726
+	bl	.L1716	@far jump
+.LCB14726:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1870+0xc
+	ldr	r1, .L1875+0xc
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1871:
+.L1876:
 	.align	2, 0
-.L1870:
+.L1875:
 	.word	gBattleCommunication
 	.word	gActiveBattler
 	.word	gBattlersCount
-	.word	.L1845
+	.word	.L1850
 	.align	2, 0
 	.align	2, 0
-.L1845:
-	.word	.L1714
-	.word	.L1715
-	.word	.L1728
-	.word	.L1784
-	.word	.L1824
-	.word	.L1831
-	.word	.L1833
-	.word	.L1837
-	.word	.L1839
-.L1714:
+.L1850:
+	.word	.L1719
+	.word	.L1720
+	.word	.L1733
+	.word	.L1789
+	.word	.L1829
+	.word	.L1836
+	.word	.L1838
+	.word	.L1842
+	.word	.L1844
+.L1719:
 	bl	RecordedBattle_CopyBattlerMoves
-	ldr	r1, .L1872
-	ldr	r0, .L1872+0x4
+	ldr	r1, .L1877
+	ldr	r0, .L1877+0x4
 	ldrb	r0, [r0]
 	add	r0, r0, r1
-	bl	.L1856	@ far jump
-.L1873:
+	bl	.L1861	@ far jump
+.L1878:
 	.align	2, 0
-.L1872:
+.L1877:
 	.word	gBattleCommunication
 	.word	gActiveBattler
-.L1715:
-	ldr	r0, .L1874
+.L1720:
+	ldr	r0, .L1879
 	ldrb	r1, [r0]
-	ldr	r4, .L1874+0x4
+	ldr	r4, .L1879+0x4
 	ldr	r0, [r4]
 	add	r1, r1, r0
 	add	r1, r1, #0x5c
 	mov	r0, #0x6
 	strb	r0, [r1]
-	ldr	r0, .L1874+0x8
+	ldr	r0, .L1879+0x8
 	ldr	r0, [r0]
 	mov	r1, #0x40
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1717	@cond_branch
+	bne	.L1722	@cond_branch
 	mov	r1, #0x2
 	mov	r0, #0x2
 	and	r0, r0, r6
 	cmp	r0, #0
-	beq	.L1717	@cond_branch
+	beq	.L1722	@cond_branch
 	add	r5, r6, #0
 	eor	r5, r5, r1
 	add	r0, r5, #0
@@ -23293,15 +23349,15 @@ HandleTurnActionSelectionState:
 	ldr	r1, [r4]
 	add	r1, r1, #0x8a
 	ldrb	r1, [r1]
-	ldr	r2, .L1874+0xc
+	ldr	r2, .L1879+0xc
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x16
 	add	r0, r0, r2
 	ldr	r0, [r0]
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L1717	@cond_branch
-	ldr	r4, .L1874+0x10
+	bne	.L1722	@cond_branch
+	ldr	r4, .L1879+0x10
 	add	r0, r5, #0
 	bl	GetBattlerAtPosition
 	lsl	r0, r0, #0x18
@@ -23309,63 +23365,63 @@ HandleTurnActionSelectionState:
 	add	r0, r0, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0x5
-	beq	.LCB14745
-	bl	.L1711	@far jump
-.LCB14745:
-.L1717:
-	ldr	r1, .L1874+0x4
+	beq	.LCB14814
+	bl	.L1716	@far jump
+.LCB14814:
+.L1722:
+	ldr	r1, .L1879+0x4
 	mov	r8, r1
 	ldr	r4, [r1]
 	add	r0, r4, #0
 	add	r0, r0, #0x8a
 	ldrb	r3, [r0]
-	ldr	r0, .L1874+0xc
-	ldr	r7, .L1874
+	ldr	r0, .L1879+0xc
+	ldr	r7, .L1879
 	ldrb	r2, [r7]
 	lsl	r1, r2, #0x2
 	add	r1, r1, r0
 	ldr	r0, [r1]
 	and	r3, r3, r0
 	cmp	r3, #0
-	beq	.L1718	@cond_branch
-	ldr	r0, .L1874+0x14
+	beq	.L1723	@cond_branch
+	ldr	r0, .L1879+0x14
 	add	r0, r2, r0
 	mov	r1, #0xd
 	strb	r1, [r0]
-	ldr	r0, .L1874+0x8
+	ldr	r0, .L1879+0x8
 	ldr	r0, [r0]
 	mov	r1, #0x40
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1719	@cond_branch
-	ldr	r0, .L1874+0x10
+	bne	.L1724	@cond_branch
+	ldr	r0, .L1879+0x10
 	ldrb	r1, [r7]
 	add	r1, r1, r0
 	mov	r0, #0x5
 	strb	r0, [r1]
-	bl	.L1711	@ far jump
-.L1875:
+	bl	.L1716	@ far jump
+.L1880:
 	.align	2, 0
-.L1874:
+.L1879:
 	.word	gActiveBattler
 	.word	gBattleStruct
 	.word	gBattleTypeFlags
 	.word	gBitTable
 	.word	gBattleCommunication
 	.word	gChosenActionByBattler
-.L1719:
-	ldr	r0, .L1876
+.L1724:
+	ldr	r0, .L1881
 	ldrb	r1, [r7]
 	add	r1, r1, r0
 	mov	r0, #0x4
 	strb	r0, [r1]
-	bl	.L1711	@ far jump
-.L1877:
+	bl	.L1716	@ far jump
+.L1882:
 	.align	2, 0
-.L1876:
+.L1881:
 	.word	gBattleCommunication
-.L1718:
-	ldr	r1, .L1878
+.L1723:
+	ldr	r1, .L1883
 	mov	r0, #0x5c
 	mul	r0, r0, r2
 	add	r1, r1, #0x54
@@ -23375,41 +23431,41 @@ HandleTurnActionSelectionState:
 	lsl	r0, r0, #0x5
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1723	@cond_branch
+	bne	.L1728	@cond_branch
 	mov	r5, #0x80
 	lsl	r5, r5, #0xf
 	and	r5, r5, r1
 	cmp	r5, #0
-	beq	.L1722	@cond_branch
-.L1723:
-	ldr	r0, .L1878+0x4
+	beq	.L1727	@cond_branch
+.L1728:
+	ldr	r0, .L1883+0x4
 	add	r0, r2, r0
 	strb	r3, [r0]
-	ldr	r1, .L1878+0x8
+	ldr	r1, .L1883+0x8
 	ldrb	r0, [r7]
-	bl	.L1857	@ far jump
-.L1879:
+	bl	.L1862	@ far jump
+.L1884:
 	.align	2, 0
-.L1878:
+.L1883:
 	.word	gBattleMons
 	.word	gChosenActionByBattler
 	.word	gBattleCommunication
-.L1722:
-	ldr	r0, .L1880
+.L1727:
+	ldr	r0, .L1885
 	ldr	r0, [r0]
 	mov	r1, #0xb
 	and	r0, r0, r1
 	cmp	r0, #0x1
-	bne	.L1725	@cond_branch
+	bne	.L1730	@cond_branch
 	cmp	r6, #0x2
-	bne	.L1725	@cond_branch
+	bne	.L1730	@cond_branch
 	mov	r6, #0xa5
 	lsl	r6, r6, #0x2
 	add	r0, r4, r6
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L1726	@cond_branch
-	ldr	r4, .L1880+0x4
+	bne	.L1731	@cond_branch
+	ldr	r4, .L1885+0x4
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
 	lsl	r0, r0, #0x18
@@ -23417,53 +23473,53 @@ HandleTurnActionSelectionState:
 	add	r0, r0, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0x3
-	bne	.L1725	@cond_branch
-.L1726:
+	bne	.L1730	@cond_branch
+.L1731:
 	mov	r2, r8
 	ldr	r0, [r2]
 	add	r0, r0, r6
 	strb	r5, [r0]
-	ldr	r1, .L1880+0x4
+	ldr	r1, .L1885+0x4
 	ldrb	r0, [r7]
 	add	r0, r0, r1
 	mov	r1, #0xd
 	strb	r1, [r0]
-	ldr	r1, .L1880+0x8
+	ldr	r1, .L1885+0x8
 	ldrb	r0, [r7]
-	bl	.L1857	@ far jump
-.L1881:
+	bl	.L1862	@ far jump
+.L1886:
 	.align	2, 0
-.L1880:
+.L1885:
 	.word	gBattleTypeFlags
 	.word	gChosenActionByBattler
 	.word	gBattleCommunication
-.L1725:
-	ldr	r0, .L1882
+.L1730:
+	ldr	r0, .L1887
 	ldrb	r1, [r0]
-	ldr	r0, .L1882+0x4
+	ldr	r0, .L1887+0x4
 	ldr	r3, [r0]
-	ldr	r4, .L1882+0x8
+	ldr	r4, .L1887+0x8
 	add	r0, r3, r4
 	ldrb	r2, [r0]
-	ldr	r6, .L1882+0xc
+	ldr	r6, .L1887+0xc
 	add	r3, r3, r6
 	ldrb	r0, [r3]
 	lsl	r0, r0, #0x8
 	orr	r2, r2, r0
 	mov	r0, #0x0
 	bl	BtlController_EmitChooseAction
-	bl	.L1830	@ far jump
-.L1883:
+	bl	.L1835	@ far jump
+.L1888:
 	.align	2, 0
-.L1882:
+.L1887:
 	.word	gChosenActionByBattler
 	.word	gBattleResources
 	.word	0x821
 	.word	0x822
-.L1728:
-	ldr	r3, .L1884
-	ldr	r1, .L1884+0x4
-	ldr	r7, .L1884+0x8
+.L1733:
+	ldr	r3, .L1889
+	ldr	r1, .L1889+0x4
+	ldr	r7, .L1889+0x8
 	ldrb	r6, [r7]
 	lsl	r0, r6, #0x2
 	add	r0, r0, r1
@@ -23480,19 +23536,19 @@ HandleTurnActionSelectionState:
 	ldr	r0, [r3]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB14947
-	bl	.L1711	@far jump
-.LCB14947:
-	ldr	r4, .L1884+0xc
+	beq	.LCB15016
+	bl	.L1716	@far jump
+.LCB15016:
+	ldr	r4, .L1889+0xc
 	ldr	r0, [r4]
 	lsl	r1, r6, #0x9
-	ldr	r5, .L1884+0x10
+	ldr	r5, .L1889+0x10
 	add	r0, r0, r5
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	add	r0, r6, #0
 	bl	RecordedBattle_SetBattlerAction
-	ldr	r2, .L1884+0x14
+	ldr	r2, .L1889+0x14
 	ldrb	r1, [r7]
 	add	r2, r1, r2
 	ldr	r0, [r4]
@@ -23508,62 +23564,62 @@ HandleTurnActionSelectionState:
 	add	r1, r1, r0
 	ldrb	r0, [r1]
 	cmp	r0, #0x14
-	bls	.LCB14976
-	b	.L1730	@long jump
-.LCB14976:
+	bls	.LCB15045
+	b	.L1735	@long jump
+.LCB15045:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1884+0x18
+	ldr	r1, .L1889+0x18
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1885:
+.L1890:
 	.align	2, 0
-.L1884:
+.L1889:
 	.word	gBattleControllerExecFlags
 	.word	gBitTable
 	.word	gActiveBattler
 	.word	gBattleResources
 	.word	0x821
 	.word	gChosenActionByBattler
-	.word	.L1776
+	.word	.L1781
 	.align	2, 0
 	.align	2, 0
-.L1776:
-	.word	.L1731
-	.word	.L1741
-	.word	.L1749
-	.word	.L1730
-	.word	.L1730
-	.word	.L1759
-	.word	.L1761
-	.word	.L1730
-	.word	.L1730
-	.word	.L1730
-	.word	.L1730
-	.word	.L1730
-	.word	.L1762
-	.word	.L1730
-	.word	.L1730
-	.word	.L1730
-	.word	.L1730
-	.word	.L1730
-	.word	.L1730
-	.word	.L1730
-	.word	.L1730
-.L1731:
+.L1781:
+	.word	.L1736
+	.word	.L1746
+	.word	.L1754
+	.word	.L1735
+	.word	.L1735
+	.word	.L1764
+	.word	.L1766
+	.word	.L1735
+	.word	.L1735
+	.word	.L1735
+	.word	.L1735
+	.word	.L1735
+	.word	.L1767
+	.word	.L1735
+	.word	.L1735
+	.word	.L1735
+	.word	.L1735
+	.word	.L1735
+	.word	.L1735
+	.word	.L1735
+	.word	.L1735
+.L1736:
 	bl	AreAllMovesUnusable
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L1732	@cond_branch
-	ldr	r0, .L1886
-	ldr	r3, .L1886+0x4
+	beq	.L1737	@cond_branch
+	ldr	r0, .L1891
+	ldr	r3, .L1891+0x4
 	ldrb	r1, [r3]
 	add	r1, r1, r0
 	mov	r4, #0x0
 	mov	r0, #0x6
 	strb	r0, [r1]
 	ldrb	r1, [r3]
-	ldr	r2, .L1886+0x8
+	ldr	r2, .L1891+0x8
 	ldr	r0, [r2]
 	add	r1, r1, r0
 	add	r1, r1, #0x54
@@ -23577,26 +23633,26 @@ HandleTurnActionSelectionState:
 	ldrb	r1, [r3]
 	ldr	r2, [r2]
 	add	r2, r1, r2
-	ldr	r0, .L1886+0xc
+	ldr	r0, .L1891+0xc
 	ldr	r0, [r0]
 	lsl	r1, r1, #0x9
-	ldr	r3, .L1886+0x10
+	ldr	r3, .L1891+0x10
 	add	r0, r0, r3
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	strb	r0, [r2, #0xc]
-	bl	.L1708	@ far jump
-.L1887:
+	bl	.L1713	@ far jump
+.L1892:
 	.align	2, 0
-.L1886:
+.L1891:
 	.word	gBattleCommunication
 	.word	gActiveBattler
 	.word	gBattleStruct
 	.word	gBattleResources
 	.word	0x823
-.L1732:
-	ldr	r4, .L1888
-	ldr	r5, .L1888+0x4
+.L1737:
+	ldr	r4, .L1893
+	ldr	r5, .L1893+0x4
 	ldrb	r2, [r5]
 	lsl	r0, r2, #0x2
 	add	r0, r0, r2
@@ -23604,13 +23660,13 @@ HandleTurnActionSelectionState:
 	add	r0, r0, r4
 	ldrh	r3, [r0, #0x6]
 	cmp	r3, #0
-	beq	.L1734	@cond_branch
-	ldr	r1, .L1888+0x8
+	beq	.L1739	@cond_branch
+	ldr	r1, .L1893+0x8
 	lsl	r0, r2, #0x1
 	add	r0, r0, r1
 	strh	r3, [r0]
 	ldrb	r2, [r5]
-	ldr	r0, .L1888+0xc
+	ldr	r0, .L1893+0xc
 	ldr	r1, [r0]
 	add	r1, r2, r1
 	add	r1, r1, #0x7f
@@ -23620,22 +23676,22 @@ HandleTurnActionSelectionState:
 	add	r0, r0, r4
 	ldrb	r0, [r0, #0x10]
 	strb	r0, [r1]
-	ldr	r1, .L1888+0x10
+	ldr	r1, .L1893+0x10
 	ldrb	r0, [r5]
 	add	r0, r0, r1
 	mov	r1, #0x4
 	strb	r1, [r0]
-	bl	.L1708	@ far jump
-.L1889:
+	bl	.L1713	@ far jump
+.L1894:
 	.align	2, 0
-.L1888:
+.L1893:
 	.word	gDisableStructs
 	.word	gActiveBattler
 	.word	gChosenMoveByBattler
 	.word	gBattleStruct
 	.word	gBattleCommunication
-.L1734:
-	ldr	r0, .L1890
+.L1739:
+	ldr	r0, .L1895
 	ldr	r1, [r0]
 	add	r0, sp, #0x1c
 	mov	r4, #0xa6
@@ -23646,7 +23702,7 @@ HandleTurnActionSelectionState:
 	ldmia	r1!, {r2, r4, r6}
 	stmia	r0!, {r2, r4, r6}
 	add	r1, sp, #0x4
-	ldr	r3, .L1890+0x4
+	ldr	r3, .L1895+0x4
 	ldrb	r0, [r5]
 	mov	r2, #0x5c
 	mul	r0, r0, r2
@@ -23686,7 +23742,7 @@ HandleTurnActionSelectionState:
 	add	r1, r1, r8
 	mov	r9, r1
 	add	r5, sp, #0x4
-.L1739:
+.L1744:
 	lsl	r2, r4, #0x1
 	ldrb	r0, [r7]
 	mul	r0, r0, r6
@@ -23722,8 +23778,8 @@ HandleTurnActionSelectionState:
 	add	r5, r5, #0x2
 	add	r4, r4, #0x1
 	cmp	r4, #0x3
-	ble	.L1739	@cond_branch
-	ldr	r0, .L1890+0x8
+	ble	.L1744	@cond_branch
+	ldr	r0, .L1895+0x8
 	ldr	r1, [r0]
 	mov	r0, #0x1
 	and	r1, r1, r0
@@ -23731,15 +23787,15 @@ HandleTurnActionSelectionState:
 	mov	r2, #0x0
 	add	r3, sp, #0x4
 	bl	BtlController_EmitChooseMove
-	b	.L1752
-.L1891:
+	b	.L1757
+.L1896:
 	.align	2, 0
-.L1890:
+.L1895:
 	.word	gBattleStruct
 	.word	gBattleMons
 	.word	gBattleTypeFlags
-.L1741:
-	ldr	r0, .L1892
+.L1746:
+	ldr	r0, .L1897
 	ldr	r0, [r0]
 	ldrb	r1, [r0, #0x15]
 	mov	r0, #0x4
@@ -23747,80 +23803,80 @@ HandleTurnActionSelectionState:
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
 	cmp	r5, #0
-	beq	.L1742	@cond_branch
+	beq	.L1747	@cond_branch
 	mov	r0, #0x23
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1744	@cond_branch
-	ldr	r0, .L1892+0x4
+	bne	.L1749	@cond_branch
+	ldr	r0, .L1897+0x4
 	ldr	r0, [r0]
-	ldr	r1, .L1892+0x8
+	ldr	r1, .L1897+0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB15248
-	b	.L1761	@long jump
-.LCB15248:
-.L1744:
-	ldr	r4, .L1892+0xc
+	bne	.LCB15317
+	b	.L1766	@long jump
+.LCB15317:
+.L1749:
+	ldr	r4, .L1897+0xc
 	ldrb	r0, [r4]
 	mov	r1, #0x1
 	bl	RecordedBattle_ClearBattlerAction
-	ldr	r1, .L1892+0x10
+	ldr	r1, .L1897+0x10
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
-	ldr	r1, .L1892+0x14
-	b	.L1858
-.L1893:
+	ldr	r1, .L1897+0x14
+	b	.L1863
+.L1898:
 	.align	2, 0
-.L1892:
+.L1897:
 	.word	gSaveBlock2Ptr
 	.word	gBattleTypeFlags
 	.word	0x21f090a
 	.word	gActiveBattler
 	.word	gSelectionBattleScripts
 	.word	BattleScript_ActionSelectionItemsCantBeUsed
-.L1742:
+.L1747:
 	mov	r0, #0x23
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1747	@cond_branch
-	ldr	r0, .L1894
+	bne	.L1752	@cond_branch
+	ldr	r0, .L1899
 	ldr	r0, [r0]
-	ldr	r1, .L1894+0x4
+	ldr	r1, .L1899+0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB15290
-	b	.L1761	@long jump
-.LCB15290:
-.L1747:
-	ldr	r4, .L1894+0x8
+	bne	.LCB15359
+	b	.L1766	@long jump
+.LCB15359:
+.L1752:
+	ldr	r4, .L1899+0x8
 	ldrb	r0, [r4]
 	mov	r1, #0x1
 	bl	RecordedBattle_ClearBattlerAction
-	ldr	r1, .L1894+0xc
+	ldr	r1, .L1899+0xc
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
-	ldr	r1, .L1894+0x10
+	ldr	r1, .L1899+0x10
 	str	r1, [r0]
-	ldr	r1, .L1894+0x14
+	ldr	r1, .L1899+0x14
 	ldrb	r0, [r4]
 	add	r0, r0, r1
 	mov	r1, #0x6
 	strb	r1, [r0]
 	ldrb	r1, [r4]
-	ldr	r2, .L1894+0x18
+	ldr	r2, .L1899+0x18
 	ldr	r0, [r2]
 	add	r1, r1, r0
 	add	r1, r1, #0x54
 	strb	r5, [r1]
-	b	.L1859
-.L1895:
+	b	.L1864
+.L1900:
 	.align	2, 0
-.L1894:
+.L1899:
 	.word	gBattleTypeFlags
 	.word	0x21f0902
 	.word	gActiveBattler
@@ -23828,30 +23884,30 @@ HandleTurnActionSelectionState:
 	.word	BattleScript_ActionSelectionItemsCantBeUsed
 	.word	gBattleCommunication
 	.word	gBattleStruct
-.L1749:
-	ldr	r5, .L1896
+.L1754:
+	ldr	r5, .L1901
 	ldrb	r0, [r5]
-	ldr	r6, .L1896+0x4
+	ldr	r6, .L1901+0x4
 	ldr	r1, [r6]
 	add	r1, r0, r1
 	add	r1, r1, #0x58
-	ldr	r2, .L1896+0x8
+	ldr	r2, .L1901+0x8
 	lsl	r0, r0, #0x1
 	add	r0, r0, r2
 	ldrh	r0, [r0]
 	strb	r0, [r1]
-	ldr	r0, .L1896+0xc
+	ldr	r0, .L1901+0xc
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	lsl	r1, r1, #0xb
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1751	@cond_branch
+	bne	.L1756	@cond_branch
 	ldrb	r0, [r5]
 	bl	CanBattlerEscape
 	cmp	r0, #0
-	bne	.L1750	@cond_branch
-.L1751:
+	bne	.L1755	@cond_branch
+.L1756:
 	ldrb	r0, [r5]
 	lsl	r1, r0, #0x1
 	add	r1, r1, r0
@@ -23862,27 +23918,27 @@ HandleTurnActionSelectionState:
 	mov	r0, #0x0
 	mov	r1, #0x2
 	mov	r2, #0x6
-	b	.L1860
-.L1897:
+	b	.L1865
+.L1902:
 	.align	2, 0
-.L1896:
+.L1901:
 	.word	gActiveBattler
 	.word	gBattleStruct
 	.word	gBattlerPartyIndexes
 	.word	gBattleTypeFlags
-.L1750:
+.L1755:
 	ldrb	r0, [r5]
 	bl	IsAbilityPreventingEscape
 	add	r4, r0, #0
 	cmp	r4, #0
-	beq	.L1753	@cond_branch
+	beq	.L1758	@cond_branch
 	sub	r3, r4, #0x1
 	lsl	r1, r3, #0x4
 	mov	r0, #0x4
 	orr	r1, r1, r0
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
-	ldr	r2, .L1898
+	ldr	r2, .L1903
 	mov	r0, #0x5c
 	mul	r0, r0, r3
 	add	r0, r0, r2
@@ -23897,45 +23953,45 @@ HandleTurnActionSelectionState:
 	mov	r0, #0x0
 	mov	r2, #0x6
 	bl	BtlController_EmitChoosePokemon
-	b	.L1752
-.L1899:
+	b	.L1757
+.L1904:
 	.align	2, 0
-.L1898:
+.L1903:
 	.word	gBattleMons
-.L1753:
+.L1758:
 	ldrb	r0, [r5]
 	cmp	r0, #0x2
-	bne	.L1755	@cond_branch
-	ldr	r0, .L1900
+	bne	.L1760	@cond_branch
+	ldr	r0, .L1905
 	ldrb	r0, [r0]
 	cmp	r0, #0x2
-	bne	.L1755	@cond_branch
+	bne	.L1760	@cond_branch
 	ldr	r3, [r6]
 	add	r0, r3, #0
 	add	r0, r0, #0x5c
 	ldrb	r2, [r0]
 	ldrb	r1, [r5]
-	b	.L1861
-.L1901:
+	b	.L1866
+.L1906:
 	.align	2, 0
-.L1900:
+.L1905:
 	.word	gChosenActionByBattler
-.L1755:
-	ldr	r1, .L1902
+.L1760:
+	ldr	r1, .L1907
 	ldrb	r0, [r1]
 	cmp	r0, #0x3
-	bne	.L1757	@cond_branch
-	ldr	r0, .L1902+0x4
+	bne	.L1762	@cond_branch
+	ldr	r0, .L1907+0x4
 	ldrb	r0, [r0, #0x1]
 	cmp	r0, #0x2
-	bne	.L1757	@cond_branch
-	ldr	r0, .L1902+0x8
+	bne	.L1762	@cond_branch
+	ldr	r0, .L1907+0x8
 	ldr	r3, [r0]
 	add	r0, r3, #0
 	add	r0, r0, #0x5d
 	ldrb	r2, [r0]
 	ldrb	r1, [r1]
-.L1861:
+.L1866:
 	lsl	r0, r1, #0x1
 	add	r0, r0, r1
 	add	r0, r0, #0x60
@@ -23943,19 +23999,19 @@ HandleTurnActionSelectionState:
 	str	r3, [sp]
 	mov	r0, #0x0
 	mov	r1, #0x0
-.L1860:
+.L1865:
 	mov	r3, #0x0
 	bl	BtlController_EmitChoosePokemon
-	b	.L1752
-.L1903:
+	b	.L1757
+.L1908:
 	.align	2, 0
-.L1902:
+.L1907:
 	.word	gActiveBattler
 	.word	gChosenActionByBattler
 	.word	gBattleStruct
-.L1757:
-	ldr	r2, .L1904
-	ldr	r0, .L1904+0x4
+.L1762:
+	ldr	r2, .L1909
+	ldr	r0, .L1909+0x4
 	ldrb	r0, [r0]
 	lsl	r1, r0, #0x1
 	add	r1, r1, r0
@@ -23968,55 +24024,55 @@ HandleTurnActionSelectionState:
 	mov	r2, #0x6
 	mov	r3, #0x0
 	bl	BtlController_EmitChoosePokemon
-.L1752:
-	ldr	r0, .L1904+0x4
+.L1757:
+	ldr	r0, .L1909+0x4
 	ldrb	r0, [r0]
 	bl	MarkBattlerForControllerExec
-	b	.L1730
-.L1905:
+	b	.L1735
+.L1910:
 	.align	2, 0
-.L1904:
+.L1909:
 	.word	gBattleStruct
 	.word	gActiveBattler
-.L1759:
+.L1764:
 	bl	IsPlayerPartyAndPokemonStorageFull
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB15523
-	b	.L1730	@long jump
-.LCB15523:
-	ldr	r1, .L1906
-	ldr	r3, .L1906+0x4
+	bne	.LCB15592
+	b	.L1735	@long jump
+.LCB15592:
+	ldr	r1, .L1911
+	ldr	r3, .L1911+0x4
 	ldrb	r0, [r3]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
-	ldr	r1, .L1906+0x8
+	ldr	r1, .L1911+0x8
 	str	r1, [r0]
-	ldr	r0, .L1906+0xc
+	ldr	r0, .L1911+0xc
 	ldrb	r1, [r3]
 	add	r1, r1, r0
 	mov	r4, #0x0
 	mov	r0, #0x6
 	strb	r0, [r1]
 	ldrb	r1, [r3]
-	ldr	r2, .L1906+0x10
+	ldr	r2, .L1911+0x10
 	ldr	r0, [r2]
 	add	r1, r1, r0
 	add	r1, r1, #0x54
 	strb	r4, [r1]
 	ldrb	r1, [r3]
-	b	.L1862
-.L1907:
+	b	.L1867
+.L1912:
 	.align	2, 0
-.L1906:
+.L1911:
 	.word	gSelectionBattleScripts
 	.word	gActiveBattler
 	.word	BattleScript_PrintFullBox
 	.word	gBattleCommunication
 	.word	gBattleStruct
-.L1761:
-	ldr	r2, .L1908
-	ldr	r4, .L1908+0x4
+.L1766:
+	ldr	r2, .L1913
+	ldr	r4, .L1913+0x4
 	ldrb	r1, [r4]
 	lsl	r0, r1, #0x1
 	add	r0, r0, r1
@@ -24027,15 +24083,15 @@ HandleTurnActionSelectionState:
 	bl	BtlController_EmitChooseItem
 	ldrb	r0, [r4]
 	bl	MarkBattlerForControllerExec
-	b	.L1730
-.L1909:
+	b	.L1735
+.L1914:
 	.align	2, 0
-.L1908:
+.L1913:
 	.word	gBattleStruct
 	.word	gActiveBattler
-.L1762:
-	ldr	r4, .L1910
-	ldr	r5, .L1910+0x4
+.L1767:
+	ldr	r4, .L1915
+	ldr	r5, .L1915+0x4
 	ldrb	r0, [r5]
 	add	r0, r0, r4
 	mov	r1, #0x7
@@ -24060,7 +24116,7 @@ HandleTurnActionSelectionState:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	GetBattlerAtPosition
-	ldr	r1, .L1910+0x8
+	ldr	r1, .L1915+0x8
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	mov	r7, #0x5c
@@ -24073,7 +24129,7 @@ HandleTurnActionSelectionState:
 	lsl	r1, r1, #0x5
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1764	@cond_branch
+	bne	.L1769	@cond_branch
 	ldrb	r0, [r5]
 	bl	GetBattlerPosition
 	eor	r0, r0, r6
@@ -24089,21 +24145,21 @@ HandleTurnActionSelectionState:
 	lsl	r1, r1, #0xf
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1763	@cond_branch
-.L1764:
+	beq	.L1768	@cond_branch
+.L1769:
 	mov	r0, #0x0
 	bl	BtlController_EmitEndBounceEffect
 	ldrb	r0, [r5]
 	bl	MarkBattlerForControllerExec
-	bl	.L1708	@ far jump
-.L1911:
+	bl	.L1713	@ far jump
+.L1916:
 	.align	2, 0
-.L1910:
+.L1915:
 	.word	gBattleCommunication
 	.word	gActiveBattler
 	.word	gBattleMons
-.L1763:
-	ldr	r4, .L1912
+.L1768:
+	ldr	r4, .L1917
 	ldrb	r0, [r5]
 	bl	GetBattlerPosition
 	eor	r0, r0, r6
@@ -24115,7 +24171,7 @@ HandleTurnActionSelectionState:
 	add	r0, r0, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0x2
-	bne	.L1766	@cond_branch
+	bne	.L1771	@cond_branch
 	ldrb	r0, [r5]
 	bl	GetBattlerPosition
 	eor	r0, r0, r6
@@ -24126,12 +24182,12 @@ HandleTurnActionSelectionState:
 	lsr	r0, r0, #0x18
 	mov	r1, #0x2
 	bl	RecordedBattle_ClearBattlerAction
-	b	.L1765
-.L1913:
+	b	.L1770
+.L1918:
 	.align	2, 0
-.L1912:
+.L1917:
 	.word	gChosenActionByBattler
-.L1766:
+.L1771:
 	ldrb	r0, [r5]
 	bl	GetBattlerPosition
 	eor	r0, r0, r6
@@ -24143,12 +24199,12 @@ HandleTurnActionSelectionState:
 	add	r0, r0, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0x3
-	bne	.L1768	@cond_branch
+	bne	.L1773	@cond_branch
 	ldrb	r0, [r5]
 	bl	GetBattlerPosition
 	eor	r0, r0, r6
-	b	.L1863
-.L1768:
+	b	.L1868
+.L1773:
 	ldrb	r0, [r5]
 	bl	GetBattlerPosition
 	eor	r0, r0, r6
@@ -24160,8 +24216,8 @@ HandleTurnActionSelectionState:
 	add	r0, r0, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L1770	@cond_branch
-	ldr	r4, .L1914
+	bne	.L1775	@cond_branch
+	ldr	r4, .L1919
 	ldrb	r0, [r5]
 	bl	GetBattlerPosition
 	eor	r0, r0, r6
@@ -24174,8 +24230,8 @@ HandleTurnActionSelectionState:
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x1a
 	cmp	r0, #0
-	blt	.L1771	@cond_branch
-	ldr	r4, .L1914+0x4
+	blt	.L1776	@cond_branch
+	ldr	r4, .L1919+0x4
 	ldrb	r0, [r5]
 	bl	GetBattlerPosition
 	eor	r0, r0, r6
@@ -24190,27 +24246,27 @@ HandleTurnActionSelectionState:
 	add	r1, r1, r4
 	ldrh	r0, [r1, #0x6]
 	cmp	r0, #0
-	beq	.L1770	@cond_branch
-.L1771:
+	beq	.L1775	@cond_branch
+.L1776:
 	ldrb	r0, [r5]
 	bl	GetBattlerPosition
 	eor	r0, r0, r6
-	b	.L1863
-.L1915:
+	b	.L1868
+.L1920:
 	.align	2, 0
-.L1914:
+.L1919:
 	.word	gProtectStructs
 	.word	gDisableStructs
-.L1770:
-	ldr	r0, .L1916
+.L1775:
+	ldr	r0, .L1921
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	lsl	r1, r1, #0xa
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1773	@cond_branch
-	ldr	r4, .L1916+0x4
-	ldr	r6, .L1916+0x8
+	beq	.L1778	@cond_branch
+	ldr	r4, .L1921+0x4
+	ldr	r6, .L1921+0x8
 	ldrb	r0, [r6]
 	bl	GetBattlerPosition
 	mov	r5, #0x2
@@ -24223,15 +24279,15 @@ HandleTurnActionSelectionState:
 	add	r0, r0, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L1773	@cond_branch
-	ldr	r1, .L1916+0xc
-	ldr	r0, .L1916+0x10
+	bne	.L1778	@cond_branch
+	ldr	r1, .L1921+0xc
+	ldr	r0, .L1921+0x10
 	ldr	r0, [r0]
 	str	r0, [r1]
 	ldrb	r0, [r6]
 	bl	GetBattlerPosition
 	eor	r0, r0, r5
-.L1863:
+.L1868:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	GetBattlerAtPosition
@@ -24239,17 +24295,17 @@ HandleTurnActionSelectionState:
 	lsr	r0, r0, #0x18
 	mov	r1, #0x1
 	bl	RecordedBattle_ClearBattlerAction
-	b	.L1765
-.L1917:
+	b	.L1770
+.L1922:
 	.align	2, 0
-.L1916:
+.L1921:
 	.word	gBattleTypeFlags
 	.word	gChosenActionByBattler
 	.word	gActiveBattler
 	.word	gRngValue
 	.word	gBattlePalaceMoveSelectionRngValue
-.L1773:
-	ldr	r0, .L1918
+.L1778:
+	ldr	r0, .L1923
 	ldrb	r0, [r0]
 	bl	GetBattlerPosition
 	mov	r1, #0x2
@@ -24261,16 +24317,16 @@ HandleTurnActionSelectionState:
 	lsr	r0, r0, #0x18
 	mov	r1, #0x3
 	bl	RecordedBattle_ClearBattlerAction
-.L1765:
-	ldr	r4, .L1918
+.L1770:
+	ldr	r4, .L1923
 	ldrb	r0, [r4]
 	bl	GetBattlerPosition
-	ldr	r1, .L1918+0x4
+	ldr	r1, .L1923+0x4
 	ldr	r2, [r1]
 	mov	r3, #0xa6
 	lsl	r3, r3, #0x2
 	add	r2, r2, r3
-	ldr	r3, .L1918+0x8
+	ldr	r3, .L1923+0x8
 	mov	r1, #0x2
 	eor	r0, r0, r1
 	lsl	r0, r0, #0x18
@@ -24284,51 +24340,51 @@ HandleTurnActionSelectionState:
 	bl	BtlController_EmitEndBounceEffect
 	ldrb	r0, [r4]
 	bl	MarkBattlerForControllerExec
-	bl	.L1708	@ far jump
-.L1919:
+	bl	.L1713	@ far jump
+.L1924:
 	.align	2, 0
-.L1918:
+.L1923:
 	.word	gActiveBattler
 	.word	gBattleStruct
 	.word	gBitTable
-.L1730:
-	ldr	r1, .L1920
+.L1735:
+	ldr	r1, .L1925
 	ldr	r2, [r1]
 	mov	r5, #0x8
 	add	r0, r2, #0
 	and	r0, r0, r5
 	add	r3, r1, #0
 	cmp	r0, #0
-	beq	.L1778	@cond_branch
-	ldr	r0, .L1920+0x4
+	beq	.L1783	@cond_branch
+	ldr	r0, .L1925+0x4
 	and	r2, r2, r0
 	cmp	r2, #0
-	beq	.L1778	@cond_branch
-	ldr	r0, .L1920+0x8
+	beq	.L1783	@cond_branch
+	ldr	r0, .L1925+0x8
 	ldr	r0, [r0]
-	ldr	r4, .L1920+0xc
+	ldr	r4, .L1925+0xc
 	ldrb	r2, [r4]
 	lsl	r1, r2, #0x9
-	ldr	r6, .L1920+0x10
+	ldr	r6, .L1925+0x10
 	add	r0, r0, r6
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0x3
-	bne	.L1778	@cond_branch
-	ldr	r1, .L1920+0x14
+	bne	.L1783	@cond_branch
+	ldr	r1, .L1925+0x14
 	lsl	r0, r2, #0x2
 	add	r0, r0, r1
-	ldr	r1, .L1920+0x18
+	ldr	r1, .L1925+0x18
 	str	r1, [r0]
-	ldr	r1, .L1920+0x1c
+	ldr	r1, .L1925+0x1c
 	ldrb	r0, [r4]
 	add	r0, r0, r1
 	mov	r3, #0x0
 	strb	r5, [r0]
-	b	.L1864
-.L1921:
+	b	.L1869
+.L1926:
 	.align	2, 0
-.L1920:
+.L1925:
 	.word	gBattleTypeFlags
 	.word	0x43f0100
 	.word	gBattleResources
@@ -24337,85 +24393,85 @@ HandleTurnActionSelectionState:
 	.word	gSelectionBattleScripts
 	.word	BattleScript_AskIfWantsToForfeitMatch
 	.word	gBattleCommunication
-.L1778:
+.L1783:
 	ldr	r0, [r3]
-	ldr	r1, .L1922
+	ldr	r1, .L1927
 	and	r0, r0, r1
 	cmp	r0, #0x8
-	bne	.L1780	@cond_branch
-	ldr	r0, .L1922+0x4
+	bne	.L1785	@cond_branch
+	ldr	r0, .L1927+0x4
 	ldr	r1, [r0]
-	ldr	r4, .L1922+0x8
+	ldr	r4, .L1927+0x8
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x9
-	ldr	r2, .L1922+0xc
+	ldr	r2, .L1927+0xc
 	add	r1, r1, r2
 	add	r1, r1, r0
 	ldrb	r0, [r1]
 	cmp	r0, #0x3
-	bne	.L1780	@cond_branch
-	ldr	r0, .L1922+0x10
+	bne	.L1785	@cond_branch
+	ldr	r0, .L1927+0x10
 	bl	BattleScriptExecute
-	ldr	r1, .L1922+0x14
+	ldr	r1, .L1927+0x14
 	ldrb	r0, [r4]
 	add	r0, r0, r1
-	b	.L1856
-.L1923:
+	b	.L1861
+.L1928:
 	.align	2, 0
-.L1922:
+.L1927:
 	.word	0x200000a
 	.word	gBattleResources
 	.word	gActiveBattler
 	.word	0x821
 	.word	BattleScript_PrintCantRunFromTrainer
 	.word	gBattleCommunication
-.L1780:
+.L1785:
 	bl	IsRunningFromBattleImpossible
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L1782	@cond_branch
-	ldr	r0, .L1924
+	beq	.L1787	@cond_branch
+	ldr	r0, .L1929
 	ldr	r0, [r0]
-	ldr	r4, .L1924+0x4
+	ldr	r4, .L1929+0x4
 	ldrb	r2, [r4]
 	lsl	r1, r2, #0x9
-	ldr	r3, .L1924+0x8
+	ldr	r3, .L1929+0x8
 	add	r0, r0, r3
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0x3
-	bne	.L1782	@cond_branch
-	ldr	r1, .L1924+0xc
+	bne	.L1787	@cond_branch
+	ldr	r1, .L1929+0xc
 	lsl	r0, r2, #0x2
 	add	r0, r0, r1
-	ldr	r1, .L1924+0x10
-.L1858:
+	ldr	r1, .L1929+0x10
+.L1863:
 	str	r1, [r0]
-	ldr	r0, .L1924+0x14
+	ldr	r0, .L1929+0x14
 	ldrb	r1, [r4]
 	add	r1, r1, r0
 	mov	r3, #0x0
 	mov	r0, #0x6
 	strb	r0, [r1]
-.L1864:
+.L1869:
 	ldrb	r1, [r4]
-	ldr	r2, .L1924+0x18
+	ldr	r2, .L1929+0x18
 	ldr	r0, [r2]
 	add	r1, r1, r0
 	add	r1, r1, #0x54
 	strb	r3, [r1]
-.L1859:
+.L1864:
 	ldrb	r1, [r4]
-.L1862:
+.L1867:
 	ldr	r0, [r2]
 	add	r1, r1, r0
 	add	r1, r1, #0x83
 	mov	r0, #0x1
 	strb	r0, [r1]
-	b	.L1708
-.L1925:
+	b	.L1713
+.L1930:
 	.align	2, 0
-.L1924:
+.L1929:
 	.word	gBattleResources
 	.word	gActiveBattler
 	.word	0x821
@@ -24423,21 +24479,21 @@ HandleTurnActionSelectionState:
 	.word	BattleScript_PrintCantEscapeFromBattle
 	.word	gBattleCommunication
 	.word	gBattleStruct
-.L1782:
-	ldr	r2, .L1926
-	ldr	r0, .L1926+0x4
+.L1787:
+	ldr	r2, .L1931
+	ldr	r0, .L1931+0x4
 	ldrb	r1, [r0]
 	add	r1, r1, r2
-	b	.L1865
-.L1927:
+	b	.L1870
+.L1932:
 	.align	2, 0
-.L1926:
+.L1931:
 	.word	gBattleCommunication
 	.word	gActiveBattler
-.L1784:
-	ldr	r4, .L1928
-	ldr	r1, .L1928+0x4
-	ldr	r3, .L1928+0x8
+.L1789:
+	ldr	r4, .L1933
+	ldr	r1, .L1933+0x4
+	ldr	r3, .L1933+0x8
 	ldrb	r5, [r3]
 	lsl	r0, r5, #0x2
 	add	r0, r0, r1
@@ -24454,140 +24510,140 @@ HandleTurnActionSelectionState:
 	ldr	r1, [r4]
 	and	r1, r1, r0
 	cmp	r1, #0
-	beq	.LCB16137
-	b	.L1711	@long jump
-.LCB16137:
-	ldr	r1, .L1928+0xc
+	beq	.LCB16206
+	b	.L1716	@long jump
+.LCB16206:
+	ldr	r1, .L1933+0xc
 	add	r0, r5, r1
 	ldrb	r0, [r0]
 	add	r2, r1, #0
 	cmp	r0, #0x14
-	bls	.LCB16144
-	b	.L1711	@long jump
-.LCB16144:
+	bls	.LCB16213
+	b	.L1716	@long jump
+.LCB16213:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L1928+0x10
+	ldr	r1, .L1933+0x10
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L1929:
+.L1934:
 	.align	2, 0
-.L1928:
+.L1933:
 	.word	gBattleControllerExecFlags
 	.word	gBitTable
 	.word	gActiveBattler
 	.word	gChosenActionByBattler
-	.word	.L1822
+	.word	.L1827
 	.align	2, 0
 	.align	2, 0
-.L1822:
-	.word	.L1787
-	.word	.L1805
-	.word	.L1809
-	.word	.L1812
-	.word	.L1813
+.L1827:
+	.word	.L1792
+	.word	.L1810
 	.word	.L1814
-	.word	.L1815
+	.word	.L1817
 	.word	.L1818
 	.word	.L1819
 	.word	.L1820
-	.word	.L1711
-	.word	.L1711
-	.word	.L1711
-	.word	.L1711
-	.word	.L1711
-	.word	.L1711
-	.word	.L1711
-	.word	.L1711
-	.word	.L1711
-	.word	.L1711
-	.word	.L1821
-.L1787:
-	ldr	r0, .L1930
+	.word	.L1823
+	.word	.L1824
+	.word	.L1825
+	.word	.L1716
+	.word	.L1716
+	.word	.L1716
+	.word	.L1716
+	.word	.L1716
+	.word	.L1716
+	.word	.L1716
+	.word	.L1716
+	.word	.L1716
+	.word	.L1716
+	.word	.L1826
+.L1792:
+	ldr	r0, .L1935
 	ldr	r0, [r0]
 	ldrb	r3, [r3]
 	lsl	r1, r3, #0x9
-	ldr	r4, .L1930+0x4
+	ldr	r4, .L1935+0x4
 	add	r0, r0, r4
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	cmp	r1, #0x3
-	blt	.L1797	@cond_branch
+	blt	.L1802	@cond_branch
 	cmp	r1, #0x9
-	ble	.L1795	@cond_branch
+	ble	.L1800	@cond_branch
 	cmp	r1, #0xf
-	beq	.L1796	@cond_branch
-	b	.L1797
-.L1931:
+	beq	.L1801	@cond_branch
+	b	.L1802
+.L1936:
 	.align	2, 0
-.L1930:
+.L1935:
 	.word	gBattleResources
 	.word	0x821
-.L1795:
+.L1800:
 	add	r0, r3, r2
 	strb	r1, [r0]
-	b	.L1708
-.L1796:
+	b	.L1713
+.L1801:
 	add	r1, r3, r2
 	mov	r0, #0x2
 	strb	r0, [r1]
 	bl	sub_803CDF8
-	b	.L1708
-.L1797:
+	b	.L1713
+.L1802:
 	mov	r0, #0x2
 	bl	sub_818603C
-	ldr	r7, .L1932
+	ldr	r7, .L1937
 	ldr	r1, [r7]
-	ldr	r6, .L1932+0x4
+	ldr	r6, .L1937+0x4
 	ldrb	r4, [r6]
 	lsl	r3, r4, #0x9
-	ldr	r0, .L1932+0x8
+	ldr	r0, .L1937+0x8
 	mov	r9, r0
 	add	r0, r1, r0
 	add	r0, r0, r3
 	ldrb	r2, [r0]
-	ldr	r0, .L1932+0xc
+	ldr	r0, .L1937+0xc
 	mov	sl, r0
 	add	r1, r1, sl
 	add	r1, r1, r3
 	ldrb	r0, [r1]
 	lsl	r0, r0, #0x8
 	orr	r2, r2, r0
-	ldr	r0, .L1932+0x10
+	ldr	r0, .L1937+0x10
 	cmp	r2, r0
-	bne	.L1798	@cond_branch
-	ldr	r0, .L1932+0x14
+	bne	.L1803	@cond_branch
+	ldr	r0, .L1937+0x14
 	add	r0, r4, r0
 	mov	r1, #0x1
 	strb	r1, [r0]
 	ldrb	r0, [r6]
 	bl	RecordedBattle_ClearBattlerAction
-	b	.L1711
-.L1933:
+	b	.L1716
+.L1938:
 	.align	2, 0
-.L1932:
+.L1937:
 	.word	gBattleResources
 	.word	gActiveBattler
 	.word	0x822
 	.word	0x823
 	.word	0xffff
 	.word	gBattleCommunication
-.L1798:
+.L1803:
 	bl	TrySetCantSelectMoveBattleScript
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L1800	@cond_branch
+	beq	.L1805	@cond_branch
 	ldrb	r0, [r6]
 	mov	r1, #0x1
 	bl	RecordedBattle_ClearBattlerAction
-	ldr	r0, .L1934
+	ldr	r0, .L1939
 	ldrb	r1, [r6]
 	add	r1, r1, r0
 	mov	r3, #0x0
 	mov	r0, #0x6
 	strb	r0, [r1]
 	ldrb	r1, [r6]
-	ldr	r2, .L1934+0x4
+	ldr	r2, .L1939+0x4
 	ldr	r0, [r2]
 	add	r1, r1, r0
 	add	r1, r1, #0x54
@@ -24595,7 +24651,7 @@ HandleTurnActionSelectionState:
 	ldr	r1, [r7]
 	ldrb	r0, [r6]
 	lsl	r0, r0, #0x9
-	ldr	r4, .L1934+0x8
+	ldr	r4, .L1939+0x8
 	add	r1, r1, r4
 	add	r1, r1, r0
 	strb	r3, [r1]
@@ -24605,21 +24661,21 @@ HandleTurnActionSelectionState:
 	add	r1, r1, #0x83
 	mov	r0, #0x2
 	strb	r0, [r1]
-	b	.L1708
-.L1935:
+	b	.L1713
+.L1940:
 	.align	2, 0
-.L1934:
+.L1939:
 	.word	gBattleCommunication
 	.word	gBattleStruct
 	.word	0x821
-.L1800:
-	ldr	r0, .L1936
+.L1805:
+	ldr	r0, .L1941
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	lsl	r1, r1, #0xa
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1802	@cond_branch
+	bne	.L1807	@cond_branch
 	ldrb	r0, [r6]
 	ldr	r1, [r7]
 	lsl	r2, r0, #0x9
@@ -24634,9 +24690,9 @@ HandleTurnActionSelectionState:
 	add	r1, r1, r2
 	ldrb	r1, [r1]
 	bl	RecordedBattle_SetBattlerAction
-.L1802:
+.L1807:
 	ldrb	r1, [r6]
-	ldr	r0, .L1936+0x4
+	ldr	r0, .L1941+0x4
 	mov	r8, r0
 	ldr	r2, [r0]
 	add	r2, r1, r2
@@ -24649,11 +24705,11 @@ HandleTurnActionSelectionState:
 	mov	r0, #0x7f
 	and	r0, r0, r1
 	strb	r0, [r2]
-	ldr	r0, .L1936+0x8
+	ldr	r0, .L1941+0x8
 	ldrb	r2, [r6]
 	lsl	r4, r2, #0x1
 	add	r4, r4, r0
-	ldr	r3, .L1936+0xc
+	ldr	r3, .L1941+0xc
 	mov	r1, r8
 	ldr	r5, [r1]
 	add	r0, r2, r5
@@ -24684,74 +24740,74 @@ HandleTurnActionSelectionState:
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1803	@cond_branch
+	beq	.L1808	@cond_branch
 	mov	r4, r8
 	ldr	r2, [r4]
 	mov	r0, #0xa6
 	lsl	r0, r0, #0x2
 	add	r2, r2, r0
-	ldr	r1, .L1936+0x10
+	ldr	r1, .L1941+0x10
 	lsl	r0, r3, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	ldrb	r1, [r2]
 	orr	r0, r0, r1
 	strb	r0, [r2]
-.L1803:
-	ldr	r0, .L1936+0x14
+.L1808:
+	ldr	r0, .L1941+0x14
 	ldrb	r1, [r6]
-	b	.L1866
-.L1937:
+	b	.L1871
+.L1942:
 	.align	2, 0
-.L1936:
+.L1941:
 	.word	gBattleTypeFlags
 	.word	gBattleStruct
 	.word	gChosenMoveByBattler
 	.word	gBattleMons
 	.word	gBitTable
 	.word	gBattleCommunication
-.L1805:
-	ldr	r0, .L1938
+.L1810:
+	ldr	r0, .L1943
 	ldr	r1, [r0]
-	ldr	r5, .L1938+0x4
+	ldr	r5, .L1943+0x4
 	ldrb	r4, [r5]
 	lsl	r2, r4, #0x9
-	ldr	r3, .L1938+0x8
+	ldr	r3, .L1943+0x8
 	add	r0, r1, r3
 	add	r0, r0, r2
 	ldrb	r3, [r0]
-	ldr	r6, .L1938+0xc
+	ldr	r6, .L1943+0xc
 	add	r1, r1, r6
 	add	r1, r1, r2
 	ldrb	r0, [r1]
 	lsl	r0, r0, #0x8
 	orr	r3, r3, r0
 	cmp	r3, #0
-	bne	.LCB16432
-	b	.L1867	@long jump
-.LCB16432:
-	ldr	r0, .L1938+0x10
+	bne	.LCB16501
+	b	.L1872	@long jump
+.LCB16501:
+	ldr	r0, .L1943+0x10
 	strh	r3, [r0]
 	ldrh	r0, [r0]
 	bl	ItemId_GetPocket
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x3
-	bne	.L1808	@cond_branch
-	ldr	r0, .L1938+0x14
+	bne	.L1813	@cond_branch
+	ldr	r0, .L1943+0x14
 	ldr	r0, [r0]
 	mov	r1, #0xa5
 	lsl	r1, r1, #0x2
 	add	r0, r0, r1
 	mov	r1, #0x1
 	strb	r1, [r0]
-.L1808:
-	ldr	r0, .L1938+0x18
+.L1813:
+	ldr	r0, .L1943+0x18
 	ldrb	r1, [r5]
-	b	.L1866
-.L1939:
+	b	.L1871
+.L1944:
 	.align	2, 0
-.L1938:
+.L1943:
 	.word	gBattleResources
 	.word	gActiveBattler
 	.word	0x821
@@ -24759,161 +24815,161 @@ HandleTurnActionSelectionState:
 	.word	gLastUsedItem
 	.word	gBattleStruct
 	.word	gBattleCommunication
-.L1809:
-	ldr	r0, .L1940
+.L1814:
+	ldr	r0, .L1945
 	ldr	r0, [r0]
-	ldr	r4, .L1940+0x4
+	ldr	r4, .L1945+0x4
 	ldrb	r2, [r4]
 	lsl	r1, r2, #0x9
-	ldr	r3, .L1940+0x8
+	ldr	r3, .L1945+0x8
 	add	r0, r0, r3
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0x6
-	bne	.L1810	@cond_branch
-	ldr	r0, .L1940+0xc
+	bne	.L1815	@cond_branch
+	ldr	r0, .L1945+0xc
 	add	r0, r2, r0
 	mov	r1, #0x1
 	strb	r1, [r0]
 	ldrb	r0, [r4]
 	bl	RecordedBattle_ClearBattlerAction
-	b	.L1711
-.L1941:
+	b	.L1716
+.L1946:
 	.align	2, 0
-.L1940:
+.L1945:
 	.word	gBattleResources
 	.word	gActiveBattler
 	.word	0x821
 	.word	gBattleCommunication
-.L1810:
+.L1815:
 	bl	sub_803CDF8
-	b	.L1868
-.L1812:
-	ldr	r2, .L1942
+	b	.L1873
+.L1817:
+	ldr	r2, .L1947
 	ldr	r0, [r2]
 	mov	r1, #0x80
 	lsl	r1, r1, #0x8
 	orr	r0, r0, r1
 	str	r0, [r2]
-	ldr	r2, .L1942+0x4
-	ldr	r0, .L1942+0x8
+	ldr	r2, .L1947+0x4
+	ldr	r0, .L1947+0x8
 	ldrb	r1, [r0]
 	add	r1, r1, r2
-	b	.L1865
-.L1943:
+	b	.L1870
+.L1948:
 	.align	2, 0
-.L1942:
+.L1947:
 	.word	gHitMarker
 	.word	gBattleCommunication
 	.word	gActiveBattler
-.L1813:
-	ldr	r2, .L1944
-	ldr	r0, .L1944+0x4
+.L1818:
+	ldr	r2, .L1949
+	ldr	r0, .L1949+0x4
 	ldrb	r1, [r0]
 	add	r1, r1, r2
-	b	.L1865
-.L1945:
+	b	.L1870
+.L1950:
 	.align	2, 0
-.L1944:
+.L1949:
 	.word	gBattleCommunication
 	.word	gActiveBattler
-.L1814:
-	ldr	r2, .L1946
-	ldr	r0, .L1946+0x4
+.L1819:
+	ldr	r2, .L1951
+	ldr	r0, .L1951+0x4
 	ldrb	r1, [r0]
 	add	r1, r1, r2
-	b	.L1865
-.L1947:
+	b	.L1870
+.L1952:
 	.align	2, 0
-.L1946:
+.L1951:
 	.word	gBattleCommunication
 	.word	gActiveBattler
-.L1815:
-	ldr	r0, .L1948
+.L1820:
+	ldr	r0, .L1953
 	ldr	r1, [r0]
-	ldr	r0, .L1948+0x4
+	ldr	r0, .L1953+0x4
 	ldrb	r4, [r0]
 	lsl	r3, r4, #0x9
-	ldr	r6, .L1948+0x8
+	ldr	r6, .L1953+0x8
 	add	r0, r1, r6
 	add	r0, r0, r3
 	ldrb	r2, [r0]
-	ldr	r0, .L1948+0xc
+	ldr	r0, .L1953+0xc
 	add	r1, r1, r0
 	add	r1, r1, r3
 	ldrb	r0, [r1]
 	lsl	r0, r0, #0x8
 	orr	r2, r2, r0
 	cmp	r2, #0
-	bne	.LCB16578
-	b	.L1867	@long jump
-.LCB16578:
-	ldr	r1, .L1948+0x10
+	bne	.LCB16647
+	b	.L1872	@long jump
+.LCB16647:
+	ldr	r1, .L1953+0x10
 	add	r1, r4, r1
-	b	.L1865
-.L1949:
+	b	.L1870
+.L1954:
 	.align	2, 0
-.L1948:
+.L1953:
 	.word	gBattleResources
 	.word	gActiveBattler
 	.word	0x821
 	.word	0x822
 	.word	gBattleCommunication
-.L1818:
-	ldr	r2, .L1950
-	ldr	r0, .L1950+0x4
+.L1823:
+	ldr	r2, .L1955
+	ldr	r0, .L1955+0x4
 	ldrb	r1, [r0]
 	add	r1, r1, r2
-	b	.L1865
-.L1951:
+	b	.L1870
+.L1956:
 	.align	2, 0
-.L1950:
+.L1955:
 	.word	gBattleCommunication
 	.word	gActiveBattler
-.L1819:
-	ldr	r2, .L1952
+.L1824:
+	ldr	r2, .L1957
 	ldr	r0, [r2]
 	mov	r1, #0x80
 	lsl	r1, r1, #0x8
 	orr	r0, r0, r1
 	str	r0, [r2]
-	ldr	r2, .L1952+0x4
-	ldr	r0, .L1952+0x8
+	ldr	r2, .L1957+0x4
+	ldr	r0, .L1957+0x8
 	ldrb	r1, [r0]
 	add	r1, r1, r2
-	b	.L1865
-.L1953:
+	b	.L1870
+.L1958:
 	.align	2, 0
-.L1952:
+.L1957:
 	.word	gHitMarker
 	.word	gBattleCommunication
 	.word	gActiveBattler
-.L1820:
-	ldr	r2, .L1954
-	ldr	r0, .L1954+0x4
+.L1825:
+	ldr	r2, .L1959
+	ldr	r0, .L1959+0x4
 	ldrb	r1, [r0]
 	add	r1, r1, r2
-	b	.L1865
-.L1955:
+	b	.L1870
+.L1960:
 	.align	2, 0
-.L1954:
+.L1959:
 	.word	gBattleCommunication
 	.word	gActiveBattler
-.L1821:
-	ldr	r1, .L1956
-	ldr	r0, .L1956+0x4
+.L1826:
+	ldr	r1, .L1961
+	ldr	r0, .L1961+0x4
 	ldrb	r0, [r0]
 	add	r0, r0, r1
-	b	.L1856
-.L1957:
+	b	.L1861
+.L1962:
 	.align	2, 0
-.L1956:
+.L1961:
 	.word	gBattleCommunication
 	.word	gActiveBattler
-.L1824:
-	ldr	r3, .L1958
-	ldr	r5, .L1958+0x4
-	ldr	r0, .L1958+0x8
+.L1829:
+	ldr	r3, .L1963
+	ldr	r5, .L1963+0x4
+	ldr	r0, .L1963+0x8
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r5
@@ -24930,30 +24986,30 @@ HandleTurnActionSelectionState:
 	ldr	r0, [r3]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB16678
-	b	.L1711	@long jump
-.LCB16678:
+	beq	.LCB16747
+	b	.L1716	@long jump
+.LCB16747:
 	bl	AllAtActionConfirmed
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	neg	r1, r0
 	orr	r1, r1, r0
 	lsr	r4, r1, #0x1f
-	ldr	r0, .L1958+0xc
+	ldr	r0, .L1963+0xc
 	ldr	r0, [r0]
 	mov	r1, #0x41
 	and	r0, r0, r1
 	cmp	r0, #0x1
-	bne	.L1829	@cond_branch
+	bne	.L1834	@cond_branch
 	mov	r1, #0x2
 	mov	r0, #0x2
 	and	r0, r0, r6
 	cmp	r0, #0
-	bne	.L1829	@cond_branch
+	bne	.L1834	@cond_branch
 	add	r0, r6, #0
 	eor	r0, r0, r1
 	bl	GetBattlerAtPosition
-	ldr	r1, .L1958+0x10
+	ldr	r1, .L1963+0x10
 	ldr	r1, [r1]
 	add	r1, r1, #0x8a
 	ldrb	r1, [r1]
@@ -24963,49 +25019,49 @@ HandleTurnActionSelectionState:
 	ldr	r0, [r0]
 	and	r1, r1, r0
 	cmp	r1, #0
-	beq	.L1828	@cond_branch
-.L1829:
+	beq	.L1833	@cond_branch
+.L1834:
 	mov	r0, #0x0
 	mov	r1, #0x0
 	add	r2, r4, #0
 	bl	BtlController_EmitLinkStandbyMsg
-	b	.L1830
-.L1959:
+	b	.L1835
+.L1964:
 	.align	2, 0
-.L1958:
+.L1963:
 	.word	gBattleControllerExecFlags
 	.word	gBitTable
 	.word	gActiveBattler
 	.word	gBattleTypeFlags
 	.word	gBattleStruct
-.L1828:
+.L1833:
 	mov	r0, #0x0
 	mov	r1, #0x1
 	add	r2, r4, #0
 	bl	BtlController_EmitLinkStandbyMsg
-.L1830:
-	ldr	r4, .L1960
+.L1835:
+	ldr	r4, .L1965
 	ldrb	r0, [r4]
 	bl	MarkBattlerForControllerExec
-.L1868:
-	ldr	r0, .L1960+0x4
+.L1873:
+	ldr	r0, .L1965+0x4
 	ldrb	r1, [r4]
-.L1866:
+.L1871:
 	add	r1, r1, r0
-.L1865:
+.L1870:
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
 	strb	r0, [r1]
-	b	.L1711
-.L1961:
+	b	.L1716
+.L1966:
 	.align	2, 0
-.L1960:
+.L1965:
 	.word	gActiveBattler
 	.word	gBattleCommunication
-.L1831:
-	ldr	r3, .L1962
-	ldr	r1, .L1962+0x4
-	ldr	r0, .L1962+0x8
+.L1836:
+	ldr	r3, .L1967
+	ldr	r1, .L1967+0x4
+	ldr	r0, .L1967+0x8
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
@@ -25022,48 +25078,48 @@ HandleTurnActionSelectionState:
 	ldr	r0, [r3]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB16789
-	b	.L1711	@long jump
-.LCB16789:
-	ldr	r1, .L1962+0xc
+	beq	.LCB16858
+	b	.L1716	@long jump
+.LCB16858:
+	ldr	r1, .L1967+0xc
 	ldrb	r0, [r1, #0x4]
 	add	r0, r0, #0x1
 	strb	r0, [r1, #0x4]
-	b	.L1711
-.L1963:
+	b	.L1716
+.L1968:
 	.align	2, 0
-.L1962:
+.L1967:
 	.word	gBattleControllerExecFlags
 	.word	gBitTable
 	.word	gActiveBattler
 	.word	gBattleCommunication
-.L1833:
-	ldr	r5, .L1964
+.L1838:
+	ldr	r5, .L1969
 	ldrb	r2, [r5]
-	ldr	r0, .L1964+0x4
+	ldr	r0, .L1969+0x4
 	ldr	r0, [r0]
 	add	r1, r2, r0
 	add	r0, r1, #0
 	add	r0, r0, #0x54
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L1840	@cond_branch
-	ldr	r0, .L1964+0x8
+	beq	.L1845	@cond_branch
+	ldr	r0, .L1969+0x8
 	add	r0, r2, r0
 	add	r1, r1, #0x83
 	ldrb	r1, [r1]
 	strb	r1, [r0]
-	b	.L1711
-.L1965:
+	b	.L1716
+.L1970:
 	.align	2, 0
-.L1964:
+.L1969:
 	.word	gActiveBattler
 	.word	gBattleStruct
 	.word	gBattleCommunication
-.L1837:
-	ldr	r3, .L1966
-	ldr	r1, .L1966+0x4
-	ldr	r0, .L1966+0x8
+.L1842:
+	ldr	r3, .L1971
+	ldr	r1, .L1971+0x4
+	ldr	r0, .L1971+0x8
 	ldrb	r4, [r0]
 	lsl	r0, r4, #0x2
 	add	r0, r0, r1
@@ -25080,61 +25136,61 @@ HandleTurnActionSelectionState:
 	ldr	r0, [r3]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1711	@cond_branch
-.L1867:
-	ldr	r0, .L1966+0xc
+	bne	.L1716	@cond_branch
+.L1872:
+	ldr	r0, .L1971+0xc
 	add	r0, r4, r0
-.L1856:
+.L1861:
 	mov	r1, #0x1
 	strb	r1, [r0]
-	b	.L1711
-.L1967:
+	b	.L1716
+.L1972:
 	.align	2, 0
-.L1966:
+.L1971:
 	.word	gBattleControllerExecFlags
 	.word	gBitTable
 	.word	gActiveBattler
 	.word	gBattleCommunication
-.L1839:
-	ldr	r5, .L1968
+.L1844:
+	ldr	r5, .L1973
 	ldrb	r2, [r5]
-	ldr	r4, .L1968+0x4
+	ldr	r4, .L1973+0x4
 	ldr	r0, [r4]
 	add	r0, r2, r0
 	add	r0, r0, #0x54
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L1840	@cond_branch
-	ldr	r0, .L1968+0x8
+	beq	.L1845	@cond_branch
+	ldr	r0, .L1973+0x8
 	ldr	r0, [r0]
 	lsl	r1, r2, #0x9
-	ldr	r3, .L1968+0xc
+	ldr	r3, .L1973+0xc
 	add	r0, r0, r3
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0xd
-	bne	.L1841	@cond_branch
-	ldr	r2, .L1968+0x10
+	bne	.L1846	@cond_branch
+	ldr	r2, .L1973+0x10
 	ldr	r0, [r2]
 	mov	r1, #0x80
 	lsl	r1, r1, #0x8
 	orr	r0, r0, r1
 	str	r0, [r2]
-	ldr	r1, .L1968+0x14
+	ldr	r1, .L1973+0x14
 	ldrb	r0, [r5]
 	add	r0, r0, r1
 	mov	r1, #0x3
 	strb	r1, [r0]
-	ldr	r1, .L1968+0x18
+	ldr	r1, .L1973+0x18
 	ldrb	r0, [r5]
-.L1857:
+.L1862:
 	add	r0, r0, r1
 	mov	r1, #0x4
 	strb	r1, [r0]
-	b	.L1711
-.L1969:
+	b	.L1716
+.L1974:
 	.align	2, 0
-.L1968:
+.L1973:
 	.word	gActiveBattler
 	.word	gBattleStruct
 	.word	gBattleResources
@@ -25142,11 +25198,11 @@ HandleTurnActionSelectionState:
 	.word	gHitMarker
 	.word	gChosenActionByBattler
 	.word	gBattleCommunication
-.L1841:
+.L1846:
 	add	r0, r2, #0
 	mov	r1, #0x1
 	bl	RecordedBattle_ClearBattlerAction
-	ldr	r2, .L1970
+	ldr	r2, .L1975
 	ldrb	r0, [r5]
 	add	r2, r0, r2
 	ldr	r1, [r4]
@@ -25154,23 +25210,23 @@ HandleTurnActionSelectionState:
 	add	r0, r0, #0x83
 	ldrb	r0, [r0]
 	strb	r0, [r2]
-	b	.L1711
-.L1971:
+	b	.L1716
+.L1976:
 	.align	2, 0
-.L1970:
+.L1975:
 	.word	gBattleCommunication
-.L1840:
-	ldr	r0, .L1972
+.L1845:
+	ldr	r0, .L1977
 	strb	r2, [r0]
-	ldr	r7, .L1972+0x4
-	ldr	r6, .L1972+0x8
+	ldr	r7, .L1977+0x4
+	ldr	r6, .L1977+0x8
 	ldrb	r0, [r5]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r6
 	ldr	r4, [r0]
 	str	r4, [r7]
-	ldr	r3, .L1972+0xc
-	ldr	r1, .L1972+0x10
+	ldr	r3, .L1977+0xc
+	ldr	r1, .L1977+0x10
 	ldrb	r0, [r5]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
@@ -25187,76 +25243,76 @@ HandleTurnActionSelectionState:
 	ldr	r0, [r3]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1844	@cond_branch
-	ldr	r0, .L1972+0x14
+	bne	.L1849	@cond_branch
+	ldr	r0, .L1977+0x14
 	ldrb	r1, [r4]
 	lsl	r1, r1, #0x2
 	add	r1, r1, r0
 	ldr	r0, [r1]
 	bl	_call_via_r0
-.L1844:
+.L1849:
 	ldrb	r0, [r5]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r6
 	ldr	r1, [r7]
 	str	r1, [r0]
-.L1711:
-	ldr	r0, .L1972+0x18
+.L1716:
+	ldr	r0, .L1977+0x18
 	ldrb	r1, [r0]
 	add	r1, r1, #0x1
 	strb	r1, [r0]
-	ldr	r0, .L1972+0x1c
+	ldr	r0, .L1977+0x1c
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	add	r5, r0, #0
 	ldrb	r4, [r5]
 	cmp	r1, r4
-	bcs	.LCB17016
-	bl	.L1712	@far jump
-.LCB17016:
-.L1710:
-	ldr	r0, .L1972+0x20
+	bcs	.LCB17085
+	bl	.L1717	@far jump
+.LCB17085:
+.L1715:
+	ldr	r0, .L1977+0x20
 	ldrb	r0, [r0, #0x4]
 	ldrb	r6, [r5]
 	cmp	r0, r6
-	bne	.L1708	@cond_branch
+	bne	.L1713	@cond_branch
 	mov	r0, #0x1
 	bl	sub_818603C
-	ldr	r1, .L1972+0x24
-	ldr	r0, .L1972+0x28
+	ldr	r1, .L1977+0x24
+	ldr	r0, .L1977+0x28
 	str	r0, [r1]
-	ldr	r0, .L1972+0x2c
+	ldr	r0, .L1977+0x2c
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	lsl	r1, r1, #0xf
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1708	@cond_branch
+	beq	.L1713	@cond_branch
 	mov	r4, #0x0
 	ldrb	r5, [r5]
 	cmp	r4, r5
-	bge	.L1708	@cond_branch
-.L1853:
-	ldr	r0, .L1972+0x30
+	bge	.L1713	@cond_branch
+.L1858:
+	ldr	r0, .L1977+0x30
 	add	r0, r4, r0
 	ldrb	r0, [r0]
 	cmp	r0, #0x2
-	bne	.L1852	@cond_branch
+	bne	.L1857	@cond_branch
 	lsl	r0, r4, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r1, .L1972+0x34
+	ldr	r1, .L1977+0x34
 	ldr	r1, [r1]
 	add	r1, r4, r1
 	add	r1, r1, #0x5c
 	ldrb	r1, [r1]
 	bl	SwitchPartyOrderInGameMulti
-.L1852:
+.L1857:
 	add	r4, r4, #0x1
-	ldr	r0, .L1972+0x1c
+	ldr	r0, .L1977+0x1c
 	ldrb	r0, [r0]
 	cmp	r4, r0
-	blt	.L1853	@cond_branch
-.L1708:
+	blt	.L1858	@cond_branch
+.L1713:
 	add	sp, sp, #0x38
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -25265,9 +25321,9 @@ HandleTurnActionSelectionState:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1973:
+.L1978:
 	.align	2, 0
-.L1972:
+.L1977:
 	.word	gBattlerAttacker
 	.word	gBattlescriptCurrInstr
 	.word	gSelectionBattleScripts
@@ -25291,37 +25347,37 @@ AllAtActionConfirmed:
 	push	{r4, r5, lr}
 	mov	r3, #0x0
 	mov	r1, #0x0
-	ldr	r0, .L1984
+	ldr	r0, .L1989
 	ldrb	r2, [r0]
 	add	r5, r0, #0
 	cmp	r3, r2
-	bge	.L1976	@cond_branch
-	ldr	r4, .L1984+0x4
-.L1978:
+	bge	.L1981	@cond_branch
+	ldr	r4, .L1989+0x4
+.L1983:
 	add	r0, r1, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0x5
-	bne	.L1977	@cond_branch
+	bne	.L1982	@cond_branch
 	add	r3, r3, #0x1
-.L1977:
+.L1982:
 	add	r1, r1, #0x1
 	cmp	r1, r2
-	blt	.L1978	@cond_branch
-.L1976:
+	blt	.L1983	@cond_branch
+.L1981:
 	add	r0, r3, #0x1
 	ldrb	r5, [r5]
 	cmp	r0, r5
-	beq	.L1981	@cond_branch
+	beq	.L1986	@cond_branch
 	mov	r0, #0x0
-	b	.L1983
-.L1985:
+	b	.L1988
+.L1990:
 	.align	2, 0
-.L1984:
+.L1989:
 	.word	gBattlersCount
 	.word	gBattleCommunication
-.L1981:
+.L1986:
 	mov	r0, #0x1
-.L1983:
+.L1988:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
@@ -25334,16 +25390,16 @@ sub_803CDF8:
 	push	{r4, r5, r6, r7, lr}
 	mov	r7, r8
 	push	{r7}
-	ldr	r7, .L1988
+	ldr	r7, .L1993
 	ldrb	r2, [r7]
-	ldr	r6, .L1988+0x4
+	ldr	r6, .L1993+0x4
 	ldr	r1, [r6]
 	add	r1, r2, r1
 	add	r1, r1, #0x5c
-	ldr	r5, .L1988+0x8
+	ldr	r5, .L1993+0x8
 	ldr	r0, [r5]
 	lsl	r2, r2, #0x9
-	ldr	r3, .L1988+0xc
+	ldr	r3, .L1993+0xc
 	add	r0, r0, r3
 	add	r0, r0, r2
 	ldrb	r0, [r0]
@@ -25355,12 +25411,12 @@ sub_803CDF8:
 	add	r1, r1, r2
 	ldrb	r1, [r1]
 	bl	RecordedBattle_SetBattlerAction
-	ldr	r0, .L1988+0x10
+	ldr	r0, .L1993+0x10
 	ldr	r0, [r0]
 	mov	r1, #0x42
 	and	r0, r0, r1
 	cmp	r0, #0x42
-	bne	.L1987	@cond_branch
+	bne	.L1992	@cond_branch
 	ldrb	r0, [r7]
 	ldr	r2, [r6]
 	lsl	r1, r0, #0x1
@@ -25379,7 +25435,7 @@ sub_803CDF8:
 	add	r2, r2, #0x60
 	ldr	r0, [r5]
 	lsl	r1, r1, #0x9
-	ldr	r3, .L1988+0x14
+	ldr	r3, .L1993+0x14
 	mov	ip, r3
 	add	r0, r0, ip
 	add	r0, r0, r1
@@ -25398,7 +25454,7 @@ sub_803CDF8:
 	add	r0, r0, #0x61
 	ldr	r1, [r5]
 	lsl	r2, r2, #0x9
-	ldr	r4, .L1988+0x18
+	ldr	r4, .L1993+0x18
 	mov	r8, r4
 	add	r1, r1, r8
 	add	r1, r1, r2
@@ -25448,15 +25504,15 @@ sub_803CDF8:
 	add	r2, r2, r0
 	ldrb	r0, [r2]
 	strb	r0, [r1]
-.L1987:
+.L1992:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L1989:
+.L1994:
 	.align	2, 0
-.L1988:
+.L1993:
 	.word	gActiveBattler
 	.word	gBattleStruct
 	.word	gBattleResources
@@ -25476,14 +25532,14 @@ SwapTurnOrder:
 	lsr	r0, r0, #0x18
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
-	ldr	r2, .L1991
+	ldr	r2, .L1996
 	add	r4, r0, r2
 	ldrb	r5, [r4]
 	add	r2, r1, r2
 	ldrb	r3, [r2]
 	strb	r3, [r4]
 	strb	r5, [r2]
-	ldr	r2, .L1991+0x4
+	ldr	r2, .L1996+0x4
 	add	r0, r0, r2
 	ldrb	r5, [r0]
 	add	r1, r1, r2
@@ -25493,9 +25549,9 @@ SwapTurnOrder:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L1992:
+.L1997:
 	.align	2, 0
-.L1991:
+.L1996:
 	.word	gActionsByTurnOrder
 	.word	gBattlerByTurnOrder
 .Lfe72:
@@ -25512,7 +25568,7 @@ GetBattlerTotalSpeedStat:
 	push	{r5, r6, r7}
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
-	ldr	r1, .L2020
+	ldr	r1, .L2026
 	mov	r0, #0x5c
 	mul	r0, r0, r5
 	add	r0, r0, r1
@@ -25527,113 +25583,114 @@ GetBattlerTotalSpeedStat:
 	mov	r0, #0xd
 	bl	IsAbilityOnField
 	cmp	r0, #0
-	bne	.L1994	@cond_branch
+	bne	.L1999	@cond_branch
 	mov	r0, #0x4c
 	bl	IsAbilityOnField
 	cmp	r0, #0
-	bne	.L1994	@cond_branch
+	bne	.L1999	@cond_branch
 	cmp	r6, #0x21
-	bne	.L1995	@cond_branch
-	ldr	r0, .L2020+0x4
+	bne	.L2000	@cond_branch
+	ldr	r0, .L2026+0x4
 	ldrh	r1, [r0]
 	mov	r0, #0x7
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2018	@cond_branch
-.L1995:
+	bne	.L2024	@cond_branch
+.L2000:
 	cmp	r6, #0x22
-	bne	.L1997	@cond_branch
-	ldr	r0, .L2020+0x4
+	bne	.L2002	@cond_branch
+	ldr	r0, .L2026+0x4
 	ldrh	r1, [r0]
 	mov	r0, #0x60
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2018	@cond_branch
-.L1997:
+	bne	.L2024	@cond_branch
+.L2002:
 	cmp	r6, #0x92
-	bne	.L1999	@cond_branch
-	ldr	r0, .L2020+0x4
+	bne	.L2004	@cond_branch
+	ldr	r0, .L2026+0x4
 	ldrh	r1, [r0]
 	mov	r0, #0x18
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2018	@cond_branch
-.L1999:
+	bne	.L2024	@cond_branch
+.L2004:
 	cmp	r6, #0xca
-	bne	.L1994	@cond_branch
-	ldr	r0, .L2020+0x4
+	bne	.L1999	@cond_branch
+	ldr	r0, .L2026+0x4
 	ldrh	r1, [r0]
 	mov	r0, #0xc0
 	lsl	r0, r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1994	@cond_branch
-.L2018:
+	beq	.L1999	@cond_branch
+.L2024:
 	lsl	r4, r4, #0x1
-.L1994:
+.L1999:
 	cmp	r6, #0x5f
-	bne	.L2002	@cond_branch
-	ldr	r1, .L2020
+	bne	.L2007	@cond_branch
+	ldr	r1, .L2026
 	mov	r0, #0x5c
 	mul	r0, r0, r5
 	add	r1, r1, #0x50
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L2002	@cond_branch
+	beq	.L2007	@cond_branch
 	mov	r0, #0x96
 	mul	r0, r0, r4
 	mov	r1, #0x64
 	bl	__udivsi3
 	add	r4, r0, #0
-	lsl	r7, r5, #0x2
-	b	.L2003
-.L2021:
+	lsl	r0, r5, #0x2
+	mov	r8, r0
+	b	.L2008
+.L2027:
 	.align	2, 0
-.L2020:
+.L2026:
 	.word	gBattleMons
 	.word	gBattleWeather
-.L2002:
+.L2007:
 	cmp	r6, #0xcf
-	bne	.L2004	@cond_branch
-	ldr	r0, .L2022
+	bne	.L2009	@cond_branch
+	ldr	r0, .L2028
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	lsl	r1, r1, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2004	@cond_branch
+	beq	.L2009	@cond_branch
 	lsl	r4, r4, #0x1
-	lsl	r7, r5, #0x2
-	b	.L2003
-.L2023:
+	lsl	r1, r5, #0x2
+	mov	r8, r1
+	b	.L2008
+.L2029:
 	.align	2, 0
-.L2022:
+.L2028:
 	.word	gFieldStatuses
-.L2004:
-	lsl	r7, r5, #0x2
+.L2009:
+	lsl	r2, r5, #0x2
+	mov	r8, r2
 	cmp	r6, #0x70
-	bne	.L2003	@cond_branch
-	ldr	r0, .L2024
-	add	r1, r7, r5
+	bne	.L2008	@cond_branch
+	ldr	r0, .L2030
+	add	r1, r2, r5
 	lsl	r1, r1, #0x3
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0x1d]
 	cmp	r0, #0
-	beq	.L2003	@cond_branch
+	beq	.L2008	@cond_branch
 	lsr	r4, r4, #0x1
-.L2003:
-	ldr	r2, .L2024+0x4
+.L2008:
+	ldr	r2, .L2030+0x4
 	mov	r0, #0x5c
 	mov	r1, r5
 	mul	r1, r1, r0
 	mov	r9, r1
-	ldr	r0, .L2024+0x8
-	add	r0, r0, r9
-	mov	r8, r0
-	ldrb	r0, [r0, #0x1b]
-	lsl	r0, r0, #24
-	asr	r0, r0, #24
+	ldr	r7, .L2030+0x8
+	add	r7, r7, r9
+	mov	r0, #0x1b
+	ldrsb	r0, [r7, r0]
 	lsl	r0, r0, #0x1
 	add	r1, r0, r2
 	ldrb	r1, [r1]
@@ -25648,45 +25705,44 @@ GetBattlerTotalSpeedStat:
 	mov	r1, #0x0
 	bl	GetBattlerHoldEffect
 	cmp	r0, #0x18
-	beq	.L2019	@cond_branch
+	beq	.L2025	@cond_branch
 	add	r0, r5, #0
 	mov	r1, #0x0
 	bl	GetBattlerHoldEffect
 	cmp	r0, #0x63
-	beq	.L2019	@cond_branch
-	mov	r1, sl
-	cmp	r1, #0x59
-	bne	.L2010	@cond_branch
-.L2019:
-	lsr	r4, r4, #0x1
-	b	.L2009
+	beq	.L2025	@cond_branch
+	mov	r2, sl
+	cmp	r2, #0x59
+	bne	.L2015	@cond_branch
 .L2025:
+	lsr	r4, r4, #0x1
+	b	.L2014
+.L2031:
 	.align	2, 0
-.L2024:
+.L2030:
 	.word	gDisableStructs
 	.word	gStatStageRatios
 	.word	gBattleMons
-.L2010:
+.L2015:
 	mov	r0, sl
 	cmp	r0, #0x43
-	bne	.L2012	@cond_branch
+	bne	.L2017	@cond_branch
 	mov	r0, #0x96
 	mul	r0, r0, r4
 	mov	r1, #0x64
 	bl	__udivsi3
 	add	r4, r0, #0
-	b	.L2009
-.L2012:
+	b	.L2014
+.L2017:
 	mov	r1, sl
 	cmp	r1, #0x5d
-	bne	.L2009	@cond_branch
-	mov	r1, r8
-	ldrh	r0, [r1]
+	bne	.L2020	@cond_branch
+	ldrh	r0, [r7]
 	lsl	r0, r0, #0x15
 	lsr	r0, r0, #0x15
 	cmp	r0, #0x84
-	bne	.L2009	@cond_branch
-	ldr	r0, .L2026
+	bne	.L2014	@cond_branch
+	ldr	r0, .L2032
 	add	r0, r0, #0x54
 	add	r0, r0, r9
 	ldr	r0, [r0]
@@ -25694,12 +25750,40 @@ GetBattlerTotalSpeedStat:
 	lsl	r1, r1, #0xe
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2009	@cond_branch
+	bne	.L2014	@cond_branch
 	lsl	r4, r4, #0x1
-.L2009:
+.L2014:
+	mov	r2, sl
+	cmp	r2, #0x5d
+	bne	.L2020	@cond_branch
+	ldr	r2, .L2032
+	mov	r0, #0x5c
+	mov	r1, r5
+	mul	r1, r1, r0
+	add	r0, r1, r2
+	ldrh	r0, [r0]
+	lsl	r0, r0, #0x15
+	lsr	r0, r0, #0x15
+	cmp	r0, #0x84
+	bne	.L2020	@cond_branch
+	add	r0, r2, #0
+	add	r0, r0, #0x54
+	add	r0, r1, r0
+	ldr	r0, [r0]
+	mov	r1, #0x80
+	lsl	r1, r1, #0xe
+	and	r0, r0, r1
+	cmp	r0, #0
+	beq	.L2020	@cond_branch
+	mov	r0, #0x96
+	mul	r0, r0, r4
+	mov	r1, #0x64
+	bl	__udivsi3
+	add	r4, r0, #0
+.L2020:
 	add	r0, r5, #0
 	bl	GetBattlerPosition
-	ldr	r2, .L2026+0x4
+	ldr	r2, .L2032+0x4
 	mov	r1, #0x1
 	and	r1, r1, r0
 	lsl	r1, r1, #0x2
@@ -25709,21 +25793,21 @@ GetBattlerTotalSpeedStat:
 	lsl	r1, r1, #0x3
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2015	@cond_branch
+	beq	.L2021	@cond_branch
 	lsl	r4, r4, #0x1
-.L2015:
-	ldr	r0, .L2026+0x8
+.L2021:
+	ldr	r0, .L2032+0x8
 	ldr	r0, [r0]
 	ldr	r0, [r0, #0x4]
-	add	r0, r0, r7
+	add	r0, r0, r8
 	ldr	r0, [r0]
 	mov	r1, #0x4
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2016	@cond_branch
+	beq	.L2022	@cond_branch
 	lsl	r4, r4, #0x1
-.L2016:
-	ldr	r1, .L2026
+.L2022:
+	ldr	r1, .L2032
 	mov	r0, #0x5c
 	mul	r0, r0, r5
 	add	r1, r1, #0x50
@@ -25732,11 +25816,11 @@ GetBattlerTotalSpeedStat:
 	mov	r1, #0x40
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2017	@cond_branch
+	beq	.L2023	@cond_branch
 	cmp	r6, #0x5f
-	beq	.L2017	@cond_branch
+	beq	.L2023	@cond_branch
 	lsr	r4, r4, #0x1
-.L2017:
+.L2023:
 	add	r0, r4, #0
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -25745,9 +25829,9 @@ GetBattlerTotalSpeedStat:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L2027:
+.L2033:
 	.align	2, 0
-.L2026:
+.L2032:
 	.word	gBattleMons
 	.word	gSideStatuses
 	.word	gBattleResources
@@ -25760,22 +25844,22 @@ GetBattlerTotalSpeedStat:
 GetChosenMovePriority:
 	push	{lr}
 	add	r3, r0, #0
-	ldr	r0, .L2031
+	ldr	r0, .L2037
 	lsl	r1, r3, #0x4
 	add	r1, r1, r0
 	ldrb	r0, [r1]
 	lsl	r0, r0, #0x1a
 	cmp	r0, #0
-	bge	.L2029	@cond_branch
+	bge	.L2035	@cond_branch
 	mov	r1, #0xa5
-	b	.L2030
-.L2032:
+	b	.L2036
+.L2038:
 	.align	2, 0
-.L2031:
+.L2037:
 	.word	gProtectStructs
-.L2029:
-	ldr	r2, .L2033
-	ldr	r0, .L2033+0x4
+.L2035:
+	ldr	r2, .L2039
+	ldr	r0, .L2039+0x4
 	ldr	r0, [r0]
 	add	r0, r3, r0
 	add	r0, r0, #0x7f
@@ -25787,16 +25871,16 @@ GetChosenMovePriority:
 	add	r2, r2, #0xc
 	add	r0, r0, r2
 	ldrh	r1, [r0]
-.L2030:
+.L2036:
 	add	r0, r3, #0
 	bl	GetMovePriority
 	lsl	r0, r0, #0x18
 	asr	r0, r0, #0x18
 	pop	{r1}
 	bx	r1
-.L2034:
+.L2040:
 	.align	2, 0
-.L2033:
+.L2039:
 	.word	gBattleMons
 	.word	gBattleStruct
 .Lfe74:
@@ -25810,7 +25894,7 @@ GetMovePriority:
 	add	r7, r0, #0
 	lsl	r1, r1, #0x10
 	lsr	r6, r1, #0x10
-	ldr	r1, .L2060
+	ldr	r1, .L2066
 	lsl	r0, r6, #0x2
 	add	r0, r0, r6
 	lsl	r0, r0, #0x2
@@ -25820,113 +25904,113 @@ GetMovePriority:
 	lsr	r0, r0, #0x18
 	bl	GetBattlerAbility
 	cmp	r0, #0xb1
-	bne	.L2036	@cond_branch
+	bne	.L2042	@cond_branch
 	ldrb	r0, [r4, #0x3]
 	cmp	r0, #0x2
-	bne	.L2036	@cond_branch
-	ldr	r1, .L2060+0x4
+	bne	.L2042	@cond_branch
+	ldr	r1, .L2066+0x4
 	mov	r0, #0x5c
 	mul	r0, r0, r7
 	add	r0, r0, r1
 	ldrh	r1, [r0, #0x2a]
 	ldrh	r0, [r0, #0x2e]
 	cmp	r1, r0
-	bne	.L2036	@cond_branch
+	bne	.L2042	@cond_branch
 	lsl	r0, r5, #0x18
 	mov	r1, #0x80
 	lsl	r1, r1, #0x11
-	b	.L2059
-.L2061:
+	b	.L2065
+.L2067:
 	.align	2, 0
-.L2060:
+.L2066:
 	.word	gBattleMoves
 	.word	gBattleMons
-.L2036:
+.L2042:
 	lsl	r4, r7, #0x18
 	lsr	r0, r4, #0x18
 	bl	GetBattlerAbility
 	cmp	r0, #0x9e
-	bne	.L2038	@cond_branch
-	ldr	r0, .L2062
+	bne	.L2044	@cond_branch
+	ldr	r0, .L2068
 	lsl	r1, r6, #0x2
 	add	r1, r1, r6
 	lsl	r1, r1, #0x2
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0x10]
 	cmp	r0, #0x2
-	bne	.L2038	@cond_branch
+	bne	.L2044	@cond_branch
 	lsl	r0, r5, #0x18
 	mov	r1, #0x80
 	lsl	r1, r1, #0x11
-	b	.L2059
-.L2063:
+	b	.L2065
+.L2069:
 	.align	2, 0
-.L2062:
+.L2068:
 	.word	gBattleMoves
-.L2038:
+.L2044:
 	lsr	r0, r4, #0x18
 	bl	GetBattlerAbility
 	cmp	r0, #0xcd
-	bne	.L2037	@cond_branch
-	ldr	r1, .L2064
+	bne	.L2043	@cond_branch
+	ldr	r1, .L2070
 	lsl	r0, r6, #0x2
 	add	r0, r0, r6
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldrh	r1, [r0]
 	cmp	r1, #0x86
-	bgt	.L2056	@cond_branch
+	bgt	.L2062	@cond_branch
 	cmp	r1, #0x84
-	bge	.L2053	@cond_branch
+	bge	.L2059	@cond_branch
 	cmp	r1, #0x20
-	beq	.L2053	@cond_branch
+	beq	.L2059	@cond_branch
 	cmp	r1, #0x20
-	bgt	.L2057	@cond_branch
+	bgt	.L2063	@cond_branch
 	cmp	r1, #0x3
-	beq	.L2053	@cond_branch
-	b	.L2037
-.L2065:
+	beq	.L2059	@cond_branch
+	b	.L2043
+.L2071:
 	.align	2, 0
-.L2064:
+.L2070:
 	.word	gBattleMoves
-.L2057:
+.L2063:
 	cmp	r1, #0x25
-	beq	.L2053	@cond_branch
+	beq	.L2059	@cond_branch
 	cmp	r1, #0x6e
-	beq	.L2053	@cond_branch
-	b	.L2037
-.L2056:
+	beq	.L2059	@cond_branch
+	b	.L2043
+.L2062:
 	cmp	r1, #0xb3
-	beq	.L2053	@cond_branch
+	beq	.L2059	@cond_branch
 	cmp	r1, #0xb3
-	bgt	.L2058	@cond_branch
+	bgt	.L2064	@cond_branch
 	cmp	r1, #0x9d
-	beq	.L2053	@cond_branch
+	beq	.L2059	@cond_branch
 	cmp	r1, #0xa2
-	beq	.L2053	@cond_branch
-	b	.L2037
-.L2058:
+	beq	.L2059	@cond_branch
+	b	.L2043
+.L2064:
 	cmp	r1, #0xed
-	beq	.L2053	@cond_branch
-	ldr	r0, .L2066
+	beq	.L2059	@cond_branch
+	ldr	r0, .L2072
 	cmp	r1, r0
-	bne	.L2037	@cond_branch
-.L2053:
+	bne	.L2043	@cond_branch
+.L2059:
 	lsl	r0, r5, #0x18
 	mov	r1, #0xc0
 	lsl	r1, r1, #0x12
-.L2059:
+.L2065:
 	add	r0, r0, r1
 	lsr	r5, r0, #0x18
-.L2037:
+.L2043:
 	lsl	r0, r5, #0x18
 	asr	r0, r0, #0x18
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L2067:
+.L2073:
 	.align	2, 0
-.L2066:
+.L2072:
 	.word	0x107
 .Lfe75:
 	.size	 GetMovePriority,.Lfe75-GetMovePriority
@@ -25962,8 +26046,8 @@ GetWhoStrikesFirst:
 	bl	GetBattlerHoldEffect
 	mov	r8, r0
 	cmp	r0, #0x1a
-	bne	.L2069	@cond_branch
-	ldr	r0, .L2103
+	bne	.L2075	@cond_branch
+	ldr	r0, .L2109
 	ldrh	r4, [r0]
 	add	r0, r6, #0
 	bl	GetBattlerHoldEffectParam
@@ -25973,10 +26057,10 @@ GetWhoStrikesFirst:
 	mov	r1, #0x64
 	bl	__udivsi3
 	cmp	r4, r0
-	bcs	.L2069	@cond_branch
+	bcs	.L2075	@cond_branch
 	mov	r1, #0x1
 	mov	sl, r1
-.L2069:
+.L2075:
 	add	r0, r5, #0
 	bl	GetBattlerTotalSpeedStat
 	str	r0, [sp, #0x8]
@@ -25985,8 +26069,8 @@ GetWhoStrikesFirst:
 	bl	GetBattlerHoldEffect
 	add	r7, r0, #0
 	cmp	r7, #0x1a
-	bne	.L2070	@cond_branch
-	ldr	r0, .L2103
+	bne	.L2076	@cond_branch
+	ldr	r0, .L2109
 	ldrh	r4, [r0]
 	add	r0, r5, #0
 	bl	GetBattlerHoldEffectParam
@@ -25996,34 +26080,34 @@ GetWhoStrikesFirst:
 	mov	r1, #0x64
 	bl	__udivsi3
 	cmp	r4, r0
-	bcs	.L2070	@cond_branch
+	bcs	.L2076	@cond_branch
 	mov	r0, #0x1
 	mov	r9, r0
-.L2070:
+.L2076:
 	ldr	r1, [sp]
 	cmp	r1, #0
-	bne	.L2071	@cond_branch
-	ldr	r4, .L2103+0x4
+	bne	.L2077	@cond_branch
+	ldr	r4, .L2109+0x4
 	add	r0, r6, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L2072	@cond_branch
+	bne	.L2078	@cond_branch
 	add	r0, r6, #0
 	bl	GetChosenMovePriority
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	str	r0, [sp, #0xc]
-.L2072:
+.L2078:
 	add	r0, r5, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L2071	@cond_branch
+	bne	.L2077	@cond_branch
 	add	r0, r5, #0
 	bl	GetChosenMovePriority
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	str	r0, [sp, #0x10]
-.L2071:
+.L2077:
 	ldr	r1, [sp, #0xc]
 	lsl	r0, r1, #0x18
 	asr	r2, r0, #0x18
@@ -26031,109 +26115,109 @@ GetWhoStrikesFirst:
 	lsl	r0, r1, #0x18
 	asr	r0, r0, #0x18
 	cmp	r2, r0
-	bne	.L2074	@cond_branch
+	bne	.L2080	@cond_branch
 	mov	r0, sl
 	cmp	r0, #0
-	beq	.L2075	@cond_branch
+	beq	.L2081	@cond_branch
 	mov	r1, r9
 	cmp	r1, #0
-	bne	.L2098	@cond_branch
-.L2102:
+	bne	.L2104	@cond_branch
+.L2108:
 	mov	r1, #0x0
-	b	.L2095
-.L2104:
+	b	.L2101
+.L2110:
 	.align	2, 0
-.L2103:
+.L2109:
 	.word	gRandomTurnNumber
 	.word	gChosenActionByBattler
-.L2075:
+.L2081:
 	mov	r0, r9
 	cmp	r0, #0
-	beq	.L2077	@cond_branch
-.L2098:
+	beq	.L2083	@cond_branch
+.L2104:
 	mov	r1, sl
 	cmp	r1, #0
-	beq	.L2100	@cond_branch
-.L2077:
+	beq	.L2106	@cond_branch
+.L2083:
 	mov	r0, r8
 	cmp	r0, #0x54
-	bne	.L2079	@cond_branch
+	bne	.L2085	@cond_branch
 	cmp	r7, #0x54
-	beq	.L2099	@cond_branch
-	b	.L2100
-.L2079:
+	beq	.L2105	@cond_branch
+	b	.L2106
+.L2085:
 	cmp	r7, #0x54
-	bne	.L2081	@cond_branch
-.L2099:
+	bne	.L2087	@cond_branch
+.L2105:
 	mov	r1, r8
 	cmp	r1, #0x54
-	bne	.L2102	@cond_branch
-.L2081:
+	bne	.L2108	@cond_branch
+.L2087:
 	add	r0, r6, #0
 	bl	GetBattlerAbility
 	cmp	r0, #0x64
-	bne	.L2083	@cond_branch
+	bne	.L2089	@cond_branch
 	add	r0, r5, #0
 	bl	GetBattlerAbility
 	cmp	r0, #0x64
-	bne	.L2100	@cond_branch
-.L2083:
+	bne	.L2106	@cond_branch
+.L2089:
 	add	r0, r5, #0
 	bl	GetBattlerAbility
 	cmp	r0, #0x64
-	bne	.L2085	@cond_branch
+	bne	.L2091	@cond_branch
 	add	r0, r6, #0
 	bl	GetBattlerAbility
 	cmp	r0, #0x64
-	bne	.L2102	@cond_branch
-.L2085:
+	bne	.L2108	@cond_branch
+.L2091:
 	ldr	r0, [sp, #0x4]
 	ldr	r1, [sp, #0x8]
 	cmp	r0, r1
-	bne	.L2087	@cond_branch
+	bne	.L2093	@cond_branch
 	bl	Random
 	mov	r1, #0x1
 	and	r1, r1, r0
 	cmp	r1, #0
-	beq	.L2087	@cond_branch
+	beq	.L2093	@cond_branch
 	mov	r1, #0x2
-	b	.L2095
-.L2087:
+	b	.L2101
+.L2093:
 	ldr	r0, [sp, #0x4]
 	ldr	r1, [sp, #0x8]
 	cmp	r0, r1
-	bcs	.L2089	@cond_branch
-	ldr	r0, .L2105
+	bcs	.L2095	@cond_branch
+	ldr	r0, .L2111
 	ldr	r0, [r0]
 	mov	r1, #0x2
 	and	r0, r0, r1
 	mov	r1, #0x1
 	cmp	r0, #0
-	beq	.L2095	@cond_branch
-	b	.L2102
-.L2106:
+	beq	.L2101	@cond_branch
+	b	.L2108
+.L2112:
 	.align	2, 0
-.L2105:
+.L2111:
 	.word	gFieldStatuses
-.L2089:
-	ldr	r0, .L2107
+.L2095:
+	ldr	r0, .L2113
 	ldr	r0, [r0]
 	mov	r1, #0x2
 	and	r0, r0, r1
 	neg	r0, r0
 	lsr	r1, r0, #0x1f
-	b	.L2095
-.L2108:
+	b	.L2101
+.L2114:
 	.align	2, 0
-.L2107:
+.L2113:
 	.word	gFieldStatuses
-.L2074:
+.L2080:
 	mov	r1, #0x0
 	cmp	r2, r0
-	bge	.L2095	@cond_branch
-.L2100:
+	bge	.L2101	@cond_branch
+.L2106:
 	mov	r1, #0x1
-.L2095:
+.L2101:
 	add	r0, r1, #0
 	add	sp, sp, #0x14
 	pop	{r3, r4, r5}
@@ -26155,26 +26239,26 @@ SetActionsAndBattlersTurnOrder:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	mov	r3, #0x0
-	ldr	r0, .L2163
+	ldr	r0, .L2169
 	ldr	r1, [r0]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2110	@cond_branch
-	ldr	r0, .L2163+0x4
+	beq	.L2116	@cond_branch
+	ldr	r0, .L2169+0x4
 	strb	r3, [r0]
-	ldr	r4, .L2163+0x8
+	ldr	r4, .L2169+0x8
 	mov	r8, r0
 	ldrb	r0, [r4]
 	cmp	r3, r0
-	bcc	.LCB18150
-	b	.L2116	@long jump
-.LCB18150:
-	ldr	r7, .L2163+0xc
-	ldr	r6, .L2163+0x10
+	bcc	.LCB18250
+	b	.L2122	@long jump
+.LCB18250:
+	ldr	r7, .L2169+0xc
+	ldr	r6, .L2169+0x10
 	mov	r2, r8
-	ldr	r5, .L2163+0x14
-.L2114:
+	ldr	r5, .L2169+0x14
+.L2120:
 	add	r1, r3, r7
 	ldrb	r0, [r2]
 	add	r0, r0, r6
@@ -26191,111 +26275,111 @@ SetActionsAndBattlersTurnOrder:
 	lsr	r0, r0, #0x18
 	ldrb	r1, [r4]
 	cmp	r0, r1
-	bcc	.L2114	@cond_branch
-	b	.L2116
-.L2164:
+	bcc	.L2120	@cond_branch
+	b	.L2122
+.L2170:
 	.align	2, 0
-.L2163:
+.L2169:
 	.word	gBattleTypeFlags
 	.word	gActiveBattler
 	.word	gBattlersCount
 	.word	gActionsByTurnOrder
 	.word	gChosenActionByBattler
 	.word	gBattlerByTurnOrder
-.L2110:
+.L2116:
 	mov	r2, #0x2
 	and	r1, r1, r2
 	cmp	r1, #0
-	beq	.L2117	@cond_branch
-	ldr	r0, .L2165
+	beq	.L2123	@cond_branch
+	ldr	r0, .L2171
 	strb	r3, [r0]
-	ldr	r1, .L2165+0x4
+	ldr	r1, .L2171+0x4
 	mov	r8, r0
 	add	r2, r1, #0
 	ldrb	r2, [r2]
 	cmp	r3, r2
-	bcs	.L2124	@cond_branch
-	ldr	r0, .L2165+0x8
+	bcs	.L2130	@cond_branch
+	ldr	r0, .L2171+0x8
 	ldrb	r1, [r0]
 	add	r4, r0, #0
 	cmp	r1, #0x3
-	beq	.L2160	@cond_branch
-.L2120:
+	beq	.L2166	@cond_branch
+.L2126:
 	mov	r7, r8
 	ldrb	r0, [r7]
 	add	r0, r0, #0x1
 	strb	r0, [r7]
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r1, .L2165+0x4
+	ldr	r1, .L2171+0x4
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bcs	.L2124	@cond_branch
+	bcs	.L2130	@cond_branch
 	ldrb	r0, [r7]
 	add	r0, r0, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0x3
-	bne	.L2120	@cond_branch
-	b	.L2160
-.L2166:
+	bne	.L2126	@cond_branch
+	b	.L2166
+.L2172:
 	.align	2, 0
-.L2165:
+.L2171:
 	.word	gActiveBattler
 	.word	gBattlersCount
 	.word	gChosenActionByBattler
-.L2117:
-	ldr	r1, .L2167
+.L2123:
+	ldr	r1, .L2173
 	ldrb	r0, [r1]
-	ldr	r4, .L2167+0x4
+	ldr	r4, .L2173+0x4
 	mov	r8, r4
 	cmp	r0, #0x3
-	bne	.L2125	@cond_branch
+	bne	.L2131	@cond_branch
 	strb	r3, [r4]
 	mov	r3, #0x5
-.L2125:
+.L2131:
 	ldrb	r0, [r1, #0x2]
 	cmp	r0, #0x3
-	bne	.L2124	@cond_branch
+	bne	.L2130	@cond_branch
 	mov	r7, r8
 	strb	r2, [r7]
-.L2160:
+.L2166:
 	mov	r3, #0x5
-.L2124:
+.L2130:
 	cmp	r3, #0x5
-	bne	.L2127	@cond_branch
-	ldr	r6, .L2167+0x8
-	ldr	r1, .L2167
+	bne	.L2133	@cond_branch
+	ldr	r6, .L2173+0x8
+	ldr	r1, .L2173
 	mov	r2, r8
 	ldrb	r0, [r2]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	strb	r0, [r6]
-	ldr	r2, .L2167+0xc
+	ldr	r2, .L2173+0xc
 	mov	r3, r8
 	ldrb	r0, [r3]
 	strb	r0, [r2]
 	mov	r3, #0x1
 	mov	r5, #0x0
 	add	r4, r1, #0
-	ldr	r7, .L2167+0x10
+	ldr	r7, .L2173+0x10
 	mov	sl, r7
-	ldr	r0, .L2167+0x14
+	ldr	r0, .L2173+0x14
 	mov	ip, r0
-	ldr	r1, .L2167+0x18
+	ldr	r1, .L2173+0x18
 	mov	r9, r1
-	ldr	r7, .L2167+0x1c
+	ldr	r7, .L2173+0x1c
 	ldrb	r7, [r7]
 	cmp	r5, r7
-	bge	.L2129	@cond_branch
+	bge	.L2135	@cond_branch
 	add	r7, r6, #0
 	add	r6, r4, #0
 	add	r4, r2, #0
-	ldr	r2, .L2167+0x1c
-.L2131:
+	ldr	r2, .L2173+0x1c
+.L2137:
 	mov	r0, r8
 	ldrb	r0, [r0]
 	cmp	r5, r0
-	beq	.L2130	@cond_branch
+	beq	.L2136	@cond_branch
 	add	r1, r3, r7
 	add	r0, r5, r6
 	ldrb	r0, [r0]
@@ -26303,23 +26387,23 @@ SetActionsAndBattlersTurnOrder:
 	add	r0, r3, r4
 	strb	r5, [r0]
 	add	r3, r3, #0x1
-.L2130:
+.L2136:
 	add	r5, r5, #0x1
 	ldrb	r1, [r2]
 	cmp	r5, r1
-	blt	.L2131	@cond_branch
-.L2129:
+	blt	.L2137	@cond_branch
+.L2135:
 	mov	r2, ip
 	mov	r3, sl
 	str	r2, [r3]
 	mov	r4, r9
 	ldr	r0, [r4]
-	ldr	r7, .L2167+0x20
+	ldr	r7, .L2173+0x20
 	add	r0, r0, r7
-	b	.L2161
-.L2168:
+	b	.L2167
+.L2174:
 	.align	2, 0
-.L2167:
+.L2173:
 	.word	gChosenActionByBattler
 	.word	gActiveBattler
 	.word	gActionsByTurnOrder
@@ -26329,55 +26413,18 @@ SetActionsAndBattlersTurnOrder:
 	.word	gBattleStruct
 	.word	gBattlersCount
 	.word	0x2aa
-.L2127:
+.L2133:
 	mov	r0, #0x0
 	mov	r1, r8
 	strb	r0, [r1]
-	ldr	r2, .L2169
+	ldr	r2, .L2175
 	ldrb	r0, [r2]
-	cmp	r0, #0
-	beq	.L2136	@cond_branch
-	ldr	r6, .L2169+0x4
-	mov	r2, r8
-	ldr	r5, .L2169+0x8
-	ldr	r4, .L2169+0xc
-.L2138:
-	ldrb	r0, [r2]
-	add	r0, r0, r6
-	ldrb	r1, [r0]
-	sub	r0, r1, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	cmp	r0, #0x1
-	bhi	.L2137	@cond_branch
-	add	r0, r3, r5
-	strb	r1, [r0]
-	add	r1, r3, r4
-	mov	r7, r8
-	ldrb	r0, [r7]
-	strb	r0, [r1]
-	add	r3, r3, #0x1
-.L2137:
-	ldrb	r0, [r2]
-	add	r0, r0, #0x1
-	strb	r0, [r2]
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	ldr	r1, .L2169
-	ldrb	r1, [r1]
-	cmp	r0, r1
-	bcc	.L2138	@cond_branch
-.L2136:
-	mov	r0, #0x0
-	mov	r2, r8
-	strb	r0, [r2]
-	ldr	r4, .L2169
-	ldrb	r0, [r4]
 	cmp	r0, #0
 	beq	.L2142	@cond_branch
-	ldr	r6, .L2169+0x4
-	ldr	r5, .L2169+0x8
-	ldr	r4, .L2169+0xc
+	ldr	r6, .L2175+0x4
+	mov	r2, r8
+	ldr	r5, .L2175+0x8
+	ldr	r4, .L2175+0xc
 .L2144:
 	ldrb	r0, [r2]
 	add	r0, r0, r6
@@ -26386,7 +26433,7 @@ SetActionsAndBattlersTurnOrder:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bls	.L2143	@cond_branch
+	bhi	.L2143	@cond_branch
 	add	r0, r3, r5
 	strb	r1, [r0]
 	add	r1, r3, r4
@@ -26400,31 +26447,68 @@ SetActionsAndBattlersTurnOrder:
 	strb	r0, [r2]
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r1, .L2169
+	ldr	r1, .L2175
 	ldrb	r1, [r1]
 	cmp	r0, r1
 	bcc	.L2144	@cond_branch
 .L2142:
+	mov	r0, #0x0
+	mov	r2, r8
+	strb	r0, [r2]
+	ldr	r4, .L2175
+	ldrb	r0, [r4]
+	cmp	r0, #0
+	beq	.L2148	@cond_branch
+	ldr	r6, .L2175+0x4
+	ldr	r5, .L2175+0x8
+	ldr	r4, .L2175+0xc
+.L2150:
+	ldrb	r0, [r2]
+	add	r0, r0, r6
+	ldrb	r1, [r0]
+	sub	r0, r1, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x1
+	bls	.L2149	@cond_branch
+	add	r0, r3, r5
+	strb	r1, [r0]
+	add	r1, r3, r4
+	mov	r7, r8
+	ldrb	r0, [r7]
+	strb	r0, [r1]
+	add	r3, r3, #0x1
+.L2149:
+	ldrb	r0, [r2]
+	add	r0, r0, #0x1
+	strb	r0, [r2]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	ldr	r1, .L2175
+	ldrb	r1, [r1]
+	cmp	r0, r1
+	bcc	.L2150	@cond_branch
+.L2148:
 	mov	r5, #0x0
-	b	.L2162
-.L2170:
+	b	.L2168
+.L2176:
 	.align	2, 0
-.L2169:
+.L2175:
 	.word	gBattlersCount
 	.word	gChosenActionByBattler
 	.word	gActionsByTurnOrder
 	.word	gBattlerByTurnOrder
-.L2150:
+.L2156:
 	add	r4, r5, #0x1
 	add	r7, r4, #0
 	ldrb	r1, [r1]
 	cmp	r7, r1
-	bge	.L2149	@cond_branch
-	ldr	r6, .L2171
+	bge	.L2155	@cond_branch
+	ldr	r6, .L2177
 	lsl	r2, r5, #0x18
 	mov	r8, r2
-.L2154:
-	ldr	r0, .L2171+0x4
+.L2160:
+	ldr	r0, .L2177+0x4
 	add	r1, r5, r0
 	ldrb	r3, [r1]
 	add	r0, r4, r0
@@ -26432,49 +26516,49 @@ SetActionsAndBattlersTurnOrder:
 	add	r0, r5, r6
 	ldrb	r2, [r0]
 	cmp	r2, #0x1
-	beq	.L2153	@cond_branch
+	beq	.L2159	@cond_branch
 	add	r0, r4, r6
 	ldrb	r0, [r0]
 	cmp	r0, #0x1
-	beq	.L2153	@cond_branch
+	beq	.L2159	@cond_branch
 	cmp	r2, #0x2
-	beq	.L2153	@cond_branch
+	beq	.L2159	@cond_branch
 	cmp	r0, #0x2
-	beq	.L2153	@cond_branch
+	beq	.L2159	@cond_branch
 	add	r0, r3, #0
 	mov	r2, #0x0
 	bl	GetWhoStrikesFirst
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L2153	@cond_branch
+	beq	.L2159	@cond_branch
 	lsl	r1, r4, #0x18
 	lsr	r1, r1, #0x18
 	mov	r3, r8
 	lsr	r0, r3, #0x18
 	bl	SwapTurnOrder
-.L2153:
+.L2159:
 	add	r4, r4, #0x1
-	ldr	r0, .L2171+0x8
+	ldr	r0, .L2177+0x8
 	ldrb	r0, [r0]
 	cmp	r4, r0
-	blt	.L2154	@cond_branch
-.L2149:
+	blt	.L2160	@cond_branch
+.L2155:
 	add	r5, r7, #0
-.L2162:
-	ldr	r1, .L2171+0x8
+.L2168:
+	ldr	r1, .L2177+0x8
 	ldrb	r0, [r1]
 	sub	r0, r0, #0x1
 	cmp	r5, r0
-	blt	.L2150	@cond_branch
-.L2116:
-	ldr	r1, .L2171+0xc
-	ldr	r0, .L2171+0x10
+	blt	.L2156	@cond_branch
+.L2122:
+	ldr	r1, .L2177+0xc
+	ldr	r0, .L2177+0x10
 	str	r0, [r1]
-	ldr	r0, .L2171+0x14
+	ldr	r0, .L2177+0x14
 	ldr	r0, [r0]
-	ldr	r4, .L2171+0x18
+	ldr	r4, .L2177+0x18
 	add	r0, r0, r4
-.L2161:
+.L2167:
 	mov	r1, #0x0
 	strb	r1, [r0]
 	pop	{r3, r4, r5}
@@ -26484,9 +26568,9 @@ SetActionsAndBattlersTurnOrder:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2172:
+.L2178:
 	.align	2, 0
-.L2171:
+.L2177:
 	.word	gActionsByTurnOrder
 	.word	gBattlerByTurnOrder
 	.word	gBattlersCount
@@ -26506,22 +26590,22 @@ TurnValuesCleanUp:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	mov	r8, r0
-	ldr	r2, .L2185
+	ldr	r2, .L2191
 	mov	r0, #0x0
 	strb	r0, [r2]
-	ldr	r0, .L2185+0x4
+	ldr	r0, .L2191+0x4
 	ldrb	r1, [r0]
 	add	r4, r2, #0
 	mov	ip, r0
 	cmp	r1, #0
-	beq	.L2175	@cond_branch
-	ldr	r5, .L2185+0x8
+	beq	.L2181	@cond_branch
+	ldr	r5, .L2191+0x8
 	add	r6, r4, #0
-	ldr	r7, .L2185+0xc
-.L2177:
+	ldr	r7, .L2191+0xc
+.L2183:
 	mov	r0, r8
 	cmp	r0, #0
-	beq	.L2178	@cond_branch
+	beq	.L2184	@cond_branch
 	ldrb	r2, [r6]
 	lsl	r2, r2, #0x4
 	add	r2, r2, r5
@@ -26555,23 +26639,23 @@ TurnValuesCleanUp:
 	add	r1, r3, #0
 	and	r0, r0, r1
 	strb	r0, [r2]
-	b	.L2179
-.L2186:
+	b	.L2185
+.L2192:
 	.align	2, 0
-.L2185:
+.L2191:
 	.word	gActiveBattler
 	.word	gBattlersCount
 	.word	gProtectStructs
 	.word	gBattleMons+0x54
-.L2178:
-	ldr	r4, .L2187
+.L2184:
+	ldr	r4, .L2193
 	ldrb	r0, [r4]
 	lsl	r0, r0, #0x4
 	add	r0, r0, r5
 	mov	r1, #0x0
 	mov	r2, #0x10
 	bl	memset
-	ldr	r3, .L2187+0x4
+	ldr	r3, .L2193+0x4
 	ldrb	r1, [r4]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
@@ -26579,20 +26663,20 @@ TurnValuesCleanUp:
 	add	r1, r0, r3
 	ldrb	r0, [r1, #0x19]
 	cmp	r0, #0
-	beq	.L2180	@cond_branch
+	beq	.L2186	@cond_branch
 	sub	r0, r0, #0x1
 	strb	r0, [r1, #0x19]
-.L2180:
+.L2186:
 	ldrb	r1, [r4]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
 	lsl	r0, r0, #0x3
 	add	r1, r0, r3
 	ldrb	r0, [r1, #0x1b]
-	ldr	r2, .L2187+0x8
+	ldr	r2, .L2193+0x8
 	mov	ip, r2
 	cmp	r0, #0
-	beq	.L2179	@cond_branch
+	beq	.L2185	@cond_branch
 	sub	r0, r0, #0x1
 	strb	r0, [r1, #0x1b]
 	ldrb	r2, [r4]
@@ -26602,16 +26686,16 @@ TurnValuesCleanUp:
 	add	r0, r0, r3
 	ldrb	r0, [r0, #0x1b]
 	cmp	r0, #0
-	bne	.L2179	@cond_branch
+	bne	.L2185	@cond_branch
 	mov	r0, #0x5c
 	mul	r2, r2, r0
 	add	r2, r2, r7
 	ldr	r0, [r2]
-	ldr	r1, .L2187+0xc
+	ldr	r1, .L2193+0xc
 	and	r0, r0, r1
 	str	r0, [r2]
-.L2179:
-	ldr	r0, .L2187+0x4
+.L2185:
+	ldr	r0, .L2193+0x4
 	ldrb	r2, [r4]
 	lsl	r1, r2, #0x2
 	add	r1, r1, r2
@@ -26619,15 +26703,15 @@ TurnValuesCleanUp:
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0xe]
 	cmp	r0, #0
-	bne	.L2176	@cond_branch
+	bne	.L2182	@cond_branch
 	mov	r0, #0x5c
 	mul	r2, r2, r0
 	add	r2, r2, r7
 	ldr	r0, [r2]
-	ldr	r1, .L2187+0x10
+	ldr	r1, .L2193+0x10
 	and	r0, r0, r1
 	str	r0, [r2]
-.L2176:
+.L2182:
 	ldrb	r0, [r4]
 	add	r0, r0, #0x1
 	strb	r0, [r4]
@@ -26636,17 +26720,17 @@ TurnValuesCleanUp:
 	mov	r3, ip
 	ldrb	r3, [r3]
 	cmp	r0, r3
-	bcc	.L2177	@cond_branch
-.L2175:
-	ldr	r1, .L2187+0x14
+	bcc	.L2183	@cond_branch
+.L2181:
+	ldr	r1, .L2193+0x14
 	ldr	r0, [r1]
-	ldr	r2, .L2187+0x18
+	ldr	r2, .L2193+0x18
 	and	r0, r0, r2
 	str	r0, [r1]
 	ldr	r0, [r1, #0x4]
 	and	r0, r0, r2
 	str	r0, [r1, #0x4]
-	ldr	r1, .L2187+0x1c
+	ldr	r1, .L2193+0x1c
 	mov	r0, #0x0
 	strb	r0, [r1, #0x8]
 	strb	r0, [r1, #0x1c]
@@ -26655,9 +26739,9 @@ TurnValuesCleanUp:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2188:
+.L2194:
 	.align	2, 0
-.L2187:
+.L2193:
 	.word	gActiveBattler
 	.word	gDisableStructs
 	.word	gBattlersCount
@@ -26674,15 +26758,15 @@ TurnValuesCleanUp:
 	.thumb_func
 SpecialStatusesClear:
 	push	{lr}
-	ldr	r0, .L2190
+	ldr	r0, .L2196
 	mov	r1, #0x0
 	mov	r2, #0x60
 	bl	memset
 	pop	{r0}
 	bx	r0
-.L2191:
+.L2197:
 	.align	2, 0
-.L2190:
+.L2196:
 	.word	gSpecialStatuses
 .Lfe79:
 	.size	 SpecialStatusesClear,.Lfe79-SpecialStatusesClear
@@ -26695,30 +26779,30 @@ CheckMegaEvolutionBeforeTurn:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	ldr	r0, .L2201
+	ldr	r0, .L2207
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	lsl	r1, r1, #0x8
 	and	r0, r0, r1
-	ldr	r1, .L2201+0x4
+	ldr	r1, .L2207+0x4
 	mov	r8, r1
 	cmp	r0, #0
-	bne	.L2193	@cond_branch
+	bne	.L2199	@cond_branch
 	ldr	r0, [r1]
-	ldr	r2, .L2201+0x8
+	ldr	r2, .L2207+0x8
 	add	r0, r0, r2
-	ldr	r1, .L2201+0xc
+	ldr	r1, .L2207+0xc
 	ldrb	r0, [r0]
 	mov	ip, r1
 	ldrb	r3, [r1]
 	cmp	r0, r3
-	bcs	.L2193	@cond_branch
-	ldr	r6, .L2201+0x10
+	bcs	.L2199	@cond_branch
+	ldr	r6, .L2207+0x10
 	mov	r7, r8
-	ldr	r0, .L2201+0x14
+	ldr	r0, .L2207+0x14
 	mov	sl, r0
 	mov	r9, r8
-.L2196:
+.L2202:
 	ldr	r1, [r7]
 	add	r1, r1, r2
 	ldrb	r0, [r1]
@@ -26733,7 +26817,7 @@ CheckMegaEvolutionBeforeTurn:
 	lsl	r3, r3, #0x2
 	add	r5, r0, r3
 	ldrb	r2, [r5]
-	ldr	r1, .L2201+0x18
+	ldr	r1, .L2207+0x18
 	ldrb	r3, [r6]
 	lsl	r0, r3, #0x2
 	add	r0, r0, r1
@@ -26741,36 +26825,36 @@ CheckMegaEvolutionBeforeTurn:
 	add	r0, r2, #0
 	and	r0, r0, r4
 	cmp	r0, #0
-	beq	.L2194	@cond_branch
-	ldr	r0, .L2201+0x1c
+	beq	.L2200	@cond_branch
+	ldr	r0, .L2207+0x1c
 	lsl	r1, r3, #0x4
 	add	r1, r1, r0
 	ldrb	r0, [r1]
 	lsl	r0, r0, #0x1a
 	cmp	r0, #0
-	blt	.L2194	@cond_branch
+	blt	.L2200	@cond_branch
 	bic	r2, r2, r4
 	strb	r2, [r5]
-	ldr	r2, .L2201+0x20
+	ldr	r2, .L2207+0x20
 	ldrb	r1, [r6]
 	mov	r0, #0x5c
 	mul	r0, r0, r1
 	add	r0, r0, r2
 	ldrh	r0, [r0, #0x30]
-	ldr	r1, .L2201+0x24
+	ldr	r1, .L2207+0x24
 	strh	r0, [r1]
 	ldr	r0, [r7]
-	ldr	r2, .L2201+0x28
+	ldr	r2, .L2207+0x28
 	add	r0, r0, r2
 	ldrb	r0, [r0]
 	cmp	r0, #0x1
-	bne	.L2198	@cond_branch
-	ldr	r0, .L2201+0x2c
+	bne	.L2204	@cond_branch
+	ldr	r0, .L2207+0x2c
 	bl	BattleScriptExecute
-	b	.L2192
-.L2202:
+	b	.L2198
+.L2208:
 	.align	2, 0
-.L2201:
+.L2207:
 	.word	gHitMarker
 	.word	gBattleStruct
 	.word	0x2aa
@@ -26783,34 +26867,34 @@ CheckMegaEvolutionBeforeTurn:
 	.word	gLastUsedItem
 	.word	0x2ad
 	.word	BattleScript_WishMegaEvolution
-.L2198:
-	ldr	r0, .L2203
-	bl	BattleScriptExecute
-	b	.L2192
 .L2204:
+	ldr	r0, .L2209
+	bl	BattleScriptExecute
+	b	.L2198
+.L2210:
 	.align	2, 0
-.L2203:
+.L2209:
 	.word	BattleScript_MegaEvolution
-.L2194:
+.L2200:
 	mov	r3, r9
 	ldr	r0, [r3]
-	ldr	r2, .L2205
+	ldr	r2, .L2211
 	add	r0, r0, r2
 	ldrb	r0, [r0]
 	mov	r1, ip
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bcc	.L2196	@cond_branch
-.L2193:
-	ldr	r1, .L2205+0x4
-	ldr	r0, .L2205+0x8
+	bcc	.L2202	@cond_branch
+.L2199:
+	ldr	r1, .L2211+0x4
+	ldr	r0, .L2211+0x8
 	str	r0, [r1]
 	mov	r2, r8
 	ldr	r0, [r2]
 	add	r0, r0, #0x48
 	mov	r1, #0x0
 	strb	r1, [r0]
-.L2192:
+.L2198:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -26818,9 +26902,9 @@ CheckMegaEvolutionBeforeTurn:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2206:
+.L2212:
 	.align	2, 0
-.L2205:
+.L2211:
 	.word	0x2aa
 	.word	gBattleMainFunc
 	.word	CheckFocusPunch_ClearVarsBeforeTurnStarts
@@ -26831,28 +26915,28 @@ CheckMegaEvolutionBeforeTurn:
 	.thumb_func
 CheckFocusPunch_ClearVarsBeforeTurnStarts:
 	push	{r4, r5, r6, r7, lr}
-	ldr	r0, .L2219
+	ldr	r0, .L2225
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	lsl	r1, r1, #0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2208	@cond_branch
-	ldr	r2, .L2219+0x4
+	bne	.L2214	@cond_branch
+	ldr	r2, .L2225+0x4
 	ldr	r0, [r2]
 	add	r0, r0, #0x48
-	ldr	r1, .L2219+0x8
+	ldr	r1, .L2225+0x8
 	ldrb	r0, [r0]
 	mov	ip, r2
 	add	r6, r1, #0
 	ldrb	r1, [r6]
 	cmp	r0, r1
-	bcs	.L2208	@cond_branch
-	ldr	r5, .L2219+0xc
-	ldr	r4, .L2219+0x10
+	bcs	.L2214	@cond_branch
+	ldr	r5, .L2225+0xc
+	ldr	r4, .L2225+0x10
 	mov	r7, #0x84
 	lsl	r7, r7, #0x1
-.L2211:
+.L2217:
 	ldr	r1, [r2]
 	add	r1, r1, #0x48
 	ldrb	r0, [r1]
@@ -26861,14 +26945,14 @@ CheckFocusPunch_ClearVarsBeforeTurnStarts:
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
 	strb	r0, [r1]
-	ldr	r1, .L2219+0x14
+	ldr	r1, .L2225+0x14
 	ldrb	r3, [r5]
 	lsl	r0, r3, #0x1
 	add	r0, r0, r1
 	ldrh	r0, [r0]
 	cmp	r0, r7
-	bne	.L2209	@cond_branch
-	ldr	r1, .L2219+0x18
+	bne	.L2215	@cond_branch
+	ldr	r1, .L2225+0x18
 	mov	r0, #0x5c
 	mul	r0, r0, r3
 	add	r1, r1, #0x50
@@ -26877,8 +26961,8 @@ CheckFocusPunch_ClearVarsBeforeTurnStarts:
 	mov	r1, #0x7
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2209	@cond_branch
-	ldr	r2, .L2219+0x1c
+	bne	.L2215	@cond_branch
+	ldr	r2, .L2225+0x1c
 	ldrb	r1, [r4]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
@@ -26887,20 +26971,20 @@ CheckFocusPunch_ClearVarsBeforeTurnStarts:
 	ldrb	r0, [r0, #0x1a]
 	lsl	r0, r0, #0x1f
 	cmp	r0, #0
-	bne	.L2209	@cond_branch
-	ldr	r0, .L2219+0x20
+	bne	.L2215	@cond_branch
+	ldr	r0, .L2225+0x20
 	lsl	r1, r3, #0x4
 	add	r1, r1, r0
 	ldrb	r0, [r1]
 	lsl	r0, r0, #0x1a
 	cmp	r0, #0
-	blt	.L2209	@cond_branch
-	ldr	r0, .L2219+0x24
+	blt	.L2215	@cond_branch
+	ldr	r0, .L2225+0x24
 	bl	BattleScriptExecute
-	b	.L2207
-.L2220:
+	b	.L2213
+.L2226:
 	.align	2, 0
-.L2219:
+.L2225:
 	.word	gHitMarker
 	.word	gBattleStruct
 	.word	gBattlersCount
@@ -26911,36 +26995,36 @@ CheckFocusPunch_ClearVarsBeforeTurnStarts:
 	.word	gDisableStructs
 	.word	gProtectStructs
 	.word	BattleScript_FocusPunchSetUp
-.L2209:
+.L2215:
 	mov	r2, ip
 	ldr	r0, [r2]
 	add	r0, r0, #0x48
 	ldrb	r0, [r0]
 	ldrb	r1, [r6]
 	cmp	r0, r1
-	bcc	.L2211	@cond_branch
-.L2208:
+	bcc	.L2217	@cond_branch
+.L2214:
 	bl	TryClearRageAndFuryCutter
-	ldr	r1, .L2221
+	ldr	r1, .L2227
 	mov	r0, #0x0
 	strb	r0, [r1]
-	ldr	r1, .L2221+0x4
-	ldr	r0, .L2221+0x8
+	ldr	r1, .L2227+0x4
+	ldr	r0, .L2227+0x8
 	ldrb	r0, [r0]
 	strb	r0, [r1]
-	ldr	r2, .L2221+0xc
+	ldr	r2, .L2227+0xc
 	ldr	r1, [r2]
 	mov	r0, #0x0
 	strb	r0, [r1, #0x12]
 	mov	r4, #0x0
 	add	r7, r2, #0
-	ldr	r6, .L2221+0x10
+	ldr	r6, .L2227+0x10
 	mov	r5, #0x0
-	ldr	r0, .L2221+0x14
+	ldr	r0, .L2227+0x14
 	mov	r2, #0x3
 	neg	r2, r2
 	add	r3, r0, #0x2
-.L2217:
+.L2223:
 	ldr	r0, [r7]
 	add	r0, r0, r6
 	add	r0, r0, r4
@@ -26952,29 +27036,29 @@ CheckFocusPunch_ClearVarsBeforeTurnStarts:
 	add	r3, r3, #0x18
 	add	r4, r4, #0x1
 	cmp	r4, #0x3
-	bls	.L2217	@cond_branch
+	bls	.L2223	@cond_branch
 	mov	r2, #0x0
-	ldr	r1, .L2221+0x18
-	ldr	r0, .L2221+0x1c
+	ldr	r1, .L2227+0x18
+	ldr	r0, .L2227+0x1c
 	str	r0, [r1]
-	ldr	r0, .L2221+0x20
+	ldr	r0, .L2227+0x20
 	strb	r2, [r0, #0x3]
 	strb	r2, [r0, #0x4]
-	ldr	r0, .L2221+0x24
+	ldr	r0, .L2227+0x24
 	mov	r1, #0x0
 	strh	r2, [r0, #0x30]
-	ldr	r0, .L2221+0x28
+	ldr	r0, .L2227+0x28
 	ldr	r0, [r0]
 	ldr	r0, [r0, #0x8]
 	add	r0, r0, #0x20
 	strb	r1, [r0]
-.L2207:
+.L2213:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2222:
+.L2228:
 	.align	2, 0
-.L2221:
+.L2227:
 	.word	gCurrentTurnActionNumber
 	.word	gCurrentActionFuncId
 	.word	gActionsByTurnOrder
@@ -26993,38 +27077,38 @@ CheckFocusPunch_ClearVarsBeforeTurnStarts:
 	.thumb_func
 RunTurnActionsFunctions:
 	push	{r4, r5, r6, lr}
-	ldr	r6, .L2228
+	ldr	r6, .L2234
 	ldrb	r0, [r6]
-	ldr	r2, .L2228+0x4
+	ldr	r2, .L2234+0x4
 	cmp	r0, #0
-	beq	.L2224	@cond_branch
+	beq	.L2230	@cond_branch
 	mov	r0, #0xc
 	strb	r0, [r2]
-.L2224:
-	ldr	r5, .L2228+0x8
+.L2230:
+	ldr	r5, .L2234+0x8
 	ldr	r0, [r5]
 	add	r0, r0, #0x4b
-	ldr	r4, .L2228+0xc
+	ldr	r4, .L2234+0xc
 	ldrb	r1, [r4]
 	strb	r1, [r0]
-	ldr	r1, .L2228+0x10
+	ldr	r1, .L2234+0x10
 	ldrb	r0, [r2]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	bl	_call_via_r0
-	ldr	r0, .L2228+0x14
+	ldr	r0, .L2234+0x14
 	ldrb	r1, [r4]
 	ldrb	r0, [r0]
 	cmp	r1, r0
-	bcc	.L2225	@cond_branch
-	ldr	r2, .L2228+0x18
+	bcc	.L2231	@cond_branch
+	ldr	r2, .L2234+0x18
 	ldr	r0, [r2]
-	ldr	r1, .L2228+0x1c
+	ldr	r1, .L2234+0x1c
 	and	r0, r0, r1
 	str	r0, [r2]
-	ldr	r3, .L2228+0x20
-	ldr	r2, .L2228+0x24
+	ldr	r3, .L2234+0x20
+	ldr	r2, .L2234+0x24
 	ldrb	r1, [r6]
 	mov	r0, #0x7f
 	and	r0, r0, r1
@@ -27032,10 +27116,10 @@ RunTurnActionsFunctions:
 	add	r0, r0, r2
 	ldr	r0, [r0]
 	str	r0, [r3]
-	b	.L2226
-.L2229:
+	b	.L2232
+.L2235:
 	.align	2, 0
-.L2228:
+.L2234:
 	.word	gBattleOutcome
 	.word	gCurrentActionFuncId
 	.word	gBattleStruct
@@ -27046,26 +27130,26 @@ RunTurnActionsFunctions:
 	.word	-0x100001
 	.word	gBattleMainFunc
 	.word	sEndTurnFuncsTable
-.L2225:
+.L2231:
 	ldr	r0, [r5]
 	add	r0, r0, #0x4b
 	ldrb	r0, [r0]
 	cmp	r0, r1
-	beq	.L2226	@cond_branch
-	ldr	r2, .L2230
+	beq	.L2232	@cond_branch
+	ldr	r2, .L2236
 	ldr	r0, [r2]
-	ldr	r1, .L2230+0x4
+	ldr	r1, .L2236+0x4
 	and	r0, r0, r1
-	ldr	r1, .L2230+0x8
+	ldr	r1, .L2236+0x8
 	and	r0, r0, r1
 	str	r0, [r2]
-.L2226:
+.L2232:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2231:
+.L2237:
 	.align	2, 0
-.L2230:
+.L2236:
 	.word	gHitMarker
 	.word	-0x201
 	.word	-0x80001
@@ -27076,37 +27160,37 @@ RunTurnActionsFunctions:
 	.thumb_func
 HandleEndTurn_BattleWon:
 	push	{r4, lr}
-	ldr	r1, .L2253
+	ldr	r1, .L2259
 	mov	r0, #0x0
 	strb	r0, [r1]
-	ldr	r1, .L2253+0x4
+	ldr	r1, .L2259+0x4
 	ldr	r2, [r1]
-	ldr	r0, .L2253+0x8
+	ldr	r0, .L2259+0x8
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L2233	@cond_branch
-	ldr	r1, .L2253+0xc
-	ldr	r4, .L2253+0x10
+	beq	.L2239	@cond_branch
+	ldr	r1, .L2259+0xc
+	ldr	r4, .L2259+0x10
 	ldrb	r0, [r4]
 	strh	r0, [r1]
-	ldr	r1, .L2253+0x14
+	ldr	r1, .L2259+0x14
 	ldrb	r0, [r4]
 	strb	r0, [r1]
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
-	ldr	r1, .L2253+0x18
+	ldr	r1, .L2259+0x18
 	strb	r0, [r1]
-	ldr	r1, .L2253+0x1c
-	ldr	r0, .L2253+0x20
+	ldr	r1, .L2259+0x1c
+	ldr	r0, .L2259+0x20
 	str	r0, [r1]
 	ldrb	r1, [r4]
 	mov	r0, #0x7f
 	and	r0, r0, r1
 	strb	r0, [r4]
-	b	.L2234
-.L2254:
+	b	.L2240
+.L2260:
 	.align	2, 0
-.L2253:
+.L2259:
 	.word	gCurrentActionFuncId
 	.word	gBattleTypeFlags
 	.word	0x2000002
@@ -27116,49 +27200,49 @@ HandleEndTurn_BattleWon:
 	.word	gBattlerAttacker
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_LinkBattleWonOrLost
-.L2233:
+.L2239:
 	mov	r0, #0x8
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L2235	@cond_branch
-	ldr	r0, .L2255
+	beq	.L2241	@cond_branch
+	ldr	r0, .L2261
 	and	r2, r2, r0
 	cmp	r2, #0
-	beq	.L2235	@cond_branch
+	beq	.L2241	@cond_branch
 	bl	BattleStopLowHpSound
-	ldr	r1, .L2255+0x4
-	ldr	r0, .L2255+0x8
+	ldr	r1, .L2261+0x4
+	ldr	r0, .L2261+0x8
 	str	r0, [r1]
-	ldr	r0, .L2255+0xc
+	ldr	r0, .L2261+0xc
 	ldrh	r1, [r0]
-	ldr	r0, .L2255+0x10
+	ldr	r0, .L2261+0x10
 	cmp	r1, r0
-	bne	.LCB19400
-	b	.L2249	@long jump
-.LCB19400:
-	b	.L2250
-.L2256:
+	bne	.LCB19500
+	b	.L2255	@long jump
+.LCB19500:
+	b	.L2256
+.L2262:
 	.align	2, 0
-.L2255:
+.L2261:
 	.word	0x43f0900
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_FrontierTrainerBattleWon
 	.word	gTrainerBattleOpponent_A
 	.word	0x3fe
-.L2235:
+.L2241:
 	ldr	r0, [r1]
 	mov	r1, #0xa
 	and	r0, r0, r1
 	cmp	r0, #0x8
-	beq	.LCB19421
-	b	.L2239	@long jump
-.LCB19421:
+	beq	.LCB19521
+	b	.L2245	@long jump
+.LCB19521:
 	bl	BattleStopLowHpSound
-	ldr	r1, .L2257
-	ldr	r0, .L2257+0x4
+	ldr	r1, .L2263
+	ldr	r0, .L2263+0x4
 	str	r0, [r1]
-	ldr	r2, .L2257+0x8
-	ldr	r0, .L2257+0xc
+	ldr	r2, .L2263+0x8
+	ldr	r0, .L2263+0xc
 	ldrh	r1, [r0]
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
@@ -27167,113 +27251,113 @@ HandleEndTurn_BattleWon:
 	ldrb	r0, [r0, #0x1]
 	sub	r0, r0, #0x3
 	cmp	r0, #0x32
-	bls	.LCB19438
-	b	.L2250	@long jump
-.LCB19438:
+	bls	.LCB19538
+	b	.L2256	@long jump
+.LCB19538:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L2257+0x10
+	ldr	r1, .L2263+0x10
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L2258:
+.L2264:
 	.align	2, 0
-.L2257:
+.L2263:
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_LocalTrainerBattleWon
 	.word	gTrainers
 	.word	gTrainerBattleOpponent_A
-	.word	.L2251
+	.word	.L2257
 	.align	2, 0
 	.align	2, 0
-.L2251:
+.L2257:
+	.word	.L2254
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2254
+	.word	.L2256
+	.word	.L2254
+	.word	.L2256
+	.word	.L2254
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
 	.word	.L2248
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
+	.word	.L2255
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
 	.word	.L2248
-	.word	.L2250
-	.word	.L2248
-	.word	.L2250
-	.word	.L2248
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2242
-	.word	.L2249
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2242
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2248
-	.word	.L2250
-	.word	.L2250
-	.word	.L2250
-	.word	.L2248
-.L2242:
-	ldr	r0, .L2259
-	bl	PlayBGM
-	b	.L2234
-.L2260:
-	.align	2, 0
-.L2259:
-	.word	0x163
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2254
+	.word	.L2256
+	.word	.L2256
+	.word	.L2256
+	.word	.L2254
 .L2248:
+	ldr	r0, .L2265
+	bl	PlayBGM
+	b	.L2240
+.L2266:
+	.align	2, 0
+.L2265:
+	.word	0x163
+.L2254:
 	mov	r0, #0xd4
 	lsl	r0, r0, #0x1
 	bl	PlayBGM
-	b	.L2234
-.L2249:
+	b	.L2240
+.L2255:
 	mov	r0, #0xb1
 	lsl	r0, r0, #0x1
 	bl	PlayBGM
-	b	.L2234
-.L2250:
+	b	.L2240
+.L2256:
 	mov	r0, #0xce
 	lsl	r0, r0, #0x1
 	bl	PlayBGM
-	b	.L2234
-.L2239:
-	ldr	r1, .L2261
-	ldr	r0, .L2261+0x4
+	b	.L2240
+.L2245:
+	ldr	r1, .L2267
+	ldr	r0, .L2267+0x4
 	str	r0, [r1]
-.L2234:
-	ldr	r1, .L2261+0x8
-	ldr	r0, .L2261+0xc
+.L2240:
+	ldr	r1, .L2267+0x8
+	ldr	r0, .L2267+0xc
 	str	r0, [r1]
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2262:
+.L2268:
 	.align	2, 0
-.L2261:
+.L2267:
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_PayDayMoneyAndPickUpItems
 	.word	gBattleMainFunc
@@ -27285,43 +27369,43 @@ HandleEndTurn_BattleWon:
 	.thumb_func
 HandleEndTurn_BattleLost:
 	push	{r4, lr}
-	ldr	r1, .L2270
+	ldr	r1, .L2276
 	mov	r0, #0x0
 	strb	r0, [r1]
-	ldr	r0, .L2270+0x4
+	ldr	r0, .L2276+0x4
 	ldr	r1, [r0]
-	ldr	r0, .L2270+0x8
+	ldr	r0, .L2276+0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2264	@cond_branch
-	ldr	r0, .L2270+0xc
+	beq	.L2270	@cond_branch
+	ldr	r0, .L2276+0xc
 	and	r1, r1, r0
 	cmp	r1, #0
-	beq	.L2265	@cond_branch
-	ldr	r3, .L2270+0x10
+	beq	.L2271	@cond_branch
+	ldr	r3, .L2276+0x10
 	ldrb	r2, [r3]
 	mov	r0, #0x80
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L2266	@cond_branch
-	ldr	r1, .L2270+0x14
-	ldr	r0, .L2270+0x18
+	beq	.L2272	@cond_branch
+	ldr	r1, .L2276+0x14
+	ldr	r0, .L2276+0x18
 	str	r0, [r1]
 	mov	r0, #0x7f
 	and	r0, r0, r2
 	strb	r0, [r3]
-	ldr	r0, .L2270+0x1c
+	ldr	r0, .L2276+0x1c
 	ldr	r1, [r0]
-	ldr	r0, .L2270+0x20
+	ldr	r0, .L2276+0x20
 	add	r1, r1, r0
 	ldrb	r0, [r1]
 	mov	r2, #0x8
 	orr	r0, r0, r2
 	strb	r0, [r1]
-	b	.L2269
-.L2271:
+	b	.L2275
+.L2277:
 	.align	2, 0
-.L2270:
+.L2276:
 	.word	gCurrentActionFuncId
 	.word	gBattleTypeFlags
 	.word	0x2000002
@@ -27331,58 +27415,58 @@ HandleEndTurn_BattleLost:
 	.word	BattleScript_PrintPlayerForfeitedLinkBattle
 	.word	gSaveBlock2Ptr
 	.word	0xc31
-.L2266:
-	ldr	r1, .L2272
-	ldr	r0, .L2272+0x4
+.L2272:
+	ldr	r1, .L2278
+	ldr	r0, .L2278+0x4
 	str	r0, [r1]
 	mov	r0, #0x7f
 	and	r0, r0, r2
 	strb	r0, [r3]
-	b	.L2269
-.L2273:
+	b	.L2275
+.L2279:
 	.align	2, 0
-.L2272:
+.L2278:
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_82DAA0B
-.L2265:
-	ldr	r1, .L2274
-	ldr	r4, .L2274+0x4
+.L2271:
+	ldr	r1, .L2280
+	ldr	r4, .L2280+0x4
 	ldrb	r0, [r4]
 	strb	r0, [r1]
 	mov	r0, #0x0
 	bl	GetBattlerAtPosition
-	ldr	r1, .L2274+0x8
+	ldr	r1, .L2280+0x8
 	strb	r0, [r1]
-	ldr	r1, .L2274+0xc
-	ldr	r0, .L2274+0x10
+	ldr	r1, .L2280+0xc
+	ldr	r0, .L2280+0x10
 	str	r0, [r1]
 	ldrb	r1, [r4]
 	mov	r0, #0x7f
 	and	r0, r0, r1
 	strb	r0, [r4]
-	b	.L2269
-.L2275:
+	b	.L2275
+.L2281:
 	.align	2, 0
-.L2274:
+.L2280:
 	.word	gBattleTextBuff1
 	.word	gBattleOutcome
 	.word	gBattlerAttacker
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_LinkBattleWonOrLost
-.L2264:
-	ldr	r1, .L2276
-	ldr	r0, .L2276+0x4
+.L2270:
+	ldr	r1, .L2282
+	ldr	r0, .L2282+0x4
 	str	r0, [r1]
-.L2269:
-	ldr	r1, .L2276+0x8
-	ldr	r0, .L2276+0xc
+.L2275:
+	ldr	r1, .L2282+0x8
+	ldr	r0, .L2282+0xc
 	str	r0, [r1]
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2277:
+.L2283:
 	.align	2, 0
-.L2276:
+.L2282:
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_LocalBattleLost
 	.word	gBattleMainFunc
@@ -27394,37 +27478,37 @@ HandleEndTurn_BattleLost:
 	.thumb_func
 HandleEndTurn_RanFromBattle:
 	push	{lr}
-	ldr	r1, .L2289
+	ldr	r1, .L2295
 	mov	r0, #0x0
 	strb	r0, [r1]
-	ldr	r1, .L2289+0x4
+	ldr	r1, .L2295+0x4
 	ldr	r2, [r1]
-	ldr	r0, .L2289+0x8
+	ldr	r0, .L2295+0x8
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L2279	@cond_branch
+	beq	.L2285	@cond_branch
 	mov	r0, #0x8
 	and	r2, r2, r0
 	cmp	r2, #0
-	beq	.L2279	@cond_branch
-	ldr	r1, .L2289+0xc
-	ldr	r0, .L2289+0x10
+	beq	.L2285	@cond_branch
+	ldr	r1, .L2295+0xc
+	ldr	r0, .L2295+0x10
 	str	r0, [r1]
-	ldr	r1, .L2289+0x14
+	ldr	r1, .L2295+0x14
 	mov	r0, #0x9
 	strb	r0, [r1]
-	ldr	r0, .L2289+0x18
+	ldr	r0, .L2295+0x18
 	ldr	r1, [r0]
-	ldr	r0, .L2289+0x1c
+	ldr	r0, .L2295+0x1c
 	add	r1, r1, r0
 	ldrb	r0, [r1]
 	mov	r2, #0x8
 	orr	r0, r0, r2
 	strb	r0, [r1]
-	b	.L2280
-.L2290:
+	b	.L2286
+.L2296:
 	.align	2, 0
-.L2289:
+.L2295:
 	.word	gCurrentActionFuncId
 	.word	gBattleTypeFlags
 	.word	0x3f0100
@@ -27433,29 +27517,29 @@ HandleEndTurn_RanFromBattle:
 	.word	gBattleOutcome
 	.word	gSaveBlock2Ptr
 	.word	0xc31
-.L2279:
+.L2285:
 	ldr	r0, [r1]
 	mov	r1, #0x80
 	lsl	r1, r1, #0x13
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2281	@cond_branch
-	ldr	r1, .L2291
-	ldr	r0, .L2291+0x4
+	beq	.L2287	@cond_branch
+	ldr	r1, .L2297
+	ldr	r0, .L2297+0x4
 	str	r0, [r1]
-	ldr	r1, .L2291+0x8
+	ldr	r1, .L2297+0x8
 	mov	r0, #0x9
 	strb	r0, [r1]
-	b	.L2280
-.L2292:
+	b	.L2286
+.L2298:
 	.align	2, 0
-.L2291:
+.L2297:
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_PrintPlayerForfeited
 	.word	gBattleOutcome
-.L2281:
-	ldr	r1, .L2293
-	ldr	r0, .L2293+0x4
+.L2287:
+	ldr	r1, .L2299
+	ldr	r0, .L2299+0x4
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x4
 	add	r0, r0, r1
@@ -27463,42 +27547,42 @@ HandleEndTurn_RanFromBattle:
 	lsl	r0, r0, #0x19
 	lsr	r0, r0, #0x1e
 	cmp	r0, #0x1
-	beq	.L2285	@cond_branch
+	beq	.L2291	@cond_branch
 	cmp	r0, #0x2
-	beq	.L2286	@cond_branch
-	ldr	r1, .L2293+0x8
-	ldr	r0, .L2293+0xc
-	b	.L2288
-.L2294:
+	beq	.L2292	@cond_branch
+	ldr	r1, .L2299+0x8
+	ldr	r0, .L2299+0xc
+	b	.L2294
+.L2300:
 	.align	2, 0
-.L2293:
+.L2299:
 	.word	gProtectStructs
 	.word	gBattlerAttacker
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_GotAwaySafely
-.L2285:
-	ldr	r1, .L2295
-	ldr	r0, .L2295+0x4
-	b	.L2288
-.L2296:
+.L2291:
+	ldr	r1, .L2301
+	ldr	r0, .L2301+0x4
+	b	.L2294
+.L2302:
 	.align	2, 0
-.L2295:
+.L2301:
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_SmokeBallEscape
-.L2286:
-	ldr	r1, .L2297
-	ldr	r0, .L2297+0x4
-.L2288:
+.L2292:
+	ldr	r1, .L2303
+	ldr	r0, .L2303+0x4
+.L2294:
 	str	r0, [r1]
-.L2280:
-	ldr	r1, .L2297+0x8
-	ldr	r0, .L2297+0xc
+.L2286:
+	ldr	r1, .L2303+0x8
+	ldr	r0, .L2303+0xc
 	str	r0, [r1]
 	pop	{r0}
 	bx	r0
-.L2298:
+.L2304:
 	.align	2, 0
-.L2297:
+.L2303:
 	.word	gBattlescriptCurrInstr
 	.word	BattleScript_RanAwayUsingMonAbility
 	.word	gBattleMainFunc
@@ -27509,18 +27593,18 @@ HandleEndTurn_RanFromBattle:
 	.type	 HandleEndTurn_MonFled,function
 	.thumb_func
 HandleEndTurn_MonFled:
-	ldr	r1, .L2300
+	ldr	r1, .L2306
 	mov	r0, #0x0
 	strb	r0, [r1]
-	ldr	r1, .L2300+0x4
+	ldr	r1, .L2306+0x4
 	mov	r0, #0xfd
 	strb	r0, [r1]
 	mov	r0, #0x7
 	strb	r0, [r1, #0x1]
-	ldr	r2, .L2300+0x8
+	ldr	r2, .L2306+0x8
 	ldrb	r0, [r2]
 	strb	r0, [r1, #0x2]
-	ldr	r3, .L2300+0xc
+	ldr	r3, .L2306+0xc
 	ldrb	r0, [r2]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r3
@@ -27528,16 +27612,16 @@ HandleEndTurn_MonFled:
 	strb	r0, [r1, #0x3]
 	mov	r0, #0xff
 	strb	r0, [r1, #0x4]
-	ldr	r1, .L2300+0x10
-	ldr	r0, .L2300+0x14
+	ldr	r1, .L2306+0x10
+	ldr	r0, .L2306+0x14
 	str	r0, [r1]
-	ldr	r1, .L2300+0x18
-	ldr	r0, .L2300+0x1c
+	ldr	r1, .L2306+0x18
+	ldr	r0, .L2306+0x1c
 	str	r0, [r1]
 	bx	lr
-.L2301:
+.L2307:
 	.align	2, 0
-.L2300:
+.L2306:
 	.word	gCurrentActionFuncId
 	.word	gBattleTextBuff1
 	.word	gBattlerAttacker
@@ -27555,42 +27639,42 @@ HandleEndTurn_FinishBattle:
 	push	{r4, r5, r6, r7, lr}
 	mov	r7, r8
 	push	{r7}
-	ldr	r0, .L2321
+	ldr	r0, .L2327
 	ldrb	r0, [r0]
 	sub	r0, r0, #0xb
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bls	.LCB19843
-	b	.L2303	@long jump
-.LCB19843:
-	ldr	r0, .L2321+0x4
+	bls	.LCB19943
+	b	.L2309	@long jump
+.LCB19943:
+	ldr	r0, .L2327+0x4
 	ldr	r1, [r0]
-	ldr	r0, .L2321+0x8
+	ldr	r0, .L2327+0x8
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L2304	@cond_branch
-	ldr	r2, .L2321+0xc
+	bne	.L2310	@cond_branch
+	ldr	r2, .L2327+0xc
 	strb	r1, [r2]
-	ldr	r0, .L2321+0x10
+	ldr	r0, .L2327+0x10
 	ldrb	r0, [r0]
 	cmp	r1, r0
-	bcs	.L2306	@cond_branch
+	bcs	.L2312	@cond_branch
 	add	r5, r2, #0
-	ldr	r0, .L2321+0x14
+	ldr	r0, .L2327+0x14
 	mov	r8, r0
 	mov	r7, #0x64
-	ldr	r6, .L2321+0x18
-.L2308:
+	ldr	r6, .L2327+0x18
+.L2314:
 	ldrb	r0, [r5]
 	bl	GetBattlerSide
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L2307	@cond_branch
-	ldr	r4, .L2321+0x1c
+	bne	.L2313	@cond_branch
+	ldr	r4, .L2327+0x1c
 	ldrh	r0, [r4, #0x6]
 	cmp	r0, #0
-	bne	.L2310	@cond_branch
+	bne	.L2316	@cond_branch
 	ldrb	r0, [r5]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r8
@@ -27611,10 +27695,10 @@ HandleEndTurn_FinishBattle:
 	add	r2, r4, #0
 	add	r2, r2, #0x8
 	bl	GetMonData
-	b	.L2307
-.L2322:
+	b	.L2313
+.L2328:
 	.align	2, 0
-.L2321:
+.L2327:
 	.word	gCurrentActionFuncId
 	.word	gBattleTypeFlags
 	.word	0x23f0b92
@@ -27623,7 +27707,7 @@ HandleEndTurn_FinishBattle:
 	.word	gBattlerPartyIndexes
 	.word	gPlayerParty
 	.word	gBattleResults
-.L2310:
+.L2316:
 	ldrb	r0, [r5]
 	lsl	r0, r0, #0x1
 	add	r0, r0, r8
@@ -27644,40 +27728,40 @@ HandleEndTurn_FinishBattle:
 	add	r2, r4, #0
 	add	r2, r2, #0x14
 	bl	GetMonData
-.L2307:
+.L2313:
 	ldrb	r0, [r5]
 	add	r0, r0, #0x1
 	strb	r0, [r5]
-	ldr	r1, .L2323
+	ldr	r1, .L2329
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	ldrb	r1, [r1]
 	cmp	r0, r1
-	bcc	.L2308	@cond_branch
-.L2306:
+	bcc	.L2314	@cond_branch
+.L2312:
 	bl	PutPokemonTodayCaughtOnAir
-.L2304:
-	ldr	r0, .L2323+0x4
+.L2310:
+	ldr	r0, .L2329+0x4
 	ldr	r0, [r0]
-	ldr	r1, .L2323+0x8
+	ldr	r1, .L2329+0x8
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2313	@cond_branch
-	ldr	r0, .L2323+0xc
+	bne	.L2319	@cond_branch
+	ldr	r0, .L2329+0xc
 	ldrb	r1, [r0, #0x5]
 	mov	r0, #0x40
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2313	@cond_branch
+	beq	.L2319	@cond_branch
 	bl	sub_80EE184
-.L2313:
+.L2319:
 	bl	sub_8186444
 	mov	r0, #0x3
 	bl	BeginFastPaletteFade
 	mov	r0, #0x5
 	bl	FadeOutMapMusic
 	mov	r4, #0x0
-.L2317:
+.L2323:
 	add	r0, r4, #0
 	bl	UndoMegaEvolution
 	add	r0, r4, #0
@@ -27685,17 +27769,17 @@ HandleEndTurn_FinishBattle:
 	bl	UndoFormChange
 	add	r4, r4, #0x1
 	cmp	r4, #0x5
-	bls	.L2317	@cond_branch
-	ldr	r1, .L2323+0x10
-	ldr	r0, .L2323+0x14
+	bls	.L2323	@cond_branch
+	ldr	r1, .L2329+0x10
+	ldr	r0, .L2329+0x14
 	str	r0, [r1]
-	ldr	r1, .L2323+0x18
-	ldr	r0, .L2323+0x1c
+	ldr	r1, .L2329+0x18
+	ldr	r0, .L2329+0x1c
 	str	r0, [r1]
-	b	.L2319
-.L2324:
+	b	.L2325
+.L2330:
 	.align	2, 0
-.L2323:
+.L2329:
 	.word	gBattlersCount
 	.word	gBattleTypeFlags
 	.word	0x23f0b9a
@@ -27704,28 +27788,28 @@ HandleEndTurn_FinishBattle:
 	.word	FreeResetData_ReturnToOvOrDoEvolutions
 	.word	gCB2_AfterEvolution
 	.word	BattleMainCB2
-.L2303:
-	ldr	r0, .L2325
+.L2309:
+	ldr	r0, .L2331
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L2319	@cond_branch
-	ldr	r1, .L2325+0x4
-	ldr	r0, .L2325+0x8
+	bne	.L2325	@cond_branch
+	ldr	r1, .L2331+0x4
+	ldr	r0, .L2331+0x8
 	ldr	r0, [r0]
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	bl	_call_via_r0
-.L2319:
+.L2325:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2326:
+.L2332:
 	.align	2, 0
-.L2325:
+.L2331:
 	.word	gBattleControllerExecFlags
 	.word	gBattleScriptingCommandsTable
 	.word	gBattlescriptCurrInstr
@@ -27736,113 +27820,113 @@ HandleEndTurn_FinishBattle:
 	.thumb_func
 FreeResetData_ReturnToOvOrDoEvolutions:
 	push	{r4, lr}
-	ldr	r0, .L2336
+	ldr	r0, .L2342
 	ldrb	r1, [r0, #0x7]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	lsl	r0, r0, #0x18
 	lsr	r1, r0, #0x18
 	cmp	r1, #0
-	bne	.L2328	@cond_branch
-	ldr	r0, .L2336+0x4
+	bne	.L2334	@cond_branch
+	ldr	r0, .L2342+0x4
 	strb	r1, [r0]
-	ldr	r0, .L2336+0x8
+	ldr	r0, .L2342+0x8
 	ldrb	r1, [r0]
 	add	r4, r0, #0
-	ldr	r3, .L2336+0xc
+	ldr	r3, .L2342+0xc
 	cmp	r1, #0
-	beq	.L2329	@cond_branch
-	ldr	r0, .L2336+0x10
+	beq	.L2335	@cond_branch
+	ldr	r0, .L2342+0x10
 	ldrb	r0, [r0]
 	cmp	r0, #0x1
-	beq	.L2330	@cond_branch
+	beq	.L2336	@cond_branch
 	cmp	r0, #0x7
-	bne	.L2329	@cond_branch
-.L2330:
-	ldr	r1, .L2336+0xc
+	bne	.L2335	@cond_branch
+.L2336:
+	ldr	r1, .L2342+0xc
 	ldr	r0, [r1]
-	ldr	r3, .L2336+0x14
+	ldr	r3, .L2342+0x14
 	add	r2, r0, r3
 	ldrb	r0, [r2]
 	add	r3, r1, #0
 	cmp	r0, #0x63
-	bhi	.L2329	@cond_branch
+	bhi	.L2335	@cond_branch
 	add	r0, r0, #0x1
 	strb	r0, [r2]
-	b	.L2331
-.L2337:
+	b	.L2337
+.L2343:
 	.align	2, 0
-.L2336:
+.L2342:
 	.word	gPaletteFade
 	.word	gIsFishingEncounter
 	.word	gDexnavBattle
 	.word	gSaveBlock1Ptr
 	.word	gBattleOutcome
-	.word	0x361f
-.L2329:
+	.word	0x361b
+.L2335:
 	ldr	r0, [r3]
-	ldr	r1, .L2338
+	ldr	r1, .L2344
 	add	r0, r0, r1
 	mov	r1, #0x0
 	strb	r1, [r0]
-.L2331:
-	ldr	r1, .L2338+0x4
+.L2337:
+	ldr	r1, .L2344+0x4
 	mov	r0, #0x0
 	strb	r0, [r1]
 	strb	r0, [r4]
 	bl	ResetSpriteData
-	ldr	r0, .L2338+0x8
+	ldr	r0, .L2344+0x8
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L2332	@cond_branch
-	ldr	r0, .L2338+0xc
+	beq	.L2338	@cond_branch
+	ldr	r0, .L2344+0xc
 	ldrb	r0, [r0]
 	cmp	r0, #0x1
-	beq	.L2333	@cond_branch
+	beq	.L2339	@cond_branch
 	cmp	r0, #0x7
-	bne	.L2332	@cond_branch
-.L2333:
-	ldr	r1, .L2338+0x10
-	ldr	r0, .L2338+0x14
-	str	r0, [r1]
-	b	.L2328
+	bne	.L2338	@cond_branch
 .L2339:
+	ldr	r1, .L2344+0x10
+	ldr	r0, .L2344+0x14
+	str	r0, [r1]
+	b	.L2334
+.L2345:
 	.align	2, 0
-.L2338:
-	.word	0x361f
+.L2344:
+	.word	0x361b
 	.word	gIsSurfingEncounter
 	.word	gLeveledUpInBattle
 	.word	gBattleOutcome
 	.word	gBattleMainFunc
 	.word	TryEvolvePokemon
-.L2332:
-	ldr	r1, .L2340
-	ldr	r0, .L2340+0x4
+.L2338:
+	ldr	r1, .L2346
+	ldr	r0, .L2346+0x4
 	str	r0, [r1]
-	b	.L2327
-.L2341:
+	b	.L2333
+.L2347:
 	.align	2, 0
-.L2340:
+.L2346:
 	.word	gBattleMainFunc
 	.word	ReturnFromBattleToOverworld
-.L2328:
+.L2334:
 	bl	FreeAllWindowBuffers
-	ldr	r0, .L2342
+	ldr	r0, .L2348
 	ldr	r0, [r0]
 	mov	r1, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2327	@cond_branch
+	bne	.L2333	@cond_branch
 	bl	FreeMonSpritesGfx
 	bl	FreeBattleResources
 	bl	FreeBattleSpritesData
-.L2327:
+.L2333:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2343:
+.L2349:
 	.align	2, 0
-.L2342:
+.L2348:
 	.word	gBattleTypeFlags
 .Lfe88:
 	.size	 FreeResetData_ReturnToOvOrDoEvolutions,.Lfe88-FreeResetData_ReturnToOvOrDoEvolutions
@@ -27852,29 +27936,29 @@ FreeResetData_ReturnToOvOrDoEvolutions:
 TryEvolvePokemon:
 	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x8
-	ldr	r0, .L2356
+	ldr	r0, .L2362
 	ldrb	r1, [r0]
 	add	r3, r0, #0
 	cmp	r1, #0
-	beq	.L2346	@cond_branch
-.L2347:
+	beq	.L2352	@cond_branch
+.L2353:
 	mov	r6, #0x0
-.L2351:
+.L2357:
 	ldrb	r2, [r3]
-	ldr	r0, .L2356+0x4
+	ldr	r0, .L2362+0x4
 	lsl	r1, r6, #0x2
 	add	r1, r1, r0
 	ldr	r1, [r1]
 	add	r0, r2, #0
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2350	@cond_branch
+	beq	.L2356	@cond_branch
 	bic	r2, r2, r1
 	strb	r2, [r3]
 	mov	r0, #0x64
 	mov	r1, r6
 	mul	r1, r1, r0
-	ldr	r0, .L2356+0x8
+	ldr	r0, .L2362+0x8
 	add	r5, r1, r0
 	add	r0, sp, #0x4
 	str	r0, [sp]
@@ -27885,10 +27969,10 @@ TryEvolvePokemon:
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, #0
-	beq	.L2350	@cond_branch
+	beq	.L2356	@cond_branch
 	bl	FreeAllWindowBuffers
-	ldr	r1, .L2356+0xc
-	ldr	r0, .L2356+0x10
+	ldr	r1, .L2362+0xc
+	ldr	r0, .L2362+0x10
 	str	r0, [r1]
 	lsl	r3, r6, #0x18
 	lsr	r3, r3, #0x18
@@ -27899,35 +27983,35 @@ TryEvolvePokemon:
 	add	r1, r4, #0
 	mov	r2, #0x1
 	bl	EvolutionScene
-	b	.L2344
-.L2357:
+	b	.L2350
+.L2363:
 	.align	2, 0
-.L2356:
+.L2362:
 	.word	gLeveledUpInBattle
 	.word	gBitTable
 	.word	gPlayerParty
 	.word	gBattleMainFunc
 	.word	WaitForEvoSceneToFinish
-.L2350:
+.L2356:
 	add	r6, r6, #0x1
-	ldr	r3, .L2358
+	ldr	r3, .L2364
 	cmp	r6, #0x5
-	ble	.L2351	@cond_branch
+	ble	.L2357	@cond_branch
 	ldrb	r0, [r3]
 	cmp	r0, #0
-	bne	.L2347	@cond_branch
-.L2346:
-	ldr	r1, .L2358+0x4
-	ldr	r0, .L2358+0x8
+	bne	.L2353	@cond_branch
+.L2352:
+	ldr	r1, .L2364+0x4
+	ldr	r0, .L2364+0x8
 	str	r0, [r1]
-.L2344:
+.L2350:
 	add	sp, sp, #0x8
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2359:
+.L2365:
 	.align	2, 0
-.L2358:
+.L2364:
 	.word	gLeveledUpInBattle
 	.word	gBattleMainFunc
 	.word	ReturnFromBattleToOverworld
@@ -27938,20 +28022,20 @@ TryEvolvePokemon:
 	.thumb_func
 WaitForEvoSceneToFinish:
 	push	{lr}
-	ldr	r0, .L2362
+	ldr	r0, .L2368
 	ldr	r1, [r0, #0x4]
-	ldr	r0, .L2362+0x4
+	ldr	r0, .L2368+0x4
 	cmp	r1, r0
-	bne	.L2361	@cond_branch
-	ldr	r1, .L2362+0x8
-	ldr	r0, .L2362+0xc
+	bne	.L2367	@cond_branch
+	ldr	r1, .L2368+0x8
+	ldr	r0, .L2368+0xc
 	str	r0, [r1]
-.L2361:
+.L2367:
 	pop	{r0}
 	bx	r0
-.L2363:
+.L2369:
 	.align	2, 0
-.L2362:
+.L2368:
 	.word	gMain
 	.word	BattleMainCB2
 	.word	gBattleMainFunc
@@ -27963,72 +28047,72 @@ WaitForEvoSceneToFinish:
 	.thumb_func
 ReturnFromBattleToOverworld:
 	push	{r4, r5, r6, lr}
-	ldr	r6, .L2370
+	ldr	r6, .L2376
 	ldr	r0, [r6]
 	mov	r5, #0x2
 	and	r0, r0, r5
 	cmp	r0, #0
-	bne	.L2365	@cond_branch
-	ldr	r4, .L2370+0x4
+	bne	.L2371	@cond_branch
+	ldr	r4, .L2376+0x4
 	add	r0, r4, #0
 	bl	RandomlyGivePartyPokerus
 	add	r0, r4, #0
 	bl	PartySpreadPokerus
-.L2365:
+.L2371:
 	ldr	r4, [r6]
 	add	r0, r4, #0
 	and	r0, r0, r5
 	cmp	r0, #0
-	beq	.L2366	@cond_branch
-	ldr	r0, .L2370+0x8
+	beq	.L2372	@cond_branch
+	ldr	r0, .L2376+0x8
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L2364	@cond_branch
-.L2366:
-	ldr	r1, .L2370+0xc
-	ldr	r5, .L2370+0x10
+	bne	.L2370	@cond_branch
+.L2372:
+	ldr	r1, .L2376+0xc
+	ldr	r5, .L2376+0x10
 	ldrb	r0, [r5]
 	strh	r0, [r1]
-	ldr	r3, .L2370+0x14
-	ldr	r0, .L2370+0x18
+	ldr	r3, .L2376+0x14
+	ldr	r0, .L2376+0x18
 	add	r2, r3, r0
 	ldrb	r1, [r2]
 	mov	r0, #0x3
 	neg	r0, r0
 	and	r0, r0, r1
 	strb	r0, [r2]
-	ldr	r0, .L2370+0x1c
+	ldr	r0, .L2376+0x1c
 	ldr	r0, [r0]
 	str	r0, [r3]
 	mov	r0, #0x80
 	lsl	r0, r0, #0x3
 	and	r4, r4, r0
 	cmp	r4, #0
-	beq	.L2367	@cond_branch
-	ldr	r0, .L2370+0x20
+	beq	.L2373	@cond_branch
+	ldr	r0, .L2376+0x20
 	bl	UpdateRoamerHPStatus
 	ldrb	r1, [r5]
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2369	@cond_branch
+	bne	.L2375	@cond_branch
 	cmp	r1, #0x7
-	bne	.L2367	@cond_branch
-.L2369:
+	bne	.L2373	@cond_branch
+.L2375:
 	bl	SetRoamerInactive
-.L2367:
+.L2373:
 	mov	r0, #0x5a
 	bl	m4aSongNumStop
-	ldr	r0, .L2370+0x14
+	ldr	r0, .L2376+0x14
 	ldr	r0, [r0, #0x8]
 	bl	SetMainCallback2
-.L2364:
+.L2370:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2371:
+.L2377:
 	.align	2, 0
-.L2370:
+.L2376:
 	.word	gBattleTypeFlags
 	.word	gPlayerParty
 	.word	gReceivedRemoteLinkPlayers
@@ -28046,25 +28130,25 @@ ReturnFromBattleToOverworld:
 	.thumb_func
 RunBattleScriptCommands_PopCallbacksStack:
 	push	{lr}
-	ldr	r0, .L2377
+	ldr	r0, .L2383
 	ldrb	r0, [r0]
 	sub	r0, r0, #0xb
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bhi	.L2373	@cond_branch
-	ldr	r3, .L2377+0x4
+	bhi	.L2379	@cond_branch
+	ldr	r3, .L2383+0x4
 	ldr	r0, [r3]
 	ldr	r0, [r0, #0xc]
 	add	r1, r0, #0
 	add	r1, r1, #0x20
 	ldrb	r0, [r1]
 	cmp	r0, #0
-	beq	.L2374	@cond_branch
+	beq	.L2380	@cond_branch
 	sub	r0, r0, #0x1
 	strb	r0, [r1]
-.L2374:
-	ldr	r2, .L2377+0x8
+.L2380:
+	ldr	r2, .L2383+0x8
 	ldr	r0, [r3]
 	ldr	r1, [r0, #0xc]
 	add	r0, r1, #0
@@ -28074,32 +28158,32 @@ RunBattleScriptCommands_PopCallbacksStack:
 	add	r1, r1, r0
 	ldr	r0, [r1]
 	str	r0, [r2]
-	b	.L2375
-.L2378:
+	b	.L2381
+.L2384:
 	.align	2, 0
-.L2377:
+.L2383:
 	.word	gCurrentActionFuncId
 	.word	gBattleResources
 	.word	gBattleMainFunc
-.L2373:
-	ldr	r0, .L2379
+.L2379:
+	ldr	r0, .L2385
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L2375	@cond_branch
-	ldr	r1, .L2379+0x4
-	ldr	r0, .L2379+0x8
+	bne	.L2381	@cond_branch
+	ldr	r1, .L2385+0x4
+	ldr	r0, .L2385+0x8
 	ldr	r0, [r0]
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	bl	_call_via_r0
-.L2375:
+.L2381:
 	pop	{r0}
 	bx	r0
-.L2380:
+.L2386:
 	.align	2, 0
-.L2379:
+.L2385:
 	.word	gBattleControllerExecFlags
 	.word	gBattleScriptingCommandsTable
 	.word	gBattlescriptCurrInstr
@@ -28111,24 +28195,24 @@ RunBattleScriptCommands_PopCallbacksStack:
 	.thumb_func
 RunBattleScriptCommands:
 	push	{lr}
-	ldr	r0, .L2383
+	ldr	r0, .L2389
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L2382	@cond_branch
-	ldr	r1, .L2383+0x4
-	ldr	r0, .L2383+0x8
+	bne	.L2388	@cond_branch
+	ldr	r1, .L2389+0x4
+	ldr	r0, .L2389+0x8
 	ldr	r0, [r0]
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	bl	_call_via_r0
-.L2382:
+.L2388:
 	pop	{r0}
 	bx	r0
-.L2384:
+.L2390:
 	.align	2, 0
-.L2383:
+.L2389:
 	.word	gBattleControllerExecFlags
 	.word	gBattleScriptingCommandsTable
 	.word	gBattlescriptCurrInstr
@@ -28149,21 +28233,21 @@ SetTypeBeforeUsingMove:
 	lsl	r1, r1, #0x18
 	lsr	r6, r1, #0x18
 	cmp	r7, #0xa5
-	bne	.LCB20571
-	b	.L2385	@long jump
-.LCB20571:
-	ldr	r5, .L2439
+	bne	.LCB20671
+	b	.L2391	@long jump
+.LCB20671:
+	ldr	r5, .L2445
 	ldr	r0, [r5]
 	mov	r1, #0x0
 	mov	r8, r1
 	mov	r1, #0x0
 	strb	r1, [r0, #0x12]
 	ldr	r0, [r5]
-	ldr	r2, .L2439+0x4
+	ldr	r2, .L2445+0x4
 	add	r0, r0, r2
 	add	r0, r0, r6
 	strb	r1, [r0]
-	ldr	r0, .L2439+0x8
+	ldr	r0, .L2445+0x8
 	lsl	r3, r6, #0x1
 	add	r1, r3, r6
 	lsl	r1, r1, #0x3
@@ -28173,7 +28257,7 @@ SetTypeBeforeUsingMove:
 	neg	r0, r0
 	and	r0, r0, r2
 	strb	r0, [r1, #0x2]
-	ldr	r1, .L2439+0xc
+	ldr	r1, .L2445+0xc
 	lsl	r2, r7, #0x2
 	add	r0, r2, r7
 	lsl	r0, r0, #0x2
@@ -28182,74 +28266,74 @@ SetTypeBeforeUsingMove:
 	mov	sl, r3
 	mov	r9, r2
 	cmp	r1, #0xcb
-	bne	.L2387	@cond_branch
+	bne	.L2393	@cond_branch
 	mov	r0, #0xd
 	bl	IsAbilityOnField
 	cmp	r0, #0
-	beq	.LCB20612
-	b	.L2397	@long jump
-.LCB20612:
+	beq	.LCB20712
+	b	.L2403	@long jump
+.LCB20712:
 	mov	r0, #0x4c
 	bl	IsAbilityOnField
 	cmp	r0, #0
-	beq	.LCB20617
-	b	.L2397	@long jump
-.LCB20617:
-	ldr	r0, .L2439+0x10
+	beq	.LCB20717
+	b	.L2403	@long jump
+.LCB20717:
+	ldr	r0, .L2445+0x10
 	ldrh	r1, [r0]
 	mov	r0, #0x7
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2389	@cond_branch
+	beq	.L2395	@cond_branch
 	ldr	r1, [r5]
 	mov	r0, #0x8b
 	strb	r0, [r1, #0x12]
-	b	.L2397
-.L2440:
+	b	.L2403
+.L2446:
 	.align	2, 0
-.L2439:
+.L2445:
 	.word	gBattleStruct
 	.word	0x287
 	.word	gSpecialStatuses
 	.word	gBattleMoves
 	.word	gBattleWeather
-.L2389:
+.L2395:
 	mov	r0, #0x18
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2391	@cond_branch
+	beq	.L2397	@cond_branch
 	ldr	r1, [r5]
 	mov	r0, #0x85
 	strb	r0, [r1, #0x12]
-	b	.L2397
-.L2391:
+	b	.L2403
+.L2397:
 	mov	r0, #0x60
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2393	@cond_branch
+	beq	.L2399	@cond_branch
 	ldr	r1, [r5]
 	mov	r0, #0x8a
 	strb	r0, [r1, #0x12]
-	b	.L2397
-.L2393:
+	b	.L2403
+.L2399:
 	mov	r0, #0xc0
 	lsl	r0, r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2395	@cond_branch
+	beq	.L2401	@cond_branch
 	ldr	r1, [r5]
 	mov	r0, #0x8f
 	strb	r0, [r1, #0x12]
-	b	.L2397
-.L2395:
+	b	.L2403
+.L2401:
 	ldr	r1, [r5]
 	mov	r0, #0x80
 	strb	r0, [r1, #0x12]
-	b	.L2397
-.L2387:
+	b	.L2403
+.L2393:
 	cmp	r1, #0x87
-	bne	.L2398	@cond_branch
-	ldr	r1, .L2441
+	bne	.L2404	@cond_branch
+	ldr	r1, .L2447
 	mov	r0, #0x5c
 	mov	r4, r6
 	mul	r4, r4, r0
@@ -28304,29 +28388,29 @@ SetTypeBeforeUsingMove:
 	ldr	r1, [r5]
 	ldrb	r0, [r1, #0x12]
 	cmp	r0, #0x8
-	bls	.L2399	@cond_branch
+	bls	.L2405	@cond_branch
 	add	r0, r0, #0x1
 	strb	r0, [r1, #0x12]
-.L2399:
+.L2405:
 	ldr	r0, [r5]
 	ldrb	r1, [r0, #0x12]
 	mov	r2, #0xc0
-	b	.L2432
-.L2442:
+	b	.L2438
+.L2448:
 	.align	2, 0
-.L2441:
+.L2447:
 	.word	gBattleMons
-.L2398:
-	ldr	r0, .L2443
+.L2404:
+	ldr	r0, .L2449
 	cmp	r1, r0
-	bne	.L2401	@cond_branch
+	bne	.L2407	@cond_branch
 	add	r0, r6, #0
 	mov	r1, #0x1
 	bl	GetBattlerHoldEffect
 	ldrb	r4, [r4, #0x11]
 	cmp	r0, r4
-	bne	.L2397	@cond_branch
-	ldr	r1, .L2443+0x4
+	bne	.L2403	@cond_branch
+	ldr	r1, .L2449+0x4
 	mov	r0, #0x5c
 	mul	r0, r0, r6
 	add	r0, r0, r1
@@ -28335,18 +28419,18 @@ SetTypeBeforeUsingMove:
 	ldr	r2, [r5]
 	mov	r1, #0x80
 	orr	r0, r0, r1
-	b	.L2433
-.L2444:
+	b	.L2439
+.L2450:
 	.align	2, 0
-.L2443:
+.L2449:
 	.word	0x12b
 	.word	gBattleMons
-.L2401:
+.L2407:
 	mov	r0, #0x9e
 	lsl	r0, r0, #0x1
 	cmp	r1, r0
-	bne	.L2404	@cond_branch
-	ldr	r0, .L2445
+	bne	.L2410	@cond_branch
+	ldr	r0, .L2451
 	mov	r1, #0x5c
 	mul	r1, r1, r6
 	add	r1, r1, r0
@@ -28354,32 +28438,32 @@ SetTypeBeforeUsingMove:
 	add	r0, r0, #0x22
 	ldrb	r2, [r0]
 	cmp	r2, #0x9
-	bne	.L2435	@cond_branch
+	bne	.L2441	@cond_branch
 	add	r0, r1, #0
 	add	r0, r0, #0x23
 	ldrb	r2, [r0]
 	cmp	r2, #0x9
-	bne	.L2435	@cond_branch
+	bne	.L2441	@cond_branch
 	add	r0, r1, #0
 	add	r0, r0, #0x24
 	ldrb	r2, [r0]
 	cmp	r2, #0x9
-	beq	.L2397	@cond_branch
-.L2435:
+	beq	.L2403	@cond_branch
+.L2441:
 	ldr	r0, [r5]
 	mov	r1, #0x80
-.L2432:
+.L2438:
 	orr	r1, r1, r2
 	strb	r1, [r0, #0x12]
-	b	.L2397
-.L2446:
+	b	.L2403
+.L2452:
 	.align	2, 0
-.L2445:
+.L2451:
 	.word	gBattleMons
-.L2404:
+.L2410:
 	cmp	r1, #0xd8
-	bne	.L2397	@cond_branch
-	ldr	r1, .L2447
+	bne	.L2403	@cond_branch
+	ldr	r1, .L2453
 	mov	r0, #0x5c
 	mul	r0, r0, r6
 	add	r4, r0, r1
@@ -28388,53 +28472,53 @@ SetTypeBeforeUsingMove:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x7
-	bne	.L2397	@cond_branch
+	bne	.L2403	@cond_branch
 	ldr	r2, [r5]
-	ldr	r1, .L2447+0x4
+	ldr	r1, .L2453+0x4
 	ldrh	r0, [r4, #0x30]
 	sub	r0, r0, #0x8f
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldrb	r0, [r0]
-.L2433:
+.L2439:
 	strb	r0, [r2, #0x12]
-.L2397:
+.L2403:
 	add	r0, r6, #0
 	bl	GetBattlerAbility
 	add	r3, r0, #0
-	ldr	r0, .L2447+0x8
+	ldr	r0, .L2453+0x8
 	ldr	r0, [r0]
 	ldrb	r0, [r0, #0x12]
 	cmp	r0, #0
-	beq	.L2413	@cond_branch
+	beq	.L2419	@cond_branch
 	mov	r4, #0x3f
 	and	r4, r4, r0
-	b	.L2414
-.L2448:
+	b	.L2420
+.L2454:
 	.align	2, 0
-.L2447:
+.L2453:
 	.word	gBattleMons
 	.word	gNaturalGiftTable
 	.word	gBattleStruct
-.L2413:
-	ldr	r1, .L2449
+.L2419:
+	ldr	r1, .L2455
 	mov	r2, r9
 	add	r0, r2, r7
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldrb	r4, [r0, #0x3]
-.L2414:
-	ldr	r0, .L2449+0x4
+.L2420:
+	ldr	r0, .L2455+0x4
 	ldr	r0, [r0]
 	mov	r1, #0x80
 	lsl	r1, r1, #0x3
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2417	@cond_branch
+	beq	.L2423	@cond_branch
 	cmp	r4, #0
-	beq	.L2416	@cond_branch
-.L2417:
-	ldr	r1, .L2449+0x8
+	beq	.L2422	@cond_branch
+.L2423:
+	ldr	r1, .L2455+0x8
 	lsl	r0, r6, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
@@ -28442,21 +28526,21 @@ SetTypeBeforeUsingMove:
 	lsl	r1, r1, #0x17
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2415	@cond_branch
-.L2416:
-	ldr	r2, .L2449+0xc
+	beq	.L2421	@cond_branch
+.L2422:
+	ldr	r2, .L2455+0xc
 	ldr	r1, [r2]
 	mov	r0, #0x8d
-	b	.L2437
-.L2450:
+	b	.L2443
+.L2456:
 	.align	2, 0
-.L2449:
+.L2455:
 	.word	gBattleMoves
 	.word	gFieldStatuses
 	.word	gStatuses3
 	.word	gBattleStruct
-.L2415:
-	ldr	r0, .L2451
+.L2421:
+	ldr	r0, .L2457
 	mov	r2, r9
 	add	r1, r2, r7
 	lsl	r1, r1, #0x2
@@ -28464,89 +28548,89 @@ SetTypeBeforeUsingMove:
 	ldrb	r1, [r2, #0x3]
 	add	r4, r0, #0
 	cmp	r1, #0
-	bne	.L2431	@cond_branch
+	bne	.L2437	@cond_branch
 	ldrh	r1, [r2]
 	cmp	r1, #0x87
-	beq	.L2419	@cond_branch
+	beq	.L2425	@cond_branch
 	cmp	r1, #0xcb
-	beq	.L2419	@cond_branch
-	ldr	r0, .L2451+0x4
+	beq	.L2425	@cond_branch
+	ldr	r0, .L2457+0x4
 	cmp	r1, r0
-	beq	.L2419	@cond_branch
+	beq	.L2425	@cond_branch
 	cmp	r1, #0xd8
-	beq	.L2419	@cond_branch
+	beq	.L2425	@cond_branch
 	cmp	r3, #0xb6
-	bne	.L2421	@cond_branch
+	bne	.L2427	@cond_branch
 	mov	r3, #0x12
-	b	.L2420
-.L2452:
+	b	.L2426
+.L2458:
 	.align	2, 0
-.L2451:
+.L2457:
 	.word	gBattleMoves
 	.word	0x12b
-.L2421:
+.L2427:
 	cmp	r3, #0xae
-	bne	.L2422	@cond_branch
+	bne	.L2428	@cond_branch
 	mov	r3, #0xf
-	b	.L2420
-.L2422:
+	b	.L2426
+.L2428:
 	cmp	r3, #0xb8
-	bne	.L2423	@cond_branch
+	bne	.L2429	@cond_branch
 	mov	r3, #0x2
-	b	.L2420
-.L2423:
+	b	.L2426
+.L2429:
 	cmp	r3, #0xce
-	bne	.L2419	@cond_branch
+	bne	.L2425	@cond_branch
 	mov	r3, #0xd
-.L2420:
-	ldr	r2, .L2453
+.L2426:
+	ldr	r2, .L2459
 	ldr	r1, [r2]
 	mov	r0, #0x80
 	orr	r3, r3, r0
 	strb	r3, [r1, #0x12]
-	b	.L2438
-.L2454:
+	b	.L2444
+.L2460:
 	.align	2, 0
-.L2453:
+.L2459:
 	.word	gBattleStruct
-.L2419:
+.L2425:
 	mov	r1, r9
 	add	r0, r1, r7
 	lsl	r0, r0, #0x2
 	add	r0, r0, r4
 	ldrb	r0, [r0, #0x3]
 	cmp	r0, #0
-	beq	.L2425	@cond_branch
-.L2431:
+	beq	.L2431	@cond_branch
+.L2437:
 	mov	r2, r9
 	add	r0, r2, r7
 	lsl	r0, r0, #0x2
 	add	r0, r0, r4
 	ldrh	r0, [r0]
 	cmp	r0, #0x87
-	beq	.L2425	@cond_branch
+	beq	.L2431	@cond_branch
 	cmp	r0, #0xcb
-	beq	.L2425	@cond_branch
+	beq	.L2431	@cond_branch
 	cmp	r3, #0x60
-	bne	.L2425	@cond_branch
-	ldr	r2, .L2455
+	bne	.L2431	@cond_branch
+	ldr	r2, .L2461
 	ldr	r1, [r2]
 	mov	r0, #0x80
 	strb	r0, [r1, #0x12]
-.L2438:
+.L2444:
 	ldr	r0, [r2]
-	ldr	r3, .L2455+0x4
+	ldr	r3, .L2461+0x4
 	add	r0, r0, r3
 	add	r0, r0, r6
 	mov	r1, #0x1
 	strb	r1, [r0]
-	b	.L2418
-.L2456:
+	b	.L2424
+.L2462:
 	.align	2, 0
-.L2455:
+.L2461:
 	.word	gBattleStruct
 	.word	0x287
-.L2425:
+.L2431:
 	mov	r1, r9
 	add	r0, r1, r7
 	lsl	r0, r0, #0x2
@@ -28557,41 +28641,41 @@ SetTypeBeforeUsingMove:
 	mov	r1, #0x80
 	lsl	r1, r1, #0x9
 	and	r0, r0, r1
-	ldr	r2, .L2457
+	ldr	r2, .L2463
 	cmp	r0, #0
-	beq	.L2418	@cond_branch
+	beq	.L2424	@cond_branch
 	cmp	r3, #0xcc
-	bne	.L2418	@cond_branch
+	bne	.L2424	@cond_branch
 	ldr	r1, [r2]
 	mov	r0, #0x8b
-.L2437:
+.L2443:
 	strb	r0, [r1, #0x12]
-.L2418:
+.L2424:
 	ldr	r0, [r2]
 	ldrb	r0, [r0, #0x12]
 	cmp	r0, #0
-	beq	.L2428	@cond_branch
+	beq	.L2434	@cond_branch
 	mov	r4, #0x3f
 	and	r4, r4, r0
-	b	.L2429
-.L2458:
+	b	.L2435
+.L2464:
 	.align	2, 0
-.L2457:
+.L2463:
 	.word	gBattleStruct
-.L2428:
-	ldr	r1, .L2459
+.L2434:
+	ldr	r1, .L2465
 	mov	r2, r9
 	add	r0, r2, r7
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldrb	r4, [r0, #0x3]
-.L2429:
+.L2435:
 	add	r0, r6, #0
 	mov	r1, #0x1
 	bl	GetBattlerHoldEffect
 	cmp	r0, #0x77
-	bne	.L2385	@cond_branch
-	ldr	r1, .L2459+0x4
+	bne	.L2391	@cond_branch
+	ldr	r1, .L2465+0x4
 	mov	r0, #0x5c
 	mul	r0, r0, r6
 	add	r0, r0, r1
@@ -28600,10 +28684,10 @@ SetTypeBeforeUsingMove:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r4, r0
-	bne	.L2385	@cond_branch
+	bne	.L2391	@cond_branch
 	add	r0, r6, #0
 	bl	GetBattlerHoldEffectParam
-	ldr	r2, .L2459+0x8
+	ldr	r2, .L2465+0x8
 	mov	r3, sl
 	add	r1, r3, r6
 	lsl	r1, r1, #0x3
@@ -28613,7 +28697,7 @@ SetTypeBeforeUsingMove:
 	mov	r2, #0x2
 	orr	r0, r0, r2
 	strb	r0, [r1, #0x2]
-.L2385:
+.L2391:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -28621,9 +28705,9 @@ SetTypeBeforeUsingMove:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2460:
+.L2466:
 	.align	2, 0
-.L2459:
+.L2465:
 	.word	gBattleMoves
 	.word	gBattleMons
 	.word	gSpecialStatuses

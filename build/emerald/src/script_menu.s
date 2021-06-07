@@ -1153,9 +1153,11 @@ MultichoiceList_PokeCenterJack:
 	.space	4
 	.word	gText_JackTeachMove
 	.space	4
+	.word	gText_JackWonderTrade
+	.space	4
 	.word	gText_Exit
 	.space	4
-	.size	 MultichoiceList_PokeCenterJack,40
+	.size	 MultichoiceList_PokeCenterJack,48
 	.globl	MultichoiceList_RotomAppliances
 	.align	2, 0
 	.type	 MultichoiceList_RotomAppliances,object
@@ -1306,7 +1308,7 @@ sMultichoiceLists:
 	.byte	0x1
 	.space	3
 	.word	MultichoiceList_PokeCenterJack
-	.byte	0x5
+	.byte	0x6
 	.space	3
 	.word	MultichoiceList_VendingMachine
 	.byte	0x4

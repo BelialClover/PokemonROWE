@@ -12,6 +12,7 @@
 #include "field_screen_effect.h"
 #include "gpu_regs.h"
 #include "graphics.h"
+#include "level_scaling.h"
 #include "international_string_util.h"
 #include "librfu.h"
 #include "link.h"
@@ -4580,6 +4581,174 @@ static void _CreateInGameTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
     CalculateMonStats(&gEnemyParty[0]);
 }
 
+u16 WonderTradeCheck(u16 species){
+	u16 LegendariesNum1[] = {144,150,243,249,377,480,638,716,785};
+	u16 LegendariesNum2[] = {147,152,246,252,387,495,650,722,810};
+	u16 finalspecies = 1;
+	u8 i = 0;
+	
+	for(i = 0; i < 9;i++){
+	if(species < LegendariesNum1[i])
+		return species;
+	else if(species < LegendariesNum2[i])
+		return LegendariesNum2[i];
+	}
+	return finalspecies;
+}
+
+u16 WonderTradeCheck2(u16 species)
+{
+    int i, j, k;
+    bool8 found;
+
+    for (i = 0; i < EVOS_PER_MON; i++)
+    {
+        found = FALSE;
+        for (j = 1; j < NUM_SPECIES; j++)
+        {
+            for (k = 0; k < EVOS_PER_MON; k++)
+            {
+                if (gEvolutionTable[j][k].targetSpecies == species)
+                {
+                    species = j;
+                    found = TRUE;
+                    break;
+                }
+            }
+
+            if (found)
+                break;
+        }
+
+        if (j == NUM_SPECIES)
+            break;
+    }
+
+    return species;
+}
+
+u16 WonderTradeCheck3(u16 species,u8 level)
+{
+	//Variables
+	u8 numbadges = GetNumBadges();
+	u8 rand = 0;
+	u8 FriendshipLevel = 24;
+	u8 BadgesMidgame = 30;
+	u8 BadgesLategame = 45;
+	
+	switch(gEvolutionTable[species][0].method)
+	{
+		//Friendship Evolution Only
+		case EVO_FRIENDSHIP:
+		case EVO_ITEM_HOLD_DAY:
+		if(level >= FriendshipLevel)
+			return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+		break;
+		
+		//Level based Evolutions
+		case EVO_LEVEL:
+		case EVO_LEVEL_DAY:
+		case EVO_LEVEL_MALE:
+		case EVO_LEVEL_NIGHT:
+		case EVO_LEVEL_FEMALE:
+			if(gEvolutionTable[species][0].param && gEvolutionTable[species][0].param <= level)
+			{
+				if(WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level))
+					return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+				else
+					return gEvolutionTable[species][0].targetSpecies;
+			}
+		break;
+		
+		//Midgame Evolutions
+		case EVO_BEAUTY:
+		case EVO_LEVEL_DUSK:
+		case EVO_ITEM_HOLD_NIGHT:
+		case EVO_SPECIFIC_MON_IN_PARTY:
+		case EVO_LEVEL_DARK_TYPE_MON_IN_PARTY:
+			if(BadgesMidgame <= level)
+				return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+		break;
+	
+		//Lategame Evolutions
+		case EVO_MOVE:
+		case EVO_ITEM:
+		case EVO_TRADE:
+		case EVO_MAPSEC:
+		case EVO_ITEM_MALE:
+		case EVO_TRADE_ITEM:
+		case EVO_LEVEL_RAIN:
+		case EVO_ITEM_FEMALE:
+			if(BadgesLategame <= level)
+				return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+		break;
+		
+	}
+	return species;
+}
+
+static void _CreateInGameWonderTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
+{
+    const struct InGameTrade *inGameTrade = &sIngameTrades[whichInGameTrade];
+    u8 level = GetMonData(&gPlayerParty[whichPlayerMon], MON_DATA_LEVEL);
+	u16 randomizedspecie = 1+(Random() % 884);
+	u16 randomizedspecie2 = WonderTradeCheck(randomizedspecie);
+	u16 randomizedspecie3 = WonderTradeCheck2(randomizedspecie2);
+	u16 finalspecies = WonderTradeCheck3(randomizedspecie3, level);
+	
+	u8 HpIv = 1+(Random() % 30);
+	u8 AtkIv = 1+(Random() % 30);
+	u8 DefIv = 1+(Random() % 30);
+	u8 SpAtkIv = 1+(Random() % 30);
+	u8 SpDefIv = 1+(Random() % 30);
+	u8 SpdIv = 1+(Random() % 30);
+	
+
+    struct MailStruct mail;
+    u8 metLocation = METLOC_IN_GAME_TRADE;
+    u8 isMail;
+    struct Pokemon *pokemon = &gEnemyParty[0];
+
+    //CreateMon(pokemon, inGameTrade->species, level, 32, TRUE, inGameTrade->personality, OT_ID_PRESET, inGameTrade->otId, GetFormIdFromFormSpeciesId(inGameTrade->species));
+	CreateMon(pokemon, finalspecies, level, 32, FALSE, 0, OT_ID_PRESET, inGameTrade->otId, GetFormIdFromFormSpeciesId(inGameTrade->species));
+
+
+    SetMonData(pokemon, MON_DATA_HP_IV, &HpIv);
+    SetMonData(pokemon, MON_DATA_ATK_IV, &AtkIv);
+    SetMonData(pokemon, MON_DATA_DEF_IV, &DefIv);
+    SetMonData(pokemon, MON_DATA_SPEED_IV, &SpdIv);
+    SetMonData(pokemon, MON_DATA_SPATK_IV, &SpAtkIv);
+    SetMonData(pokemon, MON_DATA_SPDEF_IV, &SpDefIv);
+    //SetMonData(pokemon, MON_DATA_NICKNAME, inGameTrade->nickname);
+    SetMonData(pokemon, MON_DATA_OT_NAME, inGameTrade->otName);
+    SetMonData(pokemon, MON_DATA_OT_GENDER, &inGameTrade->otGender);
+    //SetMonData(pokemon, MON_DATA_ABILITY_NUM, &inGameTrade->abilityNum);
+    SetMonData(pokemon, MON_DATA_BEAUTY, &inGameTrade->conditions[1]);
+    SetMonData(pokemon, MON_DATA_CUTE, &inGameTrade->conditions[2]);
+    SetMonData(pokemon, MON_DATA_COOL, &inGameTrade->conditions[0]);
+    SetMonData(pokemon, MON_DATA_SMART, &inGameTrade->conditions[3]);
+    SetMonData(pokemon, MON_DATA_TOUGH, &inGameTrade->conditions[4]);
+    SetMonData(pokemon, MON_DATA_SHEEN, &inGameTrade->sheen);
+    SetMonData(pokemon, MON_DATA_MET_LOCATION, &metLocation);
+
+    isMail = FALSE;
+    if (inGameTrade->heldItem != ITEM_NONE)
+    {
+        if (ItemIsMail(inGameTrade->heldItem))
+        {
+            SetInGameTradeMail(&mail, inGameTrade);
+            gTradeMail[0] = mail;
+            SetMonData(pokemon, MON_DATA_MAIL, &isMail);
+            SetMonData(pokemon, MON_DATA_HELD_ITEM, &inGameTrade->heldItem);
+        }
+        else
+        {
+            SetMonData(pokemon, MON_DATA_HELD_ITEM, &inGameTrade->heldItem);
+        }
+    }
+    CalculateMonStats(&gEnemyParty[0]);
+}
+
 static void SetInGameTradeMail(struct MailStruct *mail, const struct InGameTrade *trade) {
     s32 i;
 
@@ -4622,6 +4791,21 @@ void CreateInGameTradePokemon(void)
         _CreateInGameTradePokemon(gSpecialVar_0x8005, gSpecialVar_0x8004);
 }
 
+void CreateInGameWonderTradePokemon(void)
+{
+    if(gSpecialVar_0x8004 == 6)  // Version 1 (a value greater than return value range of 0-5 and not 255)
+        gEnemyParty[0] = gPlayerParty[gSpecialVar_0x8005];
+    else if(gSpecialVar_0x8004 == 7) // Version 2 Step 1 (trade your pokemon for the defined pokemon below and saves your pokemon data to the trader)
+    {
+        struct Pokemon *pokemon = &gEnemyParty[0];
+        CreateMon(pokemon, SPECIES_WURMPLE, 10, 32, FALSE, 0, OT_ID_PRESET, 0, 0); // (After the trade this pokemon is set as "Seen and caught" in the players pokedex!)
+        gEnemyParty[1] = gPlayerParty[gSpecialVar_0x8005];
+    }
+    else if(gSpecialVar_0x8004 == 8) // Version 2 Step 2 (trades your saved pokemon from the trader back to you)
+        gEnemyParty[0] = gEnemyParty[1];
+    else
+		_CreateInGameWonderTradePokemon(gSpecialVar_0x8005, gSpecialVar_0x8004);
+}
 static void CB2_UpdateLinkTrade(void)
 {
     if (AnimateTradeSequence() == TRUE)

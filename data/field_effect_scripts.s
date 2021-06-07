@@ -24,8 +24,8 @@ gFieldEffectScriptPointers:: @ 82DB9D4
 	.4byte gFieldEffectScript_JumpSmallSplash           @ FLDEFF_JUMP_SMALL_SPLASH
 	.4byte gFieldEffectScript_LongGrass                 @ FLDEFF_LONG_GRASS
 	.4byte gFieldEffectScript_JumpLongGrass             @ FLDEFF_JUMP_LONG_GRASS
-	.4byte gFieldEffectScript_ShakingGrass               @ FLDEFF_SHAKING_GRASS
-	.4byte gFieldEffectScript_ShakingGrass2              @ FLDEFF_SHAKING_LONG_GRASS
+	.4byte gFieldEffectScript_ShakingGrass              @ FLDEFF_SHAKING_GRASS
+	.4byte gFieldEffectScript_ShakingGrass2             @ FLDEFF_SHAKING_LONG_GRASS
 	.4byte gFieldEffectScript_UnusedSand                @ FLDEFF_SAND_HOLE
 	.4byte gFieldEffectScript_WaterSurfacing            @ FLDEFF_WATER_SURFACING
 	.4byte gFieldEffectScript_BerryTreeGrowthSparkle    @ FLDEFF_BERRY_TREE_GROWTH_SPARKLE

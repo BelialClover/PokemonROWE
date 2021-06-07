@@ -205,10 +205,8 @@ LavaridgeTown_EventScript_EnteredHotSprings:: @ 81EA70B
 LavaridgeTown_EventScript_ExpertM:: @ 81EA70E
 	lock
 	faceplayer
-	goto_if_set FLAG_UNUSED_0x937, LavaridgeTown_EventScript_FireStarter_Come_Again
 	msgbox LavaridgeTown_Text_ThreeShards, MSGBOX_DEFAULT
 	checkitem ITEM_RED_SHARD, 2
-	//checkitem ITEM_POTION, 1
 	compare VAR_RESULT, TRUE
 	goto_if_eq LavaridgeTown_EventScript_EventScript_AsktoTrade
 	release
@@ -267,7 +265,7 @@ LavaridgeTown_Text_Starter_Declined:
 	.string "your mind.$"
 	
 LavaridgeTown_Text_ComeAgain_Starter:
-	.string "Come tomorrow if you want another\n"
+	.string "Come again if you want another\n"
 	.string "one.$"
 	
 LavaridgeTown_Text_ReceivedMonFromOldMan:

@@ -68,7 +68,7 @@
 //Normalmode Scaling
 u8 normalnumMonsBadge[]    = {2,3,3,4,4,5,5,5,5,6,6};				//Trainers Number of Pokemon
 u8 normalnumMonsGym[]      = {3,4,4,4,5,5,5,6,6,6,6};				//Gym Leaders Number of Pokemon
-u8 normalminTrainerLevel[] = {6,10,15,20,25,30,35,40,45,55,60};	//Levels for Trainer Pokemon
+u8 normalminTrainerLevel[] = {6,10,15,20,25,30,35,40,45,55,60};		//Levels for Trainer Pokemon
 u8 normalminGymLevel[] 	   = {12,17,22,27,32,37,42,50,55,65,70};	//Levels for Gym Leaders
 u8 normalnumMonsDouble[]   = {1,2,2,2,2,2,3,3,3,3,3};				//Number of Pokemon in a Wild Battle
 
@@ -84,6 +84,7 @@ u16 CheckforLegendary(u16 species);
 
 //Wild Pokemon Scaling
 u8 WildLevel[] = {4,10,15,20,25,30,35,40,45,55,60};
+u8 MovePowerLimit[] = {60,60,70,70,80,90,100,250,250,250,250};
 
 u8 IsHardMode(){
 	if (gSaveBlock2Ptr->optionsBattleStyle != OPTIONS_BATTLE_STYLE_SHIFT)
@@ -511,4 +512,38 @@ u8 GetEvsfromPokemon(u8 evs)
 		ScaledEvs = (evs/NumFlags)*NumBadges+1; 
 	
 	return ScaledEvs;
+}
+
+static bool32 IsMonValidSpecies(struct Pokemon *pokemon)
+{
+    u16 species = GetMonData(pokemon, MON_DATA_SPECIES2);
+    if (species == SPECIES_NONE || species == SPECIES_EGG)
+    {
+        return FALSE;
+    }
+    return TRUE;
+}
+
+u8 GetPlayerUsableMons(void)
+{
+    int i;
+	u8 PartySize = 0;
+    struct Pokemon *pokemon = gPlayerParty;
+
+    for (i = 0; i < PARTY_SIZE; i++, pokemon++)
+    {
+        if (IsMonValidSpecies(pokemon) && GetMonData(pokemon, MON_DATA_HP) != 0)
+        {
+            PartySize++;
+        }
+    }
+    return PartySize;
+}
+
+bool8 IsMoveUsable(u8 movepower)
+{
+	if(movepower <= MovePowerLimit[GetNumBadges()])
+		return TRUE;
+	else
+		return FALSE;
 }

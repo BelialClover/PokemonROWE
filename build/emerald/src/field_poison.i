@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -8350,6 +8350,7 @@ extern const u8 gText_JackRateNickname[];
 extern const u8 gText_JackRememberMove[];
 extern const u8 gText_JackForgetMove[];
 extern const u8 gText_JackTeachMove[];
+extern const u8 gText_JackWonderTrade[];
 
 
 extern const u8 gText_MicrowaveOven[];
@@ -8564,7 +8565,7 @@ s32 DoPoisonFieldEffect(void)
     u32 numFainted = 0;
     for (i = 0; i < 6; i++)
     {
-        if (GetMonData(pokemon, 5) && GetAilmentFromStatus(GetMonData(pokemon, 55)) == 1)
+        if (GetMonData(pokemon, 5) && GetAilmentFromStatus(GetMonData(pokemon, 55)) == 1 && 0)
         {
             hp = GetMonData(pokemon, 57);
             if (hp == 0 || --hp == 0)

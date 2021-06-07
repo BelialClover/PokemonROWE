@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -12870,6 +12870,7 @@ static const u16 sTextWindowFrame19_Pal[] = INCBIN_U16("graphics/text_window/19.
 static const u16 sTextWindowFrame20_Pal[] = INCBIN_U16("graphics/text_window/20.gbapal");
 
 static const u16 sTextWindowDexnavFrame[] = INCBIN_U16("graphics/text_window/dexnav_pal.gbapal");
+static const struct TilesPal sDexnavWindowFrame = {gTextWindowFrame1_Gfx, sTextWindowDexnavFrame};
 
 static const u16 sTextWindowPalettes[][16] =
 {
@@ -12904,7 +12905,7 @@ static const struct TilesPal sWindowFrames[20] =
     {sTextWindowFrame20_Gfx, sTextWindowFrame20_Pal}
 };
 
-static const struct TilesPal sDexnavWindowFrame = {gTextWindowFrame1_Gfx, sTextWindowDexnavFrame};
+
 
 
 const struct TilesPal *GetWindowFrameTilesPal(u8 id)

@@ -17,7 +17,7 @@ LilycoveCity_MoveDeletersHouse_EventScript_MoveDeleter:: @ 821EA0B
 LilycoveCity_MoveDeletersHouse_EventScript_WaterStarter::
 	lock
 	faceplayer
-	goto_if_set FLAG_UNUSED_0x938, LilycoveCity_MoveDeletersHouse_EventScript_WaterStarter_Come_Again
+	//goto_if_set FLAG_UNUSED_0x938, LilycoveCity_MoveDeletersHouse_EventScript_WaterStarter_Come_Again
 	msgbox LilycoveCity_MoveDeletersHouse_Text_ThreeShards, MSGBOX_DEFAULT
 	checkitem ITEM_BLUE_SHARD, 2
 	//checkitem ITEM_POTION, 1
@@ -279,7 +279,7 @@ LilycoveCity_MoveDeletersHouse_Text_Starter_Declined:
 	.string "your mind.$"
 	
 LilycoveCity_MoveDeletersHouse_Text_ComeAgain_Starter:
-	.string "Come tomorrow if you want another\n"
+	.string "Come again if you want another\n"
 	.string "one.$"
 
 LilycoveCity_MoveDeletersHouse_Text_WhichMonShouldForget: @ 821EB65

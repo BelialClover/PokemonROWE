@@ -757,6 +757,7 @@ void ShowBattlePyramidStartMenu(void)
     ScriptContext2_Enable();
 }
 
+//asdf
 static bool8 StartMenuBattlePyramidBagCallback(void)
 {
     if (!gPaletteFade.active)
@@ -1410,4 +1411,3 @@ static bool8 StartMenuDexNavCallback(void)
     CreateTask(Task_OpenDexNavFromStartMenu, 0);
     return TRUE;
 }
-

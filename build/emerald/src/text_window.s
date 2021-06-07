@@ -6244,6 +6244,12 @@ sTextWindowDexnavFrame:
 	.short	0x0
 	.short	0x7fff
 	.size	 sTextWindowDexnavFrame,32
+	.align	2, 0
+	.type	 sDexnavWindowFrame,object
+	.size	 sDexnavWindowFrame,8
+sDexnavWindowFrame:
+	.word	gTextWindowFrame1_Gfx
+	.word	sTextWindowDexnavFrame
 	.align	1, 0
 	.type	 sTextWindowPalettes,object
 sTextWindowPalettes:
@@ -6372,12 +6378,6 @@ sWindowFrames:
 	.word	sTextWindowFrame19_Pal
 	.word	sTextWindowFrame20_Gfx
 	.word	sTextWindowFrame20_Pal
-	.align	2, 0
-	.type	 sDexnavWindowFrame,object
-	.size	 sDexnavWindowFrame,8
-sDexnavWindowFrame:
-	.word	gTextWindowFrame1_Gfx
-	.word	sTextWindowDexnavFrame
 .text
 	.align	2, 0
 	.globl	GetWindowFrameTilesPal

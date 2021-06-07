@@ -4,7 +4,7 @@ FortreeCity_House3_MapScripts:: @ 8217AE7
 FortreeCity_House3_EventScript_Maniac:: @ 8217AE8
 	lock
 	faceplayer
-	goto_if_set FLAG_UNUSED_0x936, FortreeCity_House3_EventScript_FireStarter_Come_Again
+	//goto_if_set FLAG_UNUSED_0x936, FortreeCity_House3_EventScript_GrassStarter_Come_Again
 	msgbox FortreeCity_House3_Text_ThreeShards, MSGBOX_DEFAULT
 	checkitem ITEM_GREEN_SHARD, 2
 	//checkitem ITEM_POTION, 1
@@ -21,12 +21,11 @@ FortreeCity_House3_EventScript_AsktoTrade::
 	waitmovement 0
 	msgbox FortreeCity_House3_Text_Question, MSGBOX_YESNO
 	compare VAR_RESULT, NO
-	goto_if_eq FortreeCity_House3_EventScript_FireStarter_Decline
+	goto_if_eq FortreeCity_House3_EventScript_GrassStarter_Decline
 	getpartysize
 	compare VAR_RESULT, PARTY_SIZE
 	goto_if_eq RustboroCity_DevonCorp_2F_EventScript_No_Space
 	removeitem ITEM_GREEN_SHARD, 2
-	//removeitem ITEM_POTION, 1
 	setflag FLAG_UNUSED_0x936
 	random 8
 	switch VAR_RESULT
@@ -40,12 +39,12 @@ FortreeCity_House3_EventScript_AsktoTrade::
 	case 7, FortreeCity_House3_EventScript_Give_Grookey
 	end
 	
-FortreeCity_House3_EventScript_FireStarter_Come_Again::
+FortreeCity_House3_EventScript_GrassStarter_Come_Again::
 	msgbox FortreeCity_House3_Text_ComeAgain_Starter, MSGBOX_DEFAULT
 	release
 	end
 	
-FortreeCity_House3_EventScript_FireStarter_Decline::
+FortreeCity_House3_EventScript_GrassStarter_Decline::
 	msgbox FortreeCity_House3_Text_Starter_Declined, MSGBOX_DEFAULT
 	release
 	end
@@ -66,7 +65,7 @@ FortreeCity_House3_Text_Starter_Declined:
 	.string "your mind.$"
 	
 FortreeCity_House3_Text_ComeAgain_Starter:
-	.string "Come tomorrow if you want another\n"
+	.string "Come again if you want another\n"
 	.string "one.$"
 	
 FortreeCity_House3_Text_ReceivedMonFromOldMan:

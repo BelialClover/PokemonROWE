@@ -345,7 +345,7 @@ gRoute103_LandMons:
 	.short	0x338
 	.byte	0x4
 	.byte	0x4
-	.short	0x293
+	.short	0x34
 	.size	 gRoute103_LandMons,48
 	.globl	gRoute103_LandMonsInfo
 	.align	2, 0
@@ -1321,28 +1321,6 @@ gRoute113_LandMonsNightInfo:
 	.byte	0x14
 	.space	3
 	.word	gRoute113_LandMonsNight
-	.globl	gRoute113_HiddenMons
-	.align	2, 0
-	.type	 gRoute113_HiddenMons,object
-gRoute113_HiddenMons:
-	.byte	0x5
-	.byte	0x5
-	.short	0x2a7
-	.byte	0x5
-	.byte	0x5
-	.short	0x3c7
-	.byte	0x5
-	.byte	0x5
-	.short	0x176
-	.size	 gRoute113_HiddenMons,12
-	.globl	gRoute113_HiddenMonsInfo
-	.align	2, 0
-	.type	 gRoute113_HiddenMonsInfo,object
-	.size	 gRoute113_HiddenMonsInfo,8
-gRoute113_HiddenMonsInfo:
-	.byte	0x0
-	.space	3
-	.word	gRoute113_HiddenMons
 	.globl	gRoute114_LandMons
 	.align	2, 0
 	.type	 gRoute114_LandMons,object
@@ -5658,37 +5636,37 @@ gCaveOfOrigin_Entrance_LandMons:
 	.short	0x29
 	.byte	0x1f
 	.byte	0x1f
-	.short	0x29
+	.short	0x20f
 	.byte	0x20
 	.byte	0x20
-	.short	0x29
+	.short	0x35b
 	.byte	0x21
 	.byte	0x21
-	.short	0x29
+	.short	0x12e
 	.byte	0x1c
 	.byte	0x1c
-	.short	0x29
+	.short	0x12f
 	.byte	0x1d
 	.byte	0x1d
-	.short	0x29
+	.short	0x3c0
 	.byte	0x22
 	.byte	0x22
-	.short	0x29
+	.short	0x152
 	.byte	0x23
 	.byte	0x23
-	.short	0x29
+	.short	0x151
 	.byte	0x22
 	.byte	0x22
-	.short	0x29
+	.short	0x23a
 	.byte	0x23
 	.byte	0x23
-	.short	0x29
+	.short	0x73
 	.byte	0x21
 	.byte	0x21
-	.short	0x29
+	.short	0x23a
 	.byte	0x24
 	.byte	0x24
-	.short	0x29
+	.short	0x73
 	.size	 gCaveOfOrigin_Entrance_LandMons,48
 	.globl	gCaveOfOrigin_Entrance_LandMonsInfo
 	.align	2, 0
@@ -5707,37 +5685,37 @@ gCaveOfOrigin_1F_LandMons:
 	.short	0x29
 	.byte	0x1f
 	.byte	0x1f
-	.short	0x29
+	.short	0x20f
 	.byte	0x20
 	.byte	0x20
-	.short	0x29
+	.short	0x35b
 	.byte	0x1e
 	.byte	0x1e
 	.short	0x12e
 	.byte	0x20
 	.byte	0x20
-	.short	0x12e
+	.short	0x12f
 	.byte	0x22
 	.byte	0x22
-	.short	0x12e
+	.short	0x152
 	.byte	0x21
 	.byte	0x21
-	.short	0x29
+	.short	0x151
 	.byte	0x22
 	.byte	0x22
-	.short	0x29
+	.short	0x4a
 	.byte	0x22
 	.byte	0x22
-	.short	0x29
+	.short	0x23a
 	.byte	0x23
 	.byte	0x23
-	.short	0x29
+	.short	0x73
 	.byte	0x21
 	.byte	0x21
-	.short	0x29
+	.short	0x23a
 	.byte	0x24
 	.byte	0x24
-	.short	0x29
+	.short	0x73
 	.size	 gCaveOfOrigin_1F_LandMons,48
 	.globl	gCaveOfOrigin_1F_LandMonsInfo
 	.align	2, 0
@@ -7271,19 +7249,19 @@ gShoalCave_LowTideEntranceRoom1_HiddenMonsInfo:
 gLilycoveCity_WaterMons:
 	.byte	0x5
 	.byte	0x23
-	.short	0x48
+	.short	0x13e
 	.byte	0xa
 	.byte	0x1e
-	.short	0x116
+	.short	0x244
 	.byte	0xf
 	.byte	0x19
-	.short	0x116
+	.short	0x226
 	.byte	0x19
 	.byte	0x1e
-	.short	0x116
+	.short	0x78
 	.byte	0x19
 	.byte	0x1e
-	.short	0x116
+	.short	0x78
 	.size	 gLilycoveCity_WaterMons,20
 	.globl	gLilycoveCity_WaterMonsInfo
 	.align	2, 0
@@ -7299,22 +7277,22 @@ gLilycoveCity_WaterMonsInfo:
 gLilycoveCity_FishingMons:
 	.byte	0x5
 	.byte	0xa
-	.short	0x81
+	.short	0x1c8
 	.byte	0x5
 	.byte	0xa
-	.short	0x48
+	.short	0x13e
 	.byte	0xa
 	.byte	0x1e
-	.short	0x81
+	.short	0x1c8
 	.byte	0xa
 	.byte	0x1e
-	.short	0x48
+	.short	0x13e
 	.byte	0xa
 	.byte	0x1e
-	.short	0x140
+	.short	0x1c8
 	.byte	0x19
 	.byte	0x1e
-	.short	0x140
+	.short	0x13e
 	.byte	0x1e
 	.byte	0x23
 	.short	0x140
@@ -7323,10 +7301,10 @@ gLilycoveCity_FishingMons:
 	.short	0x78
 	.byte	0x23
 	.byte	0x28
-	.short	0x140
+	.short	0x78
 	.byte	0x28
 	.byte	0x2d
-	.short	0x140
+	.short	0x78
 	.size	 gLilycoveCity_FishingMons,40
 	.globl	gLilycoveCity_FishingMonsInfo
 	.align	2, 0
@@ -7888,6 +7866,55 @@ gSkyPillar_1F_LandMonsInfo:
 	.byte	0xa
 	.space	3
 	.word	gSkyPillar_1F_LandMons
+	.globl	gSootopolisCity_LandMons
+	.align	2, 0
+	.type	 gSootopolisCity_LandMons,object
+gSootopolisCity_LandMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0xa3
+	.byte	0x5
+	.byte	0x5
+	.short	0xa5
+	.byte	0x5
+	.byte	0x5
+	.short	0x111
+	.byte	0x5
+	.byte	0x5
+	.short	0x201
+	.byte	0x5
+	.byte	0x5
+	.short	0x1ff
+	.byte	0x5
+	.byte	0x5
+	.short	0x203
+	.byte	0x5
+	.byte	0x5
+	.short	0x72
+	.byte	0x5
+	.byte	0x5
+	.short	0x66
+	.byte	0x5
+	.byte	0x5
+	.short	0x72
+	.byte	0x5
+	.byte	0x5
+	.short	0xd6
+	.byte	0x5
+	.byte	0x5
+	.short	0x72
+	.byte	0x5
+	.byte	0x5
+	.short	0xd6
+	.size	 gSootopolisCity_LandMons,48
+	.globl	gSootopolisCity_LandMonsInfo
+	.align	2, 0
+	.type	 gSootopolisCity_LandMonsInfo,object
+	.size	 gSootopolisCity_LandMonsInfo,8
+gSootopolisCity_LandMonsInfo:
+	.byte	0x0
+	.space	3
+	.word	gSootopolisCity_LandMons
 	.globl	gSootopolisCity_WaterMons
 	.align	2, 0
 	.type	 gSootopolisCity_WaterMons,object
@@ -7897,16 +7924,16 @@ gSootopolisCity_WaterMons:
 	.short	0x81
 	.byte	0xa
 	.byte	0x1e
-	.short	0x81
+	.short	0xaa
 	.byte	0xf
 	.byte	0x19
-	.short	0x81
+	.short	0x155
 	.byte	0x19
 	.byte	0x1e
-	.short	0x81
+	.short	0x16b
 	.byte	0x19
 	.byte	0x1e
-	.short	0x81
+	.short	0x16b
 	.size	 gSootopolisCity_WaterMons,20
 	.globl	gSootopolisCity_WaterMonsInfo
 	.align	2, 0
@@ -7925,31 +7952,31 @@ gSootopolisCity_FishingMons:
 	.short	0x81
 	.byte	0x5
 	.byte	0xa
-	.short	0x48
+	.short	0xaa
 	.byte	0xa
 	.byte	0x1e
 	.short	0x81
 	.byte	0xa
 	.byte	0x1e
-	.short	0x81
+	.short	0xaa
 	.byte	0xa
 	.byte	0x1e
-	.short	0x81
+	.short	0x155
 	.byte	0x1e
 	.byte	0x23
-	.short	0x81
+	.short	0xaa
 	.byte	0x1e
 	.byte	0x23
-	.short	0x81
+	.short	0x155
 	.byte	0x23
 	.byte	0x28
-	.short	0x81
+	.short	0x171
 	.byte	0x23
 	.byte	0x2d
-	.short	0x81
+	.short	0x15d
 	.byte	0x5
 	.byte	0x2d
-	.short	0x81
+	.short	0x15d
 	.size	 gSootopolisCity_FishingMons,40
 	.globl	gSootopolisCity_FishingMonsInfo
 	.align	2, 0
@@ -9817,40 +9844,40 @@ gMeteorFalls_StevensCave_LandMonsInfo:
 gLittlerootTown0_LandMons:
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0xcc
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0xa3
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0x107
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0x45
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0x2b
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0x109
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0xd
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0xa
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0x10
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0x7f
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0x10
 	.byte	0x5
 	.byte	0x5
-	.short	0x1
+	.short	0x7f
 	.size	 gLittlerootTown0_LandMons,48
 	.globl	gLittlerootTown0_LandMonsInfo
 	.align	2, 0
@@ -9944,7 +9971,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
-	.word	gRoute113_HiddenMonsInfo
+	.word	0x0
 	.byte	0x0
 	.byte	0x1d
 	.space	2
@@ -10740,8 +10767,8 @@ gWildMonHeaders:
 	.byte	0x0
 	.byte	0x7
 	.space	2
-	.word	0x0
-	.word	0x0
+	.word	gSootopolisCity_LandMonsInfo
+	.word	gSootopolisCity_LandMonsInfo
 	.word	gSootopolisCity_WaterMonsInfo
 	.word	0x0
 	.word	gSootopolisCity_FishingMonsInfo
@@ -14682,24 +14709,34 @@ ApplyCleanseTagEncounterRateMod:
 	.thumb_func
 TryDoDoubleWildBattle:
 	push	{lr}
-	ldr	r0, .L523
+	ldr	r0, .L525
 	bl	VarGet
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
 	bne	.L514	@cond_branch
 	bl	GetSafariZoneFlag
 	cmp	r0, #0
-	bne	.L522	@cond_branch
+	bne	.L524	@cond_branch
 	bl	GetMonsStateToDoubles
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L522	@cond_branch
+	bne	.L524	@cond_branch
 	mov	r0, #0xef
 	lsl	r0, r0, #0x1
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	bne	.L514	@cond_branch
+	bl	GetMonsStateToDoubles
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	bne	.L520	@cond_branch
+	ldr	r0, .L525+0x4
+	bl	FlagGet
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	bne	.L514	@cond_branch
+.L520:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -14710,16 +14747,17 @@ TryDoDoubleWildBattle:
 	add	r0, r0, #0x1
 	cmp	r0, #0x4
 	ble	.L514	@cond_branch
-.L522:
-	mov	r0, #0x0
-	b	.L521
 .L524:
+	mov	r0, #0x0
+	b	.L523
+.L526:
 	.align	2, 0
-.L523:
+.L525:
 	.word	0x404e
+	.word	0x2a2
 .L514:
 	mov	r0, #0x1
-.L521:
+.L523:
 	pop	{r1}
 	bx	r1
 .Lfe36:
@@ -14738,20 +14776,20 @@ ChooseHiddenMonIndex:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x20
-	bhi	.L526	@cond_branch
+	bhi	.L528	@cond_branch
 	mov	r0, #0x0
-	b	.L530
-.L526:
+	b	.L532
+.L528:
 	sub	r0, r0, #0x21
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x20
-	bls	.L528	@cond_branch
+	bls	.L530	@cond_branch
 	mov	r0, #0x2
-	b	.L530
-.L528:
-	mov	r0, #0x1
+	b	.L532
 .L530:
+	mov	r0, #0x1
+.L532:
 	pop	{r1}
 	bx	r1
 .Lfe37:

@@ -167,6 +167,21 @@ WildLevel:
 	.byte	0x37
 	.byte	0x3c
 	.size	 WildLevel,11
+	.globl	MovePowerLimit
+	.type	 MovePowerLimit,object
+MovePowerLimit:
+	.byte	0x3c
+	.byte	0x3c
+	.byte	0x46
+	.byte	0x46
+	.byte	0x50
+	.byte	0x5a
+	.byte	0x64
+	.byte	0xfa
+	.byte	0xfa
+	.byte	0xfa
+	.byte	0xfa
+	.size	 MovePowerLimit,11
 .text
 	.align	2, 0
 	.globl	IsHardMode
@@ -1486,6 +1501,102 @@ GetEvsfromPokemon:
 	bx	r1
 .Lfe16:
 	.size	 GetEvsfromPokemon,.Lfe16-GetEvsfromPokemon
+	.align	2, 0
+	.type	 IsMonValidSpecies,function
+	.thumb_func
+IsMonValidSpecies:
+	push	{lr}
+	mov	r1, #0x41
+	bl	GetMonData
+	lsl	r0, r0, #0x10
+	lsr	r1, r0, #0x10
+	cmp	r1, #0
+	beq	.L304	@cond_branch
+	ldr	r0, .L306
+	cmp	r1, r0
+	bne	.L303	@cond_branch
+.L304:
+	mov	r0, #0x0
+	b	.L305
+.L307:
+	.align	2, 0
+.L306:
+	.word	0x4b7
+.L303:
+	mov	r0, #0x1
+.L305:
+	pop	{r1}
+	bx	r1
+.Lfe17:
+	.size	 IsMonValidSpecies,.Lfe17-IsMonValidSpecies
+	.align	2, 0
+	.globl	GetPlayerUsableMons
+	.type	 GetPlayerUsableMons,function
+	.thumb_func
+GetPlayerUsableMons:
+	push	{r4, r5, r6, lr}
+	mov	r6, #0x0
+	ldr	r4, .L315
+	mov	r5, #0x5
+.L312:
+	add	r0, r4, #0
+	bl	IsMonValidSpecies
+	cmp	r0, #0
+	beq	.L311	@cond_branch
+	add	r0, r4, #0
+	mov	r1, #0x39
+	bl	GetMonData
+	cmp	r0, #0
+	beq	.L311	@cond_branch
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+.L311:
+	sub	r5, r5, #0x1
+	add	r4, r4, #0x64
+	cmp	r5, #0
+	bge	.L312	@cond_branch
+	add	r0, r6, #0
+	pop	{r4, r5, r6}
+	pop	{r1}
+	bx	r1
+.L316:
+	.align	2, 0
+.L315:
+	.word	gPlayerParty
+.Lfe18:
+	.size	 GetPlayerUsableMons,.Lfe18-GetPlayerUsableMons
+	.align	2, 0
+	.globl	IsMoveUsable
+	.type	 IsMoveUsable,function
+	.thumb_func
+IsMoveUsable:
+	push	{r4, r5, lr}
+	add	r4, r0, #0
+	lsl	r4, r4, #0x18
+	lsr	r4, r4, #0x18
+	ldr	r5, .L321
+	bl	GetNumBadges
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	add	r0, r0, r5
+	ldrb	r0, [r0]
+	cmp	r4, r0
+	bls	.L318	@cond_branch
+	mov	r0, #0x0
+	b	.L320
+.L322:
+	.align	2, 0
+.L321:
+	.word	MovePowerLimit
+.L318:
+	mov	r0, #0x1
+.L320:
+	pop	{r4, r5}
+	pop	{r1}
+	bx	r1
+.Lfe19:
+	.size	 IsMoveUsable,.Lfe19-IsMoveUsable
 .text
 	.align	2, 0
 

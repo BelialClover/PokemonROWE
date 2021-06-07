@@ -4,18 +4,18 @@ SlateportCity_NameRatersHouse_MapScripts:: @ 8209AA4
 SlateportCity_NameRatersHouse_EventScript_NameRater:: @ 8209AA5
 	lock
 	faceplayer
-	msgbox SlateportCity_NameRatersHouse_Text_PleasedToRateMonNickname, MSGBOX_DEFAULT
+	clearflag FLAG_UNUSED_0x2A2 
+	msgbox SlateportCity_NameRatersHouse_Text_PleasedToRateMonNickname, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq SlateportCity_NameRatersHouse_EventScript_ChooseMonToRate
+	setflag FLAG_UNUSED_0x2A2 
+	msgbox SlateportCity_NameRatersHouse_Text_FineNameSuggestBetterOne, MSGBOX_DEFAULT
 	release
 	end
 
 SlateportCity_NameRatersHouse_EventScript_ChooseMonToRate:: @ 8209AC6
 	msgbox SlateportCity_NameRatersHouse_Text_CritiqueWhichMonNickname, MSGBOX_DEFAULT
-	special ChoosePartyMon
-	waitstate
-	compare VAR_0x8004, 255
-	goto_if_ne SlateportCity_NameRatersHouse_EventScript_RateMonNickname
-	compare VAR_0x8004, 255
-	goto_if_eq SlateportCity_NameRatersHouse_EventScript_DeclineNameRate
+	release
 	end
 
 SlateportCity_NameRatersHouse_EventScript_DeclineNameRate:: @ 8209AE9
@@ -135,18 +135,15 @@ SlateportCity_NameRatersHouse_Text_PleasedToRateMonNickname: @ 8209B8E
 	.string "…Or rather, I used to be.\p"
 	.string "Now you can rate nicknames in\n"
 	.string "every Pokémon Center…\p"
-	.string "My grandson however, has been\n"
-	.string "doing good with his business.$"
+	.string "But now i can enable Double\n"
+	.string "Battle Mode, how about it?.$"
 
 SlateportCity_NameRatersHouse_Text_CritiqueWhichMonNickname: @ 8209BFF
-	.string "Which Pokémon's nickname should\n"
-	.string "I critique?$"
+	.string "Talk to me if you want to\n"
+	.string "enable it anytime$"
 
 SlateportCity_NameRatersHouse_Text_FineNameSuggestBetterOne: @ 8209C2B
-	.string "Hmmm… {STR_VAR_1}, is it? That is\n"
-	.string "quite a fine name you bestowed.\p"
-	.string "But! What say you, if I were to\n"
-	.string "suggest a slightly better name?$"
+	.string "Consider it done!$"
 
 SlateportCity_NameRatersHouse_Text_WhatShallNewNameBe: @ 8209CA4
 	.string "Ah, good. Then, what shall the new\n"

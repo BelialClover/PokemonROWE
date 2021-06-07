@@ -48531,7 +48531,7 @@ SwapRegisteredBike:
 .L333:
 	.align	2, 0
 .L332:
-	.word	0x3164
+	.word	0x361c
 	.word	0x1c7
 	.word	0x1d3
 .L319:
@@ -48559,7 +48559,7 @@ SwapRegisteredBike:
 .L337:
 	.align	2, 0
 .L336:
-	.word	0x3166
+	.word	0x361e
 	.word	0x1c7
 	.word	0x1d3
 .L324:

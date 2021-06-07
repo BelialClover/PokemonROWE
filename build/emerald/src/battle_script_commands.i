@@ -2853,10 +2853,10 @@ struct SaveBlock1
 
                struct SaveTrainerHill trainerHill;
                struct WaldaPhrase waldaPhrase;
-               u16 registeredItemL;
-               u16 registeredItemR;
                u8 dexNavSearchLevels[898 + 308 + 1];
                u8 dexNavChain;
+               u16 registeredItemL;
+               u16 registeredItemR;
 
 };
 
@@ -5952,6 +5952,27 @@ void SeedRngAndSetTrainerId(void);
 u16 GetGeneratedTrainerIdLower(void);
 void sub_819789C(void);
 # 30 "src/battle_script_commands.c" 2
+# 1 "include/level_scaling.h" 1
+
+
+
+u8 IsHardMode(void);
+u8 GetNumBadges(void);
+u8 getLevelBoost(void);
+u8 GetPlayerUsableMons(void);
+u8 getTrainerLevel(u8 Level);
+u8 getWildLevel(u8 Ability);
+u8 getTrainerPokemonNum(void);
+u8 getLeaderPokemonNum(void);
+u8 getDoubleTrainerPokemonNum(void);
+u16 GetWildPokemon(u16 basespecies, u8 level, u16 heldItem);
+u16 GetTrainerPokemon(u16 basespecies, u8 level);
+u16 GetBaseSpecie(u16 basespecies);
+u16 GetHeldItem(u16 baseitem);
+u16 GetFirstEvolution(u16 species);
+u8 GetEvsfromPokemon(u8 evs);
+bool8 IsMoveUsable(u8 movepower);
+# 31 "src/battle_script_commands.c" 2
 # 1 "include/palette.h" 1
 # 17 "include/palette.h"
 enum
@@ -6016,7 +6037,7 @@ void TintPalette_GrayScale2(u16 *palette, u16 count);
 void TintPalette_SepiaTone(u16 *palette, u16 count);
 void TintPalette_CustomTone(u16 *palette, u16 count, u16 rTone, u16 gTone, u16 bTone);
 void TintPalette_CustomToneWithCopy(const u16 *src, u16 *dest, u16 count, u16 rTone, u16 gTone, u16 bTone, bool8 excludeZeroes);
-# 31 "src/battle_script_commands.c" 2
+# 32 "src/battle_script_commands.c" 2
 # 1 "include/money.h" 1
 
 
@@ -6036,7 +6057,7 @@ void DrawMoneyBox(int amount, u8 x, u8 y);
 void HideMoneyBox(void);
 void AddMoneyLabelObject(u16 x, u16 y);
 void RemoveMoneyLabelObject(void);
-# 32 "src/battle_script_commands.c" 2
+# 33 "src/battle_script_commands.c" 2
 # 1 "gflib/bg.h" 1
 
 
@@ -6121,7 +6142,7 @@ void CopyTileMapEntry(const u16 *src, u16 *dest, s32 palette1, s32 tileOffset, s
 u32 GetBgType(u8 bg);
 bool32 IsInvalidBg32(u8 bg);
 bool32 IsTileMapOutsideWram(u8 bg);
-# 33 "src/battle_script_commands.c" 2
+# 34 "src/battle_script_commands.c" 2
 # 1 "gflib/string_util.h" 1
 
 
@@ -6169,7 +6190,7 @@ void ConvertInternationalString(u8 *s, u8 language);
 void StripExtCtrlCodes(u8 *str);
 
 char *ConvertToAscii(const u8 *str);
-# 34 "src/battle_script_commands.c" 2
+# 35 "src/battle_script_commands.c" 2
 # 1 "include/pokemon_icon.h" 1
 
 
@@ -6199,7 +6220,7 @@ void SpriteCB_MonIcon(struct Sprite *sprite);
 void SetPartyHPBarSprite(struct Sprite *sprite, u8 animNum);
 u8 GetMonIconPaletteIndexFromSpecies(u16 species);
 void SafeFreeMonIconPalette(u16 species);
-# 35 "src/battle_script_commands.c" 2
+# 36 "src/battle_script_commands.c" 2
 # 1 "include/m4a.h" 1
 
 
@@ -6636,7 +6657,7 @@ extern struct MusicPlayerInfo gMPlayInfo_SE1;
 extern struct MusicPlayerInfo gMPlayInfo_SE2;
 extern struct MusicPlayerInfo gMPlayInfo_SE3;
 extern struct SoundInfo gSoundInfo;
-# 36 "src/battle_script_commands.c" 2
+# 37 "src/battle_script_commands.c" 2
 # 1 "include/mail.h" 1
 # 18 "include/mail.h"
 void ReadMail(struct MailStruct *mail, void (*callback)(void), bool8 flag);
@@ -6653,7 +6674,7 @@ void TakeMailFromMon(struct Pokemon *mon);
 void ClearMailItemId(u8 mailId);
 u8 TakeMailFromMon2(struct Pokemon *mon);
 bool8 ItemIsMail(u16 itemId);
-# 37 "src/battle_script_commands.c" 2
+# 38 "src/battle_script_commands.c" 2
 # 1 "include/event_data.h" 1
 
 
@@ -6708,7 +6729,7 @@ extern u16 gSpecialVar_Unused_0x8014;
 
 extern const u16 sLevelCapFlags[9];
 extern const u16 sLevelCaps[9];
-# 38 "src/battle_script_commands.c" 2
+# 39 "src/battle_script_commands.c" 2
 # 1 "include/pokemon_storage_system.h" 1
 # 18 "include/pokemon_storage_system.h"
 struct PokemonStorage
@@ -6768,9 +6789,9 @@ u8 *GetWaldaPhrasePtr(void);
 void SetWaldaPhrase(const u8 *src);
 bool32 IsWaldaPhraseEmpty(void);
 u8 CountPartyNonEggMons(void);
-# 39 "src/battle_script_commands.c" 2
-# 1 "include/task.h" 1
 # 40 "src/battle_script_commands.c" 2
+# 1 "include/task.h" 1
+# 41 "src/battle_script_commands.c" 2
 # 1 "include/naming_screen.h" 1
 
 
@@ -6787,9 +6808,9 @@ enum {
 };
 
 void DoNamingScreen(u8 templateNum, u8 *destBuffer, u16 monSpecies, u16 monGender, u32 monPersonality, MainCallback returnCallback, u8 monFormId);
-# 41 "src/battle_script_commands.c" 2
-# 1 "include/constants/battle_string_ids.h" 1
 # 42 "src/battle_script_commands.c" 2
+# 1 "include/constants/battle_string_ids.h" 1
+# 43 "src/battle_script_commands.c" 2
 # 1 "include/battle_setup.h" 1
 
 
@@ -6950,7 +6971,7 @@ bool8 ShouldTryRematchBattle(void);
 bool8 IsTrainerReadyForRematch(void);
 void ShouldTryGetTrainerScript(void);
 u16 CountBattledRematchTeams(u16 trainerId);
-# 43 "src/battle_script_commands.c" 2
+# 44 "src/battle_script_commands.c" 2
 # 1 "include/overworld.h" 1
 # 29 "include/overworld.h"
 struct InitialPlayerAvatarState
@@ -7085,7 +7106,7 @@ bool32 sub_80875C8(void);
 bool32 sub_8087634(void);
 bool32 sub_808766C(void);
 void ClearLinkPlayerObjectEvents(void);
-# 44 "src/battle_script_commands.c" 2
+# 45 "src/battle_script_commands.c" 2
 # 1 "include/wild_encounter.h" 1
 # 10 "include/wild_encounter.h"
 struct WildPokemon
@@ -7135,7 +7156,7 @@ u8 ChooseWildMonIndex_Land(void);
 u8 ChooseWildMonIndex_WaterRock(void);
 u8 ChooseHiddenMonIndex(void);
 u16 GetFirstStage(u16 species);
-# 45 "src/battle_script_commands.c" 2
+# 46 "src/battle_script_commands.c" 2
 # 1 "include/rtc.h" 1
 
 
@@ -7219,7 +7240,7 @@ u32 RtcGetMinuteCount(void);
 u32 GetTotalMinutes(struct Time *time);
 u32 GetTotalSeconds(struct Time *time);
 u32 RtcGetLocalDayCount(void);
-# 46 "src/battle_script_commands.c" 2
+# 47 "src/battle_script_commands.c" 2
 # 1 "include/party_menu.h" 1
 # 9 "include/party_menu.h"
 struct PartyMenu
@@ -7319,9 +7340,9 @@ void MoveDeleterChooseMoveToForget(void);
 
 bool8 CanLearnTutorMove(u16, u8);
 void ItemUseCB_Mints(u8 taskId, TaskFunc task);
-# 47 "src/battle_script_commands.c" 2
-# 1 "include/constants/battle_config.h" 1
 # 48 "src/battle_script_commands.c" 2
+# 1 "include/constants/battle_config.h" 1
+# 49 "src/battle_script_commands.c" 2
 # 1 "include/battle_arena.h" 1
 
 
@@ -7335,7 +7356,7 @@ void BattleArena_DeductMindPoints(u8 battler, u16 stringId);
 void sub_81A586C(u8 battler);
 void DrawArenaRefereeTextBox(void);
 void RemoveArenaRefereeTextBox(void);
-# 49 "src/battle_script_commands.c" 2
+# 50 "src/battle_script_commands.c" 2
 # 1 "include/battle_pike.h" 1
 
 
@@ -7344,7 +7365,7 @@ void CallBattlePikeFunction(void);
 u8 GetBattlePikeWildMonHeaderId(void);
 bool32 TryGenerateBattlePikeWildMon(bool8 checkKeenEyeIntimidate);
 bool8 InBattlePike(void);
-# 50 "src/battle_script_commands.c" 2
+# 51 "src/battle_script_commands.c" 2
 # 1 "include/battle_pyramid.h" 1
 
 
@@ -7368,7 +7389,7 @@ void LoadBattlePyramidObjectEventTemplates(void);
 void LoadBattlePyramidFloorObjectEventScripts(void);
 u8 GetNumBattlePyramidObjectEvents(void);
 u16 GetBattlePyramidPickupItemId(void);
-# 51 "src/battle_script_commands.c" 2
+# 52 "src/battle_script_commands.c" 2
 # 1 "include/field_specials.h" 1
 
 
@@ -7403,7 +7424,7 @@ bool8 UsedPokemonCenterWarp(void);
 void ResetFanClub(void);
 bool8 ShouldShowBoxWasFullMessage(void);
 void SetPCBoxToSendMon(u8 boxId);
-# 52 "src/battle_script_commands.c" 2
+# 53 "src/battle_script_commands.c" 2
 # 1 "include/pokemon_summary_screen.h" 1
 
 
@@ -7442,7 +7463,7 @@ enum PokemonSummaryScreenPage
     PSS_PAGE_CONTEST_MOVES,
     PSS_PAGE_COUNT,
 };
-# 53 "src/battle_script_commands.c" 2
+# 54 "src/battle_script_commands.c" 2
 # 1 "include/pokenav.h" 1
 
 
@@ -7908,7 +7929,7 @@ bool32 OpenRibbonsSummaryMenu(void);
 void CreateRibbonsSummaryLoopedTask(s32);
 u32 IsRibbonsSummaryLoopedTaskActive(void);
 void FreeRibbonsSummaryScreen2(void);
-# 54 "src/battle_script_commands.c" 2
+# 55 "src/battle_script_commands.c" 2
 # 1 "include/menu_specialized.h" 1
 
 
@@ -8266,9 +8287,9 @@ void FreeConditionSparkles(struct Sprite **sprites);
 void DrawLevelUpWindowPg1(u16 windowId, u16 *statsBefore, u16 *statsAfter, u8 bgClr, u8 fgClr, u8 shadowClr);
 void DrawLevelUpWindowPg2(u16 windowId, u16 *currStats, u8 bgClr, u8 fgClr, u8 shadowClr);
 void GetMonLevelUpWindowStats(struct Pokemon *mon, u16 *currStats);
-# 55 "src/battle_script_commands.c" 2
-# 1 "include/constants/rgb.h" 1
 # 56 "src/battle_script_commands.c" 2
+# 1 "include/constants/rgb.h" 1
+# 57 "src/battle_script_commands.c" 2
 # 1 "include/data.h" 1
 
 
@@ -8411,9 +8432,9 @@ extern const struct Trainer gTrainers[];
 extern const u8 gTrainerClassNames[][13];
 extern const u8 gSpeciesNames[][10 + 1];
 extern const u8 gMoveNames[755][16 + 1];
-# 57 "src/battle_script_commands.c" 2
-# 1 "include/constants/party_menu.h" 1
 # 58 "src/battle_script_commands.c" 2
+# 1 "include/constants/party_menu.h" 1
+# 59 "src/battle_script_commands.c" 2
 
 extern struct MusicPlayerInfo gMPlayInfo_BGM;
 
@@ -9303,7 +9324,7 @@ static const struct SpriteTemplate sSpriteTemplate_MonIconOnLvlUpBox =
 };
 
 static const u16 sProtectSuccessRates[] = {65535, 65535 / 2, 65535 / 4, 65535 / 8};
-# 956 "src/battle_script_commands.c"
+# 957 "src/battle_script_commands.c"
 static const u8 sForbiddenMoves[755] =
 {
     [0] = 0xFF,
@@ -9458,6 +9479,54 @@ static const u16 sRarePickupItems[] =
     690,
 };
 
+static const u16 sHarvestItems[] =
+{
+    150,
+    153,
+    149,
+    152,
+    194,
+    190,
+    195,
+    184,
+ 187,
+ 193,
+ 192,
+ 191,
+ 185,
+ 179,
+ 180,
+ 188,
+ 182,
+ 196,
+ 186,
+ 189,
+ 181,
+ 183,
+};
+
+static const u16 sGemItems[] =
+{
+    351,
+ 345,
+ 346,
+ 356,
+ 354,
+ 340,
+ 347,
+ 343,
+ 348,
+ 349,
+ 344,
+ 339,
+ 352,
+ 355,
+ 350,
+ 341,
+ 353,
+ 342,
+};
+
 static const u8 sPickupProbabilities[] =
 {
     30, 40, 50, 60, 70, 80, 90, 94, 98
@@ -9485,7 +9554,7 @@ static const u8 sBallCatchBonuses[] =
     [4 - 2] = 10,
     [5 - 2] = 15
 };
-# 1146 "src/battle_script_commands.c"
+# 1195 "src/battle_script_commands.c"
 const __attribute__((aligned(4))) u8 gBattlePalaceNatureToMoveGroupLikelihood[25][4] =
 {
     [0] = {61, 61 + 7, 61, 61 + 7},
@@ -10760,7 +10829,7 @@ static void CheckSetUnburden(u8 battlerId)
         RecordAbilityBattle(battlerId, 84);
     }
 }
-# 2434 "src/battle_script_commands.c"
+# 2483 "src/battle_script_commands.c"
 void SetMoveEffect(bool32 primary, u32 certain)
 {
     s32 i, byTwo, affectsUser = 0;
@@ -12014,11 +12083,12 @@ double GetPkmnExpMultiplier(u8 level)
 { u8 i;
  for (i = 0; i < 9; i++)
     {
-        if (!FlagGet(sLevelCapFlags[i]) && level >= sLevelCaps[i])
+        if (!FlagGet(sLevelCapFlags[i]) && level >= sLevelCaps[i] && gSaveBlock2Ptr->optionsBattleStyle != 0)
         {
             return 0.0;
         }
     }
+
  return 1.0;
 }
 
@@ -12085,14 +12155,14 @@ static void Cmd_getexp(void)
 
             if (gSaveBlock2Ptr->expShare)
                 viaExpShare = gSaveBlock1Ptr->playerPartyCount;
-# 3778 "src/battle_script_commands.c"
+# 3828 "src/battle_script_commands.c"
                 *exp = calculatedExp;
-    if(gSaveBlock2Ptr->optionsBattleStyle == 0){
+    if(gSaveBlock2Ptr->optionsBattleStyle == 0 || FlagGet((((0x500 + 864 - 1) + 1) + 0x4))|| GetPlayerUsableMons() < 3){
                 gExpShareExp = calculatedExp / 2;
                 if (gExpShareExp == 0)
                     gExpShareExp = 1;
     }else{
-    gExpShareExp = calculatedExp / 4;
+    gExpShareExp = calculatedExp / 3;
                 if (gExpShareExp == 0)
                     gExpShareExp = 1;
     }
@@ -12143,23 +12213,7 @@ static void Cmd_getexp(void)
                 if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], 57))
                 {
      double expMultiplier = GetPkmnExpMultiplier(gPlayerParty[gBattleStruct->expGetterMonId].level);
-     if(gSaveBlock2Ptr->optionsBattleStyle == 0){
-     if (gBattleStruct->sentInPokes & 1)
-                        gBattleMoveDamage = *exp;
 
-                    if (gSaveBlock2Ptr->expShare || ((holdEffect == 25) && ((gBattleMoveDamage == 0) || (5 < 3))))
-                        gBattleMoveDamage += gExpShareExp;
-                    if (holdEffect == 40)
-                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-                    if (gBattleTypeFlags & (1 << 3) && 5 <= 4)
-                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-
-
-
-
-
-     }
-     else{
      if (gBattleStruct->sentInPokes & 1)
       gBattleMoveDamage = *exp * expMultiplier;
      else
@@ -12173,11 +12227,6 @@ static void Cmd_getexp(void)
                     if (gBattleTypeFlags & (1 << 3) && 5 <= 4)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
 
-
-
-
-
-     }
 
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
                     {
@@ -15485,7 +15534,7 @@ bool32 CanUseLastResort(u8 battlerId)
 
     return (knownMovesCount >= 2 && usedMovesCount >= knownMovesCount - 1);
 }
-# 7195 "src/battle_script_commands.c"
+# 7224 "src/battle_script_commands.c"
 static bool32 ClearDefogHazards(u8 battlerAtk, bool32 clear)
 {
     s32 i;
@@ -20118,6 +20167,7 @@ static void Cmd_pickup(void)
                 && heldItem == 0
                 && (Random() % 10) == 0) ||
     (species == 225
+    && heldItem == 0
     && (Random() % 10) == 0)
     )
             {
@@ -20161,6 +20211,23 @@ static void Cmd_pickup(void)
                     SetMonData(&gPlayerParty[i], 12, &heldItem);
                 }
             }
+   else if ((species == 302 ||
+    species == 703 ||
+    species == 719)
+                && heldItem == 0
+                && (Random() % 10) == 0)
+            {
+     heldItem = sGemItems[Random() % (sizeof(sGemItems)/sizeof(sGemItems[0]))];
+                    SetMonData(&gPlayerParty[i], 12, &heldItem);
+            }
+   else if (ability == 139
+                && species != 0
+                && species != 898 + 308 + 1
+                && heldItem == 0)
+   {
+    heldItem = sHarvestItems[Random() % (sizeof(sHarvestItems)/sizeof(sHarvestItems[0]))];
+                SetMonData(&gPlayerParty[i], 12, &heldItem);
+   }
         }
     }
 
@@ -20430,7 +20497,7 @@ static void Cmd_handleballthrow(void)
 
                     if (gBattleMons[gBattlerTarget].level < 30)
                         ballMultiplier = 41 - gBattleMons[gBattlerTarget].level;
-# 12152 "src/battle_script_commands.c"
+# 12199 "src/battle_script_commands.c"
                 break;
             case 9:
                 if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[gBattlerTarget].species), FLAG_GET_CAUGHT))
@@ -20504,7 +20571,7 @@ static void Cmd_handleballthrow(void)
                         ballAddition = 20;
                     else
                         ballAddition = 30;
-# 12246 "src/battle_script_commands.c"
+# 12293 "src/battle_script_commands.c"
                 break;
             case 17:
                 if (gBaseStats[gBattleMons[gBattlerTarget].species].baseSpeed >= 100)

@@ -6706,7 +6706,7 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies, u8 defeatedFormId)
     }
 
     stat = ItemId_GetSecondaryId(heldItem);
-    bonus = ItemId_GetHoldEffectParam(heldItem);
+    bonus = ItemId_GetHoldEffectParam(heldItem)*5;
 
     for (i = 0; i < NUM_STATS; i++)
     {
@@ -6723,49 +6723,52 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies, u8 defeatedFormId)
             multiplier = 2;
         else
             multiplier = 1;
+		
+		if(holdEffect == HOLD_EFFECT_POWER_ITEM && i != stat)
+			multiplier = 0;
 
         switch (i)
         {
         case STAT_HP:
             if (holdEffect == HOLD_EFFECT_POWER_ITEM && stat == STAT_HP)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_HP + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_HP * multiplier;
             break;
         case STAT_ATK:
             if (holdEffect == HOLD_EFFECT_POWER_ITEM && stat == STAT_ATK)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_Attack + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_Attack * multiplier;
             break;
         case STAT_DEF:
             if (holdEffect == HOLD_EFFECT_POWER_ITEM && stat == STAT_DEF)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_Defense + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_Defense * multiplier;
             break;
         case STAT_SPEED:
             if (holdEffect == HOLD_EFFECT_POWER_ITEM && stat == STAT_SPEED)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_Speed + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_Speed * multiplier;
             break;
         case STAT_SPATK:
             if (holdEffect == HOLD_EFFECT_POWER_ITEM && stat == STAT_SPATK)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_SpAttack + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_SpAttack * multiplier;
             break;
         case STAT_SPDEF:
             if (holdEffect == HOLD_EFFECT_POWER_ITEM && stat == STAT_SPDEF)
-                evIncrease = (gBaseStats[defeatedFormSpeciesId].evYield_SpDefense + bonus) * multiplier;
+                evIncrease = bonus * multiplier;
             else
                 evIncrease = gBaseStats[defeatedFormSpeciesId].evYield_SpDefense * multiplier;
             break;
         }
 
         if (holdEffect == HOLD_EFFECT_MACHO_BRACE)
-            evIncrease *= 2;
+            evIncrease *= 10;
 
         if (totalEVs + (s16)evIncrease > MAX_TOTAL_EVS)
             evIncrease = ((s16)evIncrease + MAX_TOTAL_EVS) - (totalEVs + evIncrease);

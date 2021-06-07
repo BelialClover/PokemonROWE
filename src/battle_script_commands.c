@@ -27,6 +27,7 @@
 #include "window.h"
 #include "reshow_battle_screen.h"
 #include "main.h"
+#include "level_scaling.h"
 #include "palette.h"
 #include "money.h"
 #include "bg.h"
@@ -1105,6 +1106,54 @@ static const u16 sRarePickupItems[] =
     ITEM_LUCKY_EGG,
     ITEM_LEFTOVERS,
     ITEM_ABILITY_PATCH,
+};
+
+static const u16 sHarvestItems[] =
+{
+    ITEM_ORAN_BERRY,
+    ITEM_SITRUS_BERRY,
+    ITEM_LEPPA_BERRY,
+    ITEM_LUM_BERRY,
+    ITEM_BABIRI_BERRY,
+    ITEM_CHARTI_BERRY,
+    ITEM_CHILAN_BERRY,
+    ITEM_CHOPLE_BERRY,
+	ITEM_COBA_BERRY,
+	ITEM_COLBUR_BERRY,
+	ITEM_HABAN_BERRY,
+	ITEM_KASIB_BERRY,
+	ITEM_KEBIA_BERRY,
+	ITEM_OCCA_BERRY,
+	ITEM_PASSHO_BERRY,
+	ITEM_PAYAPA_BERRY,
+	ITEM_RINDO_BERRY,
+	ITEM_ROSELI_BERRY,
+	ITEM_SHUCA_BERRY,
+	ITEM_TANGA_BERRY,
+	ITEM_WACAN_BERRY,
+	ITEM_YACHE_BERRY,
+};
+
+static const u16 sGemItems[] =
+{
+    ITEM_NORMAL_GEM,
+	ITEM_FIRE_GEM,
+	ITEM_FLYING_GEM,
+	ITEM_WATER_GEM,
+	ITEM_ROCK_GEM,
+	ITEM_DARK_GEM,
+	ITEM_GHOST_GEM,
+	ITEM_FAIRY_GEM,
+	ITEM_GRASS_GEM,
+	ITEM_GROUND_GEM,
+	ITEM_FIGHTING_GEM,
+	ITEM_BUG_GEM,
+	ITEM_POISON_GEM,
+	ITEM_STEEL_GEM,
+	ITEM_ICE_GEM,
+	ITEM_DRAGON_GEM,
+	ITEM_PSYCHIC_GEM,
+	ITEM_ELECTRIC_GEM,
 };
 
 static const u8 sPickupProbabilities[] =
@@ -3684,11 +3733,12 @@ double GetPkmnExpMultiplier(u8 level)
 {   u8 i;
 	for (i = 0; i < NUM_SOFT_CAPS; i++)
     {
-        if (!FlagGet(sLevelCapFlags[i]) && level >= sLevelCaps[i])
+        if (!FlagGet(sLevelCapFlags[i]) && level >= sLevelCaps[i] && gSaveBlock2Ptr->optionsBattleStyle != OPTIONS_BATTLE_STYLE_SHIFT)
         {
             return 0.0;
         }
     }
+	
 	return 1.0;
 }
 
@@ -3776,12 +3826,12 @@ static void Cmd_getexp(void)
                 }
             #else
                 *exp = calculatedExp;
-				if(gSaveBlock2Ptr->optionsBattleStyle == OPTIONS_BATTLE_STYLE_SHIFT){
+				if(gSaveBlock2Ptr->optionsBattleStyle == OPTIONS_BATTLE_STYLE_SHIFT || FlagGet(FLAG_SYS_GAME_CLEAR)|| GetPlayerUsableMons() < 3){
                 gExpShareExp = calculatedExp / 2;
                 if (gExpShareExp == 0)
                     gExpShareExp = 1;
 				}else{
-				gExpShareExp = calculatedExp / 4;
+				gExpShareExp = calculatedExp / 3;
                 if (gExpShareExp == 0)
                     gExpShareExp = 1;
 				}
@@ -3832,23 +3882,7 @@ static void Cmd_getexp(void)
                 if (GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_HP))
                 {
 					double expMultiplier = GetPkmnExpMultiplier(gPlayerParty[gBattleStruct->expGetterMonId].level);
-					if(gSaveBlock2Ptr->optionsBattleStyle == OPTIONS_BATTLE_STYLE_SHIFT){
-					if (gBattleStruct->sentInPokes & 1)
-                        gBattleMoveDamage = *exp;
-                    // only give exp share bonus in later gens if the mon wasn't sent out
-                    if (gSaveBlock2Ptr->expShare || ((holdEffect == HOLD_EFFECT_EXP_SHARE) && ((gBattleMoveDamage == 0) || (B_SPLIT_EXP < GEN_6))))
-                        gBattleMoveDamage += gExpShareExp;
-                    if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
-                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-                    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && B_TRAINER_EXP_MULTIPLIER <= GEN_7)
-                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-                    /*/#if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
-                        gBattleMoveDamage *= sExperienceScalingFactors[(gBattleMons[gBattlerFainted].level * 2) + 10];
-                        gBattleMoveDamage /= sExperienceScalingFactors[gBattleMons[gBattlerFainted].level + GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) + 10];
-                        gBattleMoveDamage++;
-                    #endif/*/
-					}//Hard Mode
-					else{
+					
 					if (gBattleStruct->sentInPokes & 1)
 						gBattleMoveDamage = *exp * expMultiplier;
 					else
@@ -3861,12 +3895,7 @@ static void Cmd_getexp(void)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && B_TRAINER_EXP_MULTIPLIER <= GEN_7)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
-                    /*/#if (B_SCALED_EXP >= GEN_5) && (B_SCALED_EXP != GEN_6)
-                        gBattleMoveDamage *= sExperienceScalingFactors[(gBattleMons[gBattlerFainted].level * 2) + 10];
-                        gBattleMoveDamage /= sExperienceScalingFactors[gBattleMons[gBattlerFainted].level + GetMonData(&gPlayerParty[gBattleStruct->expGetterMonId], MON_DATA_LEVEL) + 10];
-                        gBattleMoveDamage++;
-                    #endif/*/
-					}
+					
 					
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
                     {
@@ -11824,6 +11853,7 @@ static void Cmd_pickup(void)
                 && heldItem == ITEM_NONE
                 && (Random() % 10) == 0) ||
 				(species == SPECIES_DELIBIRD
+				&& heldItem == ITEM_NONE
 				&& (Random() % 10) == 0)
 				)
             {
@@ -11867,6 +11897,23 @@ static void Cmd_pickup(void)
                     SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
                 }
             }
+			else if ((species == SPECIES_SABLEYE ||
+				species == SPECIES_CARBINK		||
+				species == SPECIES_DIANCIE)
+                && heldItem == ITEM_NONE
+                && (Random() % 10) == 0)
+            {		
+					heldItem = sGemItems[Random() % (sizeof(sGemItems)/sizeof(sGemItems[0]))];
+                    SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+            }
+			else if (ability == ABILITY_HARVEST
+                && species != 0
+                && species != SPECIES_EGG
+                && heldItem == ITEM_NONE)
+			{
+				heldItem = sHarvestItems[Random() % (sizeof(sHarvestItems)/sizeof(sHarvestItems[0]))];
+                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+			}
         }
     }
 

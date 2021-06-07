@@ -39284,6 +39284,29 @@ gText_JackTeachMove:
 	.byte	0xe7
 	.byte	0xff
 	.size	 gText_JackTeachMove,20
+	.globl	gText_JackWonderTrade
+	.type	 gText_JackWonderTrade,object
+gText_JackWonderTrade:
+	.byte	0xce
+	.byte	0xe6
+	.byte	0xed
+	.byte	0x0
+	.byte	0xd1
+	.byte	0xe3
+	.byte	0xe2
+	.byte	0xd8
+	.byte	0xd9
+	.byte	0xe6
+	.byte	0x0
+	.byte	0xce
+	.byte	0xe6
+	.byte	0xd5
+	.byte	0xd8
+	.byte	0xdd
+	.byte	0xe2
+	.byte	0xdb
+	.byte	0xff
+	.size	 gText_JackWonderTrade,19
 	.globl	gText_MicrowaveOven
 	.type	 gText_MicrowaveOven,object
 gText_MicrowaveOven:

@@ -1830,6 +1830,14 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 	u8 PokemonEvs[] = {0,0,0,0,0,0};
 	u8 PokemonHapiness;
 	u16 PokemonHeldItem[] = {ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE};
+	u8 isDoubleBattle = gTrainers[trainerNum].doubleBattle;
+	u8 PartySize = GetPlayerUsableMons();
+	
+	if(PartySize >= 2 && gTrainers[trainerNum].partySize >= 2 && FlagGet(FLAG_UNUSED_0x2A2))
+		isDoubleBattle = TRUE;
+	
+	if(IsHardMode() == 1 && PartySize > LeaderMonsCount+1)
+		LeaderMonsCount = PartySize-1;
 	
     if (trainerNum == TRAINER_SECRET_BASE)
         return 0;
@@ -1874,7 +1882,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
         for (i = 0; i < monsCount; i++)
         {
 
-            if (gTrainers[trainerNum].doubleBattle == TRUE)
+            if (isDoubleBattle == TRUE)
                 personalityValue = 0x80;
             else if (gTrainers[trainerNum].encounterMusic_gender & 0x80)
                 personalityValue = 0x78;
@@ -1942,7 +1950,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 				else{
 				for (j = 0; j < MAX_MON_MOVES; j++)
                 {
-					if(partyData[i].moves[j] != MOVE_NONE){
+					if(partyData[i].moves[j] != MOVE_NONE && IsMoveUsable(gBattleMoves[partyData[i].moves[j]].power)){
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
 					}
@@ -2041,7 +2049,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 				else{
 				for (j = 0; j < MAX_MON_MOVES; j++)
                 {
-					if(partyData[i].moves[j] != MOVE_NONE){
+					if(partyData[i].moves[j] != MOVE_NONE && IsMoveUsable(gBattleMoves[partyData[i].moves[j]].power)){
                     SetMonData(&party[i], MON_DATA_MOVE1 + j, &partyData[i].moves[j]);
                     SetMonData(&party[i], MON_DATA_PP1 + j, &gBattleMoves[partyData[i].moves[j]].pp);
 					}
@@ -2072,7 +2080,8 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
             }
         }
 
-        gBattleTypeFlags |= gTrainers[trainerNum].doubleBattle;
+        //gBattleTypeFlags |= gTrainers[trainerNum].doubleBattle;
+		gBattleTypeFlags |= isDoubleBattle;
     }
 
     return gTrainers[trainerNum].partySize;
@@ -4474,7 +4483,9 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
         speed = (speed * 150) / 100;
     else if (holdEffect == HOLD_EFFECT_QUICK_POWDER && gBattleMons[battlerId].species == SPECIES_DITTO && !(gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED))
         speed *= 2;
-
+	if (holdEffect == HOLD_EFFECT_QUICK_POWDER && gBattleMons[battlerId].species == SPECIES_DITTO && (gBattleMons[battlerId].status2 & STATUS2_TRANSFORMED))
+		speed = (speed * 150) / 100;
+	
     // various effects
     if (gSideStatuses[GET_BATTLER_SIDE(battlerId)] & SIDE_STATUS_TAILWIND)
         speed *= 2;
