@@ -64,8 +64,8 @@ gText_Birch_AreYouReady:: @ 82C8C7A
 gText_Birch_Welcome:: @ 82C897B
 	.string "Hi! Sorry to keep you waiting!\p"
 	.string "Welcome to Pokemon R.O.W.E!\p"
-	.string "This is a QoL Open World\n"
-	.string "Pokemon Emerald Project.\p"
+	.string "This is an Open World version\n"
+	.string "of Hoenn.\p"
 	.string "$"
 
 gText_Birch_Pokemon:: @ 82C89FB
@@ -114,11 +114,11 @@ gText_Birch_AreYouReady:: @ 82C8C7A
 	.string "All right, are you ready?\p"
 	.string "Your very own adventure is about\n"
 	.string "to begin.\p"
-	.string "Chose your Starting city and\n"
+	.string "Choose your Starting city and\n"
 	.string "explore this world as you want,\l"
 	.string "a different aventure awaits!\p"
-	.string "Well, I'll be expecting you if You\n"
-	.string "have any question on Pokecommunity.\p"
-	.string "$"
+	.string "Well, If you have any questions,\n"
+	.string "I'll be expecting them on\l"
+	.string "Pokecommunity.$"
 
 #endif

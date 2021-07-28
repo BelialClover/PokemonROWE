@@ -1007,8 +1007,6 @@ const struct CompressedSpriteSheet gMonFrontPicTable[] =
     SPECIES_SPRITE(PIKACHU_PARTNER_CAP, gMonFrontPic_PikachuPartnerCap),
     SPECIES_SPRITE(PIKACHU_WORLD_CAP, gMonFrontPic_PikachuWorldCap),
 
-    SPECIES_SPRITE(PICHU_SPIKY_EARED, gMonFrontPic_PichuSpikyEared),
-
     SPECIES_SPRITE(UNOWN_B, gMonFrontPic_UnownB),
     SPECIES_SPRITE(UNOWN_C, gMonFrontPic_UnownC),
     SPECIES_SPRITE(UNOWN_D, gMonFrontPic_UnownD),
@@ -1271,6 +1269,8 @@ const struct CompressedSpriteSheet gMonFrontPicTable[] =
 
     SPECIES_SPRITE(CALYREX_ICE_RIDER, gMonFrontPic_CalyrexIceRider),
     SPECIES_SPRITE(CALYREX_SHADOW_RIDER, gMonFrontPic_CalyrexShadowRider),
+	
+    SPECIES_SPRITE(PICHU_SPIKY_EARED, gMonFrontPic_PichuSpikyEared),
 
     SPECIES_SPRITE(EGG, gMonFrontPic_Egg),
 };

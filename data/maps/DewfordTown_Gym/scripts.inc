@@ -173,6 +173,7 @@ DewfordTown_Gym_EventScript_BrawlyDefeated:: @ 81FC7F7
 	delay 30
 	setflag FLAG_DEFEATED_DEWFORD_GYM
 	setflag FLAG_BADGE02_GET
+	call Gym_EventScript_Reset_Rematches
 	setflag FLAG_UNUSED_0x923
 	setflag FLAG_ENABLE_BRAWLY_MATCH_CALL
 	release
@@ -193,6 +194,7 @@ DewfordTown_Gym_EventScript_BrawlyRematch:: @ 81FC89C
 DewfordTown_Gym_EventScript_BrawlyRematchEnd::
 	msgbox DewfordTown_Gym_Text_BrawlyPostRematch, MSGBOX_AUTOCLOSE
 	setflag FLAG_UNUSED_0x923 
+	call Gym_EventScript_Reset_Random_Rematch
 	end
 	
 DewfordTown_Gym_EventScript_Start_Rematch_1::

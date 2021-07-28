@@ -1,6 +1,6 @@
-# 1 "src/battle_script_commands.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/battle_script_commands.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/battle_script_commands.c"
 # 1 "include/global.h" 1
 
@@ -706,7 +706,8 @@ struct SaveBlock2
              u16 optionsTransitionSpeed:2;
              u16 optionsUnitSystem:1;
              struct Pokedex pokedex;
-             u8 filler_90[0x7];
+             u16 lastUsedBall;
+             u8 filler_90[0x6];
              struct Time localTimeOffset;
              struct Time lastBerryTreeUpdate;
              u32 gcnLinkFlags;
@@ -720,7 +721,7 @@ struct SaveBlock2
               struct RankingHall2P hallRecords2P[2][3];
               u16 contestLinkResults[5][4];
               struct BattleFrontier frontier;
-              u8 itemFlags[((746 / 8) + ((746 % 8) ? 1 : 0))];
+              u8 itemFlags[((773 / 8) + ((773 % 8) ? 1 : 0))];
 };
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -754,7 +755,7 @@ struct SecretBase
 };
 
 # 1 "include/constants/game_stat.h" 1
-# 542 "include/global.h" 2
+# 543 "include/global.h" 2
 # 1 "include/global.fieldmap.h" 1
 # 13 "include/global.fieldmap.h"
 enum
@@ -1003,6 +1004,7 @@ enum
     COLLISION_IMPASSABLE,
     COLLISION_ELEVATION_MISMATCH,
     COLLISION_OBJECT_EVENT,
+ COLLISION_START_SURFING,
     COLLISION_STOP_SURFING,
     COLLISION_LEDGE_JUMP,
     COLLISION_PUSHED_BOULDER,
@@ -1065,7 +1067,7 @@ extern u8 gSelectedObjectEvent;
 extern struct MapHeader gMapHeader;
 extern struct PlayerAvatar gPlayerAvatar;
 extern struct Camera gCamera;
-# 543 "include/global.h" 2
+# 544 "include/global.h" 2
 # 1 "include/global.berry.h" 1
 
 
@@ -1141,7 +1143,7 @@ struct BerryTree
     u8 watered3:1;
     u8 watered4:1;
 };
-# 544 "include/global.h" 2
+# 545 "include/global.h" 2
 # 1 "include/global.tv.h" 1
 
 
@@ -1635,7 +1637,7 @@ struct GabbyAndTyData
              u8 playerThrewABall2:1;
              u8 valB_4:4;
 };
-# 545 "include/global.h" 2
+# 546 "include/global.h" 2
 # 1 "include/pokemon.h" 1
 
 
@@ -2381,7 +2383,7 @@ u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
 u16 GetBaseFormSpeciesId(u16 formSpeciesId);
 void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nature);
 u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
-# 546 "include/global.h" 2
+# 547 "include/global.h" 2
 
 struct WarpData
 {
@@ -3096,6 +3098,7 @@ struct TypePower
 
 extern const struct TypePower gNaturalGiftTable[];
 
+void HandleAction_ThrowBall(void);
 void HandleAction_UseMove(void);
 void HandleAction_Switch(void);
 void HandleAction_UseItem(void);
@@ -3365,12 +3368,12 @@ void FreeBallGfx(u8 ballId);
 
 void CB2_BattleDebugMenu(void);
 # 16 "include/battle.h" 2
-# 57 "include/battle.h"
+# 58 "include/battle.h"
 struct ResourceFlags
 {
     u32 flags[4];
 };
-# 69 "include/battle.h"
+# 70 "include/battle.h"
 struct DisableStruct
 {
     u32 transformedMonPersonality;
@@ -3852,8 +3855,9 @@ struct BattleStruct
     u8 sameMoveTurns[4];
     u16 moveEffect2;
     u16 changedSpecies[6];
+ u8 ballSpriteIds[2];
 };
-# 585 "include/battle.h"
+# 587 "include/battle.h"
 struct BattleScripting
 {
     s32 painSplitHp;
@@ -4631,6 +4635,30 @@ void AnimOverheatFlame(struct Sprite *sprite);
 
 void CoreEnforcerLoadBeamTarget(struct Sprite* sprite);
 # 7 "src/battle_script_commands.c" 2
+# 1 "include/battle_pyramid.h" 1
+
+
+
+void CallBattlePyramidFunction(void);
+u16 LocalIdToPyramidTrainerId(u8 localId);
+bool8 GetBattlePyramidTrainerFlag(u8 eventId);
+void MarkApproachingPyramidTrainersAsBattled(void);
+void GenerateBattlePyramidWildMon(void);
+u8 GetPyramidRunMultiplier(void);
+u8 InBattlePyramid(void);
+bool8 InBattlePyramid_(void);
+void PausePyramidChallenge(void);
+void SoftResetInBattlePyramid(void);
+void CopyPyramidTrainerSpeechBefore(u16 trainerId);
+void CopyPyramidTrainerWinSpeech(u16 trainerId);
+void CopyPyramidTrainerLoseSpeech(u16 trainerId);
+u8 GetBattlePyramindTrainerEncounterMusicId(u16 trainerId);
+void GenerateBattlePyramidFloorLayout(u16 *mapArg, bool8 setPlayerPosition);
+void LoadBattlePyramidObjectEventTemplates(void);
+void LoadBattlePyramidFloorObjectEventScripts(void);
+u8 GetNumBattlePyramidObjectEvents(void);
+u16 GetBattlePyramidPickupItemId(void);
+# 8 "src/battle_script_commands.c" 2
 # 1 "include/battle_ai_script_commands.h" 1
 # 10 "include/battle_ai_script_commands.h"
 s32 AI_CalcDamage(u16 move, u8 battlerAtk, u8 battlerDef);
@@ -4649,7 +4677,7 @@ void RecordAbilityBattle(u8 battlerId, u16 abilityId);
 void ClearBattlerAbilityHistory(u8 battlerId);
 void RecordItemEffectBattle(u8 battlerId, u8 itemEffect);
 void ClearBattlerItemEffectHistory(u8 battlerId);
-# 8 "src/battle_script_commands.c" 2
+# 9 "src/battle_script_commands.c" 2
 # 1 "include/battle_scripts.h" 1
 
 
@@ -5003,11 +5031,11 @@ extern const u8 BattleScript_EmergencyExitWild[];
 extern const u8 BattleScript_EmergencyExitWildNoPopUp[];
 extern const u8 BattleScript_CheekPouchActivates[];
 extern const u8 BattleScript_AnnounceAirLockCloudNine[];
-# 9 "src/battle_script_commands.c" 2
-# 1 "include/constants/moves.h" 1
 # 10 "src/battle_script_commands.c" 2
-# 1 "include/constants/abilities.h" 1
+# 1 "include/constants/moves.h" 1
 # 11 "src/battle_script_commands.c" 2
+# 1 "include/constants/abilities.h" 1
+# 12 "src/battle_script_commands.c" 2
 # 1 "include/item.h" 1
 
 
@@ -5100,11 +5128,11 @@ enum ItemObtainFlags
     FLAG_GET_OBTAINED,
     FLAG_SET_OBTAINED,
 };
-# 12 "src/battle_script_commands.c" 2
-# 1 "include/constants/items.h" 1
 # 13 "src/battle_script_commands.c" 2
-# 1 "include/constants/hold_effects.h" 1
+# 1 "include/constants/items.h" 1
 # 14 "src/battle_script_commands.c" 2
+# 1 "include/constants/hold_effects.h" 1
+# 15 "src/battle_script_commands.c" 2
 # 1 "include/util.h" 1
 
 
@@ -5124,9 +5152,9 @@ u32 CalcByteArraySum(const u8* data, u32 length);
 void BlendPalette(u16 palOffset, u16 numEntries, u8 coeff, u16 blendColor);
 void DoBgAffineSet(struct BgAffineDstData *dest, u32 texX, u32 texY, s16 scrX, s16 scrY, s16 sx, s16 sy, u16 alpha);
 void CopySpriteTiles(u8 shape, u8 size, u8 *tiles, u16 *tilemap, u8 *output);
-# 15 "src/battle_script_commands.c" 2
-# 1 "include/pokemon.h" 1
 # 16 "src/battle_script_commands.c" 2
+# 1 "include/pokemon.h" 1
+# 17 "src/battle_script_commands.c" 2
 # 1 "include/random.h" 1
 
 
@@ -5141,7 +5169,7 @@ u16 RandRange(u16 min, u16 max);
 # 21 "include/random.h"
 void SeedRng(u16 seed);
 void SeedRng2(u16 seed);
-# 17 "src/battle_script_commands.c" 2
+# 18 "src/battle_script_commands.c" 2
 # 1 "include/battle_controllers.h" 1
 
 
@@ -5409,7 +5437,7 @@ void SetControllerToLinkOpponent(void);
 
 
 void SetControllerToLinkPartner(void);
-# 18 "src/battle_script_commands.c" 2
+# 19 "src/battle_script_commands.c" 2
 # 1 "include/battle_interface.h" 1
 
 
@@ -5481,9 +5509,13 @@ u8 GetScaledHPFraction(s16 hp, s16 maxhp, u8 scale);
 u8 GetHPBarLevel(s16 hp, s16 maxhp);
 void CreateAbilityPopUp(u8 battlerId, u32 ability, bool32 isDoubleBattle);
 void DestroyAbilityPopUp(u8 battlerId);
-# 19 "src/battle_script_commands.c" 2
-# 1 "include/constants/songs.h" 1
+bool32 CanThrowLastUsedBall(void);
+void TryHideLastUsedBall(void);
+void TryRestoreLastUsedBall(void);
+void TryAddLastUsedBallItemSprites(void);
 # 20 "src/battle_script_commands.c" 2
+# 1 "include/constants/songs.h" 1
+# 21 "src/battle_script_commands.c" 2
 # 1 "include/constants/trainers.h" 1
 
 
@@ -5491,11 +5523,11 @@ void DestroyAbilityPopUp(u8 battlerId);
 
 # 1 "include/constants/battle_frontier_trainers.h" 1
 # 6 "include/constants/trainers.h" 2
-# 21 "src/battle_script_commands.c" 2
-# 1 "include/constants/battle_anim.h" 1
 # 22 "src/battle_script_commands.c" 2
-# 1 "include/constants/map_types.h" 1
+# 1 "include/constants/battle_anim.h" 1
 # 23 "src/battle_script_commands.c" 2
+# 1 "include/constants/map_types.h" 1
+# 24 "src/battle_script_commands.c" 2
 # 1 "gflib/text.h" 1
 # 272 "gflib/text.h"
 enum
@@ -5664,7 +5696,7 @@ void DecompressGlyphFont9(u16 glyphId);
 
 u16 Font6Func(struct TextPrinter *textPrinter);
 u32 GetGlyphWidthFont6(u16 glyphId, bool32 isJapanese);
-# 24 "src/battle_script_commands.c" 2
+# 25 "src/battle_script_commands.c" 2
 # 1 "include/sound.h" 1
 
 
@@ -5714,7 +5746,7 @@ void SE12PanpotControl(s8 pan);
 bool8 IsSEPlaying(void);
 bool8 IsBGMPlaying(void);
 bool8 IsSpecialSEPlaying(void);
-# 25 "src/battle_script_commands.c" 2
+# 26 "src/battle_script_commands.c" 2
 # 1 "include/pokedex.h" 1
 
 
@@ -5760,7 +5792,7 @@ bool16 HasAllHoennMons(void);
 void ResetPokedexScrollPositions(void);
 bool16 HasAllMons(void);
 void CB2_OpenPokedex(void);
-# 26 "src/battle_script_commands.c" 2
+# 27 "src/battle_script_commands.c" 2
 # 1 "include/recorded_battle.h" 1
 
 
@@ -5801,7 +5833,7 @@ u8 GetRecordedBattleRecordMixFriendLanguage(void);
 u8 GetRecordedBattleApprenticeLanguage(void);
 void RecordedBattle_SaveBattleOutcome(void);
 u16 *GetRecordedBattleEasyChatSpeech(void);
-# 27 "src/battle_script_commands.c" 2
+# 28 "src/battle_script_commands.c" 2
 # 1 "gflib/window.h" 1
 
 
@@ -5868,14 +5900,14 @@ extern void* gUnknown_03002F70[];
 extern u32 filler_03002F58;
 extern u32 filler_03002F5C;
 extern u32 filler_03002F64;
-# 28 "src/battle_script_commands.c" 2
+# 29 "src/battle_script_commands.c" 2
 # 1 "include/reshow_battle_screen.h" 1
 
 
 
 void nullsub_35(void);
 void ReshowBattleScreenAfterMenu(void);
-# 29 "src/battle_script_commands.c" 2
+# 30 "src/battle_script_commands.c" 2
 # 1 "include/main.h" 1
 
 
@@ -5951,7 +5983,7 @@ void StartTimer1(void);
 void SeedRngAndSetTrainerId(void);
 u16 GetGeneratedTrainerIdLower(void);
 void sub_819789C(void);
-# 30 "src/battle_script_commands.c" 2
+# 31 "src/battle_script_commands.c" 2
 # 1 "include/level_scaling.h" 1
 
 
@@ -5972,7 +6004,8 @@ u16 GetHeldItem(u16 baseitem);
 u16 GetFirstEvolution(u16 species);
 u8 GetEvsfromPokemon(u8 evs);
 bool8 IsMoveUsable(u8 movepower);
-# 31 "src/battle_script_commands.c" 2
+u16 GetMapRandomPokemon(u16 TrainerClass, u16 species);
+# 32 "src/battle_script_commands.c" 2
 # 1 "include/palette.h" 1
 # 17 "include/palette.h"
 enum
@@ -6037,7 +6070,7 @@ void TintPalette_GrayScale2(u16 *palette, u16 count);
 void TintPalette_SepiaTone(u16 *palette, u16 count);
 void TintPalette_CustomTone(u16 *palette, u16 count, u16 rTone, u16 gTone, u16 bTone);
 void TintPalette_CustomToneWithCopy(const u16 *src, u16 *dest, u16 count, u16 rTone, u16 gTone, u16 bTone, bool8 excludeZeroes);
-# 32 "src/battle_script_commands.c" 2
+# 33 "src/battle_script_commands.c" 2
 # 1 "include/money.h" 1
 
 
@@ -6057,7 +6090,7 @@ void DrawMoneyBox(int amount, u8 x, u8 y);
 void HideMoneyBox(void);
 void AddMoneyLabelObject(u16 x, u16 y);
 void RemoveMoneyLabelObject(void);
-# 33 "src/battle_script_commands.c" 2
+# 34 "src/battle_script_commands.c" 2
 # 1 "gflib/bg.h" 1
 
 
@@ -6142,7 +6175,7 @@ void CopyTileMapEntry(const u16 *src, u16 *dest, s32 palette1, s32 tileOffset, s
 u32 GetBgType(u8 bg);
 bool32 IsInvalidBg32(u8 bg);
 bool32 IsTileMapOutsideWram(u8 bg);
-# 34 "src/battle_script_commands.c" 2
+# 35 "src/battle_script_commands.c" 2
 # 1 "gflib/string_util.h" 1
 
 
@@ -6190,7 +6223,7 @@ void ConvertInternationalString(u8 *s, u8 language);
 void StripExtCtrlCodes(u8 *str);
 
 char *ConvertToAscii(const u8 *str);
-# 35 "src/battle_script_commands.c" 2
+# 36 "src/battle_script_commands.c" 2
 # 1 "include/pokemon_icon.h" 1
 
 
@@ -6220,7 +6253,7 @@ void SpriteCB_MonIcon(struct Sprite *sprite);
 void SetPartyHPBarSprite(struct Sprite *sprite, u8 animNum);
 u8 GetMonIconPaletteIndexFromSpecies(u16 species);
 void SafeFreeMonIconPalette(u16 species);
-# 36 "src/battle_script_commands.c" 2
+# 37 "src/battle_script_commands.c" 2
 # 1 "include/m4a.h" 1
 
 
@@ -6657,7 +6690,7 @@ extern struct MusicPlayerInfo gMPlayInfo_SE1;
 extern struct MusicPlayerInfo gMPlayInfo_SE2;
 extern struct MusicPlayerInfo gMPlayInfo_SE3;
 extern struct SoundInfo gSoundInfo;
-# 37 "src/battle_script_commands.c" 2
+# 38 "src/battle_script_commands.c" 2
 # 1 "include/mail.h" 1
 # 18 "include/mail.h"
 void ReadMail(struct MailStruct *mail, void (*callback)(void), bool8 flag);
@@ -6674,7 +6707,7 @@ void TakeMailFromMon(struct Pokemon *mon);
 void ClearMailItemId(u8 mailId);
 u8 TakeMailFromMon2(struct Pokemon *mon);
 bool8 ItemIsMail(u16 itemId);
-# 38 "src/battle_script_commands.c" 2
+# 39 "src/battle_script_commands.c" 2
 # 1 "include/event_data.h" 1
 
 
@@ -6729,7 +6762,7 @@ extern u16 gSpecialVar_Unused_0x8014;
 
 extern const u16 sLevelCapFlags[9];
 extern const u16 sLevelCaps[9];
-# 39 "src/battle_script_commands.c" 2
+# 40 "src/battle_script_commands.c" 2
 # 1 "include/pokemon_storage_system.h" 1
 # 18 "include/pokemon_storage_system.h"
 struct PokemonStorage
@@ -6789,9 +6822,9 @@ u8 *GetWaldaPhrasePtr(void);
 void SetWaldaPhrase(const u8 *src);
 bool32 IsWaldaPhraseEmpty(void);
 u8 CountPartyNonEggMons(void);
-# 40 "src/battle_script_commands.c" 2
-# 1 "include/task.h" 1
 # 41 "src/battle_script_commands.c" 2
+# 1 "include/task.h" 1
+# 42 "src/battle_script_commands.c" 2
 # 1 "include/naming_screen.h" 1
 
 
@@ -6808,9 +6841,9 @@ enum {
 };
 
 void DoNamingScreen(u8 templateNum, u8 *destBuffer, u16 monSpecies, u16 monGender, u32 monPersonality, MainCallback returnCallback, u8 monFormId);
-# 42 "src/battle_script_commands.c" 2
-# 1 "include/constants/battle_string_ids.h" 1
 # 43 "src/battle_script_commands.c" 2
+# 1 "include/constants/battle_string_ids.h" 1
+# 44 "src/battle_script_commands.c" 2
 # 1 "include/battle_setup.h" 1
 
 
@@ -6971,7 +7004,7 @@ bool8 ShouldTryRematchBattle(void);
 bool8 IsTrainerReadyForRematch(void);
 void ShouldTryGetTrainerScript(void);
 u16 CountBattledRematchTeams(u16 trainerId);
-# 44 "src/battle_script_commands.c" 2
+# 45 "src/battle_script_commands.c" 2
 # 1 "include/overworld.h" 1
 # 29 "include/overworld.h"
 struct InitialPlayerAvatarState
@@ -7106,7 +7139,7 @@ bool32 sub_80875C8(void);
 bool32 sub_8087634(void);
 bool32 sub_808766C(void);
 void ClearLinkPlayerObjectEvents(void);
-# 45 "src/battle_script_commands.c" 2
+# 46 "src/battle_script_commands.c" 2
 # 1 "include/wild_encounter.h" 1
 # 10 "include/wild_encounter.h"
 struct WildPokemon
@@ -7132,6 +7165,7 @@ struct WildPokemonHeader
     const struct WildPokemonInfo *rockSmashMonsInfo;
     const struct WildPokemonInfo *fishingMonsInfo;
     const struct WildPokemonInfo *hiddenMonsInfo;
+ const struct WildPokemonInfo *headbuttMonsInfo;
 };
 
 extern bool8 gIsFishingEncounter;
@@ -7155,8 +7189,9 @@ u16 GetCurrentMapWildMonHeaderId(void);
 u8 ChooseWildMonIndex_Land(void);
 u8 ChooseWildMonIndex_WaterRock(void);
 u8 ChooseHiddenMonIndex(void);
+u8 ChooseHeadbuttMonIndex(void);
 u16 GetFirstStage(u16 species);
-# 46 "src/battle_script_commands.c" 2
+# 47 "src/battle_script_commands.c" 2
 # 1 "include/rtc.h" 1
 
 
@@ -7240,7 +7275,7 @@ u32 RtcGetMinuteCount(void);
 u32 GetTotalMinutes(struct Time *time);
 u32 GetTotalSeconds(struct Time *time);
 u32 RtcGetLocalDayCount(void);
-# 47 "src/battle_script_commands.c" 2
+# 48 "src/battle_script_commands.c" 2
 # 1 "include/party_menu.h" 1
 # 9 "include/party_menu.h"
 struct PartyMenu
@@ -7340,9 +7375,10 @@ void MoveDeleterChooseMoveToForget(void);
 
 bool8 CanLearnTutorMove(u16, u8);
 void ItemUseCB_Mints(u8 taskId, TaskFunc task);
-# 48 "src/battle_script_commands.c" 2
-# 1 "include/constants/battle_config.h" 1
+void ItemUseCB_Seal(u8 taskId, TaskFunc task);
 # 49 "src/battle_script_commands.c" 2
+# 1 "include/constants/battle_config.h" 1
+# 50 "src/battle_script_commands.c" 2
 # 1 "include/battle_arena.h" 1
 
 
@@ -7356,7 +7392,7 @@ void BattleArena_DeductMindPoints(u8 battler, u16 stringId);
 void sub_81A586C(u8 battler);
 void DrawArenaRefereeTextBox(void);
 void RemoveArenaRefereeTextBox(void);
-# 50 "src/battle_script_commands.c" 2
+# 51 "src/battle_script_commands.c" 2
 # 1 "include/battle_pike.h" 1
 
 
@@ -7365,31 +7401,8 @@ void CallBattlePikeFunction(void);
 u8 GetBattlePikeWildMonHeaderId(void);
 bool32 TryGenerateBattlePikeWildMon(bool8 checkKeenEyeIntimidate);
 bool8 InBattlePike(void);
-# 51 "src/battle_script_commands.c" 2
-# 1 "include/battle_pyramid.h" 1
-
-
-
-void CallBattlePyramidFunction(void);
-u16 LocalIdToPyramidTrainerId(u8 localId);
-bool8 GetBattlePyramidTrainerFlag(u8 eventId);
-void MarkApproachingPyramidTrainersAsBattled(void);
-void GenerateBattlePyramidWildMon(void);
-u8 GetPyramidRunMultiplier(void);
-u8 InBattlePyramid(void);
-bool8 InBattlePyramid_(void);
-void PausePyramidChallenge(void);
-void SoftResetInBattlePyramid(void);
-void CopyPyramidTrainerSpeechBefore(u16 trainerId);
-void CopyPyramidTrainerWinSpeech(u16 trainerId);
-void CopyPyramidTrainerLoseSpeech(u16 trainerId);
-u8 GetBattlePyramindTrainerEncounterMusicId(u16 trainerId);
-void GenerateBattlePyramidFloorLayout(u16 *mapArg, bool8 setPlayerPosition);
-void LoadBattlePyramidObjectEventTemplates(void);
-void LoadBattlePyramidFloorObjectEventScripts(void);
-u8 GetNumBattlePyramidObjectEvents(void);
-u16 GetBattlePyramidPickupItemId(void);
 # 52 "src/battle_script_commands.c" 2
+
 # 1 "include/field_specials.h" 1
 
 
@@ -7424,7 +7437,7 @@ bool8 UsedPokemonCenterWarp(void);
 void ResetFanClub(void);
 bool8 ShouldShowBoxWasFullMessage(void);
 void SetPCBoxToSendMon(u8 boxId);
-# 53 "src/battle_script_commands.c" 2
+# 54 "src/battle_script_commands.c" 2
 # 1 "include/pokemon_summary_screen.h" 1
 
 
@@ -7463,7 +7476,7 @@ enum PokemonSummaryScreenPage
     PSS_PAGE_CONTEST_MOVES,
     PSS_PAGE_COUNT,
 };
-# 54 "src/battle_script_commands.c" 2
+# 55 "src/battle_script_commands.c" 2
 # 1 "include/pokenav.h" 1
 
 
@@ -7929,7 +7942,7 @@ bool32 OpenRibbonsSummaryMenu(void);
 void CreateRibbonsSummaryLoopedTask(s32);
 u32 IsRibbonsSummaryLoopedTaskActive(void);
 void FreeRibbonsSummaryScreen2(void);
-# 55 "src/battle_script_commands.c" 2
+# 56 "src/battle_script_commands.c" 2
 # 1 "include/menu_specialized.h" 1
 
 
@@ -8287,9 +8300,9 @@ void FreeConditionSparkles(struct Sprite **sprites);
 void DrawLevelUpWindowPg1(u16 windowId, u16 *statsBefore, u16 *statsAfter, u8 bgClr, u8 fgClr, u8 shadowClr);
 void DrawLevelUpWindowPg2(u16 windowId, u16 *currStats, u8 bgClr, u8 fgClr, u8 shadowClr);
 void GetMonLevelUpWindowStats(struct Pokemon *mon, u16 *currStats);
-# 56 "src/battle_script_commands.c" 2
-# 1 "include/constants/rgb.h" 1
 # 57 "src/battle_script_commands.c" 2
+# 1 "include/constants/rgb.h" 1
+# 58 "src/battle_script_commands.c" 2
 # 1 "include/data.h" 1
 
 
@@ -8432,9 +8445,9 @@ extern const struct Trainer gTrainers[];
 extern const u8 gTrainerClassNames[][13];
 extern const u8 gSpeciesNames[][10 + 1];
 extern const u8 gMoveNames[755][16 + 1];
-# 58 "src/battle_script_commands.c" 2
-# 1 "include/constants/party_menu.h" 1
 # 59 "src/battle_script_commands.c" 2
+# 1 "include/constants/party_menu.h" 1
+# 60 "src/battle_script_commands.c" 2
 
 extern struct MusicPlayerInfo gMPlayInfo_BGM;
 
@@ -9253,7 +9266,7 @@ static const struct StatFractions sAccuracyStageRatios[] =
     { 3, 1},
 };
 
-static const u32 sStatusFlagsForMoveEffects[0x46] =
+static const u32 sStatusFlagsForMoveEffects[0x47] =
 {
     [0x1] = (1 << 0 | 1 << 1 | 1 << 2),
     [0x2] = (1 << 3),
@@ -9324,7 +9337,7 @@ static const struct SpriteTemplate sSpriteTemplate_MonIconOnLvlUpBox =
 };
 
 static const u16 sProtectSuccessRates[] = {65535, 65535 / 2, 65535 / 4, 65535 / 8};
-# 957 "src/battle_script_commands.c"
+# 958 "src/battle_script_commands.c"
 static const u8 sForbiddenMoves[755] =
 {
     [0] = 0xFF,
@@ -9554,7 +9567,7 @@ static const u8 sBallCatchBonuses[] =
     [4 - 2] = 10,
     [5 - 2] = 15
 };
-# 1195 "src/battle_script_commands.c"
+# 1196 "src/battle_script_commands.c"
 const __attribute__((aligned(4))) u8 gBattlePalaceNatureToMoveGroupLikelihood[25][4] =
 {
     [0] = {61, 61 + 7, 61, 61 + 7},
@@ -10829,7 +10842,7 @@ static void CheckSetUnburden(u8 battlerId)
         RecordAbilityBattle(battlerId, 84);
     }
 }
-# 2483 "src/battle_script_commands.c"
+# 2484 "src/battle_script_commands.c"
 void SetMoveEffect(bool32 primary, u32 certain)
 {
     s32 i, byTwo, affectsUser = 0;
@@ -12155,7 +12168,7 @@ static void Cmd_getexp(void)
 
             if (gSaveBlock2Ptr->expShare)
                 viaExpShare = gSaveBlock1Ptr->playerPartyCount;
-# 3828 "src/battle_script_commands.c"
+# 3829 "src/battle_script_commands.c"
                 *exp = calculatedExp;
     if(gSaveBlock2Ptr->optionsBattleStyle == 0 || FlagGet((((0x500 + 864 - 1) + 1) + 0x4))|| GetPlayerUsableMons() < 3){
                 gExpShareExp = calculatedExp / 2;
@@ -15534,7 +15547,7 @@ bool32 CanUseLastResort(u8 battlerId)
 
     return (knownMovesCount >= 2 && usedMovesCount >= knownMovesCount - 1);
 }
-# 7224 "src/battle_script_commands.c"
+# 7225 "src/battle_script_commands.c"
 static bool32 ClearDefogHazards(u8 battlerAtk, bool32 clear)
 {
     s32 i;
@@ -20308,7 +20321,8 @@ bool32 DoesDisguiseBlockMove(u8 battlerAtk, u8 battlerDef, u32 move)
     if (GetBattlerAbility(battlerDef) != 209
         || gBattleMons[battlerDef].species != 778
         || gBattleMons[battlerDef].status2 & (1 << 21)
-        || gBattleMoves[move].power == 0)
+        || gBattleMoves[move].power == 0
+        || gBattleScripting.moveEffect == 0x46)
         return 0;
     else
         return 1;
@@ -20453,6 +20467,8 @@ static void Cmd_handleballthrow(void)
         u32 odds, i;
         u8 catchRate;
 
+  gSaveBlock2Ptr->lastUsedBall = gLastUsedItem;
+
         if (gLastUsedItem == 5)
             catchRate = gBattleStruct->safariCatchFactor * 1275 / 100;
         else
@@ -20497,7 +20513,7 @@ static void Cmd_handleballthrow(void)
 
                     if (gBattleMons[gBattlerTarget].level < 30)
                         ballMultiplier = 41 - gBattleMons[gBattlerTarget].level;
-# 12199 "src/battle_script_commands.c"
+# 12203 "src/battle_script_commands.c"
                 break;
             case 9:
                 if (GetSetPokedexFlag(SpeciesToNationalPokedexNum(gBattleMons[gBattlerTarget].species), FLAG_GET_CAUGHT))
@@ -20571,7 +20587,7 @@ static void Cmd_handleballthrow(void)
                         ballAddition = 20;
                     else
                         ballAddition = 30;
-# 12293 "src/battle_script_commands.c"
+# 12297 "src/battle_script_commands.c"
                 break;
             case 17:
                 if (gBaseStats[gBattleMons[gBattlerTarget].species].baseSpeed >= 100)

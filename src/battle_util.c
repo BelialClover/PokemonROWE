@@ -575,6 +575,17 @@ void HandleAction_SafariZoneBallThrow(void)
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 
+void HandleAction_ThrowBall(void)
+{
+    gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
+    gBattle_BG0_X = 0;
+    gBattle_BG0_Y = 0;
+    gLastUsedItem = gSaveBlock2Ptr->lastUsedBall;
+    RemoveBagItem(gLastUsedItem, 1);
+    gBattlescriptCurrInstr = BattleScript_BallThrow;
+    gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
+}
+
 void HandleAction_ThrowPokeblock(void)
 {
     gBattlerAttacker = gBattlerByTurnOrder[gCurrentTurnActionNumber];
@@ -6030,7 +6041,7 @@ static bool32 HasObedientBitSet(u8 battlerId)
 
 u8 IsMonDisobedient(void)
 {
-    s32 rnd;
+    /*/s32 rnd;
     s32 calc;
     u8 obedienceLevel = 0;
 
@@ -6138,7 +6149,8 @@ u8 IsMonDisobedient(void)
             gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
             return 1;
         }
-    }
+    }/*/
+	return 0;
 }
 
 u32 GetBattlerHoldEffect(u8 battlerId, bool32 checkNegating)

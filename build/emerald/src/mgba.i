@@ -1,6 +1,6 @@
-# 1 "src/mgba.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/mgba.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/mgba.c"
 # 22 "src/mgba.c"
 # 1 "include/gba/types.h" 1

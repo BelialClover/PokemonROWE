@@ -1,6 +1,6 @@
-# 1 "src/trade.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/trade.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/trade.c"
 # 1 "include/global.h" 1
 
@@ -706,7 +706,8 @@ struct SaveBlock2
              u16 optionsTransitionSpeed:2;
              u16 optionsUnitSystem:1;
              struct Pokedex pokedex;
-             u8 filler_90[0x7];
+             u16 lastUsedBall;
+             u8 filler_90[0x6];
              struct Time localTimeOffset;
              struct Time lastBerryTreeUpdate;
              u32 gcnLinkFlags;
@@ -720,7 +721,7 @@ struct SaveBlock2
               struct RankingHall2P hallRecords2P[2][3];
               u16 contestLinkResults[5][4];
               struct BattleFrontier frontier;
-              u8 itemFlags[((746 / 8) + ((746 % 8) ? 1 : 0))];
+              u8 itemFlags[((773 / 8) + ((773 % 8) ? 1 : 0))];
 };
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -754,7 +755,7 @@ struct SecretBase
 };
 
 # 1 "include/constants/game_stat.h" 1
-# 542 "include/global.h" 2
+# 543 "include/global.h" 2
 # 1 "include/global.fieldmap.h" 1
 # 13 "include/global.fieldmap.h"
 enum
@@ -1003,6 +1004,7 @@ enum
     COLLISION_IMPASSABLE,
     COLLISION_ELEVATION_MISMATCH,
     COLLISION_OBJECT_EVENT,
+ COLLISION_START_SURFING,
     COLLISION_STOP_SURFING,
     COLLISION_LEDGE_JUMP,
     COLLISION_PUSHED_BOULDER,
@@ -1065,7 +1067,7 @@ extern u8 gSelectedObjectEvent;
 extern struct MapHeader gMapHeader;
 extern struct PlayerAvatar gPlayerAvatar;
 extern struct Camera gCamera;
-# 543 "include/global.h" 2
+# 544 "include/global.h" 2
 # 1 "include/global.berry.h" 1
 
 
@@ -1141,7 +1143,7 @@ struct BerryTree
     u8 watered3:1;
     u8 watered4:1;
 };
-# 544 "include/global.h" 2
+# 545 "include/global.h" 2
 # 1 "include/global.tv.h" 1
 
 
@@ -1635,7 +1637,7 @@ struct GabbyAndTyData
              u8 playerThrewABall2:1;
              u8 valB_4:4;
 };
-# 545 "include/global.h" 2
+# 546 "include/global.h" 2
 # 1 "include/pokemon.h" 1
 
 
@@ -2381,7 +2383,7 @@ u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
 u16 GetBaseFormSpeciesId(u16 formSpeciesId);
 void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nature);
 u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
-# 546 "include/global.h" 2
+# 547 "include/global.h" 2
 
 struct WarpData
 {
@@ -3109,6 +3111,7 @@ struct TypePower
 
 extern const struct TypePower gNaturalGiftTable[];
 
+void HandleAction_ThrowBall(void);
 void HandleAction_UseMove(void);
 void HandleAction_Switch(void);
 void HandleAction_UseItem(void);
@@ -3378,12 +3381,12 @@ void FreeBallGfx(u8 ballId);
 
 void CB2_BattleDebugMenu(void);
 # 16 "include/battle.h" 2
-# 57 "include/battle.h"
+# 58 "include/battle.h"
 struct ResourceFlags
 {
     u32 flags[4];
 };
-# 69 "include/battle.h"
+# 70 "include/battle.h"
 struct DisableStruct
 {
     u32 transformedMonPersonality;
@@ -3865,8 +3868,9 @@ struct BattleStruct
     u8 sameMoveTurns[4];
     u16 moveEffect2;
     u16 changedSpecies[6];
+ u8 ballSpriteIds[2];
 };
-# 585 "include/battle.h"
+# 587 "include/battle.h"
 struct BattleScripting
 {
     s32 painSplitHp;
@@ -4969,6 +4973,10 @@ u8 GetScaledHPFraction(s16 hp, s16 maxhp, u8 scale);
 u8 GetHPBarLevel(s16 hp, s16 maxhp);
 void CreateAbilityPopUp(u8 battlerId, u32 ability, bool32 isDoubleBattle);
 void DestroyAbilityPopUp(u8 battlerId);
+bool32 CanThrowLastUsedBall(void);
+void TryHideLastUsedBall(void);
+void TryRestoreLastUsedBall(void);
+void TryAddLastUsedBallItemSprites(void);
 # 5 "src/trade.c" 2
 # 1 "gflib/bg.h" 1
 
@@ -5277,6 +5285,20 @@ void LoadSpecialPokePic_DontHandleDeoxys(const struct CompressedSpriteSheet *src
 
 u32 GetDecompressedDataSize(const u32 *ptr);
 # 10 "src/trade.c" 2
+# 1 "include/dexnav.h" 1
+# 123 "include/dexnav.h"
+void EndDexNavSearch(u8 taskId);
+void Task_OpenDexNavFromStartMenu(u8 taskId);
+bool8 TryStartDexnavSearch(void);
+void TryIncrementSpeciesSearchLevel(u16 dexNum);
+void ResetDexNavSearch(void);
+bool8 TryFindHiddenPokemon(void);
+bool8 DexNavTryMakeShinyMon(void);
+
+
+extern u8 gCurrentDexNavChain;
+extern bool8 gDexnavBattle;
+# 11 "src/trade.c" 2
 # 1 "include/event_data.h" 1
 
 
@@ -5331,7 +5353,7 @@ extern u16 gSpecialVar_Unused_0x8014;
 
 extern const u16 sLevelCapFlags[9];
 extern const u16 sLevelCaps[9];
-# 11 "src/trade.c" 2
+# 12 "src/trade.c" 2
 # 1 "include/evolution_scene.h" 1
 
 
@@ -5341,7 +5363,7 @@ void EvolutionScene(struct Pokemon* mon, u16 speciesToEvolve, bool8 canStopEvo, 
 void TradeEvolutionScene(struct Pokemon* mon, u16 speciesToEvolve, u8 preEvoSpriteID, u8 partyID, u8 formIdToEvolve);
 
 extern void (*gCB2_AfterEvolution)(void);
-# 12 "src/trade.c" 2
+# 13 "src/trade.c" 2
 # 1 "include/field_screen_effect.h" 1
 
 
@@ -5387,7 +5409,7 @@ void FadeOutOrbEffect(void);
 void sub_80B05B4(void);
 void WriteFlashScanlineEffectBuffer(u8 flashLevel);
 bool8 IsPlayerStandingStill(void);
-# 13 "src/trade.c" 2
+# 14 "src/trade.c" 2
 # 1 "gflib/gpu_regs.h" 1
 # 9 "gflib/gpu_regs.h"
 void InitGpuRegManager(void);
@@ -5399,7 +5421,7 @@ void SetGpuRegBits(u8 regOffset, u16 mask);
 void ClearGpuRegBits(u8 regOffset, u16 mask);
 void EnableInterrupts(u16 mask);
 void DisableInterrupts(u16 mask);
-# 14 "src/trade.c" 2
+# 15 "src/trade.c" 2
 # 1 "include/graphics.h" 1
 
 
@@ -14929,7 +14951,7 @@ extern const u32 gItemIconPalette_PinkMint[];
 extern const u32 gItemIconPalette_GreenMint[];
 extern const u32 gItemIconPalette_LightBlueMint[];
 extern const u32 gItemIconPalette_YellowMint[];
-# 15 "src/trade.c" 2
+# 16 "src/trade.c" 2
 # 1 "include/level_scaling.h" 1
 
 
@@ -14950,7 +14972,8 @@ u16 GetHeldItem(u16 baseitem);
 u16 GetFirstEvolution(u16 species);
 u8 GetEvsfromPokemon(u8 evs);
 bool8 IsMoveUsable(u8 movepower);
-# 16 "src/trade.c" 2
+u16 GetMapRandomPokemon(u16 TrainerClass, u16 species);
+# 17 "src/trade.c" 2
 # 1 "include/international_string_util.h" 1
 
 
@@ -15427,7 +15450,7 @@ void sub_81DB554(u8 *, u8);
 void sub_81DB5AC(u8 *);
 int sub_81DB604(u8 *);
 void sub_81DB620(int windowId, int columnStart, int rowStart, int numFillTiles, int numRows);
-# 17 "src/trade.c" 2
+# 18 "src/trade.c" 2
 # 1 "include/librfu.h" 1
 
 
@@ -15868,7 +15891,7 @@ void STWI_send_TestModeREQ(u8 unk0, u8 unk1);
 void STWI_send_CPR_StartREQ(u16 unk0, u16 unk1, u8 unk2);
 void STWI_send_CPR_PollingREQ(void);
 void STWI_send_CPR_EndREQ(void);
-# 18 "src/trade.c" 2
+# 19 "src/trade.c" 2
 # 1 "include/link.h" 1
 # 106 "include/link.h"
 struct LinkStatus
@@ -16121,7 +16144,7 @@ bool8 DoesLinkPlayerCountMatchSaved(void);
 void SetCloseLinkCallbackAndType(u16 type);
 bool32 IsSendingKeysToLink(void);
 u32 GetLinkRecvQueueLength(void);
-# 19 "src/trade.c" 2
+# 20 "src/trade.c" 2
 # 1 "include/link_rfu.h" 1
 
 
@@ -16456,7 +16479,7 @@ void InitHostRFUtgtGname(struct GFtgtGname *data, u8 activity, bool32 started, s
 void CreateWirelessStatusIndicatorSprite(u8 x, u8 y);
 void DestroyWirelessStatusIndicatorSprite(void);
 void LoadWirelessStatusIndicatorSpriteGfx(void);
-# 20 "src/trade.c" 2
+# 21 "src/trade.c" 2
 # 1 "include/load_save.h" 1
 
 
@@ -16490,7 +16513,7 @@ void LoadPlayerBag(void);
 void SavePlayerBag(void);
 void ApplyNewEncryptionKeyToHword(u16 *hWord, u32 newKey);
 void ApplyNewEncryptionKeyToWord(u32 *word, u32 newKey);
-# 21 "src/trade.c" 2
+# 22 "src/trade.c" 2
 # 1 "include/mail.h" 1
 # 18 "include/mail.h"
 void ReadMail(struct MailStruct *mail, void (*callback)(void), bool8 flag);
@@ -16507,15 +16530,15 @@ void TakeMailFromMon(struct Pokemon *mon);
 void ClearMailItemId(u8 mailId);
 u8 TakeMailFromMon2(struct Pokemon *mon);
 bool8 ItemIsMail(u16 itemId);
-# 22 "src/trade.c" 2
-# 1 "include/main.h" 1
 # 23 "src/trade.c" 2
+# 1 "include/main.h" 1
+# 24 "src/trade.c" 2
 # 1 "include/mevent2.h" 1
 
 
 
 void RecordIdOfWonderCardSenderByEventType(u32, u32);
-# 24 "src/trade.c" 2
+# 25 "src/trade.c" 2
 # 1 "include/mystery_gift.h" 1
 
 
@@ -16533,7 +16556,7 @@ void c2_ereader(void);
 void c2_mystery_gift(void);
 void MG_DrawTextBorder(u8 windowId);
 s8 mevent_message_print_and_prompt_yes_no(u8 *textState, u16 *windowId, bool8 yesNoBoxPlacement, const u8 *str);
-# 25 "src/trade.c" 2
+# 26 "src/trade.c" 2
 # 1 "include/overworld.h" 1
 # 29 "include/overworld.h"
 struct InitialPlayerAvatarState
@@ -16668,7 +16691,7 @@ bool32 sub_80875C8(void);
 bool32 sub_8087634(void);
 bool32 sub_808766C(void);
 void ClearLinkPlayerObjectEvents(void);
-# 26 "src/trade.c" 2
+# 27 "src/trade.c" 2
 # 1 "include/palette.h" 1
 # 17 "include/palette.h"
 enum
@@ -16733,7 +16756,7 @@ void TintPalette_GrayScale2(u16 *palette, u16 count);
 void TintPalette_SepiaTone(u16 *palette, u16 count);
 void TintPalette_CustomTone(u16 *palette, u16 count, u16 rTone, u16 gTone, u16 bTone);
 void TintPalette_CustomToneWithCopy(const u16 *src, u16 *dest, u16 count, u16 rTone, u16 gTone, u16 bTone, bool8 excludeZeroes);
-# 27 "src/trade.c" 2
+# 28 "src/trade.c" 2
 # 1 "include/party_menu.h" 1
 # 9 "include/party_menu.h"
 struct PartyMenu
@@ -16833,9 +16856,10 @@ void MoveDeleterChooseMoveToForget(void);
 
 bool8 CanLearnTutorMove(u16, u8);
 void ItemUseCB_Mints(u8 taskId, TaskFunc task);
-# 28 "src/trade.c" 2
-# 1 "include/pokeball.h" 1
+void ItemUseCB_Seal(u8 taskId, TaskFunc task);
 # 29 "src/trade.c" 2
+# 1 "include/pokeball.h" 1
+# 30 "src/trade.c" 2
 # 1 "include/pokedex.h" 1
 
 
@@ -16881,7 +16905,9 @@ bool16 HasAllHoennMons(void);
 void ResetPokedexScrollPositions(void);
 bool16 HasAllMons(void);
 void CB2_OpenPokedex(void);
-# 30 "src/trade.c" 2
+# 31 "src/trade.c" 2
+# 1 "include/pokemon.h" 1
+# 32 "src/trade.c" 2
 # 1 "include/pokemon_icon.h" 1
 
 
@@ -16911,7 +16937,7 @@ void SpriteCB_MonIcon(struct Sprite *sprite);
 void SetPartyHPBarSprite(struct Sprite *sprite, u8 animNum);
 u8 GetMonIconPaletteIndexFromSpecies(u16 species);
 void SafeFreeMonIconPalette(u16 species);
-# 31 "src/trade.c" 2
+# 33 "src/trade.c" 2
 # 1 "include/pokemon_summary_screen.h" 1
 
 
@@ -16950,7 +16976,7 @@ enum PokemonSummaryScreenPage
     PSS_PAGE_CONTEST_MOVES,
     PSS_PAGE_COUNT,
 };
-# 32 "src/trade.c" 2
+# 34 "src/trade.c" 2
 # 1 "include/pokemon_storage_system.h" 1
 # 18 "include/pokemon_storage_system.h"
 struct PokemonStorage
@@ -17010,7 +17036,7 @@ u8 *GetWaldaPhrasePtr(void);
 void SetWaldaPhrase(const u8 *src);
 bool32 IsWaldaPhraseEmpty(void);
 u8 CountPartyNonEggMons(void);
-# 33 "src/trade.c" 2
+# 35 "src/trade.c" 2
 # 1 "include/random.h" 1
 
 
@@ -17025,7 +17051,7 @@ u16 RandRange(u16 min, u16 max);
 # 21 "include/random.h"
 void SeedRng(u16 seed);
 void SeedRng2(u16 seed);
-# 34 "src/trade.c" 2
+# 36 "src/trade.c" 2
 # 1 "include/save.h" 1
 
 
@@ -17109,7 +17135,7 @@ void Task_LinkSave(u8 taskId);
 
 
 void DoSaveFailedScreen(u8 saveType);
-# 35 "src/trade.c" 2
+# 37 "src/trade.c" 2
 # 1 "include/script.h" 1
 
 
@@ -17176,7 +17202,7 @@ void InitRamScript_NoObjectEvent(u8 *script, u16 scriptSize);
 
 
 void SetMovingNpcId(u16 npcId);
-# 36 "src/trade.c" 2
+# 38 "src/trade.c" 2
 # 1 "include/sound.h" 1
 
 
@@ -17226,7 +17252,7 @@ void SE12PanpotControl(s8 pan);
 bool8 IsSEPlaying(void);
 bool8 IsBGMPlaying(void);
 bool8 IsSpecialSEPlaying(void);
-# 37 "src/trade.c" 2
+# 39 "src/trade.c" 2
 # 1 "gflib/string_util.h" 1
 
 
@@ -17274,7 +17300,7 @@ void ConvertInternationalString(u8 *s, u8 language);
 void StripExtCtrlCodes(u8 *str);
 
 char *ConvertToAscii(const u8 *str);
-# 38 "src/trade.c" 2
+# 40 "src/trade.c" 2
 # 1 "include/strings.h" 1
 
 
@@ -17821,25 +17847,18 @@ extern const u8 gText_SearchCompleted[];
 extern const u8 gText_NoMatchingPkmnWereFound[];
 extern const u8 gText_SelectorArrow[];
 
-extern const u8 gText_Stats_EV[];
-extern const u8 gText_Stats_EV_HP[];
-extern const u8 gText_Stats_EV_Attack[];
-extern const u8 gText_Stats_EV_Defense[];
-extern const u8 gText_Stats_EV_Speed[];
-extern const u8 gText_Stats_EV_SpAtk[];
-extern const u8 gText_Stats_EV_SpDef[];
+extern const u8 gText_Stats_Buttons[];
+extern const u8 gText_Stats_Buttons_Decapped[];
 extern const u8 gText_Stats_HP[];
 extern const u8 gText_Stats_Attack[];
 extern const u8 gText_Stats_Defense[];
 extern const u8 gText_Stats_Speed[];
-extern const u8 gText_Stats_SpAtk[];
-extern const u8 gText_Stats_SpDef[];
-extern const u8 gText_Stats_EVHP[];
-extern const u8 gText_Stats_EVAttack[];
-extern const u8 gText_Stats_EVDefense[];
-extern const u8 gText_Stats_EVSpeed[];
-extern const u8 gText_Stats_EVSpAtk[];
-extern const u8 gText_Stats_EVSpDef[];
+extern const u8 gText_Stats_SpAttack[];
+extern const u8 gText_Stats_SpDefense[];
+extern const u8 gText_Stats_EV_Plus1[];
+extern const u8 gText_Stats_EV_Plus2[];
+extern const u8 gText_Stats_EV_Plus3[];
+extern const u8 gText_Stats_EvStr1Str2[];
 extern const u8 gText_Stats_MoveSelectedMax[];
 extern const u8 gText_Stats_MoveLevel[];
 extern const u8 gText_Stats_Gender_0[];
@@ -17849,11 +17868,25 @@ extern const u8 gText_Stats_Gender_50[];
 extern const u8 gText_Stats_Gender_75[];
 extern const u8 gText_Stats_Gender_87_5[];
 extern const u8 gText_Stats_Gender_100[];
-extern const u8 gText_Stats_Catch[];
-extern const u8 gText_Stats_Exp[];
+extern const u8 gText_Stats_CatchRate[];
+extern const u8 gText_Stats_CatchRate_Legend[];
+extern const u8 gText_Stats_CatchRate_VeryHard[];
+extern const u8 gText_Stats_CatchRate_Difficult[];
+extern const u8 gText_Stats_CatchRate_Medium[];
+extern const u8 gText_Stats_CatchRate_Relaxed[];
+extern const u8 gText_Stats_CatchRate_Easy[];
+extern const u8 gText_Stats_ExpYield[];
 extern const u8 gText_Stats_EggCycles[];
+extern const u8 gText_Stats_EggCycles_VeryFast[];
+extern const u8 gText_Stats_EggCycles_Fast[];
+extern const u8 gText_Stats_EggCycles_Normal[];
+extern const u8 gText_Stats_EggCycles_Slow[];
 extern const u8 gText_Stats_Growthrate[];
 extern const u8 gText_Stats_Friendship[];
+extern const u8 gText_Stats_Friendship_BigAnger[];
+extern const u8 gText_Stats_Friendship_Neutral[];
+extern const u8 gText_Stats_Friendship_Happy[];
+extern const u8 gText_Stats_Friendship_BigSmile[];
 extern const u8 gText_Stats_MEDIUM_FAST[];
 extern const u8 gText_Stats_ERRATIC[];
 extern const u8 gText_Stats_FLUCTUATING[];
@@ -17863,8 +17896,8 @@ extern const u8 gText_Stats_SLOW[];
 extern const u8 gText_Stats_ContestHeart[];
 extern const u8 gText_PlusSymbol[];
 extern const u8 gText_Stats_Minus[];
-extern const u8 gText_Stats_eggGroup_g1[];
-extern const u8 gText_Stats_eggGroup_g2[];
+extern const u8 gText_Stats_eggGroup[];
+extern const u8 gText_Stats_eggGroup_Groups[];
 extern const u8 gText_Stats_eggGroup_MONSTER[];
 extern const u8 gText_Stats_eggGroup_WATER_1[];
 extern const u8 gText_Stats_eggGroup_BUG[];
@@ -17883,6 +17916,8 @@ extern const u8 gText_Stats_eggGroup_UNDISCOVERED[];
 extern const u8 gText_Dex_SEEN[];
 extern const u8 gText_Dex_OWN[];
 
+extern const u8 gText_EVO_Buttons_PE[];
+extern const u8 gText_EVO_Buttons_Decapped_PE[];
 extern const u8 gText_EVO_Name[];
 extern const u8 gText_EVO_FRIENDSHIP[];
 extern const u8 gText_EVO_FRIENDSHIP_DAY[];
@@ -17917,6 +17952,9 @@ extern const u8 gText_EVO_LEVEL_DARK_TYPE_MON_IN_PARTY[];
 extern const u8 gText_EVO_TRADE_SPECIFIC_MON[];
 extern const u8 gText_EVO_SPECIFIC_MAP[];
 extern const u8 gText_EVO_NONE[];
+
+extern const u8 gText_FORMS_Buttons_PE[];
+extern const u8 gText_FORMS_Buttons_Decapped_PE[];
 extern const u8 gText_FORMS_NONE[];
 
 
@@ -20413,9 +20451,9 @@ extern const u8 gText_Lawnmower[];
 extern const u8 gText_Recall[];
 
 extern const u8 gText_AshQty[];
-# 39 "src/trade.c" 2
+# 41 "src/trade.c" 2
 # 1 "include/task.h" 1
-# 40 "src/trade.c" 2
+# 42 "src/trade.c" 2
 
 # 1 "include/text_window.h" 1
 
@@ -20446,7 +20484,7 @@ void sub_8098C6C(u8 bg, u16 destOffset, u8 palOffset);
 
 
 void LoadDexNavWindowGfx(u8 windowId, u16 destOffset, u8 palOffset);
-# 42 "src/trade.c" 2
+# 44 "src/trade.c" 2
 # 1 "include/trainer_card.h" 1
 
 
@@ -20516,7 +20554,7 @@ void CopyTrainerCardData(struct TrainerCard *dst, u16 *src, u8 gameVersion);
 void ShowPlayerTrainerCard(void (*callback)(void));
 void ShowTrainerCardInLink(u8 arg0, void (*callback)(void));
 void TrainerCard_GenerateCardForPlayer(struct TrainerCard *);
-# 43 "src/trade.c" 2
+# 45 "src/trade.c" 2
 # 1 "include/trade.h" 1
 
 
@@ -20545,7 +20583,7 @@ void InitTradeSequenceBgGpuRegs(void);
 void LinkTradeDrawWindow(void);
 void InitTradeBg(void);
 void DrawTextOnTradeWindow(u8, const u8 *, u8);
-# 44 "src/trade.c" 2
+# 46 "src/trade.c" 2
 # 1 "include/union_room.h" 1
 
 
@@ -20714,7 +20752,7 @@ void MEvent_CreateTask_CardOrNewsOverWireless(u32 arg0);
 void MEvent_CreateTask_Leader(u32 arg0);
 u8 CreateTask_ListenToWireless(void);
 void StartUnionRoomBattle(u16 battleFlags);
-# 45 "src/trade.c" 2
+# 47 "src/trade.c" 2
 # 1 "include/util.h" 1
 
 
@@ -20734,24 +20772,78 @@ u32 CalcByteArraySum(const u8* data, u32 length);
 void BlendPalette(u16 palOffset, u16 numEntries, u8 coeff, u16 blendColor);
 void DoBgAffineSet(struct BgAffineDstData *dest, u32 texX, u32 texY, s16 scrX, s16 scrY, s16 sx, s16 sy, u16 alpha);
 void CopySpriteTiles(u8 shape, u8 size, u8 *tiles, u16 *tilemap, u8 *output);
-# 46 "src/trade.c" 2
-
-# 1 "include/constants/contest.h" 1
 # 48 "src/trade.c" 2
-# 1 "include/constants/easy_chat.h" 1
+# 1 "include/wild_encounter.h" 1
+# 10 "include/wild_encounter.h"
+struct WildPokemon
+{
+    u8 minLevel;
+    u8 maxLevel;
+    u16 species;
+};
+
+struct WildPokemonInfo
+{
+    u8 encounterRate;
+    const struct WildPokemon *wildPokemon;
+};
+
+struct WildPokemonHeader
+{
+    u8 mapGroup;
+    u8 mapNum;
+    const struct WildPokemonInfo *landMonsInfo;
+    const struct WildPokemonInfo *landMonsNightInfo;
+    const struct WildPokemonInfo *waterMonsInfo;
+    const struct WildPokemonInfo *rockSmashMonsInfo;
+    const struct WildPokemonInfo *fishingMonsInfo;
+    const struct WildPokemonInfo *hiddenMonsInfo;
+ const struct WildPokemonInfo *headbuttMonsInfo;
+};
+
+extern bool8 gIsFishingEncounter;
+extern bool8 gIsSurfingEncounter;
+
+extern const struct WildPokemonHeader gWildMonHeaders[];
+
+void DisableWildEncounters(bool8 disabled);
+bool8 StandardWildEncounter(u16 currMetaTileBehavior, u16 previousMetaTileBehavior);
+void ScrSpecial_RockSmashWildEncounter(void);
+bool8 SweetScentWildEncounter(void);
+bool8 DoesCurrentMapHaveFishingMons(void);
+void FishingWildEncounter(u8 rod);
+u16 GetLocalWildMon(bool8 *isWaterMon);
+u16 GetLocalWaterMon(void);
+bool8 UpdateRepelCounter(void);
+bool8 TryDoDoubleWildBattle(void);
+bool8 UpdateLureCounter(void);
+void CreateWildMon(u16 species, u8 level);
+u16 GetCurrentMapWildMonHeaderId(void);
+u8 ChooseWildMonIndex_Land(void);
+u8 ChooseWildMonIndex_WaterRock(void);
+u8 ChooseHiddenMonIndex(void);
+u8 ChooseHeadbuttMonIndex(void);
+u16 GetFirstStage(u16 species);
 # 49 "src/trade.c" 2
-# 1 "include/constants/items.h" 1
-# 50 "src/trade.c" 2
-# 1 "include/constants/moves.h" 1
+
+# 1 "include/constants/abilities.h" 1
 # 51 "src/trade.c" 2
-# 1 "include/constants/region_map_sections.h" 1
+# 1 "include/constants/contest.h" 1
 # 52 "src/trade.c" 2
-# 1 "include/constants/rgb.h" 1
+# 1 "include/constants/easy_chat.h" 1
 # 53 "src/trade.c" 2
-# 1 "include/constants/songs.h" 1
+# 1 "include/constants/items.h" 1
 # 54 "src/trade.c" 2
-# 1 "include/constants/union_room.h" 1
+# 1 "include/constants/moves.h" 1
 # 55 "src/trade.c" 2
+# 1 "include/constants/region_map_sections.h" 1
+# 56 "src/trade.c" 2
+# 1 "include/constants/rgb.h" 1
+# 57 "src/trade.c" 2
+# 1 "include/constants/songs.h" 1
+# 58 "src/trade.c" 2
+# 1 "include/constants/union_room.h" 1
+# 59 "src/trade.c" 2
 # 1 "include/ud_trade.h" 1
 
 
@@ -20760,7 +20852,7 @@ void UDTrade_ShowMainMenu(void);
 u16 GetDimensionSpeciesFromLocalSpecies(u16 species, u8 dimension);
 u16 GetLocalSpeciesFromDimensionSpecies(u16 species, u8 dimension);
 u8 CalculateTradeEnemyPartyCount(void);
-# 56 "src/trade.c" 2
+# 60 "src/trade.c" 2
 # 1 "src/data/pokemon/ud_trade_ids.h" 1
 
 
@@ -21221,7 +21313,7 @@ static const u16 *const DimensionalSpeciesIDs[] =
     [DIMENSION_VANILLA] = VanillaSpeciesIDs,
     [DIMENSION_RYU] = RyuSpeciesIDs,
 };
-# 57 "src/trade.c" 2
+# 61 "src/trade.c" 2
 
 # 1 "include/printf.h" 1
 # 35 "include/printf.h"
@@ -21244,7 +21336,7 @@ int vsnprintf_(char* buffer, size_t count, const char* format, va_list va);
 int vprintf_(const char* format, va_list va);
 # 109 "include/printf.h"
 int fctprintf(void (*out)(char character, void* arg), void* arg, const char* format, ...);
-# 59 "src/trade.c" 2
+# 63 "src/trade.c" 2
 # 1 "include/mgba.h" 1
 # 26 "include/mgba.h"
 # 1 "include/gba/types.h" 1
@@ -21253,7 +21345,7 @@ int fctprintf(void (*out)(char character, void* arg), void* arg, const char* for
 void mgba_printf(int level, const char* string, ...);
 bool8 mgba_open(void);
 void mgba_close(void);
-# 60 "src/trade.c" 2
+# 64 "src/trade.c" 2
 
 
 
@@ -22472,22 +22564,6 @@ static const struct InGameTrade sIngameTrades[] =
         .otGender = 1,
         .sheen = 10,
         .requestedSpecies = 300
-    },
- [4] =
-    {
-        .nickname = _("Wonder"),
-        .species = 1,
-        .ivs = {0, 0, 0, 0, 0, 4},
-        .abilityNum = 0,
-        .otId = 91481,
-        .conditions = {0, 0, 0, 0, 0},
-        .personality = 0x8B,
-        .heldItem = 0,
-        .mailNum = 2,
-        .otName = _("WT"),
-        .otGender = 0,
-        .sheen = 10,
-        .requestedSpecies = 1
     }
 };
 
@@ -22659,7 +22735,7 @@ static const u8 sWirelessSignalTiming[][2] =
     {16, 255},
     {0, 0}
 };
-# 245 "src/trade.c" 2
+# 249 "src/trade.c" 2
 
 static bool8 SendLinkData(const void *linkData, u32 size)
 {
@@ -26999,32 +27075,30 @@ static void _CreateInGameTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
     CalculateMonStats(&gEnemyParty[0]);
 }
 
-u16 WonderTradeCheck(u16 species){
- u16 LegendariesNum1[] = {144,150,243,249,377,480,638,716,785};
- u16 LegendariesNum2[] = {147,152,246,252,387,495,650,722,810};
- u16 finalspecies = 1;
+u16 CreateWonderTradePokemon(){
+ u16 species = 1+(Random() % 887);
+ u16 LegendariesNum1[] = {144,150,243,249,377,480,638,716,773,785};
+ u16 LegendariesNum2[] = {147,152,246,252,387,495,650,722,775,810};
  u8 i = 0;
 
- for(i = 0; i < 9;i++){
- if(species < LegendariesNum1[i])
-  return species;
- else if(species < LegendariesNum2[i])
-  return LegendariesNum2[i];
+ for(i = 0; i < 10;i++){
+ if(species >= LegendariesNum1[i] && species < LegendariesNum2[i])
+  return CreateWonderTradePokemon();
  }
- return finalspecies;
+ return species;
 }
 
-u16 WonderTradeCheck2(u16 species)
+u16 WonderTradeGetFirstStage(u16 species)
 {
     int i, j, k;
     bool8 found;
 
-    for (i = 0; i < 10; i++)
+    for (i = 0; i < 5; i++)
     {
         found = 0;
         for (j = 1; j < 898 + 308 + 1; j++)
         {
-            for (k = 0; k < 10; k++)
+            for (k = 0; k < 5; k++)
             {
                 if (gEvolutionTable[j][k].targetSpecies == species)
                 {
@@ -27045,11 +27119,9 @@ u16 WonderTradeCheck2(u16 species)
     return species;
 }
 
-u16 WonderTradeCheck3(u16 species,u8 level)
+u16 WonderTradeGetEvolvedForm(u16 species,u8 level)
 {
 
- u8 numbadges = GetNumBadges();
- u8 rand = 0;
  u8 FriendshipLevel = 24;
  u8 BadgesMidgame = 30;
  u8 BadgesLategame = 45;
@@ -27060,7 +27132,7 @@ u16 WonderTradeCheck3(u16 species,u8 level)
   case 1:
   case 21:
   if(level >= FriendshipLevel)
-   return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+   return WonderTradeGetEvolvedForm(gEvolutionTable[species][0].targetSpecies, level);
   break;
 
 
@@ -27071,8 +27143,8 @@ u16 WonderTradeCheck3(u16 species,u8 level)
   case 16:
    if(gEvolutionTable[species][0].param && gEvolutionTable[species][0].param <= level)
    {
-    if(WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level))
-     return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+    if(WonderTradeGetEvolvedForm(gEvolutionTable[species][0].targetSpecies, level))
+     return WonderTradeGetEvolvedForm(gEvolutionTable[species][0].targetSpecies, level);
     else
      return gEvolutionTable[species][0].targetSpecies;
    }
@@ -27084,52 +27156,168 @@ u16 WonderTradeCheck3(u16 species,u8 level)
   case 22:
   case 29:
   case 30:
-   if(BadgesMidgame <= level)
-    return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+   if(level >= BadgesMidgame)
+    return WonderTradeGetEvolvedForm(gEvolutionTable[species][0].targetSpecies, level);
   break;
 
 
   case 23:
   case 7:
-  case 5:
   case 25:
   case 26:
   case 6:
   case 28:
   case 27:
-   if(BadgesLategame <= level)
-    return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+   if(level >= BadgesLategame)
+    return WonderTradeGetEvolvedForm(gEvolutionTable[species][0].targetSpecies, level);
   break;
 
  }
  return species;
 }
 
+static u16 CreateWonderTradeItem(u16 species, u8 DexSeen)
+{
+    u16 randVal = Random() % 100;
+    u8 searchLevelInfluence = DexSeen >> 1;
+    u16 item1 = gBaseStats[species].item1;
+    u16 item2 = gBaseStats[species].item2;
+
+
+    if (item1 == item2)
+        return item1;
+
+
+    if (item2 == 0 && item1 == 0)
+        return 0;
+
+
+    if (item2 == 0 && item1 != 0)
+        return (randVal < 50) ? item1 : 0;
+
+
+    if (randVal < (50 + searchLevelInfluence + 5 + DexSeen))
+        return (randVal > 5 + searchLevelInfluence) ? item1 : item2;
+    else
+        return 0;
+
+    return 0;
+}
+
+static u8 WonderTradeGetAbilityNum(u16 species, u8 dexseen)
+{
+    bool8 genAbility = 0;
+    u16 randVal = Random() % 898;
+ u16 probability = (dexseen/800)*25;
+    u8 abilityNum = 0;
+
+ if(randVal < dexseen)
+  genAbility = 1;
+
+    if (genAbility && gBaseStats[species].abilityHidden != 0)
+    {
+        abilityNum = 2;
+    }
+    else
+    {
+
+
+
+
+            abilityNum = 0;
+    }
+
+    return abilityNum;
+}
+
+static void WonderTradeCreateMoveset(u16 species, u8 dexseen, u8 level, u16* moveDst)
+{
+    bool8 genMove = 0;
+ u8 i;
+    u16 randVal = Random() % 100;
+ u16 probability = (dexseen/800)*25;
+    u16 eggMoveBuffer[10];
+
+
+
+    if (probability < randVal)
+    {
+       genMove = 1;
+    }
+
+
+    CreateWildMon(species, level);
+
+
+    for (i = 0; i < 4; i++)
+        moveDst[i] = GetMonData(&gEnemyParty[0], 13 + i, ((void *)0));
+
+
+    if (genMove == 1)
+    {
+        u8 numEggMoves = GetEggMoves(&gEnemyParty[0], eggMoveBuffer);
+        if (numEggMoves != 0)
+        {
+            u8 index = RandRange(0, numEggMoves);
+            moveDst[0] = eggMoveBuffer[index];
+        }
+    }
+}
+
+u16 WonderTradeCreatePokeball(u16 species)
+{
+ u16 PokeballList[] = {
+ 4,
+ 3,
+ 2,
+ 7,
+ 21,
+ 20,
+ 23,
+ 6,
+ 11,
+ };
+
+ return PokeballList[Random() % 9];
+}
+
 static void _CreateInGameWonderTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
 {
     const struct InGameTrade *inGameTrade = &sIngameTrades[whichInGameTrade];
+ u8 j;
+ u8 n;
     u8 level = GetMonData(&gPlayerParty[whichPlayerMon], 56);
- u16 randomizedspecie = 1+(Random() % 884);
- u16 randomizedspecie2 = WonderTradeCheck(randomizedspecie);
- u16 randomizedspecie3 = WonderTradeCheck2(randomizedspecie2);
- u16 finalspecies = WonderTradeCheck3(randomizedspecie3, level);
-
- u8 HpIv = 1+(Random() % 30);
+ u16 tradeditem = GetMonData(&gPlayerParty[whichPlayerMon], 12);
+ u16 WonderTradeSpecie = CreateWonderTradePokemon();
+ u16 FirstStage = WonderTradeGetFirstStage(WonderTradeSpecie);
+ u16 Specie = WonderTradeGetEvolvedForm(FirstStage, level);
+ u16 PkmnMoves[] = {0,0,0,0};
+ u16 CaughtNum = GetNationalPokedexCount(FLAG_GET_SEEN);
+    u16 SeenNum = GetNationalPokedexCount(FLAG_GET_CAUGHT);
+ u8 numbadges = GetNumBadges();
+ u16 trainerNum = Random() % 300;
+ u8 otName[12];
+ u8 HpIv = Random() % 30;
  u8 AtkIv = 1+(Random() % 30);
  u8 DefIv = 1+(Random() % 30);
  u8 SpAtkIv = 1+(Random() % 30);
  u8 SpDefIv = 1+(Random() % 30);
  u8 SpdIv = 1+(Random() % 30);
+ u16 Pkmnhelditem = CreateWonderTradeItem(Specie, SeenNum);
+ u8 PkmnAbilityNum = WonderTradeGetAbilityNum(Specie, SeenNum);
 
+ u16 Pokeball = WonderTradeCreatePokeball(Specie);
 
     struct MailStruct mail;
     u8 metLocation = 0xFE;
     u8 isMail;
     struct Pokemon *pokemon = &gEnemyParty[0];
 
+    CreateMon(pokemon, Specie, level, 32, 0, 0, 1, inGameTrade->otId, GetFormIdFromFormSpeciesId(inGameTrade->species));
+ WonderTradeCreateMoveset(FirstStage, SeenNum, level, PkmnMoves);
 
- CreateMon(pokemon, finalspecies, level, 32, 0, 0, 1, inGameTrade->otId, GetFormIdFromFormSpeciesId(inGameTrade->species));
-
+ for (n = 0; n <= 12; n++)
+  otName[n] = gTrainers[trainerNum].trainerName[n];
 
     SetMonData(pokemon, 39, &HpIv);
     SetMonData(pokemon, 40, &AtkIv);
@@ -27137,10 +27325,7 @@ static void _CreateInGameWonderTradePokemon(u8 whichPlayerMon, u8 whichInGameTra
     SetMonData(pokemon, 42, &SpdIv);
     SetMonData(pokemon, 43, &SpAtkIv);
     SetMonData(pokemon, 44, &SpDefIv);
-
-    SetMonData(pokemon, 7, inGameTrade->otName);
     SetMonData(pokemon, 49, &inGameTrade->otGender);
-
     SetMonData(pokemon, 23, &inGameTrade->conditions[1]);
     SetMonData(pokemon, 24, &inGameTrade->conditions[2]);
     SetMonData(pokemon, 22, &inGameTrade->conditions[0]);
@@ -27149,21 +27334,25 @@ static void _CreateInGameWonderTradePokemon(u8 whichPlayerMon, u8 whichInGameTra
     SetMonData(pokemon, 48, &inGameTrade->sheen);
     SetMonData(pokemon, 35, &metLocation);
 
-    isMail = 0;
-    if (inGameTrade->heldItem != 0)
-    {
-        if (ItemIsMail(inGameTrade->heldItem))
-        {
-            SetInGameTradeMail(&mail, inGameTrade);
-            gTradeMail[0] = mail;
-            SetMonData(pokemon, 64, &isMail);
-            SetMonData(pokemon, 12, &inGameTrade->heldItem);
-        }
-        else
-        {
-            SetMonData(pokemon, 12, &inGameTrade->heldItem);
-        }
-    }
+ SetMonData(pokemon, 7, otName);
+
+ if(numbadges >= 2)
+ SetMonData(pokemon, 38, &Pokeball);
+
+ if(numbadges >= 4)
+  SetMonData(pokemon, 46, &PkmnAbilityNum);
+
+ if(tradeditem != 0)
+  SetMonData(pokemon, 12, &Pkmnhelditem);
+
+ if(numbadges >= 3)
+  SetMonData(pokemon, 13, &PkmnMoves[0]);
+
+
+
+
+
+
     CalculateMonStats(&gEnemyParty[0]);
 }
 

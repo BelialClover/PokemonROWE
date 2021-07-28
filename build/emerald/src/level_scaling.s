@@ -490,19 +490,19 @@ getTrainerLevel:
 	push	{r6, r7}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	mov	r9, r4
-	bl	Random
-	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	mov	r1, #0x5
-	bl	__umodsi3
-	lsl	r0, r0, #0x18
-	lsr	r6, r0, #0x18
-	mov	r8, r6
+	mov	r8, r4
 	bl	GetNumBadges
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
-	add	r7, r5, #0
+	mov	r9, r5
+	bl	Random
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	add	r1, r5, #0x2
+	bl	__modsi3
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	add	r7, r6, #0
 	bl	IsHardMode
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
@@ -566,7 +566,7 @@ getTrainerLevel:
 	ldr	r0, .L96
 	add	r0, r5, r0
 	ldrb	r0, [r0]
-	add	r0, r0, r8
+	add	r0, r7, r0
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	b	.L87
@@ -575,17 +575,17 @@ getTrainerLevel:
 .L96:
 	.word	hardminTrainerLevel
 .L81:
-	mov	r0, r9
+	mov	r0, r8
 	sub	r0, r0, #0x5
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
 	bls	.L78	@cond_branch
-	mov	r0, r9
+	mov	r0, r8
 	b	.L84
 .L78:
 	ldr	r0, .L98
-	add	r0, r7, r0
+	add	r0, r0, r9
 .L86:
 	ldrb	r0, [r0]
 .L87:
@@ -789,6 +789,8 @@ getDoubleTrainerPokemonNum:
 	.thumb_func
 GetWildPokemon:
 	push	{r4, r5, r6, r7, lr}
+	mov	r7, r8
+	push	{r7}
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	lsl	r1, r1, #0x18
@@ -797,8 +799,8 @@ GetWildPokemon:
 	lsr	r6, r2, #0x10
 	bl	GetBaseSpecie
 	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	add	r7, r0, #0
+	lsr	r7, r0, #0x10
+	add	r0, r7, #0
 	add	r1, r5, #0
 	bl	SplitEvolutions
 	lsl	r0, r0, #0x10
@@ -806,12 +808,30 @@ GetWildPokemon:
 	bl	GetNumBadges
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	mov	ip, r0
+	mov	r8, r0
 	cmp	r6, #0xe0
 	beq	.L148	@cond_branch
 	ldr	r0, .L182
 	cmp	r6, r0
-	bne	.L147	@cond_branch
+	beq	.L148	@cond_branch
+	add	r0, r7, #0
+	bl	SpeciesToNationalPokedexNum
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	mov	r1, #0x0
+	bl	GetSetPokedexFlag
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L148	@cond_branch
+	bl	Random
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	mov	r1, #0xa
+	bl	__umodsi3
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	cmp	r0, #0x1
+	bls	.L147	@cond_branch
 .L148:
 	add	r0, r7, #0
 	b	.L178
@@ -902,7 +922,7 @@ GetWildPokemon:
 .L174:
 	mov	r0, #0x7
 .L181:
-	cmp	r0, ip
+	cmp	r0, r8
 	bhi	.L149	@cond_branch
 .L179:
 	add	r0, r2, r4
@@ -919,6 +939,8 @@ GetWildPokemon:
 .L149:
 	add	r0, r4, #0
 .L178:
+	pop	{r3}
+	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
@@ -944,35 +966,35 @@ GetTrainerPokemon:
 	bl	GetNumBadges
 	lsl	r0, r0, #0x18
 	lsr	r2, r0, #0x18
-	ldr	r1, .L220
+	ldr	r1, .L222
 	lsl	r0, r4, #0x2
 	add	r0, r0, r4
 	lsl	r0, r0, #0x4
 	add	r0, r0, r1
 	ldrh	r0, [r0]
 	sub	r0, r0, #0x1
-	cmp	r0, #0x1d
+	cmp	r0, #0x1e
 	bhi	.L187	@cond_branch
 	lsl	r0, r0, #0x2
-	ldr	r1, .L220+0x4
+	ldr	r1, .L222+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L221:
+.L223:
 	.align	2, 0
-.L220:
+.L222:
 	.word	gEvolutionTable
+	.word	.L216
+	.align	2, 0
+	.align	2, 0
+.L216:
+	.word	.L190
+	.word	.L190
+	.word	.L187
+	.word	.L196
 	.word	.L214
-	.align	2, 0
-	.align	2, 0
-.L214:
-	.word	.L189
-	.word	.L187
-	.word	.L187
-	.word	.L195
-	.word	.L212
-	.word	.L212
-	.word	.L212
+	.word	.L214
+	.word	.L214
 	.word	.L187
 	.word	.L187
 	.word	.L187
@@ -980,28 +1002,29 @@ GetTrainerPokemon:
 	.word	.L187
 	.word	.L187
 	.word	.L187
-	.word	.L203
-	.word	.L195
-	.word	.L195
-	.word	.L195
-	.word	.L195
-	.word	.L203
-	.word	.L189
-	.word	.L203
-	.word	.L212
+	.word	.L205
+	.word	.L196
+	.word	.L196
+	.word	.L196
+	.word	.L196
+	.word	.L205
+	.word	.L190
+	.word	.L205
+	.word	.L214
 	.word	.L187
-	.word	.L212
-	.word	.L212
-	.word	.L212
-	.word	.L212
-	.word	.L203
-	.word	.L203
-.L189:
+	.word	.L214
+	.word	.L214
+	.word	.L214
+	.word	.L214
+	.word	.L205
+	.word	.L205
+	.word	.L205
+.L190:
 	cmp	r5, #0xc
 	bcc	.L187	@cond_branch
-	b	.L217
-.L195:
-	ldr	r1, .L222
+	b	.L219
+.L196:
+	ldr	r1, .L224
 	lsl	r0, r4, #0x2
 	add	r0, r0, r4
 	lsl	r0, r0, #0x4
@@ -1019,39 +1042,39 @@ GetTrainerPokemon:
 	cmp	r0, #0
 	beq	.L187	@cond_branch
 	add	r0, r4, #0
-	b	.L218
-.L223:
+	b	.L220
+.L225:
 	.align	2, 0
-.L222:
+.L224:
 	.word	gEvolutionTable
-.L203:
+.L205:
 	mov	r0, #0x4
-	b	.L219
-.L212:
+	b	.L221
+.L214:
 	mov	r0, #0x6
-.L219:
+.L221:
 	cmp	r0, r2
 	bhi	.L187	@cond_branch
-.L217:
-	ldr	r1, .L224
+.L219:
+	ldr	r1, .L226
 	lsl	r0, r4, #0x2
 	add	r0, r0, r4
 	lsl	r0, r0, #0x4
 	add	r0, r0, r1
 	ldrh	r0, [r0, #0x4]
-.L218:
+.L220:
 	add	r1, r5, #0
 	bl	GetTrainerPokemon
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	b	.L216
-.L225:
+	b	.L218
+.L227:
 	.align	2, 0
-.L224:
+.L226:
 	.word	gEvolutionTable
 .L187:
 	add	r0, r4, #0
-.L216:
+.L218:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
@@ -1115,26 +1138,34 @@ SplitEvolutions:
 	lsr	r5, r1, #0x18
 	bl	GetNumBadges
 	lsl	r0, r0, #0x18
-	lsr	r1, r0, #0x18
-	ldr	r0, .L239
+	lsr	r2, r0, #0x18
+	sub	r0, r4, #0x1
+	lsl	r0, r0, #0x10
+	ldr	r1, .L242
+	cmp	r0, r1
+	bls	.L229	@cond_branch
+	mov	r4, #0x83
+.L229:
+	ldr	r0, .L242+0x4
 	cmp	r4, r0
-	bne	.L227	@cond_branch
+	bne	.L230	@cond_branch
 	cmp	r5, #0x6
-	bls	.L227	@cond_branch
-	ldr	r1, .L239+0x4
-	b	.L237
-.L240:
+	bls	.L230	@cond_branch
+	ldr	r1, .L242+0x8
+	b	.L240
+.L243:
 	.align	2, 0
-.L239:
+.L242:
+	.word	0x4b60000
 	.word	0x109
 	.word	.LC18
-.L227:
+.L230:
 	cmp	r4, #0x85
-	bne	.L228	@cond_branch
+	bne	.L231	@cond_branch
 	cmp	r5, #0x14
-	bls	.L228	@cond_branch
+	bls	.L231	@cond_branch
 	add	r4, sp, #0x4
-	ldr	r1, .L241
+	ldr	r1, .L244
 	add	r0, r4, #0
 	mov	r2, #0x10
 	bl	memcpy
@@ -1146,28 +1177,28 @@ SplitEvolutions:
 	lsr	r1, r1, #0xf
 	add	r4, r4, r1
 	ldrh	r0, [r4]
-	b	.L236
-.L242:
+	b	.L239
+.L245:
 	.align	2, 0
-.L241:
-	.word	.LC20
-.L228:
-	cmp	r4, #0x3d
-	bne	.L229	@cond_branch
-	cmp	r1, #0x4
-	bls	.L229	@cond_branch
-	ldr	r1, .L243
-	b	.L237
 .L244:
+	.word	.LC20
+.L231:
+	cmp	r4, #0x3d
+	bne	.L232	@cond_branch
+	cmp	r2, #0x4
+	bls	.L232	@cond_branch
+	ldr	r1, .L246
+	b	.L240
+.L247:
 	.align	2, 0
-.L243:
+.L246:
 	.word	.LC22
-.L229:
+.L232:
 	cmp	r4, #0xec
-	bne	.L230	@cond_branch
+	bne	.L233	@cond_branch
 	cmp	r5, #0x13
-	bls	.L230	@cond_branch
-	ldr	r1, .L245
+	bls	.L233	@cond_branch
+	ldr	r1, .L248
 	mov	r0, sp
 	mov	r2, #0x6
 	bl	memcpy
@@ -1178,68 +1209,68 @@ SplitEvolutions:
 	bl	__umodsi3
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0xf
-	b	.L238
-.L246:
-	.align	2, 0
-.L245:
-	.word	.LC24
-.L230:
-	cmp	r4, #0x4f
-	bne	.L231	@cond_branch
-	cmp	r5, #0x24
-	bls	.L231	@cond_branch
-	ldr	r1, .L247
-	b	.L237
-.L248:
-	.align	2, 0
-.L247:
-	.word	.LC26
-.L231:
-	cmp	r4, #0x2c
-	bne	.L232	@cond_branch
-	cmp	r5, #0x22
-	bls	.L232	@cond_branch
-	ldr	r1, .L249
-	b	.L237
-.L250:
-	.align	2, 0
+	b	.L241
 .L249:
-	.word	.LC28
-.L232:
-	ldr	r0, .L251
-	cmp	r4, r0
-	bne	.L233	@cond_branch
-	cmp	r5, #0x1d
-	bls	.L233	@cond_branch
-	ldr	r1, .L251+0x4
-	b	.L237
-.L252:
 	.align	2, 0
+.L248:
+	.word	.LC24
+.L233:
+	cmp	r4, #0x4f
+	bne	.L234	@cond_branch
+	cmp	r5, #0x24
+	bls	.L234	@cond_branch
+	ldr	r1, .L250
+	b	.L240
 .L251:
+	.align	2, 0
+.L250:
+	.word	.LC26
+.L234:
+	cmp	r4, #0x2c
+	bne	.L235	@cond_branch
+	cmp	r5, #0x22
+	bls	.L235	@cond_branch
+	ldr	r1, .L252
+	b	.L240
+.L253:
+	.align	2, 0
+.L252:
+	.word	.LC28
+.L235:
+	ldr	r0, .L254
+	cmp	r4, r0
+	bne	.L236	@cond_branch
+	cmp	r5, #0x1d
+	bls	.L236	@cond_branch
+	ldr	r1, .L254+0x4
+	b	.L240
+.L255:
+	.align	2, 0
+.L254:
 	.word	0x119
 	.word	.LC30
-.L233:
+.L236:
 	mov	r0, #0x91
 	lsl	r0, r0, #0x1
 	cmp	r4, r0
-	bne	.L234	@cond_branch
+	bne	.L237	@cond_branch
 	cmp	r5, #0x13
-	bls	.L234	@cond_branch
-	ldr	r1, .L253
-	b	.L237
-.L254:
+	bls	.L237	@cond_branch
+	ldr	r1, .L256
+	b	.L240
+.L257:
 	.align	2, 0
-.L253:
+.L256:
 	.word	.LC32
-.L234:
+.L237:
 	mov	r0, #0xd2
 	lsl	r0, r0, #0x2
 	cmp	r4, r0
-	bne	.L235	@cond_branch
-	cmp	r1, #0x3
-	bls	.L235	@cond_branch
-	ldr	r1, .L255
-.L237:
+	bne	.L238	@cond_branch
+	cmp	r2, #0x3
+	bls	.L238	@cond_branch
+	ldr	r1, .L258
+.L240:
 	mov	r0, sp
 	mov	r2, #0x4
 	bl	memcpy
@@ -1249,17 +1280,17 @@ SplitEvolutions:
 	mov	r1, #0x1
 	and	r0, r0, r1
 	lsl	r0, r0, #0x1
-.L238:
+.L241:
 	add	r0, r0, sp
 	ldrh	r0, [r0]
-	b	.L236
-.L256:
+	b	.L239
+.L259:
 	.align	2, 0
-.L255:
+.L258:
 	.word	.LC34
-.L235:
+.L238:
 	add	r0, r4, #0
-.L236:
+.L239:
 	add	sp, sp, #0x14
 	pop	{r4, r5}
 	pop	{r1}
@@ -1299,43 +1330,43 @@ CheckforLegendary:
 	add	sp, sp, #-0x28
 	lsl	r0, r0, #0x10
 	lsr	r5, r0, #0x10
-	ldr	r1, .L268
+	ldr	r1, .L271
 	mov	r0, sp
 	mov	r2, #0x12
 	bl	memcpy
 	add	r4, sp, #0x14
-	ldr	r1, .L268+0x4
+	ldr	r1, .L271+0x4
 	add	r0, r4, #0
 	mov	r2, #0x12
 	bl	memcpy
 	mov	r2, #0x0
-.L261:
+.L264:
 	lsl	r1, r2, #0x1
 	mov	r3, sp
 	add	r0, r3, r1
 	ldrh	r0, [r0]
 	cmp	r5, r0
-	bcc	.L267	@cond_branch
+	bcc	.L270	@cond_branch
 	add	r0, r4, r1
 	ldrh	r1, [r0]
 	cmp	r5, r1
-	bcs	.L260	@cond_branch
+	bcs	.L263	@cond_branch
 	ldrh	r0, [r0]
-	b	.L266
-.L269:
+	b	.L269
+.L272:
 	.align	2, 0
-.L268:
+.L271:
 	.word	.LC36
 	.word	.LC38
-.L260:
+.L263:
 	add	r0, r2, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r2, r0, #0x18
 	cmp	r2, #0x8
-	bls	.L261	@cond_branch
-.L267:
+	bls	.L264	@cond_branch
+.L270:
 	add	r0, r5, #0
-.L266:
+.L269:
 	add	sp, sp, #0x28
 	pop	{r4, r5}
 	pop	{r1}
@@ -1361,105 +1392,105 @@ GetHeldItem:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L271	@cond_branch
+	bne	.L274	@cond_branch
 	add	r4, r4, #0x1
-.L271:
+.L274:
 	cmp	r6, #0x82
-	beq	.L272	@cond_branch
+	beq	.L275	@cond_branch
 	cmp	r4, #0x6
-	bhi	.L290	@cond_branch
-	b	.L295
-.L272:
-	cmp	r5, #0x96
-	bne	.L275	@cond_branch
-	cmp	r4, #0x5
-	bls	.L276	@cond_branch
-.L295:
-	mov	r0, #0x99
-	b	.L294
-.L276:
-	cmp	r4, #0x2
-	bls	.L277	@cond_branch
-	mov	r0, #0x3b
-	b	.L294
-.L277:
-	mov	r0, #0x96
-	b	.L294
+	bhi	.L293	@cond_branch
+	b	.L298
 .L275:
-	cmp	r5, #0x98
+	cmp	r5, #0x96
 	bne	.L278	@cond_branch
-	cmp	r4, #0x7
-	bls	.L279	@cond_branch
-	mov	r0, #0x9a
-	b	.L294
-.L279:
 	cmp	r4, #0x5
+	bls	.L279	@cond_branch
+.L298:
+	mov	r0, #0x99
+	b	.L297
+.L279:
+	cmp	r4, #0x2
 	bls	.L280	@cond_branch
-	mov	r0, #0xe5
-	b	.L294
+	mov	r0, #0x3b
+	b	.L297
 .L280:
-	cmp	r4, #0x3
-	bhi	.L296	@cond_branch
+	mov	r0, #0x96
+	b	.L297
 .L278:
-	cmp	r5, #0xab
-	bne	.L282	@cond_branch
-	cmp	r4, #0x6
+	cmp	r5, #0x98
+	bne	.L281	@cond_branch
+	cmp	r4, #0x7
+	bls	.L282	@cond_branch
+	mov	r0, #0x9a
+	b	.L297
+.L282:
+	cmp	r4, #0x5
 	bls	.L283	@cond_branch
+	mov	r0, #0xe5
+	b	.L297
+.L283:
+	cmp	r4, #0x3
+	bhi	.L299	@cond_branch
+.L281:
+	cmp	r5, #0xab
+	bne	.L285	@cond_branch
+	cmp	r4, #0x6
+	bls	.L286	@cond_branch
 	mov	r0, #0x8d
 	lsl	r0, r0, #0x1
-	b	.L294
-.L283:
+	b	.L297
+.L286:
 	cmp	r4, #0x4
-	bls	.L284	@cond_branch
+	bls	.L287	@cond_branch
 	mov	r0, #0x86
 	lsl	r0, r0, #0x1
-	b	.L294
-.L284:
-	cmp	r4, #0x2
-	bhi	.L297	@cond_branch
-.L282:
-	cmp	r5, #0xac
-	bne	.L286	@cond_branch
-	cmp	r4, #0x6
-	bls	.L287	@cond_branch
-	mov	r0, #0xd7
-	b	.L294
+	b	.L297
 .L287:
-	cmp	r4, #0x4
-	bls	.L288	@cond_branch
-	mov	r0, #0xce
-	b	.L294
-.L288:
 	cmp	r4, #0x2
-	bls	.L286	@cond_branch
-	mov	r0, #0xc7
-	b	.L294
-.L286:
-	cmp	r5, #0xad
-	bne	.L290	@cond_branch
+	bhi	.L300	@cond_branch
+.L285:
+	cmp	r5, #0xac
+	bne	.L289	@cond_branch
 	cmp	r4, #0x6
-	bls	.L291	@cond_branch
-.L297:
-	ldr	r0, .L298
-	b	.L294
-.L299:
-	.align	2, 0
-.L298:
-	.word	0x15f
-.L291:
-	cmp	r4, #0x4
-	bls	.L292	@cond_branch
-	mov	r0, #0xb8
-	b	.L294
-.L292:
-	cmp	r4, #0x2
 	bls	.L290	@cond_branch
-.L296:
-	mov	r0, #0x98
-	b	.L294
+	mov	r0, #0xd7
+	b	.L297
 .L290:
-	add	r0, r5, #0
+	cmp	r4, #0x4
+	bls	.L291	@cond_branch
+	mov	r0, #0xce
+	b	.L297
+.L291:
+	cmp	r4, #0x2
+	bls	.L289	@cond_branch
+	mov	r0, #0xc7
+	b	.L297
+.L289:
+	cmp	r5, #0xad
+	bne	.L293	@cond_branch
+	cmp	r4, #0x6
+	bls	.L294	@cond_branch
+.L300:
+	ldr	r0, .L301
+	b	.L297
+.L302:
+	.align	2, 0
+.L301:
+	.word	0x15f
 .L294:
+	cmp	r4, #0x4
+	bls	.L295	@cond_branch
+	mov	r0, #0xb8
+	b	.L297
+.L295:
+	cmp	r4, #0x2
+	bls	.L293	@cond_branch
+.L299:
+	mov	r0, #0x98
+	b	.L297
+.L293:
+	add	r0, r5, #0
+.L297:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
@@ -1488,13 +1519,13 @@ GetEvsfromPokemon:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L301	@cond_branch
+	bne	.L304	@cond_branch
 	cmp	r6, #0xa
-	beq	.L301	@cond_branch
+	beq	.L304	@cond_branch
 	add	r0, r5, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-.L301:
+.L304:
 	add	r0, r4, #0
 	pop	{r4, r5, r6}
 	pop	{r1}
@@ -1511,20 +1542,20 @@ IsMonValidSpecies:
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
 	cmp	r1, #0
-	beq	.L304	@cond_branch
-	ldr	r0, .L306
+	beq	.L307	@cond_branch
+	ldr	r0, .L309
 	cmp	r1, r0
-	bne	.L303	@cond_branch
-.L304:
-	mov	r0, #0x0
-	b	.L305
+	bne	.L306	@cond_branch
 .L307:
+	mov	r0, #0x0
+	b	.L308
+.L310:
 	.align	2, 0
-.L306:
+.L309:
 	.word	0x4b7
-.L303:
+.L306:
 	mov	r0, #0x1
-.L305:
+.L308:
 	pop	{r1}
 	bx	r1
 .Lfe17:
@@ -1536,33 +1567,33 @@ IsMonValidSpecies:
 GetPlayerUsableMons:
 	push	{r4, r5, r6, lr}
 	mov	r6, #0x0
-	ldr	r4, .L315
+	ldr	r4, .L318
 	mov	r5, #0x5
-.L312:
+.L315:
 	add	r0, r4, #0
 	bl	IsMonValidSpecies
 	cmp	r0, #0
-	beq	.L311	@cond_branch
+	beq	.L314	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0x39
 	bl	GetMonData
 	cmp	r0, #0
-	beq	.L311	@cond_branch
+	beq	.L314	@cond_branch
 	add	r0, r6, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
-.L311:
+.L314:
 	sub	r5, r5, #0x1
 	add	r4, r4, #0x64
 	cmp	r5, #0
-	bge	.L312	@cond_branch
+	bge	.L315	@cond_branch
 	add	r0, r6, #0
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.L316:
+.L319:
 	.align	2, 0
-.L315:
+.L318:
 	.word	gPlayerParty
 .Lfe18:
 	.size	 GetPlayerUsableMons,.Lfe18-GetPlayerUsableMons
@@ -1575,28 +1606,701 @@ IsMoveUsable:
 	add	r4, r0, #0
 	lsl	r4, r4, #0x18
 	lsr	r4, r4, #0x18
-	ldr	r5, .L321
+	ldr	r5, .L324
 	bl	GetNumBadges
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	add	r0, r0, r5
 	ldrb	r0, [r0]
 	cmp	r4, r0
-	bls	.L318	@cond_branch
+	bls	.L321	@cond_branch
 	mov	r0, #0x0
-	b	.L320
-.L322:
+	b	.L323
+.L325:
 	.align	2, 0
-.L321:
+.L324:
 	.word	MovePowerLimit
-.L318:
+.L321:
 	mov	r0, #0x1
-.L320:
+.L323:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
 .Lfe19:
 	.size	 IsMoveUsable,.Lfe19-IsMoveUsable
+	.align	2, 0
+	.globl	GetMapRandomPokemon
+	.type	 GetMapRandomPokemon,function
+	.thumb_func
+GetMapRandomPokemon:
+	push	{r4, r5, r6, r7, lr}
+	mov	r7, sl
+	mov	r6, r9
+	mov	r5, r8
+	push	{r5, r6, r7}
+	add	sp, sp, #-0x24
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	mov	sl, r0
+	lsl	r1, r1, #0x10
+	lsr	r1, r1, #0x10
+	mov	r8, r1
+	mov	r6, #0x0
+	bl	Random
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	mov	r1, #0xc
+	bl	__umodsi3
+	lsl	r0, r0, #0x18
+	lsr	r7, r0, #0x18
+	mov	r0, sp
+	mov	r1, #0x0
+	mov	r2, #0x18
+	bl	memset
+	add	r4, sp, #0x18
+	add	r0, r4, #0
+	mov	r1, #0x0
+	mov	r2, #0xa
+	bl	memset
+	add	r5, r6, #0
+	mov	r9, r4
+.L330:
+	add	r1, r5, r7
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
+	mov	r0, #0x0
+	bl	GetCurrentMapWildPokemon
+	lsl	r1, r5, #0x1
+	add	r1, r1, sp
+	strh	r0, [r1]
+	add	r0, r5, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	cmp	r5, #0xb
+	bls	.L330	@cond_branch
+	mov	r5, #0x0
+	mov	r4, sl
+	sub	r4, r4, #0x2
+.L335:
+	add	r1, r5, r7
+	lsl	r1, r1, #0x18
+	lsr	r1, r1, #0x18
+	mov	r0, #0x1
+	bl	GetCurrentMapWildPokemon
+	lsl	r1, r5, #0x1
+	add	r1, r1, r9
+	strh	r0, [r1]
+	add	r0, r5, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r5, r0, #0x18
+	cmp	r5, #0x4
+	bls	.L335	@cond_branch
+	cmp	r4, #0x34
+	bls	.LCB1875
+	b	.L445	@long jump
+.LCB1875:
+	lsl	r0, r4, #0x2
+	ldr	r1, .L448
+	add	r0, r0, r1
+	ldr	r0, [r0]
+	mov	pc, r0
+.L449:
+	.align	2, 0
+.L448:
+	.word	.L446
+	.align	2, 0
+	.align	2, 0
+.L446:
+	.word	.L357
+	.word	.L445
+	.word	.L445
+	.word	.L340
+	.word	.L424
+	.word	.L445
+	.word	.L444
+	.word	.L445
+	.word	.L340
+	.word	.L445
+	.word	.L407
+	.word	.L445
+	.word	.L365
+	.word	.L373
+	.word	.L357
+	.word	.L445
+	.word	.L445
+	.word	.L445
+	.word	.L348
+	.word	.L445
+	.word	.L445
+	.word	.L340
+	.word	.L381
+	.word	.L445
+	.word	.L445
+	.word	.L445
+	.word	.L390
+	.word	.L415
+	.word	.L445
+	.word	.L445
+	.word	.L445
+	.word	.L434
+	.word	.L445
+	.word	.L445
+	.word	.L445
+	.word	.L434
+	.word	.L445
+	.word	.L444
+	.word	.L424
+	.word	.L398
+	.word	.L445
+	.word	.L407
+	.word	.L445
+	.word	.L444
+	.word	.L445
+	.word	.L445
+	.word	.L445
+	.word	.L445
+	.word	.L445
+	.word	.L390
+	.word	.L445
+	.word	.L445
+	.word	.L434
+.L340:
+	mov	r6, #0x0
+	ldr	r2, .L450
+.L344:
+	lsl	r0, r6, #0x1
+	add	r0, r0, sp
+	ldrh	r1, [r0]
+	lsl	r0, r1, #0x3
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r0, r0, r2
+	ldrb	r0, [r0, #0x15]
+	cmp	r0, #0x5
+	bne	.LCB1912
+	b	.L440	@long jump
+.LCB1912:
+	cmp	r0, #0x3
+	bne	.LCB1914
+	b	.L440	@long jump
+.LCB1914:
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L344	@cond_branch
+	b	.L445
+.L451:
+	.align	2, 0
+.L450:
+	.word	gBaseStats
+.L348:
+	mov	r6, #0x0
+	ldr	r4, .L452
+.L352:
+	lsl	r2, r6, #0x1
+	mov	r1, sp
+	add	r0, r1, r2
+	ldrh	r1, [r0]
+	lsl	r0, r1, #0x3
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r1, r0, r4
+	ldrb	r0, [r1, #0x6]
+	cmp	r0, #0x12
+	bne	.LCB1952
+	b	.L430	@long jump
+.LCB1952:
+	ldrb	r3, [r1, #0x7]
+	cmp	r3, #0x12
+	bne	.LCB1957
+	b	.L430	@long jump
+.LCB1957:
+	cmp	r0, #0xc
+	bne	.LCB1959
+	b	.L430	@long jump
+.LCB1959:
+	cmp	r3, #0xc
+	bne	.LCB1961
+	b	.L430	@long jump
+.LCB1961:
+	ldrb	r0, [r1, #0x1f]
+	lsl	r0, r0, #0x19
+	lsr	r0, r0, #0x19
+	cmp	r0, #0x9
+	bne	.LCB1968
+	b	.L430	@long jump
+.LCB1968:
+	ldrb	r0, [r1, #0x16]
+	cmp	r0, #0xf
+	bne	.LCB1973
+	b	.L430	@long jump
+.LCB1973:
+	cmp	r3, #0
+	bne	.LCB1975
+	b	.L430	@long jump
+.LCB1975:
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L352	@cond_branch
+	b	.L445
+.L453:
+	.align	2, 0
+.L452:
+	.word	gBaseStats
+.L357:
+	mov	r6, #0x0
+	ldr	r3, .L454
+.L361:
+	lsl	r2, r6, #0x1
+	mov	r1, sp
+	add	r0, r1, r2
+	ldrh	r1, [r0]
+	lsl	r0, r1, #0x3
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r0, r0, r3
+	ldrb	r1, [r0, #0x6]
+	cmp	r1, #0x4
+	bne	.LCB2014
+	b	.L430	@long jump
+.LCB2014:
+	ldrb	r0, [r0, #0x7]
+	cmp	r0, #0x4
+	bne	.LCB2019
+	b	.L430	@long jump
+.LCB2019:
+	cmp	r1, #0x5
+	bne	.LCB2021
+	b	.L430	@long jump
+.LCB2021:
+	cmp	r0, #0x5
+	bne	.LCB2023
+	b	.L430	@long jump
+.LCB2023:
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L361	@cond_branch
+	b	.L445
+.L455:
+	.align	2, 0
+.L454:
+	.word	gBaseStats
+.L365:
+	mov	r6, #0x0
+	ldr	r3, .L456
+.L369:
+	lsl	r2, r6, #0x1
+	mov	r1, sp
+	add	r0, r1, r2
+	ldrh	r1, [r0]
+	lsl	r0, r1, #0x3
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r0, r0, r3
+	ldrb	r1, [r0, #0x6]
+	cmp	r1, #0x7
+	bne	.LCB2062
+	b	.L430	@long jump
+.LCB2062:
+	ldrb	r0, [r0, #0x7]
+	cmp	r0, #0x7
+	bne	.LCB2067
+	b	.L430	@long jump
+.LCB2067:
+	cmp	r1, #0xe
+	bne	.LCB2069
+	b	.L430	@long jump
+.LCB2069:
+	cmp	r0, #0xe
+	bne	.LCB2071
+	b	.L430	@long jump
+.LCB2071:
+	cmp	r1, #0x11
+	bne	.LCB2073
+	b	.L430	@long jump
+.LCB2073:
+	cmp	r0, #0x11
+	bne	.LCB2075
+	b	.L430	@long jump
+.LCB2075:
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L369	@cond_branch
+	b	.L445
+.L457:
+	.align	2, 0
+.L456:
+	.word	gBaseStats
+.L373:
+	mov	r6, #0x0
+	ldr	r4, .L458
+.L377:
+	lsl	r2, r6, #0x1
+	mov	r1, sp
+	add	r0, r1, r2
+	ldrh	r1, [r0]
+	lsl	r0, r1, #0x3
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r1, r0, r4
+	ldrb	r0, [r1, #0x6]
+	cmp	r0, #0xc
+	bne	.LCB2114
+	b	.L430	@long jump
+.LCB2114:
+	ldrb	r0, [r1, #0x7]
+	cmp	r0, #0xc
+	bne	.LCB2119
+	b	.L430	@long jump
+.LCB2119:
+	ldrb	r3, [r1, #0x16]
+	cmp	r3, #0x7
+	bne	.LCB2124
+	b	.L430	@long jump
+.LCB2124:
+	ldrb	r0, [r1, #0x17]
+	cmp	r0, #0x7
+	bne	.LCB2129
+	b	.L430	@long jump
+.LCB2129:
+	cmp	r3, #0x6
+	bne	.LCB2131
+	b	.L430	@long jump
+.LCB2131:
+	cmp	r0, #0x6
+	bne	.LCB2133
+	b	.L430	@long jump
+.LCB2133:
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L377	@cond_branch
+	b	.L445
+.L459:
+	.align	2, 0
+.L458:
+	.word	gBaseStats
+.L381:
+	mov	r6, #0x0
+	ldr	r3, .L460
+.L385:
+	lsl	r2, r6, #0x1
+	mov	r1, sp
+	add	r0, r1, r2
+	ldrh	r1, [r0]
+	lsl	r0, r1, #0x3
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r1, r0, r3
+	ldrb	r0, [r1, #0x6]
+	cmp	r0, #0xd
+	bne	.LCB2172
+	b	.L430	@long jump
+.LCB2172:
+	ldrb	r0, [r1, #0x7]
+	cmp	r0, #0xd
+	bne	.LCB2177
+	b	.L430	@long jump
+.LCB2177:
+	ldrh	r0, [r1, #0x18]
+	cmp	r0, #0x2b
+	bne	.LCB2182
+	b	.L430	@long jump
+.LCB2182:
+	ldrh	r0, [r1, #0x1a]
+	cmp	r0, #0x2b
+	bne	.LCB2187
+	b	.L430	@long jump
+.LCB2187:
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L385	@cond_branch
+	b	.L445
+.L461:
+	.align	2, 0
+.L460:
+	.word	gBaseStats
+.L390:
+	mov	r6, #0x0
+	ldr	r3, .L462
+.L394:
+	lsl	r0, r6, #0x1
+	add	r0, r0, sp
+	ldrh	r2, [r0]
+	lsl	r0, r2, #0x3
+	add	r0, r0, r2
+	lsl	r0, r0, #0x2
+	add	r1, r0, r3
+	ldrb	r0, [r1, #0x6]
+	cmp	r0, #0x6
+	beq	.L421	@cond_branch
+	ldrb	r0, [r1, #0x7]
+	cmp	r0, #0x6
+	beq	.L421	@cond_branch
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L394	@cond_branch
+	b	.L445
+.L463:
+	.align	2, 0
+.L462:
+	.word	gBaseStats
+.L398:
+	mov	r6, #0x0
+	ldr	r3, .L464
+.L402:
+	lsl	r2, r6, #0x1
+	mov	r1, sp
+	add	r0, r1, r2
+	ldrh	r1, [r0]
+	lsl	r0, r1, #0x3
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r1, r0, r3
+	ldrb	r0, [r1, #0x6]
+	cmp	r0, #0x10
+	beq	.L430	@cond_branch
+	ldrb	r0, [r1, #0x7]
+	cmp	r0, #0x10
+	beq	.L430	@cond_branch
+	ldrb	r0, [r1, #0x16]
+	cmp	r0, #0xe
+	beq	.L430	@cond_branch
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L402	@cond_branch
+	b	.L445
+.L465:
+	.align	2, 0
+.L464:
+	.word	gBaseStats
+.L407:
+	mov	r6, #0x0
+	ldr	r3, .L466
+.L411:
+	lsl	r2, r6, #0x1
+	mov	r1, sp
+	add	r0, r1, r2
+	ldrh	r1, [r0]
+	lsl	r0, r1, #0x3
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r1, r0, r3
+	ldrb	r0, [r1, #0x6]
+	cmp	r0, #0x1
+	beq	.L430	@cond_branch
+	ldrb	r0, [r1, #0x7]
+	cmp	r0, #0x1
+	beq	.L430	@cond_branch
+	ldrb	r0, [r1, #0x16]
+	cmp	r0, #0x8
+	bne	.L410	@cond_branch
+	ldrb	r0, [r1, #0xc]
+	lsl	r0, r0, #0x1c
+	lsr	r0, r0, #0x1e
+	cmp	r0, #0
+	bne	.L430	@cond_branch
+.L410:
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L411	@cond_branch
+	b	.L445
+.L467:
+	.align	2, 0
+.L466:
+	.word	gBaseStats
+.L415:
+	mov	r6, #0x0
+	ldr	r3, .L468
+.L419:
+	lsl	r0, r6, #0x1
+	add	r0, r0, sp
+	ldrh	r2, [r0]
+	lsl	r0, r2, #0x3
+	add	r0, r0, r2
+	lsl	r0, r0, #0x2
+	add	r1, r0, r3
+	ldrb	r0, [r1, #0x6]
+	cmp	r0, #0xe
+	beq	.L421	@cond_branch
+	ldrb	r0, [r1, #0x7]
+	cmp	r0, #0xe
+	bne	.L418	@cond_branch
+.L421:
+	add	r0, r2, #0
+	b	.L447
+.L469:
+	.align	2, 0
+.L468:
+	.word	gBaseStats
+.L418:
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L419	@cond_branch
+	b	.L445
+.L424:
+	mov	r6, #0x0
+	ldr	r3, .L470
+.L428:
+	lsl	r2, r6, #0x1
+	mov	r1, sp
+	add	r0, r1, r2
+	ldrh	r1, [r0]
+	lsl	r0, r1, #0x3
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r1, r0, r3
+	ldrb	r0, [r1, #0x6]
+	cmp	r0, #0x2
+	beq	.L430	@cond_branch
+	ldrb	r0, [r1, #0x7]
+	cmp	r0, #0x2
+	beq	.L430	@cond_branch
+	ldrb	r0, [r1, #0x16]
+	cmp	r0, #0x4
+	bne	.L427	@cond_branch
+.L430:
+	mov	r1, sp
+	add	r0, r1, r2
+	ldrh	r0, [r0]
+	b	.L447
+.L471:
+	.align	2, 0
+.L470:
+	.word	gBaseStats
+.L427:
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L428	@cond_branch
+	b	.L445
+.L434:
+	mov	r6, #0x0
+	ldr	r2, .L472
+.L438:
+	lsl	r0, r6, #0x1
+	add	r0, r0, sp
+	ldrh	r1, [r0]
+	lsl	r0, r1, #0x3
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r0, r0, r2
+	ldrb	r0, [r0, #0x15]
+	cmp	r0, #0x4
+	beq	.L440	@cond_branch
+	cmp	r0, #0
+	bne	.L437	@cond_branch
+.L440:
+	add	r0, r1, #0
+	b	.L447
+.L473:
+	.align	2, 0
+.L472:
+	.word	gBaseStats
+.L437:
+	add	r0, r6, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
+	cmp	r6, #0xb
+	bls	.L438	@cond_branch
+	b	.L445
+.L444:
+	lsl	r0, r6, #0x1
+	add	r0, r0, r9
+	ldrh	r0, [r0]
+	b	.L447
+.L445:
+	mov	r0, r8
+.L447:
+	add	sp, sp, #0x24
+	pop	{r3, r4, r5}
+	mov	r8, r3
+	mov	r9, r4
+	mov	sl, r5
+	pop	{r4, r5, r6, r7}
+	pop	{r1}
+	bx	r1
+.Lfe20:
+	.size	 GetMapRandomPokemon,.Lfe20-GetMapRandomPokemon
+	.align	2, 0
+	.globl	GetCurrentMapWildPokemon
+	.type	 GetCurrentMapWildPokemon,function
+	.thumb_func
+GetCurrentMapWildPokemon:
+	push	{r4, r5, r6, r7, lr}
+	lsl	r0, r0, #0x18
+	lsr	r7, r0, #0x18
+	lsl	r1, r1, #0x18
+	lsr	r6, r1, #0x18
+	add	r5, r6, #0
+	bl	GetCurrentMapWildMonHeaderId
+	lsl	r0, r0, #0x10
+	lsr	r2, r0, #0x10
+	ldr	r0, .L484
+	cmp	r2, r0
+	beq	.L480	@cond_branch
+	ldr	r0, .L484+0x4
+	lsl	r2, r2, #0x5
+	add	r1, r0, #0x4
+	add	r1, r2, r1
+	ldr	r4, [r1]
+	add	r0, r0, #0xc
+	add	r2, r2, r0
+	ldr	r2, [r2]
+	cmp	r7, #0
+	bne	.L476	@cond_branch
+	cmp	r4, #0
+	beq	.L480	@cond_branch
+	add	r0, r6, #0
+	mov	r1, #0xb
+	bl	__umodsi3
+	lsl	r0, r0, #0x18
+	ldr	r1, [r4, #0x4]
+	lsr	r0, r0, #0x16
+	b	.L483
+.L485:
+	.align	2, 0
+.L484:
+	.word	0xffff
+	.word	gWildMonHeaders
+.L476:
+	cmp	r4, #0
+	beq	.L480	@cond_branch
+	mov	r0, #0x3
+	and	r5, r5, r0
+	ldr	r1, [r2, #0x4]
+	lsl	r0, r5, #0x2
+.L483:
+	add	r0, r0, r1
+	ldrh	r0, [r0, #0x2]
+	b	.L482
+.L480:
+	mov	r0, #0x0
+.L482:
+	pop	{r4, r5, r6, r7}
+	pop	{r1}
+	bx	r1
+.Lfe21:
+	.size	 GetCurrentMapWildPokemon,.Lfe21-GetCurrentMapWildPokemon
 .text
 	.align	2, 0
 

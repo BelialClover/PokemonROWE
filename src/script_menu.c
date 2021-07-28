@@ -825,6 +825,8 @@ int ScriptMenu_AdjustLeftCoordFromWidth(int left, int width)
 
 //
 // Text displayed as options.
+static const u8 sText_Surprise[] = _("Surprise Me");
+
 static const u8 gText_City_01[] = _("Littleroot Town");
 static const u8 gText_City_02[] = _("Oldale Town");
 static const u8 gText_City_03[] = _("Petalburg City");
@@ -910,6 +912,7 @@ static const struct ListMenuItem sSet1[] =
     {gText_City_13, 12},
     {gText_City_14, 13},
     {gText_City_15, 14},
+    {sText_Surprise, 15},
 };
 
 static const struct ListMenuItem sSet2[] =
@@ -923,6 +926,7 @@ static const struct ListMenuItem sSet2[] =
     {sText_Starter_7, 6},
     {sText_Starter_8, 7},
     {sText_Starter_9, 8},
+	{sText_Surprise, 9},
 };
 
 static const struct ListMenuItem sSet3[] =

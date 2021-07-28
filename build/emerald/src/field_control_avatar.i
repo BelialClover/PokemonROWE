@@ -1,6 +1,6 @@
-# 1 "src/field_control_avatar.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/field_control_avatar.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/field_control_avatar.c"
 # 1 "include/global.h" 1
 
@@ -706,7 +706,8 @@ struct SaveBlock2
              u16 optionsTransitionSpeed:2;
              u16 optionsUnitSystem:1;
              struct Pokedex pokedex;
-             u8 filler_90[0x7];
+             u16 lastUsedBall;
+             u8 filler_90[0x6];
              struct Time localTimeOffset;
              struct Time lastBerryTreeUpdate;
              u32 gcnLinkFlags;
@@ -720,7 +721,7 @@ struct SaveBlock2
               struct RankingHall2P hallRecords2P[2][3];
               u16 contestLinkResults[5][4];
               struct BattleFrontier frontier;
-              u8 itemFlags[((746 / 8) + ((746 % 8) ? 1 : 0))];
+              u8 itemFlags[((773 / 8) + ((773 % 8) ? 1 : 0))];
 };
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -754,7 +755,7 @@ struct SecretBase
 };
 
 # 1 "include/constants/game_stat.h" 1
-# 542 "include/global.h" 2
+# 543 "include/global.h" 2
 # 1 "include/global.fieldmap.h" 1
 # 13 "include/global.fieldmap.h"
 enum
@@ -1003,6 +1004,7 @@ enum
     COLLISION_IMPASSABLE,
     COLLISION_ELEVATION_MISMATCH,
     COLLISION_OBJECT_EVENT,
+ COLLISION_START_SURFING,
     COLLISION_STOP_SURFING,
     COLLISION_LEDGE_JUMP,
     COLLISION_PUSHED_BOULDER,
@@ -1065,7 +1067,7 @@ extern u8 gSelectedObjectEvent;
 extern struct MapHeader gMapHeader;
 extern struct PlayerAvatar gPlayerAvatar;
 extern struct Camera gCamera;
-# 543 "include/global.h" 2
+# 544 "include/global.h" 2
 # 1 "include/global.berry.h" 1
 
 
@@ -1141,7 +1143,7 @@ struct BerryTree
     u8 watered3:1;
     u8 watered4:1;
 };
-# 544 "include/global.h" 2
+# 545 "include/global.h" 2
 # 1 "include/global.tv.h" 1
 
 
@@ -1635,7 +1637,7 @@ struct GabbyAndTyData
              u8 playerThrewABall2:1;
              u8 valB_4:4;
 };
-# 545 "include/global.h" 2
+# 546 "include/global.h" 2
 # 1 "include/pokemon.h" 1
 
 
@@ -2381,7 +2383,7 @@ u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
 u16 GetBaseFormSpeciesId(u16 formSpeciesId);
 void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nature);
 u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
-# 546 "include/global.h" 2
+# 547 "include/global.h" 2
 
 struct WarpData
 {
@@ -5813,6 +5815,7 @@ struct WildPokemonHeader
     const struct WildPokemonInfo *rockSmashMonsInfo;
     const struct WildPokemonInfo *fishingMonsInfo;
     const struct WildPokemonInfo *hiddenMonsInfo;
+ const struct WildPokemonInfo *headbuttMonsInfo;
 };
 
 extern bool8 gIsFishingEncounter;
@@ -5836,6 +5839,7 @@ u16 GetCurrentMapWildMonHeaderId(void);
 u8 ChooseWildMonIndex_Land(void);
 u8 ChooseWildMonIndex_WaterRock(void);
 u8 ChooseHiddenMonIndex(void);
+u8 ChooseHeadbuttMonIndex(void);
 u16 GetFirstStage(u16 species);
 # 33 "src/field_control_avatar.c" 2
 # 1 "include/constants/event_bg.h" 1
@@ -5891,6 +5895,7 @@ static bool8 TryStartMiscWalkingScripts(u16);
 static bool8 TryStartStepCountScript(u16);
 static void UpdateHappinessStepCounter(void);
 static bool8 UpdatePoisonStepCounter(void);
+static bool8 EnableAutoRun(void);
 
 void FieldClearPlayerInput(struct FieldInput *input)
 {
@@ -5957,13 +5962,17 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
     else if (heldKeys & 0x0010)
         input->dpadDirection = 4;
 
+    if ((heldKeys & 0x0002) && input->pressedStartButton && EnableAutoRun())
+    {
+        input->input_field_1_2 = 1;
+        input->pressedStartButton = 0;
+    }
 
     if ((heldKeys & 0x0002) && input->pressedStartButton)
     {
         input->input_field_1_2 = 1;
         input->pressedStartButton = 0;
     }
-
 }
 
 int ProcessPlayerFieldInput(struct FieldInput *input)
@@ -6040,7 +6049,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
 
     if (input->tookStep && TryFindHiddenPokemon())
         return 1;
-# 233 "src/field_control_avatar.c"
+# 238 "src/field_control_avatar.c"
     return 0;
 }
 
@@ -6859,4 +6868,25 @@ int SetCableClubWarp(void)
     MapGridGetMetatileBehaviorAt(position.x, position.y);
     SetupWarp(&gMapHeader, GetWarpEventAtMapPosition(&gMapHeader, &position), &position);
     return 0;
+}
+
+extern const u8 EventScript_DisableAutoRun[];
+extern const u8 EventScript_EnableAutoRun[];
+static bool8 EnableAutoRun(void)
+{
+    PlaySE(5);
+    if (FlagGet(0x1AA))
+    {
+
+  FlagClear(0x1AA);
+        ScriptContext1_SetupScript(EventScript_DisableAutoRun);
+    }
+    else
+    {
+
+  FlagSet(0x1AA);
+        ScriptContext1_SetupScript(EventScript_EnableAutoRun);
+    }
+
+    return 1;
 }

@@ -1683,21 +1683,39 @@ AddSearchWindowText:
 	lsl	r0, r0, #0x16
 	add	r2, r2, r0
 	lsr	r2, r2, #0x18
-	ldr	r0, .L24+0x8
-	str	r0, [sp]
-	mov	r0, #0x1
-	neg	r0, r0
-	str	r0, [sp, #0x4]
+	ldr	r7, .L24+0x8
+	str	r7, [sp]
+	mov	r6, #0x1
+	neg	r6, r6
+	str	r6, [sp, #0x4]
 	str	r5, [sp, #0x8]
 	mov	r0, r9
 	mov	r1, #0x0
 	mov	r3, #0xc
 	bl	AddTextPrinterParameterized3
+	ldr	r4, [r4]
+	ldrh	r0, [r4, #0xa]
+	cmp	r0, #0
+	beq	.L16	@cond_branch
+	add	r1, r5, #0
+	bl	CopyItemName
+	ldr	r4, .L24+0xc
+	ldr	r1, .L24+0x24
+	add	r0, r4, #0
+	bl	StringExpandPlaceholders
+	str	r7, [sp]
+	str	r6, [sp, #0x4]
+	str	r4, [sp, #0x8]
+	mov	r0, r9
+	mov	r1, #0x0
+	mov	r2, #0x20
+	mov	r3, #0xc
+	bl	AddTextPrinterParameterized3
 .L16:
 	ldr	r0, .L24
-	ldr	r5, .L24+0x24
+	ldr	r5, .L24+0x28
 	ldr	r1, [r5]
-	ldr	r4, .L24+0x28
+	ldr	r4, .L24+0x2c
 	add	r1, r1, r4
 	ldrb	r1, [r1]
 	mov	r2, #0x0
@@ -1709,7 +1727,7 @@ AddSearchWindowText:
 	cmp	r0, #0x63
 	bls	.L20	@cond_branch
 	ldr	r0, .L24+0xc
-	ldr	r1, .L24+0x2c
+	ldr	r1, .L24+0x30
 	bl	StringExpandPlaceholders
 	b	.L21
 .L25:
@@ -1724,6 +1742,7 @@ AddSearchWindowText:
 	.word	sText_EggMove
 	.word	sDexNavSearchDataPtr
 	.word	gAbilityNames
+	.word	sText_HeldItem
 	.word	gSaveBlock1Ptr
 	.word	0x361b
 	.word	sText_DexNavChainLong
@@ -2079,9 +2098,9 @@ DexNavPickTile:
 	ldr	r3, [sp, #0x8]
 	lsl	r0, r3, #0x10
 	cmp	r1, r0
-	blt	.LCB904
+	blt	.LCB928
 	b	.L55	@long jump
-.LCB904:
+.LCB928:
 	lsl	r0, r4, #0x10
 	asr	r0, r0, #0x10
 	str	r0, [sp, #0x18]
@@ -2095,9 +2114,9 @@ DexNavPickTile:
 	add	r5, r1, #0
 	ldr	r3, [sp, #0x18]
 	cmp	r0, r3
-	blt	.LCB921
+	blt	.LCB945
 	b	.L58	@long jump
-.LCB921:
+.LCB945:
 .L59:
 	asr	r0, r1, #0x10
 	mov	r7, r9
@@ -2158,9 +2177,9 @@ DexNavPickTile:
 	mov	r7, #0x12
 	ldrsh	r0, [r1, r7]
 	cmp	r0, r3
-	bne	.LCB1015
+	bne	.LCB1039
 	b	.L85	@long jump
-.LCB1015:
+.LCB1039:
 .L66:
 	add	r0, r2, #0x1
 	lsl	r0, r0, #0x18
@@ -2169,9 +2188,9 @@ DexNavPickTile:
 	bls	.L67	@cond_branch
 	mov	r0, #0x0
 	cmp	r0, #0
-	beq	.LCB1027
+	beq	.LCB1051
 	b	.L85	@long jump
-.LCB1027:
+.LCB1051:
 	ldr	r3, [sp]
 	cmp	r3, #0
 	beq	.L72	@cond_branch
@@ -2187,9 +2206,9 @@ DexNavPickTile:
 	bl	MetatileBehavior_IsLandWildEncounter
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB1054
+	bne	.LCB1078
 	b	.L71	@long jump
-.LCB1054:
+.LCB1078:
 	ldr	r7, [sp, #0x10]
 	cmp	r7, #0x4
 	bne	.L74	@cond_branch
@@ -2364,9 +2383,9 @@ DexNavPickTile:
 	add	r5, r1, #0
 	ldr	r7, [sp, #0x18]
 	cmp	r0, r7
-	bge	.LCB1285
+	bge	.LCB1309
 	b	.L59	@long jump
-.LCB1285:
+.LCB1309:
 .L58:
 	mov	r2, #0x80
 	lsl	r2, r2, #0x9
@@ -2386,9 +2405,9 @@ DexNavPickTile:
 	ldr	r1, [sp, #0x8]
 	lsl	r0, r1, #0x10
 	cmp	r2, r0
-	bge	.LCB1316
+	bge	.LCB1340
 	b	.L56	@long jump
-.LCB1316:
+.LCB1340:
 .L55:
 	mov	r0, #0x0
 .L89:
@@ -2650,11 +2669,8 @@ LoadSearchIconData:
 	.thumb_func
 Task_SetUpDexNavSearch:
 	push	{r4, r5, r6, r7, lr}
-	mov	r7, r8
-	push	{r7}
 	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	mov	r8, r0
+	lsr	r7, r0, #0x18
 	ldr	r6, .L150
 	ldr	r0, [r6]
 	ldrh	r5, [r0]
@@ -2667,13 +2683,7 @@ Task_SetUpDexNavSearch:
 	ldr	r1, .L150+0x8
 	add	r4, r4, r1
 	add	r4, r4, r0
-	ldrb	r7, [r4]
-	add	r0, r5, #0
-	add	r1, r7, #0
-	bl	DexNavGenerateHeldItem
-	add	r4, r0, #0
-	lsl	r4, r4, #0x10
-	lsr	r4, r4, #0x10
+	ldrb	r4, [r4]
 	ldr	r0, [r6]
 	mov	r1, #0x40
 	strb	r1, [r0, #0x1a]
@@ -2694,21 +2704,24 @@ Task_SetUpDexNavSearch:
 	add	r0, r0, #0x21
 	strb	r1, [r0]
 	ldr	r0, [r6]
-	strb	r7, [r0, #0xe]
+	strb	r4, [r0, #0xe]
 	ldr	r3, [r6]
 	ldrb	r2, [r3, #0xf]
 	add	r3, r3, #0x2
 	add	r0, r5, #0
-	add	r1, r7, #0
+	add	r1, r4, #0
 	bl	DexNavGenerateMoveset
-	ldr	r0, [r6]
-	strh	r4, [r0, #0xa]
 	add	r0, r5, #0
-	add	r1, r7, #0
+	add	r1, r4, #0
+	bl	DexNavGenerateHeldItem
+	ldr	r1, [r6]
+	strh	r0, [r1, #0xa]
+	add	r0, r5, #0
+	add	r1, r4, #0
 	bl	DexNavGetAbilityNum
 	ldr	r1, [r6]
 	strb	r0, [r1, #0xc]
-	add	r0, r7, #0
+	add	r0, r4, #0
 	bl	DexNavGeneratePotential
 	ldr	r1, [r6]
 	strb	r0, [r1, #0xd]
@@ -2733,7 +2746,7 @@ Task_SetUpDexNavSearch:
 	bl	DexNavDrawIcons
 	ldr	r0, [r6]
 	ldrb	r0, [r0, #0x10]
-	add	r1, r7, #0
+	add	r1, r4, #0
 	bl	DexNavUpdateSearchWindow
 .L149:
 	ldr	r0, .L152
@@ -2744,9 +2757,8 @@ Task_SetUpDexNavSearch:
 	orr	r0, r0, r1
 	strb	r0, [r2, #0x5]
 	ldr	r0, .L152+0x8
-	mov	r3, r8
-	lsl	r1, r3, #0x2
-	add	r1, r1, r8
+	lsl	r1, r7, #0x2
+	add	r1, r1, r7
 	lsl	r1, r1, #0x3
 	add	r1, r1, r0
 	ldr	r3, .L152+0xc
@@ -2763,8 +2775,6 @@ Task_SetUpDexNavSearch:
 	str	r0, [r1]
 	mov	r0, #0x34
 	bl	IncrementGameStat
-	pop	{r3}
-	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
@@ -3179,6 +3189,10 @@ TryStartDexnavSearch:
 	cmp	r4, #0
 	beq	.L199	@cond_branch
 	bl	HideMapNamePopUpWindow
+	mov	r0, #0x0
+	mov	r1, #0x0
+	mov	r2, #0x0
+	bl	ChangeBgY_ScreenOff
 	ldr	r0, .L200+0xc
 	mov	r1, #0x0
 	bl	CreateTask
@@ -3462,19 +3476,19 @@ Task_DexNavSearch:
 	push	{r4, r5, r6, r7, lr}
 	add	sp, sp, #-0x4
 	lsl	r0, r0, #0x18
-	lsr	r5, r0, #0x18
-	lsl	r0, r5, #0x2
-	add	r0, r0, r5
+	lsr	r4, r0, #0x18
+	add	r7, r4, #0
+	lsl	r0, r4, #0x2
+	add	r0, r0, r4
 	lsl	r0, r0, #0x3
-	ldr	r1, .L244
-	add	r6, r0, r1
-	ldr	r0, .L244+0x4
-	ldr	r2, [r0]
-	ldrb	r1, [r2, #0x10]
-	add	r3, r0, #0
-	cmp	r1, #0x14
+	ldr	r1, .L247
+	add	r5, r0, r1
+	ldr	r6, .L247+0x4
+	ldr	r1, [r6]
+	ldrb	r0, [r1, #0x10]
+	cmp	r0, #0x14
 	bls	.L226	@cond_branch
-	add	r0, r2, #0
+	add	r0, r1, #0
 	add	r0, r0, #0x22
 	ldrb	r1, [r0]
 	mov	r0, #0x1
@@ -3482,120 +3496,60 @@ Task_DexNavSearch:
 	cmp	r0, #0
 	beq	.L227	@cond_branch
 	mov	r1, #0x10
-	ldrsh	r0, [r6, r1]
+	ldrsh	r0, [r5, r1]
 	cmp	r0, #0
-	beq	.L242	@cond_branch
+	beq	.L245	@cond_branch
 .L227:
-	ldr	r0, .L244+0x8
-	b	.L243
-.L245:
+	ldr	r0, .L247+0x8
+	b	.L246
+.L248:
 	.align	2, 0
-.L244:
+.L247:
 	.word	gTasks
 	.word	sDexNavSearchDataPtr
 	.word	EventScript_LostSignal
 .L226:
-	cmp	r1, #0x2
-	bhi	.L229	@cond_branch
-	ldr	r0, .L246
-	ldrb	r1, [r0, #0x5]
-	mov	r0, #0x80
-	and	r0, r0, r1
-	cmp	r0, #0
-	bne	.L229	@cond_branch
-	mov	r1, #0xa
-	ldrsh	r0, [r6, r1]
-	cmp	r0, #0x3c
-	ble	.L229	@cond_branch
-	add	r0, r2, #0
-	add	r0, r0, #0x22
-	ldrb	r1, [r0]
-	mov	r0, #0x1
-	and	r0, r0, r1
-	cmp	r0, #0
-	beq	.L230	@cond_branch
-	mov	r2, #0x10
-	ldrsh	r0, [r6, r2]
-	cmp	r0, #0
-	beq	.L242	@cond_branch
-.L230:
-	ldr	r0, .L246+0x4
-	b	.L243
-.L247:
-	.align	2, 0
-.L246:
-	.word	gPlayerAvatar
-	.word	EventScript_MovedTooFast
-.L229:
-	ldr	r0, [r3]
-	ldrb	r0, [r0, #0x10]
-	cmp	r0, #0x4
-	bhi	.L232	@cond_branch
-	mov	r0, #0x86
-	bl	TestPlayerAvatarFlags
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L232	@cond_branch
-	ldr	r0, .L248
-	b	.L243
-.L249:
-	.align	2, 0
-.L248:
-	.word	EventScript_MovedTooFast
-.L232:
 	bl	ScriptContext2_IsEnabled
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L242	@cond_branch
-	ldr	r1, .L250
-	lsl	r0, r5, #0x2
-	add	r0, r0, r5
-	lsl	r0, r0, #0x3
-	add	r0, r0, r1
+	beq	.L245	@cond_branch
 	mov	r3, #0xa
-	ldrsh	r1, [r0, r3]
+	ldrsh	r1, [r5, r3]
 	mov	r0, #0xe1
 	lsl	r0, r0, #0x2
 	cmp	r1, r0
-	ble	.L234	@cond_branch
-	ldr	r0, .L250+0x4
-	ldr	r0, [r0]
+	ble	.L230	@cond_branch
+	ldr	r0, [r6]
 	add	r0, r0, #0x22
 	ldrb	r1, [r0]
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L235	@cond_branch
+	beq	.L231	@cond_branch
 	mov	r1, #0x10
-	ldrsh	r0, [r6, r1]
+	ldrsh	r0, [r5, r1]
 	cmp	r0, #0
-	bne	.L235	@cond_branch
-.L242:
-	add	r0, r5, #0
+	bne	.L231	@cond_branch
+.L245:
+	add	r0, r4, #0
 	bl	EndDexNavSearch
 	b	.L225
-.L251:
-	.align	2, 0
-.L250:
-	.word	gTasks
-	.word	sDexNavSearchDataPtr
-.L235:
-	ldr	r0, .L252
-.L243:
-	add	r1, r5, #0
+.L231:
+	ldr	r0, .L249
+.L246:
+	add	r1, r7, #0
 	bl	EndDexNavSearchSetupScript
 	b	.L225
-.L253:
+.L250:
 	.align	2, 0
-.L252:
+.L249:
 	.word	EventScript_PokemonGotAway
-.L234:
-	ldr	r7, .L254
-	ldr	r4, [r7]
+.L230:
+	ldr	r4, [r6]
 	ldrb	r2, [r4, #0x10]
 	cmp	r2, #0
-	bne	.L237	@cond_branch
+	bne	.L233	@cond_branch
 	ldrh	r0, [r4]
 	ldrb	r1, [r4, #0xd]
 	ldrb	r2, [r4, #0xf]
@@ -3603,26 +3557,25 @@ Task_DexNavSearch:
 	add	r4, r4, #0x2
 	str	r4, [sp]
 	bl	CreateDexNavWildMon
-	ldr	r0, .L254+0x4
+	ldr	r0, .L251
 	bl	FlagClear
-	ldr	r1, .L254+0x8
+	ldr	r1, .L251+0x4
 	mov	r0, #0x1
 	strb	r0, [r1]
-	ldr	r0, .L254+0xc
+	ldr	r0, .L251+0x8
 	bl	ScriptContext1_SetupScript
-	ldr	r0, [r7]
+	ldr	r0, [r6]
 	bl	Free
-	add	r0, r5, #0
+	add	r0, r7, #0
 	bl	DestroyTask
 	b	.L225
-.L255:
+.L252:
 	.align	2, 0
-.L254:
-	.word	sDexNavSearchDataPtr
+.L251:
 	.word	0x882
 	.word	gDexnavBattle
 	.word	EventScript_StartDexNavBattle
-.L237:
+.L233:
 	add	r0, r4, #0
 	add	r0, r0, #0x22
 	ldrb	r1, [r0]
@@ -3630,85 +3583,137 @@ Task_DexNavSearch:
 	add	r0, r4, #0
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L238	@cond_branch
+	beq	.L234	@cond_branch
 	mov	r3, #0x10
-	ldrsh	r0, [r6, r3]
+	ldrsh	r0, [r5, r3]
 	cmp	r0, #0
-	bne	.L238	@cond_branch
-	ldr	r0, .L256
+	bne	.L234	@cond_branch
+	ldr	r0, .L253
 	ldrh	r1, [r0, #0x2e]
 	mov	r0, #0x80
 	lsl	r0, r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L239	@cond_branch
+	bne	.L235	@cond_branch
 	cmp	r2, #0x1
-	bhi	.L238	@cond_branch
-.L239:
+	bhi	.L234	@cond_branch
+.L235:
 	mov	r0, #0x70
 	bl	PlaySE
-	ldr	r0, [r7]
+	ldr	r0, [r6]
 	ldrb	r0, [r0, #0x19]
 	mov	r1, #0x0
 	bl	ClearStdWindowAndFrameToTransparent
-	ldr	r0, [r7]
+	ldr	r0, [r6]
 	ldrb	r0, [r0, #0x19]
 	mov	r1, #0x3
 	bl	CopyWindowToVram
-	ldr	r0, [r7]
+	ldr	r0, [r6]
 	ldrb	r0, [r0, #0x19]
 	bl	RemoveWindow
-	ldr	r0, [r7]
+	ldr	r0, [r6]
 	ldrb	r1, [r0, #0x1a]
 	lsl	r0, r1, #0x4
 	add	r0, r0, r1
 	lsl	r0, r0, #0x2
-	ldr	r1, .L256+0x4
+	ldr	r1, .L253+0x4
 	add	r0, r0, r1
 	bl	DestroySprite
-	strh	r4, [r6, #0x10]
-	ldr	r0, .L256+0x8
-	str	r0, [r6]
+	strh	r4, [r5, #0x10]
+	ldr	r0, .L253+0x8
+	str	r0, [r5]
 	b	.L225
-.L257:
+.L254:
 	.align	2, 0
-.L256:
+.L253:
 	.word	gMain
 	.word	gSprites
 	.word	Task_RevealHiddenMon
+.L234:
+	ldr	r6, .L255
+	ldr	r0, [r6]
+	ldrb	r0, [r0, #0x11]
+	cmp	r0, #0x1
+	beq	.L237	@cond_branch
+	bl	GetCurrentMapType
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x4
+	bne	.L236	@cond_branch
+.L237:
+	ldr	r4, [r6]
+	bl	GetMovementProximityBySearchLevel
+	ldrb	r1, [r4, #0x10]
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r1, r0
+	bcs	.L236	@cond_branch
+	ldr	r2, [r6]
+	ldrb	r0, [r2, #0x18]
+	cmp	r0, #0x1
+	bhi	.L236	@cond_branch
+	mov	r1, #0x10
+	ldrsh	r0, [r5, r1]
+	cmp	r0, #0
+	beq	.L236	@cond_branch
+	ldrb	r1, [r2, #0x16]
+	lsl	r0, r1, #0x4
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	ldr	r1, .L255+0x4
+	add	r0, r0, r1
+	ldrb	r1, [r2, #0x17]
+	bl	FieldEffectStop
+	add	r4, r6, #0
 .L238:
+	ldr	r0, [r4]
+	ldrb	r0, [r0, #0x11]
+	mov	r1, #0xa
+	mov	r2, #0xa
+	mov	r3, #0x1
+	bl	TryStartHiddenMonFieldEffect
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L238	@cond_branch
+	ldr	r0, .L255
+	ldr	r1, [r0]
+	ldrb	r0, [r1, #0x18]
+	add	r0, r0, #0x1
+	strb	r0, [r1, #0x18]
+.L236:
 	bl	DexNavProximityUpdate
-	mov	r1, #0x8
-	ldrsh	r0, [r6, r1]
-	ldr	r4, .L258
+	mov	r3, #0x8
+	ldrsh	r0, [r5, r3]
+	ldr	r4, .L255
 	ldr	r1, [r4]
 	ldrb	r2, [r1, #0x10]
 	cmp	r0, r2
-	beq	.L240	@cond_branch
+	beq	.L243	@cond_branch
 	mov	r3, #0x10
-	ldrsh	r0, [r6, r3]
+	ldrsh	r0, [r5, r3]
 	cmp	r0, #0
-	beq	.L241	@cond_branch
+	beq	.L244	@cond_branch
 	ldrb	r1, [r1, #0xe]
 	add	r0, r2, #0
 	bl	DexNavUpdateSearchWindow
-.L241:
+.L244:
 	ldr	r0, [r4]
 	ldrb	r0, [r0, #0x10]
-	strh	r0, [r6, #0x8]
-.L240:
-	ldrh	r0, [r6, #0xa]
+	strh	r0, [r5, #0x8]
+.L243:
+	ldrh	r0, [r5, #0xa]
 	add	r0, r0, #0x1
-	strh	r0, [r6, #0xa]
+	strh	r0, [r5, #0xa]
 .L225:
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L259:
+.L256:
 	.align	2, 0
-.L258:
+.L255:
 	.word	sDexNavSearchDataPtr
+	.word	gSprites
 .Lfe23:
 	.size	 Task_DexNavSearch,.Lfe23-Task_DexNavSearch
 	.align	2, 0
@@ -3717,11 +3722,11 @@ Task_DexNavSearch:
 DexNavUpdateSearchWindow:
 	push	{r4, r5, r6, r7, lr}
 	lsl	r0, r0, #0x18
-	lsr	r6, r0, #0x18
+	lsr	r7, r0, #0x18
 	lsl	r1, r1, #0x18
-	lsr	r7, r1, #0x18
-	mov	r5, #0x0
-	ldr	r0, .L273
+	lsr	r5, r1, #0x18
+	mov	r6, #0x0
+	ldr	r0, .L270
 	ldr	r2, [r0]
 	add	r0, r2, #0
 	add	r0, r0, #0x22
@@ -3729,7 +3734,7 @@ DexNavUpdateSearchWindow:
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L261	@cond_branch
+	beq	.L258	@cond_branch
 	ldrh	r0, [r2]
 	bl	SpeciesToNationalPokedexNum
 	lsl	r0, r0, #0x10
@@ -3738,26 +3743,74 @@ DexNavUpdateSearchWindow:
 	bl	GetSetPokedexFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L261	@cond_branch
-	mov	r5, #0x1
-.L261:
-	ldr	r4, .L273
+	bne	.L258	@cond_branch
+	mov	r6, #0x1
+.L258:
+	ldr	r4, .L270
 	ldr	r0, [r4]
 	ldrb	r0, [r0, #0x19]
 	mov	r1, #0x11
 	bl	FillWindowPixelBuffer
 	ldr	r0, [r4]
 	ldrh	r0, [r0]
-	add	r1, r6, #0
-	add	r2, r7, #0
-	add	r3, r5, #0
+	add	r1, r7, #0
+	add	r2, r5, #0
+	add	r3, r6, #0
 	bl	AddSearchWindowText
 	bl	DexNavUpdateDirectionArrow
 	ldr	r1, [r4]
 	ldrb	r0, [r1, #0x1c]
 	cmp	r0, #0x40
+	beq	.L259	@cond_branch
+	ldr	r2, .L270+0x4
+	add	r1, r0, #0
+	lsl	r0, r1, #0x4
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r0, r0, r2
+	add	r0, r0, #0x3e
+	ldrb	r1, [r0]
+	mov	r2, #0x4
+	orr	r1, r1, r2
+	strb	r1, [r0]
+.L259:
+	ldr	r1, [r4]
+	ldrb	r0, [r1, #0x1d]
+	cmp	r0, #0x40
+	beq	.L260	@cond_branch
+	ldr	r2, .L270+0x4
+	add	r1, r0, #0
+	lsl	r0, r1, #0x4
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r0, r0, r2
+	add	r0, r0, #0x3e
+	ldrb	r1, [r0]
+	mov	r2, #0x4
+	orr	r1, r1, r2
+	strb	r1, [r0]
+.L260:
+	ldr	r1, [r4]
+	ldrb	r0, [r1, #0x1e]
+	cmp	r0, #0x40
+	beq	.L261	@cond_branch
+	ldr	r2, .L270+0x4
+	add	r1, r0, #0
+	lsl	r0, r1, #0x4
+	add	r0, r0, r1
+	lsl	r0, r0, #0x2
+	add	r0, r0, r2
+	add	r0, r0, #0x3e
+	ldrb	r1, [r0]
+	mov	r2, #0x4
+	orr	r1, r1, r2
+	strb	r1, [r0]
+.L261:
+	ldr	r1, [r4]
+	ldrb	r0, [r1, #0x1f]
+	cmp	r0, #0x40
 	beq	.L262	@cond_branch
-	ldr	r2, .L273+0x4
+	ldr	r2, .L270+0x4
 	add	r1, r0, #0
 	lsl	r0, r1, #0x4
 	add	r0, r0, r1
@@ -3769,63 +3822,38 @@ DexNavUpdateSearchWindow:
 	orr	r1, r1, r2
 	strb	r1, [r0]
 .L262:
+	cmp	r7, #0x4
+	bhi	.L263	@cond_branch
+	cmp	r5, #0x2
+	bls	.L264	@cond_branch
 	ldr	r1, [r4]
-	ldrb	r0, [r1, #0x1d]
-	cmp	r0, #0x40
-	beq	.L263	@cond_branch
-	ldr	r2, .L273+0x4
-	add	r1, r0, #0
-	lsl	r0, r1, #0x4
-	add	r0, r0, r1
-	lsl	r0, r0, #0x2
-	add	r0, r0, r2
-	add	r0, r0, #0x3e
-	ldrb	r1, [r0]
-	mov	r2, #0x4
-	orr	r1, r1, r2
-	strb	r1, [r0]
-.L263:
-	ldr	r1, [r4]
-	ldrb	r0, [r1, #0x1e]
+	ldrh	r0, [r1, #0xa]
+	cmp	r0, #0
+	beq	.L264	@cond_branch
+	ldrb	r0, [r1, #0x1c]
 	cmp	r0, #0x40
 	beq	.L264	@cond_branch
-	ldr	r2, .L273+0x4
+	ldr	r2, .L270+0x4
 	add	r1, r0, #0
 	lsl	r0, r1, #0x4
 	add	r0, r0, r1
 	lsl	r0, r0, #0x2
 	add	r0, r0, r2
 	add	r0, r0, #0x3e
-	ldrb	r1, [r0]
-	mov	r2, #0x4
-	orr	r1, r1, r2
+	ldrb	r2, [r0]
+	mov	r1, #0x5
+	neg	r1, r1
+	and	r1, r1, r2
 	strb	r1, [r0]
 .L264:
-	ldr	r1, [r4]
-	ldrb	r0, [r1, #0x1f]
-	cmp	r0, #0x40
-	beq	.L265	@cond_branch
-	ldr	r2, .L273+0x4
-	add	r1, r0, #0
-	lsl	r0, r1, #0x4
-	add	r0, r0, r1
-	lsl	r0, r0, #0x2
-	add	r0, r0, r2
-	add	r0, r0, #0x3e
-	ldrb	r1, [r0]
-	mov	r2, #0x4
-	orr	r1, r1, r2
-	strb	r1, [r0]
-.L265:
-	cmp	r6, #0x4
-	bhi	.L266	@cond_branch
-	cmp	r7, #0x4
-	bls	.L266	@cond_branch
-	ldr	r1, [r4]
+	cmp	r5, #0x4
+	bls	.L263	@cond_branch
+	ldr	r3, .L270
+	ldr	r1, [r3]
 	ldrb	r0, [r1, #0x1d]
 	cmp	r0, #0x40
-	beq	.L270	@cond_branch
-	ldr	r2, .L273+0x4
+	beq	.L267	@cond_branch
+	ldr	r2, .L270+0x4
 	add	r1, r0, #0
 	lsl	r0, r1, #0x4
 	add	r0, r0, r1
@@ -3837,12 +3865,12 @@ DexNavUpdateSearchWindow:
 	neg	r1, r1
 	and	r1, r1, r2
 	strb	r1, [r0]
-.L270:
-	ldr	r1, [r4]
+.L267:
+	ldr	r1, [r3]
 	ldrb	r0, [r1, #0x1e]
 	cmp	r0, #0x40
-	beq	.L271	@cond_branch
-	ldr	r2, .L273+0x4
+	beq	.L268	@cond_branch
+	ldr	r2, .L270+0x4
 	add	r1, r0, #0
 	lsl	r0, r1, #0x4
 	add	r0, r0, r1
@@ -3854,12 +3882,12 @@ DexNavUpdateSearchWindow:
 	neg	r1, r1
 	and	r1, r1, r2
 	strb	r1, [r0]
-.L271:
-	ldr	r1, [r4]
+.L268:
+	ldr	r1, [r3]
 	ldrb	r0, [r1, #0x1f]
 	cmp	r0, #0x40
-	beq	.L266	@cond_branch
-	ldr	r2, .L273+0x4
+	beq	.L263	@cond_branch
+	ldr	r2, .L270+0x4
 	add	r1, r0, #0
 	lsl	r0, r1, #0x4
 	add	r0, r0, r1
@@ -3871,13 +3899,13 @@ DexNavUpdateSearchWindow:
 	neg	r1, r1
 	and	r1, r1, r2
 	strb	r1, [r0]
-.L266:
+.L263:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L274:
+.L271:
 	.align	2, 0
-.L273:
+.L270:
 	.word	sDexNavSearchDataPtr
 	.word	gSprites
 .Lfe24:
@@ -3887,31 +3915,23 @@ DexNavUpdateSearchWindow:
 	.thumb_func
 CreateDexNavWildMon:
 	push	{r4, r5, r6, r7, lr}
-	mov	r7, r9
-	mov	r6, r8
-	push	{r6, r7}
+	mov	r7, r8
+	push	{r7}
 	add	sp, sp, #-0x8
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
-	mov	r9, r1
+	mov	r8, r1
 	lsl	r2, r2, #0x18
 	lsr	r2, r2, #0x18
-	mov	r1, #0x5
-	add	r1, r1, sp
-	mov	r8, r1
-	strb	r3, [r1]
+	mov	r6, sp
+	add	r6, r6, #0x5
+	strb	r3, [r6]
 	ldr	r7, .L295
-	add	r6, sp, #0x4
+	add	r5, sp, #0x4
 	mov	r1, #0x1f
-	strb	r1, [r6]
-	ldr	r1, .L295+0x4
-	ldr	r1, [r1]
-	ldrh	r1, [r1, #0xa]
-	mov	r5, sp
-	add	r5, r5, #0x6
-	strh	r1, [r5]
+	strb	r1, [r5]
 	add	r1, r2, #0
 	bl	CreateWildMon
 	bl	Random
@@ -3922,7 +3942,7 @@ CreateDexNavWildMon:
 	bl	__umodsi3
 	strb	r0, [r4]
 	mov	r4, sp
-.L276:
+.L273:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -3933,9 +3953,9 @@ CreateDexNavWildMon:
 	lsr	r0, r0, #0x18
 	ldrb	r1, [r4]
 	cmp	r0, r1
-	beq	.L276	@cond_branch
+	beq	.L273	@cond_branch
 	mov	r4, sp
-.L281:
+.L278:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -3946,63 +3966,62 @@ CreateDexNavWildMon:
 	lsr	r1, r0, #0x18
 	ldrb	r0, [r4]
 	cmp	r1, r0
-	beq	.L281	@cond_branch
+	beq	.L278	@cond_branch
 	ldrb	r0, [r4, #0x1]
 	cmp	r1, r0
-	beq	.L281	@cond_branch
+	beq	.L278	@cond_branch
 	mov	r0, sp
 	mov	r1, sp
 	ldrb	r1, [r1, #0x1]
 	ldrb	r2, [r0]
 	cmp	r2, r1
-	beq	.L286	@cond_branch
+	beq	.L283	@cond_branch
 	ldrb	r0, [r0, #0x2]
 	cmp	r2, r0
-	beq	.L286	@cond_branch
+	beq	.L283	@cond_branch
 	cmp	r1, r0
-	beq	.L286	@cond_branch
-	mov	r1, r9
+	beq	.L283	@cond_branch
+	mov	r1, r8
 	cmp	r1, #0x2
-	bls	.L287	@cond_branch
+	bls	.L284	@cond_branch
 	mov	r0, sp
 	ldrb	r1, [r0, #0x2]
-	add	r1, r1, #0x27
-	add	r0, r7, #0
-	add	r2, r6, #0
-	bl	SetMonData
-.L287:
-	mov	r4, r9
+	b	.L294
+.L296:
+	.align	2, 0
+.L295:
+	.word	gEnemyParty
+.L284:
+	mov	r4, r8
 	cmp	r4, #0x1
-	bls	.L288	@cond_branch
+	bls	.L286	@cond_branch
 	mov	r0, sp
 	ldrb	r1, [r0, #0x1]
+.L294:
 	add	r1, r1, #0x27
 	add	r0, r7, #0
-	add	r2, r6, #0
+	add	r2, r5, #0
 	bl	SetMonData
-.L288:
-	mov	r0, r9
+	b	.L283
+.L286:
+	mov	r0, r8
 	cmp	r0, #0
-	beq	.L286	@cond_branch
+	beq	.L283	@cond_branch
 	mov	r0, sp
 	ldrb	r1, [r0]
 	add	r1, r1, #0x27
 	add	r0, r7, #0
-	add	r2, r6, #0
-	bl	SetMonData
-.L286:
-	add	r0, r7, #0
-	mov	r1, #0x2e
-	mov	r2, r8
-	bl	SetMonData
-	add	r0, r7, #0
-	mov	r1, #0xc
 	add	r2, r5, #0
 	bl	SetMonData
+.L283:
+	add	r0, r7, #0
+	mov	r1, #0x2e
+	add	r2, r6, #0
+	bl	SetMonData
 	mov	r4, #0x0
-.L293:
+.L292:
 	lsl	r0, r4, #0x1
-	ldr	r1, [sp, #0x24]
+	ldr	r1, [sp, #0x20]
 	add	r0, r0, r1
 	ldrh	r1, [r0]
 	add	r0, r7, #0
@@ -4012,152 +4031,17 @@ CreateDexNavWildMon:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	cmp	r4, #0x3
-	bls	.L293	@cond_branch
+	bls	.L292	@cond_branch
 	add	r0, r7, #0
 	bl	CalculateMonStats
 	add	sp, sp, #0x8
-	pop	{r3, r4}
+	pop	{r3}
 	mov	r8, r3
-	mov	r9, r4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L296:
-	.align	2, 0
-.L295:
-	.word	gEnemyParty
-	.word	sDexNavSearchDataPtr
 .Lfe25:
 	.size	 CreateDexNavWildMon,.Lfe25-CreateDexNavWildMon
-	.align	2, 0
-	.globl	DexBadgeGet
-	.type	 DexBadgeGet,function
-	.thumb_func
-DexBadgeGet:
-	push	{r4, lr}
-	ldr	r0, .L306
-	bl	FlagGet
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	neg	r1, r0
-	orr	r1, r1, r0
-	lsr	r4, r1, #0x1f
-	ldr	r0, .L306+0x4
-	bl	FlagGet
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L299	@cond_branch
-	add	r4, r4, #0x1
-.L299:
-	ldr	r0, .L306+0x8
-	bl	FlagGet
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L300	@cond_branch
-	add	r0, r4, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r4, r0, #0x18
-.L300:
-	ldr	r0, .L306+0xc
-	bl	FlagGet
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L301	@cond_branch
-	add	r0, r4, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r4, r0, #0x18
-.L301:
-	ldr	r0, .L306+0x10
-	bl	FlagGet
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L302	@cond_branch
-	add	r0, r4, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r4, r0, #0x18
-.L302:
-	ldr	r0, .L306+0x14
-	bl	FlagGet
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L303	@cond_branch
-	add	r0, r4, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r4, r0, #0x18
-.L303:
-	ldr	r0, .L306+0x18
-	bl	FlagGet
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L304	@cond_branch
-	add	r0, r4, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r4, r0, #0x18
-.L304:
-	ldr	r0, .L306+0x1c
-	bl	FlagGet
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L305	@cond_branch
-	add	r0, r4, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r4, r0, #0x18
-.L305:
-	add	r0, r4, #0
-	pop	{r4}
-	pop	{r1}
-	bx	r1
-.L307:
-	.align	2, 0
-.L306:
-	.word	0x867
-	.word	0x868
-	.word	0x869
-	.word	0x86a
-	.word	0x86b
-	.word	0x86c
-	.word	0x86d
-	.word	0x86e
-.Lfe26:
-	.size	 DexBadgeGet,.Lfe26-DexBadgeGet
-	.section .rodata
-.LC98:
-	.byte	0x5
-	.byte	0xa
-	.byte	0xf
-	.byte	0x14
-	.byte	0x19
-	.byte	0x1e
-	.byte	0x23
-	.byte	0x28
-	.byte	0x2d
-	.byte	0x32
-.text
-	.align	2, 0
-	.globl	GetDexLevelWild
-	.type	 GetDexLevelWild,function
-	.thumb_func
-GetDexLevelWild:
-	push	{lr}
-	add	sp, sp, #-0xc
-	ldr	r1, .L309
-	mov	r0, sp
-	mov	r2, #0xa
-	bl	memcpy
-	bl	DexBadgeGet
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	add	r0, r0, sp
-	ldrb	r0, [r0]
-	add	sp, sp, #0xc
-	pop	{r1}
-	bx	r1
-.L310:
-	.align	2, 0
-.L309:
-	.word	.LC98
-.Lfe27:
-	.size	 GetDexLevelWild,.Lfe27-GetDexLevelWild
 	.align	2, 0
 	.type	 DexNavTryGenerateMonLevel,function
 	.thumb_func
@@ -4171,28 +4055,29 @@ DexNavTryGenerateMonLevel:
 	add	r4, r0, #0
 	lsl	r4, r4, #0x18
 	lsr	r4, r4, #0x18
-	bl	GetDexLevelWild
-	lsl	r0, r0, #0x18
-	lsr	r6, r0, #0x18
-	ldr	r0, .L317
+	ldr	r0, .L303
 	ldr	r0, [r0]
-	ldr	r1, .L317+0x4
+	ldr	r1, .L303+0x4
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	mov	r1, #0x5
 	bl	__udivsi3
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
+	mov	r0, #0xc1
+	bl	getWildLevel
+	lsl	r0, r0, #0x18
+	lsr	r6, r0, #0x18
 	cmp	r4, #0xff
-	bne	.L312	@cond_branch
+	bne	.L298	@cond_branch
 	mov	r0, #0xff
-	b	.L316
-.L318:
+	b	.L302
+.L304:
 	.align	2, 0
-.L317:
+.L303:
 	.word	gSaveBlock1Ptr
 	.word	0x361b
-.L312:
+.L298:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -4201,26 +4086,26 @@ DexNavTryGenerateMonLevel:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0x3
-	bhi	.L313	@cond_branch
+	bhi	.L299	@cond_branch
 	add	r0, r5, #0
 	add	r0, r0, #0xa
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
-.L313:
+.L299:
 	add	r0, r6, r5
 	cmp	r0, #0x64
-	bgt	.L314	@cond_branch
+	bgt	.L300	@cond_branch
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	b	.L316
-.L314:
+	b	.L302
+.L300:
 	mov	r0, #0x64
-.L316:
+.L302:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.Lfe28:
-	.size	 DexNavTryGenerateMonLevel,.Lfe28-DexNavTryGenerateMonLevel
+.Lfe26:
+	.size	 DexNavTryGenerateMonLevel,.Lfe26-DexNavTryGenerateMonLevel
 	.align	2, 0
 	.type	 DexNavGenerateMoveset,function
 	.thumb_func
@@ -4250,44 +4135,44 @@ DexNavGenerateMoveset:
 	lsr	r0, r0, #0x10
 	add	r1, r0, #0
 	cmp	r4, #0x4
-	bls	.L321	@cond_branch
+	bls	.L307	@cond_branch
 	cmp	r4, #0x9
-	bhi	.L322	@cond_branch
+	bhi	.L308	@cond_branch
 	cmp	r0, #0x14
-	bhi	.L321	@cond_branch
-	b	.L342
-.L322:
+	bhi	.L307	@cond_branch
+	b	.L328
+.L308:
 	cmp	r4, #0x18
-	bhi	.L325	@cond_branch
+	bhi	.L311	@cond_branch
 	cmp	r0, #0x2d
-	bhi	.L321	@cond_branch
-	b	.L342
-.L325:
+	bhi	.L307	@cond_branch
+	b	.L328
+.L311:
 	cmp	r4, #0x31
-	bhi	.L328	@cond_branch
+	bhi	.L314	@cond_branch
 	cmp	r0, #0x39
-	bhi	.L321	@cond_branch
-	b	.L342
-.L328:
+	bhi	.L307	@cond_branch
+	b	.L328
+.L314:
 	cmp	r7, #0x63
-	bhi	.L331	@cond_branch
+	bhi	.L317	@cond_branch
 	cmp	r0, #0x3e
-	bhi	.L321	@cond_branch
-	b	.L342
-.L331:
+	bhi	.L307	@cond_branch
+	b	.L328
+.L317:
 	cmp	r1, #0x52
-	bhi	.L321	@cond_branch
-.L342:
+	bhi	.L307	@cond_branch
+.L328:
 	mov	r5, #0x1
-.L321:
+.L307:
 	mov	r0, r9
 	mov	r1, r8
 	bl	CreateWildMon
 	mov	r4, #0x0
-.L338:
+.L324:
 	add	r1, r4, #0
 	add	r1, r1, #0xd
-	ldr	r0, .L343
+	ldr	r0, .L329
 	mov	r2, #0x0
 	bl	GetMonData
 	lsl	r1, r4, #0x1
@@ -4297,24 +4182,26 @@ DexNavGenerateMoveset:
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, #0x3
-	bls	.L338	@cond_branch
-	cmp	r5, #0x1
-	bne	.L340	@cond_branch
-	ldr	r0, .L343
+	bls	.L324	@cond_branch
+	cmp	r5, #0
+	beq	.L326	@cond_branch
+	ldr	r0, .L329
 	mov	r1, sp
 	bl	GetEggMoves
 	lsl	r0, r0, #0x18
-	lsr	r1, r0, #0x18
-	cmp	r1, #0
-	beq	.L340	@cond_branch
-	mov	r0, #0x0
-	bl	RandRange
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x17
+	lsr	r4, r0, #0x18
+	cmp	r4, #0
+	beq	.L326	@cond_branch
+	bl	Random
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	add	r1, r4, #0
+	bl	__modsi3
+	lsl	r0, r0, #0x1
 	add	r0, r0, sp
 	ldrh	r0, [r0]
 	strh	r0, [r6]
-.L340:
+.L326:
 	add	sp, sp, #0x14
 	pop	{r3, r4}
 	mov	r8, r3
@@ -4322,12 +4209,12 @@ DexNavGenerateMoveset:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L344:
+.L330:
 	.align	2, 0
-.L343:
+.L329:
 	.word	gEnemyParty
-.Lfe29:
-	.size	 DexNavGenerateMoveset,.Lfe29-DexNavGenerateMoveset
+.Lfe27:
+	.size	 DexNavGenerateMoveset,.Lfe27-DexNavGenerateMoveset
 	.align	2, 0
 	.type	 DexNavGenerateHeldItem,function
 	.thumb_func
@@ -4347,7 +4234,7 @@ DexNavGenerateHeldItem:
 	lsl	r0, r0, #0x10
 	lsr	r3, r0, #0x10
 	lsr	r5, r5, #0x19
-	ldr	r1, .L356
+	ldr	r1, .L342
 	lsl	r0, r4, #0x3
 	add	r0, r0, r4
 	lsl	r0, r0, #0x2
@@ -4355,44 +4242,44 @@ DexNavGenerateHeldItem:
 	ldrh	r2, [r0, #0xe]
 	ldrh	r1, [r0, #0x10]
 	cmp	r2, r1
-	bne	.L346	@cond_branch
+	bne	.L332	@cond_branch
 	add	r0, r2, #0
-	b	.L355
-.L357:
+	b	.L341
+.L343:
 	.align	2, 0
-.L356:
+.L342:
 	.word	gBaseStats
-.L346:
+.L332:
 	cmp	r1, #0
-	bne	.L348	@cond_branch
+	bne	.L334	@cond_branch
 	cmp	r2, #0
-	beq	.L351	@cond_branch
+	beq	.L337	@cond_branch
 	mov	r0, #0x0
 	cmp	r3, #0x31
-	bhi	.L355	@cond_branch
+	bhi	.L341	@cond_branch
 	add	r0, r2, #0
-	b	.L355
-.L348:
+	b	.L341
+.L334:
 	add	r0, r6, #0
 	add	r0, r0, #0x37
 	add	r0, r5, r0
 	cmp	r3, r0
-	bge	.L351	@cond_branch
+	bge	.L337	@cond_branch
 	add	r0, r5, #0x5
 	cmp	r3, r0
-	ble	.L352	@cond_branch
+	ble	.L338	@cond_branch
 	add	r1, r2, #0
-.L352:
+.L338:
 	add	r0, r1, #0
-	b	.L355
-.L351:
+	b	.L341
+.L337:
 	mov	r0, #0x0
-.L355:
+.L341:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.Lfe30:
-	.size	 DexNavGenerateHeldItem,.Lfe30-DexNavGenerateHeldItem
+.Lfe28:
+	.size	 DexNavGenerateHeldItem,.Lfe28-DexNavGenerateHeldItem
 	.align	2, 0
 	.type	 DexNavGetAbilityNum,function
 	.thumb_func
@@ -4413,36 +4300,36 @@ DexNavGetAbilityNum:
 	lsr	r0, r0, #0x10
 	add	r1, r0, #0
 	cmp	r4, #0x4
-	bls	.L360	@cond_branch
+	bls	.L346	@cond_branch
 	cmp	r4, #0x9
-	bls	.L360	@cond_branch
+	bls	.L346	@cond_branch
 	cmp	r4, #0x18
-	bhi	.L363	@cond_branch
+	bhi	.L349	@cond_branch
 	cmp	r0, #0x4
-	bhi	.L360	@cond_branch
-	b	.L377
-.L363:
+	bhi	.L346	@cond_branch
+	b	.L363
+.L349:
 	cmp	r4, #0x31
-	bhi	.L366	@cond_branch
+	bhi	.L352	@cond_branch
 	cmp	r0, #0xe
-	bhi	.L360	@cond_branch
-	b	.L377
-.L366:
+	bhi	.L346	@cond_branch
+	b	.L363
+.L352:
 	cmp	r6, #0x63
-	bhi	.L369	@cond_branch
+	bhi	.L355	@cond_branch
 	cmp	r0, #0x13
-	bhi	.L360	@cond_branch
-	b	.L377
-.L369:
+	bhi	.L346	@cond_branch
+	b	.L363
+.L355:
 	cmp	r1, #0x16
-	bhi	.L360	@cond_branch
+	bhi	.L346	@cond_branch
 	mov	r7, #0x1
-.L360:
+.L346:
 	lsl	r4, r5, #0x3
 	cmp	r7, #0
-	beq	.L373	@cond_branch
-.L377:
-	ldr	r2, .L378
+	beq	.L359	@cond_branch
+.L363:
+	ldr	r2, .L364
 	lsl	r1, r5, #0x3
 	add	r0, r1, r5
 	lsl	r0, r0, #0x2
@@ -4450,7 +4337,7 @@ DexNavGetAbilityNum:
 	ldrh	r0, [r0, #0x1c]
 	add	r4, r1, #0
 	cmp	r0, #0
-	beq	.L373	@cond_branch
+	beq	.L359	@cond_branch
 	add	r0, r5, #0
 	bl	SpeciesToNationalPokedexNum
 	lsl	r0, r0, #0x10
@@ -4459,37 +4346,37 @@ DexNavGetAbilityNum:
 	bl	GetSetPokedexFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L373	@cond_branch
+	beq	.L359	@cond_branch
 	mov	r0, #0x2
-	b	.L374
-.L379:
+	b	.L360
+.L365:
 	.align	2, 0
-.L378:
+.L364:
 	.word	gBaseStats
-.L373:
-	ldr	r0, .L380
+.L359:
+	ldr	r0, .L366
 	add	r1, r4, r5
 	lsl	r1, r1, #0x2
 	add	r1, r1, r0
 	ldrh	r0, [r1, #0x1a]
 	cmp	r0, #0
-	beq	.L375	@cond_branch
+	beq	.L361	@cond_branch
 	bl	Random
 	mov	r1, #0x1
 	and	r0, r0, r1
-	b	.L374
-.L381:
+	b	.L360
+.L367:
 	.align	2, 0
-.L380:
+.L366:
 	.word	gBaseStats
-.L375:
+.L361:
 	mov	r0, #0x0
-.L374:
+.L360:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.Lfe31:
-	.size	 DexNavGetAbilityNum,.Lfe31-DexNavGetAbilityNum
+.Lfe29:
+	.size	 DexNavGetAbilityNum,.Lfe29-DexNavGetAbilityNum
 	.align	2, 0
 	.type	 DexNavGeneratePotential,function
 	.thumb_func
@@ -4505,294 +4392,242 @@ DexNavGeneratePotential:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r4, #0x4
-	bls	.L389	@cond_branch
+	bls	.L375	@cond_branch
 	cmp	r4, #0x9
-	bhi	.L390	@cond_branch
+	bhi	.L376	@cond_branch
 	cmp	r0, #0xf
-	bge	.L389	@cond_branch
+	bge	.L375	@cond_branch
 	cmp	r0, #0xd
-	ble	.L424	@cond_branch
+	ble	.L410	@cond_branch
 	cmp	r0, #0xe
-	ble	.L425	@cond_branch
-	b	.L421
-.L390:
+	ble	.L411	@cond_branch
+	b	.L407
+.L376:
 	cmp	r4, #0x18
-	bhi	.L397	@cond_branch
+	bhi	.L383	@cond_branch
 	cmp	r0, #0x1b
-	bge	.L389	@cond_branch
+	bge	.L375	@cond_branch
 	cmp	r0, #0x10
-	ble	.L424	@cond_branch
+	ble	.L410	@cond_branch
 	cmp	r0, #0x19
-	ble	.L425	@cond_branch
-	b	.L421
-.L397:
+	ble	.L411	@cond_branch
+	b	.L407
+.L383:
 	cmp	r4, #0x31
-	bhi	.L404	@cond_branch
+	bhi	.L390	@cond_branch
 	cmp	r0, #0x28
-	bge	.L389	@cond_branch
+	bge	.L375	@cond_branch
 	cmp	r0, #0x10
-	ble	.L424	@cond_branch
+	ble	.L410	@cond_branch
 	cmp	r0, #0x20
-	ble	.L425	@cond_branch
-	b	.L421
-.L404:
+	ble	.L411	@cond_branch
+	b	.L407
+.L390:
 	cmp	r4, #0x63
-	bhi	.L411	@cond_branch
+	bhi	.L397	@cond_branch
 	cmp	r0, #0x26
-	bge	.L389	@cond_branch
+	bge	.L375	@cond_branch
 	cmp	r0, #0xe
-	ble	.L424	@cond_branch
+	ble	.L410	@cond_branch
 	cmp	r0, #0x1f
-	ble	.L425	@cond_branch
-	b	.L421
-.L411:
+	ble	.L411	@cond_branch
+	b	.L407
+.L397:
 	cmp	r0, #0x2c
-	bge	.L389	@cond_branch
+	bge	.L375	@cond_branch
 	cmp	r0, #0x7
-	bgt	.L419	@cond_branch
-.L424:
+	bgt	.L405	@cond_branch
+.L410:
 	mov	r0, #0x1
-	b	.L423
-.L419:
+	b	.L409
+.L405:
 	cmp	r0, #0x1f
-	bgt	.L421	@cond_branch
-.L425:
+	bgt	.L407	@cond_branch
+.L411:
 	mov	r0, #0x2
-	b	.L423
-.L421:
+	b	.L409
+.L407:
 	mov	r0, #0x3
-	b	.L423
-.L389:
+	b	.L409
+.L375:
 	mov	r0, #0x0
-.L423:
+.L409:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.Lfe32:
-	.size	 DexNavGeneratePotential,.Lfe32-DexNavGeneratePotential
+.Lfe30:
+	.size	 DexNavGeneratePotential,.Lfe30-DexNavGeneratePotential
 	.align	2, 0
 	.type	 GetEncounterLevelFromMapData,function
 	.thumb_func
 GetEncounterLevelFromMapData:
 	push	{r4, r5, r6, r7, lr}
-	mov	r7, sl
-	mov	r6, r9
-	mov	r5, r8
-	push	{r5, r6, r7}
-	add	sp, sp, #-0x4
+	mov	r7, r9
+	mov	r6, r8
+	push	{r6, r7}
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	mov	r8, r0
 	lsl	r1, r1, #0x18
 	lsr	r4, r1, #0x18
-	str	r4, [sp]
+	mov	r9, r4
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	ldr	r2, .L476
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	lsl	r1, r1, #0x2
-	add	r0, r2, #0x4
-	add	r0, r1, r0
+	ldr	r2, .L451
+	lsr	r0, r0, #0xb
+	add	r1, r2, #0x4
+	add	r1, r0, r1
+	ldr	r7, [r1]
+	add	r1, r2, #0
+	add	r1, r1, #0xc
+	add	r1, r0, r1
+	ldr	r1, [r1]
+	add	r2, r2, #0x18
+	add	r0, r0, r2
 	ldr	r0, [r0]
-	mov	sl, r0
-	add	r0, r2, #0
-	add	r0, r0, #0x8
-	add	r0, r1, r0
-	ldr	r0, [r0]
-	mov	r9, r0
-	add	r0, r2, #0
-	add	r0, r0, #0xc
-	add	r0, r1, r0
-	ldr	r7, [r0]
-	add	r0, r2, #0
-	add	r0, r0, #0x18
-	add	r1, r1, r0
-	ldr	r0, [r1]
 	mov	r6, #0x64
 	mov	r5, #0x0
 	cmp	r4, #0x1
-	beq	.L449	@cond_branch
+	beq	.L424	@cond_branch
 	cmp	r4, #0x1
-	bgt	.L473	@cond_branch
+	bgt	.L448	@cond_branch
 	cmp	r4, #0
-	beq	.L428	@cond_branch
-	b	.L474
-.L477:
+	beq	.L414	@cond_branch
+	b	.L449
+.L452:
 	.align	2, 0
-.L476:
+.L451:
 	.word	gWildMonHeaders
-.L473:
-	ldr	r1, [sp]
-	cmp	r1, #0x2
-	beq	.L459	@cond_branch
-	b	.L474
-.L428:
-	bl	IsCurrentlyDay
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L429	@cond_branch
-	mov	r0, sl
-	cmp	r0, #0
-	beq	.L474	@cond_branch
-	mov	r3, #0x0
-	mov	r1, sl
-	ldr	r2, [r1, #0x4]
-.L434:
-	lsl	r0, r3, #0x2
-	add	r1, r0, r2
-	ldrh	r0, [r1, #0x2]
-	cmp	r0, r8
-	bne	.L433	@cond_branch
-	ldrb	r0, [r1]
-	cmp	r0, r6
-	bls	.L436	@cond_branch
-	add	r0, r6, #0
-.L436:
-	add	r6, r0, #0
-	ldrb	r0, [r1, #0x1]
-	cmp	r0, r5
-	bcs	.L437	@cond_branch
-	add	r0, r5, #0
-.L437:
-	add	r5, r0, #0
-.L433:
-	add	r0, r3, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r3, r0, #0x18
-	cmp	r3, #0xb
-	bls	.L434	@cond_branch
-	b	.L427
-.L429:
-	mov	r0, r9
-	cmp	r0, #0
-	beq	.L474	@cond_branch
-	mov	r3, #0x0
+.L448:
 	mov	r1, r9
-	ldr	r2, [r1, #0x4]
-.L444:
-	lsl	r0, r3, #0x2
-	add	r1, r0, r2
-	ldrh	r0, [r1, #0x2]
-	cmp	r0, r8
-	bne	.L443	@cond_branch
-	ldrb	r0, [r1]
-	cmp	r0, r6
-	bls	.L446	@cond_branch
-	add	r0, r6, #0
-.L446:
-	add	r6, r0, #0
-	ldrb	r0, [r1, #0x1]
-	cmp	r0, r5
-	bcs	.L447	@cond_branch
-	add	r0, r5, #0
-.L447:
-	add	r5, r0, #0
-.L443:
-	add	r0, r3, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r3, r0, #0x18
-	cmp	r3, #0xb
-	bls	.L444	@cond_branch
-	b	.L427
-.L449:
+	cmp	r1, #0x2
+	beq	.L434	@cond_branch
+	b	.L449
+.L414:
 	cmp	r7, #0
-	beq	.L474	@cond_branch
+	beq	.L449	@cond_branch
 	mov	r3, #0x0
-	ldr	r2, [r7, #0x4]
-.L454:
-	lsl	r0, r3, #0x2
-	add	r1, r0, r2
-	ldrh	r0, [r1, #0x2]
-	cmp	r0, r8
-	bne	.L453	@cond_branch
-	ldrb	r0, [r1]
-	cmp	r0, r6
-	bls	.L456	@cond_branch
-	add	r0, r6, #0
-.L456:
-	add	r6, r0, #0
-	ldrb	r0, [r1, #0x1]
-	cmp	r0, r5
-	bcs	.L457	@cond_branch
-	add	r0, r5, #0
-.L457:
-	add	r5, r0, #0
-.L453:
-	add	r0, r3, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r3, r0, #0x18
-	cmp	r3, #0x4
-	bls	.L454	@cond_branch
-	b	.L427
-.L459:
-	cmp	r0, #0
-	beq	.L474	@cond_branch
-	mov	r3, #0x0
-	ldrb	r4, [r0]
-	ldr	r7, .L478
-	ldr	r1, [r0, #0x4]
-.L464:
+	ldr	r1, [r7, #0x4]
+.L419:
 	lsl	r0, r3, #0x2
 	add	r2, r0, r1
 	ldrh	r0, [r2, #0x2]
 	cmp	r0, r8
-	bne	.L463	@cond_branch
+	bne	.L418	@cond_branch
 	ldrb	r0, [r2]
 	cmp	r0, r6
-	bls	.L466	@cond_branch
+	bls	.L421	@cond_branch
 	add	r0, r6, #0
-.L466:
+.L421:
 	add	r6, r0, #0
 	ldrb	r0, [r2, #0x1]
 	cmp	r0, r5
-	bcs	.L467	@cond_branch
+	bcs	.L422	@cond_branch
 	add	r0, r5, #0
-.L467:
+.L422:
 	add	r5, r0, #0
-.L463:
+.L418:
+	add	r0, r3, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r3, r0, #0x18
+	cmp	r3, #0xb
+	bls	.L419	@cond_branch
+	b	.L413
+.L424:
+	cmp	r1, #0
+	beq	.L449	@cond_branch
+	mov	r3, #0x0
+	ldr	r1, [r1, #0x4]
+.L429:
+	lsl	r0, r3, #0x2
+	add	r2, r0, r1
+	ldrh	r0, [r2, #0x2]
+	cmp	r0, r8
+	bne	.L428	@cond_branch
+	ldrb	r0, [r2]
+	cmp	r0, r6
+	bls	.L431	@cond_branch
+	add	r0, r6, #0
+.L431:
+	add	r6, r0, #0
+	ldrb	r0, [r2, #0x1]
+	cmp	r0, r5
+	bcs	.L432	@cond_branch
+	add	r0, r5, #0
+.L432:
+	add	r5, r0, #0
+.L428:
+	add	r0, r3, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r3, r0, #0x18
+	cmp	r3, #0x4
+	bls	.L429	@cond_branch
+	b	.L413
+.L434:
+	cmp	r0, #0
+	beq	.L449	@cond_branch
+	mov	r3, #0x0
+	ldrb	r7, [r0]
+	ldr	r1, .L453
+	ldr	r4, [r0, #0x4]
+.L439:
+	lsl	r0, r3, #0x2
+	add	r2, r0, r4
+	ldrh	r0, [r2, #0x2]
+	cmp	r0, r8
+	bne	.L438	@cond_branch
+	ldrb	r0, [r2]
+	cmp	r0, r6
+	bls	.L441	@cond_branch
+	add	r0, r6, #0
+.L441:
+	add	r6, r0, #0
+	ldrb	r0, [r2, #0x1]
+	cmp	r0, r5
+	bcs	.L442	@cond_branch
+	add	r0, r5, #0
+.L442:
+	add	r5, r0, #0
+.L438:
 	add	r0, r3, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r3, r0, #0x18
 	cmp	r3, #0x2
-	bls	.L464	@cond_branch
-	add	r2, r4, #0
+	bls	.L439	@cond_branch
+	add	r2, r7, #0
 	cmp	r2, #0x1
-	beq	.L469	@cond_branch
-	ldr	r1, [r7]
+	beq	.L444	@cond_branch
+	ldr	r1, [r1]
 	mov	r0, #0x0
 	strb	r0, [r1, #0x11]
-	b	.L427
-.L479:
+	b	.L413
+.L454:
 	.align	2, 0
-.L478:
+.L453:
 	.word	sDexNavSearchDataPtr
-.L469:
-	ldr	r0, [r7]
+.L444:
+	ldr	r0, [r1]
 	strb	r2, [r0, #0x11]
-.L427:
+.L413:
 	cmp	r5, #0
-	beq	.L474	@cond_branch
+	beq	.L449	@cond_branch
 	add	r0, r6, #0
 	add	r1, r5, #0
 	bl	RandRange
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	b	.L475
-.L474:
+	b	.L450
+.L449:
 	mov	r0, #0xff
-.L475:
-	add	sp, sp, #0x4
-	pop	{r3, r4, r5}
+.L450:
+	pop	{r3, r4}
 	mov	r8, r3
 	mov	r9, r4
-	mov	sl, r5
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.Lfe33:
-	.size	 GetEncounterLevelFromMapData,.Lfe33-GetEncounterLevelFromMapData
+.Lfe31:
+	.size	 GetEncounterLevelFromMapData,.Lfe31-GetEncounterLevelFromMapData
 	.section .rodata
 	.align	2, 0
 	.type	 sDexNavMenuBgTemplates,object
@@ -4815,8 +4650,8 @@ DexNav_VBlankCB:
 	bl	TransferPlttBuffer
 	pop	{r0}
 	bx	r0
-.Lfe34:
-	.size	 DexNav_VBlankCB,.Lfe34-DexNav_VBlankCB
+.Lfe32:
+	.size	 DexNav_VBlankCB,.Lfe32-DexNav_VBlankCB
 	.align	2, 0
 	.type	 DexNav_MainCB,function
 	.thumb_func
@@ -4829,8 +4664,8 @@ DexNav_MainCB:
 	bl	UpdatePaletteFade
 	pop	{r0}
 	bx	r0
-.Lfe35:
-	.size	 DexNav_MainCB,.Lfe35-DexNav_MainCB
+.Lfe33:
+	.size	 DexNav_MainCB,.Lfe33-DexNav_MainCB
 	.align	2, 0
 	.type	 DexNav_InitBgs,function
 	.thumb_func
@@ -4838,20 +4673,20 @@ DexNav_InitBgs:
 	push	{r4, r5, lr}
 	bl	ResetVramOamAndBgCntRegs
 	bl	ResetAllBgsCoordinates
-	ldr	r5, .L485
+	ldr	r5, .L460
 	mov	r4, #0x80
 	lsl	r4, r4, #0x4
 	add	r0, r4, #0
 	bl	Alloc
 	str	r0, [r5]
 	cmp	r0, #0
-	beq	.L483	@cond_branch
+	beq	.L458	@cond_branch
 	mov	r1, #0x0
 	add	r2, r4, #0
 	bl	memset
 	mov	r0, #0x0
 	bl	ResetBgsAndClearDma3BusyFlags
-	ldr	r1, .L485+0x4
+	ldr	r1, .L460+0x4
 	mov	r0, #0x0
 	mov	r2, #0x2
 	bl	InitBgsFromTemplates
@@ -4872,133 +4707,133 @@ DexNav_InitBgs:
 	mov	r0, #0x1
 	bl	ShowBg
 	mov	r0, #0x1
-	b	.L484
-.L486:
+	b	.L459
+.L461:
 	.align	2, 0
-.L485:
+.L460:
 	.word	sBg1TilemapBuffer
 	.word	sDexNavMenuBgTemplates
-.L483:
+.L458:
 	mov	r0, #0x0
-.L484:
+.L459:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.Lfe36:
-	.size	 DexNav_InitBgs,.Lfe36-DexNav_InitBgs
+.Lfe34:
+	.size	 DexNav_InitBgs,.Lfe34-DexNav_InitBgs
 	.align	2, 0
 	.type	 DexNav_LoadGraphics,function
 	.thumb_func
 DexNav_LoadGraphics:
 	push	{r4, r5, lr}
 	add	sp, sp, #-0x4
-	ldr	r1, .L498
+	ldr	r1, .L473
 	ldr	r0, [r1]
 	ldrb	r4, [r0, #0x4]
 	add	r5, r1, #0
 	cmp	r4, #0x1
-	beq	.L490	@cond_branch
+	beq	.L465	@cond_branch
 	cmp	r4, #0x1
-	bgt	.L495	@cond_branch
+	bgt	.L470	@cond_branch
 	cmp	r4, #0
-	beq	.L489	@cond_branch
-	b	.L493
-.L499:
+	beq	.L464	@cond_branch
+	b	.L468
+.L474:
 	.align	2, 0
-.L498:
+.L473:
 	.word	sDexNavUiDataPtr
-.L495:
+.L470:
 	cmp	r4, #0x2
-	beq	.L492	@cond_branch
-	b	.L493
-.L489:
+	beq	.L467	@cond_branch
+	b	.L468
+.L464:
 	bl	ResetTempTileDataBuffers
-	ldr	r1, .L500
+	ldr	r1, .L475
 	str	r4, [sp]
 	mov	r0, #0x1
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	DecompressAndCopyTileDataToVram
-	b	.L497
-.L501:
+	b	.L472
+.L476:
 	.align	2, 0
-.L500:
+.L475:
 	.word	sDexNavGuiTiles
-.L490:
+.L465:
 	bl	FreeTempTileDataBuffersIfPossible
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L488	@cond_branch
-	ldr	r0, .L502
-	ldr	r1, .L502+0x4
+	beq	.L463	@cond_branch
+	ldr	r0, .L477
+	ldr	r1, .L477+0x4
 	ldr	r1, [r1]
 	bl	LZDecompressWram
-	b	.L497
-.L503:
+	b	.L472
+.L478:
 	.align	2, 0
-.L502:
+.L477:
 	.word	sDexNavGuiTilemap
 	.word	sBg1TilemapBuffer
-.L492:
-	ldr	r0, .L504
+.L467:
+	ldr	r0, .L479
 	mov	r1, #0x0
 	mov	r2, #0x20
 	bl	LoadPalette
-.L497:
+.L472:
 	ldr	r1, [r5]
 	ldrb	r0, [r1, #0x4]
 	add	r0, r0, #0x1
 	strb	r0, [r1, #0x4]
-	b	.L488
-.L505:
+	b	.L463
+.L480:
 	.align	2, 0
-.L504:
+.L479:
 	.word	sDexNavGuiPal
-.L493:
+.L468:
 	ldr	r1, [r5]
 	mov	r0, #0x0
 	strb	r0, [r1, #0x4]
 	mov	r0, #0x1
-	b	.L496
-.L488:
+	b	.L471
+.L463:
 	mov	r0, #0x0
-.L496:
+.L471:
 	add	sp, sp, #0x4
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.Lfe37:
-	.size	 DexNav_LoadGraphics,.Lfe37-DexNav_LoadGraphics
+.Lfe35:
+	.size	 DexNav_LoadGraphics,.Lfe35-DexNav_LoadGraphics
 	.align	2, 0
 	.type	 UpdateCursorPosition,function
 	.thumb_func
 UpdateCursorPosition:
 	push	{r4, r5, lr}
-	ldr	r0, .L516
+	ldr	r0, .L491
 	ldr	r3, [r0]
 	add	r1, r3, #0
 	add	r1, r1, #0x2e
 	ldrb	r1, [r1]
 	add	r2, r0, #0
 	cmp	r1, #0x1
-	beq	.L509	@cond_branch
+	beq	.L484	@cond_branch
 	cmp	r1, #0x1
-	bgt	.L514	@cond_branch
+	bgt	.L489	@cond_branch
 	cmp	r1, #0
-	beq	.L508	@cond_branch
-	b	.L506
-.L517:
+	beq	.L483	@cond_branch
+	b	.L481
+.L492:
 	.align	2, 0
-.L516:
+.L491:
 	.word	sDexNavUiDataPtr
-.L514:
+.L489:
 	cmp	r1, #0x2
-	beq	.L510	@cond_branch
+	beq	.L485	@cond_branch
 	cmp	r1, #0x3
-	beq	.L511	@cond_branch
-	b	.L506
-.L508:
+	beq	.L486	@cond_branch
+	b	.L481
+.L483:
 	add	r0, r3, #0
 	add	r0, r0, #0x2f
 	ldrb	r1, [r0]
@@ -5013,8 +4848,8 @@ UpdateCursorPosition:
 	add	r1, r3, #0
 	add	r1, r1, #0x30
 	mov	r0, #0x1
-	b	.L515
-.L509:
+	b	.L490
+.L484:
 	add	r0, r3, #0
 	add	r0, r0, #0x2f
 	ldrb	r1, [r0]
@@ -5029,8 +4864,8 @@ UpdateCursorPosition:
 	add	r1, r3, #0
 	add	r1, r1, #0x30
 	mov	r0, #0x0
-	b	.L515
-.L510:
+	b	.L490
+.L485:
 	add	r0, r3, #0
 	add	r0, r0, #0x2f
 	ldrb	r1, [r0]
@@ -5045,8 +4880,8 @@ UpdateCursorPosition:
 	add	r1, r3, #0
 	add	r1, r1, #0x30
 	mov	r0, #0x0
-	b	.L515
-.L511:
+	b	.L490
+.L486:
 	add	r0, r3, #0
 	add	r0, r0, #0x2f
 	ldrb	r1, [r0]
@@ -5061,9 +4896,9 @@ UpdateCursorPosition:
 	add	r1, r3, #0
 	add	r1, r1, #0x30
 	mov	r0, #0x2
-.L515:
+.L490:
 	strb	r0, [r1]
-	ldr	r3, .L518
+	ldr	r3, .L493
 	ldr	r2, [r2]
 	ldrb	r1, [r2, #0x5]
 	lsl	r0, r1, #0x4
@@ -5078,39 +4913,39 @@ UpdateCursorPosition:
 	add	r0, r0, r3
 	strh	r5, [r0, #0x22]
 	bl	PrintCurrentSpeciesInfo
-.L506:
+.L481:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L519:
+.L494:
 	.align	2, 0
-.L518:
+.L493:
 	.word	gSprites
-.Lfe38:
-	.size	 UpdateCursorPosition,.Lfe38-UpdateCursorPosition
+.Lfe36:
+	.size	 UpdateCursorPosition,.Lfe36-UpdateCursorPosition
 	.align	2, 0
 	.type	 CreateSelectionCursor,function
 	.thumb_func
 CreateSelectionCursor:
 	push	{lr}
 	add	sp, sp, #-0x8
-	ldr	r0, .L521
+	ldr	r0, .L496
 	str	r0, [sp]
-	ldr	r1, .L521+0x4
+	ldr	r1, .L496+0x4
 	ldr	r0, [sp, #0x4]
 	and	r0, r0, r1
 	mov	r1, #0x80
 	lsl	r1, r1, #0x2
 	orr	r0, r0, r1
-	ldr	r1, .L521+0x8
+	ldr	r1, .L496+0x8
 	and	r0, r0, r1
-	ldr	r1, .L521+0xc
+	ldr	r1, .L496+0xc
 	orr	r0, r0, r1
 	str	r0, [sp, #0x4]
 	mov	r0, sp
 	bl	LoadCompressedSpriteSheet
-	ldr	r0, .L521+0x10
-	ldr	r1, .L521+0x14
+	ldr	r0, .L496+0x10
+	ldr	r1, .L496+0x14
 	ldrb	r1, [r1, #0x5]
 	lsr	r1, r1, #0x4
 	lsl	r1, r1, #0x4
@@ -5120,21 +4955,21 @@ CreateSelectionCursor:
 	orr	r1, r1, r2
 	mov	r2, #0x20
 	bl	LoadPalette
-	ldr	r0, .L521+0x18
+	ldr	r0, .L496+0x18
 	mov	r1, #0xc
 	mov	r2, #0x20
 	mov	r3, #0x0
 	bl	CreateSprite
-	ldr	r1, .L521+0x1c
+	ldr	r1, .L496+0x1c
 	ldr	r1, [r1]
 	strb	r0, [r1, #0x5]
 	bl	UpdateCursorPosition
 	add	sp, sp, #0x8
 	pop	{r0}
 	bx	r0
-.L522:
+.L497:
 	.align	2, 0
-.L521:
+.L496:
 	.word	sSelectionCursorGfx
 	.word	-0x10000
 	.word	0xffff
@@ -5143,8 +4978,8 @@ CreateSelectionCursor:
 	.word	sSelectionCursorOam
 	.word	sSelectionCursorSpriteTemplate
 	.word	sDexNavUiDataPtr
-.Lfe39:
-	.size	 CreateSelectionCursor,.Lfe39-CreateSelectionCursor
+.Lfe37:
+	.size	 CreateSelectionCursor,.Lfe37-CreateSelectionCursor
 	.align	2, 0
 	.type	 CreateNoDataIcon,function
 	.thumb_func
@@ -5152,7 +4987,7 @@ CreateNoDataIcon:
 	push	{lr}
 	add	r3, r0, #0
 	add	r2, r1, #0
-	ldr	r0, .L524
+	ldr	r0, .L499
 	lsl	r3, r3, #0x10
 	asr	r3, r3, #0x10
 	lsl	r2, r2, #0x10
@@ -5162,86 +4997,47 @@ CreateNoDataIcon:
 	bl	CreateSprite
 	pop	{r0}
 	bx	r0
-.L525:
+.L500:
 	.align	2, 0
-.L524:
+.L499:
 	.word	sNoDataIconTemplate
-.Lfe40:
-	.size	 CreateNoDataIcon,.Lfe40-CreateNoDataIcon
+.Lfe38:
+	.size	 CreateNoDataIcon,.Lfe38-CreateNoDataIcon
 	.align	2, 0
 	.type	 CapturedAllLandMons,function
 	.thumb_func
 CapturedAllLandMons:
-	push	{r4, r5, r6, r7, lr}
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
+	push	{r4, r5, r6, lr}
+	lsl	r0, r0, #0x10
 	mov	r6, #0x0
-	ldr	r2, .L550
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	lsl	r1, r1, #0x2
-	add	r0, r2, #0x4
-	add	r0, r1, r0
-	ldr	r7, [r0]
-	add	r2, r2, #0x8
-	add	r1, r1, r2
-	ldr	r5, [r1]
-	cmp	r7, #0
-	beq	.L527	@cond_branch
-	bl	IsCurrentlyDay
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L527	@cond_branch
-	mov	r4, #0x0
-	b	.L528
-.L551:
-	.align	2, 0
-.L550:
-	.word	gWildMonHeaders
-.L533:
-	add	r6, r6, #0x1
-.L530:
-	add	r0, r4, #0x1
-	lsl	r0, r0, #0x10
-	lsr	r4, r0, #0x10
-.L528:
-	cmp	r4, #0xb
-	bhi	.L549	@cond_branch
-	ldr	r1, [r7, #0x4]
-	lsl	r0, r4, #0x2
+	ldr	r1, .L515
+	lsr	r0, r0, #0xb
+	add	r1, r1, #0x4
 	add	r0, r0, r1
-	ldrh	r0, [r0, #0x2]
-	cmp	r0, #0
-	beq	.L530	@cond_branch
-	bl	SpeciesToNationalPokedexNum
-	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	mov	r1, #0x1
-	bl	GetSetPokedexFlag
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	bne	.L533	@cond_branch
-	b	.L536
-.L527:
+	ldr	r5, [r0]
 	cmp	r5, #0
-	beq	.L537	@cond_branch
+	beq	.L514	@cond_branch
 	mov	r4, #0x0
-	b	.L538
-.L543:
+	b	.L503
+.L516:
+	.align	2, 0
+.L515:
+	.word	gWildMonHeaders
+.L508:
 	add	r6, r6, #0x1
-.L540:
+.L505:
 	add	r0, r4, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
-.L538:
+.L503:
 	cmp	r4, #0xb
-	bhi	.L549	@cond_branch
+	bhi	.L513	@cond_branch
 	ldr	r1, [r5, #0x4]
 	lsl	r0, r4, #0x2
 	add	r0, r0, r1
 	ldrh	r0, [r0, #0x2]
 	cmp	r0, #0
-	beq	.L540	@cond_branch
+	beq	.L505	@cond_branch
 	bl	SpeciesToNationalPokedexNum
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -5249,56 +5045,53 @@ CapturedAllLandMons:
 	bl	GetSetPokedexFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L543	@cond_branch
-	b	.L536
-.L549:
+	bne	.L508	@cond_branch
+	b	.L511
+.L513:
 	cmp	r6, #0
-	ble	.L536	@cond_branch
+	ble	.L511	@cond_branch
+.L514:
 	mov	r0, #0x1
-	b	.L547
-.L537:
-.L536:
+	b	.L512
+.L511:
 	mov	r0, #0x0
-.L547:
-	pop	{r4, r5, r6, r7}
+.L512:
+	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.Lfe41:
-	.size	 CapturedAllLandMons,.Lfe41-CapturedAllLandMons
+.Lfe39:
+	.size	 CapturedAllLandMons,.Lfe39-CapturedAllLandMons
 	.align	2, 0
 	.type	 CapturedAllWaterMons,function
 	.thumb_func
 CapturedAllWaterMons:
 	push	{r4, r5, r6, lr}
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
+	lsl	r0, r0, #0x10
 	mov	r6, #0x0
-	ldr	r2, .L565
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	lsl	r1, r1, #0x2
-	add	r2, r2, #0xc
-	add	r1, r1, r2
-	ldr	r5, [r1]
+	ldr	r1, .L531
+	lsr	r0, r0, #0xb
+	add	r1, r1, #0xc
+	add	r0, r0, r1
+	ldr	r5, [r0]
 	cmp	r5, #0
-	beq	.L553	@cond_branch
+	beq	.L530	@cond_branch
 	mov	r4, #0x0
-	b	.L554
-.L566:
+	b	.L519
+.L532:
 	.align	2, 0
-.L565:
+.L531:
 	.word	gWildMonHeaders
-.L556:
+.L521:
 	add	r4, r4, #0x1
-.L554:
+.L519:
 	cmp	r4, #0x4
-	bhi	.L564	@cond_branch
+	bhi	.L529	@cond_branch
 	ldr	r1, [r5, #0x4]
 	lsl	r0, r4, #0x2
 	add	r0, r0, r1
 	ldrh	r1, [r0, #0x2]
 	cmp	r1, #0
-	beq	.L556	@cond_branch
+	beq	.L521	@cond_branch
 	add	r0, r6, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
@@ -5310,56 +5103,53 @@ CapturedAllWaterMons:
 	bl	GetSetPokedexFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L556	@cond_branch
-	b	.L562
-.L564:
+	bne	.L521	@cond_branch
+	b	.L527
+.L529:
 	cmp	r6, #0
-	beq	.L562	@cond_branch
+	beq	.L527	@cond_branch
+.L530:
 	mov	r0, #0x1
-	b	.L563
-.L553:
-.L562:
+	b	.L528
+.L527:
 	mov	r0, #0x0
-.L563:
+.L528:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.Lfe42:
-	.size	 CapturedAllWaterMons,.Lfe42-CapturedAllWaterMons
+.Lfe40:
+	.size	 CapturedAllWaterMons,.Lfe40-CapturedAllWaterMons
 	.align	2, 0
 	.type	 CapturedAllHiddenMons,function
 	.thumb_func
 CapturedAllHiddenMons:
 	push	{r4, r5, r6, lr}
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
+	lsl	r0, r0, #0x10
 	mov	r6, #0x0
-	ldr	r2, .L580
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	lsl	r1, r1, #0x2
-	add	r2, r2, #0x18
-	add	r1, r1, r2
-	ldr	r5, [r1]
+	ldr	r1, .L547
+	lsr	r0, r0, #0xb
+	add	r1, r1, #0x18
+	add	r0, r0, r1
+	ldr	r5, [r0]
 	cmp	r5, #0
-	beq	.L568	@cond_branch
+	beq	.L546	@cond_branch
 	mov	r4, #0x0
-	b	.L569
-.L581:
+	b	.L535
+.L548:
 	.align	2, 0
-.L580:
+.L547:
 	.word	gWildMonHeaders
-.L571:
+.L537:
 	add	r4, r4, #0x1
-.L569:
+.L535:
 	cmp	r4, #0x2
-	bhi	.L579	@cond_branch
+	bhi	.L545	@cond_branch
 	ldr	r1, [r5, #0x4]
 	lsl	r0, r4, #0x2
 	add	r0, r0, r1
 	ldrh	r1, [r0, #0x2]
 	cmp	r1, #0
-	beq	.L571	@cond_branch
+	beq	.L537	@cond_branch
 	add	r0, r6, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
@@ -5371,159 +5161,159 @@ CapturedAllHiddenMons:
 	bl	GetSetPokedexFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L571	@cond_branch
-	b	.L577
-.L579:
+	bne	.L537	@cond_branch
+	b	.L543
+.L545:
 	cmp	r6, #0
-	beq	.L577	@cond_branch
+	beq	.L543	@cond_branch
+.L546:
 	mov	r0, #0x1
-	b	.L578
-.L568:
-.L577:
+	b	.L544
+.L543:
 	mov	r0, #0x0
-.L578:
+.L544:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.Lfe43:
-	.size	 CapturedAllHiddenMons,.Lfe43-CapturedAllHiddenMons
+.Lfe41:
+	.size	 CapturedAllHiddenMons,.Lfe41-CapturedAllHiddenMons
 	.align	2, 0
 	.type	 DexNavLoadCapturedAllSymbols,function
 	.thumb_func
 DexNavLoadCapturedAllSymbols:
 	push	{r4, r5, lr}
 	bl	GetCurrentMapWildMonHeaderId
-	lsl	r0, r0, #0x18
-	lsr	r4, r0, #0x18
+	lsl	r0, r0, #0x10
+	lsr	r4, r0, #0x10
 	add	r5, r4, #0
-	ldr	r0, .L586
+	ldr	r0, .L553
 	bl	LoadCompressedSpriteSheetUsingHeap
 	add	r0, r4, #0
 	bl	CapturedAllLandMons
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L583	@cond_branch
-	ldr	r0, .L586+0x4
+	beq	.L550	@cond_branch
+	ldr	r0, .L553+0x4
 	mov	r1, #0x98
 	mov	r2, #0x3a
 	mov	r3, #0x0
 	bl	CreateSprite
-.L583:
+.L550:
 	add	r0, r4, #0
 	bl	CapturedAllWaterMons
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L584	@cond_branch
-	ldr	r0, .L586+0x4
+	beq	.L551	@cond_branch
+	ldr	r0, .L553+0x4
 	mov	r1, #0x8b
 	mov	r2, #0x11
 	mov	r3, #0x0
 	bl	CreateSprite
-.L584:
+.L551:
 	add	r0, r5, #0
 	bl	CapturedAllHiddenMons
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L585	@cond_branch
-	ldr	r0, .L586+0x4
+	beq	.L552	@cond_branch
+	ldr	r0, .L553+0x4
 	mov	r1, #0x72
 	mov	r2, #0x7b
 	mov	r3, #0x0
 	bl	CreateSprite
-.L585:
+.L552:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L587:
+.L554:
 	.align	2, 0
-.L586:
+.L553:
 	.word	sCapturedAllPokemonSpriteSheet
 	.word	sCaptureAllMonsSpriteTemplate
-.Lfe44:
-	.size	 DexNavLoadCapturedAllSymbols,.Lfe44-DexNavLoadCapturedAllSymbols
+.Lfe42:
+	.size	 DexNavLoadCapturedAllSymbols,.Lfe42-DexNavLoadCapturedAllSymbols
 	.align	2, 0
 	.type	 DexNav_InitWindows,function
 	.thumb_func
 DexNav_InitWindows:
 	push	{lr}
-	ldr	r0, .L589
+	ldr	r0, .L556
 	bl	InitWindows
 	bl	DeactivateAllTextPrinters
 	mov	r0, #0x0
 	bl	ScheduleBgCopyTilemapToVram
 	pop	{r0}
 	bx	r0
-.L590:
+.L557:
 	.align	2, 0
-.L589:
+.L556:
 	.word	sDexNavGuiWindowTemplates
-.Lfe45:
-	.size	 DexNav_InitWindows,.Lfe45-DexNav_InitWindows
+.Lfe43:
+	.size	 DexNav_InitWindows,.Lfe43-DexNav_InitWindows
 	.align	2, 0
 	.type	 DexNavGuiFreeResources,function
 	.thumb_func
 DexNavGuiFreeResources:
 	push	{lr}
-	ldr	r0, .L592
+	ldr	r0, .L559
 	ldr	r0, [r0]
 	bl	Free
-	ldr	r0, .L592+0x4
+	ldr	r0, .L559+0x4
 	ldr	r0, [r0]
 	bl	Free
 	bl	FreeAllWindowBuffers
 	pop	{r0}
 	bx	r0
-.L593:
+.L560:
 	.align	2, 0
-.L592:
+.L559:
 	.word	sDexNavUiDataPtr
 	.word	sBg1TilemapBuffer
-.Lfe46:
-	.size	 DexNavGuiFreeResources,.Lfe46-DexNavGuiFreeResources
+.Lfe44:
+	.size	 DexNavGuiFreeResources,.Lfe44-DexNavGuiFreeResources
 	.align	2, 0
 	.type	 CB1_InitDexNavSearch,function
 	.thumb_func
 CB1_InitDexNavSearch:
 	push	{lr}
-	ldr	r0, .L596
+	ldr	r0, .L563
 	ldrb	r1, [r0, #0x7]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L595	@cond_branch
+	bne	.L562	@cond_branch
 	bl	ScriptContext2_IsEnabled
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L595	@cond_branch
-	ldr	r0, .L596+0x4
+	bne	.L562	@cond_branch
+	ldr	r0, .L563+0x4
 	ldr	r1, [r0, #0x4]
-	ldr	r0, .L596+0x8
+	ldr	r0, .L563+0x8
 	cmp	r1, r0
-	bne	.L595	@cond_branch
-	ldr	r0, .L596+0xc
+	bne	.L562	@cond_branch
+	ldr	r0, .L563+0xc
 	bl	SetMainCallback1
-	ldr	r0, .L596+0x10
+	ldr	r0, .L563+0x10
 	mov	r1, #0x0
 	bl	CreateTask
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L596+0x14
+	ldr	r2, .L563+0x14
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r1, r1, #0x3
 	add	r1, r1, r2
-	ldr	r0, .L596+0x18
+	ldr	r0, .L563+0x18
 	ldrh	r0, [r0]
 	strh	r0, [r1, #0xc]
-	ldr	r0, .L596+0x1c
+	ldr	r0, .L563+0x1c
 	ldrh	r0, [r0]
 	strh	r0, [r1, #0xe]
-.L595:
+.L562:
 	pop	{r0}
 	bx	r0
-.L597:
+.L564:
 	.align	2, 0
-.L596:
+.L563:
 	.word	gPaletteFade
 	.word	gMain
 	.word	CB2_Overworld
@@ -5532,8 +5322,8 @@ CB1_InitDexNavSearch:
 	.word	gTasks
 	.word	gSpecialVar_0x8000
 	.word	gSpecialVar_0x8001
-.Lfe47:
-	.size	 CB1_InitDexNavSearch,.Lfe47-CB1_InitDexNavSearch
+.Lfe45:
+	.size	 CB1_InitDexNavSearch,.Lfe45-CB1_InitDexNavSearch
 	.align	2, 0
 	.type	 CB1_DexNavSearchCallback,function
 	.thumb_func
@@ -5542,8 +5332,8 @@ CB1_DexNavSearchCallback:
 	bl	CB1_InitDexNavSearch
 	pop	{r0}
 	bx	r0
-.Lfe48:
-	.size	 CB1_DexNavSearchCallback,.Lfe48-CB1_DexNavSearchCallback
+.Lfe46:
+	.size	 CB1_DexNavSearchCallback,.Lfe46-CB1_DexNavSearchCallback
 	.align	2, 0
 	.type	 Task_DexNavExitAndSearch,function
 	.thumb_func
@@ -5555,20 +5345,20 @@ Task_DexNavExitAndSearch:
 	bl	DexNavGuiFreeResources
 	add	r0, r4, #0
 	bl	DestroyTask
-	ldr	r0, .L600
+	ldr	r0, .L567
 	bl	SetMainCallback1
-	ldr	r0, .L600+0x4
+	ldr	r0, .L567+0x4
 	bl	SetMainCallback2
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L601:
+.L568:
 	.align	2, 0
-.L600:
+.L567:
 	.word	CB1_DexNavSearchCallback
 	.word	CB2_ReturnToField
-.Lfe49:
-	.size	 Task_DexNavExitAndSearch,.Lfe49-Task_DexNavExitAndSearch
+.Lfe47:
+	.size	 Task_DexNavExitAndSearch,.Lfe47-Task_DexNavExitAndSearch
 	.align	2, 0
 	.type	 Task_DexNavFadeAndExit,function
 	.thumb_func
@@ -5576,30 +5366,30 @@ Task_DexNavFadeAndExit:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r0, .L604
+	ldr	r0, .L571
 	ldrb	r1, [r0, #0x7]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L603	@cond_branch
-	ldr	r0, .L604+0x4
+	bne	.L570	@cond_branch
+	ldr	r0, .L571+0x4
 	ldr	r0, [r0]
 	ldr	r0, [r0]
 	bl	SetMainCallback2
 	bl	DexNavGuiFreeResources
 	add	r0, r4, #0
 	bl	DestroyTask
-.L603:
+.L570:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L605:
+.L572:
 	.align	2, 0
-.L604:
+.L571:
 	.word	gPaletteFade
 	.word	sDexNavUiDataPtr
-.Lfe50:
-	.size	 Task_DexNavFadeAndExit,.Lfe50-Task_DexNavFadeAndExit
+.Lfe48:
+	.size	 Task_DexNavFadeAndExit,.Lfe48-Task_DexNavFadeAndExit
 	.align	2, 0
 	.type	 DexNavFadeAndExit,function
 	.thumb_func
@@ -5613,116 +5403,125 @@ DexNavFadeAndExit:
 	mov	r2, #0x0
 	mov	r3, #0x10
 	bl	BeginNormalPaletteFade
-	ldr	r0, .L607
+	ldr	r0, .L574
 	mov	r1, #0x0
 	bl	CreateTask
-	ldr	r0, .L607+0x4
+	ldr	r0, .L574+0x4
 	bl	SetVBlankCallback
-	ldr	r0, .L607+0x8
+	ldr	r0, .L574+0x8
 	bl	SetMainCallback2
 	add	sp, sp, #0x4
 	pop	{r0}
 	bx	r0
-.L608:
+.L575:
 	.align	2, 0
-.L607:
+.L574:
 	.word	Task_DexNavFadeAndExit
 	.word	DexNav_VBlankCB
 	.word	DexNav_MainCB
-.Lfe51:
-	.size	 DexNavFadeAndExit,.Lfe51-DexNavFadeAndExit
+.Lfe49:
+	.size	 DexNavFadeAndExit,.Lfe49-DexNavFadeAndExit
 	.align	2, 0
 	.type	 SpeciesInArray,function
 	.thumb_func
 SpeciesInArray:
-	push	{lr}
+	push	{r4, r5, r6, lr}
 	lsl	r0, r0, #0x10
-	lsr	r3, r0, #0x10
+	lsr	r0, r0, #0x10
 	lsl	r1, r1, #0x18
-	lsr	r1, r1, #0x18
-	add	r0, r1, #0
-	cmp	r1, #0x1
-	beq	.L618	@cond_branch
-	cmp	r1, #0x1
-	bgt	.L634	@cond_branch
-	cmp	r1, #0
-	beq	.L611	@cond_branch
-	b	.L610
-.L634:
-	cmp	r0, #0x2
-	beq	.L625	@cond_branch
-	b	.L610
-.L611:
-	mov	r2, #0x0
-	ldr	r0, .L639
+	lsr	r4, r1, #0x18
+	add	r6, r4, #0
+	bl	SpeciesToNationalPokedexNum
+	lsl	r0, r0, #0x10
+	lsr	r5, r0, #0x10
+	cmp	r4, #0x1
+	beq	.L585	@cond_branch
+	cmp	r4, #0x1
+	bgt	.L601	@cond_branch
+	cmp	r4, #0
+	beq	.L578	@cond_branch
+	b	.L577
+.L601:
+	cmp	r6, #0x2
+	beq	.L592	@cond_branch
+	b	.L577
+.L578:
+	mov	r4, #0x0
+.L582:
+	ldr	r0, .L606
 	ldr	r0, [r0]
-	add	r1, r0, #0x6
-.L615:
-	ldrh	r0, [r1]
-	cmp	r0, r3
-	beq	.L638	@cond_branch
-	add	r1, r1, #0x2
-	add	r2, r2, #0x1
-	cmp	r2, #0xb
-	bls	.L615	@cond_branch
-	b	.L610
-.L640:
+	lsl	r1, r4, #0x1
+	add	r0, r0, #0x6
+	add	r0, r0, r1
+	ldrh	r0, [r0]
+	bl	SpeciesToNationalPokedexNum
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	cmp	r0, r5
+	beq	.L605	@cond_branch
+	add	r4, r4, #0x1
+	cmp	r4, #0xb
+	bls	.L582	@cond_branch
+	b	.L577
+.L607:
 	.align	2, 0
-.L639:
+.L606:
 	.word	sDexNavUiDataPtr
-.L618:
-	mov	r2, #0x0
-	ldr	r0, .L641
+.L585:
+	mov	r4, #0x0
+.L589:
+	ldr	r0, .L608
 	ldr	r0, [r0]
-	add	r1, r0, #0
-	add	r1, r1, #0x1e
-.L622:
-	ldrh	r0, [r1]
-	cmp	r0, r3
-	beq	.L637	@cond_branch
-	add	r1, r1, #0x2
-	add	r2, r2, #0x1
-	cmp	r2, #0x4
-	bls	.L622	@cond_branch
-	b	.L610
-.L642:
+	lsl	r1, r4, #0x1
+	add	r0, r0, #0x1e
+	add	r0, r0, r1
+	ldrh	r0, [r0]
+	bl	SpeciesToNationalPokedexNum
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	cmp	r0, r5
+	beq	.L604	@cond_branch
+	add	r4, r4, #0x1
+	cmp	r4, #0x4
+	bls	.L589	@cond_branch
+	b	.L577
+.L609:
 	.align	2, 0
-.L641:
+.L608:
 	.word	sDexNavUiDataPtr
-.L637:
-.L638:
+.L604:
+.L605:
 	mov	r0, #0x1
-	b	.L635
-.L625:
-	mov	r2, #0x0
-	ldr	r0, .L643
+	b	.L602
+.L592:
+	mov	r4, #0x0
+.L596:
+	ldr	r0, .L610
 	ldr	r0, [r0]
-	add	r1, r0, #0
-	add	r1, r1, #0x28
-.L629:
-	ldrh	r0, [r1]
-	cmp	r0, r3
-	beq	.L638	@cond_branch
-	add	r1, r1, #0x2
-	add	r2, r2, #0x1
-	cmp	r2, #0x2
-	bls	.L629	@cond_branch
-.L610:
+	lsl	r1, r4, #0x1
+	add	r0, r0, #0x28
+	add	r0, r0, r1
+	ldrh	r0, [r0]
+	bl	SpeciesToNationalPokedexNum
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	cmp	r0, r5
+	beq	.L605	@cond_branch
+	add	r4, r4, #0x1
+	cmp	r4, #0x2
+	bls	.L596	@cond_branch
+.L577:
 	mov	r0, #0x0
-.L635:
+.L602:
+	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.L644:
+.L611:
 	.align	2, 0
-.L643:
+.L610:
 	.word	sDexNavUiDataPtr
-.Lfe52:
-	.size	 SpeciesInArray,.Lfe52-SpeciesInArray
-	.section .rodata
-	.align	2, 0
-.LC159:
-	.ascii	"%d\000"
-.text
+.Lfe50:
+	.size	 SpeciesInArray,.Lfe50-SpeciesInArray
 	.align	2, 0
 	.type	 DexNavLoadEncounterData,function
 	.thumb_func
@@ -5732,38 +5531,28 @@ DexNavLoadEncounterData:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	add	sp, sp, #-0xc
+	add	sp, sp, #-0x4
 	mov	r0, #0x0
 	mov	r9, r0
+	mov	sl, r0
 	mov	r1, #0x0
 	str	r1, [sp]
-	str	r0, [sp, #0x4]
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	ldr	r2, .L676
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	lsl	r1, r1, #0x2
-	add	r0, r2, #0x4
-	add	r0, r1, r0
+	ldr	r2, .L634
+	lsr	r0, r0, #0xb
+	add	r1, r2, #0x4
+	add	r1, r0, r1
+	ldr	r6, [r1]
+	add	r1, r2, #0
+	add	r1, r1, #0xc
+	add	r1, r0, r1
+	ldr	r7, [r1]
+	add	r2, r2, #0x18
+	add	r0, r0, r2
 	ldr	r0, [r0]
 	mov	r8, r0
-	add	r0, r2, #0
-	add	r0, r0, #0x8
-	add	r0, r1, r0
-	ldr	r7, [r0]
-	add	r0, r2, #0
-	add	r0, r0, #0xc
-	add	r0, r1, r0
-	ldr	r0, [r0]
-	mov	sl, r0
-	add	r0, r2, #0
-	add	r0, r0, #0x18
-	add	r1, r1, r0
-	ldr	r1, [r1]
-	str	r1, [sp, #0x8]
-	ldr	r4, .L676+0x4
+	ldr	r4, .L634+0x4
 	ldr	r0, [r4]
 	add	r0, r0, #0x6
 	mov	r1, #0x0
@@ -5779,33 +5568,25 @@ DexNavLoadEncounterData:
 	mov	r1, #0x0
 	mov	r2, #0x6
 	bl	memset
-	bl	IsCurrentlyDay
-	lsl	r0, r0, #0x18
+	cmp	r6, #0
+	beq	.L613	@cond_branch
+	ldrb	r0, [r6]
 	cmp	r0, #0
-	beq	.L646	@cond_branch
-	mov	r1, r8
-	cmp	r1, #0
-	beq	.L654	@cond_branch
-	mov	r5, #0x0
-.L651:
-	mov	r1, r8
-	ldr	r0, [r1, #0x4]
-	lsl	r6, r5, #0x2
-	add	r0, r6, r0
-	ldrh	r4, [r0, #0x2]
-	mov	r0, #0x4
-	ldr	r1, .L676+0x8
-	add	r2, r4, #0
-	bl	mgba_printf
-	cmp	r4, #0
-	beq	.L650	@cond_branch
-	add	r0, r4, #0
+	beq	.L613	@cond_branch
+	mov	r4, #0x0
+.L617:
+	ldr	r0, [r6, #0x4]
+	lsl	r5, r4, #0x2
+	add	r0, r5, r0
+	ldrh	r0, [r0, #0x2]
+	cmp	r0, #0
+	beq	.L616	@cond_branch
 	mov	r1, #0x0
 	bl	SpeciesInArray
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L650	@cond_branch
-	ldr	r0, .L676+0x4
+	bne	.L616	@cond_branch
+	ldr	r0, .L634+0x4
 	ldr	r2, [r0]
 	mov	r1, r9
 	add	r0, r1, #0x1
@@ -5815,77 +5596,70 @@ DexNavLoadEncounterData:
 	lsl	r1, r1, #0x1
 	add	r2, r2, #0x6
 	add	r2, r2, r1
-	mov	r1, r8
-	ldr	r0, [r1, #0x4]
-	add	r0, r6, r0
+	ldr	r0, [r6, #0x4]
+	add	r0, r5, r0
 	ldrh	r0, [r0, #0x2]
 	strh	r0, [r2]
-.L650:
-	add	r5, r5, #0x1
-	cmp	r5, #0xb
-	bls	.L651	@cond_branch
-	b	.L654
-.L677:
-	.align	2, 0
-.L676:
-	.word	gWildMonHeaders
-	.word	sDexNavUiDataPtr
-	.word	.LC159
-.L646:
+.L616:
+	add	r4, r4, #0x1
+	cmp	r4, #0xb
+	bls	.L617	@cond_branch
+.L613:
 	cmp	r7, #0
-	beq	.L654	@cond_branch
-	mov	r5, #0x0
-.L659:
-	ldr	r0, [r7, #0x4]
-	lsl	r6, r5, #0x2
-	add	r0, r6, r0
-	ldrh	r4, [r0, #0x2]
-	cmp	r4, #0
-	beq	.L658	@cond_branch
-	add	r0, r4, #0
-	mov	r1, #0x0
-	bl	SpeciesInArray
-	lsl	r0, r0, #0x18
+	beq	.L620	@cond_branch
+	ldrb	r0, [r7]
 	cmp	r0, #0
-	bne	.L658	@cond_branch
-	ldr	r0, .L678
-	ldr	r2, [r0]
-	mov	r1, r9
-	add	r0, r1, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	mov	r9, r0
-	lsl	r1, r1, #0x1
-	add	r2, r2, #0x6
-	add	r2, r2, r1
+	beq	.L620	@cond_branch
+	mov	r4, #0x0
+.L624:
 	ldr	r0, [r7, #0x4]
-	add	r0, r6, r0
+	lsl	r5, r4, #0x2
+	add	r0, r5, r0
 	ldrh	r0, [r0, #0x2]
-	strh	r0, [r2]
-.L658:
-	add	r5, r5, #0x1
-	cmp	r5, #0xb
-	bls	.L659	@cond_branch
-.L654:
-	mov	r0, sl
 	cmp	r0, #0
-	beq	.L662	@cond_branch
-	mov	r5, #0x0
-.L666:
-	mov	r1, sl
-	ldr	r0, [r1, #0x4]
-	lsl	r6, r5, #0x2
-	add	r0, r6, r0
-	ldrh	r4, [r0, #0x2]
-	cmp	r4, #0
-	beq	.L665	@cond_branch
-	add	r0, r4, #0
+	beq	.L623	@cond_branch
 	mov	r1, #0x1
 	bl	SpeciesInArray
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L665	@cond_branch
-	ldr	r0, .L678
+	bne	.L623	@cond_branch
+	ldr	r0, .L634+0x4
+	ldr	r2, [r0]
+	mov	r1, sl
+	add	r0, r1, #0x1
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	mov	sl, r0
+	lsl	r1, r1, #0x1
+	add	r2, r2, #0x1e
+	add	r2, r2, r1
+	ldr	r0, [r7, #0x4]
+	add	r0, r5, r0
+	ldrh	r0, [r0, #0x2]
+	strh	r0, [r2]
+.L623:
+	add	r4, r4, #0x1
+	cmp	r4, #0x4
+	bls	.L624	@cond_branch
+.L620:
+	mov	r0, r8
+	cmp	r0, #0
+	beq	.L627	@cond_branch
+	mov	r4, #0x0
+.L631:
+	mov	r1, r8
+	ldr	r0, [r1, #0x4]
+	lsl	r5, r4, #0x2
+	add	r0, r5, r0
+	ldrh	r0, [r0, #0x2]
+	cmp	r0, #0
+	beq	.L630	@cond_branch
+	mov	r1, #0x2
+	bl	SpeciesInArray
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	bne	.L630	@cond_branch
+	ldr	r0, .L634+0x4
 	ldr	r2, [r0]
 	ldr	r1, [sp]
 	add	r0, r1, #0x1
@@ -5893,57 +5667,19 @@ DexNavLoadEncounterData:
 	lsr	r0, r0, #0x18
 	str	r0, [sp]
 	lsl	r1, r1, #0x1
-	add	r2, r2, #0x1e
-	add	r2, r2, r1
-	mov	r1, sl
-	ldr	r0, [r1, #0x4]
-	add	r0, r6, r0
-	ldrh	r0, [r0, #0x2]
-	strh	r0, [r2]
-.L665:
-	add	r5, r5, #0x1
-	cmp	r5, #0x4
-	bls	.L666	@cond_branch
-.L662:
-	ldr	r0, [sp, #0x8]
-	cmp	r0, #0
-	beq	.L669	@cond_branch
-	mov	r5, #0x0
-.L673:
-	ldr	r1, [sp, #0x8]
-	ldr	r0, [r1, #0x4]
-	lsl	r6, r5, #0x2
-	add	r0, r6, r0
-	ldrh	r4, [r0, #0x2]
-	cmp	r4, #0
-	beq	.L672	@cond_branch
-	add	r0, r4, #0
-	mov	r1, #0x2
-	bl	SpeciesInArray
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	bne	.L672	@cond_branch
-	ldr	r0, .L678
-	ldr	r2, [r0]
-	ldr	r1, [sp, #0x4]
-	add	r0, r1, #0x1
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	str	r0, [sp, #0x4]
-	lsl	r1, r1, #0x1
 	add	r2, r2, #0x28
 	add	r2, r2, r1
-	ldr	r1, [sp, #0x8]
+	mov	r1, r8
 	ldr	r0, [r1, #0x4]
-	add	r0, r6, r0
+	add	r0, r5, r0
 	ldrh	r0, [r0, #0x2]
 	strh	r0, [r2]
-.L672:
-	add	r5, r5, #0x1
-	cmp	r5, #0x2
-	bls	.L673	@cond_branch
-.L669:
-	add	sp, sp, #0xc
+.L630:
+	add	r4, r4, #0x1
+	cmp	r4, #0x2
+	bls	.L631	@cond_branch
+.L627:
+	add	sp, sp, #0x4
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -5951,12 +5687,13 @@ DexNavLoadEncounterData:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L679:
+.L635:
 	.align	2, 0
-.L678:
+.L634:
+	.word	gWildMonHeaders
 	.word	sDexNavUiDataPtr
-.Lfe53:
-	.size	 DexNavLoadEncounterData,.Lfe53-DexNavLoadEncounterData
+.Lfe51:
+	.size	 DexNavLoadEncounterData,.Lfe51-DexNavLoadEncounterData
 	.align	2, 0
 	.type	 TryDrawIconInSlot,function
 	.thumb_func
@@ -5981,22 +5718,15 @@ TryDrawIconInSlot:
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
 	mov	sl, r7
-	sub	r0, r4, #0x1
-	lsl	r0, r0, #0x10
-	ldr	r1, .L685
-	cmp	r0, r1
-	bls	.L681	@cond_branch
+	cmp	r4, #0
+	bne	.L637	@cond_branch
 	lsl	r0, r5, #0x10
 	asr	r0, r0, #0x10
 	lsl	r1, r6, #0x10
 	asr	r1, r1, #0x10
 	bl	CreateNoDataIcon
-	b	.L682
-.L686:
-	.align	2, 0
-.L685:
-	.word	0x4b60000
-.L681:
+	b	.L638
+.L637:
 	add	r0, r4, #0
 	bl	SpeciesToNationalPokedexNum
 	lsl	r0, r0, #0x10
@@ -6006,8 +5736,8 @@ TryDrawIconInSlot:
 	lsl	r0, r0, #0x18
 	asr	r4, r0, #0x18
 	cmp	r4, #0
-	bne	.L683	@cond_branch
-	ldr	r1, .L687
+	bne	.L639	@cond_branch
+	ldr	r1, .L641
 	lsl	r2, r5, #0x10
 	asr	r2, r2, #0x10
 	lsl	r3, r6, #0x10
@@ -6020,13 +5750,13 @@ TryDrawIconInSlot:
 	str	r7, [sp, #0xc]
 	mov	r0, #0x0
 	bl	CreateMonIcon
-	b	.L682
-.L688:
+	b	.L638
+.L642:
 	.align	2, 0
-.L687:
+.L641:
 	.word	SpriteCB_MonIcon
-.L683:
-	ldr	r1, .L689
+.L639:
+	ldr	r1, .L643
 	mov	r0, r9
 	lsl	r2, r0, #0x10
 	asr	r2, r2, #0x10
@@ -6043,7 +5773,7 @@ TryDrawIconInSlot:
 	str	r0, [sp, #0xc]
 	ldr	r0, [sp, #0x10]
 	bl	CreateMonIcon
-.L682:
+.L638:
 	add	sp, sp, #0x14
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -6052,26 +5782,25 @@ TryDrawIconInSlot:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L690:
+.L644:
 	.align	2, 0
-.L689:
+.L643:
 	.word	SpriteCB_MonIcon
-.Lfe54:
-	.size	 TryDrawIconInSlot,.Lfe54-TryDrawIconInSlot
+.Lfe52:
+	.size	 TryDrawIconInSlot,.Lfe52-TryDrawIconInSlot
 	.align	2, 0
 	.type	 DrawSpeciesIcons,function
 	.thumb_func
 DrawSpeciesIcons:
 	push	{r4, r5, r6, r7, lr}
-	mov	r7, r9
-	mov	r6, r8
-	push	{r6, r7}
+	mov	r7, r8
+	push	{r7}
 	add	sp, sp, #-0x10
-	ldr	r0, .L713
+	ldr	r0, .L667
 	bl	LoadCompressedSpriteSheetUsingHeap
 	mov	r6, #0x0
-.L695:
-	ldr	r0, .L713+0x4
+.L649:
+	ldr	r0, .L667+0x4
 	ldr	r0, [r0]
 	lsl	r1, r6, #0x1
 	add	r0, r0, #0x6
@@ -6089,21 +5818,21 @@ DrawSpeciesIcons:
 	lsr	r4, r1, #0x10
 	mov	r2, #0x48
 	cmp	r6, #0x5
-	bls	.L696	@cond_branch
+	bls	.L650	@cond_branch
 	mov	r2, #0x64
-.L696:
+.L650:
 	lsl	r1, r4, #0x10
 	asr	r1, r1, #0x10
 	add	r0, r5, #0
 	bl	TryDrawIconInSlot
 	add	r6, r6, #0x1
 	cmp	r6, #0xb
-	bls	.L695	@cond_branch
+	bls	.L649	@cond_branch
 	mov	r6, #0x0
 	mov	r4, #0xf0
 	lsl	r4, r4, #0xd
-.L702:
-	ldr	r0, .L713+0x4
+.L656:
+	ldr	r0, .L667+0x4
 	ldr	r0, [r0]
 	lsl	r1, r6, #0x1
 	add	r0, r0, #0x1e
@@ -6118,15 +5847,13 @@ DrawSpeciesIcons:
 	add	r4, r4, r0
 	add	r6, r6, #0x1
 	cmp	r6, #0x4
-	bls	.L702	@cond_branch
+	bls	.L656	@cond_branch
 	mov	r6, #0x0
-	ldr	r0, .L713+0x8
-	mov	r9, r0
 	mov	r0, #0xd0
 	lsl	r0, r0, #0xe
 	mov	r8, r0
-.L707:
-	ldr	r0, .L713+0x4
+.L661:
+	ldr	r0, .L667+0x4
 	ldr	r0, [r0]
 	lsl	r1, r6, #0x1
 	add	r0, r0, #0x28
@@ -6138,37 +5865,33 @@ DrawSpeciesIcons:
 	lsr	r7, r0, #0x18
 	mov	r0, r8
 	lsr	r4, r0, #0x10
-	ldr	r0, .L713+0xc
+	ldr	r0, .L667+0x8
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	lsr	r1, r0, #0x18
 	cmp	r1, #0
-	beq	.L708	@cond_branch
+	beq	.L662	@cond_branch
 	lsl	r1, r4, #0x10
 	asr	r1, r1, #0x10
 	add	r0, r5, #0
 	mov	r2, #0x8a
 	bl	TryDrawIconInSlot
-	b	.L706
-.L714:
+	b	.L660
+.L668:
 	.align	2, 0
-.L713:
+.L667:
 	.word	sNoDataIconSpriteSheet
 	.word	sDexNavUiDataPtr
-	.word	0x4b6
-	.word	0x88f
-.L708:
-	sub	r0, r5, #0x1
-	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	cmp	r0, r9
-	bls	.L710	@cond_branch
+	.word	0x88e
+.L662:
+	cmp	r5, #0
+	bne	.L664	@cond_branch
 	lsl	r0, r4, #0x10
 	asr	r0, r0, #0x10
 	mov	r1, #0x8a
 	bl	CreateNoDataIcon
-	b	.L706
-.L710:
+	b	.L660
+.L664:
 	lsl	r2, r4, #0x10
 	asr	r2, r2, #0x10
 	str	r1, [sp]
@@ -6178,86 +5901,85 @@ DrawSpeciesIcons:
 	str	r1, [sp, #0x8]
 	str	r7, [sp, #0xc]
 	mov	r0, #0x0
-	ldr	r1, .L715
+	ldr	r1, .L669
 	mov	r3, #0x8a
 	bl	CreateMonIcon
-.L706:
+.L660:
 	mov	r0, #0xc0
 	lsl	r0, r0, #0xd
 	add	r8, r8, r0
 	add	r6, r6, #0x1
 	cmp	r6, #0x2
-	bls	.L707	@cond_branch
+	bls	.L661	@cond_branch
 	add	sp, sp, #0x10
-	pop	{r3, r4}
+	pop	{r3}
 	mov	r8, r3
-	mov	r9, r4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L716:
+.L670:
 	.align	2, 0
-.L715:
+.L669:
 	.word	SpriteCB_MonIcon
-.Lfe55:
-	.size	 DrawSpeciesIcons,.Lfe55-DrawSpeciesIcons
+.Lfe53:
+	.size	 DrawSpeciesIcons,.Lfe53-DrawSpeciesIcons
 	.align	2, 0
 	.type	 DexNavGetSpecies,function
 	.thumb_func
 DexNavGetSpecies:
 	push	{r4, lr}
-	ldr	r4, .L732
+	ldr	r4, .L686
 	ldr	r0, [r4]
 	add	r1, r0, #0
 	add	r1, r1, #0x2e
 	ldrb	r1, [r1]
 	cmp	r1, #0x1
-	beq	.L720	@cond_branch
+	beq	.L674	@cond_branch
 	cmp	r1, #0x1
-	bgt	.L727	@cond_branch
+	bgt	.L681	@cond_branch
 	cmp	r1, #0
-	beq	.L719	@cond_branch
-	b	.L728
-.L733:
+	beq	.L673	@cond_branch
+	b	.L682
+.L687:
 	.align	2, 0
-.L732:
+.L686:
 	.word	sDexNavUiDataPtr
-.L727:
+.L681:
 	cmp	r1, #0x2
-	beq	.L721	@cond_branch
+	beq	.L675	@cond_branch
 	cmp	r1, #0x3
-	beq	.L722	@cond_branch
-	b	.L728
-.L719:
+	beq	.L676	@cond_branch
+	b	.L682
+.L673:
 	add	r1, r0, #0
 	add	r1, r1, #0x2f
 	ldrb	r1, [r1]
 	lsl	r1, r1, #0x1
 	add	r0, r0, #0x1e
-	b	.L730
-.L720:
+	b	.L684
+.L674:
 	add	r1, r0, #0
 	add	r1, r1, #0x2f
 	ldrb	r1, [r1]
-	b	.L731
-.L721:
+	b	.L685
+.L675:
 	add	r1, r0, #0
 	add	r1, r1, #0x2f
 	ldrb	r1, [r1]
 	add	r1, r1, #0x6
-.L731:
+.L685:
 	lsl	r1, r1, #0x1
 	add	r0, r0, #0x6
-.L730:
+.L684:
 	add	r0, r0, r1
 	ldrh	r4, [r0]
-	b	.L718
-.L722:
-	ldr	r0, .L734
+	b	.L672
+.L676:
+	ldr	r0, .L688
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L723	@cond_branch
+	beq	.L677	@cond_branch
 	ldr	r1, [r4]
 	add	r0, r1, #0
 	add	r0, r0, #0x2f
@@ -6266,14 +5988,14 @@ DexNavGetSpecies:
 	add	r1, r1, #0x28
 	add	r1, r1, r0
 	ldrh	r4, [r1]
-	b	.L718
-.L735:
+	b	.L672
+.L689:
 	.align	2, 0
-.L734:
-	.word	0x88f
-.L723:
+.L688:
+	.word	0x88e
+.L677:
 	mov	r4, #0x0
-.L718:
+.L672:
 	add	r0, r4, #0
 	bl	SpeciesToNationalPokedexNum
 	lsl	r0, r0, #0x10
@@ -6282,17 +6004,17 @@ DexNavGetSpecies:
 	bl	GetSetPokedexFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L728	@cond_branch
+	beq	.L682	@cond_branch
 	add	r0, r4, #0
-	b	.L729
-.L728:
+	b	.L683
+.L682:
 	mov	r0, #0x0
-.L729:
+.L683:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.Lfe56:
-	.size	 DexNavGetSpecies,.Lfe56-DexNavGetSpecies
+.Lfe54:
+	.size	 DexNavGetSpecies,.Lfe54-DexNavGetSpecies
 	.align	2, 0
 	.type	 SetSpriteInvisibility,function
 	.thumb_func
@@ -6301,8 +6023,8 @@ SetSpriteInvisibility:
 	lsr	r0, r0, #0x18
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
-	ldr	r3, .L737
-	ldr	r2, .L737+0x4
+	ldr	r3, .L691
+	ldr	r2, .L691+0x4
 	ldr	r2, [r2]
 	add	r2, r2, #0x32
 	add	r2, r2, r0
@@ -6322,13 +6044,13 @@ SetSpriteInvisibility:
 	orr	r0, r0, r1
 	strb	r0, [r2]
 	bx	lr
-.L738:
+.L692:
 	.align	2, 0
-.L737:
+.L691:
 	.word	gSprites
 	.word	sDexNavUiDataPtr
-.Lfe57:
-	.size	 SetSpriteInvisibility,.Lfe57-SetSpriteInvisibility
+.Lfe55:
+	.size	 SetSpriteInvisibility,.Lfe55-SetSpriteInvisibility
 	.section .rodata
 	.type	 sMoveTypeToOamPaletteNum,object
 	.size	 sMoveTypeToOamPaletteNum,19
@@ -6374,7 +6096,7 @@ SetTypeIconPosAndPal:
 	mov	r8, r0
 	lsl	r3, r3, #0x18
 	lsr	r3, r3, #0x18
-	ldr	r0, .L740
+	ldr	r0, .L694
 	ldr	r0, [r0]
 	add	r0, r0, #0x32
 	add	r0, r0, r3
@@ -6382,13 +6104,13 @@ SetTypeIconPosAndPal:
 	lsl	r4, r0, #0x4
 	add	r4, r4, r0
 	lsl	r4, r4, #0x2
-	ldr	r0, .L740+0x4
+	ldr	r0, .L694+0x4
 	add	r4, r4, r0
 	add	r0, r4, #0
 	add	r1, r5, #0
 	str	r3, [sp]
 	bl	StartSpriteAnim
-	ldr	r0, .L740+0x8
+	ldr	r0, .L694+0x8
 	add	r5, r5, r0
 	ldrb	r1, [r5]
 	lsl	r1, r1, #0x4
@@ -6413,14 +6135,14 @@ SetTypeIconPosAndPal:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L741:
+.L695:
 	.align	2, 0
-.L740:
+.L694:
 	.word	sDexNavUiDataPtr
 	.word	gSprites
 	.word	sMoveTypeToOamPaletteNum
-.Lfe58:
-	.size	 SetTypeIconPosAndPal,.Lfe58-SetTypeIconPosAndPal
+.Lfe56:
+	.size	 SetTypeIconPosAndPal,.Lfe56-SetTypeIconPosAndPal
 	.align	2, 0
 	.type	 PrintCurrentSpeciesInfo,function
 	.thumb_func
@@ -6442,37 +6164,37 @@ PrintCurrentSpeciesInfo:
 	bl	GetSetPokedexFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L743	@cond_branch
+	bne	.L697	@cond_branch
 	mov	r5, #0x0
-.L743:
+.L697:
 	mov	r0, #0x0
 	mov	r1, #0x0
 	bl	FillWindowPixelBuffer
 	cmp	r5, #0
-	bne	.L744	@cond_branch
-	ldr	r0, .L762
+	bne	.L698	@cond_branch
+	ldr	r0, .L716
 	str	r0, [sp]
 	str	r5, [sp, #0x4]
-	ldr	r0, .L762+0x4
+	ldr	r0, .L716+0x4
 	str	r0, [sp, #0x8]
 	mov	r0, #0x0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x5
 	bl	AddTextPrinterParameterized3
-	b	.L745
-.L763:
+	b	.L699
+.L717:
 	.align	2, 0
-.L762:
+.L716:
 	.word	sFontColor_Black
 	.word	sText_DexNav_NoInfo
-.L744:
-	ldr	r0, .L764
+.L698:
+	ldr	r0, .L718
 	str	r0, [sp]
 	str	r4, [sp, #0x4]
 	mov	r0, #0xb
 	mul	r0, r0, r5
-	ldr	r1, .L764+0x4
+	ldr	r1, .L718+0x4
 	add	r0, r0, r1
 	str	r0, [sp, #0x8]
 	mov	r0, #0x0
@@ -6480,8 +6202,8 @@ PrintCurrentSpeciesInfo:
 	mov	r2, #0x0
 	mov	r3, #0x5
 	bl	AddTextPrinterParameterized3
-.L745:
-	ldr	r0, .L764+0x8
+.L699:
+	ldr	r0, .L718+0x8
 	lsl	r2, r5, #0x3
 	add	r1, r2, r5
 	lsl	r1, r1, #0x2
@@ -6490,12 +6212,12 @@ PrintCurrentSpeciesInfo:
 	ldrb	r4, [r1, #0x7]
 	mov	r8, r2
 	cmp	r5, #0
-	bne	.L746	@cond_branch
+	bne	.L700	@cond_branch
 	mov	r4, #0x9
 	mov	r0, #0x9
-.L746:
+.L700:
 	cmp	r0, r4
-	bne	.L747	@cond_branch
+	bne	.L701	@cond_branch
 	add	r0, r4, #0
 	mov	r1, #0xba
 	mov	r2, #0x45
@@ -6504,14 +6226,14 @@ PrintCurrentSpeciesInfo:
 	mov	r0, #0x1
 	mov	r1, #0x1
 	bl	SetSpriteInvisibility
-	b	.L748
-.L765:
+	b	.L702
+.L719:
 	.align	2, 0
-.L764:
+.L718:
 	.word	sFontColor_Black
 	.word	gSpeciesNames
 	.word	gBaseStats
-.L747:
+.L701:
 	mov	r1, #0xa8
 	mov	r2, #0x45
 	mov	r3, #0x0
@@ -6521,30 +6243,30 @@ PrintCurrentSpeciesInfo:
 	mov	r2, #0x45
 	mov	r3, #0x1
 	bl	SetTypeIconPosAndPal
-.L748:
+.L702:
 	cmp	r5, #0
-	bne	.L749	@cond_branch
-	ldr	r0, .L766
+	bne	.L703	@cond_branch
+	ldr	r0, .L720
 	str	r0, [sp]
 	str	r5, [sp, #0x4]
-	ldr	r0, .L766+0x4
+	ldr	r0, .L720+0x4
 	str	r0, [sp, #0x8]
 	mov	r0, #0x0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x35
 	bl	AddTextPrinterParameterized3
-	b	.L750
-.L767:
+	b	.L704
+.L721:
 	.align	2, 0
-.L766:
+.L720:
 	.word	sFontColor_Black
 	.word	sText_DexNav_NoInfo
-.L749:
-	ldr	r4, .L768
-	ldr	r0, .L768+0x4
+.L703:
+	ldr	r4, .L722
+	ldr	r0, .L722+0x4
 	ldr	r0, [r0]
-	ldr	r1, .L768+0x8
+	ldr	r1, .L722+0x8
 	add	r0, r0, r1
 	add	r0, r0, r7
 	ldrb	r1, [r0]
@@ -6552,7 +6274,7 @@ PrintCurrentSpeciesInfo:
 	mov	r2, #0x0
 	mov	r3, #0x4
 	bl	ConvertIntToDecimalStringN
-	ldr	r0, .L768+0xc
+	ldr	r0, .L722+0xc
 	str	r0, [sp]
 	mov	r0, #0x0
 	str	r0, [sp, #0x4]
@@ -6561,47 +6283,47 @@ PrintCurrentSpeciesInfo:
 	mov	r2, #0x0
 	mov	r3, #0x35
 	bl	AddTextPrinterParameterized3
-.L750:
-	ldr	r0, .L768+0x4
+.L704:
+	ldr	r0, .L722+0x4
 	ldr	r0, [r0]
-	ldr	r2, .L768+0x8
+	ldr	r2, .L722+0x8
 	add	r0, r0, r2
 	add	r0, r0, r7
 	ldrb	r0, [r0]
 	lsr	r4, r0, #0x2
 	cmp	r4, #0x14
-	bls	.L751	@cond_branch
+	bls	.L705	@cond_branch
 	mov	r4, #0x14
-.L751:
-	ldr	r6, .L768
+.L705:
+	ldr	r6, .L722
 	add	r0, r6, #0
 	add	r1, r4, #0
 	mov	r2, #0x0
 	mov	r3, #0x4
 	bl	ConvertIntToDecimalStringN
 	cmp	r5, #0
-	bne	.L753	@cond_branch
-	ldr	r0, .L768+0xc
+	bne	.L707	@cond_branch
+	ldr	r0, .L722+0xc
 	str	r0, [sp]
 	str	r5, [sp, #0x4]
-	ldr	r0, .L768+0x10
+	ldr	r0, .L722+0x10
 	str	r0, [sp, #0x8]
 	mov	r0, #0x0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x4d
 	bl	AddTextPrinterParameterized3
-	b	.L754
-.L769:
+	b	.L708
+.L723:
 	.align	2, 0
-.L768:
+.L722:
 	.word	gStringVar4
 	.word	gSaveBlock1Ptr
 	.word	0x3164
 	.word	sFontColor_Black
 	.word	sText_DexNav_NoInfo
-.L753:
-	ldr	r0, .L770
+.L707:
+	ldr	r0, .L724
 	str	r0, [sp]
 	mov	r0, #0x0
 	str	r0, [sp, #0x4]
@@ -6610,80 +6332,80 @@ PrintCurrentSpeciesInfo:
 	mov	r2, #0x0
 	mov	r3, #0x4d
 	bl	AddTextPrinterParameterized3
-.L754:
+.L708:
 	cmp	r5, #0
-	bne	.L755	@cond_branch
-	ldr	r0, .L770
+	bne	.L709	@cond_branch
+	ldr	r0, .L724
 	str	r0, [sp]
 	str	r5, [sp, #0x4]
-	ldr	r0, .L770+0x4
-	b	.L761
-.L771:
+	ldr	r0, .L724+0x4
+	b	.L715
+.L725:
 	.align	2, 0
-.L770:
+.L724:
 	.word	sFontColor_Black
 	.word	sText_DexNav_NoInfo
-.L755:
+.L709:
 	add	r0, r7, #0
 	mov	r1, #0x1
 	bl	GetSetPokedexFlag
 	lsl	r0, r0, #0x18
 	asr	r1, r0, #0x18
 	cmp	r1, #0
-	beq	.L757	@cond_branch
-	ldr	r1, .L772
+	beq	.L711	@cond_branch
+	ldr	r1, .L726
 	mov	r2, r8
 	add	r0, r2, r5
 	lsl	r0, r0, #0x2
 	add	r2, r0, r1
 	ldrh	r1, [r2, #0x1c]
 	cmp	r1, #0
-	beq	.L758	@cond_branch
-	ldr	r0, .L772+0x4
+	beq	.L712	@cond_branch
+	ldr	r0, .L726+0x4
 	str	r0, [sp]
 	mov	r0, #0x0
 	str	r0, [sp, #0x4]
 	mov	r0, #0xd
 	mul	r0, r0, r1
-	ldr	r1, .L772+0x8
+	ldr	r1, .L726+0x8
 	add	r0, r0, r1
-	b	.L761
-.L773:
+	b	.L715
+.L727:
 	.align	2, 0
-.L772:
+.L726:
 	.word	gBaseStats
 	.word	sFontColor_Black
 	.word	gAbilityNames
-.L758:
-	ldr	r0, .L774
+.L712:
+	ldr	r0, .L728
 	str	r0, [sp]
 	str	r1, [sp, #0x4]
-	ldr	r0, .L774+0x4
-.L761:
+	ldr	r0, .L728+0x4
+.L715:
 	str	r0, [sp, #0x8]
 	mov	r0, #0x0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x65
 	bl	AddTextPrinterParameterized3
-	b	.L756
-.L775:
+	b	.L710
+.L729:
 	.align	2, 0
-.L774:
+.L728:
 	.word	sFontColor_Black
 	.word	gText_None
-.L757:
-	ldr	r0, .L776
+.L711:
+	ldr	r0, .L730
 	str	r0, [sp]
 	str	r1, [sp, #0x4]
-	ldr	r0, .L776+0x4
+	ldr	r0, .L730+0x4
 	str	r0, [sp, #0x8]
 	mov	r0, #0x0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x65
 	bl	AddTextPrinterParameterized3
-.L756:
+.L710:
 	mov	r0, #0x0
 	mov	r1, #0x3
 	bl	CopyWindowToVram
@@ -6695,20 +6417,20 @@ PrintCurrentSpeciesInfo:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L777:
+.L731:
 	.align	2, 0
-.L776:
+.L730:
 	.word	sFontColor_Black
 	.word	sText_DexNav_CaptureToSee
-.Lfe59:
-	.size	 PrintCurrentSpeciesInfo,.Lfe59-PrintCurrentSpeciesInfo
+.Lfe57:
+	.size	 PrintCurrentSpeciesInfo,.Lfe57-PrintCurrentSpeciesInfo
 	.align	2, 0
 	.type	 PrintMapName,function
 	.thumb_func
 PrintMapName:
 	push	{r4, lr}
 	add	sp, sp, #-0xc
-	ldr	r4, .L779
+	ldr	r4, .L733
 	bl	GetCurrentRegionMapSectionId
 	add	r1, r0, #0
 	lsl	r1, r1, #0x18
@@ -6729,7 +6451,7 @@ PrintMapName:
 	add	r2, r2, #0x6c
 	lsl	r2, r2, #0x18
 	lsr	r2, r2, #0x18
-	ldr	r0, .L779+0x4
+	ldr	r0, .L733+0x4
 	str	r0, [sp]
 	mov	r0, #0x0
 	str	r0, [sp, #0x4]
@@ -6745,13 +6467,13 @@ PrintMapName:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L780:
+.L734:
 	.align	2, 0
-.L779:
+.L733:
 	.word	gStringVar3
 	.word	sFontColor_White
-.Lfe60:
-	.size	 PrintMapName,.Lfe60-PrintMapName
+.Lfe58:
+	.size	 PrintMapName,.Lfe58-PrintMapName
 	.align	2, 0
 	.type	 PrintSearchableSpecies,function
 	.thumb_func
@@ -6766,37 +6488,37 @@ PrintSearchableSpecies:
 	mov	r0, #0x1
 	bl	PutWindowTilemap
 	cmp	r4, #0
-	bne	.L782	@cond_branch
-	ldr	r0, .L784
+	bne	.L736	@cond_branch
+	ldr	r0, .L738
 	str	r0, [sp]
 	mov	r0, #0x1
 	neg	r0, r0
 	str	r0, [sp, #0x4]
-	ldr	r0, .L784+0x4
+	ldr	r0, .L738+0x4
 	str	r0, [sp, #0x8]
 	mov	r0, #0x1
 	mov	r1, #0x1
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	AddTextPrinterParameterized3
-	b	.L783
-.L785:
+	b	.L737
+.L739:
 	.align	2, 0
-.L784:
+.L738:
 	.word	sFontColor_White
 	.word	sText_DexNav_PressRToRegister
-.L782:
-	ldr	r0, .L786
+.L736:
+	ldr	r0, .L740
 	mov	r1, #0xb
 	mul	r1, r1, r4
-	ldr	r2, .L786+0x4
+	ldr	r2, .L740+0x4
 	add	r1, r1, r2
 	bl	StringCopy
-	ldr	r4, .L786+0x8
-	ldr	r1, .L786+0xc
+	ldr	r4, .L740+0x8
+	ldr	r1, .L740+0xc
 	add	r0, r4, #0
 	bl	StringExpandPlaceholders
-	ldr	r0, .L786+0x10
+	ldr	r0, .L740+0x10
 	str	r0, [sp]
 	mov	r0, #0x1
 	neg	r0, r0
@@ -6807,44 +6529,44 @@ PrintSearchableSpecies:
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	AddTextPrinterParameterized3
-.L783:
+.L737:
 	bl	PrintMapName
 	add	sp, sp, #0xc
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L787:
+.L741:
 	.align	2, 0
-.L786:
+.L740:
 	.word	gStringVar1
 	.word	gSpeciesNames
 	.word	gStringVar4
 	.word	sText_DexNav_SearchForRegisteredSpecies
 	.word	sFontColor_White
-.Lfe61:
-	.size	 PrintSearchableSpecies,.Lfe61-PrintSearchableSpecies
+.Lfe59:
+	.size	 PrintSearchableSpecies,.Lfe59-PrintSearchableSpecies
 	.align	2, 0
 	.type	 CreateTypeIconSprites,function
 	.thumb_func
 CreateTypeIconSprites:
 	push	{r4, r5, lr}
-	ldr	r0, .L795
+	ldr	r0, .L749
 	bl	LoadCompressedSpriteSheet
-	ldr	r0, .L795+0x4
+	ldr	r0, .L749+0x4
 	mov	r1, #0xe8
 	lsl	r1, r1, #0x1
 	mov	r2, #0x60
 	bl	LoadCompressedPalette
 	mov	r4, #0x0
-	ldr	r5, .L795+0x8
-.L792:
+	ldr	r5, .L749+0x8
+.L746:
 	ldr	r0, [r5]
 	add	r0, r0, #0x32
 	add	r0, r0, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0xff
-	bne	.L793	@cond_branch
-	ldr	r0, .L795+0xc
+	bne	.L747	@cond_branch
+	ldr	r0, .L749+0xc
 	mov	r1, #0xa
 	mov	r2, #0xa
 	mov	r3, #0x2
@@ -6853,7 +6575,7 @@ CreateTypeIconSprites:
 	add	r1, r1, #0x32
 	add	r1, r1, r4
 	strb	r0, [r1]
-.L793:
+.L747:
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	SetSpriteInvisibility
@@ -6861,105 +6583,105 @@ CreateTypeIconSprites:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	cmp	r4, #0x1
-	bls	.L792	@cond_branch
+	bls	.L746	@cond_branch
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L796:
+.L750:
 	.align	2, 0
-.L795:
+.L749:
 	.word	gSpriteSheet_MoveTypes
 	.word	gMoveTypes_Pal
 	.word	sDexNavUiDataPtr
 	.word	gSpriteTemplate_MoveTypes
-.Lfe62:
-	.size	 CreateTypeIconSprites,.Lfe62-CreateTypeIconSprites
+.Lfe60:
+	.size	 CreateTypeIconSprites,.Lfe60-CreateTypeIconSprites
 	.align	2, 0
 	.type	 DexNav_DoGfxSetup,function
 	.thumb_func
 DexNav_DoGfxSetup:
 	push	{lr}
 	add	sp, sp, #-0x4
-	ldr	r0, .L819
+	ldr	r0, .L773
 	mov	r1, #0x87
 	lsl	r1, r1, #0x3
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0xc
-	bls	.LCB6905
-	b	.L815	@long jump
-.LCB6905:
+	bls	.LCB6570
+	b	.L769	@long jump
+.LCB6570:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L819+0x4
+	ldr	r1, .L773+0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L820:
+.L774:
 	.align	2, 0
-.L819:
+.L773:
 	.word	gMain
-	.word	.L816
+	.word	.L770
 	.align	2, 0
 	.align	2, 0
-.L816:
-	.word	.L799
-	.word	.L800
-	.word	.L801
-	.word	.L802
-	.word	.L803
-	.word	.L806
-	.word	.L808
-	.word	.L809
-	.word	.L810
-	.word	.L811
-	.word	.L812
-	.word	.L813
-	.word	.L814
-.L799:
+.L770:
+	.word	.L753
+	.word	.L754
+	.word	.L755
+	.word	.L756
+	.word	.L757
+	.word	.L760
+	.word	.L762
+	.word	.L763
+	.word	.L764
+	.word	.L765
+	.word	.L766
+	.word	.L767
+	.word	.L768
+.L753:
 	bl	SetVBlankHBlankCallbacksToNull
 	bl	ClearScheduledBgCopiesToVram
-	b	.L818
-.L800:
+	b	.L772
+.L754:
 	bl	ScanlineEffect_Stop
-	b	.L818
-.L801:
+	b	.L772
+.L755:
 	bl	FreeAllSpritePalettes
-	b	.L818
-.L802:
+	b	.L772
+.L756:
 	bl	ResetPaletteFade
 	bl	ResetSpriteData
 	bl	ResetTasks
-	b	.L818
-.L803:
+	b	.L772
+.L757:
 	bl	DexNav_InitBgs
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L804	@cond_branch
-	ldr	r0, .L821
+	beq	.L758	@cond_branch
+	ldr	r0, .L775
 	ldr	r1, [r0]
 	mov	r0, #0x0
 	strb	r0, [r1, #0x4]
-	b	.L818
-.L822:
+	b	.L772
+.L776:
 	.align	2, 0
-.L821:
+.L775:
 	.word	sDexNavUiDataPtr
-.L804:
+.L758:
 	bl	DexNavFadeAndExit
 	mov	r0, #0x1
-	b	.L817
-.L806:
+	b	.L771
+.L760:
 	bl	DexNav_LoadGraphics
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB6980
-	b	.L798	@long jump
-.LCB6980:
-	b	.L818
-.L808:
+	beq	.LCB6645
+	b	.L752	@long jump
+.LCB6645:
+	b	.L772
+.L762:
 	bl	DexNav_InitWindows
-	ldr	r2, .L823
+	ldr	r2, .L777
 	ldr	r0, [r2]
 	add	r0, r0, #0x2e
 	mov	r3, #0x0
@@ -6971,52 +6693,52 @@ DexNav_DoGfxSetup:
 	ldr	r0, [r2]
 	add	r0, r0, #0x30
 	strb	r3, [r0]
-	b	.L818
-.L824:
+	b	.L772
+.L778:
 	.align	2, 0
-.L823:
+.L777:
 	.word	sDexNavUiDataPtr
-.L809:
-	ldr	r0, .L825
+.L763:
+	ldr	r0, .L779
 	bl	VarGet
 	add	r1, r0, #0
-	ldr	r0, .L825+0x4
+	ldr	r0, .L779+0x4
 	and	r0, r0, r1
 	bl	PrintSearchableSpecies
 	bl	DexNavLoadEncounterData
-	b	.L818
-.L826:
+	b	.L772
+.L780:
 	.align	2, 0
-.L825:
+.L779:
 	.word	0x40f7
 	.word	0x3fff
-.L810:
-	ldr	r0, .L827
+.L764:
+	ldr	r0, .L781
 	mov	r1, #0x0
 	bl	CreateTask
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L827+0x4
+	ldr	r2, .L781+0x4
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r1, r1, #0x3
 	add	r1, r1, r2
 	mov	r0, #0x0
 	strh	r0, [r1, #0xc]
-	ldr	r0, .L827+0x8
+	ldr	r0, .L781+0x8
 	ldr	r0, [r0]
 	add	r0, r0, #0x30
 	ldrb	r0, [r0]
 	strh	r0, [r1, #0xe]
-	b	.L818
-.L828:
+	b	.L772
+.L782:
 	.align	2, 0
-.L827:
+.L781:
 	.word	Task_DexNavWaitFadeIn
 	.word	gTasks
 	.word	sDexNavUiDataPtr
-.L811:
-	ldr	r2, .L829
+.L765:
+	ldr	r2, .L783
 	ldr	r0, [r2]
 	add	r0, r0, #0x32
 	mov	r1, #0xff
@@ -7027,25 +6749,25 @@ DexNav_DoGfxSetup:
 	neg	r1, r1
 	strb	r1, [r0]
 	bl	CreateTypeIconSprites
-	b	.L818
-.L830:
+	b	.L772
+.L784:
 	.align	2, 0
-.L829:
+.L783:
 	.word	sDexNavUiDataPtr
-.L812:
+.L766:
 	bl	LoadMonIconPalettes
 	bl	DrawSpeciesIcons
 	bl	CreateSelectionCursor
 	bl	DexNavLoadCapturedAllSymbols
-	b	.L818
-.L813:
+	b	.L772
+.L767:
 	mov	r0, #0x1
 	neg	r0, r0
 	mov	r1, #0x10
 	mov	r2, #0x0
 	bl	BlendPalettes
-	b	.L818
-.L814:
+	b	.L772
+.L768:
 	mov	r0, #0x1
 	neg	r0, r0
 	mov	r1, #0x0
@@ -7053,90 +6775,90 @@ DexNav_DoGfxSetup:
 	mov	r2, #0x10
 	mov	r3, #0x0
 	bl	BeginNormalPaletteFade
-.L818:
-	ldr	r1, .L831
+.L772:
+	ldr	r1, .L785
 	mov	r0, #0x87
 	lsl	r0, r0, #0x3
 	add	r1, r1, r0
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
 	strb	r0, [r1]
-	b	.L798
-.L832:
+	b	.L752
+.L786:
 	.align	2, 0
-.L831:
+.L785:
 	.word	gMain
-.L815:
-	ldr	r0, .L833
+.L769:
+	ldr	r0, .L787
 	bl	SetVBlankCallback
-	ldr	r0, .L833+0x4
+	ldr	r0, .L787+0x4
 	bl	SetMainCallback2
 	mov	r0, #0x1
-	b	.L817
-.L834:
+	b	.L771
+.L788:
 	.align	2, 0
-.L833:
+.L787:
 	.word	DexNav_VBlankCB
 	.word	DexNav_MainCB
-.L798:
+.L752:
 	mov	r0, #0x0
-.L817:
+.L771:
 	add	sp, sp, #0x4
 	pop	{r1}
 	bx	r1
-.Lfe63:
-	.size	 DexNav_DoGfxSetup,.Lfe63-DexNav_DoGfxSetup
+.Lfe61:
+	.size	 DexNav_DoGfxSetup,.Lfe61-DexNav_DoGfxSetup
 	.align	2, 0
 	.type	 DexNav_RunSetup,function
 	.thumb_func
 DexNav_RunSetup:
 	push	{lr}
-.L836:
+.L790:
 	bl	DexNav_DoGfxSetup
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L836	@cond_branch
+	beq	.L790	@cond_branch
 	pop	{r0}
 	bx	r0
-.Lfe64:
-	.size	 DexNav_RunSetup,.Lfe64-DexNav_RunSetup
+.Lfe62:
+	.size	 DexNav_RunSetup,.Lfe62-DexNav_RunSetup
 	.align	2, 0
 	.type	 DexNavGuiInit,function
 	.thumb_func
 DexNavGuiInit:
 	push	{r4, r5, lr}
 	add	r4, r0, #0
-	ldr	r5, .L842
+	ldr	r5, .L796
 	mov	r0, #0x38
 	bl	AllocZeroed
 	add	r1, r0, #0
 	str	r1, [r5]
 	cmp	r1, #0
-	bne	.L841	@cond_branch
+	bne	.L795	@cond_branch
 	add	r0, r4, #0
 	bl	SetMainCallback2
-	b	.L840
-.L843:
+	b	.L794
+.L797:
 	.align	2, 0
-.L842:
+.L796:
 	.word	sDexNavUiDataPtr
-.L841:
+.L795:
 	mov	r0, #0x0
 	strb	r0, [r1, #0x4]
 	ldr	r0, [r5]
 	str	r4, [r0]
-	ldr	r0, .L844
+	ldr	r0, .L798
 	bl	SetMainCallback2
-.L840:
+.L794:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L845:
+.L799:
 	.align	2, 0
-.L844:
+.L798:
 	.word	DexNav_RunSetup
-.Lfe65:
-	.size	 DexNavGuiInit,.Lfe65-DexNavGuiInit
+.Lfe63:
+	.size	 DexNavGuiInit,.Lfe63-DexNavGuiInit
 	.align	2, 0
 	.globl	Task_OpenDexNavFromStartMenu
 	.type	 Task_OpenDexNavFromStartMenu,function
@@ -7145,28 +6867,28 @@ Task_OpenDexNavFromStartMenu:
 	push	{r4, lr}
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
-	ldr	r0, .L848
+	ldr	r0, .L802
 	ldrb	r1, [r0, #0x7]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L847	@cond_branch
+	bne	.L801	@cond_branch
 	bl	CleanupOverworldWindowsAndTilemaps
-	ldr	r0, .L848+0x4
+	ldr	r0, .L802+0x4
 	bl	DexNavGuiInit
 	add	r0, r4, #0
 	bl	DestroyTask
-.L847:
+.L801:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L849:
+.L803:
 	.align	2, 0
-.L848:
+.L802:
 	.word	gPaletteFade
 	.word	CB2_ReturnToFieldWithOpenMenu
-.Lfe66:
-	.size	 Task_OpenDexNavFromStartMenu,.Lfe66-Task_OpenDexNavFromStartMenu
+.Lfe64:
+	.size	 Task_OpenDexNavFromStartMenu,.Lfe64-Task_OpenDexNavFromStartMenu
 	.align	2, 0
 	.type	 Task_DexNavWaitFadeIn,function
 	.thumb_func
@@ -7174,30 +6896,30 @@ Task_DexNavWaitFadeIn:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r2, r0, #0x18
-	ldr	r0, .L852
+	ldr	r0, .L806
 	ldrb	r1, [r0, #0x7]
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L851	@cond_branch
-	ldr	r0, .L852+0x4
+	bne	.L805	@cond_branch
+	ldr	r0, .L806+0x4
 	lsl	r1, r2, #0x2
 	add	r1, r1, r2
 	lsl	r1, r1, #0x3
 	add	r1, r1, r0
-	ldr	r0, .L852+0x8
+	ldr	r0, .L806+0x8
 	str	r0, [r1]
-.L851:
+.L805:
 	pop	{r0}
 	bx	r0
-.L853:
+.L807:
 	.align	2, 0
-.L852:
+.L806:
 	.word	gPaletteFade
 	.word	gTasks
 	.word	Task_DexNavMain
-.Lfe67:
-	.size	 Task_DexNavWaitFadeIn,.Lfe67-Task_DexNavWaitFadeIn
+.Lfe65:
+	.size	 Task_DexNavWaitFadeIn,.Lfe65-Task_DexNavWaitFadeIn
 	.align	2, 0
 	.type	 Task_DexNavMain,function
 	.thumb_func
@@ -7209,22 +6931,22 @@ Task_DexNavMain:
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r1, r1, #0x3
-	ldr	r0, .L909
+	ldr	r0, .L863
 	add	r7, r1, r0
 	bl	IsSEPlaying
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	cmp	r4, #0
-	beq	.LCB7315
-	b	.L854	@long jump
-.LCB7315:
-	ldr	r0, .L909+0x4
+	beq	.LCB6980
+	b	.L808	@long jump
+.LCB6980:
+	ldr	r0, .L863+0x4
 	ldrh	r1, [r0, #0x2e]
 	mov	r6, #0x2
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L856	@cond_branch
+	beq	.L810	@cond_branch
 	mov	r0, #0x6f
 	bl	PlaySE
 	mov	r0, #0x1
@@ -7234,28 +6956,28 @@ Task_DexNavMain:
 	mov	r2, #0x0
 	mov	r3, #0x10
 	bl	BeginNormalPaletteFade
-	ldr	r0, .L909+0x8
-	b	.L902
-.L910:
+	ldr	r0, .L863+0x8
+	b	.L856
+.L864:
 	.align	2, 0
-.L909:
+.L863:
 	.word	gTasks
 	.word	gMain
 	.word	Task_DexNavFadeAndExit
-.L856:
+.L810:
 	mov	r0, #0x40
 	and	r0, r0, r1
 	lsl	r0, r0, #0x10
 	lsr	r5, r0, #0x10
 	cmp	r5, #0
-	beq	.L858	@cond_branch
-	ldr	r3, .L911
+	beq	.L812	@cond_branch
+	ldr	r3, .L865
 	ldr	r2, [r3]
 	add	r1, r2, #0
 	add	r1, r1, #0x2e
 	ldrb	r0, [r1]
 	cmp	r0, #0
-	bne	.L859	@cond_branch
+	bne	.L813	@cond_branch
 	mov	r0, #0x3
 	strb	r0, [r1]
 	ldr	r0, [r3]
@@ -7263,173 +6985,171 @@ Task_DexNavMain:
 	add	r1, r1, #0x2f
 	ldrb	r0, [r1]
 	cmp	r0, #0x2
-	bls	.L881	@cond_branch
-.L908:
+	bls	.L835	@cond_branch
+.L862:
 	strb	r6, [r1]
-	b	.L881
-.L912:
+	b	.L835
+.L866:
 	.align	2, 0
-.L911:
+.L865:
 	.word	sDexNavUiDataPtr
-.L859:
+.L813:
 	ldrh	r1, [r2, #0x2e]
-	ldr	r0, .L913
+	ldr	r0, .L867
 	cmp	r1, r0
-	bne	.L862	@cond_branch
+	bne	.L816	@cond_branch
 	add	r1, r2, #0
 	add	r1, r1, #0x2f
 	mov	r0, #0x4
 	strb	r0, [r1]
-.L862:
+.L816:
 	ldr	r1, [r3]
 	add	r1, r1, #0x2e
 	ldrb	r0, [r1]
 	sub	r0, r0, #0x1
-	b	.L907
-.L914:
+	b	.L861
+.L868:
 	.align	2, 0
-.L913:
+.L867:
 	.word	0x501
-.L858:
+.L812:
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L864	@cond_branch
-	ldr	r1, .L915
+	beq	.L818	@cond_branch
+	ldr	r1, .L869
 	ldr	r4, [r1]
 	add	r3, r4, #0
 	add	r3, r3, #0x2e
 	ldrb	r0, [r3]
 	add	r2, r0, #0
 	cmp	r2, #0x3
-	bne	.L865	@cond_branch
+	bne	.L819	@cond_branch
 	strb	r5, [r3]
-	b	.L881
-.L916:
+	b	.L835
+.L870:
 	.align	2, 0
-.L915:
+.L869:
 	.word	sDexNavUiDataPtr
-.L865:
+.L819:
 	cmp	r2, #0x2
-	bne	.L867	@cond_branch
+	bne	.L821	@cond_branch
 	add	r2, r4, #0
 	add	r2, r2, #0x2f
 	ldrb	r0, [r2]
 	cmp	r0, #0x2
-	bls	.L868	@cond_branch
+	bls	.L822	@cond_branch
 	strb	r6, [r2]
-.L868:
+.L822:
 	ldr	r1, [r1]
 	add	r1, r1, #0x2e
 	ldrb	r0, [r1]
-	b	.L889
-.L867:
+	b	.L843
+.L821:
 	add	r0, r0, #0x1
 	strb	r0, [r3]
-	b	.L881
-.L864:
+	b	.L835
+.L818:
 	mov	r0, #0x20
 	and	r0, r0, r1
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	cmp	r2, #0
-	beq	.L871	@cond_branch
-	ldr	r0, .L917
+	beq	.L825	@cond_branch
+	ldr	r0, .L871
 	ldr	r2, [r0]
 	add	r1, r2, #0
 	add	r1, r1, #0x2f
 	ldrb	r0, [r1]
 	cmp	r0, #0
-	bne	.L872	@cond_branch
+	bne	.L826	@cond_branch
 	add	r0, r2, #0
 	add	r0, r0, #0x2e
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L874	@cond_branch
+	beq	.L828	@cond_branch
 	cmp	r0, #0x3
-	beq	.L908	@cond_branch
+	beq	.L862	@cond_branch
 	mov	r0, #0x5
-	b	.L907
-.L918:
-	.align	2, 0
-.L917:
-	.word	sDexNavUiDataPtr
-.L874:
-	mov	r0, #0x4
-	b	.L907
+	b	.L861
 .L872:
-	sub	r0, r0, #0x1
-	b	.L907
+	.align	2, 0
 .L871:
+	.word	sDexNavUiDataPtr
+.L828:
+	mov	r0, #0x4
+	b	.L861
+.L826:
+	sub	r0, r0, #0x1
+	b	.L861
+.L825:
 	mov	r0, #0x10
 	and	r0, r0, r1
-	lsl	r0, r0, #0x10
-	lsr	r6, r0, #0x10
-	cmp	r6, #0
-	beq	.L880	@cond_branch
-	ldr	r0, .L919
+	cmp	r0, #0
+	beq	.L834	@cond_branch
+	ldr	r0, .L873
 	ldr	r0, [r0]
 	add	r1, r0, #0
 	add	r1, r1, #0x2e
 	ldrb	r1, [r1]
 	cmp	r1, #0
-	beq	.L882	@cond_branch
+	beq	.L836	@cond_branch
 	cmp	r1, #0x3
-	beq	.L885	@cond_branch
+	beq	.L839	@cond_branch
 	add	r1, r0, #0
 	add	r1, r1, #0x2f
 	ldrb	r0, [r1]
 	cmp	r0, #0x5
-	bne	.L889	@cond_branch
-.L905:
+	bne	.L843	@cond_branch
+.L859:
 	strb	r2, [r1]
-	b	.L881
-.L920:
+	b	.L835
+.L874:
 	.align	2, 0
-.L919:
+.L873:
 	.word	sDexNavUiDataPtr
-.L882:
+.L836:
 	add	r1, r0, #0
 	add	r1, r1, #0x2f
 	ldrb	r0, [r1]
 	cmp	r0, #0x4
-	beq	.L905	@cond_branch
-	b	.L889
-.L885:
+	beq	.L859	@cond_branch
+	b	.L843
+.L839:
 	add	r1, r0, #0
 	add	r1, r1, #0x2f
 	ldrb	r0, [r1]
 	cmp	r0, #0x2
-	beq	.L905	@cond_branch
-.L889:
+	beq	.L859	@cond_branch
+.L843:
 	add	r0, r0, #0x1
-.L907:
+.L861:
 	strb	r0, [r1]
-.L881:
+.L835:
 	mov	r0, #0xfc
 	bl	PlaySE
 	bl	UpdateCursorPosition
-	b	.L854
-.L880:
+	b	.L808
+.L834:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x1
 	and	r0, r0, r1
 	lsl	r0, r0, #0x10
 	lsr	r5, r0, #0x10
 	cmp	r5, #0
-	beq	.L893	@cond_branch
+	beq	.L847	@cond_branch
 	bl	DexNavGetSpecies
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, #0
-	beq	.L906	@cond_branch
+	beq	.L860	@cond_branch
 	add	r0, r4, #0
 	bl	PrintSearchableSpecies
 	add	r0, r4, #0
 	mov	r1, #0x0
 	bl	PlayCry5
-	ldr	r0, .L921
-	ldr	r1, .L921+0x4
+	ldr	r0, .L875
+	ldr	r1, .L875+0x4
 	ldr	r1, [r1]
 	add	r1, r1, #0x30
 	ldrb	r1, [r1]
@@ -7438,51 +7158,44 @@ Task_DexNavMain:
 	lsl	r1, r4, #0x10
 	lsr	r1, r1, #0x10
 	bl	VarSet
-	ldr	r0, .L921+0x8
-	ldr	r0, [r0]
-	ldr	r1, .L921+0xc
-	add	r0, r0, r1
-	strh	r6, [r0]
-	b	.L854
-.L922:
+	b	.L808
+.L876:
 	.align	2, 0
-.L921:
+.L875:
 	.word	0x40f7
 	.word	sDexNavUiDataPtr
-	.word	gSaveBlock1Ptr
-	.word	0x361e
-.L893:
+.L847:
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L854	@cond_branch
+	beq	.L808	@cond_branch
 	bl	DexNavGetSpecies
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, #0
-	bne	.L898	@cond_branch
-.L906:
+	bne	.L852	@cond_branch
+.L860:
 	mov	r0, #0x20
 	bl	PlaySE
-	b	.L854
-.L898:
-	ldr	r0, .L923
+	b	.L808
+.L852:
+	ldr	r0, .L877
 	strh	r4, [r0]
-	ldr	r2, .L923+0x4
-	ldr	r0, .L923+0x8
+	ldr	r2, .L877+0x4
+	ldr	r0, .L877+0x8
 	ldr	r1, [r0]
 	add	r0, r1, #0
 	add	r0, r0, #0x30
 	ldrb	r0, [r0]
 	strh	r0, [r2]
-	ldr	r3, .L923+0xc
+	ldr	r3, .L877+0xc
 	mov	r2, #0x0
 	add	r1, r1, #0x2e
 	ldrb	r0, [r1]
 	cmp	r0, #0x3
-	bne	.L900	@cond_branch
+	bne	.L854	@cond_branch
 	mov	r2, #0x1
-.L900:
+.L854:
 	strh	r2, [r3]
 	mov	r0, #0x70
 	bl	PlaySE
@@ -7493,24 +7206,24 @@ Task_DexNavMain:
 	mov	r2, #0x0
 	mov	r3, #0x10
 	bl	BeginNormalPaletteFade
-	ldr	r0, .L923+0x10
-.L902:
+	ldr	r0, .L877+0x10
+.L856:
 	str	r0, [r7]
-.L854:
+.L808:
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L924:
+.L878:
 	.align	2, 0
-.L923:
+.L877:
 	.word	gSpecialVar_0x8000
 	.word	gSpecialVar_0x8001
 	.word	sDexNavUiDataPtr
 	.word	gSpecialVar_0x8002
 	.word	Task_DexNavExitAndSearch
-.Lfe68:
-	.size	 Task_DexNavMain,.Lfe68-Task_DexNavMain
+.Lfe66:
+	.size	 Task_DexNavMain,.Lfe66-Task_DexNavMain
 	.align	2, 0
 	.globl	TryFindHiddenPokemon
 	.type	 TryFindHiddenPokemon,function
@@ -7520,36 +7233,36 @@ TryFindHiddenPokemon:
 	mov	r7, r9
 	mov	r6, r8
 	push	{r6, r7}
-	ldr	r0, .L956
+	ldr	r0, .L907
 	bl	GetVarPointer
 	add	r4, r0, #0
 	mov	r0, #0x0
 	mov	r9, r0
-	ldr	r0, .L956+0x4
+	ldr	r0, .L907+0x4
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L927	@cond_branch
-	ldr	r0, .L956+0x8
+	beq	.L881	@cond_branch
+	ldr	r0, .L907+0x8
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L927	@cond_branch
+	bne	.L881	@cond_branch
 	bl	Overworld_GetFlashLevel
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L926	@cond_branch
-.L927:
+	beq	.L880	@cond_branch
+.L881:
 	mov	r0, #0x0
 	strh	r0, [r4]
-	b	.L928
-.L957:
+	b	.L882
+.L908:
 	.align	2, 0
-.L956:
+.L907:
 	.word	0x40f8
-	.word	0x88f
+	.word	0x88e
 	.word	0x882
-.L926:
+.L880:
 	ldrh	r0, [r4]
 	add	r0, r0, #0x1
 	strh	r0, [r4]
@@ -7559,16 +7272,24 @@ TryFindHiddenPokemon:
 	strh	r0, [r4]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	beq	.LCB7787
-	b	.L928	@long jump
-.LCB7787:
+	beq	.LCB7444
+	b	.L882	@long jump
+.LCB7444:
+	bl	Random
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	mov	r1, #0x64
+	bl	__umodsi3
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	cmp	r0, #0x18
+	bls	.LCB7456
+	b	.L882	@long jump
+.LCB7456:
 	bl	GetCurrentMapWildMonHeaderId
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	ldr	r6, .L958
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	lsl	r5, r1, #0x2
+	lsl	r0, r0, #0x10
+	ldr	r6, .L909
+	lsr	r5, r0, #0xb
 	add	r0, r6, #0
 	add	r0, r0, #0x18
 	add	r0, r5, r0
@@ -7576,20 +7297,20 @@ TryFindHiddenPokemon:
 	mov	r1, #0x0
 	mov	r8, r1
 	cmp	r4, #0
-	bne	.LCB7805
-	b	.L928	@long jump
-.LCB7805:
+	bne	.LCB7471
+	b	.L882	@long jump
+.LCB7471:
 	ldrb	r0, [r4]
 	cmp	r0, #0
-	beq	.L931	@cond_branch
+	beq	.L885	@cond_branch
 	cmp	r0, #0x1
-	beq	.L937	@cond_branch
-	b	.L928
-.L959:
+	beq	.L889	@cond_branch
+	b	.L882
+.L910:
 	.align	2, 0
-.L958:
+.L909:
 	.word	gWildMonHeaders
-.L931:
+.L885:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -7598,14 +7319,14 @@ TryFindHiddenPokemon:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0xe
-	bhi	.L932	@cond_branch
+	bhi	.L886	@cond_branch
 	bl	ChooseHiddenMonIndex
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xff
-	bne	.LCB7841
-	b	.L928	@long jump
-.LCB7841:
+	bne	.LCB7507
+	b	.L882	@long jump
+.LCB7507:
 	ldr	r1, [r4, #0x4]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
@@ -7613,20 +7334,10 @@ TryFindHiddenPokemon:
 	mov	r3, #0x1
 	mov	r8, r3
 	mov	r7, #0x2
-	b	.L930
-.L932:
-	bl	IsCurrentlyDay
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L935	@cond_branch
+	b	.L884
+.L886:
 	bl	ChooseWildMonIndex_Land
 	add	r1, r6, #0x4
-	b	.L955
-.L935:
-	bl	ChooseWildMonIndex_Land
-	add	r1, r6, #0
-	add	r1, r1, #0x8
-.L955:
 	add	r1, r5, r1
 	ldr	r1, [r1]
 	lsl	r0, r0, #0x18
@@ -7635,15 +7346,15 @@ TryFindHiddenPokemon:
 	add	r0, r0, r1
 	ldrh	r6, [r0, #0x2]
 	mov	r7, #0x0
-	b	.L930
-.L937:
+	b	.L884
+.L889:
 	mov	r0, #0x8
 	bl	TestPlayerAvatarFlags
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB7890
-	b	.L928	@long jump
-.LCB7890:
+	bne	.LCB7540
+	b	.L882	@long jump
+.LCB7540:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -7652,14 +7363,14 @@ TryFindHiddenPokemon:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, #0xe
-	bhi	.L939	@cond_branch
+	bhi	.L891	@cond_branch
 	bl	ChooseHiddenMonIndex
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xff
-	bne	.LCB7910
-	b	.L928	@long jump
-.LCB7910:
+	bne	.LCB7560
+	b	.L882	@long jump
+.LCB7560:
 	ldr	r1, [r4, #0x4]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
@@ -7667,8 +7378,8 @@ TryFindHiddenPokemon:
 	mov	r0, #0x1
 	mov	r8, r0
 	mov	r7, #0x2
-	b	.L930
-.L939:
+	b	.L884
+.L891:
 	bl	ChooseWildMonIndex_WaterRock
 	add	r1, r6, #0
 	add	r1, r1, #0xc
@@ -7680,10 +7391,10 @@ TryFindHiddenPokemon:
 	add	r0, r0, r1
 	ldrh	r6, [r0, #0x2]
 	mov	r7, #0x1
-.L930:
+.L884:
 	cmp	r6, #0
-	beq	.L928	@cond_branch
-	ldr	r4, .L960
+	beq	.L882	@cond_branch
+	ldr	r4, .L911
 	mov	r0, #0x44
 	bl	AllocZeroed
 	str	r0, [r4]
@@ -7713,22 +7424,22 @@ TryFindHiddenPokemon:
 	ldr	r4, [r4]
 	ldrb	r0, [r4, #0xf]
 	cmp	r0, #0xff
-	bne	.L949	@cond_branch
+	bne	.L901	@cond_branch
 	add	r0, r4, #0
 	bl	Free
-	b	.L928
-.L961:
+	b	.L882
+.L912:
 	.align	2, 0
-.L960:
+.L911:
 	.word	sDexNavSearchDataPtr
-.L950:
+.L902:
 	mov	r3, #0x1
 	add	r9, r9, r3
 	mov	r0, r9
-	cmp	r0, #0xa
-	bhi	.L954	@cond_branch
-.L949:
-	ldr	r5, .L962
+	cmp	r0, #0x14
+	bhi	.L906	@cond_branch
+.L901:
+	ldr	r5, .L913
 	ldr	r0, [r5]
 	ldrb	r0, [r0, #0x11]
 	mov	r1, #0x8
@@ -7737,9 +7448,9 @@ TryFindHiddenPokemon:
 	bl	TryStartHiddenMonFieldEffect
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L950	@cond_branch
-	ldr	r1, .L962+0x4
-	ldr	r0, .L962+0x8
+	beq	.L902	@cond_branch
+	ldr	r1, .L913+0x4
+	ldr	r0, .L913+0x8
 	ldr	r2, [r0]
 	mov	r3, #0x0
 	ldrsh	r0, [r2, r3]
@@ -7747,8 +7458,8 @@ TryFindHiddenPokemon:
 	mov	r3, #0x2
 	ldrsh	r0, [r2, r3]
 	str	r0, [r1, #0x4]
-	ldr	r3, .L962+0xc
-	ldr	r4, .L962+0x10
+	ldr	r3, .L913+0xc
+	ldr	r4, .L913+0x10
 	ldrb	r2, [r4, #0x4]
 	lsl	r0, r2, #0x4
 	add	r0, r0, r2
@@ -7766,7 +7477,7 @@ TryFindHiddenPokemon:
 	lsl	r0, r2, #0x3
 	add	r0, r0, r2
 	lsl	r0, r0, #0x2
-	ldr	r2, .L962+0x14
+	ldr	r2, .L913+0x14
 	add	r0, r0, r2
 	add	r2, r1, #0x4
 	add	r3, r1, #0
@@ -7777,12 +7488,12 @@ TryFindHiddenPokemon:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	bl	PlayCry5
-	ldr	r0, .L962+0x18
+	ldr	r0, .L913+0x18
 	mov	r1, #0x0
 	bl	CreateTask
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r2, .L962+0x1c
+	ldr	r2, .L913+0x1c
 	lsl	r1, r0, #0x2
 	add	r1, r1, r0
 	lsl	r1, r1, #0x3
@@ -7795,8 +7506,12 @@ TryFindHiddenPokemon:
 	strh	r0, [r1, #0xe]
 	strh	r3, [r1, #0x10]
 	bl	HideMapNamePopUpWindow
-.L954:
-.L928:
+	mov	r0, #0x0
+	mov	r1, #0x0
+	mov	r2, #0x0
+	bl	ChangeBgY_ScreenOff
+.L906:
+.L882:
 	mov	r0, #0x0
 	pop	{r3, r4}
 	mov	r8, r3
@@ -7804,9 +7519,9 @@ TryFindHiddenPokemon:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L963:
+.L914:
 	.align	2, 0
-.L962:
+.L913:
 	.word	sDexNavSearchDataPtr
 	.word	gFieldEffectArguments
 	.word	gSaveBlock1Ptr
@@ -7815,30 +7530,30 @@ TryFindHiddenPokemon:
 	.word	gObjectEvents
 	.word	Task_SetUpDexNavSearch
 	.word	gTasks
-.Lfe69:
-	.size	 TryFindHiddenPokemon,.Lfe69-TryFindHiddenPokemon
+.Lfe67:
+	.size	 TryFindHiddenPokemon,.Lfe67-TryFindHiddenPokemon
 	.align	2, 0
 	.type	 DrawSearchIcon,function
 	.thumb_func
 DrawSearchIcon:
 	push	{r4, lr}
 	add	sp, sp, #-0x8
-	ldr	r0, .L965
+	ldr	r0, .L916
 	str	r0, [sp]
-	ldr	r1, .L965+0x4
+	ldr	r1, .L916+0x4
 	ldr	r0, [sp, #0x4]
 	and	r0, r0, r1
 	mov	r1, #0x80
 	lsl	r1, r1, #0x2
 	orr	r0, r0, r1
-	ldr	r1, .L965+0x8
+	ldr	r1, .L916+0x8
 	and	r0, r0, r1
-	ldr	r1, .L965+0xc
+	ldr	r1, .L916+0xc
 	orr	r0, r0, r1
 	str	r0, [sp, #0x4]
 	mov	r0, sp
 	bl	LoadCompressedSpriteSheet
-	ldr	r4, .L965+0x10
+	ldr	r4, .L916+0x10
 	bl	GetSearchWindowY
 	add	r2, r0, #0
 	add	r2, r2, #0xc
@@ -7848,24 +7563,24 @@ DrawSearchIcon:
 	mov	r1, #0x12
 	mov	r3, #0x0
 	bl	CreateSprite
-	ldr	r1, .L965+0x14
+	ldr	r1, .L916+0x14
 	ldr	r1, [r1]
 	strb	r0, [r1, #0x1a]
 	add	sp, sp, #0x8
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L966:
+.L917:
 	.align	2, 0
-.L965:
+.L916:
 	.word	sHiddenSearchIconGfx
 	.word	-0x10000
 	.word	0xffff
 	.word	0x40050000
 	.word	sSearchIconSpriteTemplate
 	.word	sDexNavSearchDataPtr
-.Lfe70:
-	.size	 DrawSearchIcon,.Lfe70-DrawSearchIcon
+.Lfe68:
+	.size	 DrawSearchIcon,.Lfe68-DrawSearchIcon
 	.align	2, 0
 	.type	 DrawHiddenSearchWindow,function
 	.thumb_func
@@ -7877,29 +7592,29 @@ DrawHiddenSearchWindow:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	AddSearchWindow
-	ldr	r5, .L968
+	ldr	r5, .L919
 	ldr	r0, [r5]
 	ldrb	r0, [r0, #0x19]
-	ldr	r1, .L968+0x4
+	ldr	r1, .L919+0x4
 	mov	r8, r1
 	str	r1, [sp]
 	mov	r6, #0x1
 	neg	r6, r6
 	str	r6, [sp, #0x4]
-	ldr	r1, .L968+0x8
+	ldr	r1, .L919+0x8
 	str	r1, [sp, #0x8]
 	mov	r1, #0x0
 	mov	r2, #0x20
 	mov	r3, #0x0
 	bl	AddTextPrinterParameterized3
-	ldr	r0, .L968+0xc
+	ldr	r0, .L919+0xc
 	ldr	r1, [r5]
 	ldrb	r1, [r1, #0xe]
 	mov	r2, #0x0
 	mov	r3, #0x2
 	bl	ConvertIntToDecimalStringN
-	ldr	r4, .L968+0x10
-	ldr	r1, .L968+0x14
+	ldr	r4, .L919+0x10
+	ldr	r1, .L919+0x14
 	add	r0, r4, #0
 	bl	StringExpandPlaceholders
 	ldr	r0, [r5]
@@ -7922,23 +7637,23 @@ DrawHiddenSearchWindow:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L969:
+.L920:
 	.align	2, 0
-.L968:
+.L919:
 	.word	sDexNavSearchDataPtr
 	.word	sSearchFontColor
 	.word	sText_ThreeQmarks
 	.word	gStringVar1
 	.word	gStringVar4
 	.word	sText_SearchLevel
-.Lfe71:
-	.size	 DrawHiddenSearchWindow,.Lfe71-DrawHiddenSearchWindow
+.Lfe69:
+	.size	 DrawHiddenSearchWindow,.Lfe69-DrawHiddenSearchWindow
 	.align	2, 0
 	.type	 DexNavDrawHiddenIcons,function
 	.thumb_func
 DexNavDrawHiddenIcons:
 	push	{r4, r5, lr}
-	ldr	r5, .L973
+	ldr	r5, .L924
 	ldr	r0, [r5]
 	ldrh	r4, [r0]
 	mov	r0, #0xc
@@ -7952,8 +7667,8 @@ DexNavDrawHiddenIcons:
 	bl	GetSetPokedexFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L971	@cond_branch
-	ldr	r4, .L973+0x4
+	beq	.L922	@cond_branch
+	ldr	r4, .L924+0x4
 	bl	GetSearchWindowY
 	add	r2, r0, #0
 	add	r2, r2, #0x2
@@ -7966,15 +7681,15 @@ DexNavDrawHiddenIcons:
 	ldr	r1, [r5]
 	add	r1, r1, #0x20
 	strb	r0, [r1]
-.L971:
+.L922:
 	ldr	r0, [r5]
 	add	r0, r0, #0x22
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L972	@cond_branch
-	ldr	r4, .L973+0x8
+	beq	.L923	@cond_branch
+	ldr	r4, .L924+0x8
 	bl	GetSearchWindowY
 	add	r2, r0, #0
 	add	r2, r2, #0x8
@@ -7987,72 +7702,64 @@ DexNavDrawHiddenIcons:
 	ldr	r1, [r5]
 	add	r1, r1, #0x21
 	strb	r0, [r1]
-.L972:
+.L923:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L974:
+.L925:
 	.align	2, 0
-.L973:
+.L924:
 	.word	sDexNavSearchDataPtr
 	.word	sOwnedIconTemplate
 	.word	sHiddenMonIconTemplate
-.Lfe72:
-	.size	 DexNavDrawHiddenIcons,.Lfe72-DexNavDrawHiddenIcons
+.Lfe70:
+	.size	 DexNavDrawHiddenIcons,.Lfe70-DexNavDrawHiddenIcons
 	.align	2, 0
 	.globl	DexNavTryMakeShinyMon
 	.type	 DexNavTryMakeShinyMon,function
 	.thumb_func
 DexNavTryMakeShinyMon:
 	push	{r4, r5, r6, r7, lr}
-	mov	r7, r9
-	mov	r6, r8
-	push	{r6, r7}
+	mov	r7, r8
+	push	{r7}
 	mov	r6, #0x0
-	ldr	r0, .L998
+	ldr	r0, .L948
 	ldr	r0, [r0]
 	ldrb	r4, [r0, #0xe]
-	ldr	r0, .L998+0x4
+	ldr	r0, .L948+0x4
 	ldr	r0, [r0]
-	ldr	r1, .L998+0x8
+	ldr	r1, .L948+0x8
 	add	r0, r0, r1
-	ldrb	r7, [r0]
+	ldrb	r0, [r0]
+	mov	r8, r0
 	mov	r0, #0xb3
 	lsl	r0, r0, #0x2
 	mov	r1, #0x1
 	bl	CheckBagHasItem
 	lsl	r0, r0, #0x18
-	mov	r9, r6
-	cmp	r0, #0
-	beq	.L976	@cond_branch
-	mov	r0, #0x3
-	mov	r9, r0
-.L976:
-	ldr	r0, .L998+0xc
-	bl	VarGet
-	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
+	lsr	r0, r0, #0x18
 	neg	r1, r0
 	orr	r1, r1, r0
-	lsr	r1, r1, #0x1f
-	mov	r8, r1
-	cmp	r7, #0x32
-	beq	.L979	@cond_branch
-	mov	r5, #0x0
-	cmp	r7, #0x64
-	bne	.L980	@cond_branch
-	mov	r5, #0xa
-	b	.L980
-.L999:
+	asr	r5, r1, #0x1f
+	mov	r0, #0x2
+	and	r5, r5, r0
+	mov	r0, r8
+	cmp	r0, #0x32
+	beq	.L929	@cond_branch
+	mov	r7, #0x0
+	cmp	r0, #0x64
+	bne	.L930	@cond_branch
+	mov	r7, #0xa
+	b	.L930
+.L949:
 	.align	2, 0
-.L998:
+.L948:
 	.word	sDexNavSearchDataPtr
 	.word	gSaveBlock1Ptr
 	.word	0x361b
-	.word	0x404e
-.L979:
-	mov	r5, #0x5
-.L980:
+.L929:
+	mov	r7, #0x5
+.L930:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
@@ -8062,74 +7769,71 @@ DexNavTryMakeShinyMon:
 	lsr	r0, r0, #0x10
 	mov	r1, #0x0
 	cmp	r0, #0x3
-	bhi	.L983	@cond_branch
+	bhi	.L933	@cond_branch
 	mov	r1, #0x4
-.L983:
-	add	r0, r5, #0x1
-	add	r0, r0, r9
-	add	r0, r0, r1
-	mov	r1, r8
+.L933:
+	add	r0, r7, #0x1
+	add	r0, r5, r0
 	add	r5, r0, r1
 	cmp	r4, #0xc8
-	bls	.L985	@cond_branch
+	bls	.L935	@cond_branch
 	add	r0, r6, #0
 	sub	r0, r0, #0xc8
 	add	r6, r0, r4
-	b	.L986
-.L985:
+	b	.L936
+.L935:
 	cmp	r4, #0x64
-	bls	.L987	@cond_branch
+	bls	.L937	@cond_branch
 	add	r1, r6, #0
 	sub	r1, r1, #0xc8
 	lsl	r0, r4, #0x1
 	add	r6, r1, r0
-	b	.L986
-.L997:
+	b	.L936
+.L947:
 	mov	r0, #0x1
-	b	.L996
-.L987:
+	b	.L946
+.L937:
 	cmp	r4, #0
-	beq	.L986	@cond_branch
+	beq	.L936	@cond_branch
 	lsl	r0, r4, #0x1
 	add	r0, r0, r4
 	lsl	r0, r0, #0x1
 	add	r6, r6, r0
-.L986:
+.L936:
 	add	r0, r6, #0
 	mov	r1, #0x64
 	bl	__udivsi3
 	add	r6, r0, #0
 	mov	r4, #0x0
 	cmp	r4, r5
-	bcs	.L991	@cond_branch
-.L993:
+	bcs	.L941	@cond_branch
+.L943:
 	bl	Random
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	ldr	r1, .L1000
+	ldr	r1, .L950
 	bl	__umodsi3
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	cmp	r0, r6
-	bcc	.L997	@cond_branch
+	bcc	.L947	@cond_branch
 	add	r4, r4, #0x1
 	cmp	r4, r5
-	bcc	.L993	@cond_branch
-.L991:
+	bcc	.L943	@cond_branch
+.L941:
 	mov	r0, #0x0
-.L996:
-	pop	{r3, r4}
+.L946:
+	pop	{r3}
 	mov	r8, r3
-	mov	r9, r4
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L1001:
+.L951:
 	.align	2, 0
-.L1000:
+.L950:
 	.word	0x2710
-.Lfe73:
-	.size	 DexNavTryMakeShinyMon,.Lfe73-DexNavTryMakeShinyMon
+.Lfe71:
+	.size	 DexNavTryMakeShinyMon,.Lfe71-DexNavTryMakeShinyMon
 	.align	2, 0
 	.globl	TryIncrementSpeciesSearchLevel
 	.type	 TryIncrementSpeciesSearchLevel,function
@@ -8138,68 +7842,93 @@ TryIncrementSpeciesSearchLevel:
 	push	{lr}
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
-	ldr	r0, .L1004
+	ldr	r0, .L954
 	ldrb	r0, [r0, #0x14]
 	cmp	r0, #0x3a
-	beq	.L1003	@cond_branch
-	ldr	r0, .L1004+0x4
+	beq	.L953	@cond_branch
+	ldr	r0, .L954+0x4
 	ldr	r0, [r0]
-	ldr	r2, .L1004+0x8
+	ldr	r2, .L954+0x8
 	add	r0, r0, r2
 	add	r1, r0, r1
 	ldrb	r0, [r1]
 	cmp	r0, #0xfe
-	bhi	.L1003	@cond_branch
+	bhi	.L953	@cond_branch
 	add	r0, r0, #0x1
 	strb	r0, [r1]
-.L1003:
+.L953:
 	pop	{r0}
 	bx	r0
-.L1005:
+.L955:
 	.align	2, 0
-.L1004:
+.L954:
 	.word	gMapHeader
 	.word	gSaveBlock1Ptr
 	.word	0x3164
-.Lfe74:
-	.size	 TryIncrementSpeciesSearchLevel,.Lfe74-TryIncrementSpeciesSearchLevel
+.Lfe72:
+	.size	 TryIncrementSpeciesSearchLevel,.Lfe72-TryIncrementSpeciesSearchLevel
 	.align	2, 0
 	.globl	ResetDexNavSearch
 	.type	 ResetDexNavSearch,function
 	.thumb_func
 ResetDexNavSearch:
 	push	{lr}
-	ldr	r0, .L1008
+	ldr	r0, .L958
 	ldr	r0, [r0]
-	ldr	r1, .L1008+0x4
+	ldr	r1, .L958+0x4
 	add	r0, r0, r1
 	mov	r1, #0x0
 	strb	r1, [r0]
-	ldr	r0, .L1008+0x8
+	ldr	r0, .L958+0x8
 	bl	VarSet
-	ldr	r0, .L1008+0xc
+	ldr	r0, .L958+0xc
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L1007	@cond_branch
-	ldr	r0, .L1008+0x10
+	beq	.L957	@cond_branch
+	ldr	r0, .L958+0x10
 	bl	FindTaskIdByFunc
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	bl	EndDexNavSearch
-.L1007:
+.L957:
 	pop	{r0}
 	bx	r0
-.L1009:
+.L959:
 	.align	2, 0
-.L1008:
+.L958:
 	.word	gSaveBlock1Ptr
 	.word	0x361b
 	.word	0x40f8
 	.word	0x882
 	.word	Task_DexNavSearch
-.Lfe75:
-	.size	 ResetDexNavSearch,.Lfe75-ResetDexNavSearch
+.Lfe73:
+	.size	 ResetDexNavSearch,.Lfe73-ResetDexNavSearch
+	.align	2, 0
+	.globl	IncrementDexNavChain
+	.type	 IncrementDexNavChain,function
+	.thumb_func
+IncrementDexNavChain:
+	push	{lr}
+	ldr	r0, .L962
+	ldr	r0, [r0]
+	ldr	r2, .L962+0x4
+	add	r1, r0, r2
+	ldrb	r0, [r1]
+	cmp	r0, #0x63
+	bhi	.L961	@cond_branch
+	add	r0, r0, #0x1
+	strb	r0, [r1]
+.L961:
+	pop	{r0}
+	bx	r0
+.L963:
+	.align	2, 0
+.L962:
+	.word	gSaveBlock1Ptr
+	.word	0x361b
+.Lfe74:
+	.size	 IncrementDexNavChain,.Lfe74-IncrementDexNavChain
 .text
 	.align	2, 0
 

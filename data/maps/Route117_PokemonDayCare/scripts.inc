@@ -60,7 +60,7 @@ Route117_PokemonDayCare_Text_DittoWoman:
 	.string "help it grow stronger.\p"
 	.string "You are a Trainer, right?\n"
 	.string "And your Pokémon radiate vitality.\p"
-	.string "So, what say you?\n"
+	.string "So, what do say?\n"
 	.string "Will you take this Ditto?$"
 
 Route117_PokemonDayCare_Text_Adventures:

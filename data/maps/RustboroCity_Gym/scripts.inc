@@ -23,6 +23,7 @@ RustboroCity_Gym_EventScript_RoxanneRematch:: @ 8212FC8
 	
 RustboroCity_Gym_EventScript_RoxanneRematchEnd::
 	msgbox RustboroCity_Gym_Text_RoxannePostRematch, MSGBOX_AUTOCLOSE
+	call Gym_EventScript_Reset_Random_Rematch
 	setflag FLAG_UNUSED_0x920
 	end
 	
@@ -161,6 +162,7 @@ RustboroCity_Gym_EventScript_RoxanneDefeated:: @ 8212F66
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_ROXANNE_MATCH_CALL
+	call Gym_EventScript_Reset_Rematches
 	setflag FLAG_UNUSED_0x920
 	release
 	end
@@ -242,7 +244,6 @@ RustboroCity_Gym_EventScript_GiveHM08::
 RustboroCity_Gym_EventScript_Josh:: @ 8212FE3
 	trainerbattle_single TRAINER_JOSH, RustboroCity_Gym_Text_JoshIntro, RustboroCity_Gym_Text_JoshDefeat
 	msgbox RustboroCity_Gym_Text_JoshPostBattle, MSGBOX_AUTOCLOSE
-	setflag FLAG_UNUSED_0x920
 	end
 
 RustboroCity_Gym_EventScript_Tommy:: @ 8212FFA
@@ -493,3 +494,74 @@ RustboroCity_Gym_Text_GetMegaStone:
 RustboroCity_Gym_Text_GetReward:
 	.string "Roxanne: Please take this\n"
 	.string "Item as a Reward.$"
+	
+Gym_EventScript_Reset_Rematches::
+	clearflag FLAG_UNUSED_0x920
+	clearflag FLAG_UNUSED_0x923
+	clearflag FLAG_UNUSED_0x924
+	clearflag FLAG_UNUSED_0x925
+	clearflag FLAG_UNUSED_0x926
+	clearflag FLAG_UNUSED_0x927
+	clearflag FLAG_UNUSED_0x928
+	clearflag FLAG_UNUSED_0x929
+	clearflag FLAG_UNUSED_0x939	
+	return
+	
+Gym_EventScript_Reset_Random_Rematch::
+	random 9
+	switch VAR_RESULT
+	case 0, Gym_EventScript_Reset_Roxanne_Rematch
+	case 1, Gym_EventScript_Reset_Brawly_Rematch
+	case 2, Gym_EventScript_Reset_Wattson_Rematch
+	case 3, Gym_EventScript_Reset_Flannery_Rematch
+	case 4, Gym_EventScript_Reset_Norman_Rematch
+	case 5, Gym_EventScript_Reset_Winona_Rematch
+	case 6, Gym_EventScript_Reset_Tate_Liza_Rematch
+	case 7, Gym_EventScript_Reset_Juan_Rematch
+	case 8, Gym_EventScript_Reset_Ability_Capsule
+	return
+	
+Gym_EventScript_Reset_Roxanne_Rematch::
+	goto_if_unset FLAG_BADGE01_GET, Gym_EventScript_Reset_Random_Rematch
+	clearflag FLAG_UNUSED_0x920
+	return
+	
+Gym_EventScript_Reset_Brawly_Rematch::
+	goto_if_unset FLAG_BADGE02_GET, Gym_EventScript_Reset_Random_Rematch
+	clearflag FLAG_UNUSED_0x923
+	return
+	
+Gym_EventScript_Reset_Wattson_Rematch::
+	goto_if_unset FLAG_BADGE03_GET, Gym_EventScript_Reset_Random_Rematch
+	clearflag FLAG_UNUSED_0x924
+	return
+	
+Gym_EventScript_Reset_Flannery_Rematch::
+	goto_if_unset FLAG_BADGE04_GET, Gym_EventScript_Reset_Random_Rematch
+	clearflag FLAG_UNUSED_0x925
+	return
+	
+Gym_EventScript_Reset_Norman_Rematch::
+	goto_if_unset FLAG_BADGE05_GET, Gym_EventScript_Reset_Random_Rematch
+	clearflag FLAG_UNUSED_0x926
+	return
+	
+Gym_EventScript_Reset_Winona_Rematch::
+	goto_if_unset FLAG_BADGE06_GET, Gym_EventScript_Reset_Random_Rematch
+	clearflag FLAG_UNUSED_0x927
+	return
+	
+Gym_EventScript_Reset_Tate_Liza_Rematch::
+	goto_if_unset FLAG_BADGE07_GET, Gym_EventScript_Reset_Random_Rematch
+	clearflag FLAG_UNUSED_0x928
+	return
+	
+Gym_EventScript_Reset_Juan_Rematch::
+	goto_if_unset FLAG_BADGE08_GET, Gym_EventScript_Reset_Random_Rematch
+	clearflag FLAG_UNUSED_0x929
+	return
+	
+Gym_EventScript_Reset_Ability_Capsule::
+	goto_if_unset FLAG_BADGE08_GET, Gym_EventScript_Reset_Random_Rematch
+	clearflag FLAG_UNUSED_0x939
+	return

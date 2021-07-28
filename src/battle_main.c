@@ -426,6 +426,7 @@ static void (* const sTurnActionsFuncsTable[])(void) =
     [B_ACTION_TRY_FINISH] = HandleAction_TryFinish,
     [B_ACTION_FINISHED] = HandleAction_ActionFinished,
     [B_ACTION_NOTHING_FAINTED] = HandleAction_NothingIsFainted,
+	[B_ACTION_THROW_BALL] = HandleAction_ThrowBall,
 };
 
 static void (* const sEndTurnFuncsTable[])(void) =
@@ -1828,6 +1829,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 	u8 TrainerLevel[] = {5,5,5,5,5,5};
 	u8 levelboost = getLevelBoost();
 	u8 PokemonEvs[] = {0,0,0,0,0,0};
+	u16 mapspecies = 131;
 	u8 PokemonHapiness;
 	u16 PokemonHeldItem[] = {ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE, ITEM_NONE};
 	u8 isDoubleBattle = gTrainers[trainerNum].doubleBattle;
@@ -1857,7 +1859,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 				monsCount = gTrainers[trainerNum].partySize;
 			
 			for (i = 0; i <= monsCount; i++)
-				TrainerLevel[i] = TrainerMinLevel + rand + i;
+				TrainerLevel[i] = TrainerMinLevel + i;
         }
         else
         if (gTrainers[trainerNum].trainerClass != TRAINER_CLASS_PKMN_TRAINER_3 && 
@@ -1871,7 +1873,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
 			monsCount = gTrainers[trainerNum].partySize;
 		
 			for (i = 0; i <= monsCount; i++)
-				TrainerLevel[i] = TrainerMinLevel + rand + i;
+				TrainerLevel[i] = TrainerMinLevel + i;
 		}
 		else{
 			monsCount = LeaderMonsCount;
@@ -1898,14 +1900,18 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
             {
 				//Randomized party with badge based level and without custom moves or items(fills everything with the default moves) - Used for most of the trainers
                 const struct TrainerMonNoItemDefaultMoves *partyData = gTrainers[trainerNum].party.NoItemDefaultMoves;
-
+				mapspecies = GetMapRandomPokemon(gTrainers[trainerNum].trainerClass, partyData[i].species);
                 for (j = 0; gSpeciesNames[partyData[i].species][j] != EOS; j++)
                     nameHash += gSpeciesNames[partyData[i].species][j];
 
                 personalityValue += nameHash << 8;
                 fixedIV = partyData[i].iv * 31 / 255;
-                CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+				//if (mapspecies == 131)
+                //CreateMon(&party[i], GetTrainerPokemon(partyData[i].species, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
+				//else
+				CreateMon(&party[i], GetTrainerPokemon(mapspecies, TrainerLevel[i]), TrainerLevel[i], fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0, partyData[i].formId);
                 
+				
 				for (j = 0; j < NUM_STATS; j++)
                 {
 					PokemonEvs[j] = GetEvsfromPokemon(partyData[i].evs[j]);
@@ -4091,6 +4097,9 @@ static void HandleTurnActionSelectionState(void)
                     }
                     MarkBattlerForControllerExec(gActiveBattler);
                     break;
+				case B_ACTION_THROW_BALL:
+                    gBattleCommunication[gActiveBattler]++;
+                    break;
                 case B_ACTION_SAFARI_BALL:
                     if (IsPlayerPartyAndPokemonStorageFull())
                     {
@@ -4146,8 +4155,10 @@ static void HandleTurnActionSelectionState(void)
                     MarkBattlerForControllerExec(gActiveBattler);
                     return;
                 case B_ACTION_DEBUG:
-                    //BtlController_EmitDebugMenu(0);
-                    //MarkBattlerForControllerExec(gActiveBattler);
+					if(FlagGet(FLAG_UNUSED_0x020)){
+                    BtlController_EmitDebugMenu(0);
+                    MarkBattlerForControllerExec(gActiveBattler);
+					}
                     break;
                 }
 
@@ -4695,7 +4706,9 @@ static void SetActionsAndBattlersTurnOrder(void)
         {
             for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
             {
-                if (gChosenActionByBattler[gActiveBattler] == B_ACTION_USE_ITEM || gChosenActionByBattler[gActiveBattler] == B_ACTION_SWITCH)
+                if (gChosenActionByBattler[gActiveBattler] == B_ACTION_USE_ITEM
+                  || gChosenActionByBattler[gActiveBattler] == B_ACTION_SWITCH
+                  || gChosenActionByBattler[gActiveBattler] == B_ACTION_THROW_BALL)
                 {
                     gActionsByTurnOrder[turnOrderId] = gChosenActionByBattler[gActiveBattler];
                     gBattlerByTurnOrder[turnOrderId] = gActiveBattler;
@@ -4704,7 +4717,9 @@ static void SetActionsAndBattlersTurnOrder(void)
             }
             for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
             {
-                if (gChosenActionByBattler[gActiveBattler] != B_ACTION_USE_ITEM && gChosenActionByBattler[gActiveBattler] != B_ACTION_SWITCH)
+                if (gChosenActionByBattler[gActiveBattler] != B_ACTION_USE_ITEM
+                  && gChosenActionByBattler[gActiveBattler] != B_ACTION_SWITCH
+                  && gChosenActionByBattler[gActiveBattler] != B_ACTION_THROW_BALL)
                 {
                     gActionsByTurnOrder[turnOrderId] = gChosenActionByBattler[gActiveBattler];
                     gBattlerByTurnOrder[turnOrderId] = gActiveBattler;
@@ -4720,7 +4735,9 @@ static void SetActionsAndBattlersTurnOrder(void)
                     if (gActionsByTurnOrder[i] != B_ACTION_USE_ITEM
                         && gActionsByTurnOrder[j] != B_ACTION_USE_ITEM
                         && gActionsByTurnOrder[i] != B_ACTION_SWITCH
-                        && gActionsByTurnOrder[j] != B_ACTION_SWITCH)
+                        && gActionsByTurnOrder[j] != B_ACTION_SWITCH
+                        && gActionsByTurnOrder[i] != B_ACTION_THROW_BALL
+                        && gActionsByTurnOrder[j] != B_ACTION_THROW_BALL)
                     {
                         if (GetWhoStrikesFirst(battler1, battler2, FALSE))
                             SwapTurnOrder(i, j);

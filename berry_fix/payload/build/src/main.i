@@ -1,6 +1,6 @@
-# 1 "src/main.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/main.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/main.c"
 # 1 "include/gba/gba.h" 1
 

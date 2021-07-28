@@ -4,6 +4,7 @@
 #include "constants/battle_script_commands.h"
 #include "battle_message.h"
 #include "battle_anim.h"
+#include "battle_pyramid.h"
 #include "battle_ai_script_commands.h"
 #include "battle_scripts.h"
 #include "constants/moves.h"
@@ -11994,7 +11995,8 @@ bool32 DoesDisguiseBlockMove(u8 battlerAtk, u8 battlerDef, u32 move)
     if (GetBattlerAbility(battlerDef) != ABILITY_DISGUISE
         || gBattleMons[battlerDef].species != SPECIES_MIMIKYU
         || gBattleMons[battlerDef].status2 & STATUS2_TRANSFORMED
-        || gBattleMoves[move].power == 0)
+        || gBattleMoves[move].power == 0
+        || gBattleScripting.moveEffect == MOVE_EFFECT_RECOIL)
         return FALSE;
     else
         return TRUE;
@@ -12138,6 +12140,8 @@ static void Cmd_handleballthrow(void)
     {
         u32 odds, i;
         u8 catchRate;
+		
+		gSaveBlock2Ptr->lastUsedBall = gLastUsedItem;
 
         if (gLastUsedItem == ITEM_SAFARI_BALL)
             catchRate = gBattleStruct->safariCatchFactor * 1275 / 100;

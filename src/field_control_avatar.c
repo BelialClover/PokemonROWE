@@ -71,6 +71,7 @@ static bool8 TryStartMiscWalkingScripts(u16);
 static bool8 TryStartStepCountScript(u16);
 static void UpdateHappinessStepCounter(void);
 static bool8 UpdatePoisonStepCounter(void);
+static bool8 EnableAutoRun(void);
 
 void FieldClearPlayerInput(struct FieldInput *input)
 {
@@ -137,13 +138,17 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
     else if (heldKeys & DPAD_RIGHT)
         input->dpadDirection = DIR_EAST;
 
-#ifdef DEBUG_MENU
+    if ((heldKeys & B_BUTTON) && input->pressedStartButton && EnableAutoRun())
+    {
+        input->input_field_1_2 = TRUE;
+        input->pressedStartButton = FALSE;
+    }
+
     if ((heldKeys & B_BUTTON) && input->pressedStartButton)
     {
         input->input_field_1_2 = TRUE;
         input->pressedStartButton = FALSE;
     }
-#endif
 }
 
 int ProcessPlayerFieldInput(struct FieldInput *input)
@@ -220,15 +225,15 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     
     if (input->tookStep && TryFindHiddenPokemon())
         return TRUE;
-/*/
-#ifdef DEBUG_MENU
-    if (input->input_field_1_2)
+
+/*/Debug
+    if (input->input_field_1_2 && FlagGet(FLAG_UNUSED_0x020))
     {
         PlaySE(SE_WIN_OPEN);
         Debug_ShowMainMenu();
         return TRUE;
     }
-#endif/*/
+Debug End/*/
 
     return FALSE;
 }
@@ -1048,4 +1053,25 @@ int SetCableClubWarp(void)
     MapGridGetMetatileBehaviorAt(position.x, position.y);  //unnecessary
     SetupWarp(&gMapHeader, GetWarpEventAtMapPosition(&gMapHeader, &position), &position);
     return 0;
+}
+
+extern const u8 EventScript_DisableAutoRun[];
+extern const u8 EventScript_EnableAutoRun[];
+static bool8 EnableAutoRun(void)
+{
+    PlaySE(SE_SELECT);
+    if (FlagGet(FLAG_UNUSED_0x1AA))
+    {
+        //gSaveBlock2Ptr->autoRun = FALSE;
+		FlagClear(FLAG_UNUSED_0x1AA);
+        ScriptContext1_SetupScript(EventScript_DisableAutoRun);
+    }
+    else
+    {
+        //gSaveBlock2Ptr->autoRun = TRUE;
+		FlagSet(FLAG_UNUSED_0x1AA);
+        ScriptContext1_SetupScript(EventScript_EnableAutoRun);
+    }
+
+    return TRUE;
 }

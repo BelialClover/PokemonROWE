@@ -261,8 +261,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_CUTTABLE_TREE",
-      "x": 137,
-      "y": 18,
+      "x": 125,
+      "y": 12,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_LOOK_AROUND",
       "movement_range_x": 0,
@@ -586,8 +586,8 @@
     },
     {
       "graphics_id": "OBJ_EVENT_GFX_TM_BALL",
-      "x": 138,
-      "y": 18,
+      "x": 139,
+      "y": 15,
       "elevation": 3,
       "movement_type": "MOVEMENT_TYPE_NONE",
       "movement_range_x": 0,
@@ -843,8 +843,8 @@
     },
     {
       "type": "hidden_item",
-      "x": 139,
-      "y": 15,
+      "x": 137,
+      "y": 18,
       "elevation": 3,
       "item": "ITEM_RARE_CANDY",
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_123_RARE_CANDY"

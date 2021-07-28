@@ -5832,5 +5832,10 @@ static const u8 sTimidMintDesc[] = _(
     "Changes the nature\n"
     "of a Pokémon to\n"
     "Timid");
+	
+static const u8 sSealDesc[] = _(
+    "Changes the Ball\n"
+    "of a Pokémon to\n"
+    "a different one");
 
 #endif

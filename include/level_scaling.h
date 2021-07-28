@@ -17,5 +17,6 @@ u16 GetHeldItem(u16 baseitem);
 u16 GetFirstEvolution(u16 species);
 u8 GetEvsfromPokemon(u8 evs);
 bool8 IsMoveUsable(u8 movepower);
+u16 GetMapRandomPokemon(u16 TrainerClass, u16 species);
 
 #endif // GUARD_SCALING_H

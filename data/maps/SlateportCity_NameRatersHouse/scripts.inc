@@ -127,20 +127,20 @@ SlateportCity_NameRatersHouse_TradebackGuy_Text_ComeBack:
 	.string "Come back anytime!$"
 
 SlateportCity_NameRatersHouse_TradebackGuy_Text_YouDontWantToThatsOkay:
-	.string "Alrighty. Well, if you change\n"
-	.string "mind I'll still be right here.$"
+	.string "Alright. Well, if you change\n"
+	.string "your mind, I'll be here.$"
 
 SlateportCity_NameRatersHouse_Text_PleasedToRateMonNickname: @ 8209B8E
 	.string "Hi, hi! I'm the Name Rater!\p"
 	.string "…Or rather, I used to be.\p"
 	.string "Now you can rate nicknames in\n"
 	.string "every Pokémon Center…\p"
-	.string "But now i can enable Double\n"
+	.string "But now I can enable Double\n"
 	.string "Battle Mode, how about it?.$"
 
 SlateportCity_NameRatersHouse_Text_CritiqueWhichMonNickname: @ 8209BFF
-	.string "Talk to me if you want to\n"
-	.string "enable it anytime$"
+	.string "Talk to me to enable it\n"
+	.string "anytime.$"
 
 SlateportCity_NameRatersHouse_Text_FineNameSuggestBetterOne: @ 8209C2B
 	.string "Consider it done!$"

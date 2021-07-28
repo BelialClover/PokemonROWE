@@ -1,6 +1,6 @@
-# 1 "src/wild_encounter.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/wild_encounter.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/wild_encounter.c"
 # 1 "include/global.h" 1
 
@@ -706,7 +706,8 @@ struct SaveBlock2
              u16 optionsTransitionSpeed:2;
              u16 optionsUnitSystem:1;
              struct Pokedex pokedex;
-             u8 filler_90[0x7];
+             u16 lastUsedBall;
+             u8 filler_90[0x6];
              struct Time localTimeOffset;
              struct Time lastBerryTreeUpdate;
              u32 gcnLinkFlags;
@@ -720,7 +721,7 @@ struct SaveBlock2
               struct RankingHall2P hallRecords2P[2][3];
               u16 contestLinkResults[5][4];
               struct BattleFrontier frontier;
-              u8 itemFlags[((746 / 8) + ((746 % 8) ? 1 : 0))];
+              u8 itemFlags[((773 / 8) + ((773 % 8) ? 1 : 0))];
 };
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -754,7 +755,7 @@ struct SecretBase
 };
 
 # 1 "include/constants/game_stat.h" 1
-# 542 "include/global.h" 2
+# 543 "include/global.h" 2
 # 1 "include/global.fieldmap.h" 1
 # 13 "include/global.fieldmap.h"
 enum
@@ -1003,6 +1004,7 @@ enum
     COLLISION_IMPASSABLE,
     COLLISION_ELEVATION_MISMATCH,
     COLLISION_OBJECT_EVENT,
+ COLLISION_START_SURFING,
     COLLISION_STOP_SURFING,
     COLLISION_LEDGE_JUMP,
     COLLISION_PUSHED_BOULDER,
@@ -1065,7 +1067,7 @@ extern u8 gSelectedObjectEvent;
 extern struct MapHeader gMapHeader;
 extern struct PlayerAvatar gPlayerAvatar;
 extern struct Camera gCamera;
-# 543 "include/global.h" 2
+# 544 "include/global.h" 2
 # 1 "include/global.berry.h" 1
 
 
@@ -1141,7 +1143,7 @@ struct BerryTree
     u8 watered3:1;
     u8 watered4:1;
 };
-# 544 "include/global.h" 2
+# 545 "include/global.h" 2
 # 1 "include/global.tv.h" 1
 
 
@@ -1635,7 +1637,7 @@ struct GabbyAndTyData
              u8 playerThrewABall2:1;
              u8 valB_4:4;
 };
-# 545 "include/global.h" 2
+# 546 "include/global.h" 2
 # 1 "include/pokemon.h" 1
 
 
@@ -2381,7 +2383,7 @@ u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
 u16 GetBaseFormSpeciesId(u16 formSpeciesId);
 void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nature);
 u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
-# 546 "include/global.h" 2
+# 547 "include/global.h" 2
 
 struct WarpData
 {
@@ -2899,6 +2901,7 @@ u16 GetHeldItem(u16 baseitem);
 u16 GetFirstEvolution(u16 species);
 u8 GetEvsfromPokemon(u8 evs);
 bool8 IsMoveUsable(u8 movepower);
+u16 GetMapRandomPokemon(u16 TrainerClass, u16 species);
 # 3 "src/wild_encounter.c" 2
 # 1 "include/wild_encounter.h" 1
 # 10 "include/wild_encounter.h"
@@ -2925,6 +2928,7 @@ struct WildPokemonHeader
     const struct WildPokemonInfo *rockSmashMonsInfo;
     const struct WildPokemonInfo *fishingMonsInfo;
     const struct WildPokemonInfo *hiddenMonsInfo;
+ const struct WildPokemonInfo *headbuttMonsInfo;
 };
 
 extern bool8 gIsFishingEncounter;
@@ -2948,6 +2952,7 @@ u16 GetCurrentMapWildMonHeaderId(void);
 u8 ChooseWildMonIndex_Land(void);
 u8 ChooseWildMonIndex_WaterRock(void);
 u8 ChooseHiddenMonIndex(void);
+u8 ChooseHeadbuttMonIndex(void);
 u16 GetFirstStage(u16 species);
 # 4 "src/wild_encounter.c" 2
 # 1 "include/pokemon.h" 1
@@ -4347,7 +4352,7 @@ __attribute__((section("ewram_data"))) bool8 gIsFishingEncounter = 0;
 __attribute__((section("ewram_data"))) bool8 gIsSurfingEncounter = 0;
 
 # 1 "src/data/wild_encounters.h" 1
-# 87 "src/data/wild_encounters.h"
+# 94 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute101_LandMons[] =
 {
     { 2, 2, 263 },
@@ -4358,10 +4363,10 @@ const struct WildPokemon gRoute101_LandMons[] =
     { 3, 3, 16 },
     { 3, 3, 216 },
     { 3, 3, 819 },
-    { 2, 2, 216 },
-    { 2, 2, 570 },
-    { 3, 3, 570 },
-    { 3, 3, 570 },
+    { 2, 2, 661 },
+    { 2, 2, 206 },
+    { 3, 3, 661 },
+    { 3, 3, 206 },
 };
 
 const struct WildPokemonInfo gRoute101_LandMonsInfo = { 20, gRoute101_LandMons };
@@ -4377,10 +4382,10 @@ const struct WildPokemon gRoute101_LandMonsNight[] =
     { 3, 3, 396 },
     { 3, 3, 216 },
     { 3, 3, 819 },
-    { 2, 2, 216 },
-    { 2, 2, 570 },
-    { 3, 3, 570 },
-    { 3, 3, 570 },
+    { 2, 2, 661 },
+    { 2, 2, 206 },
+    { 3, 3, 661 },
+    { 3, 3, 206 },
 };
 
 const struct WildPokemonInfo gRoute101_LandMonsNightInfo = { 20, gRoute101_LandMonsNight };
@@ -4393,12 +4398,13 @@ const struct WildPokemonInfo gRoute101_LandMonsNightInfo = { 20, gRoute101_LandM
 
 const struct WildPokemon gRoute101_HiddenMons[] =
 {
-    { 4, 4, 206 },
-    { 4, 4, 661 },
-    { 4, 4, 190 },
+    { 4, 4, 327 },
+    { 4, 4, 540 },
+    { 4, 4, 570 },
 };
-
 const struct WildPokemonInfo gRoute101_HiddenMonsInfo = { 0, gRoute101_HiddenMons };
+
+
 
 
 
@@ -4456,8 +4462,8 @@ const struct WildPokemonInfo gRoute102_WaterMonsInfo = { 4, gRoute102_WaterMons 
 const struct WildPokemon gRoute102_FishingMons[] =
 {
     { 5, 10, 129 },
-    { 5, 10, 118 },
-    { 10, 30, 129 },
+    { 5, 10, 211 },
+    { 10, 30, 211 },
     { 10, 30, 118 },
     { 10, 30, 341 },
     { 25, 30, 341 },
@@ -4468,26 +4474,21 @@ const struct WildPokemon gRoute102_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute102_FishingMonsInfo = { 30, gRoute102_FishingMons };
-
-
-
-
-
-
+# 223 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute103_LandMons[] =
 {
     { 2, 2, 278 },
     { 3, 3, 21 },
     { 3, 3, 827 },
-    { 4, 4, 43 },
+    { 4, 4, 52 },
     { 2, 2, 422 },
     { 3, 3, 263 },
-    { 3, 3, 19 },
+    { 3, 3, 898 + 60 },
     { 4, 3, 734 },
     { 3, 3, 824 },
     { 3, 3, 659 },
     { 2, 2, 824 },
-    { 4, 4, 52 },
+    { 4, 4, 659 },
 };
 
 const struct WildPokemonInfo gRoute103_LandMonsInfo = { 20, gRoute103_LandMons };
@@ -4498,11 +4499,11 @@ const struct WildPokemon gRoute103_LandMonsNight[] =
     { 2, 2, 278 },
     { 3, 3, 163 },
     { 3, 3, 509 },
-    { 4, 4, 69 },
+    { 4, 4, 52 },
     { 2, 2, 898 + 141 },
     { 3, 3, 898 + 82 },
-    { 3, 3, 898 + 51 },
-    { 4, 4, 898 + 60 },
+    { 3, 3, 898 + 60 },
+    { 4, 4, 898 + 51 },
     { 3, 3, 824 },
     { 3, 3, 819 },
     { 2, 2, 824 },
@@ -4546,12 +4547,13 @@ const struct WildPokemonInfo gRoute103_FishingMonsInfo = { 30, gRoute103_Fishing
 
 const struct WildPokemon gRoute103_HiddenMons[] =
 {
-    { 4, 4, 661 },
-    { 4, 4, 399 },
-    { 4, 4, 840 },
+    { 4, 4, 235 },
+    { 4, 4, 108 },
+    { 4, 4, 127 },
 };
-
 const struct WildPokemonInfo gRoute103_HiddenMonsInfo = { 0, gRoute103_HiddenMons };
+
+
 
 
 
@@ -4621,7 +4623,7 @@ const struct WildPokemon gRoute104_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute104_FishingMonsInfo = { 30, gRoute104_FishingMons };
-# 368 "src/data/wild_encounters.h"
+# 381 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute105_WaterMons[] =
 {
     { 5, 35, 278 },
@@ -4650,12 +4652,7 @@ const struct WildPokemon gRoute105_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute105_FishingMonsInfo = { 30, gRoute105_FishingMons };
-
-
-
-
-
-
+# 417 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute110_LandMons[] =
 {
     { 12, 12, 100 },
@@ -4722,12 +4719,7 @@ const struct WildPokemon gRoute110_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute110_FishingMonsInfo = { 30, gRoute110_FishingMons };
-
-
-
-
-
-
+# 491 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute111_LandMons[] =
 {
     { 20, 20, 27 },
@@ -4741,7 +4733,7 @@ const struct WildPokemon gRoute111_LandMons[] =
     { 20, 20, 843 },
     { 20, 20, 443 },
     { 22, 22, 843 },
-    { 22, 22, 443 },
+    { 22, 22, 898 + 87 },
 };
 
 const struct WildPokemonInfo gRoute111_LandMonsInfo = { 10, gRoute111_LandMons };
@@ -4760,7 +4752,7 @@ const struct WildPokemon gRoute111_LandMonsNight[] =
     { 20, 20, 843 },
     { 20, 20, 443 },
     { 22, 22, 443 },
-    { 22, 22, 843 },
+    { 22, 22, 898 + 87 },
 };
 
 const struct WildPokemonInfo gRoute111_LandMonsNightInfo = { 10, gRoute111_LandMonsNight };
@@ -4781,10 +4773,10 @@ const struct WildPokemonInfo gRoute111_WaterMonsInfo = { 4, gRoute111_WaterMons 
 const struct WildPokemon gRoute111_RockSmashMons[] =
 {
     { 10, 15, 74 },
-    { 5, 10, 74 },
-    { 15, 20, 74 },
-    { 15, 20, 74 },
-    { 15, 20, 74 },
+    { 5, 10, 898 + 62 },
+    { 15, 20, 524 },
+    { 15, 20, 837 },
+    { 15, 20, 299 },
 };
 
 const struct WildPokemonInfo gRoute111_RockSmashMonsInfo = { 20, gRoute111_RockSmashMons };
@@ -4805,12 +4797,7 @@ const struct WildPokemon gRoute111_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute111_FishingMonsInfo = { 30, gRoute111_FishingMons };
-
-
-
-
-
-
+# 576 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute112_LandMons[] =
 {
     { 15, 15, 66 },
@@ -4838,7 +4825,7 @@ const struct WildPokemon gRoute112_LandMonsNight[] =
     { 14, 14, 236 },
     { 10, 14, 539 },
     { 14, 14, 538 },
-    { 15, 16, 66 },
+    { 15, 16, 870 },
     { 16, 16, 554 },
     { 16, 16, 757 },
     { 16, 16, 32 },
@@ -4860,25 +4847,26 @@ const struct WildPokemon gRoute112_HiddenMons[] =
     { 5, 5, 868 },
     { 5, 5, 780 },
 };
-
 const struct WildPokemonInfo gRoute112_HiddenMonsInfo = { 0, gRoute112_HiddenMons };
+
+
 
 
 
 const struct WildPokemon gRoute113_LandMons[] =
 {
-    { 15, 15, 626 },
-    { 15, 15, 327 },
-    { 15, 15, 559 },
-    { 14, 14, 227 },
-    { 14, 14, 707 },
-    { 14, 14, 27 },
-    { 16, 16, 52 },
-    { 16, 16, 27 },
-    { 16, 16, 626 },
-    { 16, 16, 707 },
-    { 16, 16, 327 },
-    { 16, 16, 227 },
+    { 1, 1, 626 },
+    { 1, 1, 327 },
+    { 1, 1, 559 },
+    { 1, 1, 227 },
+    { 1, 1, 707 },
+    { 1, 1, 27 },
+    { 1, 1, 52 },
+    { 1, 1, 108 },
+    { 1, 1, 626 },
+    { 1, 1, 707 },
+    { 1, 1, 327 },
+    { 1, 1, 227 },
 };
 
 const struct WildPokemonInfo gRoute113_LandMonsInfo = { 20, gRoute113_LandMons };
@@ -4886,22 +4874,22 @@ const struct WildPokemonInfo gRoute113_LandMonsInfo = { 20, gRoute113_LandMons }
 
 const struct WildPokemon gRoute113_LandMonsNight[] =
 {
-    { 15, 15, 327 },
-    { 15, 15, 626 },
-    { 15, 15, 27 },
-    { 14, 14, 559 },
-    { 14, 14, 227 },
-    { 14, 14, 707 },
-    { 16, 16, 898 + 69 },
-    { 16, 16, 559 },
-    { 16, 16, 327 },
-    { 16, 16, 227 },
-    { 16, 16, 626 },
-    { 16, 16, 707 },
+    { 1, 1, 327 },
+    { 1, 1, 626 },
+    { 1, 1, 27 },
+    { 1, 1, 559 },
+    { 1, 1, 227 },
+    { 1, 1, 707 },
+    { 1, 1, 898 + 69 },
+    { 1, 1, 559 },
+    { 1, 1, 327 },
+    { 1, 1, 227 },
+    { 1, 1, 626 },
+    { 1, 1, 707 },
 };
 
 const struct WildPokemonInfo gRoute113_LandMonsNightInfo = { 20, gRoute113_LandMonsNight };
-# 656 "src/data/wild_encounters.h"
+# 678 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute114_LandMons[] =
 {
     { 16, 16, 333 },
@@ -4948,8 +4936,8 @@ const struct WildPokemonInfo gRoute114_RockSmashMonsInfo = { 20, gRoute114_RockS
 
 const struct WildPokemon gRoute114_FishingMons[] =
 {
-    { 5, 10, 129 },
     { 5, 10, 118 },
+    { 5, 10, 211 },
     { 10, 30, 129 },
     { 10, 30, 118 },
     { 10, 30, 339 },
@@ -4961,20 +4949,15 @@ const struct WildPokemon gRoute114_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute114_FishingMonsInfo = { 30, gRoute114_FishingMons };
-
-
-
-
-
-
+# 745 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute116_LandMons[] =
 {
-    { 6, 6, 261 },
-    { 6, 6, 293 },
     { 6, 6, 290 },
+    { 6, 6, 293 },
+    { 4, 6, 191 },
     { 7, 7, 63 },
     { 7, 7, 300 },
-    { 6, 6, 191 },
+    { 6, 6, 10 },
     { 7, 7, 161 },
     { 8, 8, 431 },
     { 7, 7, 572 },
@@ -4984,20 +4967,34 @@ const struct WildPokemon gRoute116_LandMons[] =
 };
 
 const struct WildPokemonInfo gRoute116_LandMonsInfo = { 20, gRoute116_LandMons };
-# 748 "src/data/wild_encounters.h"
+
+
+
+
+const struct WildPokemon gRoute116_RockSmashMons[] =
+{
+    { 5, 5, 16 },
+    { 5, 5, 191 },
+    { 5, 5, 13 },
+    { 5, 5, 48 },
+    { 5, 5, 446 },
+};
+
+const struct WildPokemonInfo gRoute116_RockSmashMonsInfo = { 5, gRoute116_RockSmashMons };
+# 785 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute117_LandMons[] =
 {
-    { 13, 13, 261 },
-    { 13, 13, 43 },
+    { 13, 13, 19 },
+    { 13, 13, 293 },
     { 14, 14, 69 },
-    { 14, 14, 298 },
+    { 14, 14, 84 },
     { 13, 13, 314 },
     { 13, 13, 313 },
-    { 13, 13, 898 + 244 },
+    { 13, 13, 898 + 51 },
     { 13, 13, 403 },
-    { 14, 14, 588 },
+    { 14, 14, 898 + 244 },
     { 14, 14, 616 },
-    { 13, 13, 588 },
+    { 13, 13, 898 + 244 },
     { 13, 13, 616 },
 };
 
@@ -5017,25 +5014,47 @@ const struct WildPokemon gRoute117_WaterMons[] =
 const struct WildPokemonInfo gRoute117_WaterMonsInfo = { 4, gRoute117_WaterMons };
 
 
+const struct WildPokemon gRoute117_RockSmashMons[] =
+{
+    { 5, 5, 163 },
+    { 5, 5, 43 },
+    { 5, 5, 204 },
+    { 5, 5, 840 },
+    { 5, 5, 446 },
+};
+
+const struct WildPokemonInfo gRoute117_RockSmashMonsInfo = { 50, gRoute117_RockSmashMons };
+
 
 const struct WildPokemon gRoute117_FishingMons[] =
 {
-    { 5, 10, 129 },
+    { 5, 10, 72 },
     { 5, 10, 118 },
-    { 10, 30, 129 },
+    { 10, 30, 72 },
     { 10, 30, 118 },
     { 10, 30, 341 },
-    { 25, 30, 341 },
+    { 25, 30, 98 },
     { 30, 35, 341 },
-    { 20, 25, 341 },
-    { 35, 40, 341 },
-    { 40, 45, 341 },
+    { 20, 25, 339 },
+    { 35, 40, 846 },
+    { 40, 45, 771 },
 };
 
 const struct WildPokemonInfo gRoute117_FishingMonsInfo = { 30, gRoute117_FishingMons };
 
 
 
+
+
+
+const struct WildPokemon gRoute117_HeadbuttMons[] =
+{
+    { 5, 5, 163 },
+    { 5, 5, 102 },
+    { 5, 5, 204 },
+};
+
+const struct WildPokemonInfo gRoute117_HeadbuttMonsInfo = { 0, gRoute117_HeadbuttMons };
 
 
 
@@ -5087,7 +5106,7 @@ const struct WildPokemon gRoute118_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute118_FishingMonsInfo = { 30, gRoute118_FishingMons };
-# 858 "src/data/wild_encounters.h"
+# 919 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute124_WaterMons[] =
 {
     { 5, 35, 320 },
@@ -5116,12 +5135,7 @@ const struct WildPokemon gRoute124_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute124_FishingMonsInfo = { 30, gRoute124_FishingMons };
-
-
-
-
-
-
+# 955 "src/data/wild_encounters.h"
 const struct WildPokemon gPetalburgWoods_LandMons[] =
 {
     { 5, 5, 265 },
@@ -5171,17 +5185,28 @@ const struct WildPokemon gPetalburgWoods_HiddenMons[] =
     { 5, 5, 48 },
     { 5, 5, 412 },
 };
-
 const struct WildPokemonInfo gPetalburgWoods_HiddenMonsInfo = { 0, gPetalburgWoods_HiddenMons };
-# 953 "src/data/wild_encounters.h"
+
+
+
+const struct WildPokemon gPetalburgWoods_HeadbuttMons[] =
+{
+    { 5, 5, 48 },
+    { 5, 5, 167 },
+    { 5, 5, 664 },
+};
+
+const struct WildPokemonInfo gPetalburgWoods_HeadbuttMonsInfo = { 0, gPetalburgWoods_HeadbuttMons };
+# 1026 "src/data/wild_encounters.h"
 const struct WildPokemon gPetalburgWoods1_HiddenMons[] =
 {
     { 5, 5, 252 },
     { 5, 5, 252 },
     { 5, 5, 152 },
 };
-
 const struct WildPokemonInfo gPetalburgWoods1_HiddenMonsInfo = { 0, gPetalburgWoods1_HiddenMons };
+
+
 
 
 
@@ -5202,7 +5227,7 @@ const struct WildPokemon gRusturfTunnel_LandMons[] =
 };
 
 const struct WildPokemonInfo gRusturfTunnel_LandMonsInfo = { 10, gRusturfTunnel_LandMons };
-# 991 "src/data/wild_encounters.h"
+# 1067 "src/data/wild_encounters.h"
 const struct WildPokemon gGraniteCave_1F_LandMons[] =
 {
     { 7, 7, 41 },
@@ -5220,7 +5245,7 @@ const struct WildPokemon gGraniteCave_1F_LandMons[] =
 };
 
 const struct WildPokemonInfo gGraniteCave_1F_LandMonsInfo = { 10, gGraniteCave_1F_LandMons };
-# 1018 "src/data/wild_encounters.h"
+# 1096 "src/data/wild_encounters.h"
 const struct WildPokemon gGraniteCave_B1F_LandMons[] =
 {
     { 9, 9, 41 },
@@ -5238,7 +5263,7 @@ const struct WildPokemon gGraniteCave_B1F_LandMons[] =
 };
 
 const struct WildPokemonInfo gGraniteCave_B1F_LandMonsInfo = { 10, gGraniteCave_B1F_LandMons };
-# 1045 "src/data/wild_encounters.h"
+# 1125 "src/data/wild_encounters.h"
 const struct WildPokemon gMtPyre_1F_LandMons[] =
 {
     { 27, 27, 353 },
@@ -5256,7 +5281,7 @@ const struct WildPokemon gMtPyre_1F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMtPyre_1F_LandMonsInfo = { 10, gMtPyre_1F_LandMons };
-# 1072 "src/data/wild_encounters.h"
+# 1154 "src/data/wild_encounters.h"
 const struct WildPokemon gVictoryRoad_1F_LandMons[] =
 {
     { 40, 40, 41 },
@@ -5274,7 +5299,7 @@ const struct WildPokemon gVictoryRoad_1F_LandMons[] =
 };
 
 const struct WildPokemonInfo gVictoryRoad_1F_LandMonsInfo = { 10, gVictoryRoad_1F_LandMons };
-# 1099 "src/data/wild_encounters.h"
+# 1183 "src/data/wild_encounters.h"
 const struct WildPokemon gSafariZone_South_LandMons[] =
 {
     { 25, 25, 43 },
@@ -5292,25 +5317,25 @@ const struct WildPokemon gSafariZone_South_LandMons[] =
 };
 
 const struct WildPokemonInfo gSafariZone_South_LandMonsInfo = { 25, gSafariZone_South_LandMons };
-# 1128 "src/data/wild_encounters.h"
+# 1214 "src/data/wild_encounters.h"
 const struct WildPokemon gUnderwater_Route126_WaterMons[] =
 {
     { 20, 30, 366 },
     { 20, 30, 833 },
     { 30, 35, 833 },
     { 30, 35, 369 },
-    { 30, 35, 369 },
+    { 30, 35, 883 },
 };
 
 const struct WildPokemonInfo gUnderwater_Route126_WaterMonsInfo = { 4, gUnderwater_Route126_WaterMons };
-# 1148 "src/data/wild_encounters.h"
+# 1236 "src/data/wild_encounters.h"
 const struct WildPokemon gAbandonedShip_Rooms_B1F_WaterMons[] =
 {
-    { 5, 35, 72 },
-    { 5, 35, 72 },
-    { 5, 35, 72 },
-    { 5, 35, 72 },
-    { 30, 35, 72 },
+    { 5, 35, 771 },
+    { 5, 35, 456 },
+    { 5, 35, 779 },
+    { 5, 35, 688 },
+    { 30, 35, 883 },
 };
 
 const struct WildPokemonInfo gAbandonedShip_Rooms_B1F_WaterMonsInfo = { 4, gAbandonedShip_Rooms_B1F_WaterMons };
@@ -5328,16 +5353,11 @@ const struct WildPokemon gAbandonedShip_Rooms_B1F_FishingMons[] =
     { 30, 35, 72 },
     { 30, 35, 72 },
     { 25, 30, 72 },
-    { 20, 25, 72 },
+    { 20, 25, 883 },
 };
 
 const struct WildPokemonInfo gAbandonedShip_Rooms_B1F_FishingMonsInfo = { 20, gAbandonedShip_Rooms_B1F_FishingMons };
-
-
-
-
-
-
+# 1272 "src/data/wild_encounters.h"
 const struct WildPokemon gGraniteCave_B2F_LandMons[] =
 {
     { 10, 10, 41 },
@@ -5369,13 +5389,7 @@ const struct WildPokemon gGraniteCave_B2F_RockSmashMons[] =
 };
 
 const struct WildPokemonInfo gGraniteCave_B2F_RockSmashMonsInfo = { 20, gGraniteCave_B2F_RockSmashMons };
-
-
-
-
-
-
-
+# 1312 "src/data/wild_encounters.h"
 const struct WildPokemon gFieryPath_LandMons[] =
 {
     { 15, 15, 322 },
@@ -5393,15 +5407,16 @@ const struct WildPokemon gFieryPath_LandMons[] =
 };
 
 const struct WildPokemonInfo gFieryPath_LandMonsInfo = { 10, gFieryPath_LandMons };
-# 1245 "src/data/wild_encounters.h"
+# 1337 "src/data/wild_encounters.h"
 const struct WildPokemon gFieryPath_HiddenMons[] =
 {
     { 5, 5, 898 + 65 },
     { 5, 5, 104 },
     { 5, 5, 704 },
 };
-
 const struct WildPokemonInfo gFieryPath_HiddenMonsInfo = { 0, gFieryPath_HiddenMons };
+
+
 
 
 
@@ -5460,40 +5475,42 @@ const struct WildPokemonInfo gMeteorFalls_B1F_2R_FishingMonsInfo = { 30, gMeteor
 const struct WildPokemon gMeteorFalls_B1F_2R_HiddenMons[] =
 {
     { 5, 5, 246 },
-    { 5, 5, 885 },
+    { 5, 5, 374 },
     { 5, 5, 782 },
 };
-
 const struct WildPokemonInfo gMeteorFalls_B1F_2R_HiddenMonsInfo = { 0, gMeteorFalls_B1F_2R_HiddenMons };
+
+
 
 
 
 const struct WildPokemon gJaggedPass_LandMons[] =
 {
-    { 21, 21, 56 },
-    { 21, 21, 66 },
-    { 21, 21, 325 },
-    { 20, 23, 23 },
-    { 20, 20, 83 },
-    { 20, 20, 451 },
-    { 21, 21, 543 },
-    { 22, 22, 741 },
-    { 22, 22, 701 },
-    { 22, 22, 597 },
-    { 22, 22, 701 },
-    { 22, 22, 597 },
+    { 1, 1, 56 },
+    { 1, 1, 66 },
+    { 1, 1, 325 },
+    { 1, 1, 23 },
+    { 1, 1, 83 },
+    { 1, 1, 451 },
+    { 1, 1, 543 },
+    { 1, 1, 741 },
+    { 1, 1, 701 },
+    { 1, 1, 597 },
+    { 1, 1, 701 },
+    { 1, 1, 597 },
 };
 
 const struct WildPokemonInfo gJaggedPass_LandMonsInfo = { 20, gJaggedPass_LandMons };
-# 1353 "src/data/wild_encounters.h"
+# 1449 "src/data/wild_encounters.h"
 const struct WildPokemon gJaggedPass1_HiddenMons[] =
 {
     { 5, 5, 255 },
     { 5, 5, 255 },
     { 5, 5, 155 },
 };
-
 const struct WildPokemonInfo gJaggedPass1_HiddenMonsInfo = { 0, gJaggedPass1_HiddenMons };
+
+
 
 
 
@@ -5527,7 +5544,7 @@ const struct WildPokemon gRoute106_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute106_FishingMonsInfo = { 30, gRoute106_FishingMons };
-# 1402 "src/data/wild_encounters.h"
+# 1501 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute107_WaterMons[] =
 {
     { 5, 35, 118 },
@@ -5556,7 +5573,7 @@ const struct WildPokemon gRoute107_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute107_FishingMonsInfo = { 30, gRoute107_FishingMons };
-# 1438 "src/data/wild_encounters.h"
+# 1539 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute108_WaterMons[] =
 {
     { 5, 35, 98 },
@@ -5585,7 +5602,7 @@ const struct WildPokemon gRoute108_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute108_FishingMonsInfo = { 30, gRoute108_FishingMons };
-# 1474 "src/data/wild_encounters.h"
+# 1577 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute109_WaterMons[] =
 {
     { 5, 35, 98 },
@@ -5614,12 +5631,7 @@ const struct WildPokemon gRoute109_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute109_FishingMonsInfo = { 30, gRoute109_FishingMons };
-
-
-
-
-
-
+# 1613 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute115_LandMons[] =
 {
     { 23, 23, 333 },
@@ -5668,12 +5680,7 @@ const struct WildPokemon gRoute115_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute115_FishingMonsInfo = { 30, gRoute115_FishingMons };
-
-
-
-
-
-
+# 1669 "src/data/wild_encounters.h"
 const struct WildPokemon gNewMauville_Inside_LandMons[] =
 {
     { 24, 24, 100 },
@@ -5691,21 +5698,21 @@ const struct WildPokemon gNewMauville_Inside_LandMons[] =
 };
 
 const struct WildPokemonInfo gNewMauville_Inside_LandMonsInfo = { 10, gNewMauville_Inside_LandMons };
-# 1589 "src/data/wild_encounters.h"
+# 1698 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute119_LandMons[] =
 {
-    { 25, 25, 263 },
+    { 25, 25, 506 },
     { 25, 25, 672 },
     { 27, 27, 585 },
     { 25, 25, 522 },
-    { 26, 27, 506 },
+    { 26, 27, 588 },
     { 26, 26, 831 },
     { 27, 27, 775 },
     { 24, 24, 676 },
     { 25, 25, 352 },
     { 26, 26, 357 },
     { 27, 27, 352 },
-    { 25, 25, 357 },
+    { 25, 25, 704 },
 };
 
 const struct WildPokemonInfo gRoute119_LandMonsInfo = { 15, gRoute119_LandMons };
@@ -5740,22 +5747,17 @@ const struct WildPokemon gRoute119_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute119_FishingMonsInfo = { 30, gRoute119_FishingMons };
-
-
-
-
-
-
+# 1754 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute120_LandMons[] =
 {
     { 25, 25, 261 },
     { 25, 25, 43 },
     { 27, 27, 69 },
-    { 25, 25, 43 },
-    { 25, 25, 298 },
+    { 25, 25, 531 },
+    { 24, 24, 298 },
     { 26, 26, 270 },
     { 27, 27, 273 },
-    { 27, 27, 531 },
+    { 27, 27, 704 },
     { 25, 25, 352 },
     { 27, 27, 359 },
     { 25, 25, 352 },
@@ -5794,22 +5796,17 @@ const struct WildPokemon gRoute120_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute120_FishingMonsInfo = { 30, gRoute120_FishingMons };
-
-
-
-
-
-
+# 1810 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute121_LandMons[] =
 {
-    { 26, 26, 102 },
-    { 26, 26, 46 },
     { 26, 26, 353 },
+    { 26, 26, 46 },
     { 28, 28, 261 },
+    { 28, 28, 231 },
     { 28, 28, 228 },
     { 26, 26, 605 },
     { 28, 28, 177 },
-    { 28, 28, 231 },
+    { 28, 28, 570 },
     { 26, 26, 425 },
     { 27, 27, 352 },
     { 28, 28, 425 },
@@ -5832,6 +5829,17 @@ const struct WildPokemon gRoute121_WaterMons[] =
 const struct WildPokemonInfo gRoute121_WaterMonsInfo = { 4, gRoute121_WaterMons };
 
 
+const struct WildPokemon gRoute121_RockSmashMons[] =
+{
+    { 5, 5, 102 },
+    { 5, 5, 177 },
+    { 5, 5, 840 },
+    { 5, 5, 127 },
+    { 5, 5, 446 },
+};
+
+const struct WildPokemonInfo gRoute121_RockSmashMonsInfo = { 50, gRoute121_RockSmashMons };
+
 
 const struct WildPokemon gRoute121_FishingMons[] =
 {
@@ -5848,7 +5856,7 @@ const struct WildPokemon gRoute121_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute121_FishingMonsInfo = { 30, gRoute121_FishingMons };
-# 1753 "src/data/wild_encounters.h"
+# 1879 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute122_WaterMons[] =
 {
     { 5, 35, 170 },
@@ -5877,12 +5885,7 @@ const struct WildPokemon gRoute122_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute122_FishingMonsInfo = { 30, gRoute122_FishingMons };
-
-
-
-
-
-
+# 1915 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute123_LandMons[] =
 {
     { 26, 26, 261 },
@@ -5890,9 +5893,9 @@ const struct WildPokemon gRoute123_LandMons[] =
     { 26, 26, 43 },
     { 28, 28, 69 },
     { 28, 28, 114 },
-    { 26, 26, 420 },
+    { 26, 26, 439 },
     { 28, 28, 829 },
-    { 28, 28, 840 },
+    { 28, 28, 574 },
     { 26, 26, 577 },
     { 27, 27, 619 },
     { 28, 28, 577 },
@@ -5914,6 +5917,17 @@ const struct WildPokemon gRoute123_WaterMons[] =
 
 const struct WildPokemonInfo gRoute123_WaterMonsInfo = { 4, gRoute123_WaterMons };
 
+
+const struct WildPokemon gRoute123_RockSmashMons[] =
+{
+    { 5, 5, 102 },
+    { 5, 5, 204 },
+    { 5, 5, 821 },
+    { 5, 5, 840 },
+    { 5, 5, 840 },
+};
+
+const struct WildPokemonInfo gRoute123_RockSmashMonsInfo = { 0, gRoute123_RockSmashMons };
 
 
 const struct WildPokemon gRoute123_FishingMons[] =
@@ -5941,8 +5955,18 @@ const struct WildPokemon gRoute123_HiddenMons[] =
     { 5, 5, 513 },
     { 5, 5, 511 },
 };
-
 const struct WildPokemonInfo gRoute123_HiddenMonsInfo = { 0, gRoute123_HiddenMons };
+
+
+
+const struct WildPokemon gRoute123_HeadbuttMons[] =
+{
+    { 5, 5, 840 },
+    { 5, 5, 412 },
+    { 5, 5, 420 },
+};
+
+const struct WildPokemonInfo gRoute123_HeadbuttMonsInfo = { 0, gRoute123_HeadbuttMons };
 
 
 
@@ -5963,7 +5987,7 @@ const struct WildPokemon gMtPyre_2F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMtPyre_2F_LandMonsInfo = { 10, gMtPyre_2F_LandMons };
-# 1877 "src/data/wild_encounters.h"
+# 2028 "src/data/wild_encounters.h"
 const struct WildPokemon gMtPyre_3F_LandMons[] =
 {
     { 27, 27, 562 },
@@ -5981,7 +6005,7 @@ const struct WildPokemon gMtPyre_3F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMtPyre_3F_LandMonsInfo = { 10, gMtPyre_3F_LandMons };
-# 1904 "src/data/wild_encounters.h"
+# 2057 "src/data/wild_encounters.h"
 const struct WildPokemon gMtPyre_4F_LandMons[] =
 {
     { 27, 27, 92 },
@@ -5999,7 +6023,7 @@ const struct WildPokemon gMtPyre_4F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMtPyre_4F_LandMonsInfo = { 10, gMtPyre_4F_LandMons };
-# 1931 "src/data/wild_encounters.h"
+# 2086 "src/data/wild_encounters.h"
 const struct WildPokemon gMtPyre_5F_LandMons[] =
 {
     { 27, 27, 177 },
@@ -6017,7 +6041,7 @@ const struct WildPokemon gMtPyre_5F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMtPyre_5F_LandMonsInfo = { 10, gMtPyre_5F_LandMons };
-# 1958 "src/data/wild_encounters.h"
+# 2115 "src/data/wild_encounters.h"
 const struct WildPokemon gMtPyre_6F_LandMons[] =
 {
     { 27, 27, 302 },
@@ -6035,7 +6059,7 @@ const struct WildPokemon gMtPyre_6F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMtPyre_6F_LandMonsInfo = { 10, gMtPyre_6F_LandMons };
-# 1985 "src/data/wild_encounters.h"
+# 2144 "src/data/wild_encounters.h"
 const struct WildPokemon gMtPyre_Exterior_LandMons[] =
 {
     { 27, 27, 37 },
@@ -6053,7 +6077,7 @@ const struct WildPokemon gMtPyre_Exterior_LandMons[] =
 };
 
 const struct WildPokemonInfo gMtPyre_Exterior_LandMonsInfo = { 10, gMtPyre_Exterior_LandMons };
-# 2012 "src/data/wild_encounters.h"
+# 2173 "src/data/wild_encounters.h"
 const struct WildPokemon gMtPyre_Summit_LandMons[] =
 {
     { 28, 28, 37 },
@@ -6071,7 +6095,7 @@ const struct WildPokemon gMtPyre_Summit_LandMons[] =
 };
 
 const struct WildPokemonInfo gMtPyre_Summit_LandMonsInfo = { 10, gMtPyre_Summit_LandMons };
-# 2039 "src/data/wild_encounters.h"
+# 2202 "src/data/wild_encounters.h"
 const struct WildPokemon gGraniteCave_StevensRoom_LandMons[] =
 {
     { 7, 7, 302 },
@@ -6089,14 +6113,14 @@ const struct WildPokemon gGraniteCave_StevensRoom_LandMons[] =
 };
 
 const struct WildPokemonInfo gGraniteCave_StevensRoom_LandMonsInfo = { 10, gGraniteCave_StevensRoom_LandMons };
-# 2068 "src/data/wild_encounters.h"
+# 2233 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute125_WaterMons[] =
 {
     { 5, 35, 60 },
     { 10, 30, 456 },
     { 15, 25, 370 },
     { 25, 30, 845 },
-    { 25, 30, 845 },
+    { 25, 30, 846 },
 };
 
 const struct WildPokemonInfo gRoute125_WaterMonsInfo = { 4, gRoute125_WaterMons };
@@ -6105,10 +6129,10 @@ const struct WildPokemonInfo gRoute125_WaterMonsInfo = { 4, gRoute125_WaterMons 
 
 const struct WildPokemon gRoute125_FishingMons[] =
 {
-    { 5, 10, 129 },
-    { 5, 10, 72 },
-    { 10, 30, 129 },
-    { 10, 30, 72 },
+    { 5, 10, 456 },
+    { 5, 10, 846 },
+    { 10, 30, 456 },
+    { 10, 30, 846 },
     { 10, 30, 320 },
     { 30, 35, 318 },
     { 30, 35, 320 },
@@ -6118,7 +6142,7 @@ const struct WildPokemon gRoute125_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute125_FishingMonsInfo = { 30, gRoute125_FishingMons };
-# 2104 "src/data/wild_encounters.h"
+# 2271 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute126_WaterMons[] =
 {
     { 5, 35, 370 },
@@ -6135,9 +6159,9 @@ const struct WildPokemonInfo gRoute126_WaterMonsInfo = { 4, gRoute126_WaterMons 
 const struct WildPokemon gRoute126_FishingMons[] =
 {
     { 5, 10, 129 },
-    { 5, 10, 72 },
+    { 5, 10, 846 },
     { 10, 30, 129 },
-    { 10, 30, 72 },
+    { 10, 30, 846 },
     { 10, 30, 320 },
     { 30, 35, 318 },
     { 30, 35, 320 },
@@ -6147,12 +6171,7 @@ const struct WildPokemon gRoute126_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute126_FishingMonsInfo = { 30, gRoute126_FishingMons };
-
-
-
-
-
-
+# 2307 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute127_LandMons[] =
 {
     { 5, 5, 399 },
@@ -6201,7 +6220,7 @@ const struct WildPokemon gRoute127_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute127_FishingMonsInfo = { 30, gRoute127_FishingMons };
-# 2194 "src/data/wild_encounters.h"
+# 2365 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute128_WaterMons[] =
 {
     { 5, 35, 86 },
@@ -6230,7 +6249,7 @@ const struct WildPokemon gRoute128_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute128_FishingMonsInfo = { 30, gRoute128_FishingMons };
-# 2230 "src/data/wild_encounters.h"
+# 2403 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute129_WaterMons[] =
 {
     { 5, 35, 79 },
@@ -6259,12 +6278,7 @@ const struct WildPokemon gRoute129_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute129_FishingMonsInfo = { 30, gRoute129_FishingMons };
-
-
-
-
-
-
+# 2439 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute130_LandMons[] =
 {
     { 30, 30, 360 },
@@ -6313,7 +6327,7 @@ const struct WildPokemon gRoute130_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute130_FishingMonsInfo = { 30, gRoute130_FishingMons };
-# 2320 "src/data/wild_encounters.h"
+# 2497 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute131_WaterMons[] =
 {
     { 5, 35, 341 },
@@ -6342,7 +6356,7 @@ const struct WildPokemon gRoute131_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute131_FishingMonsInfo = { 30, gRoute131_FishingMons };
-# 2356 "src/data/wild_encounters.h"
+# 2535 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute132_WaterMons[] =
 {
     { 5, 35, 129 },
@@ -6371,7 +6385,7 @@ const struct WildPokemon gRoute132_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute132_FishingMonsInfo = { 30, gRoute132_FishingMons };
-# 2392 "src/data/wild_encounters.h"
+# 2573 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute133_WaterMons[] =
 {
     { 5, 35, 116 },
@@ -6400,7 +6414,7 @@ const struct WildPokemon gRoute133_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute133_FishingMonsInfo = { 30, gRoute133_FishingMons };
-# 2428 "src/data/wild_encounters.h"
+# 2611 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute134_WaterMons[] =
 {
     { 5, 35, 116 },
@@ -6429,7 +6443,7 @@ const struct WildPokemon gRoute134_FishingMons[] =
 };
 
 const struct WildPokemonInfo gRoute134_FishingMonsInfo = { 30, gRoute134_FishingMons };
-# 2464 "src/data/wild_encounters.h"
+# 2649 "src/data/wild_encounters.h"
 const struct WildPokemon gAbandonedShip_HiddenFloorCorridors_WaterMons[] =
 {
     { 5, 35, 72 },
@@ -6458,12 +6472,7 @@ const struct WildPokemon gAbandonedShip_HiddenFloorCorridors_FishingMons[] =
 };
 
 const struct WildPokemonInfo gAbandonedShip_HiddenFloorCorridors_FishingMonsInfo = { 20, gAbandonedShip_HiddenFloorCorridors_FishingMons };
-
-
-
-
-
-
+# 2685 "src/data/wild_encounters.h"
 const struct WildPokemon gSeafloorCavern_Room1_LandMons[] =
 {
     { 30, 30, 527 },
@@ -6481,7 +6490,7 @@ const struct WildPokemon gSeafloorCavern_Room1_LandMons[] =
 };
 
 const struct WildPokemonInfo gSeafloorCavern_Room1_LandMonsInfo = { 4, gSeafloorCavern_Room1_LandMons };
-# 2525 "src/data/wild_encounters.h"
+# 2714 "src/data/wild_encounters.h"
 const struct WildPokemon gSeafloorCavern_Room2_LandMons[] =
 {
     { 30, 30, 527 },
@@ -6499,7 +6508,7 @@ const struct WildPokemon gSeafloorCavern_Room2_LandMons[] =
 };
 
 const struct WildPokemonInfo gSeafloorCavern_Room2_LandMonsInfo = { 4, gSeafloorCavern_Room2_LandMons };
-# 2552 "src/data/wild_encounters.h"
+# 2743 "src/data/wild_encounters.h"
 const struct WildPokemon gSeafloorCavern_Room3_LandMons[] =
 {
     { 30, 30, 41 },
@@ -6517,7 +6526,7 @@ const struct WildPokemon gSeafloorCavern_Room3_LandMons[] =
 };
 
 const struct WildPokemonInfo gSeafloorCavern_Room3_LandMonsInfo = { 4, gSeafloorCavern_Room3_LandMons };
-# 2579 "src/data/wild_encounters.h"
+# 2772 "src/data/wild_encounters.h"
 const struct WildPokemon gSeafloorCavern_Room4_LandMons[] =
 {
     { 30, 30, 41 },
@@ -6535,7 +6544,7 @@ const struct WildPokemon gSeafloorCavern_Room4_LandMons[] =
 };
 
 const struct WildPokemonInfo gSeafloorCavern_Room4_LandMonsInfo = { 4, gSeafloorCavern_Room4_LandMons };
-# 2606 "src/data/wild_encounters.h"
+# 2801 "src/data/wild_encounters.h"
 const struct WildPokemon gSeafloorCavern_Room5_LandMons[] =
 {
     { 30, 30, 527 },
@@ -6553,7 +6562,7 @@ const struct WildPokemon gSeafloorCavern_Room5_LandMons[] =
 };
 
 const struct WildPokemonInfo gSeafloorCavern_Room5_LandMonsInfo = { 4, gSeafloorCavern_Room5_LandMons };
-# 2633 "src/data/wild_encounters.h"
+# 2830 "src/data/wild_encounters.h"
 const struct WildPokemon gSeafloorCavern_Room6_LandMons[] =
 {
     { 30, 30, 527 },
@@ -6602,12 +6611,7 @@ const struct WildPokemon gSeafloorCavern_Room6_FishingMons[] =
 };
 
 const struct WildPokemonInfo gSeafloorCavern_Room6_FishingMonsInfo = { 10, gSeafloorCavern_Room6_FishingMons };
-
-
-
-
-
-
+# 2886 "src/data/wild_encounters.h"
 const struct WildPokemon gSeafloorCavern_Room7_LandMons[] =
 {
     { 30, 30, 527 },
@@ -6656,12 +6660,7 @@ const struct WildPokemon gSeafloorCavern_Room7_FishingMons[] =
 };
 
 const struct WildPokemonInfo gSeafloorCavern_Room7_FishingMonsInfo = { 10, gSeafloorCavern_Room7_FishingMons };
-
-
-
-
-
-
+# 2942 "src/data/wild_encounters.h"
 const struct WildPokemon gSeafloorCavern_Room8_LandMons[] =
 {
     { 30, 30, 527 },
@@ -6679,7 +6678,7 @@ const struct WildPokemon gSeafloorCavern_Room8_LandMons[] =
 };
 
 const struct WildPokemonInfo gSeafloorCavern_Room8_LandMonsInfo = { 4, gSeafloorCavern_Room8_LandMons };
-# 2770 "src/data/wild_encounters.h"
+# 2973 "src/data/wild_encounters.h"
 const struct WildPokemon gSeafloorCavern_Entrance_WaterMons[] =
 {
     { 5, 35, 72 },
@@ -6708,12 +6707,7 @@ const struct WildPokemon gSeafloorCavern_Entrance_FishingMons[] =
 };
 
 const struct WildPokemonInfo gSeafloorCavern_Entrance_FishingMonsInfo = { 10, gSeafloorCavern_Entrance_FishingMons };
-
-
-
-
-
-
+# 3009 "src/data/wild_encounters.h"
 const struct WildPokemon gCaveOfOrigin_Entrance_LandMons[] =
 {
     { 30, 30, 41 },
@@ -6731,7 +6725,7 @@ const struct WildPokemon gCaveOfOrigin_Entrance_LandMons[] =
 };
 
 const struct WildPokemonInfo gCaveOfOrigin_Entrance_LandMonsInfo = { 4, gCaveOfOrigin_Entrance_LandMons };
-# 2831 "src/data/wild_encounters.h"
+# 3038 "src/data/wild_encounters.h"
 const struct WildPokemon gCaveOfOrigin_1F_LandMons[] =
 {
     { 30, 30, 41 },
@@ -6749,7 +6743,7 @@ const struct WildPokemon gCaveOfOrigin_1F_LandMons[] =
 };
 
 const struct WildPokemonInfo gCaveOfOrigin_1F_LandMonsInfo = { 4, gCaveOfOrigin_1F_LandMons };
-# 2858 "src/data/wild_encounters.h"
+# 3067 "src/data/wild_encounters.h"
 const struct WildPokemon gCaveOfOrigin_UnusedRubySapphireMap1_LandMons[] =
 {
     { 30, 30, 41 },
@@ -6767,7 +6761,7 @@ const struct WildPokemon gCaveOfOrigin_UnusedRubySapphireMap1_LandMons[] =
 };
 
 const struct WildPokemonInfo gCaveOfOrigin_UnusedRubySapphireMap1_LandMonsInfo = { 4, gCaveOfOrigin_UnusedRubySapphireMap1_LandMons };
-# 2885 "src/data/wild_encounters.h"
+# 3096 "src/data/wild_encounters.h"
 const struct WildPokemon gCaveOfOrigin_UnusedRubySapphireMap2_LandMons[] =
 {
     { 30, 30, 41 },
@@ -6785,7 +6779,7 @@ const struct WildPokemon gCaveOfOrigin_UnusedRubySapphireMap2_LandMons[] =
 };
 
 const struct WildPokemonInfo gCaveOfOrigin_UnusedRubySapphireMap2_LandMonsInfo = { 4, gCaveOfOrigin_UnusedRubySapphireMap2_LandMons };
-# 2912 "src/data/wild_encounters.h"
+# 3125 "src/data/wild_encounters.h"
 const struct WildPokemon gCaveOfOrigin_UnusedRubySapphireMap3_LandMons[] =
 {
     { 30, 30, 41 },
@@ -6803,25 +6797,25 @@ const struct WildPokemon gCaveOfOrigin_UnusedRubySapphireMap3_LandMons[] =
 };
 
 const struct WildPokemonInfo gCaveOfOrigin_UnusedRubySapphireMap3_LandMonsInfo = { 4, gCaveOfOrigin_UnusedRubySapphireMap3_LandMons };
-# 2939 "src/data/wild_encounters.h"
+# 3154 "src/data/wild_encounters.h"
 const struct WildPokemon gNewMauville_Entrance_LandMons[] =
 {
     { 24, 24, 100 },
     { 24, 24, 81 },
     { 25, 25, 736 },
-    { 25, 25, 694 },
+    { 25, 25, 479 },
     { 23, 23, 309 },
     { 23, 23, 599 },
     { 26, 26, 835 },
     { 26, 26, 702 },
-    { 22, 22, 479 },
     { 22, 22, 848 },
-    { 22, 22, 479 },
     { 22, 22, 848 },
+    { 22, 22, 880 },
+    { 22, 22, 880 },
 };
 
 const struct WildPokemonInfo gNewMauville_Entrance_LandMonsInfo = { 10, gNewMauville_Entrance_LandMons };
-# 2966 "src/data/wild_encounters.h"
+# 3183 "src/data/wild_encounters.h"
 const struct WildPokemon gSafariZone_Southwest_LandMons[] =
 {
     { 25, 25, 43 },
@@ -6870,12 +6864,7 @@ const struct WildPokemon gSafariZone_Southwest_FishingMons[] =
 };
 
 const struct WildPokemonInfo gSafariZone_Southwest_FishingMonsInfo = { 35, gSafariZone_Southwest_FishingMons };
-
-
-
-
-
-
+# 3239 "src/data/wild_encounters.h"
 const struct WildPokemon gSafariZone_North_LandMons[] =
 {
     { 27, 27, 231 },
@@ -6907,13 +6896,7 @@ const struct WildPokemon gSafariZone_North_RockSmashMons[] =
 };
 
 const struct WildPokemonInfo gSafariZone_North_RockSmashMonsInfo = { 25, gSafariZone_North_RockSmashMons };
-
-
-
-
-
-
-
+# 3279 "src/data/wild_encounters.h"
 const struct WildPokemon gSafariZone_Northwest_LandMons[] =
 {
     { 27, 27, 111 },
@@ -6962,12 +6945,7 @@ const struct WildPokemon gSafariZone_Northwest_FishingMons[] =
 };
 
 const struct WildPokemonInfo gSafariZone_Northwest_FishingMonsInfo = { 35, gSafariZone_Northwest_FishingMons };
-
-
-
-
-
-
+# 3335 "src/data/wild_encounters.h"
 const struct WildPokemon gVictoryRoad_B1F_LandMons[] =
 {
     { 40, 40, 41 },
@@ -6999,13 +6977,7 @@ const struct WildPokemon gVictoryRoad_B1F_RockSmashMons[] =
 };
 
 const struct WildPokemonInfo gVictoryRoad_B1F_RockSmashMonsInfo = { 20, gVictoryRoad_B1F_RockSmashMons };
-
-
-
-
-
-
-
+# 3375 "src/data/wild_encounters.h"
 const struct WildPokemon gVictoryRoad_B2F_LandMons[] =
 {
     { 40, 40, 41 },
@@ -7054,12 +7026,7 @@ const struct WildPokemon gVictoryRoad_B2F_FishingMons[] =
 };
 
 const struct WildPokemonInfo gVictoryRoad_B2F_FishingMonsInfo = { 30, gVictoryRoad_B2F_FishingMons };
-
-
-
-
-
-
+# 3431 "src/data/wild_encounters.h"
 const struct WildPokemon gMeteorFalls_1F_1R_LandMons[] =
 {
     { 14, 18, 41 },
@@ -7118,8 +7085,9 @@ const struct WildPokemon gMeteorFalls_1F_1R_HiddenMons[] =
     { 5, 5, 633 },
     { 5, 5, 621 },
 };
-
 const struct WildPokemonInfo gMeteorFalls_1F_1R_HiddenMonsInfo = { 0, gMeteorFalls_1F_1R_HiddenMons };
+
+
 
 
 
@@ -7132,7 +7100,7 @@ const struct WildPokemon gMeteorFalls_1F_2R_LandMons[] =
     { 33, 33, 337 },
     { 37, 37, 338 },
     { 35, 35, 173 },
-    { 39, 39, 174 },
+    { 39, 39, 213 },
     { 38, 38, 884 },
     { 40, 40, 111 },
     { 38, 38, 884 },
@@ -7149,7 +7117,7 @@ const struct WildPokemon gMeteorFalls_1F_2R_WaterMons[] =
     { 30, 35, 527 },
     { 25, 35, 337 },
     { 15, 25, 338 },
-    { 5, 15, 338 },
+    { 5, 15, 147 },
 };
 
 const struct WildPokemonInfo gMeteorFalls_1F_2R_WaterMonsInfo = { 4, gMeteorFalls_1F_2R_WaterMons };
@@ -7181,8 +7149,9 @@ const struct WildPokemon gMeteorFalls_1F_2R_HiddenMons[] =
     { 5, 5, 621 },
     { 5, 5, 371 },
 };
-
 const struct WildPokemonInfo gMeteorFalls_1F_2R_HiddenMonsInfo = { 0, gMeteorFalls_1F_2R_HiddenMons };
+
+
 
 
 
@@ -7221,16 +7190,16 @@ const struct WildPokemonInfo gMeteorFalls_B1F_1R_WaterMonsInfo = { 4, gMeteorFal
 
 const struct WildPokemon gMeteorFalls_B1F_1R_FishingMons[] =
 {
-    { 5, 10, 129 },
+    { 5, 10, 339 },
     { 5, 10, 118 },
-    { 10, 30, 129 },
-    { 10, 30, 118 },
     { 10, 30, 339 },
+    { 10, 30, 118 },
+    { 10, 30, 147 },
     { 25, 30, 339 },
     { 30, 35, 339 },
-    { 30, 35, 339 },
-    { 35, 40, 339 },
-    { 40, 45, 339 },
+    { 30, 35, 170 },
+    { 35, 40, 147 },
+    { 40, 45, 147 },
 };
 
 const struct WildPokemonInfo gMeteorFalls_B1F_1R_FishingMonsInfo = { 30, gMeteorFalls_B1F_1R_FishingMons };
@@ -7241,11 +7210,12 @@ const struct WildPokemonInfo gMeteorFalls_B1F_1R_FishingMonsInfo = { 30, gMeteor
 const struct WildPokemon gMeteorFalls_B1F_1R_HiddenMons[] =
 {
     { 5, 5, 621 },
-    { 5, 5, 371 },
+    { 5, 5, 374 },
     { 5, 5, 246 },
 };
-
 const struct WildPokemonInfo gMeteorFalls_B1F_1R_HiddenMonsInfo = { 0, gMeteorFalls_B1F_1R_HiddenMons };
+
+
 
 
 
@@ -7266,7 +7236,7 @@ const struct WildPokemon gShoalCave_LowTideStairsRoom_LandMons[] =
 };
 
 const struct WildPokemonInfo gShoalCave_LowTideStairsRoom_LandMonsInfo = { 10, gShoalCave_LowTideStairsRoom_LandMons };
-# 3420 "src/data/wild_encounters.h"
+# 3652 "src/data/wild_encounters.h"
 const struct WildPokemon gShoalCave_LowTideLowerRoom_LandMons[] =
 {
     { 26, 26, 613 },
@@ -7284,7 +7254,7 @@ const struct WildPokemon gShoalCave_LowTideLowerRoom_LandMons[] =
 };
 
 const struct WildPokemonInfo gShoalCave_LowTideLowerRoom_LandMonsInfo = { 10, gShoalCave_LowTideLowerRoom_LandMons };
-# 3447 "src/data/wild_encounters.h"
+# 3681 "src/data/wild_encounters.h"
 const struct WildPokemon gShoalCave_LowTideInnerRoom_LandMons[] =
 {
     { 26, 26, 613 },
@@ -7308,7 +7278,7 @@ const struct WildPokemonInfo gShoalCave_LowTideInnerRoom_LandMonsInfo = { 10, gS
 const struct WildPokemon gShoalCave_LowTideInnerRoom_WaterMons[] =
 {
     { 5, 35, 72 },
-    { 5, 35, 41 },
+    { 5, 35, 86 },
     { 25, 30, 363 },
     { 25, 30, 363 },
     { 25, 35, 363 },
@@ -7320,10 +7290,10 @@ const struct WildPokemonInfo gShoalCave_LowTideInnerRoom_WaterMonsInfo = { 4, gS
 
 const struct WildPokemon gShoalCave_LowTideInnerRoom_FishingMons[] =
 {
-    { 5, 10, 129 },
-    { 5, 10, 72 },
+    { 5, 10, 79 },
+    { 5, 10, 86 },
     { 10, 30, 129 },
-    { 10, 30, 72 },
+    { 10, 30, 86 },
     { 10, 30, 320 },
     { 25, 30, 320 },
     { 30, 35, 320 },
@@ -7333,12 +7303,7 @@ const struct WildPokemon gShoalCave_LowTideInnerRoom_FishingMons[] =
 };
 
 const struct WildPokemonInfo gShoalCave_LowTideInnerRoom_FishingMonsInfo = { 10, gShoalCave_LowTideInnerRoom_FishingMons };
-
-
-
-
-
-
+# 3737 "src/data/wild_encounters.h"
 const struct WildPokemon gShoalCave_LowTideEntranceRoom_LandMons[] =
 {
     { 26, 26, 613 },
@@ -7348,7 +7313,7 @@ const struct WildPokemon gShoalCave_LowTideEntranceRoom_LandMons[] =
     { 30, 30, 615 },
     { 30, 30, 712 },
     { 32, 30, 220 },
-    { 32, 32, 215 },
+    { 32, 32, 582 },
     { 32, 32, 875 },
     { 32, 32, 872 },
     { 32, 32, 875 },
@@ -7397,17 +7362,17 @@ const struct WildPokemon gShoalCave_LowTideEntranceRoom_HiddenMons[] =
     { 5, 5, 615 },
     { 5, 5, 238 },
 };
-
 const struct WildPokemonInfo gShoalCave_LowTideEntranceRoom_HiddenMonsInfo = { 0, gShoalCave_LowTideEntranceRoom_HiddenMons };
-# 3571 "src/data/wild_encounters.h"
+# 3808 "src/data/wild_encounters.h"
 const struct WildPokemon gShoalCave_LowTideEntranceRoom1_HiddenMons[] =
 {
     { 5, 5, 258 },
     { 5, 5, 258 },
     { 5, 5, 158 },
 };
-
 const struct WildPokemonInfo gShoalCave_LowTideEntranceRoom1_HiddenMonsInfo = { 0, gShoalCave_LowTideEntranceRoom1_HiddenMons };
+
+
 
 
 
@@ -7441,7 +7406,7 @@ const struct WildPokemon gLilycoveCity_FishingMons[] =
 };
 
 const struct WildPokemonInfo gLilycoveCity_FishingMonsInfo = { 10, gLilycoveCity_FishingMons };
-# 3620 "src/data/wild_encounters.h"
+# 3860 "src/data/wild_encounters.h"
 const struct WildPokemon gDewfordTown_WaterMons[] =
 {
     { 5, 35, 72 },
@@ -7470,7 +7435,7 @@ const struct WildPokemon gDewfordTown_FishingMons[] =
 };
 
 const struct WildPokemonInfo gDewfordTown_FishingMonsInfo = { 10, gDewfordTown_FishingMons };
-# 3656 "src/data/wild_encounters.h"
+# 3898 "src/data/wild_encounters.h"
 const struct WildPokemon gSlateportCity_WaterMons[] =
 {
     { 5, 35, 72 },
@@ -7499,7 +7464,7 @@ const struct WildPokemon gSlateportCity_FishingMons[] =
 };
 
 const struct WildPokemonInfo gSlateportCity_FishingMonsInfo = { 10, gSlateportCity_FishingMons };
-# 3692 "src/data/wild_encounters.h"
+# 3936 "src/data/wild_encounters.h"
 const struct WildPokemon gMossdeepCity_WaterMons[] =
 {
     { 5, 35, 72 },
@@ -7528,7 +7493,7 @@ const struct WildPokemon gMossdeepCity_FishingMons[] =
 };
 
 const struct WildPokemonInfo gMossdeepCity_FishingMonsInfo = { 10, gMossdeepCity_FishingMons };
-# 3728 "src/data/wild_encounters.h"
+# 3974 "src/data/wild_encounters.h"
 const struct WildPokemon gPacifidlogTown_WaterMons[] =
 {
     { 5, 35, 72 },
@@ -7557,7 +7522,7 @@ const struct WildPokemon gPacifidlogTown_FishingMons[] =
 };
 
 const struct WildPokemonInfo gPacifidlogTown_FishingMonsInfo = { 10, gPacifidlogTown_FishingMons };
-# 3764 "src/data/wild_encounters.h"
+# 4012 "src/data/wild_encounters.h"
 const struct WildPokemon gEverGrandeCity_WaterMons[] =
 {
     { 5, 35, 72 },
@@ -7586,7 +7551,7 @@ const struct WildPokemon gEverGrandeCity_FishingMons[] =
 };
 
 const struct WildPokemonInfo gEverGrandeCity_FishingMonsInfo = { 10, gEverGrandeCity_FishingMons };
-# 3800 "src/data/wild_encounters.h"
+# 4050 "src/data/wild_encounters.h"
 const struct WildPokemon gPetalburgCity_WaterMons[] =
 {
     { 20, 30, 298 },
@@ -7615,18 +7580,18 @@ const struct WildPokemon gPetalburgCity_FishingMons[] =
 };
 
 const struct WildPokemonInfo gPetalburgCity_FishingMonsInfo = { 10, gPetalburgCity_FishingMons };
-# 3836 "src/data/wild_encounters.h"
+# 4088 "src/data/wild_encounters.h"
 const struct WildPokemon gUnderwater_Route124_WaterMons[] =
 {
     { 20, 30, 366 },
     { 20, 30, 170 },
     { 30, 35, 898 + 81 },
     { 30, 35, 369 },
-    { 30, 35, 369 },
+    { 30, 35, 883 },
 };
 
 const struct WildPokemonInfo gUnderwater_Route124_WaterMonsInfo = { 4, gUnderwater_Route124_WaterMons };
-# 3854 "src/data/wild_encounters.h"
+# 4108 "src/data/wild_encounters.h"
 const struct WildPokemon gShoalCave_LowTideIceRoom_LandMons[] =
 {
     { 26, 26, 613 },
@@ -7644,7 +7609,7 @@ const struct WildPokemon gShoalCave_LowTideIceRoom_LandMons[] =
 };
 
 const struct WildPokemonInfo gShoalCave_LowTideIceRoom_LandMonsInfo = { 10, gShoalCave_LowTideIceRoom_LandMons };
-# 3881 "src/data/wild_encounters.h"
+# 4137 "src/data/wild_encounters.h"
 const struct WildPokemon gSkyPillar_1F_LandMons[] =
 {
     { 33, 33, 302 },
@@ -7662,61 +7627,47 @@ const struct WildPokemon gSkyPillar_1F_LandMons[] =
 };
 
 const struct WildPokemonInfo gSkyPillar_1F_LandMonsInfo = { 10, gSkyPillar_1F_LandMons };
-# 3908 "src/data/wild_encounters.h"
-const struct WildPokemon gSootopolisCity_LandMons[] =
+# 4168 "src/data/wild_encounters.h"
+const struct WildPokemon gSootopolisCity0_WaterMons[] =
 {
-    { 5, 5, 163 },
-    { 5, 5, 165 },
+    { 5, 5, 129 },
+    { 5, 5, 170 },
+    { 5, 5, 79 },
+    { 5, 5, 90 },
+    { 5, 5, 60 },
+};
+
+const struct WildPokemonInfo gSootopolisCity0_WaterMonsInfo = { 2, gSootopolisCity0_WaterMons };
+
+
+const struct WildPokemon gSootopolisCity0_RockSmashMons[] =
+{
+    { 5, 5, 543 },
     { 5, 5, 273 },
-    { 5, 5, 513 },
-    { 5, 5, 511 },
-    { 5, 5, 515 },
-    { 5, 5, 114 },
-    { 5, 5, 102 },
-    { 5, 5, 114 },
-    { 5, 5, 214 },
-    { 5, 5, 114 },
-    { 5, 5, 214 },
+    { 5, 5, 48 },
+    { 5, 5, 519 },
+    { 5, 5, 446 },
 };
 
-const struct WildPokemonInfo gSootopolisCity_LandMonsInfo = { 0, gSootopolisCity_LandMons };
+const struct WildPokemonInfo gSootopolisCity0_RockSmashMonsInfo = { 10, gSootopolisCity0_RockSmashMons };
 
 
-
-const struct WildPokemon gSootopolisCity_WaterMons[] =
+const struct WildPokemon gSootopolisCity0_FishingMons[] =
 {
-    { 5, 35, 129 },
-    { 10, 30, 170 },
-    { 15, 25, 341 },
-    { 25, 30, 363 },
-    { 25, 30, 363 },
+    { 5, 5, 129 },
+    { 5, 5, 98 },
+    { 5, 5, 98 },
+    { 5, 5, 341 },
+    { 5, 5, 318 },
+    { 5, 5, 98 },
+    { 5, 5, 341 },
+    { 5, 5, 592 },
+    { 5, 5, 592 },
+    { 5, 5, 349 },
 };
 
-const struct WildPokemonInfo gSootopolisCity_WaterMonsInfo = { 1, gSootopolisCity_WaterMons };
-
-
-
-const struct WildPokemon gSootopolisCity_FishingMons[] =
-{
-    { 5, 10, 129 },
-    { 5, 10, 170 },
-    { 10, 30, 129 },
-    { 10, 30, 170 },
-    { 10, 30, 341 },
-    { 30, 35, 170 },
-    { 30, 35, 341 },
-    { 35, 40, 369 },
-    { 35, 45, 349 },
-    { 5, 45, 349 },
-};
-
-const struct WildPokemonInfo gSootopolisCity_FishingMonsInfo = { 10, gSootopolisCity_FishingMons };
-
-
-
-
-
-
+const struct WildPokemonInfo gSootopolisCity0_FishingMonsInfo = { 10, gSootopolisCity0_FishingMons };
+# 4215 "src/data/wild_encounters.h"
 const struct WildPokemon gSkyPillar_3F_LandMons[] =
 {
     { 33, 33, 302 },
@@ -7734,7 +7685,7 @@ const struct WildPokemon gSkyPillar_3F_LandMons[] =
 };
 
 const struct WildPokemonInfo gSkyPillar_3F_LandMonsInfo = { 10, gSkyPillar_3F_LandMons };
-# 3989 "src/data/wild_encounters.h"
+# 4244 "src/data/wild_encounters.h"
 const struct WildPokemon gSkyPillar_5F_LandMons[] =
 {
     { 33, 33, 302 },
@@ -7752,7 +7703,7 @@ const struct WildPokemon gSkyPillar_5F_LandMons[] =
 };
 
 const struct WildPokemonInfo gSkyPillar_5F_LandMonsInfo = { 10, gSkyPillar_5F_LandMons };
-# 4016 "src/data/wild_encounters.h"
+# 4273 "src/data/wild_encounters.h"
 const struct WildPokemon gSafariZone_Southeast_LandMons[] =
 {
     { 22, 22, 191 },
@@ -7801,12 +7752,7 @@ const struct WildPokemon gSafariZone_Southeast_FishingMons[] =
 };
 
 const struct WildPokemonInfo gSafariZone_Southeast_FishingMonsInfo = { 35, gSafariZone_Southeast_FishingMons };
-
-
-
-
-
-
+# 4329 "src/data/wild_encounters.h"
 const struct WildPokemon gSafariZone_Northeast_LandMons[] =
 {
     { 22, 22, 190 },
@@ -7838,13 +7784,7 @@ const struct WildPokemon gSafariZone_Northeast_RockSmashMons[] =
 };
 
 const struct WildPokemonInfo gSafariZone_Northeast_RockSmashMonsInfo = { 25, gSafariZone_Northeast_RockSmashMons };
-
-
-
-
-
-
-
+# 4369 "src/data/wild_encounters.h"
 const struct WildPokemon gMagmaHideout_1F_LandMons[] =
 {
     { 27, 27, 58 },
@@ -7862,7 +7802,7 @@ const struct WildPokemon gMagmaHideout_1F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMagmaHideout_1F_LandMonsInfo = { 10, gMagmaHideout_1F_LandMons };
-# 4135 "src/data/wild_encounters.h"
+# 4398 "src/data/wild_encounters.h"
 const struct WildPokemon gMagmaHideout_2F_1R_LandMons[] =
 {
     { 27, 27, 58 },
@@ -7880,7 +7820,7 @@ const struct WildPokemon gMagmaHideout_2F_1R_LandMons[] =
 };
 
 const struct WildPokemonInfo gMagmaHideout_2F_1R_LandMonsInfo = { 10, gMagmaHideout_2F_1R_LandMons };
-# 4162 "src/data/wild_encounters.h"
+# 4427 "src/data/wild_encounters.h"
 const struct WildPokemon gMagmaHideout_2F_2R_LandMons[] =
 {
     { 27, 27, 58 },
@@ -7898,7 +7838,7 @@ const struct WildPokemon gMagmaHideout_2F_2R_LandMons[] =
 };
 
 const struct WildPokemonInfo gMagmaHideout_2F_2R_LandMonsInfo = { 10, gMagmaHideout_2F_2R_LandMons };
-# 4189 "src/data/wild_encounters.h"
+# 4456 "src/data/wild_encounters.h"
 const struct WildPokemon gMagmaHideout_3F_1R_LandMons[] =
 {
     { 27, 27, 58 },
@@ -7916,7 +7856,7 @@ const struct WildPokemon gMagmaHideout_3F_1R_LandMons[] =
 };
 
 const struct WildPokemonInfo gMagmaHideout_3F_1R_LandMonsInfo = { 10, gMagmaHideout_3F_1R_LandMons };
-# 4216 "src/data/wild_encounters.h"
+# 4485 "src/data/wild_encounters.h"
 const struct WildPokemon gMagmaHideout_3F_2R_LandMons[] =
 {
     { 27, 27, 58 },
@@ -7934,7 +7874,7 @@ const struct WildPokemon gMagmaHideout_3F_2R_LandMons[] =
 };
 
 const struct WildPokemonInfo gMagmaHideout_3F_2R_LandMonsInfo = { 10, gMagmaHideout_3F_2R_LandMons };
-# 4243 "src/data/wild_encounters.h"
+# 4514 "src/data/wild_encounters.h"
 const struct WildPokemon gMagmaHideout_4F_LandMons[] =
 {
     { 27, 27, 74 },
@@ -7952,7 +7892,7 @@ const struct WildPokemon gMagmaHideout_4F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMagmaHideout_4F_LandMonsInfo = { 10, gMagmaHideout_4F_LandMons };
-# 4270 "src/data/wild_encounters.h"
+# 4543 "src/data/wild_encounters.h"
 const struct WildPokemon gMagmaHideout_3F_3R_LandMons[] =
 {
     { 27, 27, 58 },
@@ -7970,7 +7910,7 @@ const struct WildPokemon gMagmaHideout_3F_3R_LandMons[] =
 };
 
 const struct WildPokemonInfo gMagmaHideout_3F_3R_LandMonsInfo = { 10, gMagmaHideout_3F_3R_LandMons };
-# 4297 "src/data/wild_encounters.h"
+# 4572 "src/data/wild_encounters.h"
 const struct WildPokemon gMagmaHideout_2F_3R_LandMons[] =
 {
     { 27, 27, 58 },
@@ -7988,7 +7928,7 @@ const struct WildPokemon gMagmaHideout_2F_3R_LandMons[] =
 };
 
 const struct WildPokemonInfo gMagmaHideout_2F_3R_LandMonsInfo = { 10, gMagmaHideout_2F_3R_LandMons };
-# 4324 "src/data/wild_encounters.h"
+# 4601 "src/data/wild_encounters.h"
 const struct WildPokemon gMirageTower_1F_LandMons[] =
 {
     { 21, 21, 27 },
@@ -8006,7 +7946,7 @@ const struct WildPokemon gMirageTower_1F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMirageTower_1F_LandMonsInfo = { 10, gMirageTower_1F_LandMons };
-# 4351 "src/data/wild_encounters.h"
+# 4630 "src/data/wild_encounters.h"
 const struct WildPokemon gMirageTower_2F_LandMons[] =
 {
     { 21, 21, 27 },
@@ -8024,7 +7964,7 @@ const struct WildPokemon gMirageTower_2F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMirageTower_2F_LandMonsInfo = { 10, gMirageTower_2F_LandMons };
-# 4378 "src/data/wild_encounters.h"
+# 4659 "src/data/wild_encounters.h"
 const struct WildPokemon gMirageTower_3F_LandMons[] =
 {
     { 21, 21, 27 },
@@ -8042,7 +7982,7 @@ const struct WildPokemon gMirageTower_3F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMirageTower_3F_LandMonsInfo = { 10, gMirageTower_3F_LandMons };
-# 4405 "src/data/wild_encounters.h"
+# 4688 "src/data/wild_encounters.h"
 const struct WildPokemon gMirageTower_4F_LandMons[] =
 {
     { 21, 21, 27 },
@@ -8060,7 +8000,7 @@ const struct WildPokemon gMirageTower_4F_LandMons[] =
 };
 
 const struct WildPokemonInfo gMirageTower_4F_LandMonsInfo = { 10, gMirageTower_4F_LandMons };
-# 4432 "src/data/wild_encounters.h"
+# 4717 "src/data/wild_encounters.h"
 const struct WildPokemon gDesertUnderpass_LandMons[] =
 {
     { 38, 38, 345 },
@@ -8078,7 +8018,7 @@ const struct WildPokemon gDesertUnderpass_LandMons[] =
 };
 
 const struct WildPokemonInfo gDesertUnderpass_LandMonsInfo = { 10, gDesertUnderpass_LandMons };
-# 4459 "src/data/wild_encounters.h"
+# 4746 "src/data/wild_encounters.h"
 const struct WildPokemon gArtisanCave_B1F_LandMons[] =
 {
     { 40, 40, 235 },
@@ -8096,7 +8036,7 @@ const struct WildPokemon gArtisanCave_B1F_LandMons[] =
 };
 
 const struct WildPokemonInfo gArtisanCave_B1F_LandMonsInfo = { 10, gArtisanCave_B1F_LandMons };
-# 4486 "src/data/wild_encounters.h"
+# 4775 "src/data/wild_encounters.h"
 const struct WildPokemon gScorchedSlab_LandMons[] =
 {
     { 22, 22, 41 },
@@ -8144,12 +8084,7 @@ const struct WildPokemon gScorchedSlab_FishingMons[] =
 };
 
 const struct WildPokemonInfo gScorchedSlab_FishingMonsInfo = { 30, gScorchedSlab_FishingMons };
-
-
-
-
-
-
+# 4830 "src/data/wild_encounters.h"
 const struct WildPokemon gScorchedSlab_B1F_LandMons[] =
 {
     { 22, 22, 41 },
@@ -8197,12 +8132,7 @@ const struct WildPokemon gScorchedSlab_B1F_FishingMons[] =
 };
 
 const struct WildPokemonInfo gScorchedSlab_B1F_FishingMonsInfo = { 30, gScorchedSlab_B1F_FishingMons };
-
-
-
-
-
-
+# 4885 "src/data/wild_encounters.h"
 const struct WildPokemon gScorchedSlab_B2F_LandMons[] =
 {
     { 22, 22, 41 },
@@ -8220,7 +8150,7 @@ const struct WildPokemon gScorchedSlab_B2F_LandMons[] =
 };
 
 const struct WildPokemonInfo gScorchedSlab_B2F_LandMonsInfo = { 20, gScorchedSlab_B2F_LandMons };
-# 4619 "src/data/wild_encounters.h"
+# 4914 "src/data/wild_encounters.h"
 const struct WildPokemon gScorchedSlab_HeatransRoom_LandMons[] =
 {
     { 22, 22, 58 },
@@ -8238,7 +8168,7 @@ const struct WildPokemon gScorchedSlab_HeatransRoom_LandMons[] =
 };
 
 const struct WildPokemonInfo gScorchedSlab_HeatransRoom_LandMonsInfo = { 20, gScorchedSlab_HeatransRoom_LandMons };
-# 4646 "src/data/wild_encounters.h"
+# 4943 "src/data/wild_encounters.h"
 const struct WildPokemon gArtisanCave_1F_LandMons[] =
 {
     { 40, 40, 235 },
@@ -8256,7 +8186,7 @@ const struct WildPokemon gArtisanCave_1F_LandMons[] =
 };
 
 const struct WildPokemonInfo gArtisanCave_1F_LandMonsInfo = { 10, gArtisanCave_1F_LandMons };
-# 4673 "src/data/wild_encounters.h"
+# 4972 "src/data/wild_encounters.h"
 const struct WildPokemon gAlteringCave1_LandMons[] =
 {
     { 10, 10, 531 },
@@ -8274,7 +8204,7 @@ const struct WildPokemon gAlteringCave1_LandMons[] =
 };
 
 const struct WildPokemonInfo gAlteringCave1_LandMonsInfo = { 7, gAlteringCave1_LandMons };
-# 4700 "src/data/wild_encounters.h"
+# 5001 "src/data/wild_encounters.h"
 const struct WildPokemon gAlteringCave2_LandMons[] =
 {
     { 7, 7, 179 },
@@ -8292,7 +8222,7 @@ const struct WildPokemon gAlteringCave2_LandMons[] =
 };
 
 const struct WildPokemonInfo gAlteringCave2_LandMonsInfo = { 7, gAlteringCave2_LandMons };
-# 4727 "src/data/wild_encounters.h"
+# 5030 "src/data/wild_encounters.h"
 const struct WildPokemon gAlteringCave3_LandMons[] =
 {
     { 23, 23, 204 },
@@ -8310,7 +8240,7 @@ const struct WildPokemon gAlteringCave3_LandMons[] =
 };
 
 const struct WildPokemonInfo gAlteringCave3_LandMonsInfo = { 7, gAlteringCave3_LandMons };
-# 4754 "src/data/wild_encounters.h"
+# 5059 "src/data/wild_encounters.h"
 const struct WildPokemon gAlteringCave4_LandMons[] =
 {
     { 16, 16, 228 },
@@ -8328,7 +8258,7 @@ const struct WildPokemon gAlteringCave4_LandMons[] =
 };
 
 const struct WildPokemonInfo gAlteringCave4_LandMonsInfo = { 7, gAlteringCave4_LandMons };
-# 4781 "src/data/wild_encounters.h"
+# 5088 "src/data/wild_encounters.h"
 const struct WildPokemon gAlteringCave5_LandMons[] =
 {
     { 10, 10, 216 },
@@ -8346,7 +8276,7 @@ const struct WildPokemon gAlteringCave5_LandMons[] =
 };
 
 const struct WildPokemonInfo gAlteringCave5_LandMonsInfo = { 7, gAlteringCave5_LandMons };
-# 4808 "src/data/wild_encounters.h"
+# 5117 "src/data/wild_encounters.h"
 const struct WildPokemon gAlteringCave6_LandMons[] =
 {
     { 22, 22, 190 },
@@ -8364,7 +8294,7 @@ const struct WildPokemon gAlteringCave6_LandMons[] =
 };
 
 const struct WildPokemonInfo gAlteringCave6_LandMonsInfo = { 7, gAlteringCave6_LandMons };
-# 4835 "src/data/wild_encounters.h"
+# 5146 "src/data/wild_encounters.h"
 const struct WildPokemon gAlteringCave7_LandMons[] =
 {
     { 22, 22, 213 },
@@ -8382,7 +8312,7 @@ const struct WildPokemon gAlteringCave7_LandMons[] =
 };
 
 const struct WildPokemonInfo gAlteringCave7_LandMonsInfo = { 7, gAlteringCave7_LandMons };
-# 4862 "src/data/wild_encounters.h"
+# 5175 "src/data/wild_encounters.h"
 const struct WildPokemon gAlteringCave8_LandMons[] =
 {
     { 22, 22, 234 },
@@ -8400,7 +8330,7 @@ const struct WildPokemon gAlteringCave8_LandMons[] =
 };
 
 const struct WildPokemonInfo gAlteringCave8_LandMonsInfo = { 7, gAlteringCave8_LandMons };
-# 4889 "src/data/wild_encounters.h"
+# 5204 "src/data/wild_encounters.h"
 const struct WildPokemon gAlteringCave9_LandMons[] =
 {
     { 22, 22, 235 },
@@ -8418,7 +8348,7 @@ const struct WildPokemon gAlteringCave9_LandMons[] =
 };
 
 const struct WildPokemonInfo gAlteringCave9_LandMonsInfo = { 7, gAlteringCave9_LandMons };
-# 4916 "src/data/wild_encounters.h"
+# 5233 "src/data/wild_encounters.h"
 const struct WildPokemon gMeteorFalls_StevensCave_LandMons[] =
 {
     { 33, 33, 95 },
@@ -8436,25 +8366,7 @@ const struct WildPokemon gMeteorFalls_StevensCave_LandMons[] =
 };
 
 const struct WildPokemonInfo gMeteorFalls_StevensCave_LandMonsInfo = { 10, gMeteorFalls_StevensCave_LandMons };
-# 4943 "src/data/wild_encounters.h"
-const struct WildPokemon gLittlerootTown0_LandMons[] =
-{
-    { 5, 5, 204 },
-    { 5, 5, 163 },
-    { 5, 5, 263 },
-    { 5, 5, 69 },
-    { 5, 5, 43 },
-    { 5, 5, 265 },
-    { 5, 5, 13 },
-    { 5, 5, 10 },
-    { 5, 5, 16 },
-    { 5, 5, 127 },
-    { 5, 5, 16 },
-    { 5, 5, 127 },
-};
-
-const struct WildPokemonInfo gLittlerootTown0_LandMonsInfo = { 0, gLittlerootTown0_LandMons };
-# 4970 "src/data/wild_encounters.h"
+# 5262 "src/data/wild_encounters.h"
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -8466,6 +8378,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = &gRoute101_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((17 | (0 << 8)) >> 8),
@@ -8476,6 +8390,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute102_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((18 | (0 << 8)) >> 8),
@@ -8486,6 +8402,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute103_FishingMonsInfo,
         .hiddenMonsInfo = &gRoute103_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((19 | (0 << 8)) >> 8),
@@ -8496,6 +8414,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute104_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((20 | (0 << 8)) >> 8),
@@ -8506,6 +8426,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute105_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((25 | (0 << 8)) >> 8),
@@ -8516,6 +8438,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute110_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((26 | (0 << 8)) >> 8),
@@ -8526,6 +8450,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = &gRoute111_RockSmashMonsInfo,
         .fishingMonsInfo = &gRoute111_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((27 | (0 << 8)) >> 8),
@@ -8536,6 +8462,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = &gRoute112_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((28 | (0 << 8)) >> 8),
@@ -8546,6 +8474,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((29 | (0 << 8)) >> 8),
@@ -8556,6 +8486,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = &gRoute114_RockSmashMonsInfo,
         .fishingMonsInfo = &gRoute114_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((31 | (0 << 8)) >> 8),
@@ -8563,9 +8495,11 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .landMonsInfo = &gRoute116_LandMonsInfo,
         .landMonsNightInfo = &gRoute116_LandMonsInfo,
         .waterMonsInfo = ((void *)0),
-        .rockSmashMonsInfo = ((void *)0),
+        .rockSmashMonsInfo = &gRoute116_RockSmashMonsInfo,
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((32 | (0 << 8)) >> 8),
@@ -8573,9 +8507,11 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .landMonsInfo = &gRoute117_LandMonsInfo,
         .landMonsNightInfo = &gRoute117_LandMonsInfo,
         .waterMonsInfo = &gRoute117_WaterMonsInfo,
-        .rockSmashMonsInfo = ((void *)0),
+        .rockSmashMonsInfo = &gRoute117_RockSmashMonsInfo,
         .fishingMonsInfo = &gRoute117_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = &gRoute117_HeadbuttMonsInfo,
+
     },
     {
         .mapGroup = ((33 | (0 << 8)) >> 8),
@@ -8586,6 +8522,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute118_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((39 | (0 << 8)) >> 8),
@@ -8596,6 +8534,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute124_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((11 | (24 << 8)) >> 8),
@@ -8606,6 +8546,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = &gPetalburgWoods_HiddenMonsInfo,
+  .headbuttMonsInfo = &gPetalburgWoods_HeadbuttMonsInfo,
+
     },
     {
         .mapGroup = ((11 | (24 << 8)) >> 8),
@@ -8616,6 +8558,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = &gPetalburgWoods1_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((4 | (24 << 8)) >> 8),
@@ -8626,6 +8570,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((7 | (24 << 8)) >> 8),
@@ -8636,6 +8582,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((8 | (24 << 8)) >> 8),
@@ -8646,6 +8594,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((15 | (24 << 8)) >> 8),
@@ -8656,6 +8606,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((43 | (24 << 8)) >> 8),
@@ -8666,6 +8618,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((3 | (26 << 8)) >> 8),
@@ -8676,6 +8630,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((51 | (0 << 8)) >> 8),
@@ -8686,6 +8642,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((58 | (24 << 8)) >> 8),
@@ -8696,6 +8654,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gAbandonedShip_Rooms_B1F_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((9 | (24 << 8)) >> 8),
@@ -8706,6 +8666,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = &gGraniteCave_B2F_RockSmashMonsInfo,
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((14 | (24 << 8)) >> 8),
@@ -8716,6 +8678,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = &gFieryPath_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((3 | (24 << 8)) >> 8),
@@ -8726,6 +8690,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gMeteorFalls_B1F_2R_FishingMonsInfo,
         .hiddenMonsInfo = &gMeteorFalls_B1F_2R_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((13 | (24 << 8)) >> 8),
@@ -8736,6 +8702,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((13 | (24 << 8)) >> 8),
@@ -8746,6 +8714,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = &gJaggedPass1_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((21 | (0 << 8)) >> 8),
@@ -8756,6 +8726,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute106_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((22 | (0 << 8)) >> 8),
@@ -8766,6 +8738,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute107_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((23 | (0 << 8)) >> 8),
@@ -8776,6 +8750,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute108_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((24 | (0 << 8)) >> 8),
@@ -8786,6 +8762,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute109_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((30 | (0 << 8)) >> 8),
@@ -8796,6 +8774,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute115_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((53 | (24 << 8)) >> 8),
@@ -8806,6 +8786,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((34 | (0 << 8)) >> 8),
@@ -8816,6 +8798,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute119_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((35 | (0 << 8)) >> 8),
@@ -8826,6 +8810,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute120_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((36 | (0 << 8)) >> 8),
@@ -8833,9 +8819,11 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .landMonsInfo = &gRoute121_LandMonsInfo,
         .landMonsNightInfo = &gRoute121_LandMonsInfo,
         .waterMonsInfo = &gRoute121_WaterMonsInfo,
-        .rockSmashMonsInfo = ((void *)0),
+        .rockSmashMonsInfo = &gRoute121_RockSmashMonsInfo,
         .fishingMonsInfo = &gRoute121_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((37 | (0 << 8)) >> 8),
@@ -8846,6 +8834,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute122_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((38 | (0 << 8)) >> 8),
@@ -8853,9 +8843,11 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .landMonsInfo = &gRoute123_LandMonsInfo,
         .landMonsNightInfo = &gRoute123_LandMonsInfo,
         .waterMonsInfo = &gRoute123_WaterMonsInfo,
-        .rockSmashMonsInfo = ((void *)0),
+        .rockSmashMonsInfo = &gRoute123_RockSmashMonsInfo,
         .fishingMonsInfo = &gRoute123_FishingMonsInfo,
         .hiddenMonsInfo = &gRoute123_HiddenMonsInfo,
+  .headbuttMonsInfo = &gRoute123_HeadbuttMonsInfo,
+
     },
     {
         .mapGroup = ((16 | (24 << 8)) >> 8),
@@ -8866,6 +8858,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((17 | (24 << 8)) >> 8),
@@ -8876,6 +8870,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((18 | (24 << 8)) >> 8),
@@ -8886,6 +8882,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((19 | (24 << 8)) >> 8),
@@ -8896,6 +8894,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((20 | (24 << 8)) >> 8),
@@ -8906,6 +8906,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((21 | (24 << 8)) >> 8),
@@ -8916,6 +8918,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((22 | (24 << 8)) >> 8),
@@ -8926,6 +8930,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((10 | (24 << 8)) >> 8),
@@ -8936,6 +8942,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((40 | (0 << 8)) >> 8),
@@ -8946,6 +8954,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute125_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((41 | (0 << 8)) >> 8),
@@ -8956,6 +8966,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute126_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((42 | (0 << 8)) >> 8),
@@ -8966,6 +8978,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute127_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((43 | (0 << 8)) >> 8),
@@ -8976,6 +8990,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute128_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((44 | (0 << 8)) >> 8),
@@ -8986,6 +9002,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute129_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((45 | (0 << 8)) >> 8),
@@ -8996,6 +9014,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute130_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((46 | (0 << 8)) >> 8),
@@ -9006,6 +9026,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute131_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((47 | (0 << 8)) >> 8),
@@ -9016,6 +9038,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute132_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((48 | (0 << 8)) >> 8),
@@ -9026,6 +9050,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute133_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((49 | (0 << 8)) >> 8),
@@ -9036,6 +9062,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gRoute134_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((65 | (24 << 8)) >> 8),
@@ -9046,6 +9074,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gAbandonedShip_HiddenFloorCorridors_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((28 | (24 << 8)) >> 8),
@@ -9056,6 +9086,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((29 | (24 << 8)) >> 8),
@@ -9066,6 +9098,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((30 | (24 << 8)) >> 8),
@@ -9076,6 +9110,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((31 | (24 << 8)) >> 8),
@@ -9086,6 +9122,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((32 | (24 << 8)) >> 8),
@@ -9096,6 +9134,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((33 | (24 << 8)) >> 8),
@@ -9106,6 +9146,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gSeafloorCavern_Room6_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((34 | (24 << 8)) >> 8),
@@ -9116,6 +9158,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gSeafloorCavern_Room7_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((35 | (24 << 8)) >> 8),
@@ -9126,6 +9170,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((27 | (24 << 8)) >> 8),
@@ -9136,6 +9182,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gSeafloorCavern_Entrance_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((37 | (24 << 8)) >> 8),
@@ -9146,6 +9194,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((38 | (24 << 8)) >> 8),
@@ -9156,6 +9206,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((39 | (24 << 8)) >> 8),
@@ -9166,6 +9218,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((40 | (24 << 8)) >> 8),
@@ -9176,6 +9230,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((41 | (24 << 8)) >> 8),
@@ -9186,6 +9242,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((52 | (24 << 8)) >> 8),
@@ -9196,6 +9254,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((2 | (26 << 8)) >> 8),
@@ -9206,6 +9266,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gSafariZone_Southwest_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((1 | (26 << 8)) >> 8),
@@ -9216,6 +9278,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = &gSafariZone_North_RockSmashMonsInfo,
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((0 | (26 << 8)) >> 8),
@@ -9226,6 +9290,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gSafariZone_Northwest_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((44 | (24 << 8)) >> 8),
@@ -9236,6 +9302,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = &gVictoryRoad_B1F_RockSmashMonsInfo,
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((45 | (24 << 8)) >> 8),
@@ -9246,6 +9314,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gVictoryRoad_B2F_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((0 | (24 << 8)) >> 8),
@@ -9256,6 +9326,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gMeteorFalls_1F_1R_FishingMonsInfo,
         .hiddenMonsInfo = &gMeteorFalls_1F_1R_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((1 | (24 << 8)) >> 8),
@@ -9266,6 +9338,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gMeteorFalls_1F_2R_FishingMonsInfo,
         .hiddenMonsInfo = &gMeteorFalls_1F_2R_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((2 | (24 << 8)) >> 8),
@@ -9276,6 +9350,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gMeteorFalls_B1F_1R_FishingMonsInfo,
         .hiddenMonsInfo = &gMeteorFalls_B1F_1R_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((48 | (24 << 8)) >> 8),
@@ -9286,6 +9362,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((49 | (24 << 8)) >> 8),
@@ -9296,6 +9374,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((47 | (24 << 8)) >> 8),
@@ -9306,6 +9386,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gShoalCave_LowTideInnerRoom_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((46 | (24 << 8)) >> 8),
@@ -9316,6 +9398,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gShoalCave_LowTideEntranceRoom_FishingMonsInfo,
         .hiddenMonsInfo = &gShoalCave_LowTideEntranceRoom_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((46 | (24 << 8)) >> 8),
@@ -9326,6 +9410,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = &gShoalCave_LowTideEntranceRoom1_HiddenMonsInfo,
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((5 | (0 << 8)) >> 8),
@@ -9336,6 +9422,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gLilycoveCity_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((11 | (0 << 8)) >> 8),
@@ -9346,6 +9434,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gDewfordTown_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((1 | (0 << 8)) >> 8),
@@ -9356,6 +9446,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gSlateportCity_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((6 | (0 << 8)) >> 8),
@@ -9366,6 +9458,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gMossdeepCity_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((15 | (0 << 8)) >> 8),
@@ -9376,6 +9470,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gPacifidlogTown_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((8 | (0 << 8)) >> 8),
@@ -9386,6 +9482,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gEverGrandeCity_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((0 | (0 << 8)) >> 8),
@@ -9396,6 +9494,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gPetalburgCity_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((50 | (0 << 8)) >> 8),
@@ -9406,6 +9506,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((83 | (24 << 8)) >> 8),
@@ -9416,6 +9518,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((79 | (24 << 8)) >> 8),
@@ -9426,16 +9530,20 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((7 | (0 << 8)) >> 8),
         .mapNum = ((7 | (0 << 8)) & 0xFF),
-        .landMonsInfo = &gSootopolisCity_LandMonsInfo,
-        .landMonsNightInfo = &gSootopolisCity_LandMonsInfo,
-        .waterMonsInfo = &gSootopolisCity_WaterMonsInfo,
-        .rockSmashMonsInfo = ((void *)0),
-        .fishingMonsInfo = &gSootopolisCity_FishingMonsInfo,
+        .landMonsInfo = ((void *)0),
+        .landMonsNightInfo = ((void *)0),
+        .waterMonsInfo = &gSootopolisCity0_WaterMonsInfo,
+        .rockSmashMonsInfo = &gSootopolisCity0_RockSmashMonsInfo,
+        .fishingMonsInfo = &gSootopolisCity0_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((81 | (24 << 8)) >> 8),
@@ -9446,6 +9554,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((84 | (24 << 8)) >> 8),
@@ -9456,6 +9566,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((13 | (26 << 8)) >> 8),
@@ -9466,6 +9578,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gSafariZone_Southeast_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((12 | (26 << 8)) >> 8),
@@ -9476,6 +9590,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = &gSafariZone_Northeast_RockSmashMonsInfo,
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((86 | (24 << 8)) >> 8),
@@ -9486,6 +9602,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((87 | (24 << 8)) >> 8),
@@ -9496,6 +9614,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((88 | (24 << 8)) >> 8),
@@ -9506,6 +9626,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((89 | (24 << 8)) >> 8),
@@ -9516,6 +9638,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((90 | (24 << 8)) >> 8),
@@ -9526,6 +9650,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((91 | (24 << 8)) >> 8),
@@ -9536,6 +9662,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((92 | (24 << 8)) >> 8),
@@ -9546,6 +9674,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((93 | (24 << 8)) >> 8),
@@ -9556,6 +9686,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((94 | (24 << 8)) >> 8),
@@ -9566,6 +9698,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((95 | (24 << 8)) >> 8),
@@ -9576,6 +9710,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((96 | (24 << 8)) >> 8),
@@ -9586,6 +9722,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((97 | (24 << 8)) >> 8),
@@ -9596,6 +9734,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((98 | (24 << 8)) >> 8),
@@ -9606,6 +9746,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((99 | (24 << 8)) >> 8),
@@ -9616,6 +9758,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((73 | (24 << 8)) >> 8),
@@ -9626,6 +9770,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gScorchedSlab_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((108 | (24 << 8)) >> 8),
@@ -9636,6 +9782,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = &gScorchedSlab_B1F_FishingMonsInfo,
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((109 | (24 << 8)) >> 8),
@@ -9646,6 +9794,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((110 | (24 << 8)) >> 8),
@@ -9656,6 +9806,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((100 | (24 << 8)) >> 8),
@@ -9666,6 +9818,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((106 | (24 << 8)) >> 8),
@@ -9676,6 +9830,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((106 | (24 << 8)) >> 8),
@@ -9686,6 +9842,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((106 | (24 << 8)) >> 8),
@@ -9696,6 +9854,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((106 | (24 << 8)) >> 8),
@@ -9706,6 +9866,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((106 | (24 << 8)) >> 8),
@@ -9716,6 +9878,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((106 | (24 << 8)) >> 8),
@@ -9726,6 +9890,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((106 | (24 << 8)) >> 8),
@@ -9736,6 +9902,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((106 | (24 << 8)) >> 8),
@@ -9746,6 +9914,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((106 | (24 << 8)) >> 8),
@@ -9756,6 +9926,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((107 | (24 << 8)) >> 8),
@@ -9766,16 +9938,8 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
-    },
-    {
-        .mapGroup = ((9 | (0 << 8)) >> 8),
-        .mapNum = ((9 | (0 << 8)) & 0xFF),
-        .landMonsInfo = &gLittlerootTown0_LandMonsInfo,
-        .landMonsNightInfo = &gLittlerootTown0_LandMonsInfo,
-        .waterMonsInfo = ((void *)0),
-        .rockSmashMonsInfo = ((void *)0),
-        .fishingMonsInfo = ((void *)0),
-        .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((0xFF | (0xFF << 8)) >> 8),
@@ -9786,6 +9950,7 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
     },
 };
 
@@ -9810,7 +9975,7 @@ const struct WildPokemon gBattlePyramid_1_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_1_LandMonsInfo = { 4, gBattlePyramid_1_LandMons };
-# 6335 "src/data/wild_encounters.h"
+# 6882 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_2_LandMons[] =
 {
     { 5, 5, 2 },
@@ -9828,7 +9993,7 @@ const struct WildPokemon gBattlePyramid_2_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_2_LandMonsInfo = { 4, gBattlePyramid_2_LandMons };
-# 6362 "src/data/wild_encounters.h"
+# 6911 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_3_LandMons[] =
 {
     { 5, 5, 3 },
@@ -9846,7 +10011,7 @@ const struct WildPokemon gBattlePyramid_3_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_3_LandMonsInfo = { 4, gBattlePyramid_3_LandMons };
-# 6389 "src/data/wild_encounters.h"
+# 6940 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_4_LandMons[] =
 {
     { 5, 5, 4 },
@@ -9864,7 +10029,7 @@ const struct WildPokemon gBattlePyramid_4_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_4_LandMonsInfo = { 4, gBattlePyramid_4_LandMons };
-# 6416 "src/data/wild_encounters.h"
+# 6969 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_5_LandMons[] =
 {
     { 5, 5, 4 },
@@ -9882,7 +10047,7 @@ const struct WildPokemon gBattlePyramid_5_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_5_LandMonsInfo = { 4, gBattlePyramid_5_LandMons };
-# 6443 "src/data/wild_encounters.h"
+# 6998 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_6_LandMons[] =
 {
     { 5, 5, 6 },
@@ -9900,7 +10065,7 @@ const struct WildPokemon gBattlePyramid_6_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_6_LandMonsInfo = { 4, gBattlePyramid_6_LandMons };
-# 6470 "src/data/wild_encounters.h"
+# 7027 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_7_LandMons[] =
 {
     { 5, 5, 8 },
@@ -9918,7 +10083,7 @@ const struct WildPokemon gBattlePyramid_7_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_7_LandMonsInfo = { 8, gBattlePyramid_7_LandMons };
-# 6497 "src/data/wild_encounters.h"
+# 7056 "src/data/wild_encounters.h"
 const struct WildPokemonHeader gBattlePyramidWildMonHeaders[] =
 {
     {
@@ -9930,6 +10095,8 @@ const struct WildPokemonHeader gBattlePyramidWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = 0,
@@ -9940,6 +10107,8 @@ const struct WildPokemonHeader gBattlePyramidWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = 0,
@@ -9950,6 +10119,8 @@ const struct WildPokemonHeader gBattlePyramidWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = 0,
@@ -9960,6 +10131,8 @@ const struct WildPokemonHeader gBattlePyramidWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = 0,
@@ -9970,6 +10143,8 @@ const struct WildPokemonHeader gBattlePyramidWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = 0,
@@ -9980,6 +10155,8 @@ const struct WildPokemonHeader gBattlePyramidWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = 0,
@@ -9990,6 +10167,8 @@ const struct WildPokemonHeader gBattlePyramidWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((0xFF | (0xFF << 8)) >> 8),
@@ -10000,6 +10179,7 @@ const struct WildPokemonHeader gBattlePyramidWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
     },
 };
 
@@ -10024,7 +10204,7 @@ const struct WildPokemon gBattlePike_1_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePike_1_LandMonsInfo = { 10, gBattlePike_1_LandMons };
-# 6612 "src/data/wild_encounters.h"
+# 7188 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePike_2_LandMons[] =
 {
     { 5, 5, 336 },
@@ -10042,7 +10222,7 @@ const struct WildPokemon gBattlePike_2_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePike_2_LandMonsInfo = { 10, gBattlePike_2_LandMons };
-# 6639 "src/data/wild_encounters.h"
+# 7217 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePike_3_LandMons[] =
 {
     { 5, 5, 336 },
@@ -10060,7 +10240,7 @@ const struct WildPokemon gBattlePike_3_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePike_3_LandMonsInfo = { 10, gBattlePike_3_LandMons };
-# 6666 "src/data/wild_encounters.h"
+# 7246 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePike_4_LandMons[] =
 {
     { 5, 5, 336 },
@@ -10078,7 +10258,7 @@ const struct WildPokemon gBattlePike_4_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePike_4_LandMonsInfo = { 10, gBattlePike_4_LandMons };
-# 6693 "src/data/wild_encounters.h"
+# 7275 "src/data/wild_encounters.h"
 const struct WildPokemonHeader gBattlePikeWildMonHeaders[] =
 {
     {
@@ -10090,6 +10270,8 @@ const struct WildPokemonHeader gBattlePikeWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = 0,
@@ -10100,6 +10282,8 @@ const struct WildPokemonHeader gBattlePikeWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = 0,
@@ -10110,6 +10294,8 @@ const struct WildPokemonHeader gBattlePikeWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = 0,
@@ -10120,6 +10306,8 @@ const struct WildPokemonHeader gBattlePikeWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
     },
     {
         .mapGroup = ((0xFF | (0xFF << 8)) >> 8),
@@ -10130,6 +10318,7 @@ const struct WildPokemonHeader gBattlePikeWildMonHeaders[] =
         .rockSmashMonsInfo = ((void *)0),
         .fishingMonsInfo = ((void *)0),
         .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
     },
 };
 # 48 "src/wild_encounter.c" 2
@@ -10785,7 +10974,7 @@ void CutWildEncounter(void)
 
     if (headerId != 0xFFFF)
     {
-  const struct WildPokemonInfo *wildPokemonInfo = gWildMonHeaders[headerId].landMonsInfo;
+  const struct WildPokemonInfo *wildPokemonInfo = gWildMonHeaders[headerId].headbuttMonsInfo;
 
         if (wildPokemonInfo == ((void *)0))
         {
@@ -11150,6 +11339,22 @@ bool8 TryDoDoubleWildBattle(void)
 }
 
 u8 ChooseHiddenMonIndex(void)
+{
+
+        u8 rand = Random() % (33 + 33 + 34);
+
+        if (rand < 33)
+            return 0;
+        else if (rand >= 33 && rand < 33 + 33)
+            return 1;
+        else
+            return 2;
+
+
+
+}
+
+u8 ChooseHeadbuttMonIndex(void)
 {
 
         u8 rand = Random() % (33 + 33 + 34);

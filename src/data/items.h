@@ -38,7 +38,7 @@ const struct Item gItems[] =
         .itemId = ITEM_ULTRA_BALL,
         .price = 1200,
         .description = sUltraBallDesc,
-        .pocket = POCKET_POKE_BALLS,
+		.pocket = POCKET_POKE_BALLS,
         .type = 1,
         .fieldUseFunc = NULL,
         .battleUsage = 2,
@@ -10975,5 +10975,329 @@ const struct Item gItems[] =
         .fieldUseFunc = ItemUseOutOfBattle_Mints,
         .secondaryId = NATURE_TIMID,
     },
-
+	
+	//Seals
+	[ITEM_MASTER_BALL_SEAL] = 
+    {
+        .name = _("Master Ball Seal"),
+        .itemId = ITEM_MASTER_BALL_SEAL,
+        .price = 50000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_MASTER_BALL,
+	},
+	
+	[ITEM_ULTRA_BALL_SEAL] = 
+    {
+        .name = _("Ultra Ball S."),
+        .itemId = ITEM_ULTRA_BALL_SEAL,
+        .price = 7500,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_ULTRA_BALL,
+	},
+	
+	[ITEM_GREAT_BALL_SEAL] = 
+    {
+        .name = _("Great Ball Seal"),
+        .itemId = ITEM_GREAT_BALL_SEAL,
+        .price = 5000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_GREAT_BALL,
+	},
+	
+	[ITEM_POKE_BALL_SEAL] = 
+    {
+        .name = _("Poke Ball Seal"),
+        .itemId = ITEM_POKE_BALL_SEAL,
+        .price = 1000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_POKE_BALL,
+	},
+	
+	[ITEM_SAFARI_BALL_SEAL] = 
+    {
+        .name = _("Safari Ball S."),
+        .itemId = ITEM_SAFARI_BALL_SEAL,
+        .price = 12500,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_SAFARI_BALL,
+	},
+	
+	[ITEM_NET_BALL_SEAL] = 
+    {
+        .name = _("Net Ball Seal"),
+        .itemId = ITEM_NET_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_NET_BALL,
+	},
+	
+	[ITEM_DIVE_BALL_SEAL] = 
+    {
+        .name = _("Dive Ball Seal"),
+        .itemId = ITEM_DIVE_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_DIVE_BALL,
+	},
+	
+	[ITEM_NEST_BALL_SEAL] = 
+    {
+        .name = _("Nest Ball Seal"),
+        .itemId = ITEM_NEST_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_NEST_BALL,
+	},
+	
+	[ITEM_REPEAT_BALL_SEAL] = 
+    {
+        .name = _("Repeat Ball S."),
+        .itemId = ITEM_REPEAT_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_REPEAT_BALL,
+	},
+	
+	[ITEM_TIMER_BALL_SEAL] = 
+    {
+        .name = _("Timer Ball S."),
+        .itemId = ITEM_TIMER_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_TIMER_BALL,
+	},
+	
+	[ITEM_LUXURY_BALL_SEAL] = 
+    {
+        .name = _("Luxury Ball S."),
+        .itemId = ITEM_LUXURY_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_LUXURY_BALL,
+	},
+	
+	[ITEM_PREMIER_BALL_SEAL] = 
+    {
+        .name = _("Premier Ball S."),
+        .itemId = ITEM_PREMIER_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_PREMIER_BALL,
+	},
+	
+	[ITEM_LEVEL_BALL_SEAL] = 
+    {
+        .name = _("Level Ball S."),
+        .itemId = ITEM_LEVEL_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_LEVEL_BALL,
+	},
+	
+	[ITEM_LURE_BALL_SEAL] = 
+    {
+        .name = _("Lure Ball Seal"),
+        .itemId = ITEM_LURE_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_LURE_BALL,
+	},
+	
+	[ITEM_MOON_BALL_SEAL] = 
+    {
+        .name = _("Moon Ball Seal"),
+        .itemId = ITEM_MOON_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_MOON_BALL,
+	},
+	
+	[ITEM_FRIEND_BALL_SEAL] = 
+    {
+        .name = _("Friend Ball S."),
+        .itemId = ITEM_FRIEND_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_FRIEND_BALL,
+	},
+	
+	[ITEM_LOVE_BALL_SEAL] = 
+    {
+        .name = _("Love Ball Seal"),
+        .itemId = ITEM_LOVE_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_LOVE_BALL,
+	},
+	
+	[ITEM_HEAVY_BALL_SEAL] = 
+    {
+        .name = _("Heavy Ball S."),
+        .itemId = ITEM_HEAVY_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_HEAVY_BALL,
+	},
+	
+	[ITEM_FAST_BALL_SEAL] = 
+    {
+        .name = _("Fast Ball Seal"),
+        .itemId = ITEM_FAST_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_FAST_BALL,
+	},
+	
+	[ITEM_SPORT_BALL_SEAL] = 
+    {
+        .name = _("Sport Ball S."),
+        .itemId = ITEM_SPORT_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_SPORT_BALL,
+	},
+	
+	[ITEM_DUSK_BALL_SEAL] = 
+    {
+        .name = _("Dusk Ball S."),
+        .itemId = ITEM_DUSK_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_DUSK_BALL,
+	},
+	
+	[ITEM_QUICK_BALL_SEAL] = 
+    {
+        .name = _("Quick Ball S."),
+        .itemId = ITEM_QUICK_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_QUICK_BALL,
+	},
+	
+	[ITEM_HEAL_BALL_SEAL] = 
+    {
+        .name = _("Heal Ball S."),
+        .itemId = ITEM_HEAL_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_HEAL_BALL,
+	},
+	
+	[ITEM_CHERISH_BALL_SEAL] = 
+    {
+        .name = _("Cherish Ball S."),
+        .itemId = ITEM_CHERISH_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_CHERISH_BALL,
+	},
+	
+	[ITEM_PARK_BALL_SEAL] = 
+    {
+        .name = _("Park Ball S."),
+        .itemId = ITEM_PARK_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_PARK_BALL,
+	},
+	
+	[ITEM_DREAM_BALL_SEAL] = 
+    {
+        .name = _("Dream Ball S."),
+        .itemId = ITEM_DREAM_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_DREAM_BALL,
+	},
+	
+	[ITEM_BEAST_BALL_SEAL] = 
+    {
+        .name = _("Beast Ball S."),
+        .itemId = ITEM_BEAST_BALL_SEAL,
+        .price = 10000,
+        .description = sSealDesc,
+		.pocket = POCKET_POWER_UP,
+        .type = 1,
+		.fieldUseFunc = ItemUseOutOfBattle_Seal,
+		.secondaryId = ITEM_BEAST_BALL,
+	},
 };

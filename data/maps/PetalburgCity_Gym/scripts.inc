@@ -408,6 +408,7 @@ PetalburgCity_Gym_EventScript_NormanRematch:: @ 8204DB3
 	
 PetalburgCity_Gym_EventScript_NormanRematchEnd::
 	msgbox PetalburgCity_Gym_Text_NormanPostRematch, MSGBOX_AUTOCLOSE
+	call Gym_EventScript_Reset_Random_Rematch
 	setflag FLAG_UNUSED_0x926
 	end
 	
@@ -543,6 +544,7 @@ PetalburgCity_Gym_Text_GetReward:
 	
 //HM Start
 PetalburgCity_Gym_EventScript_GiveHM::
+	call Gym_EventScript_Reset_Rematches
 	setflag FLAG_UNUSED_0x926
 	goto_if_unset FLAG_RECEIVED_TM39, PetalburgCity_Gym_EventScript_GiveHM01
 	goto_if_unset FLAG_RECEIVED_TM08, PetalburgCity_Gym_EventScript_GiveHM02

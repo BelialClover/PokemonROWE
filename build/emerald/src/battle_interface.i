@@ -1,6 +1,6 @@
-# 1 "src/battle_interface.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/battle_interface.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/battle_interface.c"
 # 1 "include/global.h" 1
 
@@ -706,7 +706,8 @@ struct SaveBlock2
              u16 optionsTransitionSpeed:2;
              u16 optionsUnitSystem:1;
              struct Pokedex pokedex;
-             u8 filler_90[0x7];
+             u16 lastUsedBall;
+             u8 filler_90[0x6];
              struct Time localTimeOffset;
              struct Time lastBerryTreeUpdate;
              u32 gcnLinkFlags;
@@ -720,7 +721,7 @@ struct SaveBlock2
               struct RankingHall2P hallRecords2P[2][3];
               u16 contestLinkResults[5][4];
               struct BattleFrontier frontier;
-              u8 itemFlags[((746 / 8) + ((746 % 8) ? 1 : 0))];
+              u8 itemFlags[((773 / 8) + ((773 % 8) ? 1 : 0))];
 };
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -754,7 +755,7 @@ struct SecretBase
 };
 
 # 1 "include/constants/game_stat.h" 1
-# 542 "include/global.h" 2
+# 543 "include/global.h" 2
 # 1 "include/global.fieldmap.h" 1
 # 13 "include/global.fieldmap.h"
 enum
@@ -1003,6 +1004,7 @@ enum
     COLLISION_IMPASSABLE,
     COLLISION_ELEVATION_MISMATCH,
     COLLISION_OBJECT_EVENT,
+ COLLISION_START_SURFING,
     COLLISION_STOP_SURFING,
     COLLISION_LEDGE_JUMP,
     COLLISION_PUSHED_BOULDER,
@@ -1065,7 +1067,7 @@ extern u8 gSelectedObjectEvent;
 extern struct MapHeader gMapHeader;
 extern struct PlayerAvatar gPlayerAvatar;
 extern struct Camera gCamera;
-# 543 "include/global.h" 2
+# 544 "include/global.h" 2
 # 1 "include/global.berry.h" 1
 
 
@@ -1141,7 +1143,7 @@ struct BerryTree
     u8 watered3:1;
     u8 watered4:1;
 };
-# 544 "include/global.h" 2
+# 545 "include/global.h" 2
 # 1 "include/global.tv.h" 1
 
 
@@ -1635,7 +1637,7 @@ struct GabbyAndTyData
              u8 playerThrewABall2:1;
              u8 valB_4:4;
 };
-# 545 "include/global.h" 2
+# 546 "include/global.h" 2
 # 1 "include/pokemon.h" 1
 
 
@@ -2381,7 +2383,7 @@ u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
 u16 GetBaseFormSpeciesId(u16 formSpeciesId);
 void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nature);
 u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
-# 546 "include/global.h" 2
+# 547 "include/global.h" 2
 
 struct WarpData
 {
@@ -3105,6 +3107,7 @@ struct TypePower
 
 extern const struct TypePower gNaturalGiftTable[];
 
+void HandleAction_ThrowBall(void);
 void HandleAction_UseMove(void);
 void HandleAction_Switch(void);
 void HandleAction_UseItem(void);
@@ -3374,12 +3377,12 @@ void FreeBallGfx(u8 ballId);
 
 void CB2_BattleDebugMenu(void);
 # 16 "include/battle.h" 2
-# 57 "include/battle.h"
+# 58 "include/battle.h"
 struct ResourceFlags
 {
     u32 flags[4];
 };
-# 69 "include/battle.h"
+# 70 "include/battle.h"
 struct DisableStruct
 {
     u32 transformedMonPersonality;
@@ -3861,8 +3864,9 @@ struct BattleStruct
     u8 sameMoveTurns[4];
     u16 moveEffect2;
     u16 changedSpecies[6];
+ u8 ballSpriteIds[2];
 };
-# 585 "include/battle.h"
+# 587 "include/battle.h"
 struct BattleScripting
 {
     s32 painSplitHp;
@@ -4458,6 +4462,10 @@ u8 GetScaledHPFraction(s16 hp, s16 maxhp, u8 scale);
 u8 GetHPBarLevel(s16 hp, s16 maxhp);
 void CreateAbilityPopUp(u8 battlerId, u32 ability, bool32 isDoubleBattle);
 void DestroyAbilityPopUp(u8 battlerId);
+bool32 CanThrowLastUsedBall(void);
+void TryHideLastUsedBall(void);
+void TryRestoreLastUsedBall(void);
+void TryAddLastUsedBallItemSprites(void);
 # 7 "src/battle_interface.c" 2
 # 1 "include/graphics.h" 1
 
@@ -15550,6 +15558,163 @@ enum PokemonSummaryScreenPage
     PSS_PAGE_COUNT,
 };
 # 30 "src/battle_interface.c" 2
+# 1 "include/item_icon.h" 1
+
+
+
+extern void *gItemIconDecompressionBuffer;
+extern void *gItemIcon4x4Buffer;
+
+extern const struct SpriteTemplate gItemIconSpriteTemplate;
+
+bool8 AllocItemIconTemporaryBuffers(void);
+void FreeItemIconTemporaryBuffers(void);
+void CopyItemIconPicTo4x4Buffer(const void *src, void *dest);
+u8 AddItemIconSprite(u16 tilesTag, u16 paletteTag, u16 itemId);
+u8 AddCustomItemIconSprite(const struct SpriteTemplate *customSpriteTemplate, u16 tilesTag, u16 paletteTag, u16 itemId);
+const void *GetItemIconPicOrPalette(u16 itemId, u8 which);
+# 31 "src/battle_interface.c" 2
+# 1 "include/item_use.h" 1
+
+
+
+void ItemUseOutOfBattle_Mail(u8);
+void ItemUseOutOfBattle_Bike(u8);
+void ItemUseOutOfBattle_Rod(u8);
+void ItemUseOutOfBattle_Itemfinder(u8);
+void ItemUseOutOfBattle_PokeblockCase(u8);
+void ItemUseOutOfBattle_CoinCase(u8);
+void ItemUseOutOfBattle_PowderJar(u8);
+void ItemUseOutOfBattle_SSTicket(u8);
+void ItemUseOutOfBattle_WailmerPail(u8);
+void ItemUseOutOfBattle_Medicine(u8);
+void ItemUseOutOfBattle_AbilityCapsule(u8);
+void ItemUseOutOfBattle_PowerCandy(u8);
+void ItemUseOutOfBattle_AbilityPatch(u8);
+void ItemUseOutOfBattle_ReduceEV(u8);
+void ItemUseOutOfBattle_SacredAsh(u8);
+void ItemUseOutOfBattle_PPRecovery(u8);
+void ItemUseOutOfBattle_PPUp(u8);
+void ItemUseOutOfBattle_RareCandy(u8);
+void ItemUseOutOfBattle_TMHM(u8);
+void ItemUseOutOfBattle_Repel(u8);
+void ItemUseOutOfBattle_Lure(u8);
+void ItemUseOutOfBattle_EscapeRope(u8);
+void ItemUseOutOfBattle_BlackWhiteFlute(u8);
+void ItemUseOutOfBattle_EvolutionStone(u8);
+void ItemUseOutOfBattle_Berry(u8);
+void ItemUseOutOfBattle_EnigmaBerry(u8);
+void ItemUseOutOfBattle_CannotUse(u8);
+void ItemUseOutOfBattle_ExpShare(u8);
+void ItemUseOutOfBattle_EonFlute(u8 taskId);
+void ItemUseInBattle_PokeBall(u8);
+void ItemUseInBattle_StatIncrease(u8);
+void ItemUseInBattle_Medicine(u8);
+void ItemUseInBattle_PPRecovery(u8);
+void ItemUseInBattle_Escape(u8);
+void ItemUseInBattle_EnigmaBerry(u8);
+void Task_UseDigEscapeRopeOnField(u8 taskId);
+u8 CanUseDigOrEscapeRopeOnCurMap(void);
+u8 CheckIfItemIsTMHMOrEvolutionStone(u16 itemId);
+u32 CanThrowBall(void);
+void ItemUseOutOfBattle_SootSack(u8);
+u16 GetAshCount(void);
+void ItemUseOutOfBattle_Mints(u8 taskId);
+void ItemUseOutOfBattle_Seal(u8 taskId);
+# 32 "src/battle_interface.c" 2
+# 1 "include/item.h" 1
+
+
+
+# 1 "include/constants/item.h" 1
+# 5 "include/item.h" 2
+# 1 "include/constants/item_config.h" 1
+# 6 "include/item.h" 2
+
+typedef void (*ItemUseFunc)(u8);
+
+struct Item
+{
+    u8 name[18];
+    u16 itemId;
+    u16 price;
+    u8 holdEffect;
+    u8 holdEffectParam;
+    const u8 *description;
+    u8 importance;
+    u8 unk19;
+    u8 pocket;
+    u8 type;
+    ItemUseFunc fieldUseFunc;
+    u8 battleUsage;
+    ItemUseFunc battleUseFunc;
+    u8 secondaryId;
+};
+
+struct BagPocket
+{
+    struct ItemSlot *itemSlots;
+    u8 capacity;
+};
+
+extern struct BagPocket gBagPockets[];
+extern struct ItemSlot gTmHmItemSlots[208];
+
+u16 GetBagItemQuantity(u16 *quantity);
+void ApplyNewEncryptionKeyToBagItems(u32 newKey);
+void ApplyNewEncryptionKeyToBagItems_(u32 newKey);
+void SetBagItemsPointers(void);
+void CopyItemName(u16 itemId, u8 *dst);
+void CopyItemNameHandlePlural(u16 itemId, u8 *dst, u32 quantity);
+void GetBerryCountString(u8 *dst, const u8 *berryName, u32 quantity);
+bool8 IsBagPocketNonEmpty(u8 pocket);
+bool8 CheckBagHasItem(u16 itemId, u16 count);
+bool8 HasAtLeastOneBerry(void);
+bool8 CheckBagHasSpace(u16 itemId, u16 count);
+bool8 AddBagItem(u16 itemId, u16 count);
+bool8 RemoveBagItem(u16 itemId, u16 count);
+u8 GetPocketByItemId(u16 itemId);
+void ClearItemSlots(struct ItemSlot *itemSlots, u8 itemCount);
+u8 CountUsedPCItemSlots(void);
+bool8 CheckPCHasItem(u16 itemId, u16 count);
+bool8 AddPCItem(u16 itemId, u16 count);
+void RemovePCItem(u8 index, u16 count);
+void CompactPCItems(void);
+void SwapRegisteredBike(void);
+u16 BagGetItemIdByPocketPosition(u8 pocketId, u16 pocketPos);
+u16 BagGetQuantityByPocketPosition(u8 pocketId, u16 pocketPos);
+void CompactItemsInBagPocket(struct BagPocket *bagPocket);
+void SortBerriesOrTMHMs(struct BagPocket *bagPocket);
+void MoveItemSlotInList(struct ItemSlot* itemSlots_, u32 from, u32 to_);
+void ClearBag(void);
+u16 CountTotalItemQuantityInBag(u16 itemId);
+bool8 AddPyramidBagItem(u16 itemId, u16 count);
+bool8 RemovePyramidBagItem(u16 itemId, u16 count);
+const u8 *ItemId_GetName(u16 itemId);
+u16 ItemId_GetId(u16 itemId);
+u16 ItemId_GetPrice(u16 itemId);
+u8 ItemId_GetHoldEffect(u16 itemId);
+u8 ItemId_GetHoldEffectParam(u16 itemId);
+const u8 *ItemId_GetDescription(u16 itemId);
+u8 ItemId_GetImportance(u16 itemId);
+u8 ItemId_GetUnknownValue(u16 itemId);
+u8 ItemId_GetPocket(u16 itemId);
+u8 ItemId_GetType(u16 itemId);
+ItemUseFunc ItemId_GetFieldFunc(u16 itemId);
+u8 ItemId_GetBattleUsage(u16 itemId);
+ItemUseFunc ItemId_GetBattleFunc(u16 itemId);
+u8 ItemId_GetSecondaryId(u16 itemId);
+void DeserializeTmHmItemSlots(void);
+void DrawHeaderBox(void);
+void HideHeaderBox(void);
+bool8 GetSetItemObtained(u16 item, u8 caseId);
+
+enum ItemObtainFlags
+{
+    FLAG_GET_OBTAINED,
+    FLAG_SET_OBTAINED,
+};
+# 33 "src/battle_interface.c" 2
 
 enum
 {
@@ -15718,6 +15883,9 @@ static u8 CalcBarFilledPixels(s32 maxValue, s32 oldValue, s32 receivedValue, s32
 
 static void SpriteCb_AbilityPopUp(struct Sprite *sprite);
 static void Task_FreeAbilityPopUpGfx(u8 taskId);
+
+static void SpriteCB_LastUsedBall(struct Sprite *sprite);
+static void SpriteCB_LastUsedBallWin(struct Sprite *sprite);
 
 
 static const struct OamData sUnknown_0832C138 =
@@ -16215,13 +16383,19 @@ static const struct SpriteTemplate sSpriteTemplate_MegaIndicator =
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCb_MegaIndicator,
 };
-# 718 "src/battle_interface.c"
+# 724 "src/battle_interface.c"
 u8 GetMegaIndicatorSpriteId(u32 healthboxSpriteId)
 {
     u8 spriteId = gSprites[healthboxSpriteId].oam.affineParam;
     if (spriteId >= 64)
         return 0xFF;
     return gSprites[spriteId].data[6];
+}
+
+static void InitLastUsedBallAssets(void)
+{
+    gBattleStruct->ballSpriteIds[0] = 64;
+    gBattleStruct->ballSpriteIds[1] = 64;
 }
 
 u8 CreateBattlerHealthboxSprites(u8 battlerId)
@@ -16312,6 +16486,8 @@ u8 CreateBattlerHealthboxSprites(u8 battlerId)
         megaIndicatorSpriteId = CreateMegaIndicatorSprite(battlerId, 0);
         gSprites[megaIndicatorSpriteId].invisible = 1;
     }
+    gBattleStruct->ballSpriteIds[0] = 64;
+    gBattleStruct->ballSpriteIds[1] = 64;
 
     return healthboxLeftSpriteId;
 }
@@ -16920,7 +17096,7 @@ void ChangeMegaTriggerSprite(u8 spriteId, u8 animId)
 {
     StartSpriteAnim(&gSprites[spriteId], animId);
 }
-# 1436 "src/battle_interface.c"
+# 1450 "src/battle_interface.c"
 void CreateMegaTriggerSprite(u8 battlerId, u8 palId)
 {
     LoadSpritePalette(&sSpritePalette_MegaTrigger);
@@ -17087,7 +17263,7 @@ static void SpriteCb_MegaIndicator(struct Sprite *sprite)
 {
 
 }
-# 1612 "src/battle_interface.c"
+# 1626 "src/battle_interface.c"
 u8 CreatePartyStatusSummarySprites(u8 battlerId, struct HpAndStatus *partyInfo, u8 arg2, bool8 isBattleStart)
 {
     bool8 isOpponent;
@@ -18273,7 +18449,7 @@ static void SafariTextIntoHealthboxObject(void *dest, u8 *windowTileData, u32 wi
     CpuSet(windowTileData, dest, 0x04000000 | ((windowWidth * 32)/(32/8) & 0x1FFFFF));
     CpuSet(windowTileData + 256, dest + 256, 0x04000000 | ((windowWidth * 32)/(32/8) & 0x1FFFFF));
 }
-# 2812 "src/battle_interface.c"
+# 2826 "src/battle_interface.c"
 static const u8 sAbilityPopUpGfx[] = INCBIN_U8("graphics/battle_interface/ability_pop_up.4bpp");
 static const u16 sAbilityPopUpPalette[] = INCBIN_U16("graphics/battle_interface/ability_pop_up.gbapal");
 
@@ -18451,7 +18627,7 @@ static void PrintAbilityOnAbilityPopUp(u32 ability, u8 spriteId1, u8 spriteId2)
                         4,
                         7, 9, 1);
 }
-# 3000 "src/battle_interface.c"
+# 3014 "src/battle_interface.c"
 static const u16 sOverwrittenPixelsTable[][2] =
 {
  {( ((0 / 8) * 32 * 8) + ((0 / 8) * 32) + ((((0) - ((0 / 8) * 8))) * 4) + ((((0) - ((0 / 8) * 8)) / 2))), 5},
@@ -18669,4 +18845,173 @@ static void Task_FreeAbilityPopUpGfx(u8 taskId)
         FreeSpritePaletteByTag(0xD720);
         DestroyTask(taskId);
     }
+}
+
+
+
+
+static const struct OamData sOamData_LastUsedBall =
+{
+ .y = 0,
+ .affineMode = 0,
+ .objMode = 0,
+ .mosaic = 0,
+ .bpp = 0,
+ .shape = (((2 << 2) | (0)) & 0x03),
+ .x = 0,
+ .matrixNum = 0,
+ .size = ((((2 << 2) | (0)) >> 2) & 0x03),
+ .tileNum = 0,
+ .priority = 1,
+ .paletteNum = 0,
+ .affineParam = 0,
+};
+
+static const struct SpriteTemplate sSpriteTemplate_LastUsedBallWindow =
+{
+    .tileTag = 0xD721,
+    .paletteTag = 0xD720,
+    .oam = &sOamData_LastUsedBall,
+    .anims = gDummySpriteAnimTable,
+    .images = ((void *)0),
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCB_LastUsedBallWin
+};
+
+static const u8 sLastUsedBallWindowGfx[] = INCBIN_U8("graphics/battle_interface/last_used_ball.4bpp");
+static const struct SpriteSheet sSpriteSheet_LastUsedBallWindow =
+{
+    sLastUsedBallWindowGfx, sizeof(sLastUsedBallWindowGfx), 0xD721
+};
+# 3280 "src/battle_interface.c"
+bool32 CanThrowLastUsedBall(void)
+{
+    return (!(CanThrowBall() != 0
+     || (gBattleTypeFlags & (1 << 3))
+     || !CheckBagHasItem(gSaveBlock2Ptr->lastUsedBall, 1)));
+}
+
+
+void TryAddLastUsedBallItemSprites(void)
+{
+    if (gSaveBlock2Ptr->lastUsedBall != 0 && !CheckBagHasItem(gSaveBlock2Ptr->lastUsedBall, 1))
+    {
+
+
+        CompactItemsInBagPocket(&gBagPockets[2]);
+        gSaveBlock2Ptr->lastUsedBall = gBagPockets[2].itemSlots[0].itemId;
+    }
+
+    if (CanThrowBall() != 0
+     || (gBattleTypeFlags & (1 << 3))
+     || !CheckBagHasItem(gSaveBlock2Ptr->lastUsedBall, 1))
+        return;
+
+
+    if (gBattleStruct->ballSpriteIds[0] == 64)
+    {
+        gBattleStruct->ballSpriteIds[0] = AddItemIconSprite(102, 102, gSaveBlock2Ptr->lastUsedBall);
+        gSprites[gBattleStruct->ballSpriteIds[0]].pos1.x = -15;
+        gSprites[gBattleStruct->ballSpriteIds[0]].pos1.y = 68;
+        gSprites[gBattleStruct->ballSpriteIds[0]].data[0] = 0;
+        gSprites[gBattleStruct->ballSpriteIds[0]].callback = SpriteCB_LastUsedBall;
+    }
+
+
+    LoadSpritePalette(&sSpritePalette_AbilityPopUp);
+    if (GetSpriteTileStartByTag(0xD721) == 0xFFFF)
+        LoadSpriteSheet(&sSpriteSheet_LastUsedBallWindow);
+
+    if (gBattleStruct->ballSpriteIds[1] == 64)
+    {
+        gBattleStruct->ballSpriteIds[1] = CreateSprite(&sSpriteTemplate_LastUsedBallWindow,
+           (-15 - 0),
+           (68 - 8), 5);
+        gSprites[gBattleStruct->ballSpriteIds[0]].data[0] = 0;
+    }
+}
+
+static void DestroyLastUsedBallWinGfx(struct Sprite *sprite)
+{
+    FreeSpriteTilesByTag(0xD721);
+    FreeSpritePaletteByTag(0xD720);
+    DestroySprite(sprite);
+    gBattleStruct->ballSpriteIds[1] = 64;
+}
+
+static void DestroyLastUsedBallGfx(struct Sprite *sprite)
+{
+    FreeSpriteTilesByTag(102);
+    FreeSpritePaletteByTag(102);
+    DestroySprite(sprite);
+    gBattleStruct->ballSpriteIds[0] = 64;
+}
+
+static void SpriteCB_LastUsedBallWin(struct Sprite *sprite)
+{
+    if (sprite->data[0])
+    {
+        if (sprite->pos1.x != (-15 - 0))
+            sprite->pos1.x--;
+
+        if (sprite->pos1.x == (-15 - 0))
+            DestroyLastUsedBallWinGfx(sprite);
+    }
+    else
+    {
+        if (sprite->pos1.x != (15 - 1))
+            sprite->pos1.x++;
+    }
+}
+
+static void SpriteCB_LastUsedBall(struct Sprite *sprite)
+{
+    if (sprite->data[0])
+    {
+        if (sprite->pos1.x != -15)
+            sprite->pos1.x--;
+
+        if (sprite->pos1.x == -15)
+            DestroyLastUsedBallGfx(sprite);
+    }
+    else
+    {
+        if (sprite->pos1.x != 15)
+            sprite->pos1.x++;
+    }
+}
+
+static void TryHideOrRestoreLastUsedBall(u8 caseId)
+{
+    if (gBattleStruct->ballSpriteIds[0] == 64)
+        return;
+
+    switch (caseId)
+    {
+    case 0:
+        if (gBattleStruct->ballSpriteIds[0] != 64)
+            gSprites[gBattleStruct->ballSpriteIds[0]].data[0] = 1;
+        if (gBattleStruct->ballSpriteIds[1] != 64)
+            gSprites[gBattleStruct->ballSpriteIds[1]].data[0] = 1;
+        break;
+    case 1:
+        if (gBattleStruct->ballSpriteIds[0] != 64)
+            gSprites[gBattleStruct->ballSpriteIds[0]].data[0] = 0;
+        if (gBattleStruct->ballSpriteIds[1] != 64)
+            gSprites[gBattleStruct->ballSpriteIds[1]].data[0] = 0;
+        break;
+    }
+}
+
+void TryHideLastUsedBall(void)
+{
+    TryHideOrRestoreLastUsedBall(0);
+}
+
+void TryRestoreLastUsedBall(void)
+{
+    if (gBattleStruct->ballSpriteIds[0] != 64)
+        TryHideOrRestoreLastUsedBall(1);
+    else
+        TryAddLastUsedBallItemSprites();
 }

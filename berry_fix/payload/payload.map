@@ -1,13 +1,13 @@
 Archive member included to satisfy reference by file (symbol)
 
-../../../tools/agbcc/lib\libgcc.a(_call_via_rX.o)
+../../../tools/agbcc/lib/libgcc.a(_call_via_rX.o)
                               src/flash.o (_call_via_r1)
-../../../tools/agbcc/lib\libgcc.a(_modsi3.o)
+../../../tools/agbcc/lib/libgcc.a(_modsi3.o)
                               src/rtc.o (__modsi3)
-../../../tools/agbcc/lib\libgcc.a(_umodsi3.o)
+../../../tools/agbcc/lib/libgcc.a(_umodsi3.o)
                               src/rtc.o (__umodsi3)
-../../../tools/agbcc/lib\libgcc.a(_dvmd_tls.o)
-                              ../../../tools/agbcc/lib\libgcc.a(_modsi3.o) (__div0)
+../../../tools/agbcc/lib/libgcc.a(_dvmd_tls.o)
+                              ../../../tools/agbcc/lib/libgcc.a(_modsi3.o) (__div0)
 
 Discarded input sections
 
@@ -51,22 +51,22 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 src/agb_flash_le.o
  .ARM.attributes
                 0x0000000000000000       0x20 src/agb_flash_le.o
- .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_call_via_rX.o)
- .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_call_via_rX.o)
+ .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib/libgcc.a(_call_via_rX.o)
+ .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib/libgcc.a(_call_via_rX.o)
  .ARM.attributes
-                0x0000000000000000       0x20 ../../../tools/agbcc/lib\libgcc.a(_call_via_rX.o)
- .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_modsi3.o)
- .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_modsi3.o)
+                0x0000000000000000       0x20 ../../../tools/agbcc/lib/libgcc.a(_call_via_rX.o)
+ .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib/libgcc.a(_modsi3.o)
+ .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib/libgcc.a(_modsi3.o)
  .ARM.attributes
-                0x0000000000000000       0x20 ../../../tools/agbcc/lib\libgcc.a(_modsi3.o)
- .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_umodsi3.o)
- .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_umodsi3.o)
+                0x0000000000000000       0x20 ../../../tools/agbcc/lib/libgcc.a(_modsi3.o)
+ .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib/libgcc.a(_umodsi3.o)
+ .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib/libgcc.a(_umodsi3.o)
  .ARM.attributes
-                0x0000000000000000       0x20 ../../../tools/agbcc/lib\libgcc.a(_umodsi3.o)
- .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_dvmd_tls.o)
- .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib\libgcc.a(_dvmd_tls.o)
+                0x0000000000000000       0x20 ../../../tools/agbcc/lib/libgcc.a(_umodsi3.o)
+ .data          0x0000000000000000        0x0 ../../../tools/agbcc/lib/libgcc.a(_dvmd_tls.o)
+ .bss           0x0000000000000000        0x0 ../../../tools/agbcc/lib/libgcc.a(_dvmd_tls.o)
  .ARM.attributes
-                0x0000000000000000       0x20 ../../../tools/agbcc/lib\libgcc.a(_dvmd_tls.o)
+                0x0000000000000000       0x20 ../../../tools/agbcc/lib/libgcc.a(_dvmd_tls.o)
 
 Memory Configuration
 
@@ -210,7 +210,7 @@ lib_text        0x00000000020118e4     0x13ac
                 0x00000000020126f8                SiiRtcSetTime
                 0x0000000002012794                SiiRtcSetAlarm
  *libgcc.a:_call_via_rX.o(.text)
- .text          0x0000000002012ac0       0x3c ../../../tools/agbcc/lib\libgcc.a(_call_via_rX.o)
+ .text          0x0000000002012ac0       0x3c ../../../tools/agbcc/lib/libgcc.a(_call_via_rX.o)
                 0x0000000002012ac0                _call_via_r0
                 0x0000000002012ac4                _call_via_r1
                 0x0000000002012ac8                _call_via_r2
@@ -227,13 +227,13 @@ lib_text        0x00000000020118e4     0x13ac
                 0x0000000002012af4                _call_via_sp
                 0x0000000002012af8                _call_via_lr
  *libgcc.a:_modsi3.o(.text)
- .text          0x0000000002012afc       0xd0 ../../../tools/agbcc/lib\libgcc.a(_modsi3.o)
+ .text          0x0000000002012afc       0xd0 ../../../tools/agbcc/lib/libgcc.a(_modsi3.o)
                 0x0000000002012afc                __modsi3
  *libgcc.a:_umodsi3.o(.text)
- .text          0x0000000002012bcc       0xc0 ../../../tools/agbcc/lib\libgcc.a(_umodsi3.o)
+ .text          0x0000000002012bcc       0xc0 ../../../tools/agbcc/lib/libgcc.a(_umodsi3.o)
                 0x0000000002012bcc                __umodsi3
  *libgcc.a:_dvmd_tls.o(.text)
- .text          0x0000000002012c8c        0x4 ../../../tools/agbcc/lib\libgcc.a(_dvmd_tls.o)
+ .text          0x0000000002012c8c        0x4 ../../../tools/agbcc/lib/libgcc.a(_dvmd_tls.o)
                 0x0000000002012c8c                __div0
 
 .rodata         0x0000000002012c90     0x225c
@@ -476,7 +476,7 @@ RS_Rom          0x0000000008000000       0xc8
 
 /DISCARD/
  *(*)
-LOAD ../../../tools/agbcc/lib\libgcc.a
+LOAD ../../../tools/agbcc/lib/libgcc.a
 OUTPUT(../payload.elf elf32-littlearm)
 LOAD linker stubs
 LOAD asm/crt0.o

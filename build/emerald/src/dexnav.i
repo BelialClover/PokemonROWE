@@ -1,6 +1,6 @@
-# 1 "src/dexnav.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/dexnav.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/dexnav.c"
 # 1 "include/global.h" 1
 
@@ -706,7 +706,8 @@ struct SaveBlock2
              u16 optionsTransitionSpeed:2;
              u16 optionsUnitSystem:1;
              struct Pokedex pokedex;
-             u8 filler_90[0x7];
+             u16 lastUsedBall;
+             u8 filler_90[0x6];
              struct Time localTimeOffset;
              struct Time lastBerryTreeUpdate;
              u32 gcnLinkFlags;
@@ -720,7 +721,7 @@ struct SaveBlock2
               struct RankingHall2P hallRecords2P[2][3];
               u16 contestLinkResults[5][4];
               struct BattleFrontier frontier;
-              u8 itemFlags[((746 / 8) + ((746 % 8) ? 1 : 0))];
+              u8 itemFlags[((773 / 8) + ((773 % 8) ? 1 : 0))];
 };
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -754,7 +755,7 @@ struct SecretBase
 };
 
 # 1 "include/constants/game_stat.h" 1
-# 542 "include/global.h" 2
+# 543 "include/global.h" 2
 # 1 "include/global.fieldmap.h" 1
 # 13 "include/global.fieldmap.h"
 enum
@@ -1003,6 +1004,7 @@ enum
     COLLISION_IMPASSABLE,
     COLLISION_ELEVATION_MISMATCH,
     COLLISION_OBJECT_EVENT,
+ COLLISION_START_SURFING,
     COLLISION_STOP_SURFING,
     COLLISION_LEDGE_JUMP,
     COLLISION_PUSHED_BOULDER,
@@ -1065,7 +1067,7 @@ extern u8 gSelectedObjectEvent;
 extern struct MapHeader gMapHeader;
 extern struct PlayerAvatar gPlayerAvatar;
 extern struct Camera gCamera;
-# 543 "include/global.h" 2
+# 544 "include/global.h" 2
 # 1 "include/global.berry.h" 1
 
 
@@ -1141,7 +1143,7 @@ struct BerryTree
     u8 watered3:1;
     u8 watered4:1;
 };
-# 544 "include/global.h" 2
+# 545 "include/global.h" 2
 # 1 "include/global.tv.h" 1
 
 
@@ -1635,7 +1637,7 @@ struct GabbyAndTyData
              u8 playerThrewABall2:1;
              u8 valB_4:4;
 };
-# 545 "include/global.h" 2
+# 546 "include/global.h" 2
 # 1 "include/pokemon.h" 1
 
 
@@ -2381,7 +2383,7 @@ u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
 u16 GetBaseFormSpeciesId(u16 formSpeciesId);
 void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nature);
 u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
-# 546 "include/global.h" 2
+# 547 "include/global.h" 2
 
 struct WarpData
 {
@@ -4734,222 +4736,6 @@ void sub_80B05B4(void);
 void WriteFlashScanlineEffectBuffer(u8 flashLevel);
 bool8 IsPlayerStandingStill(void);
 # 17 "src/dexnav.c" 2
-# 1 "include/field_weather.h" 1
-
-
-
-
-# 1 "include/constants/field_weather.h" 1
-# 6 "include/field_weather.h" 2
-
-struct Weather
-{
-    union
-    {
-        struct
-        {
-            struct Sprite *rainSprites[24];
-            struct Sprite *snowflakeSprites[101];
-            struct Sprite *cloudSprites[3];
-        } s1;
-        struct
-        {
-            u8 filler0[0xA0];
-            struct Sprite *fogHSprites[20];
-            struct Sprite *ashSprites[20];
-            struct Sprite *fogDSprites[20];
-            struct Sprite *sandstormSprites1[20];
-            struct Sprite *sandstormSprites2[5];
-        } s2;
-    } sprites;
-    u8 gammaShifts[19][32];
-    u8 altGammaShifts[19][32];
-    s8 gammaIndex;
-    s8 gammaTargetIndex;
-    u8 gammaStepDelay;
-    u8 gammaStepFrameCounter;
-    u16 fadeDestColor;
-              u8 palProcessingState;
-              u8 fadeScreenCounter;
-              bool8 readyForInit;
-              u8 taskId;
-              u8 unknown_6CA;
-    u8 unknown_6CB;
-    u16 initStep;
-    u16 finishStep;
-    u8 currWeather;
-    u8 nextWeather;
-    u8 weatherGfxLoaded;
-    bool8 weatherChangeComplete;
-    u8 weatherPicSpritePalIndex;
-    u8 altGammaSpritePalIndex;
-    u16 rainSpriteVisibleCounter;
-    u8 curRainSpriteIndex;
-    u8 targetRainSpriteCount;
-    u8 rainSpriteCount;
-    u8 rainSpriteVisibleDelay;
-    u8 isDownpour;
-    u8 rainStrength;
-              u8 cloudSpritesCreated;
-    u8 filler_6DF[1];
-    u16 snowflakeVisibleCounter;
-    u16 unknown_6E2;
-    u8 snowflakeSpriteCount;
-    u8 targetSnowflakeSpriteCount;
-    u16 unknown_6E6;
-    u16 thunderCounter;
-    u8 unknown_6EA;
-    u8 unknown_6EB;
-    u8 unknown_6EC;
-    u8 thunderTriggered;
-    u16 fogHScrollPosX;
-    u16 fogHScrollCounter;
-    u16 fogHScrollOffset;
-    u8 lightenedFogSpritePals[6];
-    u8 lightenedFogSpritePalsCount;
-    u8 fogHSpritesCreated;
-    u16 ashBaseSpritesX;
-    u16 unknown_6FE;
-    u8 ashSpritesCreated;
-    u8 filler_701[3];
-    u32 sandstormXOffset;
-    u32 sandstormYOffset;
-    u8 filler_70C[2];
-    u16 sandstormBaseSpritesX;
-    u16 sandstormPosY;
-    u16 sandstormWaveIndex;
-    u16 sandstormWaveCounter;
-    u8 sandstormSpritesCreated;
-    u8 sandstormSwirlSpritesCreated;
-    u16 fogDBaseSpritesX;
-    u16 fogDPosY;
-    u16 fogDScrollXCounter;
-    u16 fogDScrollYCounter;
-    u16 fogDXOffset;
-    u16 fogDYOffset;
-    u8 fogDSpritesCreated;
-    u8 filler_725[1];
-    u16 bubblesDelayCounter;
-    u16 bubblesDelayIndex;
-    u16 bubblesCoordsIndex;
-    u16 bubblesSpriteCount;
-    u8 bubblesSpritesCreated;
-    u8 filler_72F;
-    u16 currBlendEVA;
-    u16 currBlendEVB;
-    u16 targetBlendEVA;
-    u16 targetBlendEVB;
-    u8 blendUpdateCounter;
-    u8 blendFrameCounter;
-    u8 blendDelay;
-    u8 filler_73B[0x3C-0x3B];
-    s16 unknown_73C;
-    s16 unknown_73E;
-    s16 unknown_740;
-    s16 unknown_742;
-    u8 filler_744[0xD-4];
-    s8 loadDroughtPalsIndex;
-    u8 loadDroughtPalsOffset;
-};
-
-
-extern struct Weather gWeather;
-extern struct Weather *const gWeatherPtr;
-extern const u16 gUnknown_083970E8[];
-
-
-extern const u8 gWeatherFogHorizontalTiles[];
-
-void StartWeather(void);
-void SetNextWeather(u8 weather);
-void SetCurrentAndNextWeather(u8 weather);
-void SetCurrentAndNextWeatherNoDelay(u8 weather);
-void sub_80ABC48(s8 gammaIndex);
-void sub_80ABC7C(u8 gammaIndex, u8 gammaTargetIndex, u8 gammaStepDelay);
-void FadeScreen(u8 mode, s8 delay);
-bool8 IsWeatherNotFadingIn(void);
-void UpdateSpritePaletteWithWeather(u8 spritePaletteIndex);
-void ApplyWeatherGammaShiftToPal(u8 paletteIndex);
-u8 sub_80ABF20(void);
-void LoadCustomWeatherSpritePalette(const u16 *palette);
-void ResetDroughtWeatherPaletteLoading(void);
-bool8 LoadDroughtWeatherPalettes(void);
-void sub_80ABFE0(s8 gammaIndex);
-void sub_80ABFF0(void);
-void sub_80AC01C(void);
-void Weather_SetBlendCoeffs(u8 eva, u8 evb);
-void Weather_SetTargetBlendCoeffs(u8 eva, u8 evb, int delay);
-bool8 Weather_UpdateBlend(void);
-void sub_80AC274(u8 a);
-u8 GetCurrentWeather(void);
-void SetRainStrengthFromSoundEffect(u16 soundEffect);
-void PlayRainStoppingSoundEffect(void);
-u8 IsWeatherChangeComplete(void);
-void SetWeatherScreenFadeOut(void);
-void sub_80AC3E4(void);
-void PreservePaletteInWeather(u8 preservedPalIndex);
-void ResetPreservedPalettesInWeather(void);
-
-
-void Clouds_InitVars(void);
-void Clouds_Main(void);
-void Clouds_InitAll(void);
-bool8 Clouds_Finish(void);
-void Sunny_InitVars(void);
-void Sunny_Main(void);
-void Sunny_InitAll(void);
-bool8 Sunny_Finish(void);
-void Rain_InitVars(void);
-void Rain_Main(void);
-void Rain_InitAll(void);
-bool8 Rain_Finish(void);
-void Snow_InitVars(void);
-void Snow_Main(void);
-void Snow_InitAll(void);
-bool8 Snow_Finish(void);
-void Thunderstorm_InitVars(void);
-void Thunderstorm_Main(void);
-void Thunderstorm_InitAll(void);
-bool8 Thunderstorm_Finish(void);
-void FogHorizontal_InitVars(void);
-void FogHorizontal_Main(void);
-void FogHorizontal_InitAll(void);
-bool8 FogHorizontal_Finish(void);
-void Ash_InitVars(void);
-void Ash_Main(void);
-void Ash_InitAll(void);
-bool8 Ash_Finish(void);
-void Sandstorm_InitVars(void);
-void Sandstorm_Main(void);
-void Sandstorm_InitAll(void);
-bool8 Sandstorm_Finish(void);
-void FogDiagonal_InitVars(void);
-void FogDiagonal_Main(void);
-void FogDiagonal_InitAll(void);
-bool8 FogDiagonal_Finish(void);
-void Shade_InitVars(void);
-void Shade_Main(void);
-void Shade_InitAll(void);
-bool8 Shade_Finish(void);
-void Drought_InitVars(void);
-void Drought_Main(void);
-void Drought_InitAll(void);
-bool8 Drought_Finish(void);
-void Downpour_InitVars(void);
-void Downpour_InitAll(void);
-void Bubbles_InitVars(void);
-void Bubbles_Main(void);
-void Bubbles_InitAll(void);
-bool8 Bubbles_Finish(void);
-
-u8 GetSav1Weather(void);
-void SetSav1Weather(u32 weather);
-void SetSav1WeatherFromCurrMapHeader(void);
-void SetWeather(u32 weather);
-void DoCurrentWeather(void);
-void UpdateWeatherPerDay(u16 increment);
-void ResumePausedWeather(void);
-# 18 "src/dexnav.c" 2
 # 1 "include/fieldmap.h" 1
 # 12 "include/fieldmap.h"
 # 1 "include/main.h" 1
@@ -5065,7 +4851,7 @@ void MapGridSetMetatileImpassabilityAt(int x, int y, bool32 impassable);
 
 
 void FieldInitRegionMap(MainCallback callback);
-# 19 "src/dexnav.c" 2
+# 18 "src/dexnav.c" 2
 # 1 "gflib/gpu_regs.h" 1
 # 9 "gflib/gpu_regs.h"
 void InitGpuRegManager(void);
@@ -5077,7 +4863,7 @@ void SetGpuRegBits(u8 regOffset, u16 mask);
 void ClearGpuRegBits(u8 regOffset, u16 mask);
 void EnableInterrupts(u16 mask);
 void DisableInterrupts(u16 mask);
-# 20 "src/dexnav.c" 2
+# 19 "src/dexnav.c" 2
 # 1 "include/graphics.h" 1
 
 
@@ -14607,7 +14393,7 @@ extern const u32 gItemIconPalette_PinkMint[];
 extern const u32 gItemIconPalette_GreenMint[];
 extern const u32 gItemIconPalette_LightBlueMint[];
 extern const u32 gItemIconPalette_YellowMint[];
-# 21 "src/dexnav.c" 2
+# 20 "src/dexnav.c" 2
 # 1 "include/item.h" 1
 
 
@@ -14700,7 +14486,7 @@ enum ItemObtainFlags
     FLAG_GET_OBTAINED,
     FLAG_SET_OBTAINED,
 };
-# 22 "src/dexnav.c" 2
+# 21 "src/dexnav.c" 2
 # 1 "include/international_string_util.h" 1
 
 
@@ -15205,6 +14991,28 @@ void sub_81DB554(u8 *, u8);
 void sub_81DB5AC(u8 *);
 int sub_81DB604(u8 *);
 void sub_81DB620(int windowId, int columnStart, int rowStart, int numFillTiles, int numRows);
+# 22 "src/dexnav.c" 2
+# 1 "include/level_scaling.h" 1
+
+
+
+u8 IsHardMode(void);
+u8 GetNumBadges(void);
+u8 getLevelBoost(void);
+u8 GetPlayerUsableMons(void);
+u8 getTrainerLevel(u8 Level);
+u8 getWildLevel(u8 Ability);
+u8 getTrainerPokemonNum(void);
+u8 getLeaderPokemonNum(void);
+u8 getDoubleTrainerPokemonNum(void);
+u16 GetWildPokemon(u16 basespecies, u8 level, u16 heldItem);
+u16 GetTrainerPokemon(u16 basespecies, u8 level);
+u16 GetBaseSpecie(u16 basespecies);
+u16 GetHeldItem(u16 baseitem);
+u16 GetFirstEvolution(u16 species);
+u8 GetEvsfromPokemon(u8 evs);
+bool8 IsMoveUsable(u8 movepower);
+u16 GetMapRandomPokemon(u16 TrainerClass, u16 species);
 # 23 "src/dexnav.c" 2
 # 1 "include/m4a.h" 1
 
@@ -16143,6 +15951,7 @@ void MoveDeleterChooseMoveToForget(void);
 
 bool8 CanLearnTutorMove(u16, u8);
 void ItemUseCB_Mints(u8 taskId, TaskFunc task);
+void ItemUseCB_Seal(u8 taskId, TaskFunc task);
 # 33 "src/dexnav.c" 2
 # 1 "include/pokedex.h" 1
 
@@ -17164,25 +16973,18 @@ extern const u8 gText_SearchCompleted[];
 extern const u8 gText_NoMatchingPkmnWereFound[];
 extern const u8 gText_SelectorArrow[];
 
-extern const u8 gText_Stats_EV[];
-extern const u8 gText_Stats_EV_HP[];
-extern const u8 gText_Stats_EV_Attack[];
-extern const u8 gText_Stats_EV_Defense[];
-extern const u8 gText_Stats_EV_Speed[];
-extern const u8 gText_Stats_EV_SpAtk[];
-extern const u8 gText_Stats_EV_SpDef[];
+extern const u8 gText_Stats_Buttons[];
+extern const u8 gText_Stats_Buttons_Decapped[];
 extern const u8 gText_Stats_HP[];
 extern const u8 gText_Stats_Attack[];
 extern const u8 gText_Stats_Defense[];
 extern const u8 gText_Stats_Speed[];
-extern const u8 gText_Stats_SpAtk[];
-extern const u8 gText_Stats_SpDef[];
-extern const u8 gText_Stats_EVHP[];
-extern const u8 gText_Stats_EVAttack[];
-extern const u8 gText_Stats_EVDefense[];
-extern const u8 gText_Stats_EVSpeed[];
-extern const u8 gText_Stats_EVSpAtk[];
-extern const u8 gText_Stats_EVSpDef[];
+extern const u8 gText_Stats_SpAttack[];
+extern const u8 gText_Stats_SpDefense[];
+extern const u8 gText_Stats_EV_Plus1[];
+extern const u8 gText_Stats_EV_Plus2[];
+extern const u8 gText_Stats_EV_Plus3[];
+extern const u8 gText_Stats_EvStr1Str2[];
 extern const u8 gText_Stats_MoveSelectedMax[];
 extern const u8 gText_Stats_MoveLevel[];
 extern const u8 gText_Stats_Gender_0[];
@@ -17192,11 +16994,25 @@ extern const u8 gText_Stats_Gender_50[];
 extern const u8 gText_Stats_Gender_75[];
 extern const u8 gText_Stats_Gender_87_5[];
 extern const u8 gText_Stats_Gender_100[];
-extern const u8 gText_Stats_Catch[];
-extern const u8 gText_Stats_Exp[];
+extern const u8 gText_Stats_CatchRate[];
+extern const u8 gText_Stats_CatchRate_Legend[];
+extern const u8 gText_Stats_CatchRate_VeryHard[];
+extern const u8 gText_Stats_CatchRate_Difficult[];
+extern const u8 gText_Stats_CatchRate_Medium[];
+extern const u8 gText_Stats_CatchRate_Relaxed[];
+extern const u8 gText_Stats_CatchRate_Easy[];
+extern const u8 gText_Stats_ExpYield[];
 extern const u8 gText_Stats_EggCycles[];
+extern const u8 gText_Stats_EggCycles_VeryFast[];
+extern const u8 gText_Stats_EggCycles_Fast[];
+extern const u8 gText_Stats_EggCycles_Normal[];
+extern const u8 gText_Stats_EggCycles_Slow[];
 extern const u8 gText_Stats_Growthrate[];
 extern const u8 gText_Stats_Friendship[];
+extern const u8 gText_Stats_Friendship_BigAnger[];
+extern const u8 gText_Stats_Friendship_Neutral[];
+extern const u8 gText_Stats_Friendship_Happy[];
+extern const u8 gText_Stats_Friendship_BigSmile[];
 extern const u8 gText_Stats_MEDIUM_FAST[];
 extern const u8 gText_Stats_ERRATIC[];
 extern const u8 gText_Stats_FLUCTUATING[];
@@ -17206,8 +17022,8 @@ extern const u8 gText_Stats_SLOW[];
 extern const u8 gText_Stats_ContestHeart[];
 extern const u8 gText_PlusSymbol[];
 extern const u8 gText_Stats_Minus[];
-extern const u8 gText_Stats_eggGroup_g1[];
-extern const u8 gText_Stats_eggGroup_g2[];
+extern const u8 gText_Stats_eggGroup[];
+extern const u8 gText_Stats_eggGroup_Groups[];
 extern const u8 gText_Stats_eggGroup_MONSTER[];
 extern const u8 gText_Stats_eggGroup_WATER_1[];
 extern const u8 gText_Stats_eggGroup_BUG[];
@@ -17226,6 +17042,8 @@ extern const u8 gText_Stats_eggGroup_UNDISCOVERED[];
 extern const u8 gText_Dex_SEEN[];
 extern const u8 gText_Dex_OWN[];
 
+extern const u8 gText_EVO_Buttons_PE[];
+extern const u8 gText_EVO_Buttons_Decapped_PE[];
 extern const u8 gText_EVO_Name[];
 extern const u8 gText_EVO_FRIENDSHIP[];
 extern const u8 gText_EVO_FRIENDSHIP_DAY[];
@@ -17260,6 +17078,9 @@ extern const u8 gText_EVO_LEVEL_DARK_TYPE_MON_IN_PARTY[];
 extern const u8 gText_EVO_TRADE_SPECIFIC_MON[];
 extern const u8 gText_EVO_SPECIFIC_MAP[];
 extern const u8 gText_EVO_NONE[];
+
+extern const u8 gText_FORMS_Buttons_PE[];
+extern const u8 gText_FORMS_Buttons_Decapped_PE[];
 extern const u8 gText_FORMS_NONE[];
 
 
@@ -19815,6 +19636,7 @@ struct WildPokemonHeader
     const struct WildPokemonInfo *rockSmashMonsInfo;
     const struct WildPokemonInfo *fishingMonsInfo;
     const struct WildPokemonInfo *hiddenMonsInfo;
+ const struct WildPokemonInfo *headbuttMonsInfo;
 };
 
 extern bool8 gIsFishingEncounter;
@@ -19838,6 +19660,7 @@ u16 GetCurrentMapWildMonHeaderId(void);
 u8 ChooseWildMonIndex_Land(void);
 u8 ChooseWildMonIndex_WaterRock(void);
 u8 ChooseHiddenMonIndex(void);
+u8 ChooseHeadbuttMonIndex(void);
 u16 GetFirstStage(u16 species);
 # 51 "src/dexnav.c" 2
 
@@ -19866,65 +19689,6 @@ u16 GetFirstStage(u16 species);
 # 61 "src/dexnav.c" 2
 # 1 "include/gba/m4a_internal.h" 1
 # 62 "src/dexnav.c" 2
-# 1 "include/day_night.h" 1
-
-
-
-
-
-struct PaletteOverride
-{
-    u8 slot;
-    u8 timeOfDay;
-    void *palette;
-};
-
-extern u16 gPlttBufferPreDN[];
-extern struct PaletteOverride *gPaletteOverrides[];
-
-bool8 IsCurrentlyDay(void);
-u8 GetCurrentTimeOfDay(void);
-u8 GetTimeOfDay(s8 hours);
-void LoadCompressedPaletteDayNight(const void *src, u16 offset, u16 size);
-void LoadPaletteDayNight(const void *src, u16 offset, u16 size);
-void CheckClockForImmediateTimeEvents(void);
-void ProcessImmediateTimeEvents(void);
-void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
-const u8 *GetDayOfWeekString(u8 dayOfWeek);
-# 63 "src/dexnav.c" 2
-
-# 1 "include/printf.h" 1
-# 35 "include/printf.h"
-# 1 "tools/agbcc/include/stdarg.h" 1
-# 9 "tools/agbcc/include/stdarg.h"
-typedef void *__gnuc_va_list;
-# 31 "tools/agbcc/include/stdarg.h"
-typedef __gnuc_va_list va_list;
-# 36 "include/printf.h" 2
-# 49 "include/printf.h"
-void _putchar(char character);
-# 61 "include/printf.h"
-int printf_(const char* format, ...);
-# 72 "include/printf.h"
-int sprintf_(char* buffer, const char* format, ...);
-# 87 "include/printf.h"
-int snprintf_(char* buffer, size_t count, const char* format, ...);
-int vsnprintf_(char* buffer, size_t count, const char* format, va_list va);
-# 98 "include/printf.h"
-int vprintf_(const char* format, va_list va);
-# 109 "include/printf.h"
-int fctprintf(void (*out)(char character, void* arg), void* arg, const char* format, ...);
-# 65 "src/dexnav.c" 2
-# 1 "include/mgba.h" 1
-# 26 "include/mgba.h"
-# 1 "include/gba/types.h" 1
-# 27 "include/mgba.h" 2
-# 35 "include/mgba.h"
-void mgba_printf(int level, const char* string, ...);
-bool8 mgba_open(void);
-void mgba_close(void);
-# 66 "src/dexnav.c" 2
-
 
 
 enum WindowIds
@@ -20023,7 +19787,6 @@ static void DrawHiddenSearchWindow(u8 width);
 
 
 
-
 static const u32 sDexNavGuiTiles[] = INCBIN_U32("graphics/dexnav/gui_tiles.4bpp.lz");
 static const u32 sDexNavGuiTilemap[] = INCBIN_U32("graphics/dexnav/gui_tilemap.bin.lz");
 static const u32 sDexNavGuiPal[] = INCBIN_U32("graphics/dexnav/gui.gbapal");
@@ -20060,9 +19823,6 @@ static const u8 sText_ArrowLeft[] = _("{LEFT_ARROW}");
 static const u8 sText_ArrowRight[] = _("{RIGHT_ARROW}");
 static const u8 sText_ArrowUp[] = _("{UP_ARROW}");
 static const u8 sText_ArrowDown[] = _("{DOWN_ARROW}");
-
-u8 DexBadgeGet(void);
-u8 GetDexLevelWild(void);
 
 static const struct WindowTemplate sDexNavGuiWindowTemplates[] =
 {
@@ -20251,7 +20011,7 @@ static const struct SpriteTemplate sPotentialStarTemplate =
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy,
 };
-# 405 "src/dexnav.c"
+# 396 "src/dexnav.c"
 static const struct SpriteTemplate sSearchIconSpriteTemplate =
 {
     .tileTag = 0x4005,
@@ -20307,7 +20067,7 @@ static s16 GetSearchWindowY(void)
 static void DrawDexNavSearchMonIcon(u16 species, u8 *dst, bool8 owned)
 {
     u8 spriteId;
-    u16 formId = GetFormIdFromFormSpeciesId(species);
+ u16 formId = GetFormIdFromFormSpeciesId(species);
 
     LoadMonIconPalette(species);
     spriteId = CreateMonIcon(species, SpriteCB_MonIcon, 28 - 6, GetSearchWindowY() + 8, 0, 0xFFFFFFFF, 0, formId);
@@ -20383,7 +20143,7 @@ static void AddSearchWindowText(u16 species, u8 proximity, u8 searchLevel, bool8
             AddTextPrinterParameterized3(windowId, 0, ((28 + 4) + (GetFontAttribute(sDexNavSearchDataPtr->windowId, FONTATTR_MAX_LETTER_WIDTH) * (10))) + 16, 12, sSearchFontColor, 0xFF, gStringVar1);
 
 
-            if (0 && sDexNavSearchDataPtr->heldItem)
+            if (sDexNavSearchDataPtr->heldItem)
             {
                 CopyItemName(sDexNavSearchDataPtr->heldItem, gStringVar1);
                 StringExpandPlaceholders(gStringVar4, sText_HeldItem);
@@ -20667,7 +20427,6 @@ static void Task_SetUpDexNavSearch(u8 taskId)
     u16 species = sDexNavSearchDataPtr->species;
     u8 environment = sDexNavSearchDataPtr->environment;
     u8 searchLevel = gSaveBlock1Ptr->dexNavSearchLevels[SpeciesToNationalPokedexNum(species)];
- u16 sHeldItem = DexNavGenerateHeldItem(species, searchLevel);
 
 
     sDexNavSearchDataPtr->iconSpriteId = 64;
@@ -20681,8 +20440,7 @@ static void Task_SetUpDexNavSearch(u8 taskId)
     sDexNavSearchDataPtr->searchLevel = searchLevel;
 
     DexNavGenerateMoveset(species, searchLevel, sDexNavSearchDataPtr->monLevel, &sDexNavSearchDataPtr->moves[0]);
-
- sDexNavSearchDataPtr->heldItem = sHeldItem;
+    sDexNavSearchDataPtr->heldItem = DexNavGenerateHeldItem(species, searchLevel);
     sDexNavSearchDataPtr->abilityNum = DexNavGetAbilityNum(species, searchLevel);
     sDexNavSearchDataPtr->potential = DexNavGeneratePotential(searchLevel);
     DexNavProximityUpdate();
@@ -20760,7 +20518,7 @@ static void DexNavDrawPotentialStars(u8 potential, u8* dst)
             gSprites[spriteId].invisible = 1;
     }
 }
-# 922 "src/dexnav.c"
+# 911 "src/dexnav.c"
 static void DexNavUpdateDirectionArrow(void)
 {
     u16 tileX = sDexNavSearchDataPtr->tileX;
@@ -20827,6 +20585,7 @@ bool8 TryStartDexnavSearch(void)
         return 0;
 
     HideMapNamePopUpWindow();
+    ChangeBgY_ScreenOff(0, 0, 0);
     taskId = CreateTask(Task_InitDexNavSearch, 0);
     gTasks[taskId].data[2] = val & 0x3FFF;
     gTasks[taskId].data[3] = val >> 14;
@@ -20918,23 +20677,7 @@ static void Task_DexNavSearch(u8 taskId)
             EndDexNavSearchSetupScript(EventScript_LostSignal, taskId);
         return;
     }
-
-    if (sDexNavSearchDataPtr->proximity <= 2 && !gPlayerAvatar.creeping && task->data[1] > 60)
-    {
-        if (sDexNavSearchDataPtr->hiddenSearch && !task->data[4])
-            EndDexNavSearch(taskId);
-        else
-            EndDexNavSearchSetupScript(EventScript_MovedTooFast, taskId);
-        return;
-    }
-
-    if (sDexNavSearchDataPtr->proximity <= 4 && TestPlayerAvatarFlags((1 << 7) | ((1 << 1) | (1 << 2))))
-    {
-
-        EndDexNavSearchSetupScript(EventScript_MovedTooFast, taskId);
-        return;
-    }
-
+# 1086 "src/dexnav.c"
     if (ScriptContext2_IsEnabled() == 1)
     {
 
@@ -20977,7 +20720,23 @@ static void Task_DexNavSearch(u8 taskId)
         task->func = Task_RevealHiddenMon;
         return;
     }
-# 1155 "src/dexnav.c"
+
+
+    if ((sDexNavSearchDataPtr->environment == 1 || GetCurrentMapType() == 4)
+        && sDexNavSearchDataPtr->proximity < GetMovementProximityBySearchLevel() && sDexNavSearchDataPtr->movementCount < 2
+        && task->data[4])
+    {
+        bool8 ret;
+
+        FieldEffectStop(&gSprites[sDexNavSearchDataPtr->fldEffSpriteId], sDexNavSearchDataPtr->fldEffId);
+        while (1) {
+            if (TryStartHiddenMonFieldEffect(sDexNavSearchDataPtr->environment, 10, 10, 1))
+                break;
+        }
+
+        sDexNavSearchDataPtr->movementCount++;
+    }
+
     DexNavProximityUpdate();
     if (task->data[0] != sDexNavSearchDataPtr->proximity)
     {
@@ -20990,7 +20749,7 @@ static void Task_DexNavSearch(u8 taskId)
 
     task->data[1]++;
 }
-# 1176 "src/dexnav.c"
+# 1166 "src/dexnav.c"
 static void DexNavUpdateSearchWindow(u8 proximity, u8 searchLevel)
 {
     bool8 hideName = 0;
@@ -21015,7 +20774,7 @@ static void DexNavUpdateSearchWindow(u8 proximity, u8 searchLevel)
 
     if (proximity <= 4)
     {
-        if (0 && searchLevel > 2 && sDexNavSearchDataPtr->heldItem)
+        if (searchLevel > 2 && sDexNavSearchDataPtr->heldItem)
         {
 
             if (sDexNavSearchDataPtr->itemSpriteId != 64)
@@ -21045,7 +20804,8 @@ static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityN
     u8 iv[3];
     u8 i;
     u8 perfectIv = 31;
- u16 CreatedHeldItem = sDexNavSearchDataPtr->heldItem;
+
+
 
     CreateWildMon(species, level);
 
@@ -21057,9 +20817,9 @@ static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityN
     {
         if (potential > 2)
             SetMonData(mon, 39 + iv[2], &perfectIv);
-        if (potential > 1)
+        else if (potential > 1)
             SetMonData(mon, 39 + iv[1], &perfectIv);
-        if (potential)
+        else if (potential)
             SetMonData(mon, 39 + iv[0], &perfectIv);
     }
 
@@ -21067,62 +20827,31 @@ static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityN
     SetMonData(mon, 46, &abilityNum);
 
 
-    SetMonData(mon, 12, &CreatedHeldItem);
-
-
     for (i = 0; i < 4; i++)
         SetMonMoveSlot(mon, moves[i], i);
 
     CalculateMonStats(mon);
-}
 
-u8 DexBadgeGet(void)
-{
- u8 numbadges = 0;
-
- if (FlagGet((((0x500 + 864 - 1) + 1) + 0x7)))
-     numbadges++;
- if (FlagGet((((0x500 + 864 - 1) + 1) + 0x8)))
-     numbadges++;
- if (FlagGet((((0x500 + 864 - 1) + 1) + 0x9)))
-     numbadges++;
- if (FlagGet((((0x500 + 864 - 1) + 1) + 0xA)))
-     numbadges++;
- if (FlagGet((((0x500 + 864 - 1) + 1) + 0xB)))
-     numbadges++;
- if (FlagGet((((0x500 + 864 - 1) + 1) + 0xC)))
-        numbadges++;
- if (FlagGet((((0x500 + 864 - 1) + 1) + 0xD)))
-     numbadges++;
- if (FlagGet((((0x500 + 864 - 1) + 1) + 0xE)))
-     numbadges++;
-
- return numbadges;
-}
-
-u8 GetDexLevelWild(void){
- u8 minlevel[] = {5,10,15,20,25,30,35,40,45,50};
- return minlevel[DexBadgeGet()];
 }
 
 
 
 static u8 DexNavTryGenerateMonLevel(u16 species, u8 environment)
 {
-    u8 levelMap = GetEncounterLevelFromMapData(species, environment);
- u8 levelBase = GetDexLevelWild();
+    u8 levelBase = GetEncounterLevelFromMapData(species, environment);
     u8 levelBonus = gSaveBlock1Ptr->dexNavChain / 5;
+ u8 level = getWildLevel(193);
 
-    if (levelMap == 255)
+    if (levelBase == 255)
         return 255;
 
     if (Random() % 100 < 4)
         levelBonus += 10;
 
-    if (levelBase + levelBonus > 100)
+    if (level + levelBonus > 100)
         return 100;
     else
-        return levelBase + levelBonus;
+        return level + levelBonus;
 }
 
 static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel, u16* moveDst)
@@ -21184,14 +20913,11 @@ static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel
         moveDst[i] = GetMonData(&gEnemyParty[0], 13 + i, ((void *)0));
 
 
-    if (genMove == 1)
+    if (genMove)
     {
         u8 numEggMoves = GetEggMoves(&gEnemyParty[0], eggMoveBuffer);
         if (numEggMoves != 0)
-        {
-            u8 index = RandRange(0, numEggMoves);
-            moveDst[0] = eggMoveBuffer[index];
-        }
+            moveDst[0] = eggMoveBuffer[Random() % numEggMoves];
     }
 }
 
@@ -21386,7 +21112,6 @@ static u8 GetEncounterLevelFromMapData(u16 species, u8 environment)
 {
     u16 headerId = GetCurrentMapWildMonHeaderId();
     const struct WildPokemonInfo *landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
-    const struct WildPokemonInfo *landMonsNightInfo = gWildMonHeaders[headerId].landMonsNightInfo;
     const struct WildPokemonInfo *waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
     const struct WildPokemonInfo *hiddenMonsInfo = gWildMonHeaders[headerId].hiddenMonsInfo;
     u8 min = 100;
@@ -21396,32 +21121,15 @@ static u8 GetEncounterLevelFromMapData(u16 species, u8 environment)
     switch (environment)
     {
     case 0:
-        if (IsCurrentlyDay())
-        {
-            if (landMonsInfo == ((void *)0))
-                return 255;
+        if (landMonsInfo == ((void *)0))
+            return 255;
 
-            for (i = 0; i < 12; i++)
-            {
-                if (landMonsInfo->wildPokemon[i].species == species)
-                {
-                    min = (min < landMonsInfo->wildPokemon[i].minLevel) ? min : landMonsInfo->wildPokemon[i].minLevel;
-                    max = (max > landMonsInfo->wildPokemon[i].maxLevel) ? max : landMonsInfo->wildPokemon[i].maxLevel;
-                }
-            }
-        }
-        else
+        for (i = 0; i < 12; i++)
         {
-            if (landMonsNightInfo == ((void *)0))
-                return 255;
-
-            for (i = 0; i < 12; i++)
+            if (landMonsInfo->wildPokemon[i].species == species)
             {
-                if (landMonsNightInfo->wildPokemon[i].species == species)
-                {
-                    min = (min < landMonsNightInfo->wildPokemon[i].minLevel) ? min : landMonsNightInfo->wildPokemon[i].minLevel;
-                    max = (max > landMonsNightInfo->wildPokemon[i].maxLevel) ? max : landMonsNightInfo->wildPokemon[i].maxLevel;
-                }
+                min = (min < landMonsInfo->wildPokemon[i].minLevel) ? min : landMonsInfo->wildPokemon[i].minLevel;
+                max = (max > landMonsInfo->wildPokemon[i].maxLevel) ? max : landMonsInfo->wildPokemon[i].maxLevel;
             }
         }
         break;
@@ -21611,14 +21319,13 @@ static void CreateNoDataIcon(s16 x, s16 y)
     CreateSprite(&sNoDataIconTemplate, x, y, 0);
 }
 
-static bool8 CapturedAllLandMons(u8 headerId)
+static bool8 CapturedAllLandMons(u16 headerId)
 {
     u16 i, species;
     int count = 0;
     const struct WildPokemonInfo* landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
-    const struct WildPokemonInfo* landMonsNightInfo = gWildMonHeaders[headerId].landMonsNightInfo;
 
-    if (landMonsInfo != ((void *)0) && IsCurrentlyDay())
+    if (landMonsInfo != ((void *)0))
     {
         for (i = 0; i < 12; ++i)
         {
@@ -21635,33 +21342,16 @@ static bool8 CapturedAllLandMons(u8 headerId)
         if (i >= 12 && count > 0)
             return 1;
     }
-    else if (landMonsNightInfo != ((void *)0))
-    {
-        for (i = 0; i < 12; ++i)
-        {
-            species = landMonsNightInfo->wildPokemon[i].species;
-            if (species != 0)
-            {
-                if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
-                    break;
-
-                count++;
-            }
-        }
-
-        if (i >= 12 && count > 0)
-            return 1;
-    }
     else
     {
-        return 0;
+        return 1;
     }
 
     return 0;
 }
 
 
-static bool8 CapturedAllWaterMons(u8 headerId)
+static bool8 CapturedAllWaterMons(u16 headerId)
 {
     u32 i;
     u16 species;
@@ -21686,13 +21376,13 @@ static bool8 CapturedAllWaterMons(u8 headerId)
     }
     else
     {
-        return 0;
+        return 1;
     }
 
     return 0;
 }
 
-static bool8 CapturedAllHiddenMons(u8 headerId)
+static bool8 CapturedAllHiddenMons(u16 headerId)
 {
     u32 i;
     u16 species;
@@ -21717,7 +21407,7 @@ static bool8 CapturedAllHiddenMons(u8 headerId)
     }
     else
     {
-        return 0;
+        return 1;
     }
 
     return 0;
@@ -21725,7 +21415,7 @@ static bool8 CapturedAllHiddenMons(u8 headerId)
 
 static void DexNavLoadCapturedAllSymbols(void)
 {
-    u8 headerId = GetCurrentMapWildMonHeaderId();
+    u16 headerId = GetCurrentMapWildMonHeaderId();
 
     LoadCompressedSpriteSheetUsingHeap(&sCapturedAllPokemonSpriteSheet);
 
@@ -21801,27 +21491,28 @@ static void DexNavFadeAndExit(void)
 static bool8 SpeciesInArray(u16 species, u8 section)
 {
     u32 i;
+    u16 dexNum = SpeciesToNationalPokedexNum(species);
 
     switch (section)
     {
     case 0:
         for (i = 0; i < 12; i++)
         {
-            if (sDexNavUiDataPtr->landSpecies[i] == species)
+            if (SpeciesToNationalPokedexNum(sDexNavUiDataPtr->landSpecies[i]) == dexNum)
                 return 1;
         }
         break;
     case 1:
         for (i = 0; i < 5; i++)
         {
-            if (sDexNavUiDataPtr->waterSpecies[i] == species)
+            if (SpeciesToNationalPokedexNum(sDexNavUiDataPtr->waterSpecies[i]) == dexNum)
                 return 1;
         }
         break;
     case 2:
         for (i = 0; i < 3; i++)
         {
-            if (sDexNavUiDataPtr->hiddenSpecies[i] == species)
+            if (SpeciesToNationalPokedexNum(sDexNavUiDataPtr->hiddenSpecies[i]) == dexNum)
                 return 1;
         }
         break;
@@ -21842,7 +21533,6 @@ static void DexNavLoadEncounterData(void)
     u32 i;
     u16 headerId = GetCurrentMapWildMonHeaderId();
     const struct WildPokemonInfo* landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
-    const struct WildPokemonInfo* landMonsNightInfo = gWildMonHeaders[headerId].landMonsNightInfo;
     const struct WildPokemonInfo* waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
     const struct WildPokemonInfo* hiddenMonsInfo = gWildMonHeaders[headerId].hiddenMonsInfo;
 
@@ -21851,38 +21541,19 @@ static void DexNavLoadEncounterData(void)
     memset(sDexNavUiDataPtr->waterSpecies, 0, sizeof(sDexNavUiDataPtr->waterSpecies));
     memset(sDexNavUiDataPtr->hiddenSpecies, 0, sizeof(sDexNavUiDataPtr->hiddenSpecies));
 
-    if (IsCurrentlyDay())
+
+    if (landMonsInfo != ((void *)0) && landMonsInfo->encounterRate != 0)
     {
-
-        if (landMonsInfo != ((void *)0))
+        for (i = 0; i < 12; i++)
         {
-            for (i = 0; i < 12; i++)
-            {
-                species = landMonsInfo->wildPokemon[i].species;
-
-                mgba_printf(4, "%d", species);
-
-                if (species != 0 && !SpeciesInArray(species, 0))
-                    sDexNavUiDataPtr->landSpecies[grassIndex++] = landMonsInfo->wildPokemon[i].species;
-            }
-        }
-    }
-    else
-    {
-
-        if (landMonsNightInfo != ((void *)0))
-        {
-            for (i = 0; i < 12; i++)
-            {
-                species = landMonsNightInfo->wildPokemon[i].species;
-                if (species != 0 && !SpeciesInArray(species, 0))
-                    sDexNavUiDataPtr->landSpecies[grassIndex++] = landMonsNightInfo->wildPokemon[i].species;
-            }
+            species = landMonsInfo->wildPokemon[i].species;
+            if (species != 0 && !SpeciesInArray(species, 0))
+                sDexNavUiDataPtr->landSpecies[grassIndex++] = landMonsInfo->wildPokemon[i].species;
         }
     }
 
 
-    if (waterMonsInfo != ((void *)0))
+    if (waterMonsInfo != ((void *)0) && waterMonsInfo->encounterRate != 0)
     {
         for (i = 0; i < 5; i++)
         {
@@ -21906,8 +21577,8 @@ static void DexNavLoadEncounterData(void)
 
 static void TryDrawIconInSlot(u16 species, s16 x, s16 y)
 {
-    u16 formId = GetFormIdFromFormSpeciesId(species);
-    if (species == 0 || species > 898 + 308 + 1)
+ u16 formId = GetFormIdFromFormSpeciesId(species);
+    if (species == 0)
         CreateNoDataIcon(x, y);
     else if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN))
         CreateMonIcon(0, SpriteCB_MonIcon, x, y, 0, 0xFFFFFFFF, 0, formId);
@@ -21920,7 +21591,7 @@ static void DrawSpeciesIcons(void)
     s16 x, y;
     u32 i;
     u16 species;
-    u16 formId;
+ u16 formId;
 
     LoadCompressedSpriteSheetUsingHeap(&sNoDataIconSpriteSheet);
     for (i = 0; i < 12; i++)
@@ -21942,12 +21613,12 @@ static void DrawSpeciesIcons(void)
     for (i = 0; i < 3; i++)
     {
         species = sDexNavUiDataPtr->hiddenSpecies[i];
-        formId = GetFormIdFromFormSpeciesId(species);
+  formId = GetFormIdFromFormSpeciesId(species);
         x = 52 + 24 * i;
         y = 138;
-        if (FlagGet((((0x500 + 864 - 1) + 1) + 0x2F)))
+        if (FlagGet((((0x500 + 864 - 1) + 1) + 0x2E)))
             TryDrawIconInSlot(species, x, y);
-       else if (species == 0 || species > 898 + 308 + 1)
+       else if (species == 0)
             CreateNoDataIcon(x, y);
         else
             CreateMonIcon(0, SpriteCB_MonIcon, x, y, 0, 0xFFFFFFFF, 0, formId);
@@ -21970,7 +21641,7 @@ static u16 DexNavGetSpecies(void)
         species = sDexNavUiDataPtr->landSpecies[sDexNavUiDataPtr->cursorCol + 6];
         break;
     case 3:
-        if (!FlagGet((((0x500 + 864 - 1) + 1) + 0x2F)))
+        if (!FlagGet((((0x500 + 864 - 1) + 1) + 0x2E)))
             species = 0;
         else
             species = sDexNavUiDataPtr->hiddenSpecies[sDexNavUiDataPtr->cursorCol];
@@ -22394,9 +22065,6 @@ static void Task_DexNavMain(u8 taskId)
 
 
             VarSet(0x40F7, ((sDexNavUiDataPtr->environment << 14) | species));
-
-
-            gSaveBlock1Ptr->registeredItemR = 0;
         }
         else
         {
@@ -22431,7 +22099,7 @@ bool8 TryFindHiddenPokemon(void)
     u32 attempts = 0;
     u16 currSteps;
 
-    if (!FlagGet((((0x500 + 864 - 1) + 1) + 0x2F)) || FlagGet((((0x500 + 864 - 1) + 1) + 0x22)) || Overworld_GetFlashLevel() > 0)
+    if (!FlagGet((((0x500 + 864 - 1) + 1) + 0x2E)) || FlagGet((((0x500 + 864 - 1) + 1) + 0x22)) || Overworld_GetFlashLevel() > 0)
     {
         (*stepPtr) = 0;
         return 0;
@@ -22439,10 +22107,10 @@ bool8 TryFindHiddenPokemon(void)
 
     (*stepPtr)++;
     (*stepPtr) %= 100;
-    if ((*stepPtr) == 0)
+    if ((*stepPtr) == 0 && (Random() % 100 < 25))
     {
 
-        u8 headerId = GetCurrentMapWildMonHeaderId();
+        u16 headerId = GetCurrentMapWildMonHeaderId();
         u8 index;
         u16 species;
         u8 environment;
@@ -22471,14 +22139,9 @@ bool8 TryFindHiddenPokemon(void)
                 isHiddenMon = 1;
                 environment = 2;
             }
-            else if (IsCurrentlyDay())
-            {
-                species = gWildMonHeaders[headerId].landMonsInfo->wildPokemon[ChooseWildMonIndex_Land()].species;
-                environment = 0;
-            }
             else
             {
-                species = gWildMonHeaders[headerId].landMonsNightInfo->wildPokemon[ChooseWildMonIndex_Land()].species;
+                species = gWildMonHeaders[headerId].landMonsInfo->wildPokemon[ChooseWildMonIndex_Land()].species;
                 environment = 0;
             }
             break;
@@ -22531,7 +22194,7 @@ bool8 TryFindHiddenPokemon(void)
         while (1) {
             if (TryStartHiddenMonFieldEffect(sDexNavSearchDataPtr->environment, 8, 8, 1))
                 break;
-            if (++attempts > 10)
+            if (++attempts > 20)
                 return 0;
         }
 
@@ -22549,6 +22212,7 @@ bool8 TryFindHiddenPokemon(void)
         gTasks[taskId].data[3] = sDexNavSearchDataPtr->environment;
         gTasks[taskId].data[4] = 0;
         HideMapNamePopUpWindow();
+        ChangeBgY_ScreenOff(0, 0, 0);
         return 0;
     }
 
@@ -22600,21 +22264,19 @@ static void DexNavDrawHiddenIcons(void)
 
 bool8 DexNavTryMakeShinyMon(void)
 {
-    u32 i, shinyRolls, chainBonus, rndBonus, lureBonus;
+    u32 i, shinyRolls, chainBonus, rndBonus;
     u32 shinyRate = 0;
     u32 charmBonus = 0;
     u8 searchLevel = sDexNavSearchDataPtr->searchLevel;
     u8 chain = gSaveBlock1Ptr->dexNavChain;
 
 
-    charmBonus = (CheckBagHasItem(716, 1) > 0) ? 3 : 0;
+    charmBonus = (CheckBagHasItem(716, 1) > 0) ? 2 : 0;
 
-
-    lureBonus = (VarGet(0x404E) > 0) ? 1 : 0;
 
     chainBonus = (chain == 50) ? 5 : (chain == 100) ? 10 : 0;
     rndBonus = (Random() % 100 < 4 ? 4 : 0);
-    shinyRolls = 1 + charmBonus + chainBonus + rndBonus + lureBonus;
+    shinyRolls = 1 + charmBonus + chainBonus + rndBonus;
 
     if (searchLevel > 200)
     {
@@ -22653,4 +22315,10 @@ void ResetDexNavSearch(void)
     VarSet(0x40F8, 0);
     if (FlagGet((((0x500 + 864 - 1) + 1) + 0x22)))
         EndDexNavSearch(FindTaskIdByFunc(Task_DexNavSearch));
+}
+
+void IncrementDexNavChain(void)
+{
+    if (gSaveBlock1Ptr->dexNavChain < 100)
+        gSaveBlock1Ptr->dexNavChain++;
 }

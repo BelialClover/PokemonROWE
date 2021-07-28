@@ -620,7 +620,7 @@ sAccuracyStageRatios:
 	.size	 sAccuracyStageRatios,52
 	.align	2, 0
 	.type	 sStatusFlagsForMoveEffects,object
-	.size	 sStatusFlagsForMoveEffects,280
+	.size	 sStatusFlagsForMoveEffects,284
 sStatusFlagsForMoveEffects:
 	.space	4
 	.word	0x7
@@ -643,7 +643,7 @@ sStatusFlagsForMoveEffects:
 	.word	0x8000000
 	.space	76
 	.word	0xc00
-	.space	64
+	.space	68
 	.align	2, 0
 	.type	 sMoveEffectBS_Ptrs,object
 sMoveEffectBS_Ptrs:
@@ -44255,6 +44255,10 @@ DoesDisguiseBlockMove:
 	add	r1, r1, r0
 	ldrb	r0, [r1, #0x2]
 	cmp	r0, #0
+	beq	.L5527	@cond_branch
+	ldr	r0, .L5530+0xc
+	ldrh	r0, [r0, #0x2e]
+	cmp	r0, #0x46
 	bne	.L5526	@cond_branch
 .L5527:
 	mov	r0, #0x0
@@ -44265,6 +44269,7 @@ DoesDisguiseBlockMove:
 	.word	gBattleMons
 	.word	0x61400000
 	.word	gBattleMoves
+	.word	gBattleScripting
 .L5526:
 	mov	r0, #0x1
 .L5529:
@@ -44767,9 +44772,9 @@ Cmd_handleballthrow:
 	ldr	r0, .L5692
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.LCB52294
+	beq	.LCB52301
 	b	.L5581	@long jump
-.LCB52294:
+.LCB52301:
 	ldr	r4, .L5692+0x4
 	ldr	r0, .L5692+0x8
 	ldrb	r0, [r0]
@@ -44822,11 +44827,16 @@ Cmd_handleballthrow:
 	.word	BattleScript_WallyBallThrow
 .L5585:
 	ldr	r0, .L5696
-	ldrh	r1, [r0]
-	add	r4, r0, #0
-	cmp	r1, #0x5
+	ldr	r1, [r0]
+	ldr	r2, .L5696+0x4
+	ldrh	r0, [r2]
+	strh	r0, [r1, #0x28]
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	add	r4, r2, #0
+	cmp	r0, #0x5
 	bne	.L5587	@cond_branch
-	ldr	r0, .L5696+0x4
+	ldr	r0, .L5696+0x8
 	ldr	r0, [r0]
 	add	r0, r0, #0x7b
 	ldrb	r0, [r0]
@@ -44839,12 +44849,13 @@ Cmd_handleballthrow:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	mov	r9, r0
-	ldr	r5, .L5696+0x8
-	ldr	r3, .L5696+0xc
+	ldr	r5, .L5696+0xc
+	ldr	r3, .L5696+0x10
 	b	.L5588
 .L5697:
 	.align	2, 0
 .L5696:
+	.word	gSaveBlock2Ptr
 	.word	gLastUsedItem
 	.word	gBattleStruct
 	.word	gBaseStats
@@ -44889,9 +44900,9 @@ Cmd_handleballthrow:
 	ldrh	r0, [r0]
 	mov	r7, #0x1
 	cmp	r0, #0x1b
-	beq	.LCB52445
+	beq	.LCB52456
 	b	.L5592	@long jump
-.LCB52445:
+.LCB52456:
 .L5690:
 	mov	r7, #0x32
 	b	.L5592
@@ -44905,14 +44916,14 @@ Cmd_handleballthrow:
 .L5589:
 	ldrh	r0, [r4]
 	cmp	r0, #0x5
-	bhi	.LCB52466
+	bhi	.LCB52477
 	b	.L5593	@long jump
-.LCB52466:
+.LCB52477:
 	sub	r0, r0, #0x6
 	cmp	r0, #0x15
-	bls	.LCB52471
+	bls	.LCB52482
 	b	.L5592	@long jump
-.LCB52471:
+.LCB52482:
 	lsl	r0, r0, #0x2
 	ldr	r1, .L5700
 	add	r0, r0, r1
@@ -44972,9 +44983,9 @@ Cmd_handleballthrow:
 	cmp	r2, #0x6
 	beq	.L5690	@cond_branch
 	cmp	r0, #0x6
-	beq	.LCB52522
+	beq	.LCB52533
 	b	.L5592	@long jump
-.LCB52522:
+.LCB52533:
 	b	.L5690
 .L5703:
 	.align	2, 0
@@ -45009,9 +45020,9 @@ Cmd_handleballthrow:
 	add	r0, r0, #0x2c
 	ldrb	r1, [r0]
 	cmp	r1, #0x1d
-	bls	.LCB52570
+	bls	.LCB52581
 	b	.L5592	@long jump
-.LCB52570:
+.LCB52581:
 	mov	r0, #0x29
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x18
@@ -45040,9 +45051,9 @@ Cmd_handleballthrow:
 	lsl	r0, r0, #0x18
 .L5689:
 	cmp	r0, #0
-	bne	.LCB52609
+	bne	.LCB52620
 	b	.L5592	@long jump
-.LCB52609:
+.LCB52620:
 .L5683:
 	mov	r7, #0x23
 	b	.L5592
@@ -45060,9 +45071,9 @@ Cmd_handleballthrow:
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
 	cmp	r7, #0x28
-	bhi	.LCB52630
+	bhi	.LCB52641
 	b	.L5592	@long jump
-.LCB52630:
+.LCB52641:
 .L5691:
 	mov	r7, #0x28
 	b	.L5592
@@ -45098,9 +45109,9 @@ Cmd_handleballthrow:
 	cmp	r3, r0
 	bgt	.L5691	@cond_branch
 	cmp	r3, r1
-	bhi	.LCB52677
+	bhi	.LCB52688
 	b	.L5592	@long jump
-.LCB52677:
+.LCB52688:
 	mov	r7, #0x14
 	b	.L5592
 .L5713:
@@ -45113,9 +45124,9 @@ Cmd_handleballthrow:
 	ldr	r0, .L5714
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.LCB52695
+	bne	.LCB52706
 	b	.L5592	@long jump
-.LCB52695:
+.LCB52706:
 	b	.L5690
 .L5715:
 	.align	2, 0
@@ -45183,9 +45194,9 @@ Cmd_handleballthrow:
 	ldrh	r0, [r0]
 	lsl	r0, r0, #0x15
 	cmp	r1, r0
-	beq	.LCB52789
+	beq	.LCB52800
 	b	.L5592	@long jump
-.LCB52789:
+.LCB52800:
 	ldr	r5, .L5718+0xc
 	lsl	r0, r4, #0x1
 	add	r0, r0, r5
@@ -45209,17 +45220,17 @@ Cmd_handleballthrow:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r6, r0
-	bne	.LCB52818
+	bne	.LCB52829
 	b	.L5592	@long jump
-.LCB52818:
+.LCB52829:
 	cmp	r6, #0xff
-	bne	.LCB52820
+	bne	.LCB52831
 	b	.L5592	@long jump
-.LCB52820:
+.LCB52831:
 	cmp	r0, #0xff
-	bne	.LCB52822
+	bne	.LCB52833
 	b	.L5592	@long jump
-.LCB52822:
+.LCB52833:
 .L5684:
 	mov	r7, #0x50
 	b	.L5592
@@ -46034,9 +46045,9 @@ Cmd_displaydexinfo:
 	ldr	r0, .L5791+0x8
 	ldrb	r0, [r0]
 	cmp	r0, #0x5
-	bls	.LCB53836
+	bls	.LCB53847
 	b	.L5776	@long jump
-.LCB53836:
+.LCB53847:
 	lsl	r0, r0, #0x2
 	ldr	r1, .L5791+0xc
 	add	r0, r0, r1
@@ -46073,9 +46084,9 @@ Cmd_displaydexinfo:
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB53877
+	beq	.LCB53888
 	b	.L5776	@long jump
-.LCB53877:
+.LCB53888:
 	bl	FreeAllWindowBuffers
 	add	r0, r4, #0
 	bl	SpeciesToNationalPokedexNum
@@ -46468,9 +46479,9 @@ Cmd_trygivecaughtmonnick:
 	ldrb	r1, [r0]
 	add	r4, r0, #0
 	cmp	r1, #0x4
-	bls	.LCB54353
+	bls	.LCB54364
 	b	.L5855	@long jump
-.LCB54353:
+.LCB54364:
 	lsl	r0, r1, #0x2
 	ldr	r1, .L5875+0x4
 	add	r0, r0, r1
@@ -46576,9 +46587,9 @@ Cmd_trygivecaughtmonnick:
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.LCB54504
+	bne	.LCB54515
 	b	.L5855	@long jump
-.LCB54504:
+.LCB54515:
 	mov	r0, #0x5
 	bl	PlaySE
 	ldr	r1, .L5881
@@ -46596,9 +46607,9 @@ Cmd_trygivecaughtmonnick:
 	mov	r0, #0x80
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.LCB54528
+	beq	.LCB54539
 	b	.L5855	@long jump
-.LCB54528:
+.LCB54539:
 	ldr	r0, .L5883+0x4
 	mov	sl, r0
 	ldr	r1, .L5883+0x8

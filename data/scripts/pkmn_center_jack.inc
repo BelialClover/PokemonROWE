@@ -210,7 +210,7 @@ Common_EventScript_PkmnCenterJack_MoveReminder_ComeBackAnytime:: @ 8201452
 	end
 
 Common_EventScript_PkmnCenterJack_WonderTrade:
-	setvar VAR_0x8008, INGAME_WONDER_TRADE
+	setvar VAR_0x8008, INGAME_TRADE_SEEDOT
 	copyvar VAR_0x8004, VAR_0x8008
 	specialvar VAR_RESULT, GetInGameTradeSpeciesInfo
 	copyvar VAR_0x8009, VAR_RESULT

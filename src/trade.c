@@ -7,6 +7,7 @@
 #include "data.h"
 #include "daycare.h"
 #include "decompress.h"
+#include "dexnav.h"
 #include "event_data.h"
 #include "evolution_scene.h"
 #include "field_screen_effect.h"
@@ -27,6 +28,7 @@
 #include "party_menu.h"
 #include "pokeball.h"
 #include "pokedex.h"
+#include "pokemon.h"
 #include "pokemon_icon.h"
 #include "pokemon_summary_screen.h"
 #include "pokemon_storage_system.h"
@@ -43,7 +45,9 @@
 #include "trade.h"
 #include "union_room.h"
 #include "util.h"
+#include "wild_encounter.h"
 #include "window.h"
+#include "constants/abilities.h"
 #include "constants/contest.h"
 #include "constants/easy_chat.h"
 #include "constants/items.h"
@@ -4581,32 +4585,30 @@ static void _CreateInGameTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
     CalculateMonStats(&gEnemyParty[0]);
 }
 
-u16 WonderTradeCheck(u16 species){
-	u16 LegendariesNum1[] = {144,150,243,249,377,480,638,716,785};
-	u16 LegendariesNum2[] = {147,152,246,252,387,495,650,722,810};
-	u16 finalspecies = 1;
+u16 CreateWonderTradePokemon(){
+	u16 species = 1+(Random() % 887);
+	u16 LegendariesNum1[] = {144,150,243,249,377,480,638,716,773,785};
+	u16 LegendariesNum2[] = {147,152,246,252,387,495,650,722,775,810};
 	u8 i = 0;
 	
-	for(i = 0; i < 9;i++){
-	if(species < LegendariesNum1[i])
-		return species;
-	else if(species < LegendariesNum2[i])
-		return LegendariesNum2[i];
+	for(i = 0; i < 10;i++){
+	if(species >= LegendariesNum1[i] && species < LegendariesNum2[i])
+		return CreateWonderTradePokemon();
 	}
-	return finalspecies;
+	return species;
 }
 
-u16 WonderTradeCheck2(u16 species)
+u16 WonderTradeGetFirstStage(u16 species)
 {
     int i, j, k;
     bool8 found;
 
-    for (i = 0; i < EVOS_PER_MON; i++)
+    for (i = 0; i < 5; i++)
     {
         found = FALSE;
         for (j = 1; j < NUM_SPECIES; j++)
         {
-            for (k = 0; k < EVOS_PER_MON; k++)
+            for (k = 0; k < 5; k++)
             {
                 if (gEvolutionTable[j][k].targetSpecies == species)
                 {
@@ -4627,11 +4629,9 @@ u16 WonderTradeCheck2(u16 species)
     return species;
 }
 
-u16 WonderTradeCheck3(u16 species,u8 level)
+u16 WonderTradeGetEvolvedForm(u16 species,u8 level)
 {
 	//Variables
-	u8 numbadges = GetNumBadges();
-	u8 rand = 0;
 	u8 FriendshipLevel = 24;
 	u8 BadgesMidgame = 30;
 	u8 BadgesLategame = 45;
@@ -4642,7 +4642,7 @@ u16 WonderTradeCheck3(u16 species,u8 level)
 		case EVO_FRIENDSHIP:
 		case EVO_ITEM_HOLD_DAY:
 		if(level >= FriendshipLevel)
-			return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+			return WonderTradeGetEvolvedForm(gEvolutionTable[species][0].targetSpecies, level);
 		break;
 		
 		//Level based Evolutions
@@ -4653,8 +4653,8 @@ u16 WonderTradeCheck3(u16 species,u8 level)
 		case EVO_LEVEL_FEMALE:
 			if(gEvolutionTable[species][0].param && gEvolutionTable[species][0].param <= level)
 			{
-				if(WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level))
-					return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+				if(WonderTradeGetEvolvedForm(gEvolutionTable[species][0].targetSpecies, level))
+					return WonderTradeGetEvolvedForm(gEvolutionTable[species][0].targetSpecies, level);
 				else
 					return gEvolutionTable[species][0].targetSpecies;
 			}
@@ -4666,52 +4666,168 @@ u16 WonderTradeCheck3(u16 species,u8 level)
 		case EVO_ITEM_HOLD_NIGHT:
 		case EVO_SPECIFIC_MON_IN_PARTY:
 		case EVO_LEVEL_DARK_TYPE_MON_IN_PARTY:
-			if(BadgesMidgame <= level)
-				return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+			if(level >= BadgesMidgame)
+				return WonderTradeGetEvolvedForm(gEvolutionTable[species][0].targetSpecies, level);
 		break;
 	
 		//Lategame Evolutions
 		case EVO_MOVE:
 		case EVO_ITEM:
-		case EVO_TRADE:
 		case EVO_MAPSEC:
 		case EVO_ITEM_MALE:
 		case EVO_TRADE_ITEM:
 		case EVO_LEVEL_RAIN:
 		case EVO_ITEM_FEMALE:
-			if(BadgesLategame <= level)
-				return WonderTradeCheck3(gEvolutionTable[species][0].targetSpecies, level);
+			if(level >= BadgesLategame)
+				return WonderTradeGetEvolvedForm(gEvolutionTable[species][0].targetSpecies, level);
 		break;
 		
 	}
 	return species;
 }
 
+static u16 CreateWonderTradeItem(u16 species, u8 DexSeen)
+{
+    u16 randVal = Random() % 100;
+    u8 searchLevelInfluence = DexSeen >> 1;
+    u16 item1 = gBaseStats[species].item1;
+    u16 item2 = gBaseStats[species].item2;
+    
+    // if both are the same, 100% to hold
+    if (item1 == item2)
+        return item1;
+
+    // if no items can be held, then yeah...no items
+    if (item2 == ITEM_NONE && item1 == ITEM_NONE)
+        return ITEM_NONE;
+
+    // if only one entry, 50% chance
+    if (item2 == ITEM_NONE && item1 != ITEM_NONE)
+        return (randVal < 50) ? item1 : ITEM_NONE;
+
+    // if both are distinct item1 = 50% + srclvl/2; item2 = 5% + srchlvl/2
+    if (randVal < (50 + searchLevelInfluence + 5 + DexSeen))
+        return (randVal > 5 + searchLevelInfluence) ? item1 : item2;
+    else
+        return ITEM_NONE;
+
+    return ITEM_NONE;
+}
+
+static u8 WonderTradeGetAbilityNum(u16 species, u8 dexseen)
+{
+    bool8 genAbility = FALSE;
+    u16 randVal = Random() % 898;
+	u16 probability = (dexseen/800)*25;
+    u8 abilityNum = 0;
+    
+	if(randVal < dexseen)
+		genAbility = TRUE;
+    
+    if (genAbility && gBaseStats[species].abilityHidden != ABILITY_NONE)
+    {
+        abilityNum = 2;
+    }
+    else
+    {
+        /*/Pick a normal ability of that Pokemon
+        if (gBaseStats[species].abilities[1] != ABILITY_NONE)
+            abilityNum = Random() & 1;
+        else/*/
+            abilityNum = 0;
+    }
+    
+    return abilityNum;
+}
+
+static void WonderTradeCreateMoveset(u16 species, u8 dexseen, u8 level, u16* moveDst)
+{
+    bool8 genMove = FALSE;
+	u8 i;
+    u16 randVal = Random() % 100;
+	u16 probability = (dexseen/800)*25;
+    u16 eggMoveBuffer[EGG_MOVES_ARRAY_COUNT];
+	
+
+    //Evaluate if Pokemon should get an egg move in first slot
+    if (probability < randVal)
+    {
+       genMove = TRUE;
+    }
+
+    //Generate a wild mon just to get the initial moveset (later overwritten by CreateDexNavWildMon)
+    CreateWildMon(species, level);
+
+    //Store generated mon moves into Dex Nav Struct
+    for (i = 0; i < MAX_MON_MOVES; i++)
+        moveDst[i] = GetMonData(&gEnemyParty[0], MON_DATA_MOVE1 + i, NULL);
+
+    // set first move slot to a random egg move if search level is good enough    
+    if (genMove == TRUE)
+    {
+        u8 numEggMoves = GetEggMoves(&gEnemyParty[0], eggMoveBuffer);
+        if (numEggMoves != 0)
+        {
+            u8 index = RandRange(0, numEggMoves);
+            moveDst[0] = eggMoveBuffer[index];
+        }
+    }
+}
+
+u16 WonderTradeCreatePokeball(u16 species)
+{
+	u16 PokeballList[] = {
+	ITEM_POKE_BALL,
+	ITEM_GREAT_BALL,
+	ITEM_ULTRA_BALL,
+	ITEM_DIVE_BALL,
+	ITEM_LOVE_BALL,
+	ITEM_HEAVY_BALL,
+	ITEM_MOON_BALL,
+	ITEM_NET_BALL,
+	ITEM_LUXURY_BALL,
+	};
+	
+	return PokeballList[Random() % 9];
+}
+
 static void _CreateInGameWonderTradePokemon(u8 whichPlayerMon, u8 whichInGameTrade)
 {
     const struct InGameTrade *inGameTrade = &sIngameTrades[whichInGameTrade];
+	u8 j;
+	u8 n;
     u8 level = GetMonData(&gPlayerParty[whichPlayerMon], MON_DATA_LEVEL);
-	u16 randomizedspecie = 1+(Random() % 884);
-	u16 randomizedspecie2 = WonderTradeCheck(randomizedspecie);
-	u16 randomizedspecie3 = WonderTradeCheck2(randomizedspecie2);
-	u16 finalspecies = WonderTradeCheck3(randomizedspecie3, level);
-	
-	u8 HpIv = 1+(Random() % 30);
+	u16 tradeditem = GetMonData(&gPlayerParty[whichPlayerMon], MON_DATA_HELD_ITEM);
+	u16 WonderTradeSpecie = CreateWonderTradePokemon();
+	u16 FirstStage = WonderTradeGetFirstStage(WonderTradeSpecie);
+	u16 Specie = WonderTradeGetEvolvedForm(FirstStage, level);
+	u16 PkmnMoves[] = {MOVE_NONE,MOVE_NONE,MOVE_NONE,MOVE_NONE};
+	u16 CaughtNum = GetNationalPokedexCount(FLAG_GET_SEEN);
+    u16 SeenNum = GetNationalPokedexCount(FLAG_GET_CAUGHT);
+	u8 numbadges = GetNumBadges();
+	u16 trainerNum = Random() % 300;
+	u8 otName[12];
+	u8 HpIv = Random() % 30;
 	u8 AtkIv = 1+(Random() % 30);
 	u8 DefIv = 1+(Random() % 30);
 	u8 SpAtkIv = 1+(Random() % 30);
 	u8 SpDefIv = 1+(Random() % 30);
 	u8 SpdIv = 1+(Random() % 30);
-	
+	u16 Pkmnhelditem = CreateWonderTradeItem(Specie, SeenNum);
+	u8 PkmnAbilityNum = WonderTradeGetAbilityNum(Specie, SeenNum);
+	//u16 Pokeball = Random() % 30;
+	u16 Pokeball = WonderTradeCreatePokeball(Specie);
 
     struct MailStruct mail;
     u8 metLocation = METLOC_IN_GAME_TRADE;
     u8 isMail;
     struct Pokemon *pokemon = &gEnemyParty[0];
 
-    //CreateMon(pokemon, inGameTrade->species, level, 32, TRUE, inGameTrade->personality, OT_ID_PRESET, inGameTrade->otId, GetFormIdFromFormSpeciesId(inGameTrade->species));
-	CreateMon(pokemon, finalspecies, level, 32, FALSE, 0, OT_ID_PRESET, inGameTrade->otId, GetFormIdFromFormSpeciesId(inGameTrade->species));
-
+    CreateMon(pokemon, Specie, level, 32, FALSE, 0, OT_ID_PRESET, inGameTrade->otId, GetFormIdFromFormSpeciesId(inGameTrade->species));
+	WonderTradeCreateMoveset(FirstStage, SeenNum, level, PkmnMoves);
+	
+	for (n = 0; n <= 12; n++)
+		otName[n] = gTrainers[trainerNum].trainerName[n];
 
     SetMonData(pokemon, MON_DATA_HP_IV, &HpIv);
     SetMonData(pokemon, MON_DATA_ATK_IV, &AtkIv);
@@ -4719,10 +4835,7 @@ static void _CreateInGameWonderTradePokemon(u8 whichPlayerMon, u8 whichInGameTra
     SetMonData(pokemon, MON_DATA_SPEED_IV, &SpdIv);
     SetMonData(pokemon, MON_DATA_SPATK_IV, &SpAtkIv);
     SetMonData(pokemon, MON_DATA_SPDEF_IV, &SpDefIv);
-    //SetMonData(pokemon, MON_DATA_NICKNAME, inGameTrade->nickname);
-    SetMonData(pokemon, MON_DATA_OT_NAME, inGameTrade->otName);
     SetMonData(pokemon, MON_DATA_OT_GENDER, &inGameTrade->otGender);
-    //SetMonData(pokemon, MON_DATA_ABILITY_NUM, &inGameTrade->abilityNum);
     SetMonData(pokemon, MON_DATA_BEAUTY, &inGameTrade->conditions[1]);
     SetMonData(pokemon, MON_DATA_CUTE, &inGameTrade->conditions[2]);
     SetMonData(pokemon, MON_DATA_COOL, &inGameTrade->conditions[0]);
@@ -4730,22 +4843,26 @@ static void _CreateInGameWonderTradePokemon(u8 whichPlayerMon, u8 whichInGameTra
     SetMonData(pokemon, MON_DATA_TOUGH, &inGameTrade->conditions[4]);
     SetMonData(pokemon, MON_DATA_SHEEN, &inGameTrade->sheen);
     SetMonData(pokemon, MON_DATA_MET_LOCATION, &metLocation);
+	
+	SetMonData(pokemon, MON_DATA_OT_NAME, otName);
+	
+	if(numbadges >= 2)
+	SetMonData(pokemon, MON_DATA_POKEBALL, &Pokeball);
+	
+	if(numbadges >= 4)
+		SetMonData(pokemon, MON_DATA_ABILITY_NUM, &PkmnAbilityNum);
 
-    isMail = FALSE;
-    if (inGameTrade->heldItem != ITEM_NONE)
+	if(tradeditem != ITEM_NONE)
+		SetMonData(pokemon, MON_DATA_HELD_ITEM, &Pkmnhelditem);		
+
+	if(numbadges >= 3)
+		SetMonData(pokemon, MON_DATA_MOVE1, &PkmnMoves[0]);
+	
+	/*/	for (j = 0; j < MAX_MON_MOVES; j++)
     {
-        if (ItemIsMail(inGameTrade->heldItem))
-        {
-            SetInGameTradeMail(&mail, inGameTrade);
-            gTradeMail[0] = mail;
-            SetMonData(pokemon, MON_DATA_MAIL, &isMail);
-            SetMonData(pokemon, MON_DATA_HELD_ITEM, &inGameTrade->heldItem);
-        }
-        else
-        {
-            SetMonData(pokemon, MON_DATA_HELD_ITEM, &inGameTrade->heldItem);
-        }
-    }
+        SetMonData(pokemon, MON_DATA_MOVE1 + j, &PkmnMoves[j]);
+	}/*/
+
     CalculateMonStats(&gEnemyParty[0]);
 }
 

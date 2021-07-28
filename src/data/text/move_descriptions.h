@@ -3241,8 +3241,8 @@ static const u8 sLeechSeedDescription[] = _(
     "steal HP on every turn.");
 
 static const u8 sGrowthDescription[] = _(
-    "Forces the body to grow\n"
-    "and heightens Sp. Atk.");
+    "Forces the body to grow and\n"
+    "heightens Atk and Sp. Atk.");
 
 static const u8 sRazorLeafDescription[] = _(
     "Cuts the enemy with leaves.\n"
@@ -5426,7 +5426,7 @@ static const u8 sPOLLEN_PUFFDescription[] = _(
 
 static const u8 sANCHOR_SHOTDescription[] = _(
     "Strangles the foe with a\n"
-    "chain. The foe can't flinch.");
+    "chain. The foe can't flee.");
 
 static const u8 sPSYCHIC_TERRAINDescription[] = _(
     "The ground turns weird for\n"

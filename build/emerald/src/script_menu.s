@@ -4003,6 +4003,21 @@ ScriptMenu_AdjustLeftCoordFromWidth:
 .Lfe36:
 	.size	 ScriptMenu_AdjustLeftCoordFromWidth,.Lfe36-ScriptMenu_AdjustLeftCoordFromWidth
 	.section .rodata
+	.type	 sText_Surprise,object
+sText_Surprise:
+	.byte	0xcd
+	.byte	0xe9
+	.byte	0xe6
+	.byte	0xe4
+	.byte	0xe6
+	.byte	0xdd
+	.byte	0xe7
+	.byte	0xd9
+	.byte	0x0
+	.byte	0xc7
+	.byte	0xd9
+	.byte	0xff
+	.size	 sText_Surprise,12
 	.type	 gText_City_01,object
 gText_City_01:
 	.byte	0xc6
@@ -4877,7 +4892,9 @@ sSet1:
 	.word	0xd
 	.word	gText_City_15
 	.word	0xe
-	.size	 sSet1,120
+	.word	sText_Surprise
+	.word	0xf
+	.size	 sSet1,128
 	.align	2, 0
 	.type	 sSet2,object
 sSet2:
@@ -4899,7 +4916,9 @@ sSet2:
 	.word	0x7
 	.word	sText_Starter_9
 	.word	0x8
-	.size	 sSet2,72
+	.word	sText_Surprise
+	.word	0x9
+	.size	 sSet2,80
 	.align	2, 0
 	.type	 sSet3,object
 sSet3:
@@ -4990,9 +5009,9 @@ sSet6:
 	.type	 sScrollingSets,object
 sScrollingSets:
 	.word	sSet1
-	.word	0xf
+	.word	0x10
 	.word	sSet2
-	.word	0x9
+	.word	0xa
 	.word	sSet3
 	.word	0x8
 	.word	sSet4

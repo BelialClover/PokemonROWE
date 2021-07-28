@@ -47,16 +47,16 @@ gRoute101_LandMons:
 	.short	0x333
 	.byte	0x2
 	.byte	0x2
-	.short	0xd8
+	.short	0x295
 	.byte	0x2
 	.byte	0x2
-	.short	0x23a
+	.short	0xce
 	.byte	0x3
 	.byte	0x3
-	.short	0x23a
+	.short	0x295
 	.byte	0x3
 	.byte	0x3
-	.short	0x23a
+	.short	0xce
 	.size	 gRoute101_LandMons,48
 	.globl	gRoute101_LandMonsInfo
 	.align	2, 0
@@ -96,16 +96,16 @@ gRoute101_LandMonsNight:
 	.short	0x333
 	.byte	0x2
 	.byte	0x2
-	.short	0xd8
+	.short	0x295
 	.byte	0x2
 	.byte	0x2
-	.short	0x23a
+	.short	0xce
 	.byte	0x3
 	.byte	0x3
-	.short	0x23a
+	.short	0x295
 	.byte	0x3
 	.byte	0x3
-	.short	0x23a
+	.short	0xce
 	.size	 gRoute101_LandMonsNight,48
 	.globl	gRoute101_LandMonsNightInfo
 	.align	2, 0
@@ -121,13 +121,13 @@ gRoute101_LandMonsNightInfo:
 gRoute101_HiddenMons:
 	.byte	0x4
 	.byte	0x4
-	.short	0xce
+	.short	0x147
 	.byte	0x4
 	.byte	0x4
-	.short	0x295
+	.short	0x21c
 	.byte	0x4
 	.byte	0x4
-	.short	0xbe
+	.short	0x23a
 	.size	 gRoute101_HiddenMons,12
 	.globl	gRoute101_HiddenMonsInfo
 	.align	2, 0
@@ -272,10 +272,10 @@ gRoute102_FishingMons:
 	.short	0x81
 	.byte	0x5
 	.byte	0xa
-	.short	0x76
+	.short	0xd3
 	.byte	0xa
 	.byte	0x1e
-	.short	0x81
+	.short	0xd3
 	.byte	0xa
 	.byte	0x1e
 	.short	0x76
@@ -321,7 +321,7 @@ gRoute103_LandMons:
 	.short	0x33b
 	.byte	0x4
 	.byte	0x4
-	.short	0x2b
+	.short	0x34
 	.byte	0x2
 	.byte	0x2
 	.short	0x1a6
@@ -330,7 +330,7 @@ gRoute103_LandMons:
 	.short	0x107
 	.byte	0x3
 	.byte	0x3
-	.short	0x13
+	.short	0x3be
 	.byte	0x4
 	.byte	0x3
 	.short	0x2de
@@ -345,7 +345,7 @@ gRoute103_LandMons:
 	.short	0x338
 	.byte	0x4
 	.byte	0x4
-	.short	0x34
+	.short	0x293
 	.size	 gRoute103_LandMons,48
 	.globl	gRoute103_LandMonsInfo
 	.align	2, 0
@@ -370,7 +370,7 @@ gRoute103_LandMonsNight:
 	.short	0x1fd
 	.byte	0x4
 	.byte	0x4
-	.short	0x45
+	.short	0x34
 	.byte	0x2
 	.byte	0x2
 	.short	0x40f
@@ -379,10 +379,10 @@ gRoute103_LandMonsNight:
 	.short	0x3d4
 	.byte	0x3
 	.byte	0x3
-	.short	0x3b5
-	.byte	0x4
-	.byte	0x4
 	.short	0x3be
+	.byte	0x4
+	.byte	0x4
+	.short	0x3b5
 	.byte	0x3
 	.byte	0x3
 	.short	0x338
@@ -481,13 +481,13 @@ gRoute103_FishingMonsInfo:
 gRoute103_HiddenMons:
 	.byte	0x4
 	.byte	0x4
-	.short	0x295
+	.short	0xeb
 	.byte	0x4
 	.byte	0x4
-	.short	0x18f
+	.short	0x6c
 	.byte	0x4
 	.byte	0x4
-	.short	0x348
+	.short	0x7f
 	.size	 gRoute103_HiddenMons,12
 	.globl	gRoute103_HiddenMonsInfo
 	.align	2, 0
@@ -945,7 +945,7 @@ gRoute111_LandMons:
 	.short	0x34b
 	.byte	0x16
 	.byte	0x16
-	.short	0x1bb
+	.short	0x3d9
 	.size	 gRoute111_LandMons,48
 	.globl	gRoute111_LandMonsInfo
 	.align	2, 0
@@ -994,7 +994,7 @@ gRoute111_LandMonsNight:
 	.short	0x1bb
 	.byte	0x16
 	.byte	0x16
-	.short	0x34b
+	.short	0x3d9
 	.size	 gRoute111_LandMonsNight,48
 	.globl	gRoute111_LandMonsNightInfo
 	.align	2, 0
@@ -1041,16 +1041,16 @@ gRoute111_RockSmashMons:
 	.short	0x4a
 	.byte	0x5
 	.byte	0xa
-	.short	0x4a
+	.short	0x3c0
 	.byte	0xf
 	.byte	0x14
-	.short	0x4a
+	.short	0x20c
 	.byte	0xf
 	.byte	0x14
-	.short	0x4a
+	.short	0x345
 	.byte	0xf
 	.byte	0x14
-	.short	0x4a
+	.short	0x12b
 	.size	 gRoute111_RockSmashMons,20
 	.globl	gRoute111_RockSmashMonsInfo
 	.align	2, 0
@@ -1176,7 +1176,7 @@ gRoute112_LandMonsNight:
 	.short	0x21a
 	.byte	0xf
 	.byte	0x10
-	.short	0x42
+	.short	0x366
 	.byte	0x10
 	.byte	0x10
 	.short	0x22a
@@ -1227,41 +1227,41 @@ gRoute112_HiddenMonsInfo:
 	.align	2, 0
 	.type	 gRoute113_LandMons,object
 gRoute113_LandMons:
-	.byte	0xf
-	.byte	0xf
+	.byte	0x1
+	.byte	0x1
 	.short	0x272
-	.byte	0xf
-	.byte	0xf
+	.byte	0x1
+	.byte	0x1
 	.short	0x147
-	.byte	0xf
-	.byte	0xf
+	.byte	0x1
+	.byte	0x1
 	.short	0x22f
-	.byte	0xe
-	.byte	0xe
+	.byte	0x1
+	.byte	0x1
 	.short	0xe3
-	.byte	0xe
-	.byte	0xe
+	.byte	0x1
+	.byte	0x1
 	.short	0x2c3
-	.byte	0xe
-	.byte	0xe
+	.byte	0x1
+	.byte	0x1
 	.short	0x1b
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
 	.short	0x34
-	.byte	0x10
-	.byte	0x10
-	.short	0x1b
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
+	.short	0x6c
+	.byte	0x1
+	.byte	0x1
 	.short	0x272
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
 	.short	0x2c3
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
 	.short	0x147
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
 	.short	0xe3
 	.size	 gRoute113_LandMons,48
 	.globl	gRoute113_LandMonsInfo
@@ -1276,41 +1276,41 @@ gRoute113_LandMonsInfo:
 	.align	2, 0
 	.type	 gRoute113_LandMonsNight,object
 gRoute113_LandMonsNight:
-	.byte	0xf
-	.byte	0xf
+	.byte	0x1
+	.byte	0x1
 	.short	0x147
-	.byte	0xf
-	.byte	0xf
+	.byte	0x1
+	.byte	0x1
 	.short	0x272
-	.byte	0xf
-	.byte	0xf
+	.byte	0x1
+	.byte	0x1
 	.short	0x1b
-	.byte	0xe
-	.byte	0xe
+	.byte	0x1
+	.byte	0x1
 	.short	0x22f
-	.byte	0xe
-	.byte	0xe
+	.byte	0x1
+	.byte	0x1
 	.short	0xe3
-	.byte	0xe
-	.byte	0xe
+	.byte	0x1
+	.byte	0x1
 	.short	0x2c3
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
 	.short	0x3c7
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
 	.short	0x22f
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
 	.short	0x147
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
 	.short	0xe3
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
 	.short	0x272
-	.byte	0x10
-	.byte	0x10
+	.byte	0x1
+	.byte	0x1
 	.short	0x2c3
 	.size	 gRoute113_LandMonsNight,48
 	.globl	gRoute113_LandMonsNightInfo
@@ -1432,10 +1432,10 @@ gRoute114_RockSmashMonsInfo:
 gRoute114_FishingMons:
 	.byte	0x5
 	.byte	0xa
-	.short	0x81
+	.short	0x76
 	.byte	0x5
 	.byte	0xa
-	.short	0x76
+	.short	0xd3
 	.byte	0xa
 	.byte	0x1e
 	.short	0x81
@@ -1475,13 +1475,13 @@ gRoute114_FishingMonsInfo:
 gRoute116_LandMons:
 	.byte	0x6
 	.byte	0x6
-	.short	0x105
+	.short	0x122
 	.byte	0x6
 	.byte	0x6
 	.short	0x125
+	.byte	0x4
 	.byte	0x6
-	.byte	0x6
-	.short	0x122
+	.short	0xbf
 	.byte	0x7
 	.byte	0x7
 	.short	0x3f
@@ -1490,7 +1490,7 @@ gRoute116_LandMons:
 	.short	0x12c
 	.byte	0x6
 	.byte	0x6
-	.short	0xbf
+	.short	0xa
 	.byte	0x7
 	.byte	0x7
 	.short	0xa1
@@ -1518,22 +1518,50 @@ gRoute116_LandMonsInfo:
 	.byte	0x14
 	.space	3
 	.word	gRoute116_LandMons
+	.globl	gRoute116_RockSmashMons
+	.align	2, 0
+	.type	 gRoute116_RockSmashMons,object
+gRoute116_RockSmashMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0x10
+	.byte	0x5
+	.byte	0x5
+	.short	0xbf
+	.byte	0x5
+	.byte	0x5
+	.short	0xd
+	.byte	0x5
+	.byte	0x5
+	.short	0x30
+	.byte	0x5
+	.byte	0x5
+	.short	0x1be
+	.size	 gRoute116_RockSmashMons,20
+	.globl	gRoute116_RockSmashMonsInfo
+	.align	2, 0
+	.type	 gRoute116_RockSmashMonsInfo,object
+	.size	 gRoute116_RockSmashMonsInfo,8
+gRoute116_RockSmashMonsInfo:
+	.byte	0x5
+	.space	3
+	.word	gRoute116_RockSmashMons
 	.globl	gRoute117_LandMons
 	.align	2, 0
 	.type	 gRoute117_LandMons,object
 gRoute117_LandMons:
 	.byte	0xd
 	.byte	0xd
-	.short	0x105
+	.short	0x13
 	.byte	0xd
 	.byte	0xd
-	.short	0x2b
+	.short	0x125
 	.byte	0xe
 	.byte	0xe
 	.short	0x45
 	.byte	0xe
 	.byte	0xe
-	.short	0x12a
+	.short	0x54
 	.byte	0xd
 	.byte	0xd
 	.short	0x13a
@@ -1542,19 +1570,19 @@ gRoute117_LandMons:
 	.short	0x139
 	.byte	0xd
 	.byte	0xd
-	.short	0x476
+	.short	0x3b5
 	.byte	0xd
 	.byte	0xd
 	.short	0x193
 	.byte	0xe
 	.byte	0xe
-	.short	0x24c
+	.short	0x476
 	.byte	0xe
 	.byte	0xe
 	.short	0x268
 	.byte	0xd
 	.byte	0xd
-	.short	0x24c
+	.short	0x476
 	.byte	0xd
 	.byte	0xd
 	.short	0x268
@@ -1595,19 +1623,47 @@ gRoute117_WaterMonsInfo:
 	.byte	0x4
 	.space	3
 	.word	gRoute117_WaterMons
+	.globl	gRoute117_RockSmashMons
+	.align	2, 0
+	.type	 gRoute117_RockSmashMons,object
+gRoute117_RockSmashMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0xa3
+	.byte	0x5
+	.byte	0x5
+	.short	0x2b
+	.byte	0x5
+	.byte	0x5
+	.short	0xcc
+	.byte	0x5
+	.byte	0x5
+	.short	0x348
+	.byte	0x5
+	.byte	0x5
+	.short	0x1be
+	.size	 gRoute117_RockSmashMons,20
+	.globl	gRoute117_RockSmashMonsInfo
+	.align	2, 0
+	.type	 gRoute117_RockSmashMonsInfo,object
+	.size	 gRoute117_RockSmashMonsInfo,8
+gRoute117_RockSmashMonsInfo:
+	.byte	0x32
+	.space	3
+	.word	gRoute117_RockSmashMons
 	.globl	gRoute117_FishingMons
 	.align	2, 0
 	.type	 gRoute117_FishingMons,object
 gRoute117_FishingMons:
 	.byte	0x5
 	.byte	0xa
-	.short	0x81
+	.short	0x48
 	.byte	0x5
 	.byte	0xa
 	.short	0x76
 	.byte	0xa
 	.byte	0x1e
-	.short	0x81
+	.short	0x48
 	.byte	0xa
 	.byte	0x1e
 	.short	0x76
@@ -1616,19 +1672,19 @@ gRoute117_FishingMons:
 	.short	0x155
 	.byte	0x19
 	.byte	0x1e
-	.short	0x155
+	.short	0x62
 	.byte	0x1e
 	.byte	0x23
 	.short	0x155
 	.byte	0x14
 	.byte	0x19
-	.short	0x155
+	.short	0x153
 	.byte	0x23
 	.byte	0x28
-	.short	0x155
+	.short	0x34e
 	.byte	0x28
 	.byte	0x2d
-	.short	0x155
+	.short	0x303
 	.size	 gRoute117_FishingMons,40
 	.globl	gRoute117_FishingMonsInfo
 	.align	2, 0
@@ -1638,6 +1694,28 @@ gRoute117_FishingMonsInfo:
 	.byte	0x1e
 	.space	3
 	.word	gRoute117_FishingMons
+	.globl	gRoute117_HeadbuttMons
+	.align	2, 0
+	.type	 gRoute117_HeadbuttMons,object
+gRoute117_HeadbuttMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0xa3
+	.byte	0x5
+	.byte	0x5
+	.short	0x66
+	.byte	0x5
+	.byte	0x5
+	.short	0xcc
+	.size	 gRoute117_HeadbuttMons,12
+	.globl	gRoute117_HeadbuttMonsInfo
+	.align	2, 0
+	.type	 gRoute117_HeadbuttMonsInfo,object
+	.size	 gRoute117_HeadbuttMonsInfo,8
+gRoute117_HeadbuttMonsInfo:
+	.byte	0x0
+	.space	3
+	.word	gRoute117_HeadbuttMons
 	.globl	gRoute118_LandMons
 	.align	2, 0
 	.type	 gRoute118_LandMons,object
@@ -1949,6 +2027,28 @@ gPetalburgWoods_HiddenMonsInfo:
 	.byte	0x0
 	.space	3
 	.word	gPetalburgWoods_HiddenMons
+	.globl	gPetalburgWoods_HeadbuttMons
+	.align	2, 0
+	.type	 gPetalburgWoods_HeadbuttMons,object
+gPetalburgWoods_HeadbuttMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0x30
+	.byte	0x5
+	.byte	0x5
+	.short	0xa7
+	.byte	0x5
+	.byte	0x5
+	.short	0x298
+	.size	 gPetalburgWoods_HeadbuttMons,12
+	.globl	gPetalburgWoods_HeadbuttMonsInfo
+	.align	2, 0
+	.type	 gPetalburgWoods_HeadbuttMonsInfo,object
+	.size	 gPetalburgWoods_HeadbuttMonsInfo,8
+gPetalburgWoods_HeadbuttMonsInfo:
+	.byte	0x0
+	.space	3
+	.word	gPetalburgWoods_HeadbuttMons
 	.globl	gPetalburgWoods1_HiddenMons
 	.align	2, 0
 	.type	 gPetalburgWoods1_HiddenMons,object
@@ -2283,7 +2383,7 @@ gUnderwater_Route126_WaterMons:
 	.short	0x171
 	.byte	0x1e
 	.byte	0x23
-	.short	0x171
+	.short	0x373
 	.size	 gUnderwater_Route126_WaterMons,20
 	.globl	gUnderwater_Route126_WaterMonsInfo
 	.align	2, 0
@@ -2299,19 +2399,19 @@ gUnderwater_Route126_WaterMonsInfo:
 gAbandonedShip_Rooms_B1F_WaterMons:
 	.byte	0x5
 	.byte	0x23
-	.short	0x48
+	.short	0x303
 	.byte	0x5
 	.byte	0x23
-	.short	0x48
+	.short	0x1c8
 	.byte	0x5
 	.byte	0x23
-	.short	0x48
+	.short	0x30b
 	.byte	0x5
 	.byte	0x23
-	.short	0x48
+	.short	0x2b0
 	.byte	0x1e
 	.byte	0x23
-	.short	0x48
+	.short	0x373
 	.size	 gAbandonedShip_Rooms_B1F_WaterMons,20
 	.globl	gAbandonedShip_Rooms_B1F_WaterMonsInfo
 	.align	2, 0
@@ -2354,7 +2454,7 @@ gAbandonedShip_Rooms_B1F_FishingMons:
 	.short	0x48
 	.byte	0x14
 	.byte	0x19
-	.short	0x48
+	.short	0x373
 	.size	 gAbandonedShip_Rooms_B1F_FishingMons,40
 	.globl	gAbandonedShip_Rooms_B1F_FishingMonsInfo
 	.align	2, 0
@@ -2641,7 +2741,7 @@ gMeteorFalls_B1F_2R_HiddenMons:
 	.short	0xf6
 	.byte	0x5
 	.byte	0x5
-	.short	0x375
+	.short	0x176
 	.byte	0x5
 	.byte	0x5
 	.short	0x30e
@@ -2658,41 +2758,41 @@ gMeteorFalls_B1F_2R_HiddenMonsInfo:
 	.align	2, 0
 	.type	 gJaggedPass_LandMons,object
 gJaggedPass_LandMons:
-	.byte	0x15
-	.byte	0x15
+	.byte	0x1
+	.byte	0x1
 	.short	0x38
-	.byte	0x15
-	.byte	0x15
+	.byte	0x1
+	.byte	0x1
 	.short	0x42
-	.byte	0x15
-	.byte	0x15
+	.byte	0x1
+	.byte	0x1
 	.short	0x145
-	.byte	0x14
-	.byte	0x17
+	.byte	0x1
+	.byte	0x1
 	.short	0x17
-	.byte	0x14
-	.byte	0x14
+	.byte	0x1
+	.byte	0x1
 	.short	0x53
-	.byte	0x14
-	.byte	0x14
+	.byte	0x1
+	.byte	0x1
 	.short	0x1c3
-	.byte	0x15
-	.byte	0x15
+	.byte	0x1
+	.byte	0x1
 	.short	0x21f
-	.byte	0x16
-	.byte	0x16
+	.byte	0x1
+	.byte	0x1
 	.short	0x2e5
-	.byte	0x16
-	.byte	0x16
+	.byte	0x1
+	.byte	0x1
 	.short	0x2bd
-	.byte	0x16
-	.byte	0x16
+	.byte	0x1
+	.byte	0x1
 	.short	0x255
-	.byte	0x16
-	.byte	0x16
+	.byte	0x1
+	.byte	0x1
 	.short	0x2bd
-	.byte	0x16
-	.byte	0x16
+	.byte	0x1
+	.byte	0x1
 	.short	0x255
 	.size	 gJaggedPass_LandMons,48
 	.globl	gJaggedPass_LandMonsInfo
@@ -3184,7 +3284,7 @@ gNewMauville_Inside_LandMonsInfo:
 gRoute119_LandMons:
 	.byte	0x19
 	.byte	0x19
-	.short	0x107
+	.short	0x1fa
 	.byte	0x19
 	.byte	0x19
 	.short	0x2a0
@@ -3196,7 +3296,7 @@ gRoute119_LandMons:
 	.short	0x20a
 	.byte	0x1a
 	.byte	0x1b
-	.short	0x1fa
+	.short	0x24c
 	.byte	0x1a
 	.byte	0x1a
 	.short	0x33f
@@ -3217,7 +3317,7 @@ gRoute119_LandMons:
 	.short	0x160
 	.byte	0x19
 	.byte	0x19
-	.short	0x165
+	.short	0x2c0
 	.size	 gRoute119_LandMons,48
 	.globl	gRoute119_LandMonsInfo
 	.align	2, 0
@@ -3313,9 +3413,9 @@ gRoute120_LandMons:
 	.short	0x45
 	.byte	0x19
 	.byte	0x19
-	.short	0x2b
-	.byte	0x19
-	.byte	0x19
+	.short	0x213
+	.byte	0x18
+	.byte	0x18
 	.short	0x12a
 	.byte	0x1a
 	.byte	0x1a
@@ -3325,7 +3425,7 @@ gRoute120_LandMons:
 	.short	0x111
 	.byte	0x1b
 	.byte	0x1b
-	.short	0x213
+	.short	0x2c0
 	.byte	0x19
 	.byte	0x19
 	.short	0x160
@@ -3424,16 +3524,16 @@ gRoute120_FishingMonsInfo:
 gRoute121_LandMons:
 	.byte	0x1a
 	.byte	0x1a
-	.short	0x66
+	.short	0x161
 	.byte	0x1a
 	.byte	0x1a
 	.short	0x2e
-	.byte	0x1a
-	.byte	0x1a
-	.short	0x161
 	.byte	0x1c
 	.byte	0x1c
 	.short	0x105
+	.byte	0x1c
+	.byte	0x1c
+	.short	0xe7
 	.byte	0x1c
 	.byte	0x1c
 	.short	0xe4
@@ -3445,7 +3545,7 @@ gRoute121_LandMons:
 	.short	0xb1
 	.byte	0x1c
 	.byte	0x1c
-	.short	0xe7
+	.short	0x23a
 	.byte	0x1a
 	.byte	0x1a
 	.short	0x1a9
@@ -3495,6 +3595,34 @@ gRoute121_WaterMonsInfo:
 	.byte	0x4
 	.space	3
 	.word	gRoute121_WaterMons
+	.globl	gRoute121_RockSmashMons
+	.align	2, 0
+	.type	 gRoute121_RockSmashMons,object
+gRoute121_RockSmashMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0x66
+	.byte	0x5
+	.byte	0x5
+	.short	0xb1
+	.byte	0x5
+	.byte	0x5
+	.short	0x348
+	.byte	0x5
+	.byte	0x5
+	.short	0x7f
+	.byte	0x5
+	.byte	0x5
+	.short	0x1be
+	.size	 gRoute121_RockSmashMons,20
+	.globl	gRoute121_RockSmashMonsInfo
+	.align	2, 0
+	.type	 gRoute121_RockSmashMonsInfo,object
+	.size	 gRoute121_RockSmashMonsInfo,8
+gRoute121_RockSmashMonsInfo:
+	.byte	0x32
+	.space	3
+	.word	gRoute121_RockSmashMons
 	.globl	gRoute121_FishingMons
 	.align	2, 0
 	.type	 gRoute121_FishingMons,object
@@ -3630,13 +3758,13 @@ gRoute123_LandMons:
 	.short	0x72
 	.byte	0x1a
 	.byte	0x1a
-	.short	0x1a4
+	.short	0x1b7
 	.byte	0x1c
 	.byte	0x1c
 	.short	0x33d
 	.byte	0x1c
 	.byte	0x1c
-	.short	0x348
+	.short	0x23e
 	.byte	0x1a
 	.byte	0x1a
 	.short	0x241
@@ -3686,6 +3814,34 @@ gRoute123_WaterMonsInfo:
 	.byte	0x4
 	.space	3
 	.word	gRoute123_WaterMons
+	.globl	gRoute123_RockSmashMons
+	.align	2, 0
+	.type	 gRoute123_RockSmashMons,object
+gRoute123_RockSmashMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0x66
+	.byte	0x5
+	.byte	0x5
+	.short	0xcc
+	.byte	0x5
+	.byte	0x5
+	.short	0x335
+	.byte	0x5
+	.byte	0x5
+	.short	0x348
+	.byte	0x5
+	.byte	0x5
+	.short	0x348
+	.size	 gRoute123_RockSmashMons,20
+	.globl	gRoute123_RockSmashMonsInfo
+	.align	2, 0
+	.type	 gRoute123_RockSmashMonsInfo,object
+	.size	 gRoute123_RockSmashMonsInfo,8
+gRoute123_RockSmashMonsInfo:
+	.byte	0x0
+	.space	3
+	.word	gRoute123_RockSmashMons
 	.globl	gRoute123_FishingMons
 	.align	2, 0
 	.type	 gRoute123_FishingMons,object
@@ -3751,6 +3907,28 @@ gRoute123_HiddenMonsInfo:
 	.byte	0x0
 	.space	3
 	.word	gRoute123_HiddenMons
+	.globl	gRoute123_HeadbuttMons
+	.align	2, 0
+	.type	 gRoute123_HeadbuttMons,object
+gRoute123_HeadbuttMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0x348
+	.byte	0x5
+	.byte	0x5
+	.short	0x19c
+	.byte	0x5
+	.byte	0x5
+	.short	0x1a4
+	.size	 gRoute123_HeadbuttMons,12
+	.globl	gRoute123_HeadbuttMonsInfo
+	.align	2, 0
+	.type	 gRoute123_HeadbuttMonsInfo,object
+	.size	 gRoute123_HeadbuttMonsInfo,8
+gRoute123_HeadbuttMonsInfo:
+	.byte	0x0
+	.space	3
+	.word	gRoute123_HeadbuttMons
 	.globl	gMtPyre_2F_LandMons
 	.align	2, 0
 	.type	 gMtPyre_2F_LandMons,object
@@ -4161,7 +4339,7 @@ gRoute125_WaterMons:
 	.short	0x34d
 	.byte	0x19
 	.byte	0x1e
-	.short	0x34d
+	.short	0x34e
 	.size	 gRoute125_WaterMons,20
 	.globl	gRoute125_WaterMonsInfo
 	.align	2, 0
@@ -4177,16 +4355,16 @@ gRoute125_WaterMonsInfo:
 gRoute125_FishingMons:
 	.byte	0x5
 	.byte	0xa
-	.short	0x81
+	.short	0x1c8
 	.byte	0x5
 	.byte	0xa
-	.short	0x48
+	.short	0x34e
 	.byte	0xa
 	.byte	0x1e
-	.short	0x81
+	.short	0x1c8
 	.byte	0xa
 	.byte	0x1e
-	.short	0x48
+	.short	0x34e
 	.byte	0xa
 	.byte	0x1e
 	.short	0x140
@@ -4251,13 +4429,13 @@ gRoute126_FishingMons:
 	.short	0x81
 	.byte	0x5
 	.byte	0xa
-	.short	0x48
+	.short	0x34e
 	.byte	0xa
 	.byte	0x1e
 	.short	0x81
 	.byte	0xa
 	.byte	0x1e
-	.short	0x48
+	.short	0x34e
 	.byte	0xa
 	.byte	0x1e
 	.short	0x140
@@ -5887,7 +6065,7 @@ gNewMauville_Entrance_LandMons:
 	.short	0x2e0
 	.byte	0x19
 	.byte	0x19
-	.short	0x2b6
+	.short	0x1df
 	.byte	0x17
 	.byte	0x17
 	.short	0x135
@@ -5902,16 +6080,16 @@ gNewMauville_Entrance_LandMons:
 	.short	0x2be
 	.byte	0x16
 	.byte	0x16
-	.short	0x1df
+	.short	0x350
 	.byte	0x16
 	.byte	0x16
 	.short	0x350
 	.byte	0x16
 	.byte	0x16
-	.short	0x1df
+	.short	0x370
 	.byte	0x16
 	.byte	0x16
-	.short	0x350
+	.short	0x370
 	.size	 gNewMauville_Entrance_LandMons,48
 	.globl	gNewMauville_Entrance_LandMonsInfo
 	.align	2, 0
@@ -6604,7 +6782,7 @@ gMeteorFalls_1F_2R_LandMons:
 	.short	0xad
 	.byte	0x27
 	.byte	0x27
-	.short	0xae
+	.short	0xd5
 	.byte	0x26
 	.byte	0x26
 	.short	0x374
@@ -6644,7 +6822,7 @@ gMeteorFalls_1F_2R_WaterMons:
 	.short	0x152
 	.byte	0x5
 	.byte	0xf
-	.short	0x152
+	.short	0x93
 	.size	 gMeteorFalls_1F_2R_WaterMons,20
 	.globl	gMeteorFalls_1F_2R_WaterMonsInfo
 	.align	2, 0
@@ -6802,19 +6980,19 @@ gMeteorFalls_B1F_1R_WaterMonsInfo:
 gMeteorFalls_B1F_1R_FishingMons:
 	.byte	0x5
 	.byte	0xa
-	.short	0x81
+	.short	0x153
 	.byte	0x5
 	.byte	0xa
 	.short	0x76
 	.byte	0xa
 	.byte	0x1e
-	.short	0x81
+	.short	0x153
 	.byte	0xa
 	.byte	0x1e
 	.short	0x76
 	.byte	0xa
 	.byte	0x1e
-	.short	0x153
+	.short	0x93
 	.byte	0x19
 	.byte	0x1e
 	.short	0x153
@@ -6823,13 +7001,13 @@ gMeteorFalls_B1F_1R_FishingMons:
 	.short	0x153
 	.byte	0x1e
 	.byte	0x23
-	.short	0x153
+	.short	0xaa
 	.byte	0x23
 	.byte	0x28
-	.short	0x153
+	.short	0x93
 	.byte	0x28
 	.byte	0x2d
-	.short	0x153
+	.short	0x93
 	.size	 gMeteorFalls_B1F_1R_FishingMons,40
 	.globl	gMeteorFalls_B1F_1R_FishingMonsInfo
 	.align	2, 0
@@ -6848,7 +7026,7 @@ gMeteorFalls_B1F_1R_HiddenMons:
 	.short	0x26d
 	.byte	0x5
 	.byte	0x5
-	.short	0x173
+	.short	0x176
 	.byte	0x5
 	.byte	0x5
 	.short	0xf6
@@ -7017,7 +7195,7 @@ gShoalCave_LowTideInnerRoom_WaterMons:
 	.short	0x48
 	.byte	0x5
 	.byte	0x23
-	.short	0x29
+	.short	0x56
 	.byte	0x19
 	.byte	0x1e
 	.short	0x16b
@@ -7042,16 +7220,16 @@ gShoalCave_LowTideInnerRoom_WaterMonsInfo:
 gShoalCave_LowTideInnerRoom_FishingMons:
 	.byte	0x5
 	.byte	0xa
-	.short	0x81
+	.short	0x4f
 	.byte	0x5
 	.byte	0xa
-	.short	0x48
+	.short	0x56
 	.byte	0xa
 	.byte	0x1e
 	.short	0x81
 	.byte	0xa
 	.byte	0x1e
-	.short	0x48
+	.short	0x56
 	.byte	0xa
 	.byte	0x1e
 	.short	0x140
@@ -7106,7 +7284,7 @@ gShoalCave_LowTideEntranceRoom_LandMons:
 	.short	0xdc
 	.byte	0x20
 	.byte	0x20
-	.short	0xd7
+	.short	0x246
 	.byte	0x20
 	.byte	0x20
 	.short	0x36b
@@ -7758,7 +7936,7 @@ gUnderwater_Route124_WaterMons:
 	.short	0x171
 	.byte	0x1e
 	.byte	0x23
-	.short	0x171
+	.short	0x373
 	.size	 gUnderwater_Route124_WaterMons,20
 	.globl	gUnderwater_Route124_WaterMonsInfo
 	.align	2, 0
@@ -7866,126 +8044,105 @@ gSkyPillar_1F_LandMonsInfo:
 	.byte	0xa
 	.space	3
 	.word	gSkyPillar_1F_LandMons
-	.globl	gSootopolisCity_LandMons
+	.globl	gSootopolisCity0_WaterMons
 	.align	2, 0
-	.type	 gSootopolisCity_LandMons,object
-gSootopolisCity_LandMons:
+	.type	 gSootopolisCity0_WaterMons,object
+gSootopolisCity0_WaterMons:
 	.byte	0x5
 	.byte	0x5
-	.short	0xa3
+	.short	0x81
 	.byte	0x5
 	.byte	0x5
-	.short	0xa5
+	.short	0xaa
+	.byte	0x5
+	.byte	0x5
+	.short	0x4f
+	.byte	0x5
+	.byte	0x5
+	.short	0x5a
+	.byte	0x5
+	.byte	0x5
+	.short	0x3c
+	.size	 gSootopolisCity0_WaterMons,20
+	.globl	gSootopolisCity0_WaterMonsInfo
+	.align	2, 0
+	.type	 gSootopolisCity0_WaterMonsInfo,object
+	.size	 gSootopolisCity0_WaterMonsInfo,8
+gSootopolisCity0_WaterMonsInfo:
+	.byte	0x2
+	.space	3
+	.word	gSootopolisCity0_WaterMons
+	.globl	gSootopolisCity0_RockSmashMons
+	.align	2, 0
+	.type	 gSootopolisCity0_RockSmashMons,object
+gSootopolisCity0_RockSmashMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0x21f
 	.byte	0x5
 	.byte	0x5
 	.short	0x111
 	.byte	0x5
 	.byte	0x5
-	.short	0x201
+	.short	0x30
 	.byte	0x5
 	.byte	0x5
-	.short	0x1ff
+	.short	0x207
 	.byte	0x5
 	.byte	0x5
-	.short	0x203
-	.byte	0x5
-	.byte	0x5
-	.short	0x72
-	.byte	0x5
-	.byte	0x5
-	.short	0x66
-	.byte	0x5
-	.byte	0x5
-	.short	0x72
-	.byte	0x5
-	.byte	0x5
-	.short	0xd6
-	.byte	0x5
-	.byte	0x5
-	.short	0x72
-	.byte	0x5
-	.byte	0x5
-	.short	0xd6
-	.size	 gSootopolisCity_LandMons,48
-	.globl	gSootopolisCity_LandMonsInfo
+	.short	0x1be
+	.size	 gSootopolisCity0_RockSmashMons,20
+	.globl	gSootopolisCity0_RockSmashMonsInfo
 	.align	2, 0
-	.type	 gSootopolisCity_LandMonsInfo,object
-	.size	 gSootopolisCity_LandMonsInfo,8
-gSootopolisCity_LandMonsInfo:
-	.byte	0x0
+	.type	 gSootopolisCity0_RockSmashMonsInfo,object
+	.size	 gSootopolisCity0_RockSmashMonsInfo,8
+gSootopolisCity0_RockSmashMonsInfo:
+	.byte	0xa
 	.space	3
-	.word	gSootopolisCity_LandMons
-	.globl	gSootopolisCity_WaterMons
+	.word	gSootopolisCity0_RockSmashMons
+	.globl	gSootopolisCity0_FishingMons
 	.align	2, 0
-	.type	 gSootopolisCity_WaterMons,object
-gSootopolisCity_WaterMons:
+	.type	 gSootopolisCity0_FishingMons,object
+gSootopolisCity0_FishingMons:
 	.byte	0x5
-	.byte	0x23
-	.short	0x81
-	.byte	0xa
-	.byte	0x1e
-	.short	0xaa
-	.byte	0xf
-	.byte	0x19
-	.short	0x155
-	.byte	0x19
-	.byte	0x1e
-	.short	0x16b
-	.byte	0x19
-	.byte	0x1e
-	.short	0x16b
-	.size	 gSootopolisCity_WaterMons,20
-	.globl	gSootopolisCity_WaterMonsInfo
-	.align	2, 0
-	.type	 gSootopolisCity_WaterMonsInfo,object
-	.size	 gSootopolisCity_WaterMonsInfo,8
-gSootopolisCity_WaterMonsInfo:
-	.byte	0x1
-	.space	3
-	.word	gSootopolisCity_WaterMons
-	.globl	gSootopolisCity_FishingMons
-	.align	2, 0
-	.type	 gSootopolisCity_FishingMons,object
-gSootopolisCity_FishingMons:
 	.byte	0x5
-	.byte	0xa
 	.short	0x81
 	.byte	0x5
-	.byte	0xa
-	.short	0xaa
-	.byte	0xa
-	.byte	0x1e
-	.short	0x81
-	.byte	0xa
-	.byte	0x1e
-	.short	0xaa
-	.byte	0xa
-	.byte	0x1e
+	.byte	0x5
+	.short	0x62
+	.byte	0x5
+	.byte	0x5
+	.short	0x62
+	.byte	0x5
+	.byte	0x5
 	.short	0x155
-	.byte	0x1e
-	.byte	0x23
-	.short	0xaa
-	.byte	0x1e
-	.byte	0x23
+	.byte	0x5
+	.byte	0x5
+	.short	0x13e
+	.byte	0x5
+	.byte	0x5
+	.short	0x62
+	.byte	0x5
+	.byte	0x5
 	.short	0x155
-	.byte	0x23
-	.byte	0x28
-	.short	0x171
-	.byte	0x23
-	.byte	0x2d
+	.byte	0x5
+	.byte	0x5
+	.short	0x250
+	.byte	0x5
+	.byte	0x5
+	.short	0x250
+	.byte	0x5
+	.byte	0x5
 	.short	0x15d
-	.byte	0x5
-	.byte	0x2d
-	.short	0x15d
-	.size	 gSootopolisCity_FishingMons,40
-	.globl	gSootopolisCity_FishingMonsInfo
+	.size	 gSootopolisCity0_FishingMons,40
+	.globl	gSootopolisCity0_FishingMonsInfo
 	.align	2, 0
-	.type	 gSootopolisCity_FishingMonsInfo,object
-	.size	 gSootopolisCity_FishingMonsInfo,8
-gSootopolisCity_FishingMonsInfo:
+	.type	 gSootopolisCity0_FishingMonsInfo,object
+	.size	 gSootopolisCity0_FishingMonsInfo,8
+gSootopolisCity0_FishingMonsInfo:
 	.byte	0xa
 	.space	3
-	.word	gSootopolisCity_FishingMons
+	.word	gSootopolisCity0_FishingMons
 	.globl	gSkyPillar_3F_LandMons
 	.align	2, 0
 	.type	 gSkyPillar_3F_LandMons,object
@@ -9838,55 +9995,6 @@ gMeteorFalls_StevensCave_LandMonsInfo:
 	.byte	0xa
 	.space	3
 	.word	gMeteorFalls_StevensCave_LandMons
-	.globl	gLittlerootTown0_LandMons
-	.align	2, 0
-	.type	 gLittlerootTown0_LandMons,object
-gLittlerootTown0_LandMons:
-	.byte	0x5
-	.byte	0x5
-	.short	0xcc
-	.byte	0x5
-	.byte	0x5
-	.short	0xa3
-	.byte	0x5
-	.byte	0x5
-	.short	0x107
-	.byte	0x5
-	.byte	0x5
-	.short	0x45
-	.byte	0x5
-	.byte	0x5
-	.short	0x2b
-	.byte	0x5
-	.byte	0x5
-	.short	0x109
-	.byte	0x5
-	.byte	0x5
-	.short	0xd
-	.byte	0x5
-	.byte	0x5
-	.short	0xa
-	.byte	0x5
-	.byte	0x5
-	.short	0x10
-	.byte	0x5
-	.byte	0x5
-	.short	0x7f
-	.byte	0x5
-	.byte	0x5
-	.short	0x10
-	.byte	0x5
-	.byte	0x5
-	.short	0x7f
-	.size	 gLittlerootTown0_LandMons,48
-	.globl	gLittlerootTown0_LandMonsInfo
-	.align	2, 0
-	.type	 gLittlerootTown0_LandMonsInfo,object
-	.size	 gLittlerootTown0_LandMonsInfo,8
-gLittlerootTown0_LandMonsInfo:
-	.byte	0x0
-	.space	3
-	.word	gLittlerootTown0_LandMons
 	.globl	gWildMonHeaders
 	.align	2, 0
 	.type	 gWildMonHeaders,object
@@ -9900,6 +10008,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	gRoute101_HiddenMonsInfo
+	.word	0x0
 	.byte	0x0
 	.byte	0x11
 	.space	2
@@ -9908,6 +10017,7 @@ gWildMonHeaders:
 	.word	gRoute102_WaterMonsInfo
 	.word	0x0
 	.word	gRoute102_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x12
@@ -9918,6 +10028,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute103_FishingMonsInfo
 	.word	gRoute103_HiddenMonsInfo
+	.word	0x0
 	.byte	0x0
 	.byte	0x13
 	.space	2
@@ -9926,6 +10037,7 @@ gWildMonHeaders:
 	.word	gRoute104_WaterMonsInfo
 	.word	0x0
 	.word	gRoute104_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x14
@@ -9936,6 +10048,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute105_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x19
 	.space	2
@@ -9944,6 +10057,7 @@ gWildMonHeaders:
 	.word	gRoute110_WaterMonsInfo
 	.word	0x0
 	.word	gRoute110_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x1a
@@ -9954,6 +10068,7 @@ gWildMonHeaders:
 	.word	gRoute111_RockSmashMonsInfo
 	.word	gRoute111_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x1b
 	.space	2
@@ -9963,11 +10078,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	gRoute112_HiddenMonsInfo
+	.word	0x0
 	.byte	0x0
 	.byte	0x1c
 	.space	2
 	.word	gRoute113_LandMonsInfo
 	.word	gRoute113_LandMonsNightInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -9981,12 +10098,14 @@ gWildMonHeaders:
 	.word	gRoute114_RockSmashMonsInfo
 	.word	gRoute114_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x1f
 	.space	2
 	.word	gRoute116_LandMonsInfo
 	.word	gRoute116_LandMonsInfo
 	.word	0x0
+	.word	gRoute116_RockSmashMonsInfo
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -9996,9 +10115,10 @@ gWildMonHeaders:
 	.word	gRoute117_LandMonsInfo
 	.word	gRoute117_LandMonsInfo
 	.word	gRoute117_WaterMonsInfo
-	.word	0x0
+	.word	gRoute117_RockSmashMonsInfo
 	.word	gRoute117_FishingMonsInfo
 	.word	0x0
+	.word	gRoute117_HeadbuttMonsInfo
 	.byte	0x0
 	.byte	0x21
 	.space	2
@@ -10007,6 +10127,7 @@ gWildMonHeaders:
 	.word	gRoute118_WaterMonsInfo
 	.word	0x0
 	.word	gRoute118_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x27
@@ -10017,6 +10138,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute124_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0xb
 	.space	2
@@ -10026,6 +10148,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	gPetalburgWoods_HiddenMonsInfo
+	.word	gPetalburgWoods_HeadbuttMonsInfo
 	.byte	0x18
 	.byte	0xb
 	.space	2
@@ -10035,11 +10158,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	gPetalburgWoods1_HiddenMonsInfo
+	.word	0x0
 	.byte	0x18
 	.byte	0x4
 	.space	2
 	.word	gRusturfTunnel_LandMonsInfo
 	.word	gRusturfTunnel_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10053,11 +10178,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x8
 	.space	2
 	.word	gGraniteCave_B1F_LandMonsInfo
 	.word	gGraniteCave_B1F_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10071,6 +10198,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x2b
 	.space	2
@@ -10080,11 +10208,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x1a
 	.byte	0x3
 	.space	2
 	.word	gSafariZone_South_LandMonsInfo
 	.word	gSafariZone_South_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10098,6 +10228,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x3a
 	.space	2
@@ -10107,6 +10238,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gAbandonedShip_Rooms_B1F_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x9
 	.space	2
@@ -10114,6 +10246,7 @@ gWildMonHeaders:
 	.word	gGraniteCave_B2F_LandMonsInfo
 	.word	0x0
 	.word	gGraniteCave_B2F_RockSmashMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.byte	0x18
@@ -10125,6 +10258,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	gFieryPath_HiddenMonsInfo
+	.word	0x0
 	.byte	0x18
 	.byte	0x3
 	.space	2
@@ -10134,11 +10268,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gMeteorFalls_B1F_2R_FishingMonsInfo
 	.word	gMeteorFalls_B1F_2R_HiddenMonsInfo
+	.word	0x0
 	.byte	0x18
 	.byte	0xd
 	.space	2
 	.word	gJaggedPass_LandMonsInfo
 	.word	gJaggedPass_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10152,6 +10288,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	gJaggedPass1_HiddenMonsInfo
+	.word	0x0
 	.byte	0x0
 	.byte	0x15
 	.space	2
@@ -10160,6 +10297,7 @@ gWildMonHeaders:
 	.word	gRoute106_WaterMonsInfo
 	.word	0x0
 	.word	gRoute106_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x16
@@ -10170,6 +10308,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute107_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x17
 	.space	2
@@ -10178,6 +10317,7 @@ gWildMonHeaders:
 	.word	gRoute108_WaterMonsInfo
 	.word	0x0
 	.word	gRoute108_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x18
@@ -10188,6 +10328,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute109_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x1e
 	.space	2
@@ -10197,11 +10338,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute115_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x35
 	.space	2
 	.word	gNewMauville_Inside_LandMonsInfo
 	.word	gNewMauville_Inside_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10215,6 +10358,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute119_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x23
 	.space	2
@@ -10224,14 +10368,16 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute120_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x24
 	.space	2
 	.word	gRoute121_LandMonsInfo
 	.word	gRoute121_LandMonsInfo
 	.word	gRoute121_WaterMonsInfo
-	.word	0x0
+	.word	gRoute121_RockSmashMonsInfo
 	.word	gRoute121_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x25
@@ -10242,20 +10388,23 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute122_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x26
 	.space	2
 	.word	gRoute123_LandMonsInfo
 	.word	gRoute123_LandMonsInfo
 	.word	gRoute123_WaterMonsInfo
-	.word	0x0
+	.word	gRoute123_RockSmashMonsInfo
 	.word	gRoute123_FishingMonsInfo
 	.word	gRoute123_HiddenMonsInfo
+	.word	gRoute123_HeadbuttMonsInfo
 	.byte	0x18
 	.byte	0x10
 	.space	2
 	.word	gMtPyre_2F_LandMonsInfo
 	.word	gMtPyre_2F_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10269,11 +10418,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x12
 	.space	2
 	.word	gMtPyre_4F_LandMonsInfo
 	.word	gMtPyre_4F_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10287,11 +10438,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x14
 	.space	2
 	.word	gMtPyre_6F_LandMonsInfo
 	.word	gMtPyre_6F_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10305,11 +10458,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x16
 	.space	2
 	.word	gMtPyre_Summit_LandMonsInfo
 	.word	gMtPyre_Summit_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10323,6 +10478,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x28
 	.space	2
@@ -10331,6 +10487,7 @@ gWildMonHeaders:
 	.word	gRoute125_WaterMonsInfo
 	.word	0x0
 	.word	gRoute125_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x29
@@ -10341,6 +10498,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute126_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x2a
 	.space	2
@@ -10349,6 +10507,7 @@ gWildMonHeaders:
 	.word	gRoute127_WaterMonsInfo
 	.word	0x0
 	.word	gRoute127_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x2b
@@ -10359,6 +10518,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute128_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x2c
 	.space	2
@@ -10367,6 +10527,7 @@ gWildMonHeaders:
 	.word	gRoute129_WaterMonsInfo
 	.word	0x0
 	.word	gRoute129_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x2d
@@ -10377,6 +10538,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute130_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x2e
 	.space	2
@@ -10385,6 +10547,7 @@ gWildMonHeaders:
 	.word	gRoute131_WaterMonsInfo
 	.word	0x0
 	.word	gRoute131_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x2f
@@ -10395,6 +10558,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute132_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x30
 	.space	2
@@ -10403,6 +10567,7 @@ gWildMonHeaders:
 	.word	gRoute133_WaterMonsInfo
 	.word	0x0
 	.word	gRoute133_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x31
@@ -10413,6 +10578,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gRoute134_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x41
 	.space	2
@@ -10422,11 +10588,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gAbandonedShip_HiddenFloorCorridors_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x1c
 	.space	2
 	.word	gSeafloorCavern_Room1_LandMonsInfo
 	.word	gSeafloorCavern_Room1_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10440,11 +10608,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x1e
 	.space	2
 	.word	gSeafloorCavern_Room3_LandMonsInfo
 	.word	gSeafloorCavern_Room3_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10458,11 +10628,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x20
 	.space	2
 	.word	gSeafloorCavern_Room5_LandMonsInfo
 	.word	gSeafloorCavern_Room5_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10476,6 +10648,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gSeafloorCavern_Room6_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x22
 	.space	2
@@ -10485,11 +10658,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gSeafloorCavern_Room7_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x23
 	.space	2
 	.word	gSeafloorCavern_Room8_LandMonsInfo
 	.word	gSeafloorCavern_Room8_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10503,11 +10678,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gSeafloorCavern_Entrance_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x25
 	.space	2
 	.word	gCaveOfOrigin_Entrance_LandMonsInfo
 	.word	gCaveOfOrigin_Entrance_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10521,11 +10698,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x27
 	.space	2
 	.word	gCaveOfOrigin_UnusedRubySapphireMap1_LandMonsInfo
 	.word	gCaveOfOrigin_UnusedRubySapphireMap1_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10539,11 +10718,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x29
 	.space	2
 	.word	gCaveOfOrigin_UnusedRubySapphireMap3_LandMonsInfo
 	.word	gCaveOfOrigin_UnusedRubySapphireMap3_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10557,6 +10738,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x1a
 	.byte	0x2
 	.space	2
@@ -10566,6 +10748,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gSafariZone_Southwest_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x1a
 	.byte	0x1
 	.space	2
@@ -10573,6 +10756,7 @@ gWildMonHeaders:
 	.word	gSafariZone_North_LandMonsInfo
 	.word	0x0
 	.word	gSafariZone_North_RockSmashMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.byte	0x1a
@@ -10584,6 +10768,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gSafariZone_Northwest_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x2c
 	.space	2
@@ -10591,6 +10776,7 @@ gWildMonHeaders:
 	.word	gVictoryRoad_B1F_LandMonsInfo
 	.word	0x0
 	.word	gVictoryRoad_B1F_RockSmashMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.byte	0x18
@@ -10602,6 +10788,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gVictoryRoad_B2F_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x0
 	.space	2
@@ -10611,6 +10798,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gMeteorFalls_1F_1R_FishingMonsInfo
 	.word	gMeteorFalls_1F_1R_HiddenMonsInfo
+	.word	0x0
 	.byte	0x18
 	.byte	0x1
 	.space	2
@@ -10620,6 +10808,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gMeteorFalls_1F_2R_FishingMonsInfo
 	.word	gMeteorFalls_1F_2R_HiddenMonsInfo
+	.word	0x0
 	.byte	0x18
 	.byte	0x2
 	.space	2
@@ -10629,11 +10818,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gMeteorFalls_B1F_1R_FishingMonsInfo
 	.word	gMeteorFalls_B1F_1R_HiddenMonsInfo
+	.word	0x0
 	.byte	0x18
 	.byte	0x30
 	.space	2
 	.word	gShoalCave_LowTideStairsRoom_LandMonsInfo
 	.word	gShoalCave_LowTideStairsRoom_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10647,6 +10838,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x2f
 	.space	2
@@ -10655,6 +10847,7 @@ gWildMonHeaders:
 	.word	gShoalCave_LowTideInnerRoom_WaterMonsInfo
 	.word	0x0
 	.word	gShoalCave_LowTideInnerRoom_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x18
 	.byte	0x2e
@@ -10665,6 +10858,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gShoalCave_LowTideEntranceRoom_FishingMonsInfo
 	.word	gShoalCave_LowTideEntranceRoom_HiddenMonsInfo
+	.word	0x0
 	.byte	0x18
 	.byte	0x2e
 	.space	2
@@ -10674,6 +10868,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	gShoalCave_LowTideEntranceRoom1_HiddenMonsInfo
+	.word	0x0
 	.byte	0x0
 	.byte	0x5
 	.space	2
@@ -10682,6 +10877,7 @@ gWildMonHeaders:
 	.word	gLilycoveCity_WaterMonsInfo
 	.word	0x0
 	.word	gLilycoveCity_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0xb
@@ -10692,6 +10888,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gDewfordTown_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x1
 	.space	2
@@ -10700,6 +10897,7 @@ gWildMonHeaders:
 	.word	gSlateportCity_WaterMonsInfo
 	.word	0x0
 	.word	gSlateportCity_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x6
@@ -10710,6 +10908,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gMossdeepCity_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0xf
 	.space	2
@@ -10718,6 +10917,7 @@ gWildMonHeaders:
 	.word	gPacifidlogTown_WaterMonsInfo
 	.word	0x0
 	.word	gPacifidlogTown_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x8
@@ -10728,6 +10928,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gEverGrandeCity_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x0
 	.space	2
@@ -10736,6 +10937,7 @@ gWildMonHeaders:
 	.word	gPetalburgCity_WaterMonsInfo
 	.word	0x0
 	.word	gPetalburgCity_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x0
 	.byte	0x32
@@ -10746,11 +10948,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x53
 	.space	2
 	.word	gShoalCave_LowTideIceRoom_LandMonsInfo
 	.word	gShoalCave_LowTideIceRoom_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10764,20 +10968,23 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x7
 	.space	2
-	.word	gSootopolisCity_LandMonsInfo
-	.word	gSootopolisCity_LandMonsInfo
-	.word	gSootopolisCity_WaterMonsInfo
 	.word	0x0
-	.word	gSootopolisCity_FishingMonsInfo
+	.word	0x0
+	.word	gSootopolisCity0_WaterMonsInfo
+	.word	gSootopolisCity0_RockSmashMonsInfo
+	.word	gSootopolisCity0_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x18
 	.byte	0x51
 	.space	2
 	.word	gSkyPillar_3F_LandMonsInfo
 	.word	gSkyPillar_3F_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10791,6 +10998,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x1a
 	.byte	0xd
 	.space	2
@@ -10799,6 +11007,7 @@ gWildMonHeaders:
 	.word	gSafariZone_Southeast_WaterMonsInfo
 	.word	0x0
 	.word	gSafariZone_Southeast_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x1a
 	.byte	0xc
@@ -10809,11 +11018,13 @@ gWildMonHeaders:
 	.word	gSafariZone_Northeast_RockSmashMonsInfo
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x56
 	.space	2
 	.word	gMagmaHideout_1F_LandMonsInfo
 	.word	gMagmaHideout_1F_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10827,11 +11038,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x58
 	.space	2
 	.word	gMagmaHideout_2F_2R_LandMonsInfo
 	.word	gMagmaHideout_2F_2R_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10845,11 +11058,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x5a
 	.space	2
 	.word	gMagmaHideout_3F_2R_LandMonsInfo
 	.word	gMagmaHideout_3F_2R_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10863,11 +11078,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x5c
 	.space	2
 	.word	gMagmaHideout_3F_3R_LandMonsInfo
 	.word	gMagmaHideout_3F_3R_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10881,11 +11098,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x5e
 	.space	2
 	.word	gMirageTower_1F_LandMonsInfo
 	.word	gMirageTower_1F_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10899,11 +11118,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x60
 	.space	2
 	.word	gMirageTower_3F_LandMonsInfo
 	.word	gMirageTower_3F_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10917,11 +11138,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x62
 	.space	2
 	.word	gDesertUnderpass_LandMonsInfo
 	.word	gDesertUnderpass_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10935,6 +11158,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x49
 	.space	2
@@ -10943,6 +11167,7 @@ gWildMonHeaders:
 	.word	gScorchedSlab_WaterMonsInfo
 	.word	0x0
 	.word	gScorchedSlab_FishingMonsInfo
+	.word	0x0
 	.word	0x0
 	.byte	0x18
 	.byte	0x6c
@@ -10953,11 +11178,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	gScorchedSlab_B1F_FishingMonsInfo
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x6d
 	.space	2
 	.word	gScorchedSlab_B2F_LandMonsInfo
 	.word	gScorchedSlab_B2F_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10971,6 +11198,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x64
 	.space	2
@@ -10980,11 +11208,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x6a
 	.space	2
 	.word	gAlteringCave1_LandMonsInfo
 	.word	gAlteringCave1_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -10998,11 +11228,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x6a
 	.space	2
 	.word	gAlteringCave3_LandMonsInfo
 	.word	gAlteringCave3_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -11016,11 +11248,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x6a
 	.space	2
 	.word	gAlteringCave5_LandMonsInfo
 	.word	gAlteringCave5_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -11034,11 +11268,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x6a
 	.space	2
 	.word	gAlteringCave7_LandMonsInfo
 	.word	gAlteringCave7_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -11052,11 +11288,13 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x18
 	.byte	0x6a
 	.space	2
 	.word	gAlteringCave9_LandMonsInfo
 	.word	gAlteringCave9_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -11070,14 +11308,6 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
-	.byte	0x0
-	.byte	0x9
-	.space	2
-	.word	gLittlerootTown0_LandMonsInfo
-	.word	gLittlerootTown0_LandMonsInfo
-	.word	0x0
-	.word	0x0
-	.word	0x0
 	.word	0x0
 	.byte	0xff
 	.byte	0xff
@@ -11088,7 +11318,8 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
-	.size	 gWildMonHeaders,3724
+	.word	0x0
+	.size	 gWildMonHeaders,4224
 	.globl	gBattlePyramid_1_LandMons
 	.align	2, 0
 	.type	 gBattlePyramid_1_LandMons,object
@@ -11445,11 +11676,13 @@ gBattlePyramidWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x2
 	.space	2
 	.word	gBattlePyramid_2_LandMonsInfo
 	.word	gBattlePyramid_2_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -11463,11 +11696,13 @@ gBattlePyramidWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x4
 	.space	2
 	.word	gBattlePyramid_4_LandMonsInfo
 	.word	gBattlePyramid_4_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -11481,11 +11716,13 @@ gBattlePyramidWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x6
 	.space	2
 	.word	gBattlePyramid_6_LandMonsInfo
 	.word	gBattlePyramid_6_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -11499,6 +11736,7 @@ gBattlePyramidWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0xff
 	.byte	0xff
 	.space	2
@@ -11508,7 +11746,8 @@ gBattlePyramidWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
-	.size	 gBattlePyramidWildMonHeaders,224
+	.word	0x0
+	.size	 gBattlePyramidWildMonHeaders,256
 	.globl	gBattlePike_1_LandMons
 	.align	2, 0
 	.type	 gBattlePike_1_LandMons,object
@@ -11718,11 +11957,13 @@ gBattlePikeWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x2
 	.space	2
 	.word	gBattlePike_2_LandMonsInfo
 	.word	gBattlePike_2_LandMonsInfo
+	.word	0x0
 	.word	0x0
 	.word	0x0
 	.word	0x0
@@ -11736,6 +11977,7 @@ gBattlePikeWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0x0
 	.byte	0x4
 	.space	2
@@ -11745,6 +11987,7 @@ gBattlePikeWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.word	0x0
 	.byte	0xff
 	.byte	0xff
 	.space	2
@@ -11754,7 +11997,8 @@ gBattlePikeWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
-	.size	 gBattlePikeWildMonHeaders,140
+	.word	0x0
+	.size	 gBattlePikeWildMonHeaders,160
 	.globl	gWildFeebasRoute119Data
 	.align	2, 0
 	.type	 gWildFeebasRoute119Data,object
@@ -12235,9 +12479,7 @@ GetCurrentMapWildMonHeaderId:
 	beq	.L94	@cond_branch
 	ldr	r6, .L102+0x4
 .L96:
-	lsl	r0, r4, #0x3
-	sub	r0, r0, r4
-	lsl	r0, r0, #0x2
+	lsl	r0, r4, #0x5
 	add	r3, r0, r5
 	ldrb	r1, [r3]
 	ldr	r0, .L102+0x8
@@ -12279,9 +12521,7 @@ GetCurrentMapWildMonHeaderId:
 	add	r0, r4, #0x1
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
-	lsl	r0, r4, #0x3
-	sub	r0, r0, r4
-	lsl	r0, r0, #0x2
+	lsl	r0, r4, #0x5
 	add	r0, r0, r5
 	ldrb	r0, [r0]
 	cmp	r0, #0xff
@@ -12586,9 +12826,9 @@ TryGenerateWildMon:
 	cmp	r5, #0x2
 	beq	.L171	@cond_branch
 	cmp	r5, #0x3
-	bne	.LCB1026
+	bne	.LCB1022
 	b	.L178	@long jump
-.LCB1026:
+.LCB1022:
 	b	.L156
 .L157:
 	ldr	r0, [r4, #0x4]
@@ -12598,9 +12838,9 @@ TryGenerateWildMon:
 	bl	TryGetAbilityInfluencedWildMonIndex
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB1042
+	beq	.LCB1038
 	b	.L156	@long jump
-.LCB1042:
+.LCB1038:
 	ldr	r0, [r4, #0x4]
 	mov	r1, #0xd
 	mov	r2, #0x9
@@ -12608,9 +12848,9 @@ TryGenerateWildMon:
 	bl	TryGetAbilityInfluencedWildMonIndex
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB1053
+	beq	.LCB1049
 	b	.L156	@long jump
-.LCB1053:
+.LCB1049:
 	ldr	r0, [r4, #0x4]
 	mov	r1, #0xd
 	mov	r2, #0x1f
@@ -12618,9 +12858,9 @@ TryGenerateWildMon:
 	bl	TryGetAbilityInfluencedWildMonIndex
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB1064
+	beq	.LCB1060
 	b	.L156	@long jump
-.LCB1064:
+.LCB1060:
 	ldr	r0, [r4, #0x4]
 	mov	r1, #0xa
 	mov	r2, #0x12
@@ -12628,9 +12868,9 @@ TryGenerateWildMon:
 	bl	TryGetAbilityInfluencedWildMonIndex
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.LCB1075
+	beq	.LCB1071
 	b	.L156	@long jump
-.LCB1075:
+.LCB1071:
 	ldr	r0, [r4, #0x4]
 	mov	r1, #0xc
 	mov	r2, #0x8b
@@ -13223,9 +13463,9 @@ StandardWildEncounter:
 	ldr	r0, .L315
 	ldrb	r0, [r0]
 	cmp	r0, #0x1
-	bne	.LCB1866
+	bne	.LCB1862
 	b	.L270	@long jump
-.LCB1866:
+.LCB1862:
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
@@ -13246,16 +13486,14 @@ StandardWildEncounter:
 	bl	DoGlobalWildEncounterDiceRoll
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB1899
+	bne	.LCB1895
 	b	.L270	@long jump
-.LCB1899:
+.LCB1895:
 .L257:
-	ldr	r1, .L315+0xc
-	lsl	r0, r4, #0x3
-	sub	r0, r0, r4
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0x4
-	add	r4, r0, r1
+	ldr	r0, .L315+0xc
+	lsl	r1, r4, #0x5
+	add	r0, r0, #0x4
+	add	r4, r1, r0
 	ldr	r0, [r4]
 	ldrb	r0, [r0]
 	mov	r1, #0x0
@@ -13263,9 +13501,9 @@ StandardWildEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB1916
+	beq	.LCB1910
 	b	.L270	@long jump
-.LCB1916:
+.LCB1910:
 	ldr	r0, [r4]
 	mov	r1, #0x0
 	mov	r2, #0x2
@@ -13273,15 +13511,15 @@ StandardWildEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB1926
+	beq	.LCB1920
 	b	.L270	@long jump
-.LCB1926:
+.LCB1920:
 	mov	r0, #0x1
 	bl	TryGenerateBattlePikeWildMon
 	cmp	r0, #0
-	bne	.LCB1931
+	bne	.LCB1925
 	b	.L270	@long jump
-.LCB1931:
+.LCB1925:
 	bl	BattleSetup_StartBattlePikeWildBattle
 .L314:
 	mov	r0, #0x1
@@ -13296,9 +13534,9 @@ StandardWildEncounter:
 .L256:
 	ldr	r0, .L317
 	cmp	r1, r0
-	beq	.LCB1951
+	beq	.LCB1945
 	b	.L270	@long jump
-.LCB1951:
+.LCB1945:
 	ldr	r0, .L317+0x4
 	ldr	r0, [r0]
 	ldr	r1, .L317+0x8
@@ -13309,16 +13547,14 @@ StandardWildEncounter:
 	bl	DoGlobalWildEncounterDiceRoll
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB1966
+	bne	.LCB1960
 	b	.L270	@long jump
-.LCB1966:
+.LCB1960:
 .L265:
-	ldr	r1, .L317+0xc
-	lsl	r0, r4, #0x3
-	sub	r0, r0, r4
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0x4
-	add	r4, r0, r1
+	ldr	r0, .L317+0xc
+	lsl	r1, r4, #0x5
+	add	r0, r0, #0x4
+	add	r4, r1, r0
 	ldr	r0, [r4]
 	ldrb	r0, [r0]
 	mov	r1, #0x0
@@ -13326,9 +13562,9 @@ StandardWildEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB1983
+	beq	.LCB1975
 	b	.L270	@long jump
-.LCB1983:
+.LCB1975:
 	ldr	r0, [r4]
 	mov	r1, #0x0
 	mov	r2, #0x2
@@ -13336,9 +13572,9 @@ StandardWildEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB1993
+	beq	.LCB1985
 	b	.L270	@long jump
-.LCB1993:
+.LCB1985:
 	bl	GenerateBattlePyramidWildMon
 	b	.L308
 .L318:
@@ -13356,43 +13592,39 @@ StandardWildEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB2016
+	beq	.LCB2008
 	b	.L271	@long jump
-.LCB2016:
-	ldr	r3, .L319
-	lsl	r1, r4, #0x3
-	sub	r0, r1, r4
-	lsl	r2, r0, #0x2
-	add	r0, r3, #0x4
-	add	r0, r2, r0
-	ldr	r0, [r0]
-	add	r5, r1, #0
-	cmp	r0, #0
-	bne	.LCB2027
+.LCB2008:
+	ldr	r2, .L319
+	lsl	r0, r4, #0x5
+	add	r1, r2, #0x4
+	add	r1, r0, r1
+	ldr	r1, [r1]
+	add	r4, r0, #0
+	cmp	r1, #0
+	bne	.LCB2017
 	b	.L270	@long jump
-.LCB2027:
-	add	r0, r3, #0
+.LCB2017:
+	add	r0, r2, #0
 	add	r0, r0, #0x8
-	add	r0, r2, r0
+	add	r0, r4, r0
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.LCB2033
+	bne	.LCB2023
 	b	.L270	@long jump
-.LCB2033:
+.LCB2023:
 	cmp	r7, r6
 	beq	.L276	@cond_branch
 	bl	DoGlobalWildEncounterDiceRoll
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.LCB2041
+	bne	.LCB2031
 	b	.L270	@long jump
-.LCB2041:
+.LCB2031:
 .L276:
-	ldr	r1, .L319
-	sub	r0, r5, r4
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0x4
-	add	r0, r0, r1
+	ldr	r0, .L319
+	add	r0, r0, #0x4
+	add	r0, r4, r0
 	ldr	r0, [r0]
 	ldrb	r0, [r0]
 	mov	r1, #0x0
@@ -13400,16 +13632,16 @@ StandardWildEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB2058
+	beq	.LCB2046
 	b	.L270	@long jump
-.LCB2058:
+.LCB2046:
 	bl	TryStartRoamerEncounter
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.LCB2064
+	bne	.LCB2052
 	b	.L313	@long jump
-.LCB2064:
+.LCB2052:
 	bl	DoMassOutbreakEncounterTest
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -13433,11 +13665,9 @@ StandardWildEncounter:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L283	@cond_branch
-	ldr	r1, .L321
-	sub	r0, r5, r4
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0x4
-	add	r0, r0, r1
+	ldr	r0, .L321
+	add	r0, r0, #0x4
+	add	r0, r4, r0
 	ldr	r5, [r0]
 	add	r0, r5, #0
 	mov	r1, #0x0
@@ -13446,9 +13676,9 @@ StandardWildEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB2118
+	beq	.LCB2104
 	b	.L270	@long jump
-.LCB2118:
+.LCB2104:
 	bl	TryDoDoubleWildBattle
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
@@ -13478,11 +13708,9 @@ StandardWildEncounter:
 	bl	BattleSetup_StartWildBattle
 	b	.L314
 .L283:
-	ldr	r1, .L323
-	sub	r0, r5, r4
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0x8
-	add	r0, r0, r1
+	ldr	r0, .L323
+	add	r0, r0, #0x8
+	add	r0, r4, r0
 	ldr	r5, [r0]
 	add	r0, r5, #0
 	mov	r1, #0x1
@@ -13491,9 +13719,9 @@ StandardWildEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB2174
+	beq	.LCB2158
 	b	.L270	@long jump
-.LCB2174:
+.LCB2158:
 	bl	TryDoDoubleWildBattle
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
@@ -13546,14 +13774,12 @@ StandardWildEncounter:
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
 	beq	.L270	@cond_branch
-	ldr	r1, .L325
-	lsl	r2, r4, #0x3
-	sub	r0, r2, r4
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0xc
-	add	r0, r0, r1
+	ldr	r0, .L325
+	lsl	r1, r4, #0x5
+	add	r0, r0, #0xc
+	add	r0, r1, r0
 	ldr	r0, [r0]
-	add	r5, r2, #0
+	add	r4, r1, #0
 	cmp	r0, #0
 	beq	.L270	@cond_branch
 	cmp	r8, r9
@@ -13563,11 +13789,9 @@ StandardWildEncounter:
 	cmp	r0, #0
 	beq	.L270	@cond_branch
 .L298:
-	ldr	r1, .L325
-	sub	r0, r5, r4
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0xc
-	add	r4, r0, r1
+	ldr	r0, .L325
+	add	r0, r0, #0xc
+	add	r4, r4, r0
 	ldr	r0, [r4]
 	ldrb	r0, [r0]
 	mov	r1, #0x0
@@ -13660,17 +13884,15 @@ RockSmashWildEncounter:
 	push	{r4, lr}
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x10
-	lsr	r2, r0, #0x10
+	lsr	r1, r0, #0x10
 	ldr	r0, .L337
-	cmp	r2, r0
+	cmp	r1, r0
 	beq	.L330	@cond_branch
-	ldr	r1, .L337+0x4
-	lsl	r0, r2, #0x3
-	sub	r0, r0, r2
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0x10
-	add	r0, r0, r1
-	ldr	r4, [r0]
+	ldr	r0, .L337+0x4
+	lsl	r1, r1, #0x5
+	add	r0, r0, #0x10
+	add	r1, r1, r0
+	ldr	r4, [r1]
 	cmp	r4, #0
 	beq	.L336	@cond_branch
 	ldrb	r0, [r4]
@@ -13722,17 +13944,15 @@ CutWildEncounter:
 	push	{r4, lr}
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x10
-	lsr	r2, r0, #0x10
+	lsr	r1, r0, #0x10
 	ldr	r0, .L349
-	cmp	r2, r0
+	cmp	r1, r0
 	beq	.L342	@cond_branch
-	ldr	r1, .L349+0x4
-	lsl	r0, r2, #0x3
-	sub	r0, r0, r2
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0x4
-	add	r0, r0, r1
-	ldr	r4, [r0]
+	ldr	r0, .L349+0x4
+	lsl	r1, r1, #0x5
+	add	r0, r0, #0x1c
+	add	r1, r1, r0
+	ldr	r4, [r1]
 	cmp	r4, #0
 	beq	.L348	@cond_branch
 	bl	Random
@@ -13851,16 +14071,16 @@ TryStoreCutItem:
 SweetScentWildEncounter:
 	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x4
-	mov	r5, sp
-	add	r5, r5, #0x2
+	mov	r4, sp
+	add	r4, r4, #0x2
 	mov	r0, sp
-	add	r1, r5, #0
+	add	r1, r4, #0
 	bl	PlayerGetDestCoords
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x10
-	lsr	r4, r0, #0x10
+	lsr	r5, r0, #0x10
 	ldr	r0, .L384
-	cmp	r4, r0
+	cmp	r5, r0
 	bne	.L362	@cond_branch
 	ldr	r0, .L384+0x4
 	ldrh	r1, [r0, #0x12]
@@ -13870,11 +14090,8 @@ SweetScentWildEncounter:
 	bne	.L363	@cond_branch
 	bl	GetBattlePikeWildMonHeaderId
 	lsl	r0, r0, #0x18
-	lsr	r4, r0, #0x18
 	ldr	r1, .L384+0x8
-	lsl	r0, r4, #0x3
-	sub	r0, r0, r4
-	lsl	r0, r0, #0x2
+	lsr	r0, r0, #0x13
 	add	r1, r1, #0x4
 	add	r0, r0, r1
 	ldr	r0, [r0]
@@ -13884,9 +14101,9 @@ SweetScentWildEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.LCB2654
+	beq	.LCB2628
 	b	.L367	@long jump
-.LCB2654:
+.LCB2628:
 	mov	r0, #0x0
 	bl	TryGenerateBattlePikeWildMon
 	bl	BattleSetup_StartBattlePikeWildBattle
@@ -13901,21 +14118,19 @@ SweetScentWildEncounter:
 .L363:
 	ldr	r0, .L386
 	cmp	r1, r0
-	beq	.LCB2674
+	beq	.LCB2648
 	b	.L367	@long jump
-.LCB2674:
+.LCB2648:
 	ldr	r0, .L386+0x4
 	ldr	r0, [r0]
 	ldr	r1, .L386+0x8
 	add	r0, r0, r1
-	ldrh	r4, [r0]
-	ldr	r1, .L386+0xc
-	lsl	r0, r4, #0x3
-	sub	r0, r0, r4
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0x4
-	add	r0, r0, r1
-	ldr	r0, [r0]
+	ldrh	r5, [r0]
+	ldr	r0, .L386+0xc
+	lsl	r1, r5, #0x5
+	add	r0, r0, #0x4
+	add	r1, r1, r0
+	ldr	r0, [r1]
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	TryGenerateWildMon
@@ -13937,7 +14152,7 @@ SweetScentWildEncounter:
 	mov	r2, #0x0
 	ldrsh	r0, [r0, r2]
 	mov	r2, #0x0
-	ldrsh	r1, [r5, r2]
+	ldrsh	r1, [r4, r2]
 	bl	MapGridGetMetatileBehaviorAt
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -13947,9 +14162,7 @@ SweetScentWildEncounter:
 	cmp	r0, #0x1
 	bne	.L368	@cond_branch
 	ldr	r6, .L388
-	lsl	r0, r4, #0x3
-	sub	r0, r0, r4
-	lsl	r5, r0, #0x2
+	lsl	r5, r5, #0x5
 	add	r0, r6, #0x4
 	add	r0, r5, r0
 	ldr	r4, [r0]
@@ -13994,7 +14207,7 @@ SweetScentWildEncounter:
 	mov	r1, #0x0
 	ldrsh	r0, [r0, r1]
 	mov	r2, #0x0
-	ldrsh	r1, [r5, r2]
+	ldrsh	r1, [r4, r2]
 	bl	MapGridGetMetatileBehaviorAt
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -14008,13 +14221,11 @@ SweetScentWildEncounter:
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
 	beq	.L367	@cond_branch
-	ldr	r1, .L390
-	lsl	r0, r4, #0x3
-	sub	r0, r0, r4
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0xc
-	add	r0, r0, r1
-	ldr	r4, [r0]
+	ldr	r0, .L390
+	lsl	r1, r5, #0x5
+	add	r0, r0, #0xc
+	add	r1, r1, r0
+	ldr	r4, [r1]
 	cmp	r4, #0
 	beq	.L367	@cond_branch
 	bl	TryStartRoamerEncounter
@@ -14057,14 +14268,12 @@ DoesCurrentMapHaveFishingMons:
 	push	{lr}
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x10
-	lsr	r2, r0, #0x10
+	lsr	r1, r0, #0x10
 	ldr	r0, .L396
-	cmp	r2, r0
+	cmp	r1, r0
 	beq	.L393	@cond_branch
 	ldr	r0, .L396+0x4
-	lsl	r1, r2, #0x3
-	sub	r1, r1, r2
-	lsl	r1, r1, #0x2
+	lsl	r1, r1, #0x5
 	add	r0, r0, #0x14
 	add	r1, r1, r0
 	ldr	r0, [r1]
@@ -14115,13 +14324,10 @@ FishingWildEncounter:
 	ldr	r4, .L403
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x10
-	lsr	r0, r0, #0x10
-	lsl	r1, r0, #0x3
-	sub	r1, r1, r0
-	lsl	r1, r1, #0x2
+	lsr	r0, r0, #0xb
 	add	r4, r4, #0x14
-	add	r1, r1, r4
-	ldr	r0, [r1]
+	add	r0, r0, r4
+	ldr	r0, [r0]
 	add	r1, r5, #0
 	bl	GenerateFishingWildMon
 	lsl	r0, r0, #0x10
@@ -14156,20 +14362,18 @@ GetLocalWildMon:
 	strb	r0, [r6]
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x10
-	lsr	r3, r0, #0x10
+	lsr	r2, r0, #0x10
 	ldr	r0, .L422
-	cmp	r3, r0
+	cmp	r2, r0
 	beq	.L417	@cond_branch
-	ldr	r2, .L422+0x4
-	lsl	r1, r3, #0x3
-	sub	r1, r1, r3
-	lsl	r1, r1, #0x2
-	add	r0, r2, #0x4
-	add	r0, r1, r0
-	ldr	r5, [r0]
-	add	r2, r2, #0xc
-	add	r1, r1, r2
-	ldr	r4, [r1]
+	ldr	r0, .L422+0x4
+	lsl	r2, r2, #0x5
+	add	r1, r0, #0x4
+	add	r1, r2, r1
+	ldr	r5, [r1]
+	add	r0, r0, #0xc
+	add	r2, r2, r0
+	ldr	r4, [r2]
 	cmp	r5, #0
 	bne	.L415	@cond_branch
 	cmp	r4, #0
@@ -14231,17 +14435,15 @@ GetLocalWaterMon:
 	push	{r4, lr}
 	bl	GetCurrentMapWildMonHeaderId
 	lsl	r0, r0, #0x10
-	lsr	r2, r0, #0x10
+	lsr	r1, r0, #0x10
 	ldr	r0, .L428
-	cmp	r2, r0
+	cmp	r1, r0
 	beq	.L425	@cond_branch
-	ldr	r1, .L428+0x4
-	lsl	r0, r2, #0x3
-	sub	r0, r0, r2
-	lsl	r0, r0, #0x2
-	add	r1, r1, #0xc
-	add	r0, r0, r1
-	ldr	r4, [r0]
+	ldr	r0, .L428+0x4
+	lsl	r1, r1, #0x5
+	add	r0, r0, #0xc
+	add	r1, r1, r0
+	ldr	r4, [r1]
 	cmp	r4, #0
 	beq	.L425	@cond_branch
 	bl	ChooseWildMonIndex_WaterRock
@@ -14794,6 +14996,38 @@ ChooseHiddenMonIndex:
 	bx	r1
 .Lfe37:
 	.size	 ChooseHiddenMonIndex,.Lfe37-ChooseHiddenMonIndex
+	.align	2, 0
+	.globl	ChooseHeadbuttMonIndex
+	.type	 ChooseHeadbuttMonIndex,function
+	.thumb_func
+ChooseHeadbuttMonIndex:
+	push	{lr}
+	bl	Random
+	lsl	r0, r0, #0x10
+	lsr	r0, r0, #0x10
+	mov	r1, #0x64
+	bl	__umodsi3
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x20
+	bhi	.L534	@cond_branch
+	mov	r0, #0x0
+	b	.L538
+.L534:
+	sub	r0, r0, #0x21
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x20
+	bls	.L536	@cond_branch
+	mov	r0, #0x2
+	b	.L538
+.L536:
+	mov	r0, #0x1
+.L538:
+	pop	{r1}
+	bx	r1
+.Lfe38:
+	.size	 ChooseHeadbuttMonIndex,.Lfe38-ChooseHeadbuttMonIndex
 .text
 	.align	2, 0
 

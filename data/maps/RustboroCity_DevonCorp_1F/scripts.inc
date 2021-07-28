@@ -52,10 +52,25 @@ RustboroCity_DevonCorp_1F_EventScript_GotRobbed:: @ 82112C4
 RustboroCity_DevonCorp_1F_EventScript_Greeter:: @ 82112CE
 	lock
 	faceplayer
-	goto_if_set FLAG_RETURNED_DEVON_GOODS, RustboroCity_DevonCorp_1F_EventScript_WelcomeToDevonCorp
-	goto_if_set FLAG_RECOVERED_DEVON_GOODS, RustboroCity_DevonCorp_1F_EventScript_StaffGotRobbed
-	goto_if_set FLAG_DEVON_GOODS_STOLEN, RustboroCity_DevonCorp_1F_EventScript_StaffGotRobbed
-	msgbox RustboroCity_DevonCorp_1F_Text_WelcomeToDevonCorp, MSGBOX_DEFAULT
+	message gText_HowMayIServeYou
+	waitmessage
+	pokemart RustboroCity_DevonCorp_1F_EventScript_Ballmart
+	msgbox gText_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+	
+RustboroCity_DevonCorp_1F_EventScript_Ballmart:
+	.2byte ITEM_POKE_BALL_SEAL
+	.2byte ITEM_GREAT_BALL_SEAL
+	.2byte ITEM_ULTRA_BALL_SEAL
+	.2byte ITEM_PREMIER_BALL_SEAL
+	.2byte ITEM_LUXURY_BALL_SEAL
+	.2byte ITEM_HEAL_BALL_SEAL
+	.2byte ITEM_TIMER_BALL_SEAL
+	.2byte ITEM_REPEAT_BALL_SEAL
+	.2byte ITEM_NET_BALL_SEAL
+	.2byte ITEM_DIVE_BALL_SEAL
+	.2byte ITEM_NONE
 	release
 	end
 

@@ -5,22 +5,19 @@ FallarborTown_MoveRelearnersHouse_MapScripts:: @ 8201382
 
 FallarborTown_MoveRelearnersHouse_EventScript_MoveRelearner:: @ 8201383
 	lockall
+	clearflag FLAG_UNUSED_0x055
 	applymovement LOCALID_MOVE_RELEARNER, Common_Movement_FacePlayer
-	waitmovement 0
-	goto_if_set FLAG_TEMP_1, FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove
-	msgbox FallarborTown_MoveRelearnersHouse_Text_ImTheMoveTutor, MSGBOX_DEFAULT
-	setflag FLAG_TEMP_1
-	goto FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ImTheMoveTutor, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove
+	setflag FLAG_UNUSED_0x055
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ThatsAHeartScaleWantMeToTeachMove, MSGBOX_DEFAULT	
+	releaseall
 	end
 
 FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove:: @ 82013A8
-	checkitem ITEM_HEART_SCALE, 1
-	compare VAR_RESULT, FALSE
-	goto_if_eq FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
-	msgbox FallarborTown_MoveRelearnersHouse_Text_ThatsAHeartScaleWantMeToTeachMove, MSGBOX_YESNO
-	switch VAR_RESULT
-	case NO, FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
-	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+	msgbox FallarborTown_MoveRelearnersHouse_Text_TutorWhichMon, MSGBOX_DEFAULT	
+	releaseall
 	end
 
 FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon:: @ 82013D6
@@ -64,23 +61,23 @@ FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale:: @ 8201452
 	end
 
 FallarborTown_MoveRelearnersHouse_Text_ImTheMoveTutor: @ 820145C
-	.string "I'm the Move Tutor.\p"
-	.string "I know all the moves that Pokémon\n"
-	.string "learn--every one of them--and I can\l"
-	.string "teach Pokémon those moves.\p"
-	.string "I can teach a move to a Pokémon\n"
-	.string "of yours if you'd like.\p"
-	.string "I'll do it for a Heart Scale.\n"
-	.string "I'm collecting those now.$"
+	.string "I'm the Emulator Changer.\p"
+	.string "Some people like to use outdated\n"
+	.string "emulators that can't handle all\l"
+	.string "the features used in this game.\p"
+	.string "Are you prehaps using Myboy!\n"
+	.string "emulator?\p"
+	.string "I can enable the Myboy! mode\n"
+	.string "that disables the Dexnav to\l"
+	.string "avoid crashes.p"
+	.string "How about it?$"
 
 FallarborTown_MoveRelearnersHouse_Text_ThatsAHeartScaleWantMeToTeachMove: @ 8201541
-	.string "Oh! That's it! That's an honest to\n"
-	.string "goodness Heart Scale!\p"
-	.string "Let me guess, you want me to teach\n"
-	.string "a move?$"
+	.string "You can talk to me again, if you\n"
+	.string "want to disable the Myboy mode!$"
 
 FallarborTown_MoveRelearnersHouse_Text_TutorWhichMon: @ 82015A5
-	.string "Which Pokémon needs tutoring?$"
+	.string "Talk to me if you change your mind$"
 
 FallarborTown_MoveRelearnersHouse_Text_TeachWhichMove: @ 82015C3
 	.string "Which move should I teach?$"

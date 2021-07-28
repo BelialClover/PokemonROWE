@@ -174,14 +174,14 @@ MoveTutor_Text_DynamicPunchTeach: @ 82C79A6
 	.string "I can't do this anymore!\p"
 	.string "It's utterly hopeless!\p"
 	.string "I'm a Fighting-type Trainer,\n"
-	.string "so I can't win at the Mossdeep Gym\l"
+	.string "so I can't win at the Battle Tent\l"
 	.string "no matter how hard I try!\p"
 	.string "Argh! Punch! Punch! Punch!\n"
 	.string "Punch! Punch! Punch!\p"
 	.string "What, don't look at me that way!\n"
 	.string "I'm only hitting the ground!\p"
 	.string "Or do you want me to teach your\n"
-	.string "Pokémon Dynamic Punch?, In\n"
+	.string "Pokémon Dynamic Punch?, In\l"
 	.string "Exchange of a Heart Scale$"
 
 MoveTutor_Text_DynamicPunchDeclined: @ 82C7AD4
@@ -193,7 +193,7 @@ MoveTutor_Text_DynamicPunchWhichMon: @ 82C7B0D
 	.string "Which Pokémon should I teach?$"
 
 MoveTutor_Text_DynamicPunchTaught: @ 82C7B4F
-	.string "I want you to win at the Mossdeep Gym\n"
+	.string "I want you to win at the Battle Tent\n"
 	.string "using that DynamicPunch!$"
 
 MoveTutor_Text_DoubleEdgeTeach: @ 82C7B8E

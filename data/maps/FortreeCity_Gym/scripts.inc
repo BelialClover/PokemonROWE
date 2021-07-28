@@ -44,6 +44,7 @@ FortreeCity_Gym_EventScript_WinonaDefeated:: @ 82165FD
 	setflag FLAG_ENABLE_WINONA_MATCH_CALL
 	setvar VAR_SCOTT_FORTREE_CALL_STEP_COUNTER, 0
 	setflag FLAG_SCOTT_CALL_FORTREE_GYM
+	call Gym_EventScript_Reset_Rematches
 	setflag FLAG_UNUSED_0x927
 	release
 	end
@@ -62,6 +63,7 @@ FortreeCity_Gym_EventScript_WinonaRematch:: @ 8204DB3
 	
 FortreeCity_Gym_EventScript_WinonaRematchEnd::
 	msgbox FortreeCity_Gym_Text_WinonaPostRematch, MSGBOX_AUTOCLOSE
+	call Gym_EventScript_Reset_Random_Rematch
 	setflag FLAG_UNUSED_0x927
 	end
 	

@@ -102,6 +102,52 @@ Start_Chose_Starter::
 	case 6, Script_Give_Starter7
 	case 7, Script_Give_Starter8
 	case 8, Script_Give_Starter9
+	case 9, Start_Chose_Starter_Surprise
+	end	
+	
+Start_Chose_Starter_Surprise::
+	random 10
+	switch VAR_RESULT
+	case 0, Script_Give_Starter1_Rnd
+	case 1, Script_Give_Starter2_Rnd
+	case 2, Script_Give_Starter3_Rnd
+	case 3, Script_Give_Starter4_Rnd
+	case 4, Script_Give_Starter5_Rnd
+	case 5, Script_Give_Starter6_Rnd
+	case 6, Script_Give_Starter7_Rnd
+	case 7, Script_Give_Starter8_Rnd
+	case 8, Script_Give_Starter9_Rnd
+	case 9, Start_Chose_Starter_Surprise_2
+	end	
+	
+Start_Chose_Starter_Surprise_2::
+	random 10
+	switch VAR_RESULT
+	case 0, Script_Give_Starter1_Rnd
+	case 1, Script_Give_Starter2_Rnd
+	case 2, Script_Give_Starter3_Rnd
+	case 3, Script_Give_Starter4_Rnd
+	case 4, Script_Give_Starter5_Rnd
+	case 5, Script_Give_Starter6_Rnd
+	case 6, Script_Give_Starter7_Rnd
+	case 7, Script_Give_Starter8_Rnd
+	case 8, Script_Give_Starter9_Rnd
+	case 9, Start_Chose_Starter_Surprise_3
+	end	
+	
+Start_Chose_Starter_Surprise_3::
+	random 10
+	switch VAR_RESULT
+	case 0, Script_Give_Starter1_Rnd
+	case 1, Script_Give_Starter2_Rnd
+	case 2, Script_Give_Starter3_Rnd
+	case 3, Script_Give_Starter4_Rnd
+	case 4, Script_Give_Starter5_Rnd
+	case 5, Script_Give_Starter6_Rnd
+	case 6, Script_Give_Starter7_Rnd
+	case 7, Script_Give_Starter8_Rnd
+	case 8, Script_Give_Starter9_Rnd
+	case 9, Script_Give_Starter10_Rnd
 	end	
 
 Start_Flagset::
@@ -198,6 +244,11 @@ Start_Flag_Randomized_Mode::
 Start_NPC_Change_Mode::
 	lock
 	faceplayer
+	clearflag FLAG_TEMP_1
+	clearflag FLAG_UNUSED_0x1DA
+	clearflag FLAG_UNUSED_0x2A2 
+	clearflag FLAG_UNUSED_0x068
+	clearflag FLAG_UNUSED_0x1AB
 	msgbox Text_Mode_Changer, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_NPC_Normal_Mode
@@ -205,9 +256,6 @@ Start_NPC_Change_Mode::
 	end
 	
 Start_Chose_Randomized_Mode::
-	clearflag FLAG_TEMP_1
-	clearflag FLAG_UNUSED_0x1DA
-	clearflag FLAG_UNUSED_0x2A2 
 	msgbox Text_Randomize, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_Inverse_Mode
@@ -227,8 +275,24 @@ Start_Chose_Inverse_Mode::
 Start_Chose_Double_Mode::
 	msgbox Text_Double, MSGBOX_YESNO
 	compare VAR_RESULT, NO
-	goto_if_eq Start_NPC_Normal_Mode
+	goto_if_eq Start_Chose_Perfect_Ivs_Mode
 	setflag FLAG_UNUSED_0x2A2 
+	goto Start_Chose_Perfect_Ivs_Mode
+	end
+	
+Start_Chose_Perfect_Ivs_Mode::
+	msgbox Text_Perfect_Ivs, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq Start_Chose_No_Evs_Mode
+	setflag FLAG_UNUSED_0x068
+	goto Start_Chose_No_Evs_Mode
+	end
+	
+Start_Chose_No_Evs_Mode::
+	msgbox Text_No_Evs, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq Start_NPC_Normal_Mode
+	setflag FLAG_UNUSED_0x1AB
 	goto Start_NPC_Normal_Mode
 	end
 	
@@ -256,6 +320,27 @@ Start_Chose_City::
 	case 12, Start_City_Mossdeep_City
 	case 13, Start_City_Sootopolis_City
 	case 14, Start_City_Pacifidlog_Town
+	case 15, Start_Chose_City_Surprise
+	end	
+	
+Start_Chose_City_Surprise::
+	random 14
+	switch VAR_RESULT
+	case 0, Start_City_Littleroot_Town_Rnd
+	case 1, Start_City_Oldale_Town_Rnd
+	case 2, Start_City_Petalburg_City_Rnd
+	case 3, Start_City_Rustboro_City_Rnd
+	case 4, Start_City_Dewford_Town_Rnd
+	case 5, Start_City_Slateport_City_Rnd
+	case 6, Start_City_Mauville_City_Rnd
+	case 7, Start_City_Verdanturf_Town_Rnd
+	case 8, Start_City_Fallarbor_Town_Rnd
+	case 9, Start_City_Lavaridge_Town_Rnd
+	case 10, Start_City_Fortree_City_Rnd
+	case 11, Start_City_Lilycove_City_Rnd
+	case 12, Start_City_Mossdeep_City_Rnd
+	case 13, Start_City_Sootopolis_City_Rnd
+	case 14, Start_City_Pacifidlog_Town_Rnd
 	end	
 	
 Script_PokeballGet::
@@ -286,6 +371,11 @@ Start_City_Littleroot_Town::
 	warp MAP_LITTLEROOT_TOWN, 255, 3, 10
 	end
 	
+Start_City_Littleroot_Town_Rnd::
+	setrespawn HEAL_LOCATION_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F
+	warp MAP_LITTLEROOT_TOWN, 255, 3, 10
+	end
+	
 Text_Start_Littleroot_Town::
 	.string "Do you want to start on\n"
 	.string "Littleroot Town?$"
@@ -299,6 +389,11 @@ Start_City_Oldale_Town::
 	warp MAP_OLDALE_TOWN, 255, 6, 17
 	end
 	
+Start_City_Oldale_Town_Rnd::
+	setrespawn HEAL_LOCATION_OLDALE_TOWN
+	warp MAP_LITTLEROOT_TOWN, 255, 3, 10
+	end
+	
 Text_Start_Oldale_Town::
 	.string "Do you want to start on\n"
 	.string "Oldale Town?$"
@@ -308,6 +403,11 @@ Start_City_Petalburg_City::
 	msgbox Text_Start_Petalburg_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_PETALBURG_CITY
+	warp MAP_PETALBURG_CITY, 255, 20, 17
+	end
+	
+Start_City_Petalburg_City_Rnd::
 	setrespawn HEAL_LOCATION_PETALBURG_CITY
 	warp MAP_PETALBURG_CITY, 255, 20, 17
 	end
@@ -325,6 +425,11 @@ Start_City_Rustboro_City::
 	warp MAP_RUSTBORO_CITY, 255, 16, 39
 	end
 	
+Start_City_Rustboro_City_Rnd::
+	setrespawn HEAL_LOCATION_RUSTBORO_CITY
+	warp MAP_RUSTBORO_CITY, 255, 16, 39
+	end
+	
 Text_Start_Rustboro_City::
 	.string "Do you want to start on\n"
 	.string "Rustboro City?$"
@@ -334,6 +439,11 @@ Start_City_Dewford_Town::
 	msgbox Text_Start_Dewford_Town, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_DEWFORD_TOWN
+	warp MAP_DEWFORD_TOWN, 255, 2, 11
+	end
+	
+Start_City_Dewford_Town_Rnd::
 	setrespawn HEAL_LOCATION_DEWFORD_TOWN
 	warp MAP_DEWFORD_TOWN, 255, 2, 11
 	end
@@ -351,6 +461,11 @@ Start_City_Slateport_City::
 	warp MAP_SLATEPORT_CITY, 255, 19, 20
 	end
 	
+Start_City_Slateport_City_Rnd::
+	setrespawn HEAL_LOCATION_SLATEPORT_CITY
+	warp MAP_SLATEPORT_CITY, 255, 19, 20
+	end
+	
 Text_Start_Slateport_City::
 	.string "Do you want to start on\n"
 	.string "Slateport City?$"
@@ -360,6 +475,11 @@ Start_City_Mauville_City::
 	msgbox Text_Start_Mauville_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_MAUVILLE_CITY
+	warp MAP_MAUVILLE_CITY, 255, 22, 6
+	end
+	
+Start_City_Mauville_City_Rnd::
 	setrespawn HEAL_LOCATION_MAUVILLE_CITY
 	warp MAP_MAUVILLE_CITY, 255, 22, 6
 	end
@@ -377,6 +497,11 @@ Start_City_Verdanturf_Town::
 	warp MAP_VERDANTURF_TOWN, 255, 16, 4
 	end
 	
+Start_City_Verdanturf_Town_Rnd::
+	setrespawn HEAL_LOCATION_VERDANTURF_TOWN
+	warp MAP_VERDANTURF_TOWN, 255, 16, 4
+	end
+	
 Text_Start_Verdanturf_Town::
 	.string "Do you want to start on\n"
 	.string "Verdanturf Town?$"
@@ -386,6 +511,11 @@ Start_City_Fallarbor_Town::
 	msgbox Text_Start_Fallarbor_Town, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_FALLARBOR_TOWN
+	warp MAP_FALLARBOR_TOWN, 255, 14, 8
+	end
+	
+Start_City_Fallarbor_Town_Rnd::
 	setrespawn HEAL_LOCATION_FALLARBOR_TOWN
 	warp MAP_FALLARBOR_TOWN, 255, 14, 8
 	end
@@ -403,6 +533,11 @@ Start_City_Lavaridge_Town::
 	warp MAP_LAVARIDGE_TOWN, 255, 9, 7
 	end
 	
+Start_City_Lavaridge_Town_Rnd::
+	setrespawn HEAL_LOCATION_LAVARIDGE_TOWN
+	warp MAP_LAVARIDGE_TOWN, 255, 9, 7
+	end
+	
 Text_Start_Lavaridge_Town::
 	.string "Do you want to start on\n"
 	.string "Lavaridge Town?$"
@@ -412,6 +547,11 @@ Start_City_Fortree_City::
 	msgbox Text_Start_Fortree_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_FORTREE_CITY
+	warp MAP_FORTREE_CITY, 255, 5, 7
+	end
+	
+Start_City_Fortree_City_Rnd::
 	setrespawn HEAL_LOCATION_FORTREE_CITY
 	warp MAP_FORTREE_CITY, 255, 5, 7
 	end
@@ -429,6 +569,11 @@ Start_City_Lilycove_City::
 	warp MAP_LILYCOVE_CITY, 255, 24, 15
 	end
 	
+Start_City_Lilycove_City_Rnd::
+	setrespawn HEAL_LOCATION_LILYCOVE_CITY
+	warp MAP_LILYCOVE_CITY, 255, 24, 15
+	end
+	
 Text_Start_Lilycove_City::
 	.string "Do you want to start on\n"
 	.string "Lilycove City?$"
@@ -438,6 +583,11 @@ Start_City_Mossdeep_City::
 	msgbox Text_Start_Mossdeep_City, MSGBOX_YESNO
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_City
+	setrespawn HEAL_LOCATION_MOSSDEEP_CITY
+	warp MAP_MOSSDEEP_CITY, 255, 28, 17
+	end
+	
+Start_City_Mossdeep_City_Rnd::
 	setrespawn HEAL_LOCATION_MOSSDEEP_CITY
 	warp MAP_MOSSDEEP_CITY, 255, 28, 17
 	end
@@ -455,6 +605,11 @@ Start_City_Sootopolis_City::
 	warp MAP_SOOTOPOLIS_CITY, 255, 43, 32
 	end
 	
+Start_City_Sootopolis_City_Rnd::
+	setrespawn HEAL_LOCATION_SOOTOPOLIS_CITY
+	warp MAP_SOOTOPOLIS_CITY, 255, 43, 32
+	end
+	
 Text_Start_Sootopolis_City::
 	.string "Do you want to start on\n"
 	.string "Sootopolis City?$"
@@ -468,26 +623,33 @@ Start_City_Pacifidlog_Town::
 	warp MAP_PACIFIDLOG_TOWN, 255, 8, 16
 	end
 	
+Start_City_Pacifidlog_Town_Rnd::
+	setrespawn HEAL_LOCATION_PACIFIDLOG_TOWN
+	warp MAP_PACIFIDLOG_TOWN, 255, 8, 16
+	end
+	
 Text_Start_Pacifidlog_Town::
 	.string "Do you want to start on\n"
 	.string "Pacifidlog Town?$"
 	
 //Starters
-
 Start_Text_Starter_Chose:
-	.string "Oh, Welcome to Pokemon ROWE 1.2.1\p"
-	.string "I would like to tell you that MyBoy\n"
-	.string "and VBA are not supported, make sure\p"
-	.string "you are using a different emulator.\p"
+	.string "Oh, Welcome to Pokemon ROWE 1.3.3\p"
+	.string "I recommend you to read all the\n"
+	.string "documents that come with the game.\p"
 	.string "Now, lets start with some questions.$"
+	
+Start_Text_Emulator_Text:
+	.string "Are you using a supported\n"
+	.string "emulator to play this game?$"
 
 Start_Text_Starter_Text:
 	.string "What Pokemon would you like\n"
-	.string "as your starter Pokemon?.$"
+	.string "as your starter Pokemon?$"
 
 Start_Text_City_Chose:
 	.string "What city would you like\n"
-	.string "to start in?.$"
+	.string "to start in.$"
 	
 Text_Start_Pokeballs::
 	.string "Take these items too.$"
@@ -517,10 +679,21 @@ Script_Give_Starter1::
 	waitfanfare
 	release
 	end
+	
+Script_Give_Starter1_Rnd::
+	lock
+	faceplayer
+	givecustommon SPECIES_MEOWTH, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_JOLLY, 1, 0, 0, 0, 0, 0, 0, 15, 31, 15, 31, 15, 15, MOVE_FAKE_OUT, MOVE_SCRATCH, MOVE_HONE_CLAWS, MOVE_HYPNOSIS
+	msgbox Text_Received_Starter1, MSGBOX_DEFAULT
+	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
+	waitfanfare
+	release
+	end
 
 Text_Take_Starter1:
 	.string "Do you want the Scratch Cat Pokemon\n"
-	.string "Meowth?.$"
+	.string "Meowth?$"
 
 Text_Received_Starter1:
 	.string "{PLAYER} received a Meowth!$"
@@ -534,6 +707,18 @@ Script_Give_Starter2:
 	hidemonpic
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_Starter
+	givecustommon SPECIES_SLUGMA, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_MODEST, 1, 0, 0, 0, 0, 0, 0, 15, 15, 15, 31, 31, 15, MOVE_YAWN, MOVE_SMOG, MOVE_EMBER, MOVE_EARTH_POWER
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox Text_Received_Starter2, MSGBOX_DEFAULT
+	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
+	waitfanfare
+	release
+	end
+	
+Script_Give_Starter2_Rnd::
+	lock
+	faceplayer
 	givecustommon SPECIES_SLUGMA, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_MODEST, 1, 0, 0, 0, 0, 0, 0, 15, 15, 15, 31, 31, 15, MOVE_YAWN, MOVE_SMOG, MOVE_EMBER, MOVE_EARTH_POWER
 	playfanfare MUS_OBTAIN_ITEM
 	msgbox Text_Received_Starter2, MSGBOX_DEFAULT
@@ -567,6 +752,18 @@ Script_Give_Starter3::
 	waitfanfare
 	release
 	end
+	
+Script_Give_Starter3_Rnd::
+	lock
+	faceplayer
+	givecustommon SPECIES_BARBOACH, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_JOLLY, 1, 0, 0, 0, 0, 0, 0, 15, 31, 15, 31, 15, 15, MOVE_MUD_SLAP, MOVE_WATER_GUN, MOVE_MUD_SPORT, MOVE_DRAGON_DANCE
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox Text_Received_Starter3, MSGBOX_DEFAULT
+	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
+	waitfanfare
+	release
+	end
 
 Text_Take_Starter3:
 	.string "Do you want the Whiskers Pokemon\n"
@@ -584,6 +781,18 @@ Script_Give_Starter4::
 	hidemonpic
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_Starter
+	givecustommon SPECIES_KRICKETOT, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_JOLLY, 1, 0, 0, 0, 0, 0, 0, 15, 31, 15, 31, 15, 15, MOVE_STRUGGLE_BUG, MOVE_GROWL, MOVE_BUG_BITE, MOVE_UPROAR
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox Text_Received_Starter4, MSGBOX_DEFAULT
+	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
+	waitfanfare
+	release
+	end
+	
+Script_Give_Starter4_Rnd::
+	lock
+	faceplayer
 	givecustommon SPECIES_KRICKETOT, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_JOLLY, 1, 0, 0, 0, 0, 0, 0, 15, 31, 15, 31, 15, 15, MOVE_STRUGGLE_BUG, MOVE_GROWL, MOVE_BUG_BITE, MOVE_UPROAR
 	playfanfare MUS_OBTAIN_ITEM
 	msgbox Text_Received_Starter4, MSGBOX_DEFAULT
@@ -617,6 +826,18 @@ Script_Give_Starter5::
 	waitfanfare
 	release
 	end
+	
+Script_Give_Starter5_Rnd::
+	lock
+	faceplayer
+	givecustommon SPECIES_CUBCHOO, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_JOLLY, 1, 0, 0, 0, 0, 0, 0, 15, 31, 15, 31, 15, 15, MOVE_POWDER_SNOW, MOVE_GROWL, MOVE_ENDURE, MOVE_NIGHT_SLASH
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox Text_Received_Starter5, MSGBOX_DEFAULT
+	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
+	waitfanfare
+	release
+	end
 
 Text_Take_Starter5:
 	.string "Do you want the Chill Pokemon\n"
@@ -634,6 +855,18 @@ Script_Give_Starter6::
 	hidemonpic
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_Starter
+	givecustommon SPECIES_SKIDDO, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_ADAMANT, 1, 0, 0, 0, 0, 0, 0, 31, 31, 15, 15, 15, 15, MOVE_TACKLE, MOVE_GROWL, MOVE_VINE_WHIP, MOVE_MILK_DRINK
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox Text_Received_Starter6, MSGBOX_DEFAULT
+	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
+	waitfanfare
+	release
+	end
+	
+Script_Give_Starter6_Rnd::
+	lock
+	faceplayer
 	givecustommon SPECIES_SKIDDO, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_ADAMANT, 1, 0, 0, 0, 0, 0, 0, 31, 31, 15, 15, 15, 15, MOVE_TACKLE, MOVE_GROWL, MOVE_VINE_WHIP, MOVE_MILK_DRINK
 	playfanfare MUS_OBTAIN_ITEM
 	msgbox Text_Received_Starter6, MSGBOX_DEFAULT
@@ -667,6 +900,18 @@ Script_Give_Starter7::
 	waitfanfare
 	release
 	end
+	
+Script_Give_Starter7_Rnd::
+	lock
+	faceplayer
+	givecustommon SPECIES_SANDYGAST, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_MODEST, 1, 0, 0, 0, 0, 0, 0, 15, 15, 15, 15, 31, 31, MOVE_HARDEN, MOVE_ABSORB, MOVE_ASTONISH, MOVE_ANCIENT_POWER
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox Text_Received_Starter7, MSGBOX_DEFAULT
+	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
+	waitfanfare
+	release
+	end
 
 Text_Take_Starter7:
 	.string "Do you want the Sand Heap Pokemon\n"
@@ -684,6 +929,18 @@ Script_Give_Starter8::
 	hidemonpic
 	compare VAR_RESULT, NO
 	goto_if_eq Start_Chose_Starter
+	givecustommon SPECIES_CUFANT, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_ADAMANT, 1, 0, 0, 0, 0, 0, 0, 31, 31, 15, 15, 15, 15, MOVE_POUND, MOVE_GROWL, MOVE_ROLLOUT, MOVE_CURSE
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox Text_Received_Starter8, MSGBOX_DEFAULT
+	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
+	waitfanfare
+	release
+	end
+	
+Script_Give_Starter8_Rnd::
+	lock
+	faceplayer
 	givecustommon SPECIES_CUFANT, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_ADAMANT, 1, 0, 0, 0, 0, 0, 0, 31, 31, 15, 15, 15, 15, MOVE_POUND, MOVE_GROWL, MOVE_ROLLOUT, MOVE_CURSE
 	playfanfare MUS_OBTAIN_ITEM
 	msgbox Text_Received_Starter8, MSGBOX_DEFAULT
@@ -717,6 +974,18 @@ Script_Give_Starter9::
 	waitfanfare
 	release
 	end
+	
+Script_Give_Starter9_Rnd::
+	lock
+	faceplayer
+	givecustommon SPECIES_SMEARGLE, 10, ITEM_NONE, ITEM_POKE_BALL, NATURE_JOLLY, 1, 0, 0, 0, 0, 0, 0, 15, 31, 15, 31, 15, 15, MOVE_SKETCH, MOVE_POUND, MOVE_BITE, MOVE_CELEBRATE
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox Text_Received_Starter9, MSGBOX_DEFAULT
+	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
+	waitfanfare
+	release
+	end
 
 Text_Take_Starter9:
 	.string "Do you want the Painter Pokemon\n"
@@ -725,13 +994,28 @@ Text_Take_Starter9:
 Text_Received_Starter9:
 	.string "{PLAYER} received a Smeargle!$"
 	
+Script_Give_Starter10_Rnd::
+	lock
+	faceplayer
+	givecustommon SPECIES_MAGIKARP, 10, ITEM_POTION, ITEM_CHERISH_BALL, NATURE_MODEST, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, MOVE_SPLASH, MOVE_TACKLE, MOVE_CELEBRATE, MOVE_NONE
+	playfanfare MUS_OBTAIN_ITEM
+	msgbox Text_Received_Starter10, MSGBOX_DEFAULT
+	setflag FLAG_SYS_POKEMON_GET
+	call InsideOfTruck_EventScript_SetIntroFlags
+	waitfanfare
+	release
+	end
+	
+Text_Received_Starter10:
+	.string "{PLAYER} received a Magikarp!$"
+	
 Text_SetClock:
 	.string "Please set up the clock\n"
 	.string "before starting.$"
 	
 Text_Mode_Changer:
 	.string "Im the mode changer, do you\n"
-	.string "want to change the game modes?.$"	
+	.string "want to change the game modes?$"	
 	
 Text_Randomize:
 	.string "Do you want to enable\n"
@@ -744,6 +1028,14 @@ Text_Inverse:
 Text_Double:
 	.string "Do you want to enable\n"
 	.string "the Double Battle Mode?$"
+	
+Text_Perfect_Ivs:
+	.string "Do you want to enable\n"
+	.string "the Perfect Ivs Mode?$"
+	
+Text_No_Evs:
+	.string "Do you want to enable\n"
+	.string "the No Evs Mode?$"
 	
 Text_Normal_Mode:
 	.string "If you made any mistake\n"

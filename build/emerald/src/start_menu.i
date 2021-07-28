@@ -1,6 +1,6 @@
-# 1 "src/start_menu.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/start_menu.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/start_menu.c"
 # 1 "include/global.h" 1
 
@@ -706,7 +706,8 @@ struct SaveBlock2
              u16 optionsTransitionSpeed:2;
              u16 optionsUnitSystem:1;
              struct Pokedex pokedex;
-             u8 filler_90[0x7];
+             u16 lastUsedBall;
+             u8 filler_90[0x6];
              struct Time localTimeOffset;
              struct Time lastBerryTreeUpdate;
              u32 gcnLinkFlags;
@@ -720,7 +721,7 @@ struct SaveBlock2
               struct RankingHall2P hallRecords2P[2][3];
               u16 contestLinkResults[5][4];
               struct BattleFrontier frontier;
-              u8 itemFlags[((746 / 8) + ((746 % 8) ? 1 : 0))];
+              u8 itemFlags[((773 / 8) + ((773 % 8) ? 1 : 0))];
 };
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
@@ -754,7 +755,7 @@ struct SecretBase
 };
 
 # 1 "include/constants/game_stat.h" 1
-# 542 "include/global.h" 2
+# 543 "include/global.h" 2
 # 1 "include/global.fieldmap.h" 1
 # 13 "include/global.fieldmap.h"
 enum
@@ -1003,6 +1004,7 @@ enum
     COLLISION_IMPASSABLE,
     COLLISION_ELEVATION_MISMATCH,
     COLLISION_OBJECT_EVENT,
+ COLLISION_START_SURFING,
     COLLISION_STOP_SURFING,
     COLLISION_LEDGE_JUMP,
     COLLISION_PUSHED_BOULDER,
@@ -1065,7 +1067,7 @@ extern u8 gSelectedObjectEvent;
 extern struct MapHeader gMapHeader;
 extern struct PlayerAvatar gPlayerAvatar;
 extern struct Camera gCamera;
-# 543 "include/global.h" 2
+# 544 "include/global.h" 2
 # 1 "include/global.berry.h" 1
 
 
@@ -1141,7 +1143,7 @@ struct BerryTree
     u8 watered3:1;
     u8 watered4:1;
 };
-# 544 "include/global.h" 2
+# 545 "include/global.h" 2
 # 1 "include/global.tv.h" 1
 
 
@@ -1635,7 +1637,7 @@ struct GabbyAndTyData
              u8 playerThrewABall2:1;
              u8 valB_4:4;
 };
-# 545 "include/global.h" 2
+# 546 "include/global.h" 2
 # 1 "include/pokemon.h" 1
 
 
@@ -2381,7 +2383,7 @@ u8 GetFormIdFromFormSpeciesId(u16 formSpeciesId);
 u16 GetBaseFormSpeciesId(u16 formSpeciesId);
 void CreateShinyMonWithNature(struct Pokemon *mon, u16 species, u8 level, u8 nature);
 u16 MonTryLearningNewMoveEvolution(struct Pokemon *mon, bool8 firstMove);
-# 546 "include/global.h" 2
+# 547 "include/global.h" 2
 
 struct WarpData
 {
@@ -6040,6 +6042,7 @@ void MoveDeleterChooseMoveToForget(void);
 
 bool8 CanLearnTutorMove(u16, u8);
 void ItemUseCB_Mints(u8 taskId, TaskFunc task);
+void ItemUseCB_Seal(u8 taskId, TaskFunc task);
 # 30 "src/start_menu.c" 2
 # 1 "include/pokedex.h" 1
 
@@ -7428,25 +7431,18 @@ extern const u8 gText_SearchCompleted[];
 extern const u8 gText_NoMatchingPkmnWereFound[];
 extern const u8 gText_SelectorArrow[];
 
-extern const u8 gText_Stats_EV[];
-extern const u8 gText_Stats_EV_HP[];
-extern const u8 gText_Stats_EV_Attack[];
-extern const u8 gText_Stats_EV_Defense[];
-extern const u8 gText_Stats_EV_Speed[];
-extern const u8 gText_Stats_EV_SpAtk[];
-extern const u8 gText_Stats_EV_SpDef[];
+extern const u8 gText_Stats_Buttons[];
+extern const u8 gText_Stats_Buttons_Decapped[];
 extern const u8 gText_Stats_HP[];
 extern const u8 gText_Stats_Attack[];
 extern const u8 gText_Stats_Defense[];
 extern const u8 gText_Stats_Speed[];
-extern const u8 gText_Stats_SpAtk[];
-extern const u8 gText_Stats_SpDef[];
-extern const u8 gText_Stats_EVHP[];
-extern const u8 gText_Stats_EVAttack[];
-extern const u8 gText_Stats_EVDefense[];
-extern const u8 gText_Stats_EVSpeed[];
-extern const u8 gText_Stats_EVSpAtk[];
-extern const u8 gText_Stats_EVSpDef[];
+extern const u8 gText_Stats_SpAttack[];
+extern const u8 gText_Stats_SpDefense[];
+extern const u8 gText_Stats_EV_Plus1[];
+extern const u8 gText_Stats_EV_Plus2[];
+extern const u8 gText_Stats_EV_Plus3[];
+extern const u8 gText_Stats_EvStr1Str2[];
 extern const u8 gText_Stats_MoveSelectedMax[];
 extern const u8 gText_Stats_MoveLevel[];
 extern const u8 gText_Stats_Gender_0[];
@@ -7456,11 +7452,25 @@ extern const u8 gText_Stats_Gender_50[];
 extern const u8 gText_Stats_Gender_75[];
 extern const u8 gText_Stats_Gender_87_5[];
 extern const u8 gText_Stats_Gender_100[];
-extern const u8 gText_Stats_Catch[];
-extern const u8 gText_Stats_Exp[];
+extern const u8 gText_Stats_CatchRate[];
+extern const u8 gText_Stats_CatchRate_Legend[];
+extern const u8 gText_Stats_CatchRate_VeryHard[];
+extern const u8 gText_Stats_CatchRate_Difficult[];
+extern const u8 gText_Stats_CatchRate_Medium[];
+extern const u8 gText_Stats_CatchRate_Relaxed[];
+extern const u8 gText_Stats_CatchRate_Easy[];
+extern const u8 gText_Stats_ExpYield[];
 extern const u8 gText_Stats_EggCycles[];
+extern const u8 gText_Stats_EggCycles_VeryFast[];
+extern const u8 gText_Stats_EggCycles_Fast[];
+extern const u8 gText_Stats_EggCycles_Normal[];
+extern const u8 gText_Stats_EggCycles_Slow[];
 extern const u8 gText_Stats_Growthrate[];
 extern const u8 gText_Stats_Friendship[];
+extern const u8 gText_Stats_Friendship_BigAnger[];
+extern const u8 gText_Stats_Friendship_Neutral[];
+extern const u8 gText_Stats_Friendship_Happy[];
+extern const u8 gText_Stats_Friendship_BigSmile[];
 extern const u8 gText_Stats_MEDIUM_FAST[];
 extern const u8 gText_Stats_ERRATIC[];
 extern const u8 gText_Stats_FLUCTUATING[];
@@ -7470,8 +7480,8 @@ extern const u8 gText_Stats_SLOW[];
 extern const u8 gText_Stats_ContestHeart[];
 extern const u8 gText_PlusSymbol[];
 extern const u8 gText_Stats_Minus[];
-extern const u8 gText_Stats_eggGroup_g1[];
-extern const u8 gText_Stats_eggGroup_g2[];
+extern const u8 gText_Stats_eggGroup[];
+extern const u8 gText_Stats_eggGroup_Groups[];
 extern const u8 gText_Stats_eggGroup_MONSTER[];
 extern const u8 gText_Stats_eggGroup_WATER_1[];
 extern const u8 gText_Stats_eggGroup_BUG[];
@@ -7490,6 +7500,8 @@ extern const u8 gText_Stats_eggGroup_UNDISCOVERED[];
 extern const u8 gText_Dex_SEEN[];
 extern const u8 gText_Dex_OWN[];
 
+extern const u8 gText_EVO_Buttons_PE[];
+extern const u8 gText_EVO_Buttons_Decapped_PE[];
 extern const u8 gText_EVO_Name[];
 extern const u8 gText_EVO_FRIENDSHIP[];
 extern const u8 gText_EVO_FRIENDSHIP_DAY[];
@@ -7524,6 +7536,9 @@ extern const u8 gText_EVO_LEVEL_DARK_TYPE_MON_IN_PARTY[];
 extern const u8 gText_EVO_TRADE_SPECIFIC_MON[];
 extern const u8 gText_EVO_SPECIFIC_MAP[];
 extern const u8 gText_EVO_NONE[];
+
+extern const u8 gText_FORMS_Buttons_PE[];
+extern const u8 gText_FORMS_Buttons_Decapped_PE[];
 extern const u8 gText_FORMS_NONE[];
 
 

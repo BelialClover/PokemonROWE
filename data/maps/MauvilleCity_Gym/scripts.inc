@@ -105,6 +105,7 @@ MauvilleCity_Gym_EventScript_WattsonDefeated:: @ 820DF2B
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_WATTSON_MATCH_CALL
+	call Gym_EventScript_Reset_Rematches
 	setflag FLAG_UNUSED_0x924
 	release
 	end
@@ -123,6 +124,7 @@ MauvilleCity_Gym_EventScript_Wattson_PostBattle::
 //rematches
 MauvilleCity_Gym_EventScript_WattsonRematchEnd::
 	msgbox MauvilleCity_Gym_Text_WattsonPostBattle, MSGBOX_DEFAULT
+	call Gym_EventScript_Reset_Random_Rematch
 	setflag FLAG_UNUSED_0x924
 	release
 	end

@@ -31,6 +31,7 @@ MauvilleCity_EventScript_Boy:: @ 81DF3B3
 
 MauvilleCity_EventScript_Maniac:: @ 81DF3BC
 	msgbox MauvilleCity_Text_AllSortsOfPeopleComeThrough, MSGBOX_NPC
+	//setflag FLAG_UNUSED_0x020
 	end
 
 MauvilleCity_EventScript_Woman:: @ 81DF3C5
@@ -631,7 +632,7 @@ MauvilleCity_Text_NurseHurtMonBackToHealth: @ 81E0301
 
 MauvilleCity_Text_AllSortsOfPeopleComeThrough: @ 81E037C
 	.string "I got this strange paper saying\n"
-	.string "...You are on version 1.2.1...\p"
+	.string "...You are on version 1.3.3...\p"
 	.string "I have no idea what it means.$"
 
 MauvilleCity_Text_RydelVeryGenerous: @ 81E03FB

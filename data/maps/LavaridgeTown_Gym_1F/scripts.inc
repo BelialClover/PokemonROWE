@@ -76,6 +76,7 @@ LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated:: @ 81FE7C1
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_FLANNERY_MATCH_CALL
+	call Gym_EventScript_Reset_Rematches
 	setflag FLAG_UNUSED_0x925
 	release
 	end
@@ -94,6 +95,7 @@ LavaridgeTown_Gym_1F_EventScript_FlanneryRematch:: @ 81FC89C
 //rematches
 LavaridgeTown_Gym_1F_EventScript_FlanneryRematchEnd::
 	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostRematch, MSGBOX_AUTOCLOSE
+	call Gym_EventScript_Reset_Random_Rematch
 	setflag FLAG_UNUSED_0x925
 	end
 	

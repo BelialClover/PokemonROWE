@@ -1,6 +1,6 @@
-# 1 "src/agb_flash_mx.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/agb_flash_mx.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/agb_flash_mx.c"
 # 1 "include/gba/gba.h" 1
 

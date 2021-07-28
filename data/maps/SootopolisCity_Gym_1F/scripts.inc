@@ -108,6 +108,7 @@ SootopolisCity_Gym_1F_EventScript_JuanDefeated:: @ 8224F82
 	closemessage
 	delay 30
 	setflag FLAG_ENABLE_JUAN_MATCH_CALL
+	call Gym_EventScript_Reset_Rematches
 	setflag FLAG_UNUSED_0x929
 	call Common_EventScript_SetGymTrainers
 	release
@@ -127,6 +128,7 @@ SootopolisCity_Gym_1F_EventScript_JuanRematch:: @ 8204DB3
 	
 SootopolisCity_Gym_1F_EventScript_JuanRematchEnd::
 	msgbox SootopolisCity_Gym_1F_Text_JuanPostRematch, MSGBOX_AUTOCLOSE
+	call Gym_EventScript_Reset_Random_Rematch
 	setflag FLAG_UNUSED_0x929
 	end
 	

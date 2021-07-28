@@ -6,8 +6,10 @@
 #include "battle_factory.h"
 #include "battle_setup.h"
 #include "data.h"
+#include "event_data.h"
 #include "item.h"
 #include "pokemon.h"
+#include "level_scaling.h"
 #include "random.h"
 #include "recorded_battle.h"
 #include "util.h"
@@ -359,6 +361,9 @@ void BattleAI_SetupItems(void)
 
 void BattleAI_SetupFlags(void)
 {
+	u8 PartySize = GetPlayerUsableMons();
+	
+	
     if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
         AI_THINKING_STRUCT->aiFlags = GetAiScriptsInRecordedBattle();
     else if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
@@ -376,7 +381,7 @@ void BattleAI_SetupFlags(void)
     else
         AI_THINKING_STRUCT->aiFlags = gTrainers[gTrainerBattleOpponent_A].aiFlags;
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS) || gTrainers[gTrainerBattleOpponent_A].doubleBattle)
+    if (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS) || gTrainers[gTrainerBattleOpponent_A].doubleBattle ||(FlagGet(FLAG_UNUSED_0x2A2) && PartySize >= 2))
         AI_THINKING_STRUCT->aiFlags |= AI_SCRIPT_DOUBLE_BATTLE; // Act smart in doubles and don't attack your partner.
 }
 

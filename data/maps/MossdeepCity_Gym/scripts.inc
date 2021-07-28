@@ -71,6 +71,8 @@ MossdeepCity_Gym_EventScript_TateAndLizaDefeated:: @ 82208D1
 	closemessage
 	delay 30
 	playfanfare MUS_REGISTER_MATCH_CALL
+	call Gym_EventScript_Reset_Rematches
+	setflag FLAG_UNUSED_0x928
 	msgbox MossdeepCity_Gym_Text_RegisteredTateAndLiza, MSGBOX_DEFAULT
 	waitfanfare
 	closemessage
@@ -93,6 +95,7 @@ MossdeepCity_Gym_EventScript_TateAndLizaRematch::
 	
 MossdeepCity_Gym_EventScript_TateAndLizaRematchEnd::
 	msgbox MossdeepCity_Gym_Text_TateAndLizaPostRematch, MSGBOX_AUTOCLOSE
+	call Gym_EventScript_Reset_Random_Rematch
 	setflag FLAG_UNUSED_0x928
 	end
 	

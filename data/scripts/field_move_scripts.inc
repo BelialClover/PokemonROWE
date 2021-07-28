@@ -4,37 +4,57 @@
 @ Interact with cuttable tree
 EventScript_CutTree:: @ 82906BB
 	lockall
-	goto_if_unset FLAG_RECEIVED_TM39, EventScript_CheckTreeCantCut
-	checkpartymove MOVE_CUT
+	checkpartymove MOVE_HEADBUTT
 	compare VAR_RESULT, PARTY_SIZE
-	goto_if_eq EventScript_AnorithCut
+	goto_if_eq EventScript_ShakeTree_Tackle
 	setfieldeffectargument 0, VAR_RESULT
 	bufferpartymonnick 0, VAR_RESULT
-	buffermovename 1, MOVE_CUT
-	msgbox Text_WantToCut, MSGBOX_YESNO
+	buffermovename 1, MOVE_HEADBUTT
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
 	compare VAR_RESULT, NO
-	goto_if_eq EventScript_CancelCut
+	goto_if_eq EventScript_CancelHeadbutt
 	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
 	closemessage
-	dofieldeffect FLDEFF_USE_CUT_ON_TREE
+	dofieldeffect FLDEFF_USE_STRENGTH
 	waitstate
-	goto EventScript_CutTreeDown
+	delay 5
+	playse SE_M_HEADBUTT
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 10
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
+	
+EventScript_CantHeadbutt::
+	msgbox Text_CantHeadbutt, MSGBOX_DEFAULT
+	releaseall
 	end
 
-EventScript_AnorithCut::
-	setvar VAR_0x8004, SPECIES_GABITE
-	setvar VAR_0x8008, MOVE_CUT
-	setvar VAR_0x8009, 1
-	bufferspeciesname 0, VAR_0x8004	
-	buffermovename 1, VAR_0x8008
-	msgbox Text_AnorithToCut, MSGBOX_YESNO
-	compare VAR_RESULT, NO
-	goto_if_eq EventScript_CancelCut
-	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+EventScript_CancelHeadbutt::
 	closemessage
-	dofieldeffect FLDEFF_USE_CUT_ON_TREE
-	waitstate
-	goto EventScript_CutTreeDown
+	releaseall
+	end
+
+EventScript_Try_Headbutt_Item::
+	special TryStoreCutItem
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Headbutt_NoEncounter
+	giveitem VAR_RESULT, 2
+	releaseall
+	end
+
+EventScript_Headbutt_NoEncounter::
+	releaseall
 	end
 
 @ Use cut from party menu
@@ -46,20 +66,12 @@ EventScript_UseCut:: @ 8290705
 	end
 
 EventScript_CutTreeDown:: @ 8290710
-	applymovement VAR_LAST_TALKED, Movement_CutTreeDown
-	waitmovement 0
-	removeobject VAR_LAST_TALKED
-	special CutWildEncounter
-	compare VAR_RESULT, FALSE
-	goto_if_eq Movement_TryCutItem
-	releaseall
-	end
-
-Movement_TryCutItem:
-	special TryStoreCutItem
-	compare VAR_RESULT, FALSE
-	goto_if_eq EventScript_CancelCut
-	giveitem VAR_RESULT, 2
+	//applymovement VAR_LAST_TALKED, Movement_CutTreeDown
+	//waitmovement 0
+	//removeobject VAR_LAST_TALKED
+	//special RockSmashWildEncounter
+	//compare VAR_RESULT, FALSE
+	//goto_if_eq Movement_TryCutItem
 	releaseall
 	end
 
@@ -68,7 +80,7 @@ Movement_CutTreeDown: @ 829071F
 	step_end
 
 EventScript_CheckTreeCantCut:: @ 8290721
-	msgbox Text_CantCut, MSGBOX_DEFAULT
+	msgbox Text_CantHeadbutt, MSGBOX_DEFAULT
 	releaseall
 	end
 
@@ -77,21 +89,366 @@ EventScript_CancelCut:: @ 829072B
 	releaseall
 	end
 
-Text_WantToCut: @ 829072E
-	.string "This tree looks like it can be\n"
-	.string "Cut down!\p"
-	.string "Would you like to Cut it?$"
+Text_WantToHeadbutt: @ 829072E
+	.string "This tree looks Sturdy!\n"
+	.string "Do you want to shake it?$"
 
-Text_AnorithToCut:
-	.string "This tree looks like it can be Cut down!\n"
-	.string "Call Poke Ride's Gabite to Cut it?$"
+Text_CantHeadbutt: @ 829077D
+	.string "This tree looks like it can be\n"
+	.string "Shaken!$"
 
 Text_MonUsedFieldMove: @ 8290771
 	.string "{STR_VAR_1} used {STR_VAR_2}!$"
-
-Text_CantCut: @ 829077D
-	.string "This tree looks like it can be\n"
-	.string "Cut down!$"
+	
+EventScript_ShakeTree_Tackle::
+	checkpartymove MOVE_TACKLE
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_ShakeTree_Take_Down
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_TACKLE
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	playse SE_M_HORN_ATTACK
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 10
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
+	
+EventScript_ShakeTree_Take_Down::
+	checkpartymove MOVE_TAKE_DOWN
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_ShakeTree_Pound
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_TAKE_DOWN
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	playse SE_M_TAKE_DOWN
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 10
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
+	
+EventScript_ShakeTree_Pound::
+	checkpartymove MOVE_POUND
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_ShakeTree_Slam
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_POUND
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	playse SE_M_HORN_ATTACK
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 10
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end	
+	
+EventScript_ShakeTree_Slam::
+	checkpartymove MOVE_SLAM
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_ShakeTree_Giga_Impact
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_SLAM
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	playse SE_M_HORN_ATTACK
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 10
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
+	
+EventScript_ShakeTree_Giga_Impact::
+	checkpartymove MOVE_GIGA_IMPACT
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_ShakeTree_Head_Smash
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_GIGA_IMPACT
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	playse SE_M_TAKE_DOWN
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 10
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
+	
+EventScript_ShakeTree_Head_Smash::
+	checkpartymove MOVE_HEAD_SMASH
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_ShakeTree_Outrage
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_HEAD_SMASH
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	playse SE_M_TAKE_DOWN
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 10
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
+	
+EventScript_ShakeTree_Outrage::
+	checkpartymove MOVE_OUTRAGE
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_ShakeTree_Nature_Power
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_OUTRAGE
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	playse SE_M_DRAGON_RAGE 
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 10
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
+	
+EventScript_ShakeTree_Nature_Power::
+	checkpartymove MOVE_NATURE_POWER
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_ShakeTree_Wood_Hammer
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_NATURE_POWER
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	playse SE_M_BIND
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 10
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
+	
+EventScript_ShakeTree_Wood_Hammer::
+	checkpartymove MOVE_WOOD_HAMMER
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_ShakeTree_Magnitude
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_WOOD_HAMMER
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	playse SE_M_BRICK_BREAK
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	special ShakeCamera
+	waitstate
+	delay 10
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
+	
+EventScript_ShakeTree_Magnitude::
+	checkpartymove MOVE_MAGNITUDE
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_ShakeTree_Earthquake
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_MAGNITUDE
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	special DoSealedChamberShakingEffect1
+	playse SE_M_EARTHQUAKE
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	//special ShakeCamera
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
+	
+EventScript_ShakeTree_Earthquake::
+	checkpartymove MOVE_EARTHQUAKE
+	compare VAR_RESULT, PARTY_SIZE
+	goto_if_eq EventScript_CantHeadbutt
+	setfieldeffectargument 0, VAR_RESULT
+	bufferpartymonnick 0, VAR_RESULT
+	buffermovename 1, MOVE_EARTHQUAKE
+	msgbox Text_WantToHeadbutt, MSGBOX_YESNO
+	compare VAR_RESULT, NO
+	goto_if_eq EventScript_CancelHeadbutt
+	msgbox Text_MonUsedFieldMove, MSGBOX_DEFAULT
+	closemessage
+	dofieldeffect FLDEFF_USE_STRENGTH
+	waitstate
+	delay 5
+	special DoSealedChamberShakingEffect1
+	playse SE_M_EARTHQUAKE
+	waitse
+	delay 16
+	setvar VAR_0x8004, 0  @ vertical pan
+	setvar VAR_0x8005, 2   @ horizontal pan
+	setvar VAR_0x8006, 3  @ num shakes
+	setvar VAR_0x8007, 1   @ shake delay
+	//special ShakeCamera
+	special RockSmashWildEncounter
+	compare VAR_RESULT, FALSE
+	goto_if_eq EventScript_Try_Headbutt_Item
+	waitstate
+	releaseall
+	end
 
 @ Interact with smashable rock
 EventScript_RockSmash:: @ 82907A6
@@ -253,7 +610,7 @@ Text_WantToStrength: @ 829092C
 Text_ArcanineStrength: @ 829092C
 	.string "It's a big boulder, but a Pokémon\n"
 	.string "may be able to push it aside.\p"
-	.string "Call Poke Ride's Beware to push it?$"
+	.string "Call Poke Ride's Bewear to push it?$"
 
 Text_MonUsedStrength: @ 829098C
 	.string "{STR_VAR_1} used Strength!\p"
@@ -261,8 +618,8 @@ Text_MonUsedStrength: @ 829098C
 	.string "possible to move boulders around!$"
 
 Text_ArcanineUsedStrength:
-	.string "Beware used Strength!\p"
-	.string "Beware's Strength made it\n"
+	.string "Bewear used Strength!\p"
+	.string "Bewear's Strength made it\n"
 	.string "possible to move boulders around!$"
 
 Text_CantStrength: @ 82909D6
@@ -426,3 +783,16 @@ EventScript_FailSweetScent:: @ 8290CAE
 
 Text_FailSweetScent: @ 8290CB7
 	.string "Looks like there's nothing here…$"
+	
+EventScript_DisableAutoRun::
+    msgbox AutoRunDisabled MSGBOX_SIGN
+    end
+	
+AutoRunDisabled:
+    .string "Auto Run {COLOR RED}Disabled{COLOR DARK_GREY}.$"
+    
+EventScript_EnableAutoRun::
+    msgbox AutoRunEnabled MSGBOX_SIGN
+    end
+AutoRunEnabled:
+    .string "Auto Run {COLOR GREEN}Enabled{COLOR DARK_GREY}.$"

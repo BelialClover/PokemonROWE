@@ -3685,6 +3685,15 @@ void CalculateMonStats(struct Pokemon *mon)
     u16 formSpeciesId = GetFormSpeciesId(species, formId);
     s32 level = GetLevelFromMonExp(mon);
     s32 newMaxHP;
+	
+	if(FlagGet(FLAG_UNUSED_0x068)){
+		hpIV = 31;
+		attackIV = 31;
+		defenseIV = 31;
+		speedIV = 31;
+		spAttackIV = 31;
+		spDefenseIV = 31;
+	}
 
     SetMonData(mon, MON_DATA_LEVEL, &level);
 
@@ -4395,21 +4404,39 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
         retVal = substruct1->pp[field - MON_DATA_PP1];
         break;
     case MON_DATA_HP_EV:
+		if(FlagGet(FLAG_UNUSED_0x1AB))
+		retVal = 0;
+		else
         retVal = substruct2->hpEV;
         break;
     case MON_DATA_ATK_EV:
+		if(FlagGet(FLAG_UNUSED_0x1AB))
+		retVal = 0;
+		else
         retVal = substruct2->attackEV;
         break;
     case MON_DATA_DEF_EV:
+		if(FlagGet(FLAG_UNUSED_0x1AB))
+		retVal = 0;
+		else
         retVal = substruct2->defenseEV;
         break;
     case MON_DATA_SPEED_EV:
+		if(FlagGet(FLAG_UNUSED_0x1AB))
+		retVal = 0;
+		else
         retVal = substruct2->speedEV;
         break;
     case MON_DATA_SPATK_EV:
+		if(FlagGet(FLAG_UNUSED_0x1AB))
+		retVal = 0;
+		else
         retVal = substruct2->spAttackEV;
         break;
     case MON_DATA_SPDEF_EV:
+		if(FlagGet(FLAG_UNUSED_0x1AB))
+		retVal = 0;
+		else
         retVal = substruct2->spDefenseEV;
         break;
     case MON_DATA_COOL:
@@ -4453,21 +4480,39 @@ u32 GetBoxMonData(struct BoxPokemon *boxMon, s32 field, u8 *data)
         retVal = substruct3->otGender;
         break;
     case MON_DATA_HP_IV:
+		if(FlagGet(FLAG_UNUSED_0x068))
+		retVal = 31;
+		else
         retVal = substruct3->hpIV;
         break;
     case MON_DATA_ATK_IV:
+		if(FlagGet(FLAG_UNUSED_0x068))
+		retVal = 31;
+		else
         retVal = substruct3->attackIV;
         break;
     case MON_DATA_DEF_IV:
+		if(FlagGet(FLAG_UNUSED_0x068))
+		retVal = 31;
+		else
         retVal = substruct3->defenseIV;
         break;
     case MON_DATA_SPEED_IV:
+		if(FlagGet(FLAG_UNUSED_0x068))
+		retVal = 31;
+		else
         retVal = substruct3->speedIV;
         break;
     case MON_DATA_SPATK_IV:
+		if(FlagGet(FLAG_UNUSED_0x068))
+		retVal = 31;
+		else
         retVal = substruct3->spAttackIV;
         break;
     case MON_DATA_SPDEF_IV:
+		if(FlagGet(FLAG_UNUSED_0x068))
+		retVal = 31;
+		else
         retVal = substruct3->spDefenseIV;
         break;
     case MON_DATA_IS_EGG:
@@ -5217,12 +5262,22 @@ void PokemonToBattleMon(struct Pokemon *src, struct BattlePokemon *dst)
     dst->ppBonuses = GetMonData(src, MON_DATA_PP_BONUSES, NULL);
     dst->friendship = GetMonData(src, MON_DATA_FRIENDSHIP, NULL);
     dst->experience = GetMonData(src, MON_DATA_EXP, NULL);
+	if(FlagGet(FLAG_UNUSED_0x068))
+	{
+	dst->hpIV = 31;
+    dst->attackIV = 31;
+    dst->defenseIV = 31;
+    dst->speedIV = 31;
+    dst->spAttackIV = 31;
+    dst->spDefenseIV = 31;
+	}else{
     dst->hpIV = GetMonData(src, MON_DATA_HP_IV, NULL);
     dst->attackIV = GetMonData(src, MON_DATA_ATK_IV, NULL);
     dst->defenseIV = GetMonData(src, MON_DATA_DEF_IV, NULL);
     dst->speedIV = GetMonData(src, MON_DATA_SPEED_IV, NULL);
     dst->spAttackIV = GetMonData(src, MON_DATA_SPATK_IV, NULL);
     dst->spDefenseIV = GetMonData(src, MON_DATA_SPDEF_IV, NULL);
+	}
     dst->personality = GetMonData(src, MON_DATA_PERSONALITY, NULL);
     dst->status1 = GetMonData(src, MON_DATA_STATUS, NULL);
     dst->level = GetMonData(src, MON_DATA_LEVEL, NULL);
@@ -6047,6 +6102,9 @@ u16 GetEvolutionTargetSpecies(struct Pokemon *mon, u8 type, u16 evolutionItem, u
         holdEffect = 0;
     else
         holdEffect = ItemId_GetHoldEffect(heldItem);
+	
+	/*/if(FlagGet(FLAG_UNUSED_0x054))
+		return SPECIES_NONE;/*/
 
     if (holdEffect == HOLD_EFFECT_PREVENT_EVOLVE && type != 3)
         return SPECIES_NONE;
@@ -7349,7 +7407,8 @@ bool8 IsTradedMon(struct Pokemon *mon)
     u32 otId;
     GetMonData(mon, MON_DATA_OT_NAME, otName);
     otId = GetMonData(mon, MON_DATA_OT_ID, 0);
-    return IsOtherTrainer(otId, otName);
+    //return IsOtherTrainer(otId, otName);
+	return FALSE;
 }
 
 bool8 IsOtherTrainer(u32 otId, u8 *otName)

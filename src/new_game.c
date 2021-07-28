@@ -46,6 +46,7 @@
 #include "mevent.h"
 #include "union_room_chat.h"
 #include "constants/map_groups.h"
+#include "constants/items.h"
 
 extern const u8 EventScript_ResetAllMapFlags[];
 
@@ -216,6 +217,7 @@ void NewGameInitData(void)
 
     memset(gSaveBlock1Ptr->dexNavSearchLevels, 0, sizeof(gSaveBlock1Ptr->dexNavSearchLevels));
     gSaveBlock1Ptr->dexNavChain = 0;
+	gSaveBlock2Ptr->lastUsedBall = ITEM_POKE_BALL;
 }
 
 static void ResetMiniGamesResults(void)

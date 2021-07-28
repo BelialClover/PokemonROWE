@@ -1,6 +1,6 @@
-# 1 "src/m4a.c"
-# 1 "<built-in>"
-# 1 "<command-line>"
+# 0 "src/m4a.c"
+# 0 "<built-in>"
+# 0 "<command-line>"
 # 1 "src/m4a.c"
 # 1 "tools/agbcc/include/string.h" 1
 # 14 "tools/agbcc/include/string.h"
