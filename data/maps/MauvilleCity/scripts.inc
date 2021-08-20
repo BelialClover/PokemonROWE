@@ -631,9 +631,9 @@ MauvilleCity_Text_NurseHurtMonBackToHealth: @ 81E0301
 	.string "you have to nurse it back to health.$"
 
 MauvilleCity_Text_AllSortsOfPeopleComeThrough: @ 81E037C
-	.string "I got this strange paper saying\n"
-	.string "...You are on version 1.3.3...\p"
-	.string "I have no idea what it means.$"
+	.string "Did you know that you can check\n"
+	.string "your game version by pressing\l"
+	.string "Left on the Start Menu?$"
 
 MauvilleCity_Text_RydelVeryGenerous: @ 81E03FB
 	.string "Have you been to Rydel's Cycles yet?\p"

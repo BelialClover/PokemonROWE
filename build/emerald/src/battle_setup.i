@@ -4693,6 +4693,7 @@ bool8 MetatileBehavior_IsQuestionnaire(u8);
 bool8 MetatileBehavior_IsLongGrass_Duplicate(u8);
 bool8 MetatileBehavior_IsLongGrassSouthEdge(u8);
 bool8 MetatileBehavior_IsTrainerHillTimer(u8);
+bool8 MetatileBehavior_IsHeadbuttTree(u8);
 # 11 "src/battle_setup.c" 2
 # 1 "include/field_player_avatar.h" 1
 
@@ -10316,6 +10317,7 @@ void CheckClockForImmediateTimeEvents(void);
 void ProcessImmediateTimeEvents(void);
 void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
 const u8 *GetDayOfWeekString(u8 dayOfWeek);
+const u8 GetTimeOfDayString(void);
 # 41 "src/battle_setup.c" 2
 # 1 "include/constants/day_night.h" 1
 # 42 "src/battle_setup.c" 2

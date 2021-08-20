@@ -5349,6 +5349,7 @@ bool8 MetatileBehavior_IsQuestionnaire(u8);
 bool8 MetatileBehavior_IsLongGrass_Duplicate(u8);
 bool8 MetatileBehavior_IsLongGrassSouthEdge(u8);
 bool8 MetatileBehavior_IsTrainerHillTimer(u8);
+bool8 MetatileBehavior_IsHeadbuttTree(u8);
 # 23 "src/field_control_avatar.c" 2
 # 1 "include/overworld.h" 1
 # 29 "include/overworld.h"
@@ -5962,7 +5963,7 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
     else if (heldKeys & 0x0010)
         input->dpadDirection = 4;
 
-    if ((heldKeys & 0x0002) && input->pressedStartButton && EnableAutoRun())
+    if ((heldKeys & 0x0002) && input->pressedStartButton)
     {
         input->input_field_1_2 = 1;
         input->pressedStartButton = 0;
@@ -6049,7 +6050,15 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
 
     if (input->tookStep && TryFindHiddenPokemon())
         return 1;
-# 238 "src/field_control_avatar.c"
+
+
+    if (input->input_field_1_2 && FlagGet(0x20))
+    {
+        PlaySE(6);
+        Debug_ShowMainMenu();
+        return 1;
+    }
+
     return 0;
 }
 
@@ -6242,6 +6251,8 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         return EventScript_CableBoxResults;
     if (MetatileBehavior_IsPokeblockFeeder(metatileBehavior) == 1)
         return EventScript_PokeBlockFeeder;
+ if (MetatileBehavior_IsHeadbuttTree(metatileBehavior) == 1)
+        return EventScript_CutTree;
     if (MetatileBehavior_IsTrickHousePuzzleDoor(metatileBehavior) == 1)
         return Route110_TrickHousePuzzle_EventScript_Door;
     if (MetatileBehavior_IsRegionMap(metatileBehavior) == 1)
@@ -6868,25 +6879,4 @@ int SetCableClubWarp(void)
     MapGridGetMetatileBehaviorAt(position.x, position.y);
     SetupWarp(&gMapHeader, GetWarpEventAtMapPosition(&gMapHeader, &position), &position);
     return 0;
-}
-
-extern const u8 EventScript_DisableAutoRun[];
-extern const u8 EventScript_EnableAutoRun[];
-static bool8 EnableAutoRun(void)
-{
-    PlaySE(5);
-    if (FlagGet(0x1AA))
-    {
-
-  FlagClear(0x1AA);
-        ScriptContext1_SetupScript(EventScript_DisableAutoRun);
-    }
-    else
-    {
-
-  FlagSet(0x1AA);
-        ScriptContext1_SetupScript(EventScript_EnableAutoRun);
-    }
-
-    return 1;
 }

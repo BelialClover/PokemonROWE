@@ -41464,7 +41464,43 @@ sIngameTrades:
 	.byte	0xa
 	.short	0x12c
 	.space	2
-	.size	 sIngameTrades,240
+	.byte	0xd1
+	.byte	0xe3
+	.byte	0xe2
+	.byte	0xd8
+	.byte	0xd9
+	.byte	0xe6
+	.byte	0xff
+	.space	4
+	.space	1
+	.short	0x1
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x4
+	.byte	0x0
+	.space	3
+	.word	0x16559
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.space	3
+	.word	0x8b
+	.short	0x0
+	.byte	0x2
+	.byte	0xd1
+	.byte	0xce
+	.byte	0xff
+	.space	8
+	.byte	0x0
+	.byte	0xa
+	.short	0x1
+	.space	2
+	.size	 sIngameTrades,300
 	.align	1, 0
 	.type	 sIngameTradeMail,object
 sIngameTradeMail:

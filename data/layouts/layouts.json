@@ -1344,10 +1344,10 @@
     {
       "id": "LAYOUT_PETALBURG_WOODS",
       "name": "PetalburgWoods_Layout",
-      "width": 48,
+      "width": 54,
       "height": 44,
-      "primary_tileset": "gTileset_General",
-      "secondary_tileset": "gTileset_Rustboro",
+      "primary_tileset": "gTileset_FRLG_General",
+      "secondary_tileset": "gTileset_Viridian_Forest",
       "border_filepath": "data/layouts/PetalburgWoods/border.bin",
       "blockdata_filepath": "data/layouts/PetalburgWoods/map.bin"
     },
@@ -4440,6 +4440,26 @@
       "secondary_tileset": "gTileset_Cave",
       "border_filepath": "data/layouts/ScorchedSlab_HeatransRoom/border.bin",
       "blockdata_filepath": "data/layouts/ScorchedSlab_HeatransRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_VIRIDIAN_FOREST",
+      "name": "viridian_forest_Layout",
+      "width": 54,
+      "height": 69,
+      "primary_tileset": "gTileset_General",
+      "secondary_tileset": "gTileset_Petalburg",
+      "border_filepath": "data/layouts/viridian_forest/border.bin",
+      "blockdata_filepath": "data/layouts/viridian_forest/map.bin"
+    },
+    {
+      "id": "LAYOUT_PETALBURG_WOODS_2",
+      "name": "Petalburg_Woods_2_Layout",
+      "width": 42,
+      "height": 40,
+      "primary_tileset": "gTileset_FRLG_General",
+      "secondary_tileset": "gTileset_Viridian_Forest",
+      "border_filepath": "data/layouts/Petalburg_Woods_2/border.bin",
+      "blockdata_filepath": "data/layouts/Petalburg_Woods_2/map.bin"
     }
   ]
 }

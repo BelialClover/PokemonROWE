@@ -2,8 +2,7 @@ MagmaHideout_3F_1R_MapScripts:: @ 823A1B2
 	.byte 0
 
 MagmaHideout_3F_1R_EventScript_Grunt9:: @ 823A1B3
-	trainerbattle_single TRAINER_GRUNT_MAGMA_HIDEOUT_9, MagmaHideout_3F_1R_Text_Grunt9Intro, MagmaHideout_3F_1R_Text_Grunt9Defeat
-	msgbox MagmaHideout_3F_1R_Text_Grunt9PostBattle, MSGBOX_AUTOCLOSE
+	msgbox MagmaHideout_3F_1R_Text_Grunt9Intro, MSGBOX_DEFAULT
 	end
 
 MagmaHideout_3F_1R_EventScript_Grunt16:: @ 823A1CA

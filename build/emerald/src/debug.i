@@ -3071,6 +3071,7 @@ void CheckClockForImmediateTimeEvents(void);
 void ProcessImmediateTimeEvents(void);
 void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
 const u8 *GetDayOfWeekString(u8 dayOfWeek);
+const u8 GetTimeOfDayString(void);
 # 15 "src/debug.c" 2
 # 1 "include/event_data.h" 1
 

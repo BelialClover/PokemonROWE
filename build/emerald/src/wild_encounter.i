@@ -3105,6 +3105,7 @@ bool8 MetatileBehavior_IsQuestionnaire(u8);
 bool8 MetatileBehavior_IsLongGrass_Duplicate(u8);
 bool8 MetatileBehavior_IsLongGrassSouthEdge(u8);
 bool8 MetatileBehavior_IsTrainerHillTimer(u8);
+bool8 MetatileBehavior_IsHeadbuttTree(u8);
 # 6 "src/wild_encounter.c" 2
 # 1 "include/fieldmap.h" 1
 # 12 "include/fieldmap.h"
@@ -4230,6 +4231,7 @@ void CheckClockForImmediateTimeEvents(void);
 void ProcessImmediateTimeEvents(void);
 void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
 const u8 *GetDayOfWeekString(u8 dayOfWeek);
+const u8 GetTimeOfDayString(void);
 # 22 "src/wild_encounter.c" 2
 # 1 "include/constants/abilities.h" 1
 # 23 "src/wild_encounter.c" 2
@@ -5064,13 +5066,13 @@ const struct WildPokemon gRoute118_LandMons[] =
     { 24, 24, 309 },
     { 26, 26, 769 },
     { 26, 26, 835 },
-    { 26, 26, 278 },
+    { 26, 26, 587 },
     { 26, 26, 172 },
     { 25, 25, 161 },
-    { 25, 25, 504 },
-    { 26, 26, 359 },
+    { 25, 25, 276 },
+    { 26, 26, 207 },
     { 26, 26, 352 },
-    { 27, 27, 359 },
+    { 27, 27, 207 },
     { 25, 25, 352 },
 };
 
@@ -5171,7 +5173,7 @@ const struct WildPokemon gPetalburgWoods_LandMonsNight[] =
     { 5, 5, 287 },
 };
 
-const struct WildPokemonInfo gPetalburgWoods_LandMonsNightInfo = { 0, gPetalburgWoods_LandMonsNight };
+const struct WildPokemonInfo gPetalburgWoods_LandMonsNightInfo = { 20, gPetalburgWoods_LandMonsNight };
 
 
 
@@ -5284,18 +5286,18 @@ const struct WildPokemonInfo gMtPyre_1F_LandMonsInfo = { 10, gMtPyre_1F_LandMons
 # 1154 "src/data/wild_encounters.h"
 const struct WildPokemon gVictoryRoad_1F_LandMons[] =
 {
-    { 40, 40, 41 },
-    { 40, 40, 870 },
-    { 40, 40, 874 },
-    { 40, 40, 293 },
-    { 36, 36, 41 },
-    { 36, 36, 296 },
-    { 38, 38, 41 },
-    { 38, 38, 296 },
-    { 36, 36, 304 },
-    { 36, 36, 293 },
-    { 36, 36, 304 },
-    { 36, 36, 293 },
+    { 40, 40, 66 },
+    { 40, 40, 304 },
+    { 40, 40, 714 },
+    { 40, 40, 633 },
+    { 36, 36, 621 },
+    { 36, 36, 74 },
+    { 38, 38, 440 },
+    { 38, 38, 524 },
+    { 36, 36, 529 },
+    { 36, 36, 610 },
+    { 36, 36, 529 },
+    { 36, 36, 610 },
 };
 
 const struct WildPokemonInfo gVictoryRoad_1F_LandMonsInfo = { 10, gVictoryRoad_1F_LandMons };
@@ -5618,14 +5620,14 @@ const struct WildPokemonInfo gRoute109_WaterMonsInfo = { 4, gRoute109_WaterMons 
 
 const struct WildPokemon gRoute109_FishingMons[] =
 {
-    { 5, 10, 129 },
-    { 5, 10, 72 },
-    { 10, 30, 129 },
-    { 10, 30, 72 },
-    { 10, 30, 320 },
-    { 25, 30, 320 },
-    { 30, 35, 320 },
-    { 20, 25, 320 },
+    { 5, 10, 90 },
+    { 5, 10, 79 },
+    { 10, 30, 90 },
+    { 10, 30, 79 },
+    { 10, 30, 211 },
+    { 25, 30, 898 + 72 },
+    { 30, 35, 79 },
+    { 20, 25, 211 },
     { 35, 40, 781 },
     { 40, 45, 781 },
 };
@@ -5701,8 +5703,8 @@ const struct WildPokemonInfo gNewMauville_Inside_LandMonsInfo = { 10, gNewMauvil
 # 1698 "src/data/wild_encounters.h"
 const struct WildPokemon gRoute119_LandMons[] =
 {
-    { 25, 25, 506 },
     { 25, 25, 672 },
+    { 25, 25, 193 },
     { 27, 27, 585 },
     { 25, 25, 522 },
     { 26, 27, 588 },
@@ -5722,7 +5724,7 @@ const struct WildPokemonInfo gRoute119_LandMonsInfo = { 15, gRoute119_LandMons }
 const struct WildPokemon gRoute119_WaterMons[] =
 {
     { 5, 35, 283 },
-    { 10, 30, 278 },
+    { 10, 30, 193 },
     { 15, 25, 170 },
     { 25, 30, 580 },
     { 25, 30, 349 },
@@ -6948,17 +6950,17 @@ const struct WildPokemonInfo gSafariZone_Northwest_FishingMonsInfo = { 35, gSafa
 # 3335 "src/data/wild_encounters.h"
 const struct WildPokemon gVictoryRoad_B1F_LandMons[] =
 {
-    { 40, 40, 41 },
-    { 40, 40, 296 },
+    { 40, 40, 66 },
     { 40, 40, 304 },
-    { 40, 40, 304 },
-    { 38, 38, 307 },
-    { 38, 38, 307 },
-    { 42, 42, 303 },
-    { 42, 42, 307 },
-    { 42, 42, 304 },
+    { 40, 40, 714 },
+    { 40, 40, 610 },
+    { 38, 38, 360 },
+    { 38, 38, 216 },
+    { 42, 42, 231 },
+    { 42, 42, 246 },
+    { 42, 42, 302 },
     { 38, 38, 303 },
-    { 42, 42, 304 },
+    { 42, 42, 302 },
     { 38, 38, 303 },
 };
 
@@ -6969,29 +6971,29 @@ const struct WildPokemonInfo gVictoryRoad_B1F_LandMonsInfo = { 10, gVictoryRoad_
 
 const struct WildPokemon gVictoryRoad_B1F_RockSmashMons[] =
 {
-    { 30, 40, 74 },
-    { 30, 40, 74 },
-    { 35, 40, 74 },
-    { 35, 40, 74 },
-    { 35, 40, 74 },
+    { 30, 40, 524 },
+    { 30, 40, 874 },
+    { 35, 40, 213 },
+    { 35, 40, 898 + 62 },
+    { 35, 40, 898 + 62 },
 };
 
 const struct WildPokemonInfo gVictoryRoad_B1F_RockSmashMonsInfo = { 20, gVictoryRoad_B1F_RockSmashMons };
 # 3375 "src/data/wild_encounters.h"
 const struct WildPokemon gVictoryRoad_B2F_LandMons[] =
 {
-    { 40, 40, 41 },
-    { 40, 40, 302 },
-    { 40, 40, 304 },
-    { 40, 40, 304 },
-    { 42, 42, 307 },
-    { 42, 42, 303 },
-    { 44, 44, 307 },
-    { 44, 44, 302 },
-    { 42, 42, 304 },
-    { 42, 42, 303 },
-    { 44, 44, 304 },
-    { 44, 44, 303 },
+    { 40, 40, 532 },
+    { 40, 40, 524 },
+    { 40, 40, 551 },
+    { 40, 40, 562 },
+    { 42, 42, 92 },
+    { 42, 42, 111 },
+    { 44, 44, 688 },
+    { 44, 44, 531 },
+    { 42, 42, 881 },
+    { 42, 42, 880 },
+    { 44, 44, 881 },
+    { 44, 44, 880 },
 };
 
 const struct WildPokemonInfo gVictoryRoad_B2F_LandMonsInfo = { 10, gVictoryRoad_B2F_LandMons };
@@ -7000,11 +7002,11 @@ const struct WildPokemonInfo gVictoryRoad_B2F_LandMonsInfo = { 10, gVictoryRoad_
 
 const struct WildPokemon gVictoryRoad_B2F_WaterMons[] =
 {
-    { 30, 35, 41 },
-    { 25, 30, 41 },
-    { 35, 40, 41 },
-    { 35, 40, 41 },
-    { 35, 40, 41 },
+    { 30, 35, 592 },
+    { 25, 30, 131 },
+    { 35, 40, 882 },
+    { 35, 40, 883 },
+    { 35, 40, 883 },
 };
 
 const struct WildPokemonInfo gVictoryRoad_B2F_WaterMonsInfo = { 4, gVictoryRoad_B2F_WaterMons };
@@ -7014,15 +7016,15 @@ const struct WildPokemonInfo gVictoryRoad_B2F_WaterMonsInfo = { 4, gVictoryRoad_
 const struct WildPokemon gVictoryRoad_B2F_FishingMons[] =
 {
     { 5, 10, 129 },
-    { 5, 10, 118 },
+    { 5, 10, 116 },
     { 10, 30, 129 },
-    { 10, 30, 118 },
-    { 10, 30, 339 },
-    { 25, 30, 339 },
-    { 30, 35, 339 },
-    { 30, 35, 339 },
-    { 35, 40, 339 },
-    { 40, 45, 339 },
+    { 10, 30, 116 },
+    { 10, 30, 692 },
+    { 25, 30, 116 },
+    { 30, 35, 692 },
+    { 30, 35, 690 },
+    { 35, 40, 131 },
+    { 40, 45, 131 },
 };
 
 const struct WildPokemonInfo gVictoryRoad_B2F_FishingMonsInfo = { 30, gVictoryRoad_B2F_FishingMons };
@@ -8367,6 +8369,49 @@ const struct WildPokemon gMeteorFalls_StevensCave_LandMons[] =
 
 const struct WildPokemonInfo gMeteorFalls_StevensCave_LandMonsInfo = { 10, gMeteorFalls_StevensCave_LandMons };
 # 5262 "src/data/wild_encounters.h"
+const struct WildPokemon gPetalburg_Woods_20_LandMons[] =
+{
+    { 5, 5, 265 },
+    { 5, 5, 165 },
+    { 5, 5, 265 },
+    { 5, 5, 167 },
+    { 5, 5, 174 },
+    { 5, 5, 325 },
+    { 5, 5, 172 },
+    { 5, 5, 859 },
+    { 5, 5, 83 },
+    { 5, 5, 898 + 70 },
+    { 5, 5, 83 },
+    { 5, 5, 898 + 70 },
+};
+
+const struct WildPokemonInfo gPetalburg_Woods_20_LandMonsInfo = { 20, gPetalburg_Woods_20_LandMons };
+
+
+
+const struct WildPokemon gPetalburg_Woods_20_WaterMons[] =
+{
+    { 5, 5, 283 },
+    { 5, 5, 751 },
+    { 5, 5, 751 },
+    { 5, 5, 767 },
+    { 5, 5, 767 },
+};
+
+const struct WildPokemonInfo gPetalburg_Woods_20_WaterMonsInfo = { 0, gPetalburg_Woods_20_WaterMons };
+
+
+const struct WildPokemon gPetalburg_Woods_20_RockSmashMons[] =
+{
+    { 5, 5, 204 },
+    { 5, 5, 163 },
+    { 5, 5, 287 },
+    { 5, 5, 287 },
+    { 5, 5, 840 },
+};
+
+const struct WildPokemonInfo gPetalburg_Woods_20_RockSmashMonsInfo = { 0, gPetalburg_Woods_20_RockSmashMons };
+# 5313 "src/data/wild_encounters.h"
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -9942,6 +9987,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
 
     },
     {
+        .mapGroup = ((58 | (0 << 8)) >> 8),
+        .mapNum = ((58 | (0 << 8)) & 0xFF),
+        .landMonsInfo = &gPetalburg_Woods_20_LandMonsInfo,
+        .landMonsNightInfo = &gPetalburg_Woods_20_LandMonsInfo,
+        .waterMonsInfo = &gPetalburg_Woods_20_WaterMonsInfo,
+        .rockSmashMonsInfo = &gPetalburg_Woods_20_RockSmashMonsInfo,
+        .fishingMonsInfo = ((void *)0),
+        .hiddenMonsInfo = ((void *)0),
+  .headbuttMonsInfo = ((void *)0),
+
+    },
+    {
         .mapGroup = ((0xFF | (0xFF << 8)) >> 8),
         .mapNum = ((0xFF | (0xFF << 8)) & 0xFF),
         .landMonsInfo = ((void *)0),
@@ -9975,7 +10032,7 @@ const struct WildPokemon gBattlePyramid_1_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_1_LandMonsInfo = { 4, gBattlePyramid_1_LandMons };
-# 6882 "src/data/wild_encounters.h"
+# 6945 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_2_LandMons[] =
 {
     { 5, 5, 2 },
@@ -9993,7 +10050,7 @@ const struct WildPokemon gBattlePyramid_2_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_2_LandMonsInfo = { 4, gBattlePyramid_2_LandMons };
-# 6911 "src/data/wild_encounters.h"
+# 6974 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_3_LandMons[] =
 {
     { 5, 5, 3 },
@@ -10011,7 +10068,7 @@ const struct WildPokemon gBattlePyramid_3_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_3_LandMonsInfo = { 4, gBattlePyramid_3_LandMons };
-# 6940 "src/data/wild_encounters.h"
+# 7003 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_4_LandMons[] =
 {
     { 5, 5, 4 },
@@ -10029,7 +10086,7 @@ const struct WildPokemon gBattlePyramid_4_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_4_LandMonsInfo = { 4, gBattlePyramid_4_LandMons };
-# 6969 "src/data/wild_encounters.h"
+# 7032 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_5_LandMons[] =
 {
     { 5, 5, 4 },
@@ -10047,7 +10104,7 @@ const struct WildPokemon gBattlePyramid_5_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_5_LandMonsInfo = { 4, gBattlePyramid_5_LandMons };
-# 6998 "src/data/wild_encounters.h"
+# 7061 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_6_LandMons[] =
 {
     { 5, 5, 6 },
@@ -10065,7 +10122,7 @@ const struct WildPokemon gBattlePyramid_6_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_6_LandMonsInfo = { 4, gBattlePyramid_6_LandMons };
-# 7027 "src/data/wild_encounters.h"
+# 7090 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePyramid_7_LandMons[] =
 {
     { 5, 5, 8 },
@@ -10083,7 +10140,7 @@ const struct WildPokemon gBattlePyramid_7_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePyramid_7_LandMonsInfo = { 8, gBattlePyramid_7_LandMons };
-# 7056 "src/data/wild_encounters.h"
+# 7119 "src/data/wild_encounters.h"
 const struct WildPokemonHeader gBattlePyramidWildMonHeaders[] =
 {
     {
@@ -10204,7 +10261,7 @@ const struct WildPokemon gBattlePike_1_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePike_1_LandMonsInfo = { 10, gBattlePike_1_LandMons };
-# 7188 "src/data/wild_encounters.h"
+# 7251 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePike_2_LandMons[] =
 {
     { 5, 5, 336 },
@@ -10222,7 +10279,7 @@ const struct WildPokemon gBattlePike_2_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePike_2_LandMonsInfo = { 10, gBattlePike_2_LandMons };
-# 7217 "src/data/wild_encounters.h"
+# 7280 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePike_3_LandMons[] =
 {
     { 5, 5, 336 },
@@ -10240,7 +10297,7 @@ const struct WildPokemon gBattlePike_3_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePike_3_LandMonsInfo = { 10, gBattlePike_3_LandMons };
-# 7246 "src/data/wild_encounters.h"
+# 7309 "src/data/wild_encounters.h"
 const struct WildPokemon gBattlePike_4_LandMons[] =
 {
     { 5, 5, 336 },
@@ -10258,7 +10315,7 @@ const struct WildPokemon gBattlePike_4_LandMons[] =
 };
 
 const struct WildPokemonInfo gBattlePike_4_LandMonsInfo = { 10, gBattlePike_4_LandMons };
-# 7275 "src/data/wild_encounters.h"
+# 7338 "src/data/wild_encounters.h"
 const struct WildPokemonHeader gBattlePikeWildMonHeaders[] =
 {
     {

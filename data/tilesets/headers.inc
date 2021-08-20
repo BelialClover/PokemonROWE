@@ -905,3 +905,28 @@ gTileset_UnionRoom:: @ 83DFDFC
 	.4byte gMetatileAttributes_UnionRoom
 	.4byte NULL @ animation callback
 	.4byte NULL
+
+
+	.align 2
+gTileset_Viridian_Forest::
+	.byte TRUE @ is compressed
+	.byte TRUE @ is secondary
+	.2byte 0 @ padding
+	.4byte gTilesetTiles_Viridian_Forest
+	.4byte gTilesetPalettes_Viridian_Forest
+	.4byte gMetatiles_Viridian_Forest
+	.4byte gMetatileAttributes_Viridian_Forest
+	.4byte NULL @ animation callback
+	.4byte NULL @ palette overrides
+
+	.align 2
+gTileset_FRLG_General::
+	.byte TRUE @ is compressed
+	.byte FALSE @ is secondary
+	.2byte 0 @ padding
+	.4byte gTilesetTiles_FRLG_General
+	.4byte gTilesetPalettes_FRLG_General
+	.4byte gMetatiles_FRLG_General
+	.4byte gMetatileAttributes_FRLG_General
+	.4byte NULL @ animation callback
+	.4byte NULL @ palette overrides

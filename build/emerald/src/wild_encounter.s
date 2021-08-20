@@ -1734,7 +1734,7 @@ gRoute118_LandMons:
 	.short	0x343
 	.byte	0x1a
 	.byte	0x1a
-	.short	0x116
+	.short	0x24b
 	.byte	0x1a
 	.byte	0x1a
 	.short	0xac
@@ -1743,16 +1743,16 @@ gRoute118_LandMons:
 	.short	0xa1
 	.byte	0x19
 	.byte	0x19
-	.short	0x1f8
+	.short	0x114
 	.byte	0x1a
 	.byte	0x1a
-	.short	0x167
+	.short	0xcf
 	.byte	0x1a
 	.byte	0x1a
 	.short	0x160
 	.byte	0x1b
 	.byte	0x1b
-	.short	0x167
+	.short	0xcf
 	.byte	0x19
 	.byte	0x19
 	.short	0x160
@@ -2002,7 +2002,7 @@ gPetalburgWoods_LandMonsNight:
 	.type	 gPetalburgWoods_LandMonsNightInfo,object
 	.size	 gPetalburgWoods_LandMonsNightInfo,8
 gPetalburgWoods_LandMonsNightInfo:
-	.byte	0x0
+	.byte	0x14
 	.space	3
 	.word	gPetalburgWoods_LandMonsNight
 	.globl	gPetalburgWoods_HiddenMons
@@ -2273,40 +2273,40 @@ gMtPyre_1F_LandMonsInfo:
 gVictoryRoad_1F_LandMons:
 	.byte	0x28
 	.byte	0x28
-	.short	0x29
+	.short	0x42
 	.byte	0x28
 	.byte	0x28
-	.short	0x366
-	.byte	0x28
-	.byte	0x28
-	.short	0x36a
-	.byte	0x28
-	.byte	0x28
-	.short	0x125
-	.byte	0x24
-	.byte	0x24
-	.short	0x29
-	.byte	0x24
-	.byte	0x24
-	.short	0x128
-	.byte	0x26
-	.byte	0x26
-	.short	0x29
-	.byte	0x26
-	.byte	0x26
-	.short	0x128
-	.byte	0x24
-	.byte	0x24
 	.short	0x130
+	.byte	0x28
+	.byte	0x28
+	.short	0x2ca
+	.byte	0x28
+	.byte	0x28
+	.short	0x279
 	.byte	0x24
 	.byte	0x24
-	.short	0x125
+	.short	0x26d
 	.byte	0x24
 	.byte	0x24
-	.short	0x130
+	.short	0x4a
+	.byte	0x26
+	.byte	0x26
+	.short	0x1b8
+	.byte	0x26
+	.byte	0x26
+	.short	0x20c
 	.byte	0x24
 	.byte	0x24
-	.short	0x125
+	.short	0x211
+	.byte	0x24
+	.byte	0x24
+	.short	0x262
+	.byte	0x24
+	.byte	0x24
+	.short	0x211
+	.byte	0x24
+	.byte	0x24
+	.short	0x262
 	.size	 gVictoryRoad_1F_LandMons,48
 	.globl	gVictoryRoad_1F_LandMonsInfo
 	.align	2, 0
@@ -3072,28 +3072,28 @@ gRoute109_WaterMonsInfo:
 gRoute109_FishingMons:
 	.byte	0x5
 	.byte	0xa
-	.short	0x81
+	.short	0x5a
 	.byte	0x5
 	.byte	0xa
-	.short	0x48
+	.short	0x4f
 	.byte	0xa
 	.byte	0x1e
-	.short	0x81
+	.short	0x5a
 	.byte	0xa
 	.byte	0x1e
-	.short	0x48
+	.short	0x4f
 	.byte	0xa
 	.byte	0x1e
-	.short	0x140
+	.short	0xd3
 	.byte	0x19
 	.byte	0x1e
-	.short	0x140
+	.short	0x3ca
 	.byte	0x1e
 	.byte	0x23
-	.short	0x140
+	.short	0x4f
 	.byte	0x14
 	.byte	0x19
-	.short	0x140
+	.short	0xd3
 	.byte	0x23
 	.byte	0x28
 	.short	0x30d
@@ -3284,10 +3284,10 @@ gNewMauville_Inside_LandMonsInfo:
 gRoute119_LandMons:
 	.byte	0x19
 	.byte	0x19
-	.short	0x1fa
-	.byte	0x19
-	.byte	0x19
 	.short	0x2a0
+	.byte	0x19
+	.byte	0x19
+	.short	0xc1
 	.byte	0x1b
 	.byte	0x1b
 	.short	0x249
@@ -3336,7 +3336,7 @@ gRoute119_WaterMons:
 	.short	0x11b
 	.byte	0xa
 	.byte	0x1e
-	.short	0x116
+	.short	0xc1
 	.byte	0xf
 	.byte	0x19
 	.short	0xaa
@@ -6422,37 +6422,37 @@ gSafariZone_Northwest_FishingMonsInfo:
 gVictoryRoad_B1F_LandMons:
 	.byte	0x28
 	.byte	0x28
-	.short	0x29
-	.byte	0x28
-	.byte	0x28
-	.short	0x128
+	.short	0x42
 	.byte	0x28
 	.byte	0x28
 	.short	0x130
 	.byte	0x28
 	.byte	0x28
-	.short	0x130
+	.short	0x2ca
+	.byte	0x28
+	.byte	0x28
+	.short	0x262
 	.byte	0x26
 	.byte	0x26
-	.short	0x133
+	.short	0x168
 	.byte	0x26
 	.byte	0x26
-	.short	0x133
+	.short	0xd8
 	.byte	0x2a
 	.byte	0x2a
+	.short	0xe7
+	.byte	0x2a
+	.byte	0x2a
+	.short	0xf6
+	.byte	0x2a
+	.byte	0x2a
+	.short	0x12e
+	.byte	0x26
+	.byte	0x26
 	.short	0x12f
 	.byte	0x2a
 	.byte	0x2a
-	.short	0x133
-	.byte	0x2a
-	.byte	0x2a
-	.short	0x130
-	.byte	0x26
-	.byte	0x26
-	.short	0x12f
-	.byte	0x2a
-	.byte	0x2a
-	.short	0x130
+	.short	0x12e
 	.byte	0x26
 	.byte	0x26
 	.short	0x12f
@@ -6471,19 +6471,19 @@ gVictoryRoad_B1F_LandMonsInfo:
 gVictoryRoad_B1F_RockSmashMons:
 	.byte	0x1e
 	.byte	0x28
-	.short	0x4a
+	.short	0x20c
 	.byte	0x1e
 	.byte	0x28
-	.short	0x4a
+	.short	0x36a
 	.byte	0x23
 	.byte	0x28
-	.short	0x4a
+	.short	0xd5
 	.byte	0x23
 	.byte	0x28
-	.short	0x4a
+	.short	0x3c0
 	.byte	0x23
 	.byte	0x28
-	.short	0x4a
+	.short	0x3c0
 	.size	 gVictoryRoad_B1F_RockSmashMons,20
 	.globl	gVictoryRoad_B1F_RockSmashMonsInfo
 	.align	2, 0
@@ -6499,40 +6499,40 @@ gVictoryRoad_B1F_RockSmashMonsInfo:
 gVictoryRoad_B2F_LandMons:
 	.byte	0x28
 	.byte	0x28
-	.short	0x29
+	.short	0x214
 	.byte	0x28
 	.byte	0x28
-	.short	0x12e
+	.short	0x20c
 	.byte	0x28
 	.byte	0x28
-	.short	0x130
+	.short	0x227
 	.byte	0x28
 	.byte	0x28
-	.short	0x130
+	.short	0x232
 	.byte	0x2a
 	.byte	0x2a
-	.short	0x133
+	.short	0x5c
 	.byte	0x2a
 	.byte	0x2a
-	.short	0x12f
+	.short	0x6f
 	.byte	0x2c
 	.byte	0x2c
-	.short	0x133
+	.short	0x2b0
 	.byte	0x2c
 	.byte	0x2c
-	.short	0x12e
+	.short	0x213
 	.byte	0x2a
 	.byte	0x2a
-	.short	0x130
+	.short	0x371
 	.byte	0x2a
 	.byte	0x2a
-	.short	0x12f
+	.short	0x370
 	.byte	0x2c
 	.byte	0x2c
-	.short	0x130
+	.short	0x371
 	.byte	0x2c
 	.byte	0x2c
-	.short	0x12f
+	.short	0x370
 	.size	 gVictoryRoad_B2F_LandMons,48
 	.globl	gVictoryRoad_B2F_LandMonsInfo
 	.align	2, 0
@@ -6548,19 +6548,19 @@ gVictoryRoad_B2F_LandMonsInfo:
 gVictoryRoad_B2F_WaterMons:
 	.byte	0x1e
 	.byte	0x23
-	.short	0x29
+	.short	0x250
 	.byte	0x19
 	.byte	0x1e
-	.short	0x29
+	.short	0x83
 	.byte	0x23
 	.byte	0x28
-	.short	0x29
+	.short	0x372
 	.byte	0x23
 	.byte	0x28
-	.short	0x29
+	.short	0x373
 	.byte	0x23
 	.byte	0x28
-	.short	0x29
+	.short	0x373
 	.size	 gVictoryRoad_B2F_WaterMons,20
 	.globl	gVictoryRoad_B2F_WaterMonsInfo
 	.align	2, 0
@@ -6579,31 +6579,31 @@ gVictoryRoad_B2F_FishingMons:
 	.short	0x81
 	.byte	0x5
 	.byte	0xa
-	.short	0x76
+	.short	0x74
 	.byte	0xa
 	.byte	0x1e
 	.short	0x81
 	.byte	0xa
 	.byte	0x1e
-	.short	0x76
+	.short	0x74
 	.byte	0xa
 	.byte	0x1e
-	.short	0x153
+	.short	0x2b4
 	.byte	0x19
 	.byte	0x1e
-	.short	0x153
+	.short	0x74
 	.byte	0x1e
 	.byte	0x23
-	.short	0x153
+	.short	0x2b4
 	.byte	0x1e
 	.byte	0x23
-	.short	0x153
+	.short	0x2b2
 	.byte	0x23
 	.byte	0x28
-	.short	0x153
+	.short	0x83
 	.byte	0x28
 	.byte	0x2d
-	.short	0x153
+	.short	0x83
 	.size	 gVictoryRoad_B2F_FishingMons,40
 	.globl	gVictoryRoad_B2F_FishingMonsInfo
 	.align	2, 0
@@ -9995,6 +9995,111 @@ gMeteorFalls_StevensCave_LandMonsInfo:
 	.byte	0xa
 	.space	3
 	.word	gMeteorFalls_StevensCave_LandMons
+	.globl	gPetalburg_Woods_20_LandMons
+	.align	2, 0
+	.type	 gPetalburg_Woods_20_LandMons,object
+gPetalburg_Woods_20_LandMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0x109
+	.byte	0x5
+	.byte	0x5
+	.short	0xa5
+	.byte	0x5
+	.byte	0x5
+	.short	0x109
+	.byte	0x5
+	.byte	0x5
+	.short	0xa7
+	.byte	0x5
+	.byte	0x5
+	.short	0xae
+	.byte	0x5
+	.byte	0x5
+	.short	0x145
+	.byte	0x5
+	.byte	0x5
+	.short	0xac
+	.byte	0x5
+	.byte	0x5
+	.short	0x35b
+	.byte	0x5
+	.byte	0x5
+	.short	0x53
+	.byte	0x5
+	.byte	0x5
+	.short	0x3c8
+	.byte	0x5
+	.byte	0x5
+	.short	0x53
+	.byte	0x5
+	.byte	0x5
+	.short	0x3c8
+	.size	 gPetalburg_Woods_20_LandMons,48
+	.globl	gPetalburg_Woods_20_LandMonsInfo
+	.align	2, 0
+	.type	 gPetalburg_Woods_20_LandMonsInfo,object
+	.size	 gPetalburg_Woods_20_LandMonsInfo,8
+gPetalburg_Woods_20_LandMonsInfo:
+	.byte	0x14
+	.space	3
+	.word	gPetalburg_Woods_20_LandMons
+	.globl	gPetalburg_Woods_20_WaterMons
+	.align	2, 0
+	.type	 gPetalburg_Woods_20_WaterMons,object
+gPetalburg_Woods_20_WaterMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0x11b
+	.byte	0x5
+	.byte	0x5
+	.short	0x2ef
+	.byte	0x5
+	.byte	0x5
+	.short	0x2ef
+	.byte	0x5
+	.byte	0x5
+	.short	0x2ff
+	.byte	0x5
+	.byte	0x5
+	.short	0x2ff
+	.size	 gPetalburg_Woods_20_WaterMons,20
+	.globl	gPetalburg_Woods_20_WaterMonsInfo
+	.align	2, 0
+	.type	 gPetalburg_Woods_20_WaterMonsInfo,object
+	.size	 gPetalburg_Woods_20_WaterMonsInfo,8
+gPetalburg_Woods_20_WaterMonsInfo:
+	.byte	0x0
+	.space	3
+	.word	gPetalburg_Woods_20_WaterMons
+	.globl	gPetalburg_Woods_20_RockSmashMons
+	.align	2, 0
+	.type	 gPetalburg_Woods_20_RockSmashMons,object
+gPetalburg_Woods_20_RockSmashMons:
+	.byte	0x5
+	.byte	0x5
+	.short	0xcc
+	.byte	0x5
+	.byte	0x5
+	.short	0xa3
+	.byte	0x5
+	.byte	0x5
+	.short	0x11f
+	.byte	0x5
+	.byte	0x5
+	.short	0x11f
+	.byte	0x5
+	.byte	0x5
+	.short	0x348
+	.size	 gPetalburg_Woods_20_RockSmashMons,20
+	.globl	gPetalburg_Woods_20_RockSmashMonsInfo
+	.align	2, 0
+	.type	 gPetalburg_Woods_20_RockSmashMonsInfo,object
+	.size	 gPetalburg_Woods_20_RockSmashMonsInfo,8
+gPetalburg_Woods_20_RockSmashMonsInfo:
+	.byte	0x0
+	.space	3
+	.word	gPetalburg_Woods_20_RockSmashMons
 	.globl	gWildMonHeaders
 	.align	2, 0
 	.type	 gWildMonHeaders,object
@@ -11309,6 +11414,16 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
+	.byte	0x0
+	.byte	0x3a
+	.space	2
+	.word	gPetalburg_Woods_20_LandMonsInfo
+	.word	gPetalburg_Woods_20_LandMonsInfo
+	.word	gPetalburg_Woods_20_WaterMonsInfo
+	.word	gPetalburg_Woods_20_RockSmashMonsInfo
+	.word	0x0
+	.word	0x0
+	.word	0x0
 	.byte	0xff
 	.byte	0xff
 	.space	2
@@ -11319,7 +11434,7 @@ gWildMonHeaders:
 	.word	0x0
 	.word	0x0
 	.word	0x0
-	.size	 gWildMonHeaders,4224
+	.size	 gWildMonHeaders,4256
 	.globl	gBattlePyramid_1_LandMons
 	.align	2, 0
 	.type	 gBattlePyramid_1_LandMons,object

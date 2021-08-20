@@ -37,6 +37,7 @@
 #include "constants/maps.h"
 #include "constants/songs.h"
 #include "constants/trainer_hill.h"
+#include "data/scripts/field_move_scripts.inc"
 
 static EWRAM_DATA u8 sWildEncounterImmunitySteps = 0;
 static EWRAM_DATA u16 sPreviousPlayerMetatileBehavior = 0;
@@ -138,7 +139,7 @@ void FieldGetPlayerInput(struct FieldInput *input, u16 newKeys, u16 heldKeys)
     else if (heldKeys & DPAD_RIGHT)
         input->dpadDirection = DIR_EAST;
 
-    if ((heldKeys & B_BUTTON) && input->pressedStartButton && EnableAutoRun())
+    if ((heldKeys & B_BUTTON) && input->pressedStartButton)
     {
         input->input_field_1_2 = TRUE;
         input->pressedStartButton = FALSE;
@@ -226,14 +227,13 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     if (input->tookStep && TryFindHiddenPokemon())
         return TRUE;
 
-/*/Debug
+
     if (input->input_field_1_2 && FlagGet(FLAG_UNUSED_0x020))
     {
         PlaySE(SE_WIN_OPEN);
         Debug_ShowMainMenu();
         return TRUE;
     }
-Debug End/*/
 
     return FALSE;
 }
@@ -427,6 +427,8 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         return EventScript_CableBoxResults;
     if (MetatileBehavior_IsPokeblockFeeder(metatileBehavior) == TRUE)
         return EventScript_PokeBlockFeeder;
+	if (MetatileBehavior_IsHeadbuttTree(metatileBehavior) == TRUE)
+        return EventScript_CutTree;
     if (MetatileBehavior_IsTrickHousePuzzleDoor(metatileBehavior) == TRUE)
         return Route110_TrickHousePuzzle_EventScript_Door;
     if (MetatileBehavior_IsRegionMap(metatileBehavior) == TRUE)
@@ -1053,25 +1055,4 @@ int SetCableClubWarp(void)
     MapGridGetMetatileBehaviorAt(position.x, position.y);  //unnecessary
     SetupWarp(&gMapHeader, GetWarpEventAtMapPosition(&gMapHeader, &position), &position);
     return 0;
-}
-
-extern const u8 EventScript_DisableAutoRun[];
-extern const u8 EventScript_EnableAutoRun[];
-static bool8 EnableAutoRun(void)
-{
-    PlaySE(SE_SELECT);
-    if (FlagGet(FLAG_UNUSED_0x1AA))
-    {
-        //gSaveBlock2Ptr->autoRun = FALSE;
-		FlagClear(FLAG_UNUSED_0x1AA);
-        ScriptContext1_SetupScript(EventScript_DisableAutoRun);
-    }
-    else
-    {
-        //gSaveBlock2Ptr->autoRun = TRUE;
-		FlagSet(FLAG_UNUSED_0x1AA);
-        ScriptContext1_SetupScript(EventScript_EnableAutoRun);
-    }
-
-    return TRUE;
 }

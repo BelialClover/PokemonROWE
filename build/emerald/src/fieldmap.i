@@ -3015,6 +3015,7 @@ void CheckClockForImmediateTimeEvents(void);
 void ProcessImmediateTimeEvents(void);
 void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
 const u8 *GetDayOfWeekString(u8 dayOfWeek);
+const u8 GetTimeOfDayString(void);
 # 5 "src/fieldmap.c" 2
 # 1 "include/fieldmap.h" 1
 # 12 "include/fieldmap.h"

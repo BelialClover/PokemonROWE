@@ -96,6 +96,11 @@ const u8 *GetDayOfWeekString(u8 dayOfWeek)
     return gDayOfWeekTable[dayOfWeek];
 }
 
+const u8 GetTimeOfDayString()
+{
+	return gLocalTime.hours;
+}
+
 void CopyDayOfWeekStringToVar1(void)
 {
     if (gSpecialVar_0x8004 <= DAY_SATURDAY)

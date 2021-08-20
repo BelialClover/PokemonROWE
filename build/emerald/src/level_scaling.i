@@ -21487,6 +21487,7 @@ u8 hardnumMonsDouble[] = {2,2,2,2,2,2,3,3,3,3,3};
 u16 SplitEvolutions(u16 basespecies, u8 level);
 u16 CheckforLegendary(u16 species);
 u16 GetCurrentMapWildPokemon(u8 isWaterMon, u8 index);
+bool8 IsPokemonValid(u16 mon);
 
 
 u8 WildLevel[] = {4,10,15,20,25,30,35,40,45,55,60};
@@ -21964,6 +21965,14 @@ bool8 IsMoveUsable(u8 movepower)
   return 0;
 }
 
+bool8 IsPokemonValid(u16 mon)
+{
+ if(mon > 898 + 308 + 1 || mon <= 0)
+  return 0;
+ else
+  return 1;
+}
+
 u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
 {
  u8 i = 0;
@@ -21974,23 +21983,32 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
  {0,0,0,0,0,0,
   0,0,0,0,0,0};
  u16 Waterspecies[] =
- {0,0,0,0,0};
+ {0,0,0,0,0,0,
+  0,0,0,0,0,0};
+
+ u16 randspecie = 0;
 
  for(i = 0; i < 12 ;i++)
   Landspecies[i] = GetCurrentMapWildPokemon(0, i+rand);
 
- for(j = 0; j < 5 ;j++)
+ for(j = 0; j < 12 ;j++)
   Waterspecies[j] = GetCurrentMapWildPokemon(1, j+rand);
+
+ if(rand <= 6)
+  return species;
 
  switch(TrainerClass)
  {
   case 0xa:
   case 0x17:
-  case 0x5:
   for(k = 0; k < 12 ;k++){
   if(gBaseStats[Landspecies[k]].growthRate == 5 || gBaseStats[Landspecies[k]].growthRate == 3)
-   return Landspecies[k];
-  }
+  {
+  if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0x14:
@@ -21999,8 +22017,12 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
   gBaseStats[Landspecies[k]].type1 == 12 || gBaseStats[Landspecies[k]].type2 == 12 ||
   gBaseStats[Landspecies[k]].bodyColor == 9 || gBaseStats[Landspecies[k]].eggGroup1 == 15 ||
   (gBaseStats[Landspecies[k]].type2 == 0 && gBaseStats[Landspecies[k]].type2 == 0))
-   return Landspecies[k];
-  }
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0x2:
@@ -22008,8 +22030,12 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
   for(k = 0; k < 12 ;k++){
   if(gBaseStats[Landspecies[k]].type1 == 4 || gBaseStats[Landspecies[k]].type2 == 4 ||
      gBaseStats[Landspecies[k]].type1 == 5 || gBaseStats[Landspecies[k]].type2 == 5)
-   return Landspecies[k];
-  }
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0xe:
@@ -22017,8 +22043,12 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
   if(gBaseStats[Landspecies[k]].type1 == 7 || gBaseStats[Landspecies[k]].type2 == 7 ||
      gBaseStats[Landspecies[k]].type1 == 14 || gBaseStats[Landspecies[k]].type2 == 14 ||
      gBaseStats[Landspecies[k]].type1 == 17 || gBaseStats[Landspecies[k]].type2 == 17)
-   return Landspecies[k];
-  }
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0xf:
@@ -22026,32 +22056,48 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
   if(gBaseStats[Landspecies[k]].type1 == 12 || gBaseStats[Landspecies[k]].type2 == 12 ||
      gBaseStats[Landspecies[k]].eggGroup1 == 7 || gBaseStats[Landspecies[k]].eggGroup2 == 7||
      gBaseStats[Landspecies[k]].eggGroup1 == 6 || gBaseStats[Landspecies[k]].eggGroup2 == 6)
-   return Landspecies[k];
-  }
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0x18:
   for(k = 0; k < 12 ;k++){
   if(gBaseStats[Landspecies[k]].type1 == 13 || gBaseStats[Landspecies[k]].type2 == 13 ||
      gBaseStats[Landspecies[k]].abilities[0] == 43 || gBaseStats[Landspecies[k]].abilities[1] == 43)
-   return Landspecies[k];
-  }
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0x1c:
   case 0x33:
   for(k = 0; k < 12 ;k++){
   if(gBaseStats[Landspecies[k]].type1 == 6 || gBaseStats[Landspecies[k]].type2 == 6)
-   return Landspecies[k];
-  }
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
+  break;
   break;
   case 0x29:
   for(k = 0; k < 12 ;k++){
-  if(gBaseStats[Landspecies[k]].type1 == 16 || gBaseStats[Landspecies[k]].type2 == 16||
-     gBaseStats[Landspecies[k]].eggGroup1 == 14)
-   return Landspecies[k];
-  }
+  if(gBaseStats[Landspecies[k]].type1 == 16 || gBaseStats[Landspecies[k]].type2 == 16)
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0x2b:
@@ -22059,15 +22105,23 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
   for(k = 0; k < 12 ;k++){
   if(gBaseStats[Landspecies[k]].type1 == 1 || gBaseStats[Landspecies[k]].type2 == 1 ||
   (gBaseStats[Landspecies[k]].eggGroup1 == 8 && gBaseStats[Landspecies[k]].evYield_Attack != 0))
-   return Landspecies[k];
-  }
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0x1d:
   for(k = 0; k < 12 ;k++){
   if(gBaseStats[Landspecies[k]].type1 == 14 || gBaseStats[Landspecies[k]].type2 == 14)
-   return Landspecies[k];
-  }
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0x6:
@@ -22075,8 +22129,12 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
   for(k = 0; k < 12 ;k++){
   if(gBaseStats[Landspecies[k]].type1 == 2 || gBaseStats[Landspecies[k]].type2 == 2
   ||gBaseStats[Landspecies[k]].eggGroup1 == 4)
-   return Landspecies[k];
-  }
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0x21:
@@ -22084,20 +22142,26 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
   case 0x25:
   for(k = 0; k < 12 ;k++){
   if(gBaseStats[Landspecies[k]].growthRate == 4 || gBaseStats[Landspecies[k]].growthRate == 0)
-   return Landspecies[k];
-  }
+  {
+   if(IsPokemonValid(Landspecies[k]))
+    return Landspecies[k];
+   else
+    return species;
+  }}
    return species;
   break;
   case 0x27:
   case 0x2d:
   case 0x8:
-  return Waterspecies[k];
+  if(IsPokemonValid(Waterspecies[0]))
+   return Waterspecies[0];
+  else
+   return species;
   break;
   default:
   return species;
  }
  return species;
-
 }
 
 u16 GetCurrentMapWildPokemon(u8 isWaterMon, u8 index)
@@ -22117,7 +22181,7 @@ u16 GetCurrentMapWildPokemon(u8 isWaterMon, u8 index)
         return 0;
  else
   return landMonsInfo->wildPokemon[index%11].species;
- }else if (landMonsInfo == ((void *)0))
+ }else if (waterMonsInfo == ((void *)0))
         return 0;
  else
   return waterMonsInfo->wildPokemon[index%4].species;

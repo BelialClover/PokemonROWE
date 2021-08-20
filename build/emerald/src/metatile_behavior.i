@@ -3029,6 +3029,7 @@ bool8 MetatileBehavior_IsQuestionnaire(u8);
 bool8 MetatileBehavior_IsLongGrass_Duplicate(u8);
 bool8 MetatileBehavior_IsLongGrassSouthEdge(u8);
 bool8 MetatileBehavior_IsTrainerHillTimer(u8);
+bool8 MetatileBehavior_IsHeadbuttTree(u8);
 # 3 "src/metatile_behavior.c" 2
 # 1 "include/constants/metatile_behaviors.h" 1
 # 4 "src/metatile_behavior.c" 2
@@ -3394,14 +3395,6 @@ bool8 MetatileBehavior_IsEscalator(u8 metatileBehavior)
 {
     if (metatileBehavior == 0x6A
      || metatileBehavior == 0x6B)
-        return 1;
-    else
-        return 0;
-}
-
-bool8 Unref_MetatileBehavior_IsUnused04(u8 metatileBehavior)
-{
-    if (metatileBehavior == 0x04)
         return 1;
     else
         return 0;
@@ -4226,6 +4219,14 @@ bool8 MetatileBehavior_IsRoulette(u8 metatileBehavior)
 bool8 MetatileBehavior_IsPokeblockFeeder(u8 metatileBehavior)
 {
     if (metatileBehavior == 0x87)
+        return 1;
+    else
+        return 0;
+}
+
+bool8 MetatileBehavior_IsHeadbuttTree(u8 metatileBehavior)
+{
+    if (metatileBehavior == 0x04)
         return 1;
     else
         return 0;

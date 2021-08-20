@@ -64671,7 +64671,7 @@ sParty_Perry:
 	.byte	0x0
 	.byte	0x3
 	.short	0x0
-	.short	0x116
+	.short	0x2db
 	.space	2
 	.short	0x0
 	.byte	0x1
@@ -64683,7 +64683,7 @@ sParty_Perry:
 	.byte	0x0
 	.byte	0x3
 	.short	0x0
-	.short	0x244
+	.short	0x18c
 	.space	2
 	.short	0x0
 	.byte	0x1
@@ -64695,7 +64695,7 @@ sParty_Perry:
 	.byte	0x0
 	.byte	0x3
 	.short	0x0
-	.short	0x18f
+	.short	0x54
 	.space	2
 	.size	 sParty_Perry,48
 	.align	2, 0
@@ -72559,10 +72559,46 @@ sParty_Kent:
 	.short	0x0
 	.short	0x122
 	.space	2
-	.size	 sParty_Kent,16
+	.short	0x0
+	.byte	0x1
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x3
+	.short	0x0
+	.short	0xa
+	.space	2
+	.short	0x0
+	.byte	0x1
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x3
+	.short	0x0
+	.short	0xd
+	.space	2
+	.size	 sParty_Kent,48
 	.align	2, 0
 	.type	 sParty_James1,object
 sParty_James1:
+	.short	0x14
+	.byte	0x1
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x0
+	.byte	0x3
+	.short	0x0
+	.short	0x109
+	.space	2
 	.short	0x0
 	.byte	0x1
 	.byte	0x0
@@ -72587,7 +72623,7 @@ sParty_James1:
 	.short	0x0
 	.short	0x232
 	.space	2
-	.size	 sParty_James1,32
+	.size	 sParty_James1,48
 	.align	2, 0
 	.type	 sParty_James2,object
 sParty_James2:
@@ -96524,7 +96560,7 @@ gTrainers:
 	.byte	0x0
 	.space	3
 	.word	0x1
-	.byte	0x1
+	.byte	0x3
 	.space	3
 	.word	sParty_Kent
 	.byte	0x0
@@ -96542,7 +96578,7 @@ gTrainers:
 	.byte	0x0
 	.space	3
 	.word	0x1
-	.byte	0x2
+	.byte	0x3
 	.space	3
 	.word	sParty_James1
 	.byte	0x0

@@ -148,6 +148,9 @@
 // gTileset_EverGrande
 #define METATILE_EverGrande_Door_PokemonLeague  0x21D
 
+// gTileset_FRLG
+#define METATILE_FRLG_General_TallGrass  0x00D
+
 // gTileset_Facility
 #define METATILE_Facility_DataPad                       0x3E4
 #define METATILE_Facility_NewMauvilleDoor_Closed_Tile0  0x314
@@ -778,5 +781,8 @@
 // gTileset_Underwater
 #define METATILE_Underwater_FloorShadow  0x228
 #define METATILE_Underwater_RockWall     0x21E
+
+// gTileset_Viridian
+#define METATILE_Viridian_Forest_TallGrass  0x204
 
 #endif // GUARD_METATILE_LABELS_H

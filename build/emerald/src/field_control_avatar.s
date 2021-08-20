@@ -207,40 +207,31 @@ FieldGetPlayerInput:
 	cmp	r0, #0
 	beq	.L26	@cond_branch
 	ldrb	r1, [r4]
-	mov	r0, #0x4
+	mov	r3, #0x4
+	mov	r2, #0x4
+	add	r0, r2, #0
 	and	r0, r0, r1
 	cmp	r0, #0
 	beq	.L25	@cond_branch
-	bl	EnableAutoRun
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L25	@cond_branch
 	ldrb	r0, [r4, #0x1]
-	mov	r1, #0x4
-	orr	r0, r0, r1
+	orr	r0, r0, r3
 	strb	r0, [r4, #0x1]
-	ldrb	r1, [r4]
 	mov	r0, #0x5
 	neg	r0, r0
 	and	r0, r0, r1
 	strb	r0, [r4]
 .L25:
-	mov	r0, #0x2
-	and	r0, r0, r6
-	cmp	r0, #0
-	beq	.L26	@cond_branch
-	ldrb	r2, [r4]
-	mov	r0, #0x4
-	and	r0, r0, r2
+	ldrb	r1, [r4]
+	add	r0, r2, #0
+	and	r0, r0, r1
 	cmp	r0, #0
 	beq	.L26	@cond_branch
 	ldrb	r0, [r4, #0x1]
-	mov	r1, #0x4
-	orr	r0, r0, r1
+	orr	r0, r0, r3
 	strb	r0, [r4, #0x1]
 	mov	r0, #0x5
 	neg	r0, r0
-	and	r0, r0, r2
+	and	r0, r0, r1
 	strb	r0, [r4]
 .L26:
 	pop	{r3, r4}
@@ -259,10 +250,10 @@ ProcessPlayerFieldInput:
 	push	{r4, r5, r6, lr}
 	add	sp, sp, #-0x8
 	add	r5, r0, #0
-	ldr	r0, .L57
+	ldr	r0, .L59
 	mov	r1, #0x0
 	strh	r1, [r0]
-	ldr	r0, .L57+0x4
+	ldr	r0, .L59+0x4
 	strb	r1, [r0]
 	bl	GetPlayerFacingDirection
 	lsl	r0, r0, #0x18
@@ -282,16 +273,16 @@ ProcessPlayerFieldInput:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.LCB351
-	b	.L56	@long jump
-.LCB351:
+	bne	.LCB338
+	b	.L58	@long jump
+.LCB338:
 	bl	TryRunOnFrameMapScript
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.LCB357
-	b	.L56	@long jump
-.LCB357:
+	bne	.LCB344
+	b	.L58	@long jump
+.LCB344:
 	ldrb	r1, [r5]
 	mov	r0, #0x80
 	and	r0, r0, r1
@@ -299,9 +290,9 @@ ProcessPlayerFieldInput:
 	beq	.L33	@cond_branch
 	bl	TrySetupDiveEmergeScript
 	cmp	r0, #0x1
-	bne	.LCB368
-	b	.L56	@long jump
-.LCB368:
+	bne	.LCB355
+	b	.L58	@long jump
+.LCB355:
 .L33:
 	ldrb	r1, [r5]
 	mov	r0, #0x40
@@ -318,7 +309,7 @@ ProcessPlayerFieldInput:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L56	@cond_branch
+	beq	.L58	@cond_branch
 .L34:
 	ldrb	r1, [r5]
 	mov	r0, #0x2
@@ -330,7 +321,7 @@ ProcessPlayerFieldInput:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L56	@cond_branch
+	beq	.L58	@cond_branch
 .L36:
 	ldrb	r1, [r5]
 	mov	r0, #0x10
@@ -347,7 +338,7 @@ ProcessPlayerFieldInput:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L56	@cond_branch
+	beq	.L58	@cond_branch
 .L37:
 	mov	r4, sp
 	mov	r0, sp
@@ -372,7 +363,7 @@ ProcessPlayerFieldInput:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L56	@cond_branch
+	beq	.L58	@cond_branch
 .L39:
 	ldrb	r1, [r5]
 	mov	r0, #0x20
@@ -389,7 +380,7 @@ ProcessPlayerFieldInput:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L56	@cond_branch
+	beq	.L58	@cond_branch
 .L40:
 	ldrb	r1, [r5]
 	mov	r0, #0x1
@@ -398,23 +389,23 @@ ProcessPlayerFieldInput:
 	beq	.L42	@cond_branch
 	bl	TrySetupDiveDownScript
 	cmp	r0, #0x1
-	beq	.L56	@cond_branch
+	beq	.L58	@cond_branch
 .L42:
 	ldrb	r1, [r5]
 	mov	r0, #0x4
 	and	r0, r0, r1
 	cmp	r0, #0
 	beq	.L43	@cond_branch
-	ldr	r0, .L57+0x8
+	ldr	r0, .L59+0x8
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L44	@cond_branch
 	bl	ResetDexNavSearch
-	b	.L53
-.L58:
+	b	.L54
+.L60:
 	.align	2, 0
-.L57:
+.L59:
 	.word	gSpecialVar_LastTalked
 	.word	gSelectedObjectEvent
 	.word	0x882
@@ -422,9 +413,9 @@ ProcessPlayerFieldInput:
 	mov	r0, #0x6
 	bl	PlaySE
 	bl	ShowStartMenu
-.L56:
+.L58:
 	mov	r0, #0x1
-	b	.L54
+	b	.L55
 .L43:
 	mov	r0, #0x8
 	and	r0, r0, r1
@@ -434,7 +425,7 @@ ProcessPlayerFieldInput:
 	bl	UseRegisteredKeyItemOnField
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L56	@cond_branch
+	bne	.L58	@cond_branch
 .L46:
 	ldrb	r1, [r5, #0x1]
 	mov	r0, #0x1
@@ -445,7 +436,7 @@ ProcessPlayerFieldInput:
 	bl	UseRegisteredKeyItemOnField
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L56	@cond_branch
+	bne	.L58	@cond_branch
 .L48:
 	ldrb	r1, [r5, #0x1]
 	mov	r4, #0x2
@@ -456,7 +447,7 @@ ProcessPlayerFieldInput:
 	bl	TryStartDexnavSearch
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L56	@cond_branch
+	bne	.L58	@cond_branch
 	ldrb	r1, [r5, #0x1]
 	add	r0, r4, #0
 	and	r0, r0, r1
@@ -466,7 +457,7 @@ ProcessPlayerFieldInput:
 	bl	UseRegisteredKeyItemOnField
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L56	@cond_branch
+	bne	.L58	@cond_branch
 .L47:
 	ldrb	r1, [r5]
 	mov	r0, #0x40
@@ -476,10 +467,25 @@ ProcessPlayerFieldInput:
 	bl	TryFindHiddenPokemon
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L56	@cond_branch
+	bne	.L58	@cond_branch
 .L53:
-	mov	r0, #0x0
+	ldrb	r1, [r5, #0x1]
+	mov	r0, #0x4
+	and	r0, r0, r1
+	cmp	r0, #0
+	beq	.L54	@cond_branch
+	mov	r0, #0x20
+	bl	FlagGet
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L54	@cond_branch
+	mov	r0, #0x6
+	bl	PlaySE
+	bl	Debug_ShowMainMenu
+	b	.L58
 .L54:
+	mov	r0, #0x0
+.L55:
 	add	sp, sp, #0x8
 	pop	{r4, r5, r6}
 	pop	{r1}
@@ -524,9 +530,9 @@ GetInFrontOfPlayerPosition:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L61	@cond_branch
+	beq	.L63	@cond_branch
 	bl	PlayerGetZCoord
-.L61:
+.L63:
 	strb	r0, [r5, #0x4]
 	add	sp, sp, #0x4
 	pop	{r4, r5}
@@ -571,44 +577,44 @@ TryStartInteractionScript:
 	bl	GetInteractionScript
 	add	r4, r0, #0
 	cmp	r4, #0
-	bne	.L65	@cond_branch
+	bne	.L67	@cond_branch
 	mov	r0, #0x0
-	b	.L67
-.L65:
-	ldr	r0, .L68
+	b	.L69
+.L67:
+	ldr	r0, .L70
 	cmp	r4, r0
-	beq	.L66	@cond_branch
-	ldr	r0, .L68+0x4
+	beq	.L68	@cond_branch
+	ldr	r0, .L70+0x4
 	cmp	r4, r0
-	beq	.L66	@cond_branch
-	ldr	r0, .L68+0x8
+	beq	.L68	@cond_branch
+	ldr	r0, .L70+0x8
 	cmp	r4, r0
-	beq	.L66	@cond_branch
-	ldr	r0, .L68+0xc
+	beq	.L68	@cond_branch
+	ldr	r0, .L70+0xc
 	cmp	r4, r0
-	beq	.L66	@cond_branch
-	ldr	r0, .L68+0x10
+	beq	.L68	@cond_branch
+	ldr	r0, .L70+0x10
 	cmp	r4, r0
-	beq	.L66	@cond_branch
-	ldr	r0, .L68+0x14
+	beq	.L68	@cond_branch
+	ldr	r0, .L70+0x14
 	cmp	r4, r0
-	beq	.L66	@cond_branch
-	ldr	r0, .L68+0x18
+	beq	.L68	@cond_branch
+	ldr	r0, .L70+0x18
 	cmp	r4, r0
-	beq	.L66	@cond_branch
+	beq	.L68	@cond_branch
 	mov	r0, #0x5
 	bl	PlaySE
-.L66:
+.L68:
 	add	r0, r4, #0
 	bl	ScriptContext1_SetupScript
 	mov	r0, #0x1
-.L67:
+.L69:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L69:
+.L71:
 	.align	2, 0
-.L68:
+.L70:
 	.word	LittlerootTown_BrendansHouse_2F_EventScript_PC
 	.word	LittlerootTown_MaysHouse_2F_EventScript_PC
 	.word	SecretBase_EventScript_PC
@@ -636,27 +642,27 @@ GetInteractionScript:
 	add	r2, r4, #0
 	bl	GetInteractedObjectEventScript
 	cmp	r0, #0
-	bne	.L75	@cond_branch
+	bne	.L77	@cond_branch
 	add	r0, r6, #0
 	add	r1, r5, #0
 	add	r2, r4, #0
 	bl	GetInteractedBackgroundEventScript
 	cmp	r0, #0
-	bne	.L75	@cond_branch
+	bne	.L77	@cond_branch
 	add	r0, r6, #0
 	add	r1, r5, #0
 	add	r2, r4, #0
 	bl	GetInteractedMetatileScript
 	cmp	r0, #0
-	bne	.L75	@cond_branch
+	bne	.L77	@cond_branch
 	add	r0, r6, #0
 	mov	r1, r8
 	add	r2, r7, #0
 	bl	GetInteractedWaterScript
 	cmp	r0, #0
-	bne	.L75	@cond_branch
+	bne	.L77	@cond_branch
 	mov	r0, #0x0
-.L75:
+.L77:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
@@ -683,12 +689,12 @@ GetInteractedLinkPlayerScript:
 	bl	MetatileBehavior_IsCounter
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L77	@cond_branch
+	bne	.L79	@cond_branch
 	ldrh	r0, [r4]
 	ldrh	r1, [r4, #0x2]
-	b	.L89
-.L77:
-	ldr	r1, .L90
+	b	.L91
+.L79:
+	ldr	r1, .L92
 	lsl	r2, r6, #0x3
 	add	r0, r2, r1
 	ldr	r3, [r0]
@@ -703,14 +709,14 @@ GetInteractedLinkPlayerScript:
 	add	r1, r1, r2
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
-.L89:
+.L91:
 	ldrb	r2, [r4, #0x4]
 	bl	GetObjectEventIdByXYZ
 	lsl	r0, r0, #0x18
 	lsr	r3, r0, #0x18
 	cmp	r3, #0x10
-	beq	.L80	@cond_branch
-	ldr	r1, .L90+0x4
+	beq	.L82	@cond_branch
+	ldr	r1, .L92+0x4
 	lsl	r2, r3, #0x3
 	add	r0, r2, r3
 	lsl	r0, r0, #0x2
@@ -718,50 +724,50 @@ GetInteractedLinkPlayerScript:
 	ldrb	r0, [r0, #0x8]
 	add	r5, r1, #0
 	cmp	r0, #0xff
-	bne	.L79	@cond_branch
-.L80:
-.L88:
-	mov	r0, #0x0
-	b	.L87
-.L91:
-	.align	2, 0
+	bne	.L81	@cond_branch
+.L82:
 .L90:
+	mov	r0, #0x0
+	b	.L89
+.L93:
+	.align	2, 0
+.L92:
 	.word	gDirectionToVectors
 	.word	gObjectEvents
-.L79:
+.L81:
 	mov	r4, #0x0
-	ldr	r1, .L92
-.L84:
+	ldr	r1, .L94
+.L86:
 	ldrb	r0, [r1]
 	cmp	r0, #0x1
-	bne	.L83	@cond_branch
+	bne	.L85	@cond_branch
 	ldrb	r0, [r1, #0x2]
 	cmp	r0, r3
-	beq	.L88	@cond_branch
-.L83:
+	beq	.L90	@cond_branch
+.L85:
 	add	r1, r1, #0x4
 	add	r4, r4, #0x1
 	cmp	r4, #0x3
-	ble	.L84	@cond_branch
-	ldr	r0, .L92+0x4
+	ble	.L86	@cond_branch
+	ldr	r0, .L94+0x4
 	strb	r3, [r0]
-	ldr	r1, .L92+0x8
+	ldr	r1, .L94+0x8
 	add	r0, r2, r3
 	lsl	r0, r0, #0x2
 	add	r0, r0, r5
 	ldrb	r0, [r0, #0x8]
 	strh	r0, [r1]
-	ldr	r0, .L92+0xc
+	ldr	r0, .L94+0xc
 	strh	r6, [r0]
 	add	r0, r3, #0
 	bl	GetObjectEventScriptPointerByObjectEventId
-.L87:
+.L89:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.L93:
+.L95:
 	.align	2, 0
-.L92:
+.L94:
 	.word	gLinkPlayerObjectEvents
 	.word	gSelectedObjectEvent
 	.word	gSpecialVar_LastTalked
@@ -785,8 +791,8 @@ GetInteractedObjectEventScript:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	cmp	r4, #0x10
-	beq	.L96	@cond_branch
-	ldr	r1, .L104
+	beq	.L98	@cond_branch
+	ldr	r1, .L106
 	lsl	r2, r4, #0x3
 	add	r0, r2, r4
 	lsl	r0, r0, #0x2
@@ -794,15 +800,15 @@ GetInteractedObjectEventScript:
 	ldrb	r0, [r0, #0x8]
 	add	r3, r1, #0
 	cmp	r0, #0xff
-	bne	.L95	@cond_branch
-.L96:
+	bne	.L97	@cond_branch
+.L98:
 	add	r0, r6, #0
 	bl	MetatileBehavior_IsCounter
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L99	@cond_branch
-	ldr	r1, .L104+0x4
+	bne	.L101	@cond_branch
+	ldr	r1, .L106+0x4
 	lsl	r2, r7, #0x3
 	add	r0, r2, r1
 	ldr	r3, [r0]
@@ -822,8 +828,8 @@ GetInteractedObjectEventScript:
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	cmp	r4, #0x10
-	beq	.L99	@cond_branch
-	ldr	r1, .L104
+	beq	.L101	@cond_branch
+	ldr	r1, .L106
 	lsl	r2, r4, #0x3
 	add	r0, r2, r4
 	lsl	r0, r0, #0x2
@@ -831,53 +837,53 @@ GetInteractedObjectEventScript:
 	ldrb	r0, [r0, #0x8]
 	add	r3, r1, #0
 	cmp	r0, #0xff
-	bne	.L95	@cond_branch
-.L99:
+	bne	.L97	@cond_branch
+.L101:
 	mov	r0, #0x0
-	b	.L102
-.L105:
+	b	.L104
+.L107:
 	.align	2, 0
-.L104:
+.L106:
 	.word	gObjectEvents
 	.word	gDirectionToVectors
-.L95:
-	ldr	r0, .L106
+.L97:
+	ldr	r0, .L108
 	strb	r4, [r0]
-	ldr	r1, .L106+0x4
+	ldr	r1, .L108+0x4
 	add	r0, r2, r4
 	lsl	r0, r0, #0x2
 	add	r0, r0, r3
 	ldrb	r0, [r0, #0x8]
 	strh	r0, [r1]
-	ldr	r0, .L106+0x8
+	ldr	r0, .L108+0x8
 	strh	r7, [r0]
 	bl	InTrainerHill
 	cmp	r0, #0x1
-	bne	.L100	@cond_branch
+	bne	.L102	@cond_branch
 	bl	GetTrainerHillTrainerScript
-	b	.L103
-.L107:
-	.align	2, 0
-.L106:
-	.word	gSelectedObjectEvent
-	.word	gSpecialVar_LastTalked
-	.word	gSpecialVar_Facing
-.L100:
-	add	r0, r4, #0
-	bl	GetObjectEventScriptPointerByObjectEventId
-.L103:
-	add	r1, r0, #0
-	ldr	r0, .L108
-	ldrb	r0, [r0]
-	bl	GetRamScript
-	add	r1, r0, #0
-.L102:
-	pop	{r4, r5, r6, r7}
-	pop	{r1}
-	bx	r1
+	b	.L105
 .L109:
 	.align	2, 0
 .L108:
+	.word	gSelectedObjectEvent
+	.word	gSpecialVar_LastTalked
+	.word	gSpecialVar_Facing
+.L102:
+	add	r0, r4, #0
+	bl	GetObjectEventScriptPointerByObjectEventId
+.L105:
+	add	r1, r0, #0
+	ldr	r0, .L110
+	ldrb	r0, [r0]
+	bl	GetRamScript
+	add	r1, r0, #0
+.L104:
+	pop	{r4, r5, r6, r7}
+	pop	{r1}
+	bx	r1
+.L111:
+	.align	2, 0
+.L110:
 	.word	gSpecialVar_LastTalked
 .Lfe10:
 	.size	 GetInteractedObjectEventScript,.Lfe10-GetInteractedObjectEventScript
@@ -888,7 +894,7 @@ GetInteractedBackgroundEventScript:
 	push	{r4, r5, lr}
 	lsl	r2, r2, #0x18
 	lsr	r5, r2, #0x18
-	ldr	r4, .L138
+	ldr	r4, .L140
 	ldrh	r1, [r0]
 	sub	r1, r1, #0x7
 	lsl	r1, r1, #0x10
@@ -901,102 +907,102 @@ GetInteractedBackgroundEventScript:
 	add	r0, r4, #0
 	bl	GetBackgroundEventAtPosition
 	cmp	r0, #0
-	beq	.L137	@cond_branch
+	beq	.L139	@cond_branch
 	ldr	r2, [r0, #0x8]
 	cmp	r2, #0
-	bne	.L112	@cond_branch
-	ldr	r0, .L138+0x4
-	b	.L132
-.L139:
-	.align	2, 0
-.L138:
-	.word	gMapHeader
-	.word	EventScript_TestSignpostMsg
-.L112:
-	ldrb	r0, [r0, #0x5]
-	cmp	r0, #0x8
-	bhi	.L113	@cond_branch
-	lsl	r0, r0, #0x2
-	ldr	r1, .L140
-	add	r0, r0, r1
-	ldr	r0, [r0]
-	mov	pc, r0
+	bne	.L114	@cond_branch
+	ldr	r0, .L140+0x4
+	b	.L134
 .L141:
 	.align	2, 0
 .L140:
-	.word	.L131
+	.word	gMapHeader
+	.word	EventScript_TestSignpostMsg
+.L114:
+	ldrb	r0, [r0, #0x5]
+	cmp	r0, #0x8
+	bhi	.L115	@cond_branch
+	lsl	r0, r0, #0x2
+	ldr	r1, .L142
+	add	r0, r0, r1
+	ldr	r0, [r0]
+	mov	pc, r0
+.L143:
+	.align	2, 0
+.L142:
+	.word	.L133
 	.align	2, 0
 	.align	2, 0
-.L131:
-	.word	.L113
-	.word	.L116
+.L133:
+	.word	.L115
 	.word	.L118
 	.word	.L120
 	.word	.L122
-	.word	.L126
-	.word	.L126
-	.word	.L126
+	.word	.L124
 	.word	.L128
-.L116:
-	cmp	r5, #0x2
-	beq	.L113	@cond_branch
-.L137:
-	mov	r0, #0x0
-	b	.L132
+	.word	.L128
+	.word	.L128
+	.word	.L130
 .L118:
-	cmp	r5, #0x1
-	beq	.L113	@cond_branch
-	b	.L137
+	cmp	r5, #0x2
+	beq	.L115	@cond_branch
+.L139:
+	mov	r0, #0x0
+	b	.L134
 .L120:
-	cmp	r5, #0x4
-	beq	.L113	@cond_branch
-	b	.L137
+	cmp	r5, #0x1
+	beq	.L115	@cond_branch
+	b	.L139
 .L122:
+	cmp	r5, #0x4
+	beq	.L115	@cond_branch
+	b	.L139
+.L124:
 	cmp	r5, #0x3
-	beq	.L113	@cond_branch
-	b	.L137
-.L126:
-	ldr	r1, .L142
+	beq	.L115	@cond_branch
+	b	.L139
+.L128:
+	ldr	r1, .L144
 	lsr	r0, r2, #0x10
 	mov	r3, #0xfa
 	lsl	r3, r3, #0x1
 	add	r0, r0, r3
 	strh	r0, [r1]
-	ldr	r0, .L142+0x4
+	ldr	r0, .L144+0x4
 	strh	r2, [r0]
 	ldrh	r0, [r1]
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L137	@cond_branch
-	ldr	r0, .L142+0x8
-	b	.L132
-.L143:
-	.align	2, 0
-.L142:
-	.word	gSpecialVar_0x8004
-	.word	gSpecialVar_0x8005
-	.word	EventScript_HiddenItemScript
-.L128:
-	cmp	r5, #0x2
-	bne	.L137	@cond_branch
-	ldr	r0, .L144
-	strh	r2, [r0]
-	bl	TrySetCurSecretBase
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L137	@cond_branch
-	ldr	r0, .L144+0x4
-	b	.L132
+	beq	.L139	@cond_branch
+	ldr	r0, .L144+0x8
+	b	.L134
 .L145:
 	.align	2, 0
 .L144:
 	.word	gSpecialVar_0x8004
+	.word	gSpecialVar_0x8005
+	.word	EventScript_HiddenItemScript
+.L130:
+	cmp	r5, #0x2
+	bne	.L139	@cond_branch
+	ldr	r0, .L146
+	strh	r2, [r0]
+	bl	TrySetCurSecretBase
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
+	beq	.L139	@cond_branch
+	ldr	r0, .L146+0x4
+	b	.L134
+.L147:
+	.align	2, 0
+.L146:
+	.word	gSpecialVar_0x8004
 	.word	SecretBase_EventScript_CheckEntrance
-.L113:
+.L115:
 	add	r0, r2, #0
-.L132:
+.L134:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
@@ -1018,259 +1024,261 @@ GetInteractedMetatileScript:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L147	@cond_branch
-	ldr	r0, .L179
-	b	.L177
-.L180:
+	bne	.L149	@cond_branch
+	ldr	r0, .L182
+	b	.L180
+.L183:
 	.align	2, 0
-.L179:
+.L182:
 	.word	EventScript_TV
-.L147:
+.L149:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsPC
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L148	@cond_branch
-	ldr	r0, .L181
-	b	.L177
-.L182:
+	bne	.L150	@cond_branch
+	ldr	r0, .L184
+	b	.L180
+.L185:
 	.align	2, 0
-.L181:
+.L184:
 	.word	EventScript_PC
-.L148:
+.L150:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsClosedSootopolisDoor
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L149	@cond_branch
-	ldr	r0, .L183
-	b	.L177
-.L184:
+	bne	.L151	@cond_branch
+	ldr	r0, .L186
+	b	.L180
+.L187:
 	.align	2, 0
-.L183:
+.L186:
 	.word	EventScript_ClosedSootopolisDoor
-.L149:
+.L151:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsSkyPillarClosedDoor
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L150	@cond_branch
-	ldr	r0, .L185
-	b	.L177
-.L186:
+	bne	.L152	@cond_branch
+	ldr	r0, .L188
+	b	.L180
+.L189:
 	.align	2, 0
-.L185:
+.L188:
 	.word	SkyPillar_Outside_EventScript_ClosedDoor
-.L150:
+.L152:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsCableBoxResults1
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.LCB1354
-	b	.L178	@long jump
-.LCB1354:
+	bne	.LCB1362
+	b	.L181	@long jump
+.LCB1362:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsPokeblockFeeder
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L152	@cond_branch
-	ldr	r0, .L187
-	b	.L177
-.L188:
+	bne	.L154	@cond_branch
+	ldr	r0, .L190
+	b	.L180
+.L191:
 	.align	2, 0
-.L187:
+.L190:
 	.word	EventScript_PokeBlockFeeder
-.L152:
+.L154:
+	add	r0, r5, #0
+	bl	MetatileBehavior_IsHeadbuttTree
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsTrickHousePuzzleDoor
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L153	@cond_branch
-	ldr	r0, .L189
-	b	.L177
-.L190:
+	bne	.L156	@cond_branch
+	ldr	r0, .L192
+	b	.L180
+.L193:
 	.align	2, 0
-.L189:
+.L192:
 	.word	Route110_TrickHousePuzzle_EventScript_Door
-.L153:
+.L156:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsRegionMap
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L154	@cond_branch
-	ldr	r0, .L191
-	b	.L177
-.L192:
+	bne	.L157	@cond_branch
+	ldr	r0, .L194
+	b	.L180
+.L195:
 	.align	2, 0
-.L191:
+.L194:
 	.word	EventScript_RegionMap
-.L154:
+.L157:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsRunningShoesManual
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L155	@cond_branch
-	ldr	r0, .L193
-	b	.L177
-.L194:
+	bne	.L158	@cond_branch
+	ldr	r0, .L196
+	b	.L180
+.L197:
 	.align	2, 0
-.L193:
+.L196:
 	.word	EventScript_RunningShoesManual
-.L155:
+.L158:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsPictureBookShelf
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L156	@cond_branch
-	ldr	r0, .L195
-	b	.L177
-.L196:
+	bne	.L159	@cond_branch
+	ldr	r0, .L198
+	b	.L180
+.L199:
 	.align	2, 0
-.L195:
+.L198:
 	.word	EventScript_PictureBookShelf
-.L156:
+.L159:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsBookShelf
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L157	@cond_branch
-	ldr	r0, .L197
-	b	.L177
-.L198:
+	bne	.L160	@cond_branch
+	ldr	r0, .L200
+	b	.L180
+.L201:
 	.align	2, 0
-.L197:
+.L200:
 	.word	EventScript_BookShelf
-.L157:
+.L160:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsPokeCenterBookShelf
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L158	@cond_branch
-	ldr	r0, .L199
-	b	.L177
-.L200:
+	bne	.L161	@cond_branch
+	ldr	r0, .L202
+	b	.L180
+.L203:
 	.align	2, 0
-.L199:
+.L202:
 	.word	EventScript_PokemonCenterBookShelf
-.L158:
+.L161:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsVase
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L159	@cond_branch
-	ldr	r0, .L201
-	b	.L177
-.L202:
+	bne	.L162	@cond_branch
+	ldr	r0, .L204
+	b	.L180
+.L205:
 	.align	2, 0
-.L201:
+.L204:
 	.word	EventScript_Vase
-.L159:
+.L162:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsTrashCan
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L160	@cond_branch
-	ldr	r0, .L203
-	b	.L177
-.L204:
+	bne	.L163	@cond_branch
+	ldr	r0, .L206
+	b	.L180
+.L207:
 	.align	2, 0
-.L203:
+.L206:
 	.word	EventScript_EmptyTrashCan
-.L160:
+.L163:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsShopShelf
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L161	@cond_branch
-	ldr	r0, .L205
-	b	.L177
-.L206:
+	bne	.L164	@cond_branch
+	ldr	r0, .L208
+	b	.L180
+.L209:
 	.align	2, 0
-.L205:
+.L208:
 	.word	EventScript_ShopShelf
-.L161:
+.L164:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsBlueprint
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L162	@cond_branch
-	ldr	r0, .L207
-	b	.L177
-.L208:
+	bne	.L165	@cond_branch
+	ldr	r0, .L210
+	b	.L180
+.L211:
 	.align	2, 0
-.L207:
+.L210:
 	.word	EventScript_Blueprint
-.L162:
+.L165:
 	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	MetatileBehavior_IsPlayerFacingWirelessBoxResults
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L163	@cond_branch
-	ldr	r0, .L209
-	b	.L177
-.L210:
+	bne	.L166	@cond_branch
+	ldr	r0, .L212
+	b	.L180
+.L213:
 	.align	2, 0
-.L209:
+.L212:
 	.word	EventScript_WirelessBoxResults
-.L163:
+.L166:
 	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	MetatileBehavior_IsCableBoxResults2
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L164	@cond_branch
-.L178:
-	ldr	r0, .L211
-	b	.L177
-.L212:
+	bne	.L167	@cond_branch
+.L181:
+	ldr	r0, .L214
+	b	.L180
+.L215:
 	.align	2, 0
-.L211:
+.L214:
 	.word	EventScript_CableBoxResults
-.L164:
+.L167:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsQuestionnaire
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L165	@cond_branch
-	ldr	r0, .L213
-	b	.L177
-.L214:
+	bne	.L168	@cond_branch
+	ldr	r0, .L216
+	b	.L180
+.L217:
 	.align	2, 0
-.L213:
+.L216:
 	.word	EventScript_Questionnaire
-.L165:
+.L168:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsTrainerHillTimer
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L166	@cond_branch
-	ldr	r0, .L215
-	b	.L177
-.L216:
+	bne	.L169	@cond_branch
+	ldr	r0, .L218
+	b	.L180
+.L219:
 	.align	2, 0
-.L215:
+.L218:
 	.word	EventScript_TrainerHillTimer
-.L166:
+.L169:
 	mov	r4, #0x4
 	ldrsb	r4, [r6, r4]
 	mov	r1, #0x0
@@ -1281,96 +1289,96 @@ GetInteractedMetatileScript:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r4, r0
-	bne	.L167	@cond_branch
+	bne	.L170	@cond_branch
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsSecretBasePC
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L168	@cond_branch
-	ldr	r0, .L217
-	b	.L177
-.L218:
+	bne	.L171	@cond_branch
+	ldr	r0, .L220
+	b	.L180
+.L221:
 	.align	2, 0
-.L217:
+.L220:
 	.word	SecretBase_EventScript_PC
-.L168:
+.L171:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsRecordMixingSecretBasePC
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L169	@cond_branch
-	ldr	r0, .L219
-	b	.L177
-.L220:
+	bne	.L172	@cond_branch
+	ldr	r0, .L222
+	b	.L180
+.L223:
 	.align	2, 0
-.L219:
+.L222:
 	.word	SecretBase_EventScript_RecordMixingPC
-.L169:
+.L172:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsSecretBaseSandOrnament
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L170	@cond_branch
-	ldr	r0, .L221
-	b	.L177
-.L222:
+	bne	.L173	@cond_branch
+	ldr	r0, .L224
+	b	.L180
+.L225:
 	.align	2, 0
-.L221:
+.L224:
 	.word	SecretBase_EventScript_SandOrnament
-.L170:
+.L173:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsSecretBaseShieldOrToyTV
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L171	@cond_branch
-	ldr	r0, .L223
-	b	.L177
-.L224:
+	bne	.L174	@cond_branch
+	ldr	r0, .L226
+	b	.L180
+.L227:
 	.align	2, 0
-.L223:
+.L226:
 	.word	SecretBase_EventScript_ShieldOrToyTV
-.L171:
+.L174:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsMB_C6
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L172	@cond_branch
+	bne	.L175	@cond_branch
 	bl	CheckInteractedWithFriendsFurnitureBottom
-	b	.L175
-.L172:
+	b	.L178
+.L175:
 	add	r0, r5, #0
 	bl	MetatileBehavior_HoldsLargeDecoration
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L173	@cond_branch
+	bne	.L176	@cond_branch
 	bl	CheckInteractedWithFriendsFurnitureMiddle
-	b	.L175
-.L173:
+	b	.L178
+.L176:
 	add	r0, r5, #0
 	bl	MetatileBehavior_HoldsSmallDecoration
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L175	@cond_branch
+	bne	.L178	@cond_branch
 	bl	CheckInteractedWithFriendsFurnitureTop
-	b	.L175
-.L167:
+	b	.L178
+.L170:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsSecretBasePoster
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L175	@cond_branch
+	bne	.L178	@cond_branch
 	bl	CheckInteractedWithFriendsPosterDecor
-.L175:
+.L178:
 	mov	r0, #0x0
-.L177:
+.L180:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
@@ -1387,47 +1395,47 @@ GetInteractedWaterScript:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L226	@cond_branch
-	ldr	r0, .L231
-	b	.L230
-.L232:
+	bne	.L229	@cond_branch
+	ldr	r0, .L234
+	b	.L233
+.L235:
 	.align	2, 0
-.L231:
+.L234:
 	.word	EventScript_UseSurf
-.L226:
+.L229:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsWaterfall
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L227	@cond_branch
+	bne	.L230	@cond_branch
 	mov	r0, #0xaa
 	bl	FlagGet
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L228	@cond_branch
+	bne	.L231	@cond_branch
 	bl	IsPlayerSurfingNorth
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L228	@cond_branch
-	ldr	r0, .L233
-	b	.L230
-.L234:
+	bne	.L231	@cond_branch
+	ldr	r0, .L236
+	b	.L233
+.L237:
 	.align	2, 0
-.L233:
-	.word	EventScript_UseWaterfall
-.L228:
-	ldr	r0, .L235
-	b	.L230
 .L236:
+	.word	EventScript_UseWaterfall
+.L231:
+	ldr	r0, .L238
+	b	.L233
+.L239:
 	.align	2, 0
-.L235:
+.L238:
 	.word	EventScript_CannotUseWaterfall
-.L227:
-	mov	r0, #0x0
 .L230:
+	mov	r0, #0x0
+.L233:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
@@ -1442,19 +1450,19 @@ TrySetupDiveDownScript:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x2
-	beq	.L238	@cond_branch
+	beq	.L241	@cond_branch
 	mov	r0, #0x0
-	b	.L239
-.L238:
-	ldr	r0, .L240
+	b	.L242
+.L241:
+	ldr	r0, .L243
 	bl	ScriptContext1_SetupScript
 	mov	r0, #0x1
-.L239:
+.L242:
 	pop	{r1}
 	bx	r1
-.L241:
+.L244:
 	.align	2, 0
-.L240:
+.L243:
 	.word	EventScript_UseDive
 .Lfe14:
 	.size	 TrySetupDiveDownScript,.Lfe14-TrySetupDiveDownScript
@@ -1463,27 +1471,27 @@ TrySetupDiveDownScript:
 	.thumb_func
 TrySetupDiveEmergeScript:
 	push	{lr}
-	ldr	r0, .L245
+	ldr	r0, .L248
 	ldrb	r0, [r0, #0x17]
 	cmp	r0, #0x5
-	bne	.L243	@cond_branch
+	bne	.L246	@cond_branch
 	bl	TrySetDiveWarp
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L243	@cond_branch
-	ldr	r0, .L245+0x4
+	bne	.L246	@cond_branch
+	ldr	r0, .L248+0x4
 	bl	ScriptContext1_SetupScript
 	mov	r0, #0x1
-	b	.L244
-.L246:
+	b	.L247
+.L249:
 	.align	2, 0
-.L245:
+.L248:
 	.word	gMapHeader
 	.word	EventScript_UseDiveUnderwater
-.L243:
+.L246:
 	mov	r0, #0x0
-.L244:
+.L247:
 	pop	{r1}
 	bx	r1
 .Lfe15:
@@ -1501,41 +1509,41 @@ TryStartStepBasedScript:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L253	@cond_branch
+	beq	.L256	@cond_branch
 	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	TryStartWarpEventScript
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L253	@cond_branch
+	beq	.L256	@cond_branch
 	add	r0, r4, #0
 	bl	TryStartMiscWalkingScripts
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L253	@cond_branch
+	beq	.L256	@cond_branch
 	add	r0, r6, #0
 	bl	TryStartStepCountScript
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L253	@cond_branch
+	beq	.L256	@cond_branch
 	bl	UpdateRepelCounter
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L253	@cond_branch
+	beq	.L256	@cond_branch
 	bl	UpdateLureCounter
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L253	@cond_branch
+	beq	.L256	@cond_branch
 	mov	r0, #0x0
-	b	.L254
-.L253:
+	b	.L257
+.L256:
 	mov	r0, #0x1
-.L254:
+.L257:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
@@ -1546,7 +1554,7 @@ TryStartStepBasedScript:
 	.thumb_func
 TryStartCoordEventScript:
 	push	{r4, lr}
-	ldr	r4, .L258
+	ldr	r4, .L261
 	ldrh	r1, [r0]
 	sub	r1, r1, #0x7
 	lsl	r1, r1, #0x10
@@ -1559,17 +1567,17 @@ TryStartCoordEventScript:
 	add	r0, r4, #0
 	bl	GetCoordEventScriptAtPosition
 	cmp	r0, #0
-	beq	.L256	@cond_branch
+	beq	.L259	@cond_branch
 	bl	ScriptContext1_SetupScript
 	mov	r0, #0x1
-	b	.L257
-.L259:
+	b	.L260
+.L262:
 	.align	2, 0
-.L258:
+.L261:
 	.word	gMapHeader
-.L256:
+.L259:
 	mov	r0, #0x0
-.L257:
+.L260:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
@@ -1587,44 +1595,44 @@ TryStartMiscWalkingScripts:
 	bl	MetatileBehavior_IsCrackedFloorHole
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L261	@cond_branch
-	ldr	r0, .L271
-	b	.L269
-.L272:
+	beq	.L264	@cond_branch
+	ldr	r0, .L274
+	b	.L272
+.L275:
 	.align	2, 0
-.L271:
+.L274:
 	.word	EventScript_FallDownHole
-.L261:
+.L264:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsBattlePyramidWarp
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L263	@cond_branch
-	ldr	r0, .L273
-.L269:
+	beq	.L266	@cond_branch
+	ldr	r0, .L276
+.L272:
 	bl	ScriptContext1_SetupScript
 	mov	r0, #0x1
-	b	.L268
-.L274:
+	b	.L271
+.L277:
 	.align	2, 0
-.L273:
+.L276:
 	.word	BattlePyramid_WarpToNextFloor
-.L263:
+.L266:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsSecretBaseGlitterMat
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L265	@cond_branch
+	bne	.L268	@cond_branch
 	bl	DoSecretBaseGlitterMatSparkle
-	b	.L270
-.L265:
+	b	.L273
+.L268:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsSecretBaseSoundMat
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L270	@cond_branch
+	bne	.L273	@cond_branch
 	mov	r4, sp
 	add	r4, r4, #0x2
 	mov	r0, sp
@@ -1639,9 +1647,9 @@ TryStartMiscWalkingScripts:
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	bl	PlaySecretBaseMusicNoteMatSound
-.L270:
+.L273:
 	mov	r0, #0x0
-.L268:
+.L271:
 	add	sp, sp, #0x4
 	pop	{r4}
 	pop	{r1}
@@ -1657,159 +1665,159 @@ TryStartStepCountScript:
 	lsr	r4, r0, #0x10
 	bl	InUnionRoom
 	cmp	r0, #0x1
-	bne	.LCB2115
-	b	.L291	@long jump
-.LCB2115:
+	bne	.LCB2125
+	b	.L294	@long jump
+.LCB2125:
 	bl	IncrementRematchStepCounter
 	bl	UpdateHappinessStepCounter
 	bl	UpdateFarawayIslandStepCounter
-	ldr	r0, .L292
+	ldr	r0, .L295
 	ldrb	r1, [r0]
 	mov	r0, #0x40
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L277	@cond_branch
+	bne	.L280	@cond_branch
 	lsl	r0, r4, #0x18
 	lsr	r0, r0, #0x18
 	bl	MetatileBehavior_IsForcedMovementTile
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L277	@cond_branch
+	bne	.L280	@cond_branch
 	bl	UpdatePoisonStepCounter
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L278	@cond_branch
-	ldr	r0, .L292+0x4
+	bne	.L281	@cond_branch
+	ldr	r0, .L295+0x4
 	bl	ScriptContext1_SetupScript
-	b	.L289
-.L293:
+	b	.L292
+.L296:
 	.align	2, 0
-.L292:
+.L295:
 	.word	gPlayerAvatar
 	.word	EventScript_FieldPoison
-.L278:
+.L281:
 	bl	ShouldEggHatch
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L279	@cond_branch
+	beq	.L282	@cond_branch
 	mov	r0, #0xd
 	bl	IncrementGameStat
-	ldr	r0, .L294
+	ldr	r0, .L297
 	bl	ScriptContext1_SetupScript
-	b	.L289
-.L295:
+	b	.L292
+.L298:
 	.align	2, 0
-.L294:
+.L297:
 	.word	EventScript_EggHatch
-.L279:
+.L282:
 	bl	AbnormalWeatherHasExpired
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L280	@cond_branch
-	ldr	r0, .L296
+	bne	.L283	@cond_branch
+	ldr	r0, .L299
 	bl	ScriptContext1_SetupScript
-	b	.L289
-.L297:
+	b	.L292
+.L300:
 	.align	2, 0
-.L296:
+.L299:
 	.word	AbnormalWeather_EventScript_EndEventAndCleanup_1
-.L280:
+.L283:
 	bl	ShouldDoBrailleRegicePuzzle
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L281	@cond_branch
-	ldr	r0, .L298
+	bne	.L284	@cond_branch
+	ldr	r0, .L301
 	bl	ScriptContext1_SetupScript
-	b	.L289
-.L299:
+	b	.L292
+.L302:
 	.align	2, 0
-.L298:
+.L301:
 	.word	IslandCave_EventScript_OpenRegiEntrance
-.L281:
+.L284:
 	bl	ShouldDoWallyCall
 	cmp	r0, #0x1
-	bne	.L282	@cond_branch
-	ldr	r0, .L300
+	bne	.L285	@cond_branch
+	ldr	r0, .L303
 	bl	ScriptContext1_SetupScript
-	b	.L289
-.L301:
+	b	.L292
+.L304:
 	.align	2, 0
-.L300:
+.L303:
 	.word	MauvilleCity_EventScript_RegisterWallyCall
-.L282:
+.L285:
 	bl	ShouldDoScottFortreeCall
 	cmp	r0, #0x1
-	bne	.L283	@cond_branch
-	ldr	r0, .L302
+	bne	.L286	@cond_branch
+	ldr	r0, .L305
 	bl	ScriptContext1_SetupScript
-	b	.L289
-.L303:
+	b	.L292
+.L306:
 	.align	2, 0
-.L302:
+.L305:
 	.word	Route119_EventScript_ScottWonAtFortreeGymCall
-.L283:
+.L286:
 	bl	ShouldDoScottBattleFrontierCall
 	cmp	r0, #0x1
-	bne	.L284	@cond_branch
-	ldr	r0, .L304
+	bne	.L287	@cond_branch
+	ldr	r0, .L307
 	bl	ScriptContext1_SetupScript
-	b	.L289
-.L305:
+	b	.L292
+.L308:
 	.align	2, 0
-.L304:
+.L307:
 	.word	LittlerootTown_ProfessorBirchsLab_EventScript_ScottAboardSSTidalCall
-.L284:
+.L287:
 	bl	ShouldDoRoxanneCall
 	cmp	r0, #0x1
-	bne	.L285	@cond_branch
-	ldr	r0, .L306
+	bne	.L288	@cond_branch
+	ldr	r0, .L309
 	bl	ScriptContext1_SetupScript
-	b	.L289
-.L307:
+	b	.L292
+.L310:
 	.align	2, 0
-.L306:
+.L309:
 	.word	RustboroCity_Gym_EventScript_RegisterRoxanne
-.L285:
+.L288:
 	bl	ShouldDoRivalRayquazaCall
 	cmp	r0, #0x1
-	bne	.L277	@cond_branch
-	ldr	r0, .L308
+	bne	.L280	@cond_branch
+	ldr	r0, .L311
 	bl	ScriptContext1_SetupScript
-	b	.L289
-.L309:
+	b	.L292
+.L312:
 	.align	2, 0
-.L308:
+.L311:
 	.word	MossdeepCity_SpaceCenter_2F_EventScript_RivalRayquazaCall
-.L277:
+.L280:
 	bl	SafariZoneTakeStep
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L289	@cond_branch
+	beq	.L292	@cond_branch
 	mov	r0, #0x1
 	bl	CountSSTidalStep
 	cmp	r0, #0x1
-	bne	.L288	@cond_branch
-	ldr	r0, .L310
+	bne	.L291	@cond_branch
+	ldr	r0, .L313
 	bl	ScriptContext1_SetupScript
-	b	.L289
-.L311:
+	b	.L292
+.L314:
 	.align	2, 0
-.L310:
+.L313:
 	.word	SSTidalCorridor_EventScript_ReachedStepCount
-.L288:
+.L291:
 	bl	TryStartMatchCall
 	cmp	r0, #0
-	bne	.L289	@cond_branch
-.L291:
+	bne	.L292	@cond_branch
+.L294:
 	mov	r0, #0x0
-	b	.L290
-.L289:
+	b	.L293
+.L292:
 	mov	r0, #0x1
-.L290:
+.L293:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
@@ -1821,14 +1829,14 @@ TryStartStepCountScript:
 	.thumb_func
 Unref_ClearHappinessStepCounter:
 	push	{lr}
-	ldr	r0, .L313
+	ldr	r0, .L316
 	mov	r1, #0x0
 	bl	VarSet
 	pop	{r0}
 	bx	r0
-.L314:
+.L317:
 	.align	2, 0
-.L313:
+.L316:
 	.word	0x402a
 .Lfe20:
 	.size	 Unref_ClearHappinessStepCounter,.Lfe20-Unref_ClearHappinessStepCounter
@@ -1837,7 +1845,7 @@ Unref_ClearHappinessStepCounter:
 	.thumb_func
 UpdateHappinessStepCounter:
 	push	{r4, r5, lr}
-	ldr	r0, .L322
+	ldr	r0, .L325
 	bl	GetVarPointer
 	ldrh	r1, [r0]
 	add	r1, r1, #0x1
@@ -1847,24 +1855,24 @@ UpdateHappinessStepCounter:
 	and	r1, r1, r2
 	strh	r1, [r0]
 	cmp	r1, #0
-	bne	.L316	@cond_branch
-	ldr	r5, .L322+0x4
+	bne	.L319	@cond_branch
+	ldr	r5, .L325+0x4
 	mov	r4, #0x5
-.L320:
+.L323:
 	add	r0, r5, #0
 	mov	r1, #0x5
 	bl	AdjustFriendship
 	add	r5, r5, #0x64
 	sub	r4, r4, #0x1
 	cmp	r4, #0
-	bge	.L320	@cond_branch
-.L316:
+	bge	.L323	@cond_branch
+.L319:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L323:
+.L326:
 	.align	2, 0
-.L322:
+.L325:
 	.word	0x402a
 	.word	gPlayerParty
 .Lfe21:
@@ -1875,14 +1883,14 @@ UpdateHappinessStepCounter:
 	.thumb_func
 ClearPoisonStepCounter:
 	push	{lr}
-	ldr	r0, .L325
+	ldr	r0, .L328
 	mov	r1, #0x0
 	bl	VarSet
 	pop	{r0}
 	bx	r0
-.L326:
+.L329:
 	.align	2, 0
-.L325:
+.L328:
 	.word	0x402b
 .Lfe22:
 	.size	 ClearPoisonStepCounter,.Lfe22-ClearPoisonStepCounter
@@ -1891,11 +1899,11 @@ ClearPoisonStepCounter:
 	.thumb_func
 UpdatePoisonStepCounter:
 	push	{lr}
-	ldr	r0, .L338
+	ldr	r0, .L341
 	ldrb	r0, [r0, #0x17]
 	cmp	r0, #0x9
-	beq	.L328	@cond_branch
-	ldr	r0, .L338+0x4
+	beq	.L331	@cond_branch
+	ldr	r0, .L341+0x4
 	bl	GetVarPointer
 	ldrh	r1, [r0]
 	add	r1, r1, #0x1
@@ -1905,24 +1913,24 @@ UpdatePoisonStepCounter:
 	and	r1, r1, r2
 	strh	r1, [r0]
 	cmp	r1, #0
-	bne	.L328	@cond_branch
+	bne	.L331	@cond_branch
 	bl	DoPoisonFieldEffect
 	cmp	r0, #0x1
-	beq	.L328	@cond_branch
+	beq	.L331	@cond_branch
 	cmp	r0, #0x1
-	ble	.L328	@cond_branch
+	ble	.L331	@cond_branch
 	cmp	r0, #0x2
-	bne	.L328	@cond_branch
+	bne	.L331	@cond_branch
 	mov	r0, #0x1
-	b	.L337
-.L339:
+	b	.L340
+.L342:
 	.align	2, 0
-.L338:
+.L341:
 	.word	gMapHeader
 	.word	0x402b
-.L328:
+.L331:
 	mov	r0, #0x0
-.L337:
+.L340:
 	pop	{r1}
 	bx	r1
 .Lfe23:
@@ -1932,13 +1940,13 @@ UpdatePoisonStepCounter:
 	.type	 RestartWildEncounterImmunitySteps,function
 	.thumb_func
 RestartWildEncounterImmunitySteps:
-	ldr	r1, .L341
+	ldr	r1, .L344
 	mov	r0, #0x0
 	strb	r0, [r1]
 	bx	lr
-.L342:
+.L345:
 	.align	2, 0
-.L341:
+.L344:
 	.word	sWildEncounterImmunitySteps
 .Lfe24:
 	.size	 RestartWildEncounterImmunitySteps,.Lfe24-RestartWildEncounterImmunitySteps
@@ -1957,47 +1965,47 @@ CheckStandardWildEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
 	cmp	r7, #0
-	beq	.L344	@cond_branch
+	beq	.L347	@cond_branch
 	mov	r0, #0x0
-	b	.L347
-.L344:
-	ldr	r6, .L348
+	b	.L350
+.L347:
+	ldr	r6, .L351
 	ldrb	r0, [r6]
 	cmp	r0, #0x3
-	bhi	.L345	@cond_branch
+	bhi	.L348	@cond_branch
 	add	r0, r0, #0x1
 	strb	r0, [r6]
-	ldr	r0, .L348+0x4
+	ldr	r0, .L351+0x4
 	strh	r4, [r0]
 	mov	r0, #0x0
-	b	.L347
-.L349:
+	b	.L350
+.L352:
 	.align	2, 0
-.L348:
+.L351:
 	.word	sWildEncounterImmunitySteps
 	.word	sPreviousPlayerMetatileBehavior
-.L345:
-	ldr	r5, .L350
+.L348:
+	ldr	r5, .L353
 	ldrh	r1, [r5]
 	add	r0, r4, #0
 	bl	StandardWildEncounter
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L346	@cond_branch
+	beq	.L349	@cond_branch
 	strh	r4, [r5]
 	mov	r0, #0x0
-	b	.L347
-.L351:
+	b	.L350
+.L354:
 	.align	2, 0
-.L350:
+.L353:
 	.word	sPreviousPlayerMetatileBehavior
-.L346:
+.L349:
 	strb	r7, [r6]
 	mov	r0, r8
 	strh	r0, [r5]
 	mov	r0, #0x1
-.L347:
+.L350:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
@@ -2019,7 +2027,7 @@ TryArrowWarp:
 	lsr	r4, r4, #0x10
 	lsl	r5, r5, #0x18
 	lsr	r5, r5, #0x18
-	ldr	r0, .L355
+	ldr	r0, .L358
 	mov	r8, r0
 	add	r1, r7, #0
 	bl	GetWarpEventAtMapPosition
@@ -2031,13 +2039,13 @@ TryArrowWarp:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L353	@cond_branch
+	bne	.L356	@cond_branch
 	lsl	r0, r6, #0x18
 	asr	r4, r0, #0x18
 	mov	r0, #0x1
 	neg	r0, r0
 	cmp	r4, r0
-	beq	.L353	@cond_branch
+	beq	.L356	@cond_branch
 	bl	StoreInitialPlayerAvatarState
 	mov	r0, r8
 	add	r1, r4, #0
@@ -2045,14 +2053,14 @@ TryArrowWarp:
 	bl	SetupWarp
 	bl	DoWarp
 	mov	r0, #0x1
-	b	.L354
-.L356:
+	b	.L357
+.L359:
 	.align	2, 0
-.L355:
+.L358:
 	.word	gMapHeader
-.L353:
+.L356:
 	mov	r0, #0x0
-.L354:
+.L357:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
@@ -2068,7 +2076,7 @@ TryStartWarpEventScript:
 	add	r6, r0, #0
 	lsl	r1, r1, #0x10
 	lsr	r5, r1, #0x10
-	ldr	r7, .L367
+	ldr	r7, .L370
 	add	r0, r7, #0
 	add	r1, r6, #0
 	bl	GetWarpEventAtMapPosition
@@ -2077,13 +2085,13 @@ TryStartWarpEventScript:
 	mov	r0, #0x1
 	neg	r0, r0
 	cmp	r4, r0
-	beq	.L358	@cond_branch
+	beq	.L361	@cond_branch
 	add	r0, r5, #0
 	bl	IsWarpMetatileBehavior
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L358	@cond_branch
+	bne	.L361	@cond_branch
 	bl	StoreInitialPlayerAvatarState
 	add	r0, r7, #0
 	add	r1, r4, #0
@@ -2096,87 +2104,87 @@ TryStartWarpEventScript:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L359	@cond_branch
+	bne	.L362	@cond_branch
 	add	r0, r4, #0
 	bl	DoEscalatorWarp
 	mov	r0, #0x1
-	b	.L366
-.L368:
+	b	.L369
+.L371:
 	.align	2, 0
-.L367:
+.L370:
 	.word	gMapHeader
-.L359:
+.L362:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsLavaridgeB1FWarp
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L360	@cond_branch
+	bne	.L363	@cond_branch
 	bl	DoLavaridgeGymB1FWarp
 	mov	r0, #0x1
-	b	.L366
-.L360:
+	b	.L369
+.L363:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsLavaridge1FWarp
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L361	@cond_branch
+	bne	.L364	@cond_branch
 	bl	DoLavaridgeGym1FWarp
 	mov	r0, #0x1
-	b	.L366
-.L361:
+	b	.L369
+.L364:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsAquaHideoutWarp
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L362	@cond_branch
+	bne	.L365	@cond_branch
 	bl	DoTeleportTileWarp
 	mov	r0, #0x1
-	b	.L366
-.L362:
+	b	.L369
+.L365:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsWarpOrBridge
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L363	@cond_branch
+	bne	.L366	@cond_branch
 	bl	sub_80B0268
 	mov	r0, #0x1
-	b	.L366
-.L363:
+	b	.L369
+.L366:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsMtPyreHole
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L364	@cond_branch
-	ldr	r0, .L369
+	bne	.L367	@cond_branch
+	ldr	r0, .L372
 	bl	ScriptContext1_SetupScript
 	mov	r0, #0x1
-	b	.L366
-.L370:
+	b	.L369
+.L373:
 	.align	2, 0
-.L369:
+.L372:
 	.word	EventScript_FallDownHoleMtPyre
-.L364:
+.L367:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsMossdeepGymWarp
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L365	@cond_branch
+	bne	.L368	@cond_branch
 	bl	DoMossdeepGymWarp
 	mov	r0, #0x1
-	b	.L366
-.L365:
+	b	.L369
+.L368:
 	bl	DoWarp
 	mov	r0, #0x1
-	b	.L366
-.L358:
+	b	.L369
+.L361:
 	mov	r0, #0x0
-.L366:
+.L369:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
@@ -2194,66 +2202,66 @@ IsWarpMetatileBehavior:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L372	@cond_branch
+	beq	.L375	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsLadder
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L372	@cond_branch
+	beq	.L375	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsEscalator
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L372	@cond_branch
+	beq	.L375	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsNonAnimDoor
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L372	@cond_branch
+	beq	.L375	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsLavaridgeB1FWarp
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L372	@cond_branch
+	beq	.L375	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsLavaridge1FWarp
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L372	@cond_branch
+	beq	.L375	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsAquaHideoutWarp
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L372	@cond_branch
+	beq	.L375	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsMtPyreHole
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L372	@cond_branch
+	beq	.L375	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsMossdeepGymWarp
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L372	@cond_branch
+	beq	.L375	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsWarpOrBridge
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	beq	.L372	@cond_branch
+	beq	.L375	@cond_branch
 	mov	r0, #0x0
-	b	.L373
-.L372:
+	b	.L376
+.L375:
 	mov	r0, #0x1
-.L373:
+.L376:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
@@ -2270,44 +2278,44 @@ IsArrowWarpMetatileBehavior:
 	lsr	r1, r1, #0x18
 	add	r2, r1, #0
 	cmp	r1, #0x2
-	beq	.L376	@cond_branch
-	cmp	r1, #0x2
-	bgt	.L382	@cond_branch
-	cmp	r1, #0x1
-	beq	.L377	@cond_branch
-	b	.L375
-.L382:
-	cmp	r2, #0x3
-	beq	.L378	@cond_branch
-	cmp	r2, #0x4
 	beq	.L379	@cond_branch
-	b	.L375
-.L376:
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	bl	MetatileBehavior_IsNorthArrowWarp
-	b	.L384
-.L377:
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	bl	MetatileBehavior_IsSouthArrowWarp
-	b	.L384
-.L378:
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	bl	MetatileBehavior_IsWestArrowWarp
-	b	.L384
+	cmp	r1, #0x2
+	bgt	.L385	@cond_branch
+	cmp	r1, #0x1
+	beq	.L380	@cond_branch
+	b	.L378
+.L385:
+	cmp	r2, #0x3
+	beq	.L381	@cond_branch
+	cmp	r2, #0x4
+	beq	.L382	@cond_branch
+	b	.L378
 .L379:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	bl	MetatileBehavior_IsEastArrowWarp
-.L384:
+	bl	MetatileBehavior_IsNorthArrowWarp
+	b	.L387
+.L380:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	b	.L383
-.L375:
+	bl	MetatileBehavior_IsSouthArrowWarp
+	b	.L387
+.L381:
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	bl	MetatileBehavior_IsWestArrowWarp
+	b	.L387
+.L382:
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	bl	MetatileBehavior_IsEastArrowWarp
+.L387:
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	b	.L386
+.L378:
 	mov	r0, #0x0
-.L383:
+.L386:
 	pop	{r1}
 	bx	r1
 .Lfe29:
@@ -2347,57 +2355,57 @@ SetupWarp:
 	lsr	r5, r0, #0x18
 	add	r6, r5, #0
 	cmp	r5, #0
-	beq	.L387	@cond_branch
+	beq	.L390	@cond_branch
 	bl	GetNumFloorsInTrainerHillChallenge
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r5, r0
-	bne	.L388	@cond_branch
+	bne	.L391	@cond_branch
 	lsl	r0, r4, #0x18
 	add	r4, r0, #0
 	cmp	r4, #0
-	bne	.L389	@cond_branch
-	ldr	r0, .L398
+	bne	.L392	@cond_branch
+	ldr	r0, .L401
 	ldr	r0, [r0, #0x4]
 	ldr	r5, [r0, #0x8]
-	b	.L394
-.L399:
+	b	.L397
+.L402:
 	.align	2, 0
-.L398:
+.L401:
 	.word	gMapHeader
-.L389:
+.L392:
 	bl	SetWarpDestinationTrainerHill4F
 	add	r5, r0, #0
-	b	.L394
-.L388:
+	b	.L397
+.L391:
 	cmp	r6, #0x5
-	bne	.L392	@cond_branch
+	bne	.L395	@cond_branch
 	lsl	r4, r4, #0x18
 	lsr	r0, r4, #0x18
 	bl	SetWarpDestinationTrainerHillFinalFloor
 	add	r5, r0, #0
-	b	.L394
-.L392:
-.L387:
-	ldr	r0, .L400
+	b	.L397
+.L395:
+.L390:
+	ldr	r0, .L403
 	ldr	r0, [r0, #0x4]
 	lsl	r2, r4, #0x18
 	asr	r1, r2, #0x15
 	ldr	r0, [r0, #0x8]
 	add	r5, r0, r1
 	add	r4, r2, #0
-.L394:
+.L397:
 	ldrb	r0, [r5, #0x6]
 	cmp	r0, #0x7f
-	bne	.L395	@cond_branch
+	bne	.L398	@cond_branch
 	ldrb	r0, [r5, #0x5]
 	bl	SetWarpDestinationToDynamicWarp
-	b	.L396
-.L401:
+	b	.L399
+.L404:
 	.align	2, 0
-.L400:
+.L403:
 	.word	gMapHeader
-.L395:
+.L398:
 	mov	r0, #0x7
 	ldrsb	r0, [r5, r0]
 	mov	r1, #0x6
@@ -2420,12 +2428,12 @@ SetupWarp:
 	add	r0, r0, r1
 	ldrb	r0, [r0, #0x6]
 	cmp	r0, #0x7f
-	bne	.L396	@cond_branch
+	bne	.L399	@cond_branch
 	asr	r3, r4, #0x18
 	lsl	r0, r3, #0x3
 	add	r0, r0, r1
 	ldrb	r0, [r0, #0x5]
-	ldr	r1, .L402
+	ldr	r1, .L405
 	ldr	r2, [r1]
 	mov	r1, #0x4
 	ldrsb	r1, [r2, r1]
@@ -2433,13 +2441,13 @@ SetupWarp:
 	lsl	r2, r2, #24
 	asr	r2, r2, #24
 	bl	SetDynamicWarp
-.L396:
+.L399:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L403:
+.L406:
 	.align	2, 0
-.L402:
+.L405:
 	.word	gSaveBlock1Ptr
 .Lfe31:
 	.size	 SetupWarp,.Lfe31-SetupWarp
@@ -2455,7 +2463,7 @@ TryDoorWarp:
 	lsl	r2, r2, #0x18
 	lsr	r2, r2, #0x18
 	cmp	r2, #0x2
-	bne	.L405	@cond_branch
+	bne	.L408	@cond_branch
 	lsl	r0, r0, #0x18
 	lsr	r4, r0, #0x18
 	add	r0, r4, #0
@@ -2463,25 +2471,25 @@ TryDoorWarp:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L406	@cond_branch
-	ldr	r0, .L410
+	bne	.L409	@cond_branch
+	ldr	r0, .L413
 	ldr	r1, [r0, #0x4]
 	add	r0, r5, #0
 	bl	WarpIntoSecretBase
 	mov	r0, #0x1
-	b	.L409
-.L411:
+	b	.L412
+.L414:
 	.align	2, 0
-.L410:
+.L413:
 	.word	gMapHeader
-.L406:
+.L409:
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsWarpDoor
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L405	@cond_branch
-	ldr	r6, .L412
+	bne	.L408	@cond_branch
+	ldr	r6, .L415
 	add	r0, r6, #0
 	add	r1, r5, #0
 	bl	GetWarpEventAtMapPosition
@@ -2490,13 +2498,13 @@ TryDoorWarp:
 	mov	r0, #0x1
 	neg	r0, r0
 	cmp	r4, r0
-	beq	.L405	@cond_branch
+	beq	.L408	@cond_branch
 	add	r0, r7, #0
 	bl	IsWarpMetatileBehavior
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L405	@cond_branch
+	bne	.L408	@cond_branch
 	bl	StoreInitialPlayerAvatarState
 	add	r0, r6, #0
 	add	r1, r4, #0
@@ -2504,14 +2512,14 @@ TryDoorWarp:
 	bl	SetupWarp
 	bl	DoDoorWarp
 	mov	r0, #0x1
-	b	.L409
-.L413:
+	b	.L412
+.L416:
 	.align	2, 0
-.L412:
+.L415:
 	.word	gMapHeader
-.L405:
+.L408:
 	mov	r0, #0x0
-.L409:
+.L412:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
@@ -2533,32 +2541,32 @@ GetWarpEventAtPosition:
 	ldrb	r3, [r0, #0x1]
 	mov	r2, #0x0
 	cmp	r2, r3
-	bge	.L416	@cond_branch
-.L418:
+	bge	.L419	@cond_branch
+.L421:
 	ldrh	r0, [r1]
 	cmp	r0, r6
-	bne	.L417	@cond_branch
+	bne	.L420	@cond_branch
 	ldrh	r0, [r1, #0x2]
 	cmp	r0, r5
-	bne	.L417	@cond_branch
+	bne	.L420	@cond_branch
 	ldrb	r0, [r1, #0x4]
 	cmp	r0, r4
-	beq	.L421	@cond_branch
+	beq	.L424	@cond_branch
 	cmp	r0, #0
-	bne	.L417	@cond_branch
-.L421:
+	bne	.L420	@cond_branch
+.L424:
 	lsl	r0, r2, #0x18
 	asr	r0, r0, #0x18
-	b	.L423
-.L417:
+	b	.L426
+.L420:
 	add	r2, r2, #0x1
 	add	r1, r1, #0x8
 	cmp	r2, r3
-	blt	.L418	@cond_branch
-.L416:
+	blt	.L421	@cond_branch
+.L419:
 	mov	r0, #0x1
 	neg	r0, r0
-.L423:
+.L426:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
@@ -2571,32 +2579,32 @@ TryRunCoordEventScript:
 	push	{r4, lr}
 	add	r4, r0, #0
 	cmp	r4, #0
-	beq	.L425	@cond_branch
+	beq	.L428	@cond_branch
 	ldr	r1, [r4, #0xc]
 	cmp	r1, #0
-	bne	.L426	@cond_branch
+	bne	.L429	@cond_branch
 	ldrb	r0, [r4, #0x6]
 	bl	DoCoordEventWeather
-	b	.L425
-.L426:
+	b	.L428
+.L429:
 	ldrh	r0, [r4, #0x6]
 	cmp	r0, #0
-	beq	.L427	@cond_branch
+	beq	.L430	@cond_branch
 	ldrh	r0, [r4, #0x6]
 	bl	VarGet
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	ldrb	r1, [r4, #0x8]
 	cmp	r0, r1
-	bne	.L425	@cond_branch
+	bne	.L428	@cond_branch
 	ldr	r0, [r4, #0xc]
-	b	.L429
-.L427:
+	b	.L432
+.L430:
 	add	r0, r1, #0
 	bl	ScriptContext2_RunNewScript
-.L425:
+.L428:
 	mov	r0, #0x0
-.L429:
+.L432:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
@@ -2625,35 +2633,35 @@ GetCoordEventScriptAtPosition:
 	ldrb	r7, [r0, #0x2]
 	mov	r6, #0x0
 	cmp	r6, r7
-	bge	.L432	@cond_branch
+	bge	.L435	@cond_branch
 	add	r5, r1, #0
 	add	r4, r5, #0
-.L434:
+.L437:
 	ldrh	r0, [r4]
 	cmp	r0, sl
-	bne	.L433	@cond_branch
+	bne	.L436	@cond_branch
 	ldrh	r0, [r4, #0x2]
 	cmp	r0, r9
-	bne	.L433	@cond_branch
+	bne	.L436	@cond_branch
 	ldrb	r0, [r4, #0x4]
 	cmp	r0, r8
-	beq	.L437	@cond_branch
+	beq	.L440	@cond_branch
 	cmp	r0, #0
-	bne	.L433	@cond_branch
-.L437:
+	bne	.L436	@cond_branch
+.L440:
 	add	r0, r5, #0
 	bl	TryRunCoordEventScript
 	cmp	r0, #0
-	bne	.L440	@cond_branch
-.L433:
+	bne	.L443	@cond_branch
+.L436:
 	add	r4, r4, #0x10
 	add	r5, r5, #0x10
 	add	r6, r6, #0x1
 	cmp	r6, r7
-	blt	.L434	@cond_branch
-.L432:
+	blt	.L437	@cond_branch
+.L435:
 	mov	r0, #0x0
-.L440:
+.L443:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -2669,7 +2677,7 @@ GetCoordEventScriptAtPosition:
 	.thumb_func
 GetCoordEventScriptAtMapPosition:
 	push	{r4, lr}
-	ldr	r4, .L442
+	ldr	r4, .L445
 	ldrh	r1, [r0]
 	sub	r1, r1, #0x7
 	lsl	r1, r1, #0x10
@@ -2684,9 +2692,9 @@ GetCoordEventScriptAtMapPosition:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L443:
+.L446:
 	.align	2, 0
-.L442:
+.L445:
 	.word	gMapHeader
 .Lfe36:
 	.size	 GetCoordEventScriptAtMapPosition,.Lfe36-GetCoordEventScriptAtMapPosition
@@ -2706,35 +2714,35 @@ GetBackgroundEventAtPosition:
 	ldrb	r3, [r0, #0x3]
 	mov	r2, #0x0
 	cmp	r2, r3
-	bcs	.L446	@cond_branch
-.L448:
+	bcs	.L449	@cond_branch
+.L451:
 	lsl	r0, r2, #0x1
 	add	r0, r0, r2
 	lsl	r0, r0, #0x2
 	add	r1, r0, r4
 	ldrh	r0, [r1]
 	cmp	r0, r7
-	bne	.L447	@cond_branch
+	bne	.L450	@cond_branch
 	ldrh	r0, [r1, #0x2]
 	cmp	r0, r6
-	bne	.L447	@cond_branch
+	bne	.L450	@cond_branch
 	ldrb	r0, [r1, #0x4]
 	cmp	r0, r5
-	beq	.L451	@cond_branch
+	beq	.L454	@cond_branch
 	cmp	r0, #0
-	bne	.L447	@cond_branch
-.L451:
+	bne	.L450	@cond_branch
+.L454:
 	add	r0, r1, #0
-	b	.L453
-.L447:
+	b	.L456
+.L450:
 	add	r0, r2, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r2, r0, #0x18
 	cmp	r2, r3
-	bcc	.L448	@cond_branch
-.L446:
+	bcc	.L451	@cond_branch
+.L449:
 	mov	r0, #0x0
-.L453:
+.L456:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
@@ -2749,16 +2757,16 @@ TryDoDiveWarp:
 	add	r4, r0, #0
 	lsl	r1, r1, #0x10
 	lsr	r5, r1, #0x10
-	ldr	r0, .L462
+	ldr	r0, .L465
 	ldrb	r0, [r0, #0x17]
 	cmp	r0, #0x5
-	bne	.L455	@cond_branch
+	bne	.L458	@cond_branch
 	lsl	r0, r5, #0x18
 	lsr	r0, r0, #0x18
 	bl	MetatileBehavior_IsUnableToEmerge
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L455	@cond_branch
+	bne	.L458	@cond_branch
 	ldrh	r0, [r4]
 	sub	r0, r0, #0x7
 	lsl	r0, r0, #0x10
@@ -2768,19 +2776,19 @@ TryDoDiveWarp:
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	bl	SetDiveWarpEmerge
-	b	.L461
-.L463:
+	b	.L464
+.L466:
 	.align	2, 0
-.L462:
+.L465:
 	.word	gMapHeader
-.L455:
+.L458:
 	lsl	r0, r5, #0x18
 	lsr	r0, r0, #0x18
 	bl	MetatileBehavior_IsDiveable
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L457	@cond_branch
+	bne	.L460	@cond_branch
 	ldrh	r0, [r4]
 	sub	r0, r0, #0x7
 	lsl	r0, r0, #0x10
@@ -2790,19 +2798,19 @@ TryDoDiveWarp:
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	bl	SetDiveWarpDive
-.L461:
+.L464:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L457	@cond_branch
+	beq	.L460	@cond_branch
 	bl	StoreInitialPlayerAvatarState
 	bl	DoDiveWarp
 	mov	r0, #0xe9
 	bl	PlaySE
 	mov	r0, #0x1
-	b	.L460
-.L457:
-	mov	r0, #0x0
+	b	.L463
 .L460:
+	mov	r0, #0x0
+.L463:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
@@ -2828,15 +2836,15 @@ TrySetDiveWarp:
 	bl	MapGridGetMetatileBehaviorAt
 	lsl	r0, r0, #0x18
 	lsr	r5, r0, #0x18
-	ldr	r0, .L471
+	ldr	r0, .L474
 	ldrb	r0, [r0, #0x17]
 	cmp	r0, #0x5
-	bne	.L465	@cond_branch
+	bne	.L468	@cond_branch
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsUnableToEmerge
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L465	@cond_branch
+	bne	.L468	@cond_branch
 	mov	r0, sp
 	ldrh	r0, [r0]
 	sub	r0, r0, #0x7
@@ -2850,20 +2858,20 @@ TrySetDiveWarp:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L467	@cond_branch
+	bne	.L470	@cond_branch
 	mov	r0, #0x1
-	b	.L470
-.L472:
+	b	.L473
+.L475:
 	.align	2, 0
-.L471:
+.L474:
 	.word	gMapHeader
-.L465:
+.L468:
 	add	r0, r5, #0
 	bl	MetatileBehavior_IsDiveable
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L467	@cond_branch
+	bne	.L470	@cond_branch
 	mov	r0, sp
 	ldrh	r0, [r0]
 	sub	r0, r0, #0x7
@@ -2877,12 +2885,12 @@ TrySetDiveWarp:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bne	.L467	@cond_branch
+	bne	.L470	@cond_branch
 	mov	r0, #0x2
-	b	.L470
-.L467:
-	mov	r0, #0x0
+	b	.L473
 .L470:
+	mov	r0, #0x0
+.L473:
 	add	sp, sp, #0x4
 	pop	{r4, r5}
 	pop	{r1}
@@ -2938,7 +2946,7 @@ SetCableClubWarp:
 	mov	r2, #0x2
 	ldrsh	r1, [r4, r2]
 	bl	MapGridGetMetatileBehaviorAt
-	ldr	r4, .L475
+	ldr	r4, .L478
 	add	r0, r4, #0
 	mov	r1, sp
 	bl	GetWarpEventAtMapPosition
@@ -2953,52 +2961,10 @@ SetCableClubWarp:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L476:
+.L479:
 	.align	2, 0
-.L475:
+.L478:
 	.word	gMapHeader
 .Lfe41:
 	.size	 SetCableClubWarp,.Lfe41-SetCableClubWarp
-	.align	2, 0
-	.type	 EnableAutoRun,function
-	.thumb_func
-EnableAutoRun:
-	push	{r4, lr}
-	mov	r0, #0x5
-	bl	PlaySE
-	mov	r4, #0xd5
-	lsl	r4, r4, #0x1
-	add	r0, r4, #0
-	bl	FlagGet
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L478	@cond_branch
-	add	r0, r4, #0
-	bl	FlagClear
-	ldr	r0, .L480
-	bl	ScriptContext1_SetupScript
-	b	.L479
-.L481:
-	.align	2, 0
-.L480:
-	.word	EventScript_DisableAutoRun
-.L478:
-	add	r0, r4, #0
-	bl	FlagSet
-	ldr	r0, .L482
-	bl	ScriptContext1_SetupScript
-.L479:
-	mov	r0, #0x1
-	pop	{r4}
-	pop	{r1}
-	bx	r1
-.L483:
-	.align	2, 0
-.L482:
-	.word	EventScript_EnableAutoRun
-.Lfe42:
-	.size	 EnableAutoRun,.Lfe42-EnableAutoRun
 	.comm	gSelectedObjectEvent, 4	@ 1
-.text
-	.align	2, 0
-

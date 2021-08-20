@@ -10498,6 +10498,7 @@ void CheckClockForImmediateTimeEvents(void);
 void ProcessImmediateTimeEvents(void);
 void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
 const u8 *GetDayOfWeekString(u8 dayOfWeek);
+const u8 GetTimeOfDayString(void);
 # 48 "src/field_specials.c" 2
 # 1 "include/constants/battle_frontier.h" 1
 # 49 "src/field_specials.c" 2

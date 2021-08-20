@@ -1,0 +1,3 @@
+wsl
+cd
+cd decomps

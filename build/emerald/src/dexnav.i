@@ -15651,6 +15651,7 @@ bool8 MetatileBehavior_IsQuestionnaire(u8);
 bool8 MetatileBehavior_IsLongGrass_Duplicate(u8);
 bool8 MetatileBehavior_IsLongGrassSouthEdge(u8);
 bool8 MetatileBehavior_IsTrainerHillTimer(u8);
+bool8 MetatileBehavior_IsHeadbuttTree(u8);
 # 30 "src/dexnav.c" 2
 # 1 "include/overworld.h" 1
 # 29 "include/overworld.h"
@@ -19689,6 +19690,66 @@ u16 GetFirstStage(u16 species);
 # 61 "src/dexnav.c" 2
 # 1 "include/gba/m4a_internal.h" 1
 # 62 "src/dexnav.c" 2
+# 1 "include/day_night.h" 1
+
+
+
+
+
+struct PaletteOverride
+{
+    u8 slot;
+    u8 timeOfDay;
+    void *palette;
+};
+
+extern u16 gPlttBufferPreDN[];
+extern struct PaletteOverride *gPaletteOverrides[];
+
+bool8 IsCurrentlyDay(void);
+u8 GetCurrentTimeOfDay(void);
+u8 GetTimeOfDay(s8 hours);
+void LoadCompressedPaletteDayNight(const void *src, u16 offset, u16 size);
+void LoadPaletteDayNight(const void *src, u16 offset, u16 size);
+void CheckClockForImmediateTimeEvents(void);
+void ProcessImmediateTimeEvents(void);
+void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
+const u8 *GetDayOfWeekString(u8 dayOfWeek);
+const u8 GetTimeOfDayString(void);
+# 63 "src/dexnav.c" 2
+
+# 1 "include/printf.h" 1
+# 35 "include/printf.h"
+# 1 "tools/agbcc/include/stdarg.h" 1
+# 9 "tools/agbcc/include/stdarg.h"
+typedef void *__gnuc_va_list;
+# 31 "tools/agbcc/include/stdarg.h"
+typedef __gnuc_va_list va_list;
+# 36 "include/printf.h" 2
+# 49 "include/printf.h"
+void _putchar(char character);
+# 61 "include/printf.h"
+int printf_(const char* format, ...);
+# 72 "include/printf.h"
+int sprintf_(char* buffer, const char* format, ...);
+# 87 "include/printf.h"
+int snprintf_(char* buffer, size_t count, const char* format, ...);
+int vsnprintf_(char* buffer, size_t count, const char* format, va_list va);
+# 98 "include/printf.h"
+int vprintf_(const char* format, va_list va);
+# 109 "include/printf.h"
+int fctprintf(void (*out)(char character, void* arg), void* arg, const char* format, ...);
+# 65 "src/dexnav.c" 2
+# 1 "include/mgba.h" 1
+# 26 "include/mgba.h"
+# 1 "include/gba/types.h" 1
+# 27 "include/mgba.h" 2
+# 35 "include/mgba.h"
+void mgba_printf(int level, const char* string, ...);
+bool8 mgba_open(void);
+void mgba_close(void);
+# 66 "src/dexnav.c" 2
+
 
 
 enum WindowIds
@@ -20011,7 +20072,7 @@ static const struct SpriteTemplate sPotentialStarTemplate =
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCallbackDummy,
 };
-# 396 "src/dexnav.c"
+# 401 "src/dexnav.c"
 static const struct SpriteTemplate sSearchIconSpriteTemplate =
 {
     .tileTag = 0x4005,
@@ -20518,7 +20579,7 @@ static void DexNavDrawPotentialStars(u8 potential, u8* dst)
             gSprites[spriteId].invisible = 1;
     }
 }
-# 911 "src/dexnav.c"
+# 916 "src/dexnav.c"
 static void DexNavUpdateDirectionArrow(void)
 {
     u16 tileX = sDexNavSearchDataPtr->tileX;
@@ -20677,7 +20738,7 @@ static void Task_DexNavSearch(u8 taskId)
             EndDexNavSearchSetupScript(EventScript_LostSignal, taskId);
         return;
     }
-# 1086 "src/dexnav.c"
+# 1091 "src/dexnav.c"
     if (ScriptContext2_IsEnabled() == 1)
     {
 
@@ -20720,23 +20781,7 @@ static void Task_DexNavSearch(u8 taskId)
         task->func = Task_RevealHiddenMon;
         return;
     }
-
-
-    if ((sDexNavSearchDataPtr->environment == 1 || GetCurrentMapType() == 4)
-        && sDexNavSearchDataPtr->proximity < GetMovementProximityBySearchLevel() && sDexNavSearchDataPtr->movementCount < 2
-        && task->data[4])
-    {
-        bool8 ret;
-
-        FieldEffectStop(&gSprites[sDexNavSearchDataPtr->fldEffSpriteId], sDexNavSearchDataPtr->fldEffId);
-        while (1) {
-            if (TryStartHiddenMonFieldEffect(sDexNavSearchDataPtr->environment, 10, 10, 1))
-                break;
-        }
-
-        sDexNavSearchDataPtr->movementCount++;
-    }
-
+# 1150 "src/dexnav.c"
     DexNavProximityUpdate();
     if (task->data[0] != sDexNavSearchDataPtr->proximity)
     {
@@ -20749,7 +20794,7 @@ static void Task_DexNavSearch(u8 taskId)
 
     task->data[1]++;
 }
-# 1166 "src/dexnav.c"
+# 1171 "src/dexnav.c"
 static void DexNavUpdateSearchWindow(u8 proximity, u8 searchLevel)
 {
     bool8 hideName = 0;
@@ -21112,6 +21157,7 @@ static u8 GetEncounterLevelFromMapData(u16 species, u8 environment)
 {
     u16 headerId = GetCurrentMapWildMonHeaderId();
     const struct WildPokemonInfo *landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
+ const struct WildPokemonInfo *landMonsNightInfo = gWildMonHeaders[headerId].landMonsNightInfo;
     const struct WildPokemonInfo *waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
     const struct WildPokemonInfo *hiddenMonsInfo = gWildMonHeaders[headerId].hiddenMonsInfo;
     u8 min = 100;
@@ -21121,6 +21167,8 @@ static u8 GetEncounterLevelFromMapData(u16 species, u8 environment)
     switch (environment)
     {
     case 0:
+ if (IsCurrentlyDay())
+        {
         if (landMonsInfo == ((void *)0))
             return 255;
 
@@ -21130,6 +21178,20 @@ static u8 GetEncounterLevelFromMapData(u16 species, u8 environment)
             {
                 min = (min < landMonsInfo->wildPokemon[i].minLevel) ? min : landMonsInfo->wildPokemon[i].minLevel;
                 max = (max > landMonsInfo->wildPokemon[i].maxLevel) ? max : landMonsInfo->wildPokemon[i].maxLevel;
+            }
+        }
+  }else
+  {
+   if (landMonsNightInfo == ((void *)0))
+                return 255;
+
+            for (i = 0; i < 12; i++)
+            {
+                if (landMonsNightInfo->wildPokemon[i].species == species)
+                {
+                    min = (min < landMonsNightInfo->wildPokemon[i].minLevel) ? min : landMonsNightInfo->wildPokemon[i].minLevel;
+                    max = (max > landMonsNightInfo->wildPokemon[i].maxLevel) ? max : landMonsNightInfo->wildPokemon[i].maxLevel;
+                }
             }
         }
         break;
@@ -21324,8 +21386,9 @@ static bool8 CapturedAllLandMons(u16 headerId)
     u16 i, species;
     int count = 0;
     const struct WildPokemonInfo* landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
+    const struct WildPokemonInfo* landMonsNightInfo = gWildMonHeaders[headerId].landMonsNightInfo;
 
-    if (landMonsInfo != ((void *)0))
+    if (landMonsInfo != ((void *)0) && IsCurrentlyDay())
     {
         for (i = 0; i < 12; ++i)
         {
@@ -21342,9 +21405,26 @@ static bool8 CapturedAllLandMons(u16 headerId)
         if (i >= 12 && count > 0)
             return 1;
     }
+    else if (landMonsNightInfo != ((void *)0))
+    {
+        for (i = 0; i < 12; ++i)
+        {
+            species = landMonsNightInfo->wildPokemon[i].species;
+            if (species != 0)
+            {
+                if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_CAUGHT))
+                    break;
+
+                count++;
+            }
+        }
+
+        if (i >= 12 && count > 0)
+            return 1;
+    }
     else
     {
-        return 1;
+        return 0;
     }
 
     return 0;
@@ -21533,6 +21613,7 @@ static void DexNavLoadEncounterData(void)
     u32 i;
     u16 headerId = GetCurrentMapWildMonHeaderId();
     const struct WildPokemonInfo* landMonsInfo = gWildMonHeaders[headerId].landMonsInfo;
+ const struct WildPokemonInfo* landMonsNightInfo = gWildMonHeaders[headerId].landMonsNightInfo;
     const struct WildPokemonInfo* waterMonsInfo = gWildMonHeaders[headerId].waterMonsInfo;
     const struct WildPokemonInfo* hiddenMonsInfo = gWildMonHeaders[headerId].hiddenMonsInfo;
 
@@ -21542,6 +21623,8 @@ static void DexNavLoadEncounterData(void)
     memset(sDexNavUiDataPtr->hiddenSpecies, 0, sizeof(sDexNavUiDataPtr->hiddenSpecies));
 
 
+ if (IsCurrentlyDay())
+    {
     if (landMonsInfo != ((void *)0) && landMonsInfo->encounterRate != 0)
     {
         for (i = 0; i < 12; i++)
@@ -21549,6 +21632,19 @@ static void DexNavLoadEncounterData(void)
             species = landMonsInfo->wildPokemon[i].species;
             if (species != 0 && !SpeciesInArray(species, 0))
                 sDexNavUiDataPtr->landSpecies[grassIndex++] = landMonsInfo->wildPokemon[i].species;
+        }
+    }
+ }
+ else{
+
+        if (landMonsNightInfo != ((void *)0) && landMonsNightInfo->encounterRate != 0)
+        {
+            for (i = 0; i < 12; i++)
+            {
+                species = landMonsNightInfo->wildPokemon[i].species;
+                if (species != 0 && !SpeciesInArray(species, 0))
+                    sDexNavUiDataPtr->landSpecies[grassIndex++] = landMonsNightInfo->wildPokemon[i].species;
+            }
         }
     }
 
@@ -21616,7 +21712,7 @@ static void DrawSpeciesIcons(void)
   formId = GetFormIdFromFormSpeciesId(species);
         x = 52 + 24 * i;
         y = 138;
-        if (FlagGet((((0x500 + 864 - 1) + 1) + 0x2E)))
+        if (FlagGet((((0x500 + 864 - 1) + 1) + 0x2F)))
             TryDrawIconInSlot(species, x, y);
        else if (species == 0)
             CreateNoDataIcon(x, y);
@@ -21641,7 +21737,7 @@ static u16 DexNavGetSpecies(void)
         species = sDexNavUiDataPtr->landSpecies[sDexNavUiDataPtr->cursorCol + 6];
         break;
     case 3:
-        if (!FlagGet((((0x500 + 864 - 1) + 1) + 0x2E)))
+        if (!FlagGet((((0x500 + 864 - 1) + 1) + 0x2F)))
             species = 0;
         else
             species = sDexNavUiDataPtr->hiddenSpecies[sDexNavUiDataPtr->cursorCol];
@@ -22099,15 +22195,15 @@ bool8 TryFindHiddenPokemon(void)
     u32 attempts = 0;
     u16 currSteps;
 
-    if (!FlagGet((((0x500 + 864 - 1) + 1) + 0x2E)) || FlagGet((((0x500 + 864 - 1) + 1) + 0x22)) || Overworld_GetFlashLevel() > 0)
+    if (!FlagGet((((0x500 + 864 - 1) + 1) + 0x2F)) || FlagGet((((0x500 + 864 - 1) + 1) + 0x22)) || Overworld_GetFlashLevel() > 0)
     {
         (*stepPtr) = 0;
         return 0;
     }
 
     (*stepPtr)++;
-    (*stepPtr) %= 100;
-    if ((*stepPtr) == 0 && (Random() % 100 < 25))
+    (*stepPtr) %= 50;
+    if ((*stepPtr) == 0 && (Random() % 100 < 60))
     {
 
         u16 headerId = GetCurrentMapWildMonHeaderId();
@@ -22130,7 +22226,7 @@ bool8 TryFindHiddenPokemon(void)
         {
         case 0:
 
-            if (Random() % 100 < 15)
+            if (Random() % 100 < 30)
             {
                 index = ChooseHiddenMonIndex();
                 if (index == 0xFF)
@@ -22148,7 +22244,7 @@ bool8 TryFindHiddenPokemon(void)
         case 1:
             if (TestPlayerAvatarFlags((1 << 3)))
             {
-                if (Random() % 100 < 15)
+                if (Random() % 100 < 30)
                 {
                     index = ChooseHiddenMonIndex();
                     if (index == 0xFF)

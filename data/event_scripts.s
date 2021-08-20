@@ -1147,3 +1147,7 @@ loop:
 	goto_if_lt loop
 	return
     
+
+	.include "data/maps/viridian_forest/scripts.inc"
+
+	.include "data/maps/Petalburg_Woods_2/scripts.inc"

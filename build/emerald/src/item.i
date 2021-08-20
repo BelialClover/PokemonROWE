@@ -9253,11 +9253,355 @@ static const u8 sTM50Desc[] = _(
     "attack, but sharply\n"
     "lowers Sp. Atk.");
 
-static const u8 sTM64Desc[] = _(
-    "Inflicts severe\n"
-    "damage but makes\n"
-    "the user faint.");
+static const u8 sTM51Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Low Sweep.");
 
+static const u8 sTM52Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Focus Blast.");
+
+static const u8 sTM53Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Energy Ball.");
+
+static const u8 sTM54Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "False Swipe.");
+
+static const u8 sTM55Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Scald.");
+
+static const u8 sTM56Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Fling.");
+
+static const u8 sTM57Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Charge Beam.");
+
+static const u8 sTM58Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Sky Drop.");
+
+static const u8 sTM59Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Brutal Swing.");
+
+static const u8 sTM60Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Quash.");
+
+static const u8 sTM61Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Will-O-Wisp.");
+
+static const u8 sTM62Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Acrobatics.");
+
+static const u8 sTM63Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Embargo.");
+
+static const u8 sTM64Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Explosion.");
+
+static const u8 sTM65Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Shadow Claw.");
+
+static const u8 sTM66Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Payback.");
+
+static const u8 sTM67Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Smart Strike.");
+
+static const u8 sTM68Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Giga Impact.");
+
+static const u8 sTM69Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Rock Polish.");
+
+static const u8 sTM70Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Aurora Veil.");
+
+static const u8 sTM71Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Stone Edge.");
+
+static const u8 sTM72Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Volt Switch.");
+
+static const u8 sTM73Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Thunder Wave.");
+
+static const u8 sTM74Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Gyro Ball.");
+
+static const u8 sTM75Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Swords Dance.");
+
+static const u8 sTM76Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Fly.");
+
+static const u8 sTM77Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Psych Up.");
+
+static const u8 sTM78Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Bulldoze.");
+
+static const u8 sTM79Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Frost Breath.");
+
+static const u8 sTM80Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Rock Slide.");
+
+static const u8 sTM81Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "X-Scissor.");
+
+static const u8 sTM82Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Dragon Tail.");
+
+static const u8 sTM83Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Infestation.");
+
+static const u8 sTM84Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Poison Jab.");
+
+static const u8 sTM85Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Dream Eater.");
+
+static const u8 sTM86Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Grass Knot.");
+
+static const u8 sTM87Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Swagger.");
+
+static const u8 sTM88Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Sleep Talk.");
+
+static const u8 sTM89Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "U-Turn.");
+
+static const u8 sTM90Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Substitute.");
+
+static const u8 sTM91Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Flash Cannon.");
+
+static const u8 sTM92Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Trick Room.");
+
+static const u8 sTM93Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Wild Charge.");
+
+static const u8 sTM94Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Surf.");
+
+static const u8 sTM95Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Snarl.");
+
+static const u8 sTM96Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Nature Power.");
+
+static const u8 sTM97Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Dark Pulse.");
+
+static const u8 sTM98Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Waterfall.");
+
+static const u8 sTM99Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Dazzling Gleam.");
+
+static const u8 sTM100Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Confide.");
+
+static const u8 sTM101Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Sludge Wave.");
+
+static const u8 sTM102Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Liquidation.");
+
+static const u8 sTM103Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Leech Life.");
+
+static const u8 sTM104Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Play Rough.");
+
+static const u8 sTM105Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Psyshock.");
+
+static const u8 sTM106Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Aura Sphere.");
+
+static const u8 sTM107Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Power Gem.");
+
+static const u8 sTM108Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Earth Power.");
+
+static const u8 sTM109Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Gunk Shot.");
+
+static const u8 sTM110Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Stealth Rock.");
+
+static const u8 sTM111Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Heat Crash.");
+
+static const u8 sTM112Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Pollen Puff.");
+
+static const u8 sTM113Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Nasty Plot.");
+
+static const u8 sTM114Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Brave Bird.");
+
+static const u8 sTM115Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Bug Buzz.");
+
+static const u8 sTM116Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Dragon Dance.");
+
+static const u8 sTM117Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Blaze Kick.");
+
+static const u8 sTM118Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Tri-Attack.");
+
+static const u8 sTM119Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Drain Punch.");
+
+static const u8 sTM120Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Mystical Fire.");
 
 static const u8 sHM01Desc[] = _(
     "Attacks the foe\n"
@@ -16433,7 +16777,7 @@ const struct Item gItems[] =
         .name = _("TM51"),
         .itemId = 532,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM51Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16446,7 +16790,7 @@ const struct Item gItems[] =
         .name = _("TM52"),
         .itemId = 533,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM52Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16459,7 +16803,7 @@ const struct Item gItems[] =
         .name = _("TM53"),
         .itemId = 534,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM53Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16472,7 +16816,7 @@ const struct Item gItems[] =
         .name = _("TM54"),
         .itemId = 535,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM54Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16485,7 +16829,7 @@ const struct Item gItems[] =
         .name = _("TM55"),
         .itemId = 536,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM55Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16498,7 +16842,7 @@ const struct Item gItems[] =
         .name = _("TM56"),
         .itemId = 537,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM56Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16511,7 +16855,7 @@ const struct Item gItems[] =
         .name = _("TM57"),
         .itemId = 538,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM57Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16524,7 +16868,7 @@ const struct Item gItems[] =
         .name = _("TM58"),
         .itemId = 539,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM58Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16537,7 +16881,7 @@ const struct Item gItems[] =
         .name = _("TM59"),
         .itemId = 540,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM59Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16550,7 +16894,7 @@ const struct Item gItems[] =
         .name = _("TM60"),
         .itemId = 541,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM60Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16563,7 +16907,7 @@ const struct Item gItems[] =
         .name = _("TM61"),
         .itemId = 542,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM61Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16576,7 +16920,7 @@ const struct Item gItems[] =
         .name = _("TM62"),
         .itemId = 543,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM62Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16589,7 +16933,7 @@ const struct Item gItems[] =
         .name = _("TM63"),
         .itemId = 544,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM63Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16619,7 +16963,7 @@ const struct Item gItems[] =
         .name = _("TM65"),
         .itemId = 546,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM65Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16632,7 +16976,7 @@ const struct Item gItems[] =
         .name = _("TM66"),
         .itemId = 547,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM66Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16645,7 +16989,7 @@ const struct Item gItems[] =
         .name = _("TM67"),
         .itemId = 548,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM67Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16658,7 +17002,7 @@ const struct Item gItems[] =
         .name = _("TM68"),
         .itemId = 549,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM68Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16671,7 +17015,7 @@ const struct Item gItems[] =
         .name = _("TM69"),
         .itemId = 550,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM69Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16684,7 +17028,7 @@ const struct Item gItems[] =
         .name = _("TM70"),
         .itemId = 551,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM70Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16697,7 +17041,7 @@ const struct Item gItems[] =
         .name = _("TM71"),
         .itemId = 552,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM71Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16710,7 +17054,7 @@ const struct Item gItems[] =
         .name = _("TM72"),
         .itemId = 553,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM72Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16723,7 +17067,7 @@ const struct Item gItems[] =
         .name = _("TM73"),
         .itemId = 554,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM73Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16736,7 +17080,7 @@ const struct Item gItems[] =
         .name = _("TM74"),
         .itemId = 555,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM74Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16749,7 +17093,7 @@ const struct Item gItems[] =
         .name = _("TM75"),
         .itemId = 556,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM75Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16762,7 +17106,7 @@ const struct Item gItems[] =
         .name = _("TM76"),
         .itemId = 557,
         .price = 50000,
-        .description = sHM02Desc,
+        .description = sTM76Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16775,7 +17119,7 @@ const struct Item gItems[] =
         .name = _("TM77"),
         .itemId = 558,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM77Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16788,7 +17132,7 @@ const struct Item gItems[] =
         .name = _("TM78"),
         .itemId = 559,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM78Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16801,7 +17145,7 @@ const struct Item gItems[] =
         .name = _("TM79"),
         .itemId = 560,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM79Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16814,7 +17158,7 @@ const struct Item gItems[] =
         .name = _("TM80"),
         .itemId = 561,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM80Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16827,7 +17171,7 @@ const struct Item gItems[] =
         .name = _("TM81"),
         .itemId = 562,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM81Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16840,7 +17184,7 @@ const struct Item gItems[] =
         .name = _("TM82"),
         .itemId = 563,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM82Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16853,7 +17197,7 @@ const struct Item gItems[] =
         .name = _("TM83"),
         .itemId = 564,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM83Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16866,7 +17210,7 @@ const struct Item gItems[] =
         .name = _("TM84"),
         .itemId = 565,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM84Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16879,7 +17223,7 @@ const struct Item gItems[] =
         .name = _("TM85"),
         .itemId = 566,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM85Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16892,7 +17236,7 @@ const struct Item gItems[] =
         .name = _("TM86"),
         .itemId = 567,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM86Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16905,7 +17249,7 @@ const struct Item gItems[] =
         .name = _("TM87"),
         .itemId = 568,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM87Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16918,7 +17262,7 @@ const struct Item gItems[] =
         .name = _("TM88"),
         .itemId = 569,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM88Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16931,7 +17275,7 @@ const struct Item gItems[] =
         .name = _("TM89"),
         .itemId = 570,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM89Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16944,7 +17288,7 @@ const struct Item gItems[] =
         .name = _("TM90"),
         .itemId = 571,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM90Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16957,7 +17301,7 @@ const struct Item gItems[] =
         .name = _("TM91"),
         .itemId = 572,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM91Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16970,7 +17314,7 @@ const struct Item gItems[] =
         .name = _("TM92"),
         .itemId = 573,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM92Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16983,7 +17327,7 @@ const struct Item gItems[] =
         .name = _("TM93"),
         .itemId = 574,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM93Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -16996,7 +17340,7 @@ const struct Item gItems[] =
         .name = _("TM94"),
         .itemId = 575,
         .price = 50000,
-        .description = sHM03Desc,
+        .description = sTM94Desc,
         .importance = 1,
         .pocket = 9,
         .type = 1,
@@ -17008,7 +17352,7 @@ const struct Item gItems[] =
         .name = _("TM95"),
         .itemId = 576,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM95Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17021,7 +17365,7 @@ const struct Item gItems[] =
         .name = _("TM96"),
         .itemId = 577,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM96Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17034,7 +17378,7 @@ const struct Item gItems[] =
         .name = _("TM97"),
         .itemId = 578,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM97Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17047,7 +17391,7 @@ const struct Item gItems[] =
         .name = _("TM98"),
         .itemId = 579,
         .price = 50000,
-        .description = sHM07Desc,
+        .description = sTM98Desc,
         .importance = 1,
         .pocket = 9,
         .type = 1,
@@ -17060,7 +17404,7 @@ const struct Item gItems[] =
         .name = _("TM99"),
         .itemId = 580,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM99Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17073,7 +17417,7 @@ const struct Item gItems[] =
         .name = _("TM100"),
         .itemId = 581,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM100Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17086,7 +17430,7 @@ const struct Item gItems[] =
         .name = _("TM101"),
         .itemId = 582,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM101Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17099,7 +17443,7 @@ const struct Item gItems[] =
         .name = _("TM102"),
         .itemId = 583,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM102Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17112,7 +17456,7 @@ const struct Item gItems[] =
         .name = _("TM103"),
         .itemId = 584,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM103Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17125,7 +17469,7 @@ const struct Item gItems[] =
         .name = _("TM104"),
         .itemId = 585,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM104Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17138,7 +17482,7 @@ const struct Item gItems[] =
         .name = _("TM105"),
         .itemId = 586,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM105Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17151,7 +17495,7 @@ const struct Item gItems[] =
         .name = _("TM106"),
         .itemId = 587,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM106Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17164,7 +17508,7 @@ const struct Item gItems[] =
         .name = _("TM107"),
         .itemId = 588,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM107Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17177,7 +17521,7 @@ const struct Item gItems[] =
         .name = _("TM108"),
         .itemId = 589,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM108Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17190,7 +17534,7 @@ const struct Item gItems[] =
         .name = _("TM109"),
         .itemId = 590,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM109Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17203,7 +17547,7 @@ const struct Item gItems[] =
         .name = _("TM110"),
         .itemId = 591,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM110Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17216,7 +17560,7 @@ const struct Item gItems[] =
         .name = _("TM111"),
         .itemId = 592,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM111Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17229,7 +17573,7 @@ const struct Item gItems[] =
         .name = _("TM112"),
         .itemId = 593,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM112Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17242,7 +17586,7 @@ const struct Item gItems[] =
         .name = _("TM113"),
         .itemId = 594,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM113Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17255,7 +17599,7 @@ const struct Item gItems[] =
         .name = _("TM114"),
         .itemId = 595,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM114Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17268,7 +17612,7 @@ const struct Item gItems[] =
         .name = _("TM115"),
         .itemId = 596,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM115Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17281,7 +17625,7 @@ const struct Item gItems[] =
         .name = _("TM116"),
         .itemId = 597,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM116Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17294,7 +17638,7 @@ const struct Item gItems[] =
         .name = _("TM117"),
         .itemId = 598,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM117Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17307,7 +17651,7 @@ const struct Item gItems[] =
         .name = _("TM118"),
         .itemId = 599,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM118Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17320,7 +17664,7 @@ const struct Item gItems[] =
         .name = _("TM119"),
         .itemId = 600,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM119Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,
@@ -17333,7 +17677,7 @@ const struct Item gItems[] =
         .name = _("TM120"),
         .itemId = 601,
         .price = 50000,
-        .description = sTM50Desc,
+        .description = sTM120Desc,
         .pocket = 9,
         .type = 1,
         .fieldUseFunc = ItemUseOutOfBattle_TMHM,

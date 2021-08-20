@@ -22564,6 +22564,22 @@ static const struct InGameTrade sIngameTrades[] =
         .otGender = 1,
         .sheen = 10,
         .requestedSpecies = 300
+    },
+ [4] =
+    {
+        .nickname = _("Wonder"),
+        .species = 1,
+        .ivs = {0, 0, 0, 0, 0, 4},
+        .abilityNum = 0,
+        .otId = 91481,
+        .conditions = {0, 0, 0, 0, 0},
+        .personality = 0x8B,
+        .heldItem = 0,
+        .mailNum = 2,
+        .otName = _("WT"),
+        .otGender = 0,
+        .sheen = 10,
+        .requestedSpecies = 1
     }
 };
 

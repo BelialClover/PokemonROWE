@@ -10808,6 +10808,7 @@ void CheckClockForImmediateTimeEvents(void);
 void ProcessImmediateTimeEvents(void);
 void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
 const u8 *GetDayOfWeekString(u8 dayOfWeek);
+const u8 GetTimeOfDayString(void);
 # 44 "src/pokemon.c" 2
 # 1 "include/constants/abilities.h" 1
 # 45 "src/pokemon.c" 2
@@ -64918,7 +64919,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = 0,
         .eggGroup1 = 11,
         .eggGroup2 = 11,
-        .abilities = {26, 0},
+        .abilities = {26, 256},
         .bodyColor = 6,
         .noFlip = 0,
     },
@@ -64943,7 +64944,7 @@ const struct BaseStats gBaseStats[] =
         .growthRate = 0,
         .eggGroup1 = 11,
         .eggGroup2 = 11,
-        .abilities = {26, 0},
+        .abilities = {26, 256},
         .bodyColor = 6,
         .noFlip = 0,
     },
@@ -74838,7 +74839,7 @@ const struct BaseStats gBaseStats[] =
         .expYield = 173,
         .evYield_Attack = 1,
         .evYield_SpAttack = 1,
-        .item2 = 251,
+        .item2 = 276,
         .genderRatio = ((254) < (((50 * 255) / 100)) ? (254) : (((50 * 255) / 100))),
         .eggCycles = 20,
         .friendship = 70,
@@ -123967,15 +123968,6 @@ void CalculateMonStats(struct Pokemon *mon)
     s32 level = GetLevelFromMonExp(mon);
     s32 newMaxHP;
 
- if(FlagGet(0x68)){
-  hpIV = 31;
-  attackIV = 31;
-  defenseIV = 31;
-  speedIV = 31;
-  spAttackIV = 31;
-  spDefenseIV = 31;
- }
-
     SetMonData(mon, 56, &level);
 
     if (species == 292)
@@ -124406,7 +124398,7 @@ static void DecryptBoxMon(struct BoxPokemon *boxMon)
         boxMon->secure.raw[i] ^= boxMon->personality;
     }
 }
-# 4176 "src/pokemon.c"
+# 4167 "src/pokemon.c"
 static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, u8 substructType)
 {
     union PokemonSubstruct *substruct = ((void *)0);
@@ -127607,7 +127599,7 @@ const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u
 
 bool32 IsHMMove2(u16 move)
 {
-# 7384 "src/pokemon.c"
+# 7375 "src/pokemon.c"
     return 0;
 }
 
@@ -127806,7 +127798,7 @@ const u8 *GetTrainerPartnerName(void)
         return gLinkPlayers[GetBattlerMultiplayerId(gLinkPlayers[id].id ^ 2)].name;
     }
 }
-# 7594 "src/pokemon.c"
+# 7585 "src/pokemon.c"
 static void Task_AnimateAfterDelay(u8 taskId)
 {
     if (--gTasks[taskId].data[3] == 0)

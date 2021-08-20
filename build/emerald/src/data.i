@@ -57841,7 +57841,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Perry[] = {
     .evs = {0, 0, 0, 0, 0, 0},
     .abilityNum = 3,
     .happiness = 0,
-    .species = 278,
+    .species = 731,
     },
  {
     .iv = 0,
@@ -57849,7 +57849,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Perry[] = {
     .evs = {0, 0, 0, 0, 0, 0},
     .abilityNum = 3,
     .happiness = 0,
-    .species = 580,
+    .species = 396,
     },
  {
     .iv = 0,
@@ -57857,7 +57857,7 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Perry[] = {
     .evs = {0, 0, 0, 0, 0, 0},
     .abilityNum = 3,
     .happiness = 0,
-    .species = 399,
+    .species = 84,
     }
 };
 
@@ -62951,11 +62951,35 @@ static const struct TrainerMonNoItemDefaultMoves sParty_Kent[] = {
     .abilityNum = 3,
     .happiness = 0,
     .species = 290,
+    },
+ {
+    .iv = 0,
+    .lvl = 1,
+    .evs = {0, 0, 0, 0, 0, 0},
+    .abilityNum = 3,
+    .happiness = 0,
+    .species = 10,
+    },
+ {
+    .iv = 0,
+    .lvl = 1,
+    .evs = {0, 0, 0, 0, 0, 0},
+    .abilityNum = 3,
+    .happiness = 0,
+    .species = 13,
     }
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_James1[] = {
     {
+    .iv = 20,
+    .lvl = 1,
+    .evs = {0, 0, 0, 0, 0, 0},
+    .abilityNum = 3,
+    .happiness = 0,
+    .species = 265,
+    },
+ {
     .iv = 0,
     .lvl = 1,
     .evs = {0, 0, 0, 0, 0, 0},

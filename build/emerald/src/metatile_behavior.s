@@ -535,14 +535,14 @@ MetatileBehavior_IsEscalator:
 .Lfe14:
 	.size	 MetatileBehavior_IsEscalator,.Lfe14-MetatileBehavior_IsEscalator
 	.align	2, 0
-	.globl	Unref_MetatileBehavior_IsUnused04
-	.type	 Unref_MetatileBehavior_IsUnused04,function
+	.globl	MetatileBehavior_IsLadder
+	.type	 MetatileBehavior_IsLadder,function
 	.thumb_func
-Unref_MetatileBehavior_IsUnused04:
+MetatileBehavior_IsLadder:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	cmp	r0, #0x4
+	cmp	r0, #0x61
 	beq	.L61	@cond_branch
 	mov	r0, #0x0
 	b	.L63
@@ -552,26 +552,7 @@ Unref_MetatileBehavior_IsUnused04:
 	pop	{r1}
 	bx	r1
 .Lfe15:
-	.size	 Unref_MetatileBehavior_IsUnused04,.Lfe15-Unref_MetatileBehavior_IsUnused04
-	.align	2, 0
-	.globl	MetatileBehavior_IsLadder
-	.type	 MetatileBehavior_IsLadder,function
-	.thumb_func
-MetatileBehavior_IsLadder:
-	push	{lr}
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	cmp	r0, #0x61
-	beq	.L65	@cond_branch
-	mov	r0, #0x0
-	b	.L67
-.L65:
-	mov	r0, #0x1
-.L67:
-	pop	{r1}
-	bx	r1
-.Lfe16:
-	.size	 MetatileBehavior_IsLadder,.Lfe16-MetatileBehavior_IsLadder
+	.size	 MetatileBehavior_IsLadder,.Lfe15-MetatileBehavior_IsLadder
 	.align	2, 0
 	.globl	MetatileBehavior_IsNonAnimDoor
 	.type	 MetatileBehavior_IsNonAnimDoor,function
@@ -581,21 +562,21 @@ MetatileBehavior_IsNonAnimDoor:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x60
-	beq	.L70	@cond_branch
+	beq	.L66	@cond_branch
 	cmp	r0, #0x6c
-	beq	.L70	@cond_branch
+	beq	.L66	@cond_branch
 	cmp	r0, #0x6e
-	bne	.L69	@cond_branch
-.L70:
+	bne	.L65	@cond_branch
+.L66:
 	mov	r0, #0x1
-	b	.L72
-.L69:
+	b	.L68
+.L65:
 	mov	r0, #0x0
-.L72:
+.L68:
 	pop	{r1}
 	bx	r1
-.Lfe17:
-	.size	 MetatileBehavior_IsNonAnimDoor,.Lfe17-MetatileBehavior_IsNonAnimDoor
+.Lfe16:
+	.size	 MetatileBehavior_IsNonAnimDoor,.Lfe16-MetatileBehavior_IsNonAnimDoor
 	.align	2, 0
 	.globl	MetatileBehavior_IsDeepSouthWarp
 	.type	 MetatileBehavior_IsDeepSouthWarp,function
@@ -605,16 +586,16 @@ MetatileBehavior_IsDeepSouthWarp:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x6e
-	beq	.L74	@cond_branch
+	beq	.L70	@cond_branch
 	mov	r0, #0x0
-	b	.L76
-.L74:
+	b	.L72
+.L70:
 	mov	r0, #0x1
-.L76:
+.L72:
 	pop	{r1}
 	bx	r1
-.Lfe18:
-	.size	 MetatileBehavior_IsDeepSouthWarp,.Lfe18-MetatileBehavior_IsDeepSouthWarp
+.Lfe17:
+	.size	 MetatileBehavior_IsDeepSouthWarp,.Lfe17-MetatileBehavior_IsDeepSouthWarp
 	.align	2, 0
 	.globl	MetatileBehavior_IsSurfableWaterOrUnderwater
 	.type	 MetatileBehavior_IsSurfableWaterOrUnderwater,function
@@ -623,26 +604,26 @@ MetatileBehavior_IsSurfableWaterOrUnderwater:
 	push	{lr}
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	ldr	r1, .L81
+	ldr	r1, .L77
 	add	r0, r0, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L78	@cond_branch
+	bne	.L74	@cond_branch
 	mov	r0, #0x0
-	b	.L80
-.L82:
-	.align	2, 0
-.L81:
-	.word	sTileBitAttributes
+	b	.L76
 .L78:
+	.align	2, 0
+.L77:
+	.word	sTileBitAttributes
+.L74:
 	mov	r0, #0x1
-.L80:
+.L76:
 	pop	{r1}
 	bx	r1
-.Lfe19:
-	.size	 MetatileBehavior_IsSurfableWaterOrUnderwater,.Lfe19-MetatileBehavior_IsSurfableWaterOrUnderwater
+.Lfe18:
+	.size	 MetatileBehavior_IsSurfableWaterOrUnderwater,.Lfe18-MetatileBehavior_IsSurfableWaterOrUnderwater
 	.align	2, 0
 	.globl	MetatileBehavior_IsEastArrowWarp
 	.type	 MetatileBehavior_IsEastArrowWarp,function
@@ -652,16 +633,16 @@ MetatileBehavior_IsEastArrowWarp:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x62
-	beq	.L84	@cond_branch
+	beq	.L80	@cond_branch
 	mov	r0, #0x0
-	b	.L86
-.L84:
+	b	.L82
+.L80:
 	mov	r0, #0x1
-.L86:
+.L82:
 	pop	{r1}
 	bx	r1
-.Lfe20:
-	.size	 MetatileBehavior_IsEastArrowWarp,.Lfe20-MetatileBehavior_IsEastArrowWarp
+.Lfe19:
+	.size	 MetatileBehavior_IsEastArrowWarp,.Lfe19-MetatileBehavior_IsEastArrowWarp
 	.align	2, 0
 	.globl	MetatileBehavior_IsWestArrowWarp
 	.type	 MetatileBehavior_IsWestArrowWarp,function
@@ -671,16 +652,16 @@ MetatileBehavior_IsWestArrowWarp:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x63
-	beq	.L88	@cond_branch
+	beq	.L84	@cond_branch
 	mov	r0, #0x0
-	b	.L90
-.L88:
+	b	.L86
+.L84:
 	mov	r0, #0x1
-.L90:
+.L86:
 	pop	{r1}
 	bx	r1
-.Lfe21:
-	.size	 MetatileBehavior_IsWestArrowWarp,.Lfe21-MetatileBehavior_IsWestArrowWarp
+.Lfe20:
+	.size	 MetatileBehavior_IsWestArrowWarp,.Lfe20-MetatileBehavior_IsWestArrowWarp
 	.align	2, 0
 	.globl	MetatileBehavior_IsNorthArrowWarp
 	.type	 MetatileBehavior_IsNorthArrowWarp,function
@@ -690,19 +671,19 @@ MetatileBehavior_IsNorthArrowWarp:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x64
-	beq	.L93	@cond_branch
+	beq	.L89	@cond_branch
 	cmp	r0, #0x1b
-	bne	.L92	@cond_branch
-.L93:
+	bne	.L88	@cond_branch
+.L89:
 	mov	r0, #0x1
-	b	.L95
-.L92:
+	b	.L91
+.L88:
 	mov	r0, #0x0
-.L95:
+.L91:
 	pop	{r1}
 	bx	r1
-.Lfe22:
-	.size	 MetatileBehavior_IsNorthArrowWarp,.Lfe22-MetatileBehavior_IsNorthArrowWarp
+.Lfe21:
+	.size	 MetatileBehavior_IsNorthArrowWarp,.Lfe21-MetatileBehavior_IsNorthArrowWarp
 	.align	2, 0
 	.globl	MetatileBehavior_IsSouthArrowWarp
 	.type	 MetatileBehavior_IsSouthArrowWarp,function
@@ -712,21 +693,21 @@ MetatileBehavior_IsSouthArrowWarp:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x65
-	beq	.L98	@cond_branch
+	beq	.L94	@cond_branch
 	cmp	r0, #0x6d
-	beq	.L98	@cond_branch
+	beq	.L94	@cond_branch
 	cmp	r0, #0x1c
-	bne	.L97	@cond_branch
-.L98:
+	bne	.L93	@cond_branch
+.L94:
 	mov	r0, #0x1
-	b	.L100
-.L97:
+	b	.L96
+.L93:
 	mov	r0, #0x0
-.L100:
+.L96:
 	pop	{r1}
 	bx	r1
-.Lfe23:
-	.size	 MetatileBehavior_IsSouthArrowWarp,.Lfe23-MetatileBehavior_IsSouthArrowWarp
+.Lfe22:
+	.size	 MetatileBehavior_IsSouthArrowWarp,.Lfe22-MetatileBehavior_IsSouthArrowWarp
 	.align	2, 0
 	.globl	Unref_MetatileBehavior_IsArrowWarp
 	.type	 Unref_MetatileBehavior_IsArrowWarp,function
@@ -740,31 +721,31 @@ Unref_MetatileBehavior_IsArrowWarp:
 	bl	MetatileBehavior_IsEastArrowWarp
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L103	@cond_branch
+	bne	.L99	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsWestArrowWarp
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L103	@cond_branch
+	bne	.L99	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsNorthArrowWarp
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L103	@cond_branch
+	bne	.L99	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsSouthArrowWarp
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L102	@cond_branch
-.L103:
+	beq	.L98	@cond_branch
+.L99:
 	mov	r5, #0x1
-.L102:
+.L98:
 	add	r0, r5, #0
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.Lfe24:
-	.size	 Unref_MetatileBehavior_IsArrowWarp,.Lfe24-Unref_MetatileBehavior_IsArrowWarp
+.Lfe23:
+	.size	 Unref_MetatileBehavior_IsArrowWarp,.Lfe23-Unref_MetatileBehavior_IsArrowWarp
 	.align	2, 0
 	.globl	MetatileBehavior_IsForcedMovementTile
 	.type	 MetatileBehavior_IsForcedMovementTile,function
@@ -778,35 +759,35 @@ MetatileBehavior_IsForcedMovementTile:
 	add	r0, r0, r2
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x8
-	bls	.L106	@cond_branch
+	bls	.L102	@cond_branch
 	add	r0, r1, #0
 	sub	r0, r0, #0x50
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x3
-	bls	.L106	@cond_branch
+	bls	.L102	@cond_branch
 	cmp	r1, #0xd0
-	beq	.L106	@cond_branch
+	beq	.L102	@cond_branch
 	cmp	r1, #0xd2
-	beq	.L106	@cond_branch
+	beq	.L102	@cond_branch
 	cmp	r1, #0x13
-	beq	.L106	@cond_branch
+	beq	.L102	@cond_branch
 	cmp	r1, #0x20
-	beq	.L106	@cond_branch
+	beq	.L102	@cond_branch
 	cmp	r1, #0xbb
-	beq	.L106	@cond_branch
+	beq	.L102	@cond_branch
 	cmp	r1, #0xbc
-	bne	.L105	@cond_branch
-.L106:
+	bne	.L101	@cond_branch
+.L102:
 	mov	r0, #0x1
-	b	.L108
-.L105:
+	b	.L104
+.L101:
 	mov	r0, #0x0
-.L108:
+.L104:
 	pop	{r1}
 	bx	r1
-.Lfe25:
-	.size	 MetatileBehavior_IsForcedMovementTile,.Lfe25-MetatileBehavior_IsForcedMovementTile
+.Lfe24:
+	.size	 MetatileBehavior_IsForcedMovementTile,.Lfe24-MetatileBehavior_IsForcedMovementTile
 	.align	2, 0
 	.globl	MetatileBehavior_IsIce_2
 	.type	 MetatileBehavior_IsIce_2,function
@@ -816,16 +797,16 @@ MetatileBehavior_IsIce_2:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x20
-	beq	.L110	@cond_branch
+	beq	.L106	@cond_branch
 	mov	r0, #0x0
-	b	.L112
-.L110:
+	b	.L108
+.L106:
 	mov	r0, #0x1
-.L112:
+.L108:
 	pop	{r1}
 	bx	r1
-.Lfe26:
-	.size	 MetatileBehavior_IsIce_2,.Lfe26-MetatileBehavior_IsIce_2
+.Lfe25:
+	.size	 MetatileBehavior_IsIce_2,.Lfe25-MetatileBehavior_IsIce_2
 	.align	2, 0
 	.globl	MetatileBehavior_IsTrickHouseSlipperyFloor
 	.type	 MetatileBehavior_IsTrickHouseSlipperyFloor,function
@@ -835,16 +816,16 @@ MetatileBehavior_IsTrickHouseSlipperyFloor:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x48
-	beq	.L114	@cond_branch
+	beq	.L110	@cond_branch
 	mov	r0, #0x0
-	b	.L116
-.L114:
+	b	.L112
+.L110:
 	mov	r0, #0x1
-.L116:
+.L112:
 	pop	{r1}
 	bx	r1
-.Lfe27:
-	.size	 MetatileBehavior_IsTrickHouseSlipperyFloor,.Lfe27-MetatileBehavior_IsTrickHouseSlipperyFloor
+.Lfe26:
+	.size	 MetatileBehavior_IsTrickHouseSlipperyFloor,.Lfe26-MetatileBehavior_IsTrickHouseSlipperyFloor
 	.align	2, 0
 	.globl	Unref_MetatileBehavior_IsUnused05
 	.type	 Unref_MetatileBehavior_IsUnused05,function
@@ -854,16 +835,16 @@ Unref_MetatileBehavior_IsUnused05:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x5
-	beq	.L118	@cond_branch
+	beq	.L114	@cond_branch
 	mov	r0, #0x0
-	b	.L120
-.L118:
+	b	.L116
+.L114:
 	mov	r0, #0x1
-.L120:
+.L116:
 	pop	{r1}
 	bx	r1
-.Lfe28:
-	.size	 Unref_MetatileBehavior_IsUnused05,.Lfe28-Unref_MetatileBehavior_IsUnused05
+.Lfe27:
+	.size	 Unref_MetatileBehavior_IsUnused05,.Lfe27-Unref_MetatileBehavior_IsUnused05
 	.align	2, 0
 	.globl	MetatileBehavior_IsWalkNorth
 	.type	 MetatileBehavior_IsWalkNorth,function
@@ -873,16 +854,16 @@ MetatileBehavior_IsWalkNorth:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x42
-	beq	.L122	@cond_branch
+	beq	.L118	@cond_branch
 	mov	r0, #0x0
-	b	.L124
-.L122:
+	b	.L120
+.L118:
 	mov	r0, #0x1
-.L124:
+.L120:
 	pop	{r1}
 	bx	r1
-.Lfe29:
-	.size	 MetatileBehavior_IsWalkNorth,.Lfe29-MetatileBehavior_IsWalkNorth
+.Lfe28:
+	.size	 MetatileBehavior_IsWalkNorth,.Lfe28-MetatileBehavior_IsWalkNorth
 	.align	2, 0
 	.globl	MetatileBehavior_IsWalkSouth
 	.type	 MetatileBehavior_IsWalkSouth,function
@@ -892,16 +873,16 @@ MetatileBehavior_IsWalkSouth:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x43
-	beq	.L126	@cond_branch
+	beq	.L122	@cond_branch
 	mov	r0, #0x0
-	b	.L128
-.L126:
+	b	.L124
+.L122:
 	mov	r0, #0x1
-.L128:
+.L124:
 	pop	{r1}
 	bx	r1
-.Lfe30:
-	.size	 MetatileBehavior_IsWalkSouth,.Lfe30-MetatileBehavior_IsWalkSouth
+.Lfe29:
+	.size	 MetatileBehavior_IsWalkSouth,.Lfe29-MetatileBehavior_IsWalkSouth
 	.align	2, 0
 	.globl	MetatileBehavior_IsWalkWest
 	.type	 MetatileBehavior_IsWalkWest,function
@@ -911,16 +892,16 @@ MetatileBehavior_IsWalkWest:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x41
-	beq	.L130	@cond_branch
+	beq	.L126	@cond_branch
 	mov	r0, #0x0
-	b	.L132
-.L130:
+	b	.L128
+.L126:
 	mov	r0, #0x1
-.L132:
+.L128:
 	pop	{r1}
 	bx	r1
-.Lfe31:
-	.size	 MetatileBehavior_IsWalkWest,.Lfe31-MetatileBehavior_IsWalkWest
+.Lfe30:
+	.size	 MetatileBehavior_IsWalkWest,.Lfe30-MetatileBehavior_IsWalkWest
 	.align	2, 0
 	.globl	MetatileBehavior_IsWalkEast
 	.type	 MetatileBehavior_IsWalkEast,function
@@ -930,16 +911,16 @@ MetatileBehavior_IsWalkEast:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x40
-	beq	.L134	@cond_branch
+	beq	.L130	@cond_branch
 	mov	r0, #0x0
-	b	.L136
-.L134:
+	b	.L132
+.L130:
 	mov	r0, #0x1
-.L136:
+.L132:
 	pop	{r1}
 	bx	r1
-.Lfe32:
-	.size	 MetatileBehavior_IsWalkEast,.Lfe32-MetatileBehavior_IsWalkEast
+.Lfe31:
+	.size	 MetatileBehavior_IsWalkEast,.Lfe31-MetatileBehavior_IsWalkEast
 	.align	2, 0
 	.globl	MetatileBehavior_IsNorthwardCurrent
 	.type	 MetatileBehavior_IsNorthwardCurrent,function
@@ -949,16 +930,16 @@ MetatileBehavior_IsNorthwardCurrent:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x52
-	beq	.L138	@cond_branch
+	beq	.L134	@cond_branch
 	mov	r0, #0x0
-	b	.L140
-.L138:
+	b	.L136
+.L134:
 	mov	r0, #0x1
-.L140:
+.L136:
 	pop	{r1}
 	bx	r1
-.Lfe33:
-	.size	 MetatileBehavior_IsNorthwardCurrent,.Lfe33-MetatileBehavior_IsNorthwardCurrent
+.Lfe32:
+	.size	 MetatileBehavior_IsNorthwardCurrent,.Lfe32-MetatileBehavior_IsNorthwardCurrent
 	.align	2, 0
 	.globl	MetatileBehavior_IsSouthwardCurrent
 	.type	 MetatileBehavior_IsSouthwardCurrent,function
@@ -968,16 +949,16 @@ MetatileBehavior_IsSouthwardCurrent:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x53
-	beq	.L142	@cond_branch
+	beq	.L138	@cond_branch
 	mov	r0, #0x0
-	b	.L144
-.L142:
+	b	.L140
+.L138:
 	mov	r0, #0x1
-.L144:
+.L140:
 	pop	{r1}
 	bx	r1
-.Lfe34:
-	.size	 MetatileBehavior_IsSouthwardCurrent,.Lfe34-MetatileBehavior_IsSouthwardCurrent
+.Lfe33:
+	.size	 MetatileBehavior_IsSouthwardCurrent,.Lfe33-MetatileBehavior_IsSouthwardCurrent
 	.align	2, 0
 	.globl	MetatileBehavior_IsWestwardCurrent
 	.type	 MetatileBehavior_IsWestwardCurrent,function
@@ -987,16 +968,16 @@ MetatileBehavior_IsWestwardCurrent:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x51
-	beq	.L146	@cond_branch
+	beq	.L142	@cond_branch
 	mov	r0, #0x0
-	b	.L148
-.L146:
+	b	.L144
+.L142:
 	mov	r0, #0x1
-.L148:
+.L144:
 	pop	{r1}
 	bx	r1
-.Lfe35:
-	.size	 MetatileBehavior_IsWestwardCurrent,.Lfe35-MetatileBehavior_IsWestwardCurrent
+.Lfe34:
+	.size	 MetatileBehavior_IsWestwardCurrent,.Lfe34-MetatileBehavior_IsWestwardCurrent
 	.align	2, 0
 	.globl	MetatileBehavior_IsEastwardCurrent
 	.type	 MetatileBehavior_IsEastwardCurrent,function
@@ -1006,16 +987,16 @@ MetatileBehavior_IsEastwardCurrent:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x50
-	beq	.L150	@cond_branch
+	beq	.L146	@cond_branch
 	mov	r0, #0x0
-	b	.L152
-.L150:
+	b	.L148
+.L146:
 	mov	r0, #0x1
-.L152:
+.L148:
 	pop	{r1}
 	bx	r1
-.Lfe36:
-	.size	 MetatileBehavior_IsEastwardCurrent,.Lfe36-MetatileBehavior_IsEastwardCurrent
+.Lfe35:
+	.size	 MetatileBehavior_IsEastwardCurrent,.Lfe35-MetatileBehavior_IsEastwardCurrent
 	.align	2, 0
 	.globl	MetatileBehavior_IsSlideNorth
 	.type	 MetatileBehavior_IsSlideNorth,function
@@ -1025,16 +1006,16 @@ MetatileBehavior_IsSlideNorth:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x46
-	beq	.L154	@cond_branch
+	beq	.L150	@cond_branch
 	mov	r0, #0x0
-	b	.L156
-.L154:
+	b	.L152
+.L150:
 	mov	r0, #0x1
-.L156:
+.L152:
 	pop	{r1}
 	bx	r1
-.Lfe37:
-	.size	 MetatileBehavior_IsSlideNorth,.Lfe37-MetatileBehavior_IsSlideNorth
+.Lfe36:
+	.size	 MetatileBehavior_IsSlideNorth,.Lfe36-MetatileBehavior_IsSlideNorth
 	.align	2, 0
 	.globl	MetatileBehavior_IsSlideSouth
 	.type	 MetatileBehavior_IsSlideSouth,function
@@ -1044,16 +1025,16 @@ MetatileBehavior_IsSlideSouth:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x47
-	beq	.L158	@cond_branch
+	beq	.L154	@cond_branch
 	mov	r0, #0x0
-	b	.L160
-.L158:
+	b	.L156
+.L154:
 	mov	r0, #0x1
-.L160:
+.L156:
 	pop	{r1}
 	bx	r1
-.Lfe38:
-	.size	 MetatileBehavior_IsSlideSouth,.Lfe38-MetatileBehavior_IsSlideSouth
+.Lfe37:
+	.size	 MetatileBehavior_IsSlideSouth,.Lfe37-MetatileBehavior_IsSlideSouth
 	.align	2, 0
 	.globl	MetatileBehavior_IsSlideWest
 	.type	 MetatileBehavior_IsSlideWest,function
@@ -1063,16 +1044,16 @@ MetatileBehavior_IsSlideWest:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x45
-	beq	.L162	@cond_branch
+	beq	.L158	@cond_branch
 	mov	r0, #0x0
-	b	.L164
-.L162:
+	b	.L160
+.L158:
 	mov	r0, #0x1
-.L164:
+.L160:
 	pop	{r1}
 	bx	r1
-.Lfe39:
-	.size	 MetatileBehavior_IsSlideWest,.Lfe39-MetatileBehavior_IsSlideWest
+.Lfe38:
+	.size	 MetatileBehavior_IsSlideWest,.Lfe38-MetatileBehavior_IsSlideWest
 	.align	2, 0
 	.globl	MetatileBehavior_IsSlideEast
 	.type	 MetatileBehavior_IsSlideEast,function
@@ -1082,16 +1063,16 @@ MetatileBehavior_IsSlideEast:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x44
-	beq	.L166	@cond_branch
+	beq	.L162	@cond_branch
 	mov	r0, #0x0
-	b	.L168
-.L166:
+	b	.L164
+.L162:
 	mov	r0, #0x1
-.L168:
+.L164:
 	pop	{r1}
 	bx	r1
-.Lfe40:
-	.size	 MetatileBehavior_IsSlideEast,.Lfe40-MetatileBehavior_IsSlideEast
+.Lfe39:
+	.size	 MetatileBehavior_IsSlideEast,.Lfe39-MetatileBehavior_IsSlideEast
 	.align	2, 0
 	.globl	MetatileBehavior_IsCounter
 	.type	 MetatileBehavior_IsCounter,function
@@ -1101,16 +1082,16 @@ MetatileBehavior_IsCounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x80
-	beq	.L170	@cond_branch
+	beq	.L166	@cond_branch
 	mov	r0, #0x0
-	b	.L172
-.L170:
+	b	.L168
+.L166:
 	mov	r0, #0x1
-.L172:
+.L168:
 	pop	{r1}
 	bx	r1
-.Lfe41:
-	.size	 MetatileBehavior_IsCounter,.Lfe41-MetatileBehavior_IsCounter
+.Lfe40:
+	.size	 MetatileBehavior_IsCounter,.Lfe40-MetatileBehavior_IsCounter
 	.align	2, 0
 	.globl	MetatileBehavior_IsPlayerFacingTVScreen
 	.type	 MetatileBehavior_IsPlayerFacingTVScreen,function
@@ -1122,19 +1103,19 @@ MetatileBehavior_IsPlayerFacingTVScreen:
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	cmp	r1, #0x2
-	bne	.L179	@cond_branch
+	bne	.L175	@cond_branch
 	cmp	r0, #0x86
-	beq	.L176	@cond_branch
-.L179:
+	beq	.L172	@cond_branch
+.L175:
 	mov	r0, #0x0
-	b	.L178
-.L176:
+	b	.L174
+.L172:
 	mov	r0, #0x1
-.L178:
+.L174:
 	pop	{r1}
 	bx	r1
-.Lfe42:
-	.size	 MetatileBehavior_IsPlayerFacingTVScreen,.Lfe42-MetatileBehavior_IsPlayerFacingTVScreen
+.Lfe41:
+	.size	 MetatileBehavior_IsPlayerFacingTVScreen,.Lfe41-MetatileBehavior_IsPlayerFacingTVScreen
 	.align	2, 0
 	.globl	MetatileBehavior_IsPC
 	.type	 MetatileBehavior_IsPC,function
@@ -1144,16 +1125,16 @@ MetatileBehavior_IsPC:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x83
-	beq	.L181	@cond_branch
+	beq	.L177	@cond_branch
 	mov	r0, #0x0
-	b	.L183
-.L181:
+	b	.L179
+.L177:
 	mov	r0, #0x1
-.L183:
+.L179:
 	pop	{r1}
 	bx	r1
-.Lfe43:
-	.size	 MetatileBehavior_IsPC,.Lfe43-MetatileBehavior_IsPC
+.Lfe42:
+	.size	 MetatileBehavior_IsPC,.Lfe42-MetatileBehavior_IsPC
 	.align	2, 0
 	.globl	MetatileBehavior_IsCableBoxResults1
 	.type	 MetatileBehavior_IsCableBoxResults1,function
@@ -1163,16 +1144,16 @@ MetatileBehavior_IsCableBoxResults1:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x84
-	beq	.L185	@cond_branch
+	beq	.L181	@cond_branch
 	mov	r0, #0x0
-	b	.L187
-.L185:
+	b	.L183
+.L181:
 	mov	r0, #0x1
-.L187:
+.L183:
 	pop	{r1}
 	bx	r1
-.Lfe44:
-	.size	 MetatileBehavior_IsCableBoxResults1,.Lfe44-MetatileBehavior_IsCableBoxResults1
+.Lfe43:
+	.size	 MetatileBehavior_IsCableBoxResults1,.Lfe43-MetatileBehavior_IsCableBoxResults1
 	.align	2, 0
 	.globl	MetatileBehavior_IsOpenSecretBaseDoor
 	.type	 MetatileBehavior_IsOpenSecretBaseDoor,function
@@ -1182,29 +1163,29 @@ MetatileBehavior_IsOpenSecretBaseDoor:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x91
-	beq	.L190	@cond_branch
+	beq	.L186	@cond_branch
 	cmp	r0, #0x93
-	beq	.L190	@cond_branch
+	beq	.L186	@cond_branch
 	cmp	r0, #0x95
-	beq	.L190	@cond_branch
+	beq	.L186	@cond_branch
 	cmp	r0, #0x97
-	beq	.L190	@cond_branch
+	beq	.L186	@cond_branch
 	cmp	r0, #0x99
-	beq	.L190	@cond_branch
+	beq	.L186	@cond_branch
 	cmp	r0, #0x9b
-	beq	.L190	@cond_branch
+	beq	.L186	@cond_branch
 	cmp	r0, #0x9d
-	bne	.L189	@cond_branch
-.L190:
+	bne	.L185	@cond_branch
+.L186:
 	mov	r0, #0x1
-	b	.L192
-.L189:
+	b	.L188
+.L185:
 	mov	r0, #0x0
-.L192:
+.L188:
 	pop	{r1}
 	bx	r1
-.Lfe45:
-	.size	 MetatileBehavior_IsOpenSecretBaseDoor,.Lfe45-MetatileBehavior_IsOpenSecretBaseDoor
+.Lfe44:
+	.size	 MetatileBehavior_IsOpenSecretBaseDoor,.Lfe44-MetatileBehavior_IsOpenSecretBaseDoor
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseCave
 	.type	 MetatileBehavior_IsSecretBaseCave,function
@@ -1214,23 +1195,23 @@ MetatileBehavior_IsSecretBaseCave:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x90
-	beq	.L195	@cond_branch
+	beq	.L191	@cond_branch
 	cmp	r0, #0x92
-	beq	.L195	@cond_branch
+	beq	.L191	@cond_branch
 	cmp	r0, #0x94
-	beq	.L195	@cond_branch
+	beq	.L191	@cond_branch
 	cmp	r0, #0x9a
-	bne	.L194	@cond_branch
-.L195:
+	bne	.L190	@cond_branch
+.L191:
 	mov	r0, #0x1
-	b	.L197
-.L194:
+	b	.L193
+.L190:
 	mov	r0, #0x0
-.L197:
+.L193:
 	pop	{r1}
 	bx	r1
-.Lfe46:
-	.size	 MetatileBehavior_IsSecretBaseCave,.Lfe46-MetatileBehavior_IsSecretBaseCave
+.Lfe45:
+	.size	 MetatileBehavior_IsSecretBaseCave,.Lfe45-MetatileBehavior_IsSecretBaseCave
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseTree
 	.type	 MetatileBehavior_IsSecretBaseTree,function
@@ -1240,19 +1221,19 @@ MetatileBehavior_IsSecretBaseTree:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x96
-	beq	.L200	@cond_branch
+	beq	.L196	@cond_branch
 	cmp	r0, #0x9c
-	bne	.L199	@cond_branch
-.L200:
+	bne	.L195	@cond_branch
+.L196:
 	mov	r0, #0x1
-	b	.L202
-.L199:
+	b	.L198
+.L195:
 	mov	r0, #0x0
-.L202:
+.L198:
 	pop	{r1}
 	bx	r1
-.Lfe47:
-	.size	 MetatileBehavior_IsSecretBaseTree,.Lfe47-MetatileBehavior_IsSecretBaseTree
+.Lfe46:
+	.size	 MetatileBehavior_IsSecretBaseTree,.Lfe46-MetatileBehavior_IsSecretBaseTree
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseShrub
 	.type	 MetatileBehavior_IsSecretBaseShrub,function
@@ -1262,16 +1243,16 @@ MetatileBehavior_IsSecretBaseShrub:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x98
-	beq	.L204	@cond_branch
+	beq	.L200	@cond_branch
 	mov	r0, #0x0
-	b	.L206
-.L204:
+	b	.L202
+.L200:
 	mov	r0, #0x1
-.L206:
+.L202:
 	pop	{r1}
 	bx	r1
-.Lfe48:
-	.size	 MetatileBehavior_IsSecretBaseShrub,.Lfe48-MetatileBehavior_IsSecretBaseShrub
+.Lfe47:
+	.size	 MetatileBehavior_IsSecretBaseShrub,.Lfe47-MetatileBehavior_IsSecretBaseShrub
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBasePC
 	.type	 MetatileBehavior_IsSecretBasePC,function
@@ -1281,16 +1262,16 @@ MetatileBehavior_IsSecretBasePC:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xb0
-	beq	.L208	@cond_branch
+	beq	.L204	@cond_branch
 	mov	r0, #0x0
-	b	.L210
-.L208:
+	b	.L206
+.L204:
 	mov	r0, #0x1
-.L210:
+.L206:
 	pop	{r1}
 	bx	r1
-.Lfe49:
-	.size	 MetatileBehavior_IsSecretBasePC,.Lfe49-MetatileBehavior_IsSecretBasePC
+.Lfe48:
+	.size	 MetatileBehavior_IsSecretBasePC,.Lfe48-MetatileBehavior_IsSecretBasePC
 	.align	2, 0
 	.globl	MetatileBehavior_IsRecordMixingSecretBasePC
 	.type	 MetatileBehavior_IsRecordMixingSecretBasePC,function
@@ -1300,16 +1281,16 @@ MetatileBehavior_IsRecordMixingSecretBasePC:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xb1
-	beq	.L212	@cond_branch
+	beq	.L208	@cond_branch
 	mov	r0, #0x0
-	b	.L214
-.L212:
+	b	.L210
+.L208:
 	mov	r0, #0x1
-.L214:
+.L210:
 	pop	{r1}
 	bx	r1
-.Lfe50:
-	.size	 MetatileBehavior_IsRecordMixingSecretBasePC,.Lfe50-MetatileBehavior_IsRecordMixingSecretBasePC
+.Lfe49:
+	.size	 MetatileBehavior_IsRecordMixingSecretBasePC,.Lfe49-MetatileBehavior_IsRecordMixingSecretBasePC
 	.align	2, 0
 	.globl	Unref_MetatileBehavior_IsSecretBaseUnused_B2
 	.type	 Unref_MetatileBehavior_IsSecretBaseUnused_B2,function
@@ -1319,16 +1300,16 @@ Unref_MetatileBehavior_IsSecretBaseUnused_B2:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xb2
-	beq	.L216	@cond_branch
+	beq	.L212	@cond_branch
 	mov	r0, #0x0
-	b	.L218
-.L216:
+	b	.L214
+.L212:
 	mov	r0, #0x1
-.L218:
+.L214:
 	pop	{r1}
 	bx	r1
-.Lfe51:
-	.size	 Unref_MetatileBehavior_IsSecretBaseUnused_B2,.Lfe51-Unref_MetatileBehavior_IsSecretBaseUnused_B2
+.Lfe50:
+	.size	 Unref_MetatileBehavior_IsSecretBaseUnused_B2,.Lfe50-Unref_MetatileBehavior_IsSecretBaseUnused_B2
 	.align	2, 0
 	.globl	MetatileBehavior_IsBlockDecoration
 	.type	 MetatileBehavior_IsBlockDecoration,function
@@ -1338,16 +1319,16 @@ MetatileBehavior_IsBlockDecoration:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xb3
-	beq	.L220	@cond_branch
+	beq	.L216	@cond_branch
 	mov	r0, #0x0
-	b	.L222
-.L220:
+	b	.L218
+.L216:
 	mov	r0, #0x1
-.L222:
+.L218:
 	pop	{r1}
 	bx	r1
-.Lfe52:
-	.size	 MetatileBehavior_IsBlockDecoration,.Lfe52-MetatileBehavior_IsBlockDecoration
+.Lfe51:
+	.size	 MetatileBehavior_IsBlockDecoration,.Lfe51-MetatileBehavior_IsBlockDecoration
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseImpassable
 	.type	 MetatileBehavior_IsSecretBaseImpassable,function
@@ -1357,16 +1338,16 @@ MetatileBehavior_IsSecretBaseImpassable:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xb9
-	beq	.L224	@cond_branch
+	beq	.L220	@cond_branch
 	mov	r0, #0x0
-	b	.L226
-.L224:
+	b	.L222
+.L220:
 	mov	r0, #0x1
-.L226:
+.L222:
 	pop	{r1}
 	bx	r1
-.Lfe53:
-	.size	 MetatileBehavior_IsSecretBaseImpassable,.Lfe53-MetatileBehavior_IsSecretBaseImpassable
+.Lfe52:
+	.size	 MetatileBehavior_IsSecretBaseImpassable,.Lfe52-MetatileBehavior_IsSecretBaseImpassable
 	.align	2, 0
 	.globl	MetatileBehavior_IsMB_C6
 	.type	 MetatileBehavior_IsMB_C6,function
@@ -1376,16 +1357,16 @@ MetatileBehavior_IsMB_C6:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xc6
-	beq	.L228	@cond_branch
+	beq	.L224	@cond_branch
 	mov	r0, #0x0
-	b	.L230
-.L228:
+	b	.L226
+.L224:
 	mov	r0, #0x1
-.L230:
+.L226:
 	pop	{r1}
 	bx	r1
-.Lfe54:
-	.size	 MetatileBehavior_IsMB_C6,.Lfe54-MetatileBehavior_IsMB_C6
+.Lfe53:
+	.size	 MetatileBehavior_IsMB_C6,.Lfe53-MetatileBehavior_IsMB_C6
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBasePoster
 	.type	 MetatileBehavior_IsSecretBasePoster,function
@@ -1395,6 +1376,24 @@ MetatileBehavior_IsSecretBasePoster:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xc7
+	beq	.L228	@cond_branch
+	mov	r0, #0x0
+	b	.L230
+.L228:
+	mov	r0, #0x1
+.L230:
+	pop	{r1}
+	bx	r1
+.Lfe54:
+	.size	 MetatileBehavior_IsSecretBasePoster,.Lfe54-MetatileBehavior_IsSecretBasePoster
+	.align	2, 0
+	.globl	MetatileBehavior_IsNormal
+	.type	 MetatileBehavior_IsNormal,function
+	.thumb_func
+MetatileBehavior_IsNormal:
+	push	{lr}
+	lsl	r0, r0, #0x18
+	cmp	r0, #0
 	beq	.L232	@cond_branch
 	mov	r0, #0x0
 	b	.L234
@@ -1404,25 +1403,7 @@ MetatileBehavior_IsSecretBasePoster:
 	pop	{r1}
 	bx	r1
 .Lfe55:
-	.size	 MetatileBehavior_IsSecretBasePoster,.Lfe55-MetatileBehavior_IsSecretBasePoster
-	.align	2, 0
-	.globl	MetatileBehavior_IsNormal
-	.type	 MetatileBehavior_IsNormal,function
-	.thumb_func
-MetatileBehavior_IsNormal:
-	push	{lr}
-	lsl	r0, r0, #0x18
-	cmp	r0, #0
-	beq	.L236	@cond_branch
-	mov	r0, #0x0
-	b	.L238
-.L236:
-	mov	r0, #0x1
-.L238:
-	pop	{r1}
-	bx	r1
-.Lfe56:
-	.size	 MetatileBehavior_IsNormal,.Lfe56-MetatileBehavior_IsNormal
+	.size	 MetatileBehavior_IsNormal,.Lfe55-MetatileBehavior_IsNormal
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseNorthWall
 	.type	 MetatileBehavior_IsSecretBaseNorthWall,function
@@ -1432,16 +1413,16 @@ MetatileBehavior_IsSecretBaseNorthWall:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xb7
-	beq	.L240	@cond_branch
+	beq	.L236	@cond_branch
 	mov	r0, #0x0
-	b	.L242
-.L240:
+	b	.L238
+.L236:
 	mov	r0, #0x1
-.L242:
+.L238:
 	pop	{r1}
 	bx	r1
-.Lfe57:
-	.size	 MetatileBehavior_IsSecretBaseNorthWall,.Lfe57-MetatileBehavior_IsSecretBaseNorthWall
+.Lfe56:
+	.size	 MetatileBehavior_IsSecretBaseNorthWall,.Lfe56-MetatileBehavior_IsSecretBaseNorthWall
 	.align	2, 0
 	.globl	Unref_MetatileBehavior_IsSecretBaseUnused_B2_2
 	.type	 Unref_MetatileBehavior_IsSecretBaseUnused_B2_2,function
@@ -1451,16 +1432,16 @@ Unref_MetatileBehavior_IsSecretBaseUnused_B2_2:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xb2
-	beq	.L244	@cond_branch
+	beq	.L240	@cond_branch
 	mov	r0, #0x0
-	b	.L246
-.L244:
+	b	.L242
+.L240:
 	mov	r0, #0x1
-.L246:
+.L242:
 	pop	{r1}
 	bx	r1
-.Lfe58:
-	.size	 Unref_MetatileBehavior_IsSecretBaseUnused_B2_2,.Lfe58-Unref_MetatileBehavior_IsSecretBaseUnused_B2_2
+.Lfe57:
+	.size	 Unref_MetatileBehavior_IsSecretBaseUnused_B2_2,.Lfe57-Unref_MetatileBehavior_IsSecretBaseUnused_B2_2
 	.align	2, 0
 	.globl	MetatileBehavior_HoldsSmallDecoration
 	.type	 MetatileBehavior_HoldsSmallDecoration,function
@@ -1470,16 +1451,16 @@ MetatileBehavior_HoldsSmallDecoration:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xb5
-	beq	.L248	@cond_branch
+	beq	.L244	@cond_branch
 	mov	r0, #0x0
-	b	.L250
-.L248:
+	b	.L246
+.L244:
 	mov	r0, #0x1
-.L250:
+.L246:
 	pop	{r1}
 	bx	r1
-.Lfe59:
-	.size	 MetatileBehavior_HoldsSmallDecoration,.Lfe59-MetatileBehavior_HoldsSmallDecoration
+.Lfe58:
+	.size	 MetatileBehavior_HoldsSmallDecoration,.Lfe58-MetatileBehavior_HoldsSmallDecoration
 	.align	2, 0
 	.globl	MetatileBehavior_HoldsLargeDecoration
 	.type	 MetatileBehavior_HoldsLargeDecoration,function
@@ -1489,16 +1470,16 @@ MetatileBehavior_HoldsLargeDecoration:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xc3
-	beq	.L252	@cond_branch
+	beq	.L248	@cond_branch
 	mov	r0, #0x0
-	b	.L254
-.L252:
+	b	.L250
+.L248:
 	mov	r0, #0x1
-.L254:
+.L250:
 	pop	{r1}
 	bx	r1
-.Lfe60:
-	.size	 MetatileBehavior_HoldsLargeDecoration,.Lfe60-MetatileBehavior_HoldsLargeDecoration
+.Lfe59:
+	.size	 MetatileBehavior_HoldsLargeDecoration,.Lfe59-MetatileBehavior_HoldsLargeDecoration
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseHole
 	.type	 MetatileBehavior_IsSecretBaseHole,function
@@ -1508,16 +1489,16 @@ MetatileBehavior_IsSecretBaseHole:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xc2
-	beq	.L256	@cond_branch
+	beq	.L252	@cond_branch
 	mov	r0, #0x0
-	b	.L258
-.L256:
+	b	.L254
+.L252:
 	mov	r0, #0x1
-.L258:
+.L254:
 	pop	{r1}
 	bx	r1
-.Lfe61:
-	.size	 MetatileBehavior_IsSecretBaseHole,.Lfe61-MetatileBehavior_IsSecretBaseHole
+.Lfe60:
+	.size	 MetatileBehavior_IsSecretBaseHole,.Lfe60-MetatileBehavior_IsSecretBaseHole
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseBalloon
 	.type	 MetatileBehavior_IsSecretBaseBalloon,function
@@ -1527,16 +1508,16 @@ MetatileBehavior_IsSecretBaseBalloon:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xb8
-	beq	.L260	@cond_branch
+	beq	.L256	@cond_branch
 	mov	r0, #0x0
-	b	.L262
-.L260:
+	b	.L258
+.L256:
 	mov	r0, #0x1
-.L262:
+.L258:
 	pop	{r1}
 	bx	r1
-.Lfe62:
-	.size	 MetatileBehavior_IsSecretBaseBalloon,.Lfe62-MetatileBehavior_IsSecretBaseBalloon
+.Lfe61:
+	.size	 MetatileBehavior_IsSecretBaseBalloon,.Lfe61-MetatileBehavior_IsSecretBaseBalloon
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseBreakableDoor
 	.type	 MetatileBehavior_IsSecretBaseBreakableDoor,function
@@ -1546,16 +1527,16 @@ MetatileBehavior_IsSecretBaseBreakableDoor:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xbe
-	beq	.L264	@cond_branch
+	beq	.L260	@cond_branch
 	mov	r0, #0x0
-	b	.L266
-.L264:
+	b	.L262
+.L260:
 	mov	r0, #0x1
-.L266:
+.L262:
 	pop	{r1}
 	bx	r1
-.Lfe63:
-	.size	 MetatileBehavior_IsSecretBaseBreakableDoor,.Lfe63-MetatileBehavior_IsSecretBaseBreakableDoor
+.Lfe62:
+	.size	 MetatileBehavior_IsSecretBaseBreakableDoor,.Lfe62-MetatileBehavior_IsSecretBaseBreakableDoor
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseSoundMat
 	.type	 MetatileBehavior_IsSecretBaseSoundMat,function
@@ -1565,16 +1546,16 @@ MetatileBehavior_IsSecretBaseSoundMat:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xbd
-	beq	.L268	@cond_branch
+	beq	.L264	@cond_branch
 	mov	r0, #0x0
-	b	.L270
-.L268:
+	b	.L266
+.L264:
 	mov	r0, #0x1
-.L270:
+.L266:
 	pop	{r1}
 	bx	r1
-.Lfe64:
-	.size	 MetatileBehavior_IsSecretBaseSoundMat,.Lfe64-MetatileBehavior_IsSecretBaseSoundMat
+.Lfe63:
+	.size	 MetatileBehavior_IsSecretBaseSoundMat,.Lfe63-MetatileBehavior_IsSecretBaseSoundMat
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseGlitterMat
 	.type	 MetatileBehavior_IsSecretBaseGlitterMat,function
@@ -1584,16 +1565,16 @@ MetatileBehavior_IsSecretBaseGlitterMat:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xba
-	beq	.L272	@cond_branch
+	beq	.L268	@cond_branch
 	mov	r0, #0x0
-	b	.L274
-.L272:
+	b	.L270
+.L268:
 	mov	r0, #0x1
-.L274:
+.L270:
 	pop	{r1}
 	bx	r1
-.Lfe65:
-	.size	 MetatileBehavior_IsSecretBaseGlitterMat,.Lfe65-MetatileBehavior_IsSecretBaseGlitterMat
+.Lfe64:
+	.size	 MetatileBehavior_IsSecretBaseGlitterMat,.Lfe64-MetatileBehavior_IsSecretBaseGlitterMat
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseSandOrnament
 	.type	 MetatileBehavior_IsSecretBaseSandOrnament,function
@@ -1603,16 +1584,16 @@ MetatileBehavior_IsSecretBaseSandOrnament:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xbf
-	beq	.L276	@cond_branch
+	beq	.L272	@cond_branch
 	mov	r0, #0x0
-	b	.L278
-.L276:
+	b	.L274
+.L272:
 	mov	r0, #0x1
-.L278:
+.L274:
 	pop	{r1}
 	bx	r1
-.Lfe66:
-	.size	 MetatileBehavior_IsSecretBaseSandOrnament,.Lfe66-MetatileBehavior_IsSecretBaseSandOrnament
+.Lfe65:
+	.size	 MetatileBehavior_IsSecretBaseSandOrnament,.Lfe65-MetatileBehavior_IsSecretBaseSandOrnament
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseShieldOrToyTV
 	.type	 MetatileBehavior_IsSecretBaseShieldOrToyTV,function
@@ -1622,16 +1603,16 @@ MetatileBehavior_IsSecretBaseShieldOrToyTV:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xc4
-	beq	.L280	@cond_branch
+	beq	.L276	@cond_branch
 	mov	r0, #0x0
-	b	.L282
-.L280:
+	b	.L278
+.L276:
 	mov	r0, #0x1
-.L282:
+.L278:
 	pop	{r1}
 	bx	r1
-.Lfe67:
-	.size	 MetatileBehavior_IsSecretBaseShieldOrToyTV,.Lfe67-MetatileBehavior_IsSecretBaseShieldOrToyTV
+.Lfe66:
+	.size	 MetatileBehavior_IsSecretBaseShieldOrToyTV,.Lfe66-MetatileBehavior_IsSecretBaseShieldOrToyTV
 	.align	2, 0
 	.globl	MetatileBehavior_IsPlayerRoomPCOn
 	.type	 MetatileBehavior_IsPlayerRoomPCOn,function
@@ -1641,16 +1622,16 @@ MetatileBehavior_IsPlayerRoomPCOn:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xc5
-	beq	.L284	@cond_branch
+	beq	.L280	@cond_branch
 	mov	r0, #0x0
-	b	.L286
-.L284:
+	b	.L282
+.L280:
 	mov	r0, #0x1
-.L286:
+.L282:
 	pop	{r1}
 	bx	r1
-.Lfe68:
-	.size	 MetatileBehavior_IsPlayerRoomPCOn,.Lfe68-MetatileBehavior_IsPlayerRoomPCOn
+.Lfe67:
+	.size	 MetatileBehavior_IsPlayerRoomPCOn,.Lfe67-MetatileBehavior_IsPlayerRoomPCOn
 	.align	2, 0
 	.globl	MetatileBehavior_HasRipples
 	.type	 MetatileBehavior_HasRipples,function
@@ -1660,21 +1641,21 @@ MetatileBehavior_HasRipples:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x10
-	beq	.L289	@cond_branch
+	beq	.L285	@cond_branch
 	cmp	r0, #0x16
-	beq	.L289	@cond_branch
+	beq	.L285	@cond_branch
 	cmp	r0, #0x14
-	bne	.L288	@cond_branch
-.L289:
+	bne	.L284	@cond_branch
+.L285:
 	mov	r0, #0x1
-	b	.L291
-.L288:
+	b	.L287
+.L284:
 	mov	r0, #0x0
-.L291:
+.L287:
 	pop	{r1}
 	bx	r1
-.Lfe69:
-	.size	 MetatileBehavior_HasRipples,.Lfe69-MetatileBehavior_HasRipples
+.Lfe68:
+	.size	 MetatileBehavior_HasRipples,.Lfe68-MetatileBehavior_HasRipples
 	.align	2, 0
 	.globl	MetatileBehavior_IsPuddle
 	.type	 MetatileBehavior_IsPuddle,function
@@ -1684,16 +1665,16 @@ MetatileBehavior_IsPuddle:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x16
-	beq	.L293	@cond_branch
+	beq	.L289	@cond_branch
 	mov	r0, #0x0
-	b	.L295
-.L293:
+	b	.L291
+.L289:
 	mov	r0, #0x1
-.L295:
+.L291:
 	pop	{r1}
 	bx	r1
-.Lfe70:
-	.size	 MetatileBehavior_IsPuddle,.Lfe70-MetatileBehavior_IsPuddle
+.Lfe69:
+	.size	 MetatileBehavior_IsPuddle,.Lfe69-MetatileBehavior_IsPuddle
 	.align	2, 0
 	.globl	MetatileBehavior_IsTallGrass
 	.type	 MetatileBehavior_IsTallGrass,function
@@ -1703,16 +1684,16 @@ MetatileBehavior_IsTallGrass:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x2
-	beq	.L297	@cond_branch
+	beq	.L293	@cond_branch
 	mov	r0, #0x0
-	b	.L299
-.L297:
+	b	.L295
+.L293:
 	mov	r0, #0x1
-.L299:
+.L295:
 	pop	{r1}
 	bx	r1
-.Lfe71:
-	.size	 MetatileBehavior_IsTallGrass,.Lfe71-MetatileBehavior_IsTallGrass
+.Lfe70:
+	.size	 MetatileBehavior_IsTallGrass,.Lfe70-MetatileBehavior_IsTallGrass
 	.align	2, 0
 	.globl	MetatileBehavior_IsLongGrass
 	.type	 MetatileBehavior_IsLongGrass,function
@@ -1722,16 +1703,16 @@ MetatileBehavior_IsLongGrass:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x3
-	beq	.L301	@cond_branch
+	beq	.L297	@cond_branch
 	mov	r0, #0x0
-	b	.L303
-.L301:
+	b	.L299
+.L297:
 	mov	r0, #0x1
-.L303:
+.L299:
 	pop	{r1}
 	bx	r1
-.Lfe72:
-	.size	 MetatileBehavior_IsLongGrass,.Lfe72-MetatileBehavior_IsLongGrass
+.Lfe71:
+	.size	 MetatileBehavior_IsLongGrass,.Lfe71-MetatileBehavior_IsLongGrass
 	.align	2, 0
 	.globl	MetatileBehavior_IsBerryTreeSoil
 	.type	 MetatileBehavior_IsBerryTreeSoil,function
@@ -1741,16 +1722,16 @@ MetatileBehavior_IsBerryTreeSoil:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xa0
-	beq	.L305	@cond_branch
+	beq	.L301	@cond_branch
 	mov	r0, #0x0
-	b	.L307
-.L305:
+	b	.L303
+.L301:
 	mov	r0, #0x1
-.L307:
+.L303:
 	pop	{r1}
 	bx	r1
-.Lfe73:
-	.size	 MetatileBehavior_IsBerryTreeSoil,.Lfe73-MetatileBehavior_IsBerryTreeSoil
+.Lfe72:
+	.size	 MetatileBehavior_IsBerryTreeSoil,.Lfe72-MetatileBehavior_IsBerryTreeSoil
 	.align	2, 0
 	.globl	MetatileBehavior_IsAshGrass
 	.type	 MetatileBehavior_IsAshGrass,function
@@ -1760,16 +1741,16 @@ MetatileBehavior_IsAshGrass:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x24
-	beq	.L309	@cond_branch
+	beq	.L305	@cond_branch
 	mov	r0, #0x0
-	b	.L311
-.L309:
+	b	.L307
+.L305:
 	mov	r0, #0x1
-.L311:
+.L307:
 	pop	{r1}
 	bx	r1
-.Lfe74:
-	.size	 MetatileBehavior_IsAshGrass,.Lfe74-MetatileBehavior_IsAshGrass
+.Lfe73:
+	.size	 MetatileBehavior_IsAshGrass,.Lfe73-MetatileBehavior_IsAshGrass
 	.align	2, 0
 	.globl	MetatileBehavior_IsFootprints
 	.type	 MetatileBehavior_IsFootprints,function
@@ -1779,16 +1760,16 @@ MetatileBehavior_IsFootprints:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x25
-	beq	.L313	@cond_branch
+	beq	.L309	@cond_branch
 	mov	r0, #0x0
-	b	.L315
-.L313:
+	b	.L311
+.L309:
 	mov	r0, #0x1
-.L315:
+.L311:
 	pop	{r1}
 	bx	r1
-.Lfe75:
-	.size	 MetatileBehavior_IsFootprints,.Lfe75-MetatileBehavior_IsFootprints
+.Lfe74:
+	.size	 MetatileBehavior_IsFootprints,.Lfe74-MetatileBehavior_IsFootprints
 	.align	2, 0
 	.globl	MetatileBehavior_IsBridge
 	.type	 MetatileBehavior_IsBridge,function
@@ -1802,23 +1783,23 @@ MetatileBehavior_IsBridge:
 	add	r0, r0, r2
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x3
-	bls	.L318	@cond_branch
+	bls	.L314	@cond_branch
 	add	r0, r1, #0
 	sub	r0, r0, #0x7c
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x3
-	bhi	.L317	@cond_branch
-.L318:
+	bhi	.L313	@cond_branch
+.L314:
 	mov	r0, #0x1
-	b	.L320
-.L317:
+	b	.L316
+.L313:
 	mov	r0, #0x0
-.L320:
+.L316:
 	pop	{r1}
 	bx	r1
-.Lfe76:
-	.size	 MetatileBehavior_IsBridge,.Lfe76-MetatileBehavior_IsBridge
+.Lfe75:
+	.size	 MetatileBehavior_IsBridge,.Lfe75-MetatileBehavior_IsBridge
 	.align	2, 0
 	.globl	MetatileBehavior_GetBridgeType
 	.type	 MetatileBehavior_GetBridgeType,function
@@ -1833,31 +1814,31 @@ MetatileBehavior_GetBridgeType:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x3
-	bls	.L325	@cond_branch
+	bls	.L321	@cond_branch
 	add	r0, r1, #0
 	sub	r0, r0, #0x7a
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bhi	.L323	@cond_branch
+	bhi	.L319	@cond_branch
 	mov	r0, #0x2
-	b	.L325
-.L323:
+	b	.L321
+.L319:
 	add	r0, r2, #0
 	sub	r0, r0, #0x7c
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bls	.L324	@cond_branch
+	bls	.L320	@cond_branch
 	mov	r0, #0x0
-	b	.L325
-.L324:
+	b	.L321
+.L320:
 	mov	r0, #0x3
-.L325:
+.L321:
 	pop	{r1}
 	bx	r1
-.Lfe77:
-	.size	 MetatileBehavior_GetBridgeType,.Lfe77-MetatileBehavior_GetBridgeType
+.Lfe76:
+	.size	 MetatileBehavior_GetBridgeType,.Lfe76-MetatileBehavior_GetBridgeType
 	.align	2, 0
 	.globl	MetatileBehavior_8089510
 	.type	 MetatileBehavior_8089510,function
@@ -1870,16 +1851,16 @@ MetatileBehavior_8089510:
 	add	r0, r0, r1
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x3
-	bls	.L327	@cond_branch
+	bls	.L323	@cond_branch
 	mov	r0, #0x0
-	b	.L329
-.L327:
+	b	.L325
+.L323:
 	mov	r0, #0x1
-.L329:
+.L325:
 	pop	{r1}
 	bx	r1
-.Lfe78:
-	.size	 MetatileBehavior_8089510,.Lfe78-MetatileBehavior_8089510
+.Lfe77:
+	.size	 MetatileBehavior_8089510,.Lfe77-MetatileBehavior_8089510
 	.align	2, 0
 	.globl	MetatileBehavior_IsLandWildEncounter
 	.type	 MetatileBehavior_IsLandWildEncounter,function
@@ -1892,6 +1873,36 @@ MetatileBehavior_IsLandWildEncounter:
 	bl	MetatileBehavior_IsSurfableWaterOrUnderwater
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
+	bne	.L327	@cond_branch
+	add	r0, r4, #0
+	bl	MetatileBehavior_IsEncounterTile
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x1
+	bne	.L327	@cond_branch
+	mov	r0, #0x1
+	b	.L329
+.L327:
+	mov	r0, #0x0
+.L329:
+	pop	{r4}
+	pop	{r1}
+	bx	r1
+.Lfe78:
+	.size	 MetatileBehavior_IsLandWildEncounter,.Lfe78-MetatileBehavior_IsLandWildEncounter
+	.align	2, 0
+	.globl	MetatileBehavior_IsWaterWildEncounter
+	.type	 MetatileBehavior_IsWaterWildEncounter,function
+	.thumb_func
+MetatileBehavior_IsWaterWildEncounter:
+	push	{r4, lr}
+	lsl	r0, r0, #0x18
+	lsr	r4, r0, #0x18
+	add	r0, r4, #0
+	bl	MetatileBehavior_IsSurfableWaterOrUnderwater
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x1
 	bne	.L331	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsEncounterTile
@@ -1908,37 +1919,7 @@ MetatileBehavior_IsLandWildEncounter:
 	pop	{r1}
 	bx	r1
 .Lfe79:
-	.size	 MetatileBehavior_IsLandWildEncounter,.Lfe79-MetatileBehavior_IsLandWildEncounter
-	.align	2, 0
-	.globl	MetatileBehavior_IsWaterWildEncounter
-	.type	 MetatileBehavior_IsWaterWildEncounter,function
-	.thumb_func
-MetatileBehavior_IsWaterWildEncounter:
-	push	{r4, lr}
-	lsl	r0, r0, #0x18
-	lsr	r4, r0, #0x18
-	add	r0, r4, #0
-	bl	MetatileBehavior_IsSurfableWaterOrUnderwater
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	cmp	r0, #0x1
-	bne	.L335	@cond_branch
-	add	r0, r4, #0
-	bl	MetatileBehavior_IsEncounterTile
-	lsl	r0, r0, #0x18
-	lsr	r0, r0, #0x18
-	cmp	r0, #0x1
-	bne	.L335	@cond_branch
-	mov	r0, #0x1
-	b	.L337
-.L335:
-	mov	r0, #0x0
-.L337:
-	pop	{r4}
-	pop	{r1}
-	bx	r1
-.Lfe80:
-	.size	 MetatileBehavior_IsWaterWildEncounter,.Lfe80-MetatileBehavior_IsWaterWildEncounter
+	.size	 MetatileBehavior_IsWaterWildEncounter,.Lfe79-MetatileBehavior_IsWaterWildEncounter
 	.align	2, 0
 	.globl	MetatileBehavior_IsIndoorEncounter
 	.type	 MetatileBehavior_IsIndoorEncounter,function
@@ -1948,16 +1929,16 @@ MetatileBehavior_IsIndoorEncounter:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xb
-	beq	.L339	@cond_branch
+	beq	.L335	@cond_branch
 	mov	r0, #0x0
-	b	.L341
-.L339:
+	b	.L337
+.L335:
 	mov	r0, #0x1
-.L341:
+.L337:
 	pop	{r1}
 	bx	r1
-.Lfe81:
-	.size	 MetatileBehavior_IsIndoorEncounter,.Lfe81-MetatileBehavior_IsIndoorEncounter
+.Lfe80:
+	.size	 MetatileBehavior_IsIndoorEncounter,.Lfe80-MetatileBehavior_IsIndoorEncounter
 	.align	2, 0
 	.globl	MetatileBehavior_IsMountain
 	.type	 MetatileBehavior_IsMountain,function
@@ -1967,16 +1948,16 @@ MetatileBehavior_IsMountain:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xc
-	beq	.L343	@cond_branch
+	beq	.L339	@cond_branch
 	mov	r0, #0x0
-	b	.L345
-.L343:
+	b	.L341
+.L339:
 	mov	r0, #0x1
-.L345:
+.L341:
 	pop	{r1}
 	bx	r1
-.Lfe82:
-	.size	 MetatileBehavior_IsMountain,.Lfe82-MetatileBehavior_IsMountain
+.Lfe81:
+	.size	 MetatileBehavior_IsMountain,.Lfe81-MetatileBehavior_IsMountain
 	.align	2, 0
 	.globl	MetatileBehavior_IsDiveable
 	.type	 MetatileBehavior_IsDiveable,function
@@ -1990,19 +1971,19 @@ MetatileBehavior_IsDiveable:
 	add	r0, r0, r2
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x1
-	bls	.L348	@cond_branch
+	bls	.L344	@cond_branch
 	cmp	r1, #0x14
-	bne	.L347	@cond_branch
-.L348:
+	bne	.L343	@cond_branch
+.L344:
 	mov	r0, #0x1
-	b	.L350
-.L347:
+	b	.L346
+.L343:
 	mov	r0, #0x0
-.L350:
+.L346:
 	pop	{r1}
 	bx	r1
-.Lfe83:
-	.size	 MetatileBehavior_IsDiveable,.Lfe83-MetatileBehavior_IsDiveable
+.Lfe82:
+	.size	 MetatileBehavior_IsDiveable,.Lfe82-MetatileBehavior_IsDiveable
 	.align	2, 0
 	.globl	MetatileBehavior_IsUnableToEmerge
 	.type	 MetatileBehavior_IsUnableToEmerge,function
@@ -2012,19 +1993,19 @@ MetatileBehavior_IsUnableToEmerge:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x19
-	beq	.L353	@cond_branch
+	beq	.L349	@cond_branch
 	cmp	r0, #0x2a
-	bne	.L352	@cond_branch
-.L353:
+	bne	.L348	@cond_branch
+.L349:
 	mov	r0, #0x1
-	b	.L355
-.L352:
+	b	.L351
+.L348:
 	mov	r0, #0x0
-.L355:
+.L351:
 	pop	{r1}
 	bx	r1
-.Lfe84:
-	.size	 MetatileBehavior_IsUnableToEmerge,.Lfe84-MetatileBehavior_IsUnableToEmerge
+.Lfe83:
+	.size	 MetatileBehavior_IsUnableToEmerge,.Lfe83-MetatileBehavior_IsUnableToEmerge
 	.align	2, 0
 	.globl	MetatileBehavior_IsShallowFlowingWater
 	.type	 MetatileBehavior_IsShallowFlowingWater,function
@@ -2034,21 +2015,21 @@ MetatileBehavior_IsShallowFlowingWater:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x17
-	beq	.L358	@cond_branch
+	beq	.L354	@cond_branch
 	cmp	r0, #0x1b
-	beq	.L358	@cond_branch
+	beq	.L354	@cond_branch
 	cmp	r0, #0x1c
-	bne	.L357	@cond_branch
-.L358:
+	bne	.L353	@cond_branch
+.L354:
 	mov	r0, #0x1
-	b	.L360
-.L357:
+	b	.L356
+.L353:
 	mov	r0, #0x0
-.L360:
+.L356:
 	pop	{r1}
 	bx	r1
-.Lfe85:
-	.size	 MetatileBehavior_IsShallowFlowingWater,.Lfe85-MetatileBehavior_IsShallowFlowingWater
+.Lfe84:
+	.size	 MetatileBehavior_IsShallowFlowingWater,.Lfe84-MetatileBehavior_IsShallowFlowingWater
 	.align	2, 0
 	.globl	MetatileBehavior_IsThinIce
 	.type	 MetatileBehavior_IsThinIce,function
@@ -2058,16 +2039,16 @@ MetatileBehavior_IsThinIce:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x26
-	beq	.L362	@cond_branch
+	beq	.L358	@cond_branch
 	mov	r0, #0x0
-	b	.L364
-.L362:
+	b	.L360
+.L358:
 	mov	r0, #0x1
-.L364:
+.L360:
 	pop	{r1}
 	bx	r1
-.Lfe86:
-	.size	 MetatileBehavior_IsThinIce,.Lfe86-MetatileBehavior_IsThinIce
+.Lfe85:
+	.size	 MetatileBehavior_IsThinIce,.Lfe85-MetatileBehavior_IsThinIce
 	.align	2, 0
 	.globl	MetatileBehavior_IsCrackedIce
 	.type	 MetatileBehavior_IsCrackedIce,function
@@ -2077,16 +2058,16 @@ MetatileBehavior_IsCrackedIce:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x27
-	beq	.L366	@cond_branch
+	beq	.L362	@cond_branch
 	mov	r0, #0x0
-	b	.L368
-.L366:
+	b	.L364
+.L362:
 	mov	r0, #0x1
-.L368:
+.L364:
 	pop	{r1}
 	bx	r1
-.Lfe87:
-	.size	 MetatileBehavior_IsCrackedIce,.Lfe87-MetatileBehavior_IsCrackedIce
+.Lfe86:
+	.size	 MetatileBehavior_IsCrackedIce,.Lfe86-MetatileBehavior_IsCrackedIce
 	.align	2, 0
 	.globl	MetatileBehavior_IsDeepOrOceanWater
 	.type	 MetatileBehavior_IsDeepOrOceanWater,function
@@ -2096,21 +2077,21 @@ MetatileBehavior_IsDeepOrOceanWater:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x15
-	beq	.L371	@cond_branch
+	beq	.L367	@cond_branch
 	cmp	r0, #0x11
-	beq	.L371	@cond_branch
+	beq	.L367	@cond_branch
 	cmp	r0, #0x12
-	bne	.L370	@cond_branch
-.L371:
+	bne	.L366	@cond_branch
+.L367:
 	mov	r0, #0x1
-	b	.L373
-.L370:
+	b	.L369
+.L366:
 	mov	r0, #0x0
-.L373:
+.L369:
 	pop	{r1}
 	bx	r1
-.Lfe88:
-	.size	 MetatileBehavior_IsDeepOrOceanWater,.Lfe88-MetatileBehavior_IsDeepOrOceanWater
+.Lfe87:
+	.size	 MetatileBehavior_IsDeepOrOceanWater,.Lfe87-MetatileBehavior_IsDeepOrOceanWater
 	.align	2, 0
 	.globl	Unref_MetatileBehavior_IsUnusedSootopolisWater
 	.type	 Unref_MetatileBehavior_IsUnusedSootopolisWater,function
@@ -2120,19 +2101,19 @@ Unref_MetatileBehavior_IsUnusedSootopolisWater:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x18
-	beq	.L376	@cond_branch
+	beq	.L372	@cond_branch
 	cmp	r0, #0x1a
-	bne	.L375	@cond_branch
-.L376:
+	bne	.L371	@cond_branch
+.L372:
 	mov	r0, #0x1
-	b	.L378
-.L375:
+	b	.L374
+.L371:
 	mov	r0, #0x0
-.L378:
+.L374:
 	pop	{r1}
 	bx	r1
-.Lfe89:
-	.size	 Unref_MetatileBehavior_IsUnusedSootopolisWater,.Lfe89-Unref_MetatileBehavior_IsUnusedSootopolisWater
+.Lfe88:
+	.size	 Unref_MetatileBehavior_IsUnusedSootopolisWater,.Lfe88-Unref_MetatileBehavior_IsUnusedSootopolisWater
 	.align	2, 0
 	.globl	MetatileBehavior_IsSurfableAndNotWaterfall
 	.type	 MetatileBehavior_IsSurfableAndNotWaterfall,function
@@ -2145,22 +2126,22 @@ MetatileBehavior_IsSurfableAndNotWaterfall:
 	bl	MetatileBehavior_IsSurfableWaterOrUnderwater
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L380	@cond_branch
+	beq	.L376	@cond_branch
 	add	r0, r4, #0
 	bl	MetatileBehavior_IsWaterfall
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L380	@cond_branch
+	bne	.L376	@cond_branch
 	mov	r0, #0x1
-	b	.L382
-.L380:
+	b	.L378
+.L376:
 	mov	r0, #0x0
-.L382:
+.L378:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.Lfe90:
-	.size	 MetatileBehavior_IsSurfableAndNotWaterfall,.Lfe90-MetatileBehavior_IsSurfableAndNotWaterfall
+.Lfe89:
+	.size	 MetatileBehavior_IsSurfableAndNotWaterfall,.Lfe89-MetatileBehavior_IsSurfableAndNotWaterfall
 	.align	2, 0
 	.globl	MetatileBehavior_IsEastBlocked
 	.type	 MetatileBehavior_IsEastBlocked,function
@@ -2170,25 +2151,25 @@ MetatileBehavior_IsEastBlocked:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x30
-	beq	.L385	@cond_branch
+	beq	.L381	@cond_branch
 	cmp	r0, #0x34
-	beq	.L385	@cond_branch
+	beq	.L381	@cond_branch
 	cmp	r0, #0x36
-	beq	.L385	@cond_branch
+	beq	.L381	@cond_branch
 	cmp	r0, #0xc1
-	beq	.L385	@cond_branch
+	beq	.L381	@cond_branch
 	cmp	r0, #0xbe
-	bne	.L384	@cond_branch
-.L385:
+	bne	.L380	@cond_branch
+.L381:
 	mov	r0, #0x1
-	b	.L387
-.L384:
+	b	.L383
+.L380:
 	mov	r0, #0x0
-.L387:
+.L383:
 	pop	{r1}
 	bx	r1
-.Lfe91:
-	.size	 MetatileBehavior_IsEastBlocked,.Lfe91-MetatileBehavior_IsEastBlocked
+.Lfe90:
+	.size	 MetatileBehavior_IsEastBlocked,.Lfe90-MetatileBehavior_IsEastBlocked
 	.align	2, 0
 	.globl	MetatileBehavior_IsWestBlocked
 	.type	 MetatileBehavior_IsWestBlocked,function
@@ -2198,25 +2179,25 @@ MetatileBehavior_IsWestBlocked:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x31
-	beq	.L390	@cond_branch
+	beq	.L386	@cond_branch
 	cmp	r0, #0x35
-	beq	.L390	@cond_branch
+	beq	.L386	@cond_branch
 	cmp	r0, #0x37
-	beq	.L390	@cond_branch
+	beq	.L386	@cond_branch
 	cmp	r0, #0xc1
-	beq	.L390	@cond_branch
+	beq	.L386	@cond_branch
 	cmp	r0, #0xbe
-	bne	.L389	@cond_branch
-.L390:
+	bne	.L385	@cond_branch
+.L386:
 	mov	r0, #0x1
-	b	.L392
-.L389:
+	b	.L388
+.L385:
 	mov	r0, #0x0
-.L392:
+.L388:
 	pop	{r1}
 	bx	r1
-.Lfe92:
-	.size	 MetatileBehavior_IsWestBlocked,.Lfe92-MetatileBehavior_IsWestBlocked
+.Lfe91:
+	.size	 MetatileBehavior_IsWestBlocked,.Lfe91-MetatileBehavior_IsWestBlocked
 	.align	2, 0
 	.globl	MetatileBehavior_IsNorthBlocked
 	.type	 MetatileBehavior_IsNorthBlocked,function
@@ -2226,23 +2207,23 @@ MetatileBehavior_IsNorthBlocked:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x32
-	beq	.L395	@cond_branch
+	beq	.L391	@cond_branch
 	cmp	r0, #0x34
-	beq	.L395	@cond_branch
+	beq	.L391	@cond_branch
 	cmp	r0, #0x35
-	beq	.L395	@cond_branch
+	beq	.L391	@cond_branch
 	cmp	r0, #0xc0
-	bne	.L394	@cond_branch
-.L395:
+	bne	.L390	@cond_branch
+.L391:
 	mov	r0, #0x1
-	b	.L397
-.L394:
+	b	.L393
+.L390:
 	mov	r0, #0x0
-.L397:
+.L393:
 	pop	{r1}
 	bx	r1
-.Lfe93:
-	.size	 MetatileBehavior_IsNorthBlocked,.Lfe93-MetatileBehavior_IsNorthBlocked
+.Lfe92:
+	.size	 MetatileBehavior_IsNorthBlocked,.Lfe92-MetatileBehavior_IsNorthBlocked
 	.align	2, 0
 	.globl	MetatileBehavior_IsSouthBlocked
 	.type	 MetatileBehavior_IsSouthBlocked,function
@@ -2252,23 +2233,23 @@ MetatileBehavior_IsSouthBlocked:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x33
-	beq	.L400	@cond_branch
+	beq	.L396	@cond_branch
 	cmp	r0, #0x36
-	beq	.L400	@cond_branch
+	beq	.L396	@cond_branch
 	cmp	r0, #0x37
-	beq	.L400	@cond_branch
+	beq	.L396	@cond_branch
 	cmp	r0, #0xc0
-	bne	.L399	@cond_branch
-.L400:
+	bne	.L395	@cond_branch
+.L396:
 	mov	r0, #0x1
-	b	.L402
-.L399:
+	b	.L398
+.L395:
 	mov	r0, #0x0
-.L402:
+.L398:
 	pop	{r1}
 	bx	r1
-.Lfe94:
-	.size	 MetatileBehavior_IsSouthBlocked,.Lfe94-MetatileBehavior_IsSouthBlocked
+.Lfe93:
+	.size	 MetatileBehavior_IsSouthBlocked,.Lfe93-MetatileBehavior_IsSouthBlocked
 	.align	2, 0
 	.globl	MetatileBehavior_IsShortGrass
 	.type	 MetatileBehavior_IsShortGrass,function
@@ -2278,16 +2259,16 @@ MetatileBehavior_IsShortGrass:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x7
-	beq	.L404	@cond_branch
+	beq	.L400	@cond_branch
 	mov	r0, #0x0
-	b	.L406
-.L404:
+	b	.L402
+.L400:
 	mov	r0, #0x1
-.L406:
+.L402:
 	pop	{r1}
 	bx	r1
-.Lfe95:
-	.size	 MetatileBehavior_IsShortGrass,.Lfe95-MetatileBehavior_IsShortGrass
+.Lfe94:
+	.size	 MetatileBehavior_IsShortGrass,.Lfe94-MetatileBehavior_IsShortGrass
 	.align	2, 0
 	.globl	MetatileBehavior_IsHotSprings
 	.type	 MetatileBehavior_IsHotSprings,function
@@ -2297,16 +2278,16 @@ MetatileBehavior_IsHotSprings:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x28
-	beq	.L408	@cond_branch
+	beq	.L404	@cond_branch
 	mov	r0, #0x0
-	b	.L410
-.L408:
+	b	.L406
+.L404:
 	mov	r0, #0x1
-.L410:
+.L406:
 	pop	{r1}
 	bx	r1
-.Lfe96:
-	.size	 MetatileBehavior_IsHotSprings,.Lfe96-MetatileBehavior_IsHotSprings
+.Lfe95:
+	.size	 MetatileBehavior_IsHotSprings,.Lfe95-MetatileBehavior_IsHotSprings
 	.align	2, 0
 	.globl	MetatileBehavior_IsWaterfall
 	.type	 MetatileBehavior_IsWaterfall,function
@@ -2316,16 +2297,16 @@ MetatileBehavior_IsWaterfall:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x13
-	beq	.L412	@cond_branch
+	beq	.L408	@cond_branch
 	mov	r0, #0x0
-	b	.L414
-.L412:
+	b	.L410
+.L408:
 	mov	r0, #0x1
-.L414:
+.L410:
 	pop	{r1}
 	bx	r1
-.Lfe97:
-	.size	 MetatileBehavior_IsWaterfall,.Lfe97-MetatileBehavior_IsWaterfall
+.Lfe96:
+	.size	 MetatileBehavior_IsWaterfall,.Lfe96-MetatileBehavior_IsWaterfall
 	.align	2, 0
 	.globl	MetatileBehavior_IsFortreeBridge
 	.type	 MetatileBehavior_IsFortreeBridge,function
@@ -2335,16 +2316,16 @@ MetatileBehavior_IsFortreeBridge:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x78
-	beq	.L416	@cond_branch
+	beq	.L412	@cond_branch
 	mov	r0, #0x0
-	b	.L418
-.L416:
+	b	.L414
+.L412:
 	mov	r0, #0x1
-.L418:
+.L414:
 	pop	{r1}
 	bx	r1
-.Lfe98:
-	.size	 MetatileBehavior_IsFortreeBridge,.Lfe98-MetatileBehavior_IsFortreeBridge
+.Lfe97:
+	.size	 MetatileBehavior_IsFortreeBridge,.Lfe97-MetatileBehavior_IsFortreeBridge
 	.align	2, 0
 	.globl	MetatileBehavior_IsPacifidlogVerticalLog1
 	.type	 MetatileBehavior_IsPacifidlogVerticalLog1,function
@@ -2354,16 +2335,16 @@ MetatileBehavior_IsPacifidlogVerticalLog1:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x74
-	beq	.L420	@cond_branch
+	beq	.L416	@cond_branch
 	mov	r0, #0x0
-	b	.L422
-.L420:
+	b	.L418
+.L416:
 	mov	r0, #0x1
-.L422:
+.L418:
 	pop	{r1}
 	bx	r1
-.Lfe99:
-	.size	 MetatileBehavior_IsPacifidlogVerticalLog1,.Lfe99-MetatileBehavior_IsPacifidlogVerticalLog1
+.Lfe98:
+	.size	 MetatileBehavior_IsPacifidlogVerticalLog1,.Lfe98-MetatileBehavior_IsPacifidlogVerticalLog1
 	.align	2, 0
 	.globl	MetatileBehavior_IsPacifidlogVerticalLog2
 	.type	 MetatileBehavior_IsPacifidlogVerticalLog2,function
@@ -2373,16 +2354,16 @@ MetatileBehavior_IsPacifidlogVerticalLog2:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x75
-	beq	.L424	@cond_branch
+	beq	.L420	@cond_branch
 	mov	r0, #0x0
-	b	.L426
-.L424:
+	b	.L422
+.L420:
 	mov	r0, #0x1
-.L426:
+.L422:
 	pop	{r1}
 	bx	r1
-.Lfe100:
-	.size	 MetatileBehavior_IsPacifidlogVerticalLog2,.Lfe100-MetatileBehavior_IsPacifidlogVerticalLog2
+.Lfe99:
+	.size	 MetatileBehavior_IsPacifidlogVerticalLog2,.Lfe99-MetatileBehavior_IsPacifidlogVerticalLog2
 	.align	2, 0
 	.globl	MetatileBehavior_IsPacifidlogHorizontalLog1
 	.type	 MetatileBehavior_IsPacifidlogHorizontalLog1,function
@@ -2392,16 +2373,16 @@ MetatileBehavior_IsPacifidlogHorizontalLog1:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x76
-	beq	.L428	@cond_branch
+	beq	.L424	@cond_branch
 	mov	r0, #0x0
-	b	.L430
-.L428:
+	b	.L426
+.L424:
 	mov	r0, #0x1
-.L430:
+.L426:
 	pop	{r1}
 	bx	r1
-.Lfe101:
-	.size	 MetatileBehavior_IsPacifidlogHorizontalLog1,.Lfe101-MetatileBehavior_IsPacifidlogHorizontalLog1
+.Lfe100:
+	.size	 MetatileBehavior_IsPacifidlogHorizontalLog1,.Lfe100-MetatileBehavior_IsPacifidlogHorizontalLog1
 	.align	2, 0
 	.globl	MetatileBehavior_IsPacifidlogHorizontalLog2
 	.type	 MetatileBehavior_IsPacifidlogHorizontalLog2,function
@@ -2411,16 +2392,16 @@ MetatileBehavior_IsPacifidlogHorizontalLog2:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x77
-	beq	.L432	@cond_branch
+	beq	.L428	@cond_branch
 	mov	r0, #0x0
-	b	.L434
-.L432:
+	b	.L430
+.L428:
 	mov	r0, #0x1
-.L434:
+.L430:
 	pop	{r1}
 	bx	r1
-.Lfe102:
-	.size	 MetatileBehavior_IsPacifidlogHorizontalLog2,.Lfe102-MetatileBehavior_IsPacifidlogHorizontalLog2
+.Lfe101:
+	.size	 MetatileBehavior_IsPacifidlogHorizontalLog2,.Lfe101-MetatileBehavior_IsPacifidlogHorizontalLog2
 	.align	2, 0
 	.globl	MetatileBehavior_IsPacifidlogLog
 	.type	 MetatileBehavior_IsPacifidlogLog,function
@@ -2433,16 +2414,16 @@ MetatileBehavior_IsPacifidlogLog:
 	add	r0, r0, r1
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x3
-	bls	.L436	@cond_branch
+	bls	.L432	@cond_branch
 	mov	r0, #0x0
-	b	.L438
-.L436:
+	b	.L434
+.L432:
 	mov	r0, #0x1
-.L438:
+.L434:
 	pop	{r1}
 	bx	r1
-.Lfe103:
-	.size	 MetatileBehavior_IsPacifidlogLog,.Lfe103-MetatileBehavior_IsPacifidlogLog
+.Lfe102:
+	.size	 MetatileBehavior_IsPacifidlogLog,.Lfe102-MetatileBehavior_IsPacifidlogLog
 	.align	2, 0
 	.globl	MetatileBehavior_IsTrickHousePuzzleDoor
 	.type	 MetatileBehavior_IsTrickHousePuzzleDoor,function
@@ -2452,16 +2433,16 @@ MetatileBehavior_IsTrickHousePuzzleDoor:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x8c
-	beq	.L440	@cond_branch
+	beq	.L436	@cond_branch
 	mov	r0, #0x0
-	b	.L442
-.L440:
+	b	.L438
+.L436:
 	mov	r0, #0x1
-.L442:
+.L438:
 	pop	{r1}
 	bx	r1
-.Lfe104:
-	.size	 MetatileBehavior_IsTrickHousePuzzleDoor,.Lfe104-MetatileBehavior_IsTrickHousePuzzleDoor
+.Lfe103:
+	.size	 MetatileBehavior_IsTrickHousePuzzleDoor,.Lfe103-MetatileBehavior_IsTrickHousePuzzleDoor
 	.align	2, 0
 	.globl	MetatileBehavior_IsRegionMap
 	.type	 MetatileBehavior_IsRegionMap,function
@@ -2471,16 +2452,16 @@ MetatileBehavior_IsRegionMap:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x85
-	beq	.L444	@cond_branch
+	beq	.L440	@cond_branch
 	mov	r0, #0x0
-	b	.L446
-.L444:
+	b	.L442
+.L440:
 	mov	r0, #0x1
-.L446:
+.L442:
 	pop	{r1}
 	bx	r1
-.Lfe105:
-	.size	 MetatileBehavior_IsRegionMap,.Lfe105-MetatileBehavior_IsRegionMap
+.Lfe104:
+	.size	 MetatileBehavior_IsRegionMap,.Lfe104-MetatileBehavior_IsRegionMap
 	.align	2, 0
 	.globl	MetatileBehavior_IsClosedSootopolisDoor
 	.type	 MetatileBehavior_IsClosedSootopolisDoor,function
@@ -2490,16 +2471,16 @@ MetatileBehavior_IsClosedSootopolisDoor:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x8b
-	beq	.L448	@cond_branch
+	beq	.L444	@cond_branch
 	mov	r0, #0x0
-	b	.L450
-.L448:
+	b	.L446
+.L444:
 	mov	r0, #0x1
-.L450:
+.L446:
 	pop	{r1}
 	bx	r1
-.Lfe106:
-	.size	 MetatileBehavior_IsClosedSootopolisDoor,.Lfe106-MetatileBehavior_IsClosedSootopolisDoor
+.Lfe105:
+	.size	 MetatileBehavior_IsClosedSootopolisDoor,.Lfe105-MetatileBehavior_IsClosedSootopolisDoor
 	.align	2, 0
 	.globl	MetatileBehavior_IsSkyPillarClosedDoor
 	.type	 MetatileBehavior_IsSkyPillarClosedDoor,function
@@ -2509,16 +2490,16 @@ MetatileBehavior_IsSkyPillarClosedDoor:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0xea
-	beq	.L452	@cond_branch
+	beq	.L448	@cond_branch
 	mov	r0, #0x0
-	b	.L454
-.L452:
+	b	.L450
+.L448:
 	mov	r0, #0x1
-.L454:
+.L450:
 	pop	{r1}
 	bx	r1
-.Lfe107:
-	.size	 MetatileBehavior_IsSkyPillarClosedDoor,.Lfe107-MetatileBehavior_IsSkyPillarClosedDoor
+.Lfe106:
+	.size	 MetatileBehavior_IsSkyPillarClosedDoor,.Lfe106-MetatileBehavior_IsSkyPillarClosedDoor
 	.align	2, 0
 	.globl	MetatileBehavior_IsRoulette
 	.type	 MetatileBehavior_IsRoulette,function
@@ -2528,16 +2509,16 @@ MetatileBehavior_IsRoulette:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x8a
-	beq	.L456	@cond_branch
+	beq	.L452	@cond_branch
 	mov	r0, #0x0
-	b	.L458
-.L456:
+	b	.L454
+.L452:
 	mov	r0, #0x1
-.L458:
+.L454:
 	pop	{r1}
 	bx	r1
-.Lfe108:
-	.size	 MetatileBehavior_IsRoulette,.Lfe108-MetatileBehavior_IsRoulette
+.Lfe107:
+	.size	 MetatileBehavior_IsRoulette,.Lfe107-MetatileBehavior_IsRoulette
 	.align	2, 0
 	.globl	MetatileBehavior_IsPokeblockFeeder
 	.type	 MetatileBehavior_IsPokeblockFeeder,function
@@ -2547,6 +2528,25 @@ MetatileBehavior_IsPokeblockFeeder:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x87
+	beq	.L456	@cond_branch
+	mov	r0, #0x0
+	b	.L458
+.L456:
+	mov	r0, #0x1
+.L458:
+	pop	{r1}
+	bx	r1
+.Lfe108:
+	.size	 MetatileBehavior_IsPokeblockFeeder,.Lfe108-MetatileBehavior_IsPokeblockFeeder
+	.align	2, 0
+	.globl	MetatileBehavior_IsHeadbuttTree
+	.type	 MetatileBehavior_IsHeadbuttTree,function
+	.thumb_func
+MetatileBehavior_IsHeadbuttTree:
+	push	{lr}
+	lsl	r0, r0, #0x18
+	lsr	r0, r0, #0x18
+	cmp	r0, #0x4
 	beq	.L460	@cond_branch
 	mov	r0, #0x0
 	b	.L462
@@ -2556,7 +2556,7 @@ MetatileBehavior_IsPokeblockFeeder:
 	pop	{r1}
 	bx	r1
 .Lfe109:
-	.size	 MetatileBehavior_IsPokeblockFeeder,.Lfe109-MetatileBehavior_IsPokeblockFeeder
+	.size	 MetatileBehavior_IsHeadbuttTree,.Lfe109-MetatileBehavior_IsHeadbuttTree
 	.align	2, 0
 	.globl	MetatileBehavior_IsSecretBaseJumpMat
 	.type	 MetatileBehavior_IsSecretBaseJumpMat,function

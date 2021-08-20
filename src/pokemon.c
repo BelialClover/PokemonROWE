@@ -3685,15 +3685,6 @@ void CalculateMonStats(struct Pokemon *mon)
     u16 formSpeciesId = GetFormSpeciesId(species, formId);
     s32 level = GetLevelFromMonExp(mon);
     s32 newMaxHP;
-	
-	if(FlagGet(FLAG_UNUSED_0x068)){
-		hpIV = 31;
-		attackIV = 31;
-		defenseIV = 31;
-		speedIV = 31;
-		spAttackIV = 31;
-		spDefenseIV = 31;
-	}
 
     SetMonData(mon, MON_DATA_LEVEL, &level);
 

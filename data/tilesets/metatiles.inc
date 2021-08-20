@@ -557,3 +557,18 @@ gMetatiles_UnionRoom:: @ 83DF392
 	.align 1
 gMetatileAttributes_UnionRoom:: @ 83DF6A2
 	.incbin "data/tilesets/secondary/union_room/metatile_attributes.bin"
+
+	.align 1
+gMetatiles_Viridian_Forest::
+	.incbin "data/tilesets/secondary/viridian_forest/metatiles.bin"
+
+	.align 1
+gMetatileAttributes_Viridian_Forest::
+	.incbin "data/tilesets/secondary/viridian_forest/metatile_attributes.bin"
+	.align 1
+gMetatiles_FRLG_General::
+	.incbin "data/tilesets/primary/frlg_general/metatiles.bin"
+
+	.align 1
+gMetatileAttributes_FRLG_General::
+	.incbin "data/tilesets/primary/frlg_general/metatile_attributes.bin"

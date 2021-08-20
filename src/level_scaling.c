@@ -82,6 +82,7 @@ u8 hardnumMonsDouble[]     = {2,2,2,2,2,2,3,3,3,3,3};				//Number of Pokemon in 
 u16 SplitEvolutions(u16 basespecies, u8 level);
 u16 CheckforLegendary(u16 species);
 u16 GetCurrentMapWildPokemon(u8 isWaterMon, u8 index);
+bool8 IsPokemonValid(u16 mon);
 
 //Wild Pokemon Scaling
 u8 WildLevel[] = {4,10,15,20,25,30,35,40,45,55,60};
@@ -559,6 +560,14 @@ bool8 IsMoveUsable(u8 movepower)
 		return FALSE;
 }
 
+bool8 IsPokemonValid(u16 mon)
+{
+	if(mon > NUM_SPECIES || mon <= 0)
+		return FALSE;
+	else
+		return TRUE;
+}
+
 u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
 {
 	u8 i = 0;
@@ -569,23 +578,32 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
 	{SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,
 	 SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE};
 	u16 Waterspecies[] = 
-	{SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE};
-	 
+	{SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,
+	 SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE,SPECIES_NONE};
+	
+	u16 randspecie = SPECIES_NONE;
+	
 	for(i = 0; i < 12 ;i++)
 		Landspecies[i] = GetCurrentMapWildPokemon(0, i+rand);
 	
-	for(j = 0; j < 5 ;j++)
+	for(j = 0; j < 12 ;j++)
 		Waterspecies[j] = GetCurrentMapWildPokemon(1, j+rand);
 	
+	if(rand <= 6)
+		return species;
+		
 	switch(TrainerClass)
 	{
 		case TRAINER_CLASS_EXPERT:
 		case TRAINER_CLASS_POKEMANIAC:
-		case TRAINER_CLASS_COOLTRAINER:
 		for(k = 0; k < 12 ;k++){
 		if(gBaseStats[Landspecies[k]].growthRate == GROWTH_SLOW || gBaseStats[Landspecies[k]].growthRate == GROWTH_MEDIUM_SLOW)
-			return Landspecies[k];
-		}
+		{
+		if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_LADY:
@@ -594,8 +612,12 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
 		gBaseStats[Landspecies[k]].type1 == TYPE_GRASS || gBaseStats[Landspecies[k]].type2 == TYPE_GRASS ||
 		gBaseStats[Landspecies[k]].bodyColor == BODY_COLOR_PINK || gBaseStats[Landspecies[k]].eggGroup1 == EGG_GROUP_UNDISCOVERED ||
 		(gBaseStats[Landspecies[k]].type2 == TYPE_NORMAL && gBaseStats[Landspecies[k]].type2 == TYPE_NORMAL))
-			return Landspecies[k];
-		}
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_HIKER:
@@ -603,8 +625,12 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
 		for(k = 0; k < 12 ;k++){
 		if(gBaseStats[Landspecies[k]].type1 == TYPE_GROUND || gBaseStats[Landspecies[k]].type2 == TYPE_GROUND ||
 		   gBaseStats[Landspecies[k]].type1 == TYPE_ROCK || gBaseStats[Landspecies[k]].type2 == TYPE_ROCK)
-			return Landspecies[k];
-		}
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_HEX_MANIAC:
@@ -612,8 +638,12 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
 		if(gBaseStats[Landspecies[k]].type1 == TYPE_GHOST || gBaseStats[Landspecies[k]].type2 == TYPE_GHOST ||
 		   gBaseStats[Landspecies[k]].type1 == TYPE_PSYCHIC || gBaseStats[Landspecies[k]].type2 == TYPE_PSYCHIC ||
 		   gBaseStats[Landspecies[k]].type1 == TYPE_DARK || gBaseStats[Landspecies[k]].type2 == TYPE_DARK)
-			return Landspecies[k];
-		}
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_AROMA_LADY:
@@ -621,32 +651,48 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
 		if(gBaseStats[Landspecies[k]].type1 == TYPE_GRASS || gBaseStats[Landspecies[k]].type2 == TYPE_GRASS ||
 		   gBaseStats[Landspecies[k]].eggGroup1 == EGG_GROUP_GRASS || gBaseStats[Landspecies[k]].eggGroup2 == EGG_GROUP_GRASS||
 		   gBaseStats[Landspecies[k]].eggGroup1 == EGG_GROUP_FAIRY || gBaseStats[Landspecies[k]].eggGroup2 == EGG_GROUP_FAIRY)
-			return Landspecies[k];
-		}
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_GUITARIST:
 		for(k = 0; k < 12 ;k++){
 		if(gBaseStats[Landspecies[k]].type1 == TYPE_ELECTRIC || gBaseStats[Landspecies[k]].type2 == TYPE_ELECTRIC ||
 		   gBaseStats[Landspecies[k]].abilities[0] == ABILITY_SOUNDPROOF || gBaseStats[Landspecies[k]].abilities[1] == ABILITY_SOUNDPROOF)
-			return Landspecies[k];
-		}
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_BUG_MANIAC:
 		case TRAINER_CLASS_BUG_CATCHER:
 		for(k = 0; k < 12 ;k++){
 		if(gBaseStats[Landspecies[k]].type1 == TYPE_BUG || gBaseStats[Landspecies[k]].type2 == TYPE_BUG)
-			return Landspecies[k];
-		}
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
+		break;
 		break;
 		case TRAINER_CLASS_DRAGON_TAMER:
 		for(k = 0; k < 12 ;k++){
-		if(gBaseStats[Landspecies[k]].type1 == TYPE_DRAGON || gBaseStats[Landspecies[k]].type2 == TYPE_DRAGON||
-		   gBaseStats[Landspecies[k]].eggGroup1 == EGG_GROUP_DRAGON)
-			return Landspecies[k];
-		}
+		if(gBaseStats[Landspecies[k]].type1 == TYPE_DRAGON || gBaseStats[Landspecies[k]].type2 == TYPE_DRAGON)
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_BATTLE_GIRL:
@@ -654,15 +700,23 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
 		for(k = 0; k < 12 ;k++){
 		if(gBaseStats[Landspecies[k]].type1 == TYPE_FIGHTING || gBaseStats[Landspecies[k]].type2 == TYPE_FIGHTING ||
 		(gBaseStats[Landspecies[k]].eggGroup1 == EGG_GROUP_HUMAN_LIKE && gBaseStats[Landspecies[k]].evYield_Attack != 0))
-			return Landspecies[k];
-		}
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_PSYCHIC:
 		for(k = 0; k < 12 ;k++){
 		if(gBaseStats[Landspecies[k]].type1 == TYPE_PSYCHIC || gBaseStats[Landspecies[k]].type2 == TYPE_PSYCHIC)
-			return Landspecies[k];
-		}
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_BIRD_KEEPER:
@@ -670,8 +724,12 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
 		for(k = 0; k < 12 ;k++){
 		if(gBaseStats[Landspecies[k]].type1 == TYPE_FLYING || gBaseStats[Landspecies[k]].type2 == TYPE_FLYING
 		||gBaseStats[Landspecies[k]].eggGroup1 == EGG_GROUP_FLYING)
-			return Landspecies[k];
-		}
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_SCHOOL_KID:
@@ -679,20 +737,26 @@ u16 GetMapRandomPokemon(u16 TrainerClass, u16 species)
 		case TRAINER_CLASS_YOUNGSTER:
 		for(k = 0; k < 12 ;k++){
 		if(gBaseStats[Landspecies[k]].growthRate == GROWTH_FAST || gBaseStats[Landspecies[k]].growthRate == GROWTH_MEDIUM_FAST)
-			return Landspecies[k];
-		}
+		{
+			if(IsPokemonValid(Landspecies[k]))
+				return Landspecies[k];
+			else
+				return species;
+		}}
 			return species;
 		break;
 		case TRAINER_CLASS_FISHERMAN:
 		case TRAINER_CLASS_SWIMMER_F:
 		case TRAINER_CLASS_SWIMMER_M:
-		return Waterspecies[k];
+		if(IsPokemonValid(Waterspecies[0]))
+			return Waterspecies[0];
+		else
+			return species;
 		break;
 		default:
 		return species;
 	}
 	return species;
-		
 }
 
 u16 GetCurrentMapWildPokemon(u8 isWaterMon, u8 index)
@@ -712,7 +776,7 @@ u16 GetCurrentMapWildPokemon(u8 isWaterMon, u8 index)
         return SPECIES_NONE;
 	else
 		return landMonsInfo->wildPokemon[index%11].species;
-	}else if (landMonsInfo == NULL)
+	}else if (waterMonsInfo == NULL)
         return SPECIES_NONE;
 	else
 		return waterMonsInfo->wildPokemon[index%4].species;

@@ -4641,12 +4641,356 @@ static const u8 sTM50Desc[] = _(
     "Enables full-power\n"
     "attack, but sharply\n"
     "lowers Sp. Atk.");
+	
+static const u8 sTM51Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Low Sweep.");
+
+static const u8 sTM52Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Focus Blast.");
+
+static const u8 sTM53Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Energy Ball.");
+
+static const u8 sTM54Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "False Swipe.");
+
+static const u8 sTM55Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Scald.");
+
+static const u8 sTM56Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Fling.");
+
+static const u8 sTM57Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Charge Beam.");
+
+static const u8 sTM58Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Sky Drop.");
+
+static const u8 sTM59Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Brutal Swing.");
+
+static const u8 sTM60Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Quash.");
+
+static const u8 sTM61Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Will-O-Wisp.");
+
+static const u8 sTM62Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Acrobatics.");
+
+static const u8 sTM63Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Embargo.");
 
 static const u8 sTM64Desc[] = _(
-    "Inflicts severe\n"
-    "damage but makes\n"
-    "the user faint.");
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Explosion.");
 
+static const u8 sTM65Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Shadow Claw.");
+
+static const u8 sTM66Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Payback.");
+
+static const u8 sTM67Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Smart Strike.");
+
+static const u8 sTM68Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Giga Impact.");
+
+static const u8 sTM69Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Rock Polish.");
+
+static const u8 sTM70Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Aurora Veil.");
+
+static const u8 sTM71Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Stone Edge.");
+
+static const u8 sTM72Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Volt Switch.");
+
+static const u8 sTM73Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Thunder Wave.");
+
+static const u8 sTM74Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Gyro Ball.");
+
+static const u8 sTM75Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Swords Dance.");
+
+static const u8 sTM76Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Fly.");
+
+static const u8 sTM77Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Psych Up.");
+
+static const u8 sTM78Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Bulldoze.");
+
+static const u8 sTM79Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Frost Breath.");
+
+static const u8 sTM80Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Rock Slide.");
+
+static const u8 sTM81Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "X-Scissor.");
+
+static const u8 sTM82Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Dragon Tail.");
+
+static const u8 sTM83Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Infestation.");
+
+static const u8 sTM84Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Poison Jab.");
+
+static const u8 sTM85Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Dream Eater.");
+
+static const u8 sTM86Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Grass Knot.");
+
+static const u8 sTM87Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Swagger.");
+
+static const u8 sTM88Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Sleep Talk.");
+
+static const u8 sTM89Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "U-Turn.");
+
+static const u8 sTM90Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Substitute.");
+
+static const u8 sTM91Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Flash Cannon.");
+
+static const u8 sTM92Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Trick Room.");
+
+static const u8 sTM93Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Wild Charge.");
+
+static const u8 sTM94Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Surf.");
+
+static const u8 sTM95Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Snarl.");
+
+static const u8 sTM96Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Nature Power.");
+
+static const u8 sTM97Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Dark Pulse.");
+
+static const u8 sTM98Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Waterfall.");
+
+static const u8 sTM99Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Dazzling Gleam.");
+
+static const u8 sTM100Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Confide.");
+
+static const u8 sTM101Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Sludge Wave.");
+
+static const u8 sTM102Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Liquidation.");
+
+static const u8 sTM103Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Leech Life.");
+
+static const u8 sTM104Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Play Rough.");
+
+static const u8 sTM105Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Psyshock.");
+
+static const u8 sTM106Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Aura Sphere.");
+
+static const u8 sTM107Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Power Gem.");
+
+static const u8 sTM108Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Earth Power.");
+
+static const u8 sTM109Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Gunk Shot.");
+
+static const u8 sTM110Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Stealth Rock.");
+
+static const u8 sTM111Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Heat Crash.");
+
+static const u8 sTM112Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Pollen Puff.");
+
+static const u8 sTM113Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Nasty Plot.");
+
+static const u8 sTM114Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Brave Bird.");
+
+static const u8 sTM115Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Bug Buzz.");
+
+static const u8 sTM116Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Dragon Dance.");
+
+static const u8 sTM117Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Blaze Kick.");
+
+static const u8 sTM118Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Tri-Attack.");
+
+static const u8 sTM119Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Drain Punch.");
+
+static const u8 sTM120Desc[] = _(
+    "This TM can be used\n"
+    "to teach the Move\n"
+    "Mystical Fire.");
 
 static const u8 sHM01Desc[] = _(
     "Attacks the foe\n"

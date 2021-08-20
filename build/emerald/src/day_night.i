@@ -2912,6 +2912,7 @@ void CheckClockForImmediateTimeEvents(void);
 void ProcessImmediateTimeEvents(void);
 void DoLoadSpritePaletteDayNight(const u16 *src, u16 paletteOffset);
 const u8 *GetDayOfWeekString(u8 dayOfWeek);
+const u8 GetTimeOfDayString(void);
 # 9 "src/day_night.c" 2
 # 1 "include/decompress.h" 1
 
@@ -6791,6 +6792,11 @@ u8 GetTimeOfDay(s8 hours)
 const u8 *GetDayOfWeekString(u8 dayOfWeek)
 {
     return gDayOfWeekTable[dayOfWeek];
+}
+
+const u8 GetTimeOfDayString()
+{
+ return gLocalTime.hours;
 }
 
 void CopyDayOfWeekStringToVar1(void)
