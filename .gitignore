@@ -1,0 +1,48 @@
+# Compilation
+## Tools
+*.exe
+## Intermediary 
+*.o
+*.i
+build2/
+## Built rom
+*.elf
+*.gba
+# Saves
+*.sgm
+*.sa1
+*.ss[0-9]
+*.sg1
+*.sav
+# Graphics
+## Images
+*.1bpp
+*.4bpp
+*8bpp
+## Palette
+*.gbapal
+*.lz
+*.rl
+## Sound
+*.latfont
+*.hwjpnfont
+*.fwjpnfont
+sound/**/*.bin
+sound/songs/midi/*.s
+# Tools
+tools/agbcc
+# Linkers
+*.map
+*.ld
+*.bat
+*.dump
+*.sa
+# IDE
+*Thumbs.db
+build/.DS_Store
+*.ddump
+.idea/porymap.project.cfg
+.vscode/
+*.a
+.fuse_hidden*
+*.sna
